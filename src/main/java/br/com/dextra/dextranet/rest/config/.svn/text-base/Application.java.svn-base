@@ -1,0 +1,46 @@
+package br.com.dextra.config.rest;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import br.com.dextra.adiantamento.adiantamento.AdiantamentoRS;
+import br.com.dextra.adiantamento.previsao.PrevisaoRS;
+import br.com.dextra.consultar.consultar.ConsultaRS;
+import br.com.dextra.despesadireta.compra.compra.CompraRS;
+import br.com.dextra.despesadireta.locacaoveiculo.locacaoveiculo.LocacaoVeiculoRS;
+import br.com.dextra.despesadireta.viagem.viagem.ViagemRS;
+import br.com.dextra.rdv.PmaRS;
+import br.com.dextra.rdv.contas.ContasRS;
+import br.com.dextra.rdv.evento.EventoRS;
+import br.com.dextra.rdv.parametros.ParametroRS;
+import br.com.dextra.rdv.rdv.RdvRS;
+import br.com.dextra.rdv.seguranca.SegurancaRs;
+import br.com.dextra.rdv.usuario.UsuarioRS;
+
+public class Application extends javax.ws.rs.core.Application {
+
+	@Override
+	public Set<Class<?>> getClasses() {
+		Set<Class<?>> classes = new HashSet<Class<?>>();
+		classes.add(SegurancaRs.class);
+		classes.add(RdvRS.class);
+		classes.add(EventoRS.class);
+		classes.add(PmaRS.class);
+		classes.add(UsuarioRS.class);
+		classes.add(ParametroRS.class);
+		classes.add(ContasRS.class);
+		classes.add(AdiantamentoRS.class);
+		classes.add(PrevisaoRS.class);
+		classes.add(ConsultaRS.class);
+		classes.add(LocacaoVeiculoRS.class);
+		classes.add(CompraRS.class);
+		classes.add(ViagemRS.class);
+		return classes;
+	}
+
+	@Override
+	public Set<Object> getSingletons() {
+		Set<Object> singletons = new HashSet<Object>();
+		return singletons;
+	}
+}
