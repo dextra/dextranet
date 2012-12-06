@@ -1,0 +1,7 @@
+<engine xmlns:hl="http://www.holyavenger.org/holyavenger/1.0">
+
+    <template selector="#div-sample">
+        <p>Valor enviado: <span>${json.value}</span></p>
+    </template>
+
+</engine>

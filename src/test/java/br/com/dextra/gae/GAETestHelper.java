@@ -23,104 +23,99 @@ import com.googlecode.mycontainer.web.jetty.JettyServerDeployer;
 
 public class GAETestHelper {
 
-    private static final Logger LOG = LoggerFactory
-            .getLogger(GAETestHelper.class);
+	private static final Logger LOG = LoggerFactory.getLogger(GAETestHelper.class);
 
-    protected LocalServiceTestHelper helper;
+	protected LocalServiceTestHelper helper;
 
-    private LocalDatastoreServiceTestConfig ds;
+	private LocalDatastoreServiceTestConfig ds;
 
-    private int port = 8380;
+	private int port = 8380;
 
-    public void setPort(int port) {
-        this.port = port;
-    }
+	public void setPort(int port) {
+		this.port = port;
+	}
 
-    public void prepareLocalServiceTestHelper() throws Exception {
-    	ds = new LocalDatastoreServiceTestConfig();
-        ds.setDefaultHighRepJobPolicyUnappliedJobPercentage(0);
-        List<LocalServiceTestConfig> list = new ArrayList<LocalServiceTestConfig>();
-        list.add(ds);
+	public void prepareLocalServiceTestHelper() throws Exception {
+		ds = new LocalDatastoreServiceTestConfig();
+		ds.setDefaultHighRepJobPolicyUnappliedJobPercentage(0);
+		List<LocalServiceTestConfig> list = new ArrayList<LocalServiceTestConfig>();
+		list.add(ds);
 
-        helper = new LocalServiceTestHelper(
-                list.toArray(new LocalServiceTestConfig[0]));
-        Map<String, Object> envs = new HashMap<String, Object>();
-        envs.put("com.google.appengine.api.users.UserService.user_id_key", "10");
-        helper.setEnvAttributes(envs);
-        helper.setEnvIsLoggedIn(true);
-        helper.setEnvIsAdmin(false);
-        helper.setEnvEmail("test@example.com");
-        helper.setEnvAuthDomain("example.com");
-    }
+		helper = new LocalServiceTestHelper(list.toArray(new LocalServiceTestConfig[0]));
+		Map<String, Object> envs = new HashMap<String, Object>();
+		envs.put("com.google.appengine.api.users.UserService.user_id_key", "10");
+		helper.setEnvAttributes(envs);
+		helper.setEnvIsLoggedIn(true);
+		helper.setEnvIsAdmin(false);
+		helper.setEnvEmail("test@example.com");
+		helper.setEnvAuthDomain("example.com");
+	}
 
-    public LocalServiceTestHelper getHelper() {
-        return helper;
-    }
+	public LocalServiceTestHelper getHelper() {
+		return helper;
+	}
 
-    public LocalDatastoreServiceTestConfig getDs() {
-        return ds;
-    }
+	public LocalDatastoreServiceTestConfig getDs() {
+		return ds;
+	}
 
-    public void bootLocalServiceTestHelper() throws Exception {
-        helper.setUp();
-    }
+	public void bootLocalServiceTestHelper() throws Exception {
+		helper.setUp();
+	}
 
-    public void shutdownLocalServiceTestHelper() {
-        try {
-            if (helper != null) {
-                helper.tearDown();
-            }
-        } catch (Exception e) {
-            LOG.info("error", e);
-        }
-    }
+	public void shutdownLocalServiceTestHelper() {
+		try {
+			if (helper != null) {
+				helper.tearDown();
+			}
+		} catch (Exception e) {
+			LOG.info("error", e);
+		}
+	}
 
-    public ContainerBuilder bootMycontainer() throws Exception {
-        ContainerBuilder builder = new ContainerBuilder();
-        builder.deployVMShutdownHook();
+	public ContainerBuilder bootMycontainer() throws Exception {
+		ContainerBuilder builder = new ContainerBuilder();
+		builder.deployVMShutdownHook();
 
-        WebServerDeployer server = builder
-                .createDeployer(JettyServerDeployer.class);
-        server.setName("WebServer");
-        server.bindPort(port);
+		WebServerDeployer server = builder.createDeployer(JettyServerDeployer.class);
+		server.setName("WebServer");
+		server.bindPort(port);
 
-        ContextWebServer web = server.createContextWebServer();
-        web.setContext("/");
-        web.setResources("src/main/webapp");
+		ContextWebServer web = server.createContextWebServer();
+		web.setContext("/");
+		web.setResources("src/main/webapp");
 
-        LocalServiceTestHelperFilter gae = new LocalServiceTestHelperFilter(
-                helper);
-        // web.getFilters().add(new FilterDesc(LogFilter.class, "/*"));
-        web.getFilters().add(new FilterDesc(gae, "/*"));
-        server.deploy();
+		LocalServiceTestHelperFilter gae = new LocalServiceTestHelperFilter(helper);
+		web.getFilters().add(new FilterDesc(gae, "/*"));
+		server.deploy();
 
-        return builder;
-    }
+		return builder;
+	}
 
-    public void shutdownMycontainer() {
-        try {
-            ShutdownCommand shutdown = new ShutdownCommand();
-            shutdown.setContext(new InitialContext());
-            shutdown.shutdown();
-        } catch (Exception e) {
-            LOG.error("error", e);
-        }
-    }
+	public void shutdownMycontainer() {
+		try {
+			ShutdownCommand shutdown = new ShutdownCommand();
+			shutdown.setContext(new InitialContext());
+			shutdown.shutdown();
+		} catch (Exception e) {
+			LOG.error("error", e);
+		}
+	}
 
-    public void tearDown() {
-        if (helper != null) {
-            helper.tearDown();
-        }
-    }
+	public void tearDown() {
+		if (helper != null) {
+			helper.tearDown();
+		}
+	}
 
-    public void setUp() {
-        if (helper != null) {
-            helper.setUp();
-        }
-    }
+	public void setUp() {
+		if (helper != null) {
+			helper.setUp();
+		}
+	}
 
-    public LocalServiceTestHelper getGaeHelper() {
-        return helper;
-    }
+	public LocalServiceTestHelper getGaeHelper() {
+		return helper;
+	}
 
 }

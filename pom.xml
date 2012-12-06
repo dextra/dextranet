@@ -5,9 +5,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.com.dextra</groupId>
     <artifactId>dextranet</artifactId>
+
     <packaging>war</packaging>
     <name>dextranet</name>
     <version>1.0.0-SNAPSHOT</version>
+
     <repositories>
         <repository>
             <id>central</id>
@@ -44,6 +46,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <gae.application.version>test</gae.application.version>
         <mycontainer.version>1.2.37</mycontainer.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -85,7 +88,13 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
+            <type>jar</type>
+        </dependency>
     </dependencies>
+
     <build>
         <finalName>dextranet</finalName>
         <plugins>
@@ -157,7 +166,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                     </dependency>
                 </dependencies>
             </plugin>
-
         </plugins>
         <pluginManagement>
             <plugins>
@@ -169,6 +177,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             </plugins>
         </pluginManagement>
     </build>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -272,6 +281,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                 <groupId>com.googlecode.mycontainer</groupId>
                 <artifactId>mycontainer-commons</artifactId>
                 <version>${mycontainer.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.resteasy</groupId>
+                <artifactId>resteasy-jaxrs</artifactId>
+                <version>2.3.5.Final</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
