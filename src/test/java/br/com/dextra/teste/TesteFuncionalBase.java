@@ -7,12 +7,12 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 public class TesteFuncionalBase {
 
-	private MyContainer myContainer;
+	private static MyContainer myContainer;
 
-	private WebDriver driver;
+	protected static WebDriver driver;
 
 	@BeforeClass
-	public void setup() {
+	public static void setup() {
 		myContainer = new MyContainer();
 		try {
 			myContainer.start();
@@ -20,11 +20,11 @@ public class TesteFuncionalBase {
 			throw new RuntimeException(e);
 		}
 
-		driver = new HtmlUnitDriver();
+		driver = new HtmlUnitDriver(true);
 	}
 
 	@AfterClass
-	public void shutdown() {
+	public static void shutdown() {
 		myContainer.stop();
 
 		driver.close();

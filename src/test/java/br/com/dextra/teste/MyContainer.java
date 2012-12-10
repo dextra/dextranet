@@ -2,8 +2,6 @@ package br.com.dextra.teste;
 
 import br.com.dextra.gae.GAETestHelper;
 
-import com.googlecode.mycontainer.kernel.boot.ContainerBuilder;
-
 public class MyContainer {
 
 	private int port = 8080;
@@ -22,8 +20,7 @@ public class MyContainer {
 		gaeHelper.setPort(this.port);
 		gaeHelper.prepareLocalServiceTestHelper();
 
-		ContainerBuilder container = gaeHelper.bootMycontainer();
-		container.waitFor();
+		gaeHelper.bootMycontainer();
 	}
 
 	public void stop() {
