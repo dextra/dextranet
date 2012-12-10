@@ -3,7 +3,7 @@ package br.com.dextra.teste;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class TesteFuncionalBase {
 
@@ -20,7 +20,7 @@ public class TesteFuncionalBase {
 			throw new RuntimeException(e);
 		}
 
-		driver = new HtmlUnitDriver(true);
+		driver = new FirefoxDriver();
 	}
 
 	@AfterClass
