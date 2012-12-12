@@ -37,6 +37,7 @@ public class TesteFuncionalBase {
 		} catch (MalformedURLException e) {
 			throw new RuntimeException(e);
 		}
+
 	}
 
 	@AfterClass
