@@ -26,10 +26,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                 <enabled>true</enabled>
             </snapshots>
         </repository>
-        <repository>
-            <id>saucelabs-repository</id>
-            <url>https://repository-saucelabs.forge.cloudbees.com/release</url>
-        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -106,11 +102,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.saucelabs</groupId>
-            <artifactId>sauce-connect</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -311,11 +302,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                 <groupId>org.seleniumhq.selenium</groupId>
                 <artifactId>selenium-java</artifactId>
                 <version>2.25.0</version>
-            </dependency>
-            <dependency>
-                <groupId>com.saucelabs</groupId>
-                <artifactId>sauce-connect</artifactId>
-                <version>3.0.18</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
