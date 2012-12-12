@@ -13,7 +13,7 @@ public class DextraTest extends TesteFuncionalBase {
 		siteDextra.navegarNaPagina("http://www.dextra.com.br");
 		siteDextra.preencheInputText("input#gsc-i-id1", "java");
 		siteDextra.clica("input.gsc-search-button");
-		siteDextra.confereResultadoDaBusca(226);
+		siteDextra.confereResultadoDaBusca(225);
 	}
 
 }

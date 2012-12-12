@@ -1,5 +1,8 @@
 package br.com.dextra.teste;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.openqa.selenium.Platform;
@@ -26,7 +29,14 @@ public class TesteFuncionalBase {
 		sauceCapabilities.setCapability("version", "17");
 		sauceCapabilities.setPlatform(Platform.WINDOWS);
 
-		driver = new RemoteWebDriver(sauceCapabilities);
+		try {
+			driver = new RemoteWebDriver(
+					new URL(
+							"http://cloudbees_dextra-con:b6f5241c-0038-404a-81d6-7bd848b8e56b@ondemand.saucelabs.com:80/wd/hub"),
+					sauceCapabilities);
+		} catch (MalformedURLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@AfterClass
