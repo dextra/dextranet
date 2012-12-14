@@ -20,5 +20,6 @@
 	</system-properties>
 
 	<sessions-enabled>false</sessions-enabled>
+	<threadsafe>true</threadsafe>
 
 </appengine-web-app>
