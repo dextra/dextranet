@@ -15,7 +15,7 @@ public class PaginaDextra extends PaginaBase {
 	public void confereResultadoDaBusca(int registrosEsperados) {
 		String resultadoEncontrado = this.obtemConteudoDoElemebto("div#resInfo-0");
 		int registrosEncontrados = Integer.valueOf(resultadoEncontrado.split(" ")[1]);
-		Assert.assertEquals(registrosEsperados, registrosEncontrados);
+		Assert.assertTrue(registrosEncontrados > registrosEsperados);
 	}
 
 }
