@@ -27,6 +27,10 @@ public class PaginaBase {
 		return this.driver.findElement(By.cssSelector(cssSelector)).getAttribute("value");
 	}
 
+	public WebElement obtemElemento(String cssSelector) {
+		return this.driver.findElement(By.cssSelector(cssSelector));
+	}
+
 	public String obtemAtributoDoElemento(String cssSelector, String atributo) {
 		return this.driver.findElement(By.cssSelector(cssSelector)).getAttribute(atributo);
 	}
