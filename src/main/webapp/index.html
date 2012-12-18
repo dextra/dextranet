@@ -1,21 +1,186 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 
-        <title>DextraNet</title>
-        <script type="text/javascript" src="holy/lib/jquery.js"></script>
-        <script type="text/javascript" src="holy/lib/trimpath.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/main.css" media="all" />
 
-        <script type="text/javascript" src="holy/lib/jquery.holyavenger.js"></script>
-        <script type="text/javascript" src="holy/lib/jquery.holyavenger.trimpath.js"></script>
-        <script type="text/javascript" src="holy/lib/jquery.holycomponents.js"></script>
-    </head>
+	<title>Dextranet</title>
+</head>
+<body>
 
-    <body>
-        <h1>DextraNet</h1>
-        <h2>Deployado via cloudbees...</h2>
-    </body>
+	<!-- Container do site -->
+	<div id="container">
 
+		<!-- Container do topo -->
+		<div id="header-placeholder"></div>
+		<div id="header-container" rel="section">
+
+			<!-- Menu principal no topo -->
+			<ul id="header-main-menu">
+				<li id="header-main-menu-logo">
+					<a href="#">
+						<span class="icon-header-logo"></span>
+					</a>
+				</li>
+				<li>
+					<a href="https://dextranet.dextra.com.br/pma">
+						PMA
+					</a>
+				</li>
+				<li>
+					<a href="https://dextranet.dextra.com.br/tracker/ti/newticket">
+						Infra
+					</a>
+				</li>
+				<li>
+					<a href="https://dextranet.dextra.com.br/wiki/wiki">
+						Wiki
+					</a>
+				</li>
+				<li>
+					<a href="https://dextranet.dextra.com.br/portal/ramais">
+						Ramais
+					</a>
+				</li>
+				<li id="header-main-menu-outros">
+					<a href="#">
+						Outros
+						<span class="shape-arrow-right"></span>
+						<span class="shape-arrow-down"></span>
+					</a>
+					<ul class="header-dropdown">
+						<li>
+							<a href="http://dextra-dexboard.appspot.com/">Dexboard</a>
+						</li>
+						<li>
+							<a href="https://dextranet.dextra.com.br/dextraminds">Minds</a>
+						</li>
+						<li>
+							<a href="https://redmine.dextra.com.br">Redmine</a>
+						</li>
+					</ul>
+				</li>
+			</ul><!-- #header-main-menu -->
+
+			<!-- Caixa com dados do usuário -->
+			<div id="box-user">
+				<div id="box-user-info">
+					<img src="temp/img-user.jpg" alt="photo" />
+					user.dextra
+					<span class="shape-arrow-right"></span>
+					<span class="shape-arrow-down"></span>
+					<div class="header-dropdown" id="box-user-profile">
+						<h3>User</h3>
+						<span>user@dextra-sw.com</span>
+					</div>
+				</div>
+				<div id="box-user-notifications">
+					<span class="highlight">3</span>
+					<ul id="box-user-notifications-full" class="header-dropdown">
+						<li>
+							<p>
+								Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou
+								não ser, eis a questão"</a>...
+							</p>
+						</li>
+						<li>
+							<p>
+								Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou
+								não ser, eis a questão"</a>...
+							</p>
+						</li>
+					</ul>
+				</div>
+			</div><!-- #box-user -->
+
+		</div><!-- #header-container -->
+
+		<!-- Menu lateral esquerdo -->
+		<div id="sidebar-left" rel="section">
+			<ul id="sidebar-left-menu">
+				<li class="active">
+					<a href="#">
+						<span class="icon-sidebar-left-home"></span>
+						Home
+					</a>
+				</li>
+				<li>
+					<a href="pages/novo_post.html">
+						<span class="icon-sidebar-left-novopost"></span>
+						Novo Post
+					</a>
+				</li>
+				<li>
+					<a href="pages/categoria.html">
+						<span class="icon-sidebar-left-categoria"></span>
+						Categoria
+					</a>
+				</li>
+				<li>
+					<a href="pages/perfil.html">
+						<span class="icon-sidebar-left-perfil"></span>
+						Perfil
+					</a>
+				</li>
+				<li>
+					<a href="pages/equipe.html">
+						<span class="icon-sidebar-left-equipe"></span>
+						Equipe
+					</a>
+				</li>
+			</ul>
+		</div><!-- #sidebar-left -->
+
+		<!-- Miolo -->
+		<div id="container-main" class="clearfix">
+
+			<!-- Sidebar do lado direito -->
+			<div id="sidebar-right" rel="section">
+
+			</div><!-- #sidebar-right -->
+
+			<form action="" id="form-search">
+				<input type="text" id="form-search-input" />
+				<input type="submit" value="" title="Procurar!" id="form-search-submit" />
+			</form>
+
+			<!-- Listagem de estórias da Intranet -->
+			<ul class="list-stories">
+				<li class="clearfix">
+					<img src="temp/img-user.jpg" alt="photo" class="list-stories-avatar" />
+					<div class="list-stories-headline clearfix">
+						<h2>HTML 5 - O que vem por aí!</h2>
+						<div class="list-stories-headline-comments">
+							<span class="icon-comments"></span>5 comentários
+						</div>
+						<div class="list-stories-headline-dx">
+							<span class="icon-dx"></span>99
+						</div>
+						<div class="list-stories-headline-author">
+							por <a href="#">marcel.javarini</a>
+						</div>
+					</div>
+					<p class="list-stories-lead">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel bibendum tellus. Fusce
+						purus diam, mattis non mollis ac, fringilla quis nibh. Donec urna ante, scelerisque...
+					</p>
+					<div class="list-stories-footer clearfix">
+						<div class="list-stories-footer-tags">
+							<a href="#">HTML</a>, <a href="#">CSS</a>
+						</div>
+						<div class="list-stories-footer-call">
+							<a href="#">+ Ver mais</a>
+						</div>
+					</div>
+				</li>
+			</ul><!-- .list-stories -->
+
+		</div><!-- #container-main -->
+
+	</div><!-- #container -->
+
+	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="js/interface.js"></script>
+</body>
 </html>
