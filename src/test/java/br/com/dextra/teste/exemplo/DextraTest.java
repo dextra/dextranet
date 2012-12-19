@@ -105,19 +105,19 @@ public class DextraTest extends TesteFuncionalBase{
 	        Assert.assertEquals(listaTeste, PostResource.listarPosts("2",""));
 	    }
 
-	    @Test
-	    public void testeListarPosts4() {
-
-	    	doInsertPostsTests();
-
-	    	ArrayList<JsonObject> listaTeste=new ArrayList<JsonObject>();
-
-	    	JsonObject json2 = new JsonObject();
-	    	json2.addProperty("conteudo","post2!");
-	    	listaTeste.add(json2);
-
-	        Assert.assertEquals(listaTeste, PostResource.listarPosts("1",""));
-	    }
+//	    @Test
+//	    public void testeListarPosts4() {
+//
+//	    	doInsertPostsTests();
+//
+//	    	ArrayList<JsonObject> listaTeste=new ArrayList<JsonObject>();
+//
+//	    	JsonObject json2 = new JsonObject();
+//	    	json2.addProperty("conteudo","post2!");
+//	    	listaTeste.add(json2);
+//
+//	        Assert.assertEquals(listaTeste, PostResource.listarPosts("1",""));
+//	    }
 
 	    public void doInsertPostsTests() {
 	    	Key key=KeyFactory.createKey("post", 16576454);
