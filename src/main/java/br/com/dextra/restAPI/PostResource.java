@@ -1,7 +1,6 @@
 package br.com.dextra.restAPI;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -12,11 +11,7 @@ import javax.ws.rs.QueryParam;
 import br.com.dextra.repository.PostRepository;
 import br.com.dextra.utils.EntityJsonConverter;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
 import com.google.gson.JsonObject;
 
 @Path("/posts")
