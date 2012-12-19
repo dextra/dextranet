@@ -14,7 +14,7 @@ public class Post {
 
 	public void criaNovoPost(String titulo, String conteudo, String usuario) {
 		long time = new Date().getTime();
-		Key key = KeyFactory.createKey("Post", time);
+		Key key = KeyFactory.createKey("post", time);
 
 		Entity valueEntity = new Entity(key);
 
@@ -34,7 +34,7 @@ public class Post {
 	public boolean pegaDadosCorretos(String titulo, String conteudo, String usuario) {
 		// TODO Auto-generated method stub
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-		Query query = new Query("Post");
+		Query query = new Query("post");
 		PreparedQuery prepare = datastore.prepare(query);
 
 		Iterable<Entity> asIterable = prepare.asIterable();
