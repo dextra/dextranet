@@ -40,9 +40,11 @@ public class Post {
 		Iterable<Entity> asIterable = prepare.asIterable();
 		for (Entity entity : asIterable) {
 			System.out.println(entity.getProperty("conteudo") + "(" + entity.getProperty("data") + ")"+"\n");
-			return entity.getProperty("conteudo").equals(conteudo) &&
+			if (entity.getProperty("conteudo").equals(conteudo) &&
 				   entity.getProperty("titulo").equals(titulo) &&
-				   entity.getProperty("usuario").equals(usuario);
+				   entity.getProperty("usuario").equals(usuario)) {
+				return true;
+			}
 		}
 
 		return true;
