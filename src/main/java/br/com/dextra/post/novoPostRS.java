@@ -1,7 +1,6 @@
 package br.com.dextra.post;
 
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -10,7 +9,7 @@ import javax.ws.rs.QueryParam;
 public class novoPostRS {
 
 	@Path("/novo")
-	@POST
+	@GET
 	@Produces("application/json;charset=UTF-8")
 	public void novoPost(@QueryParam(value = "txtTitulo") String titulo,
 			@QueryParam(value = "txtConteudo") String conteudo) {
@@ -18,6 +17,6 @@ public class novoPostRS {
 
 		Post novoPost = new Post();
 		novoPost.criaNovoPost(titulo, conteudo, usuario);
-		System.out.println(novoPost.pegaDadosCorretos(titulo, conteudo, usuario));
+		System.out.println("Inserido? "+novoPost.pegaDadosCorretos(titulo, conteudo, usuario));
 	}
 }
