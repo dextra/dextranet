@@ -87,6 +87,61 @@ public class DextraTest extends TesteFuncionalBase{
 	        Assert.assertEquals(listaTeste, PostResource.listarPosts("",""));
 	    }
 
+	    @Test
+	    public void testeListarPosts3() {
+
+	    	doInsertPostsTests();
+
+	    	ArrayList<JsonObject> listaTeste=new ArrayList<JsonObject>();
+
+	    	JsonObject json1 = new JsonObject();
+	    	json1.addProperty("conteudo","post1!");
+	    	listaTeste.add(json1);
+
+	    	JsonObject json2 = new JsonObject();
+	    	json2.addProperty("conteudo","post2!");
+	    	listaTeste.add(json2);
+
+	        Assert.assertEquals(listaTeste, PostResource.listarPosts("2",""));
+	    }
+
+//	    @Test
+//	    public void testeListarPosts4() {
+//
+//	    	doInsertPostsTests();
+//
+//	    	ArrayList<JsonObject> listaTeste=new ArrayList<JsonObject>();
+//
+//	    	JsonObject json2 = new JsonObject();
+//	    	json2.addProperty("conteudo","post2!");
+//	    	listaTeste.add(json2);
+//
+//	        Assert.assertEquals(listaTeste, PostResource.listarPosts("1",""));
+//	    }
+
+	    public void doInsertPostsTests() {
+	    	Key key=KeyFactory.createKey("post", 16576454);
+	    	Entity valueEntity1=new Entity(key);
+	    	valueEntity1.setProperty("conteudo","post1!");
+
+	    	key=KeyFactory.createKey("post", 25468445);
+	    	Entity valueEntity2=new Entity(key);
+	    	valueEntity2.setProperty("conteudo","post2!");
+
+	    	key=KeyFactory.createKey("post", 384646655);
+	    	Entity valueEntity3=new Entity(key);
+	    	valueEntity3.setProperty("conteudo","post3!");
+
+	    	key=KeyFactory.createKey("post", 484646655);
+	    	Entity valueEntity4=new Entity(key);
+	    	valueEntity3.setProperty("conteudo","post4!");
+
+	    	DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
+	    	ds.put(valueEntity1);
+	    	ds.put(valueEntity2);
+	    	ds.put(valueEntity3);
+	    	ds.put(valueEntity4);
+	    }
 
 
 
