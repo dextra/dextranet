@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Map.Entry;
 
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.repackaged.org.json.JSONObject;
 import com.google.gson.JsonObject;
 
 public class EntityJsonConverter {

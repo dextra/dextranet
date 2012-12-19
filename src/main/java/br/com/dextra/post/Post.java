@@ -14,7 +14,7 @@ public class Post {
 
 	public void criaNovoPost(String titulo, String conteudo, String usuario) {
 		long time = new Date().getTime();
-		Key key = KeyFactory.createKey("Post", time);
+		Key key = KeyFactory.createKey("post", time);
 
 		Entity valueEntity = new Entity(key);
 
@@ -34,15 +34,17 @@ public class Post {
 	public boolean pegaDadosCorretos(String titulo, String conteudo, String usuario) {
 		// TODO Auto-generated method stub
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-		Query query = new Query("Post");
+		Query query = new Query("post");
 		PreparedQuery prepare = datastore.prepare(query);
 
 		Iterable<Entity> asIterable = prepare.asIterable();
 		for (Entity entity : asIterable) {
 			System.out.println(entity.getProperty("conteudo") + "(" + entity.getProperty("data") + ")"+"\n");
-			return entity.getProperty("conteudo").equals(conteudo) &&
+			if (entity.getProperty("conteudo").equals(conteudo) &&
 				   entity.getProperty("titulo").equals(titulo) &&
-				   entity.getProperty("usuario").equals(usuario);
+				   entity.getProperty("usuario").equals(usuario)) {
+				return true;
+			}
 		}
 
 		return true;
