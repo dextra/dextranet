@@ -1,9 +1,9 @@
 package br.com.dextra.utils;
 
-import java.util.ArrayList;
 import java.util.Map.Entry;
 
 import com.google.appengine.api.datastore.Entity;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public class EntityJsonConverter {
@@ -16,13 +16,10 @@ public class EntityJsonConverter {
 		return json;
 	}
 
-	public static ArrayList<JsonObject> converterListaEntities(Iterable<Entity> listaPosts) {
-		ArrayList<JsonObject> jsonList=new ArrayList<JsonObject>();
-//		JsonObject json = new JsonObject();
+	public static JsonArray converterListaEntities(Iterable<Entity> listaPosts) {
+		JsonArray jsonList=new JsonArray();
 
 		for (Entity entity : listaPosts) {
-//			json.addProperty("conteudo", entity.getProperty("conteudo").toString());
-//			jsonList.add(json);
 			jsonList.add(toJson(entity));
 		}
 
