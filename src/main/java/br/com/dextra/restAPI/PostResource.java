@@ -19,8 +19,11 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.gson.JsonObject;
 
+
 @Path("/posts")
 public class PostResource {
+
+
 
 	@GET
 	@Produces("application/json;charset=UTF-8")
@@ -28,11 +31,13 @@ public class PostResource {
 			@DefaultValue("") @QueryParam(value = "max-results") String maxResults,
 			@DefaultValue("") @QueryParam(value = "q") String q) {
 
-		Iterable<Entity> listaPosts = PostRepository.buscarPosts();
+		Iterable<Entity> listaPosts = PostRepository.buscarPosts(maxResults, q);
+
+		for (Entity entity : listaPosts) {
+			System.out.println(entity.toString());
+		}
 
 		return EntityJsonConverter.converterListaEntities(listaPosts);
-
-		// return q;
 	}
 
 }
