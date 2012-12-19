@@ -1,4 +1,4 @@
-package br.com.dextra.test;
+package br.com.dextra.testeSeleniumHomePage;
 
 import org.openqa.selenium.WebDriver;
 import br.com.dextra.teste.PaginaBase;

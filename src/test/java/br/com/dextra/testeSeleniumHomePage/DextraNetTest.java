@@ -1,8 +1,9 @@
-package br.com.dextra.test;
+package br.com.dextra.testeSeleniumHomePage;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
+
 import br.com.dextra.teste.TesteFuncionalBase;
 
 public class DextraNetTest extends TesteFuncionalBase
