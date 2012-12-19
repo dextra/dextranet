@@ -1,33 +1,37 @@
-(function($) 
+(function($)
 {
 	/* Plugin p/ placeholder de inputs de formulário. */
 	jQuery.fn.extend({
-		placeholder: function(value) 
+		placeholder: function(value)
 		{
 			$(this).val(value);
-			$(this).focus(function() 
+			$(this).focus(function()
 			{
-				if( $(this).val() === value ) 
+				if( $(this).val() === value )
 				{
-					$(this).val(''); 
+					$(this).val('');
 				}
 			});
-			$(this).blur(function() 
+			$(this).blur(function()
 			{
-				if( $(this).val() === '' ) 
+				if( $(this).val() === '' )
 				{
-					$(this).val(value); 
+					$(this).val(value);
 				}
 			});
 			return this;
 		}
 	});
-	
-	$(document).ready(function() 
+
+	$(document).ready(function()
 	{
 		$('#form-search-input').placeholder('Procurar pessoas e/ou postagens...');
-	
-	
+		$('#novoPost').click(function(){
+			var link = 'pages/novo_post.html';
+			$('#container-main').html("<h1>HELLO</h1>");
+		});
+
+
 	});
-	
+
 })(jQuery);
