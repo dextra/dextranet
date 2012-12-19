@@ -13,7 +13,8 @@ import com.google.appengine.api.datastore.Query;
 public class Post {
 
 	public void criaNovoPost(String titulo, String conteudo, String usuario) {
-		Key key = KeyFactory.createKey("Post", 3);
+		long time = new Date().getTime();
+		Key key = KeyFactory.createKey("Post", time);
 
 		Entity valueEntity = new Entity(key);
 
