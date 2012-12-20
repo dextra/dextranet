@@ -76,6 +76,7 @@
 			<groupId>net.kindleit</groupId>
 			<artifactId>gae-runtime</artifactId>
 			<type>pom</type>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.appengine</groupId>
