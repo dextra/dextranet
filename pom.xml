@@ -22,14 +22,15 @@
 		<repository>
 			<id>pyrata-snaps</id>
 			<url>http://repo.pyrata.org/release/maven2</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
 		</repository>
 		<repository>
 			<id>saucelabs-repository</id>
 			<url>https://repository-saucelabs.forge.cloudbees.com/release</url>
 		</repository>
+        <repository>
+            <id>dextra</id>
+            <url>https://mvn.dextra.com.br/repository/releases</url>
+        </repository>
 	</repositories>
 
 	<pluginRepositories>
@@ -132,6 +133,11 @@
         	<groupId>commons-lang</groupId>
         	<artifactId>commons-lang</artifactId>
     	</dependency>
+        <dependency>
+            <groupId>br.com.dextra</groupId>
+            <artifactId>expertus</artifactId>
+            <scope>test</scope>
+        </dependency>
 	</dependencies>
 
 	<build>
@@ -346,7 +352,60 @@
 	        	<artifactId>commons-lang</artifactId>
 	        	<version>2.4</version>
 	    	</dependency>
+	    	<dependency>
+                <groupId>br.com.dextra</groupId>
+                <artifactId>expertus</artifactId>
+                <version>1.0.0</version>
+	    	</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+                <property>
+                    <name>local</name>
+                </property>
+            </activation>
+            <properties>
+                <expertus.environment.type>local</expertus.environment.type>
+                <expertus.environment.local.test>true</expertus.environment.local.test>
+                <expertus.environment.browser>FIREFOX</expertus.environment.browser>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>sauceLocal</id>
+            <activation>
+                <property>
+                    <name>sauceLocal</name>
+                </property>
+            </activation>
+            <properties>
+                <expertus.environment.type>sauceLocal</expertus.environment.type>
+                <expertus.environment.local.test>false</expertus.environment.local.test>
+                <expertus.environment.sauce.platform>Linux</expertus.environment.sauce.platform>
+                <expertus.environment.browser>FIREFOX</expertus.environment.browser>
+                <expertus.environment.sauce.browser.version>17</expertus.environment.sauce.browser.version>
+                <expertus.environment.sauce.username>cloudbees_dextra-con</expertus.environment.sauce.username>
+                <expertus.environment.sauce.key>b6f5241c-0038-404a-81d6-7bd848b8e56b</expertus.environment.sauce.key>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>sauceCloudbees</id>
+            <activation>
+                <property>
+                    <name>sauceCloudbees</name>
+                </property>
+            </activation>
+            <properties>
+                <expertus.environment.type>sauceCloudbees</expertus.environment.type>
+                <expertus.environment.local.test>false</expertus.environment.local.test>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>
