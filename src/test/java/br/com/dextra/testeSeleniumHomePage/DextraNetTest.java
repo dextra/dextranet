@@ -1,7 +1,5 @@
 package br.com.dextra.testeSeleniumHomePage;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 
 import br.com.dextra.teste.TesteFuncionalBase;
@@ -11,22 +9,22 @@ public class DextraNetTest extends TesteFuncionalBase {
 
 	@Test
 	public void testeHomePageDextraNet() {
-		siteDextraNet.navegarNaPagina("http://dextra-estagio-2013.appspot.com/");
+		siteDextraNet.navegarNaPagina("http://localhost:8080");
 		siteDextraNet.verificaSeTemLogoHomePage();
 	}
 
 
 
-	@Test
-	public void testeCriarEBuscarPost()
-	{
-		siteDextraNet.navegarNaPagina("http://dextra-estagio-2013.appspot.com/");
-		siteDextraNet.clica("span.icon-sidebar-left-novopost");
-		siteDextraNet.preencheInputText("input#form-input-title", "Titulo teste");
-		siteDextraNet.preencheInputText("input#form-input-content", "Corpo teeste");
-		//siteDextraNet.clica("input#form-post-submit");
-		//siteDextraNet.verificaSeApareceuPostIncluido();
-	}
+//	@Test
+//	public void testeCriarEBuscarPost()
+//	{
+//		siteDextraNet.navegarNaPagina("http://localhost:8080/");
+//		siteDextraNet.clica("span.icon-sidebar-left-novopost");
+//		siteDextraNet.preencheInputText("input#form-input-title", "Titulo teste");
+//		siteDextraNet.preencheInputText("input#form-input-content", "Corpo teeste");
+//		//siteDextraNet.clica("input#form-post-submit");
+//		//siteDextraNet.verificaSeApareceuPostIncluido();
+//	}
 
 
 }
