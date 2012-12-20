@@ -9,22 +9,20 @@ public class DextraNetTest extends TesteFuncionalBase {
 
 	@Test
 	public void testeHomePageDextraNet() {
-		siteDextraNet.navegarNaPagina("http://localhost:8080");
+		siteDextraNet.navegarNaPagina("http://dextranet-desenvolvimento.appspot.com");
 		siteDextraNet.verificaSeTemLogoHomePage();
 	}
 
-
-
-//	@Test
-//	public void testeCriarEBuscarPost()
-//	{
-//		siteDextraNet.navegarNaPagina("http://localhost:8080/");
-//		siteDextraNet.clica("span.icon-sidebar-left-novopost");
-//		siteDextraNet.preencheInputText("input#form-input-title", "Titulo teste");
-//		siteDextraNet.preencheInputText("input#form-input-content", "Corpo teeste");
-//		//siteDextraNet.clica("input#form-post-submit");
-//		//siteDextraNet.verificaSeApareceuPostIncluido();
-//	}
+	@Test
+	public void testeCriarEBuscarPost()
+	{
+		siteDextraNet.navegarNaPagina("http://localhost:8080");
+		siteDextraNet.clica("span.icon-sidebar-left-novopost");
+		siteDextraNet.preencheInputText("input#form-input-title", "Titulo teste");
+		siteDextraNet.preencheInputText("textarea#form-input-content", "Corpo teeste");
+		siteDextraNet.clica("input#form-post-submit");
+		siteDextraNet.verificaSeApareceuPostIncluido();
+	}
 
 
 }

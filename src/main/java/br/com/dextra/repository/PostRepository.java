@@ -3,6 +3,8 @@
 // migrado para outra package.
 package br.com.dextra.repository;
 
+import java.util.ArrayList;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -14,12 +16,22 @@ import com.google.appengine.api.datastore.Query.FilterOperator;
 
 import com.google.appengine.api.search.*;
 import com.google.appengine.api.search.SearchServicePb.SearchRequest;
+import com.google.gson.JsonObject;
 
 import static com.google.appengine.api.datastore.FetchOptions.Builder.*;
+
+import br.com.dextra.utils.EntityJsonConverter;
+
+
 
 
 
 public class PostRepository {
+
+	public static Index getIndex(String index) {
+	    IndexSpec indexSpec = IndexSpec.newBuilder().setName(index).build();
+	    return SearchServiceFactory.getSearchService().getIndex(indexSpec);
+	}
 
 	public static Iterable<Entity> buscarTodosOsPosts(int maxResults) {
 
@@ -34,16 +46,20 @@ public class PostRepository {
 		return prepared.asIterable(opts);
 	}
 
-	public static Iterable<Entity> buscarPosts(int maxResults, String q) {
+	//FIXME: Gabriel/Tonho estão com problemas que serão resolvidos rapida e futuramente!
 
-/*		QueryOptions options = QueryOptions.newBuilder().setFieldsToSnippet(
-				"post").setFieldsToReturn("conteudo").setLimit(maxResults)
+	public static ArrayList<JsonObject> buscarPosts(int maxResults, String q) {
+
+		QueryOptions options = QueryOptions.newBuilder().setFieldsToSnippet(
+				"conteudo").setFieldsToReturn("conteudo","titulo").setLimit(maxResults)
 				.build();
 
-		Query query = Query.newBuilder().setOptions(options).build(q);
-		PreparedQuery prepared = datastore.prepare((Datastore) query);
-		return prepared.asIterable();*/
-		return null;
+		com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query.newBuilder().setOptions(options).build(q);
+
+
+		return EntityJsonConverter.toJson(getIndex("post").search(query));
+
+
 	}
 
 	// Integer.parseInt(maxResults)

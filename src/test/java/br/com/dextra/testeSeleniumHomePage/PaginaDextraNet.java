@@ -19,6 +19,6 @@ public class PaginaDextraNet extends PaginaBase
 
 	public void verificaSeApareceuPostIncluido()
 	{
-		Assert.assertEquals("Corpo teeste",this.obtemValorDoElemento("p.list-stories-lead"));
+		Assert.assertEquals("Corpo teeste",this.obtemConteudoDoElemebto("p.list-stories-lead"));
 	}
 }
