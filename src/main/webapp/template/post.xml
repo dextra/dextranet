@@ -6,10 +6,10 @@
 					<div class="list-stories-headline clearfix">
 						<h2>${post.titulo}</h2>
 						<div class="list-stories-headline-comments">
-							<span class="icon-comments"></span>5 comentários
+							<span class="icon-comments"></span>${post.comentarios} comentários
 						</div>
 						<div class="list-stories-headline-dx">
-							<span class="icon-dx"></span>99
+							<span class="icon-dx"></span>${post.likes}
 						</div>
 						<div class="list-stories-headline-author">
 							por <a href="#">${post.usuario}</a>

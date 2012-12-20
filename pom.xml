@@ -46,7 +46,7 @@
 	<!-- Specify hard-coded project properties here -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<gae.version>1.6.2.1</gae.version>
+		<gae.version>1.7.0</gae.version>
 		<gae.plugin.version>0.9.2</gae.plugin.version>
 		<gae.application.version>test</gae.application.version>
 		<mycontainer.version>1.2.37</mycontainer.version>
