@@ -1,6 +1,5 @@
 package br.com.dextra.teste.exemplo;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import junit.framework.Assert;
@@ -19,7 +18,6 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import com.google.gson.JsonObject;
 
 public class DextraTest extends TesteFuncionalBase{
 
@@ -66,83 +64,61 @@ public class DextraTest extends TesteFuncionalBase{
 
 	    @Test
 	    public void testeListarPosts1() {
-	    	ArrayList<JsonObject> listaVazia=new ArrayList<JsonObject>();
-	        Assert.assertEquals(listaVazia, PostResource.listarPosts("20",""));
+
+	    	String resultadoEsperado = "[]";
+	        Assert.assertEquals(resultadoEsperado, PostResource.listarPosts("",""));
+
 	    }
 
 	    @Test
 	    public void testeListarPosts2() {
-	    	Key key=KeyFactory.createKey("post", new Date().getTime());
+	    	Date data = new Date();
 
-	    	Entity valueEntity=new Entity(key);
-	    	valueEntity.setProperty("conteudo","nosso primeiro post!");
+	    	meDeUmPost("1 post","bla","user" , data);
 
-	    	DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-	    	ds.put(valueEntity);
+			String json = null;
 
-	    	JsonObject json = new JsonObject();
-	    	json.addProperty("conteudo","nosso primeiro post!");
-	    	ArrayList<JsonObject> listaTeste=new ArrayList<JsonObject>();
-	    	listaTeste.add(json);
-	        Assert.assertEquals(listaTeste, PostResource.listarPosts("20",""));
+
+			json = "[{\"data\":\""+data+"\",\"titulo\":\"1 post\",\"usuario\":\"user\",\"conteudo\":\"bla\"}]";
+
+	        Assert.assertEquals(json, PostResource.listarPosts("",""));
+
 	    }
+
+		private void meDeUmPost(String titulo,String conteudo,String usuario, Date data) {
+			long time = new Date().getTime();
+	    	Key key = KeyFactory.createKey("post", time);
+
+	    	Entity valueEntity = new Entity(key);
+
+			valueEntity.setProperty("titulo", titulo);
+			valueEntity.setProperty("conteudo", conteudo);
+			valueEntity.setProperty("usuario", usuario);
+			valueEntity.setProperty("data", data);
+
+			DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+			datastore.put(valueEntity);
+		}
 
 	    @Test
 	    public void testeListarPosts3() {
+	    	Date data2 = new Date();
 
-	    	doInsertPostsTests();
 
-	    	ArrayList<JsonObject> listaTeste=new ArrayList<JsonObject>();
 
-	    	JsonObject json1 = new JsonObject();
-	    	json1.addProperty("conteudo","post1!");
-	    	listaTeste.add(json1);
 
-	    	JsonObject json2 = new JsonObject();
-	    	json2.addProperty("conteudo","post2!");
-	    	listaTeste.add(json2);
 
-	        Assert.assertEquals(listaTeste, PostResource.listarPosts("2",""));
+	    	meDeUmPost("2 post","bla2","user2" , data2);
+	    	Date data3 = new Date();
+	    	meDeUmPost("3 post","bla3","user3" , data3);
+
+			String json = null;
+
+			json = "[{\"data\":\""+data2+"\",\"titulo\":\"2 post\",\"usuario\":\"user2\",\"conteudo\":\"bla2\"},"+
+			"{\"data\":\""+data3+"\",\"titulo\":\"3 post\",\"usuario\":\"user3\",\"conteudo\":\"bla3\"}]";
+
+	        Assert.assertEquals(json, PostResource.listarPosts("2",""));
 	    }
-
-/*	    @Test
-	    public void testeBuscarPosts1() {
-
-	    	doInsertPostsTests();
-
-	    	ArrayList<JsonObject> listaTeste=new ArrayList<JsonObject>();
-
-	    	JsonObject json2 = new JsonObject();
-	    	json2.addProperty("conteudo","post2!");
-	    	listaTeste.add(json2);
-
-	        Assert.assertEquals(listaTeste, PostResource.listarPosts("1","post2"));
-	    }*/
-
-	    public void doInsertPostsTests() {
-	    	Key key=KeyFactory.createKey("post", 16576454);
-	    	Entity valueEntity1=new Entity(key);
-	    	valueEntity1.setProperty("conteudo","post1!");
-
-	    	key=KeyFactory.createKey("post", 25468445);
-	    	Entity valueEntity2=new Entity(key);
-	    	valueEntity2.setProperty("conteudo","post2!");
-
-	    	key=KeyFactory.createKey("post", 384646655);
-	    	Entity valueEntity3=new Entity(key);
-	    	valueEntity3.setProperty("conteudo","post3!");
-
-	    	key=KeyFactory.createKey("post", 484646655);
-	    	Entity valueEntity4=new Entity(key);
-	    	valueEntity3.setProperty("conteudo","post4!");
-
-	    	DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-	    	ds.put(valueEntity1);
-	    	ds.put(valueEntity2);
-	    	ds.put(valueEntity3);
-	    	ds.put(valueEntity4);
-	    }
-
-
 
 }

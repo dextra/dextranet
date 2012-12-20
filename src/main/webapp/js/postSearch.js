@@ -1,4 +1,13 @@
-$('#form-search').submit(function() {
-       var nome_post = $('#form-search-input').val();
-       alert(nome_post);
-});
+(function($) {
+	$(document).ready(function() {
+		$.ajax( {
+			type : 'GET',
+			url : "/s/posts",
+			data : "max-results=5&q=",
+			success : function(jsonArrayPost) {
+				$.holy("../template/post.xml", {"jsonArrayPost" : jsonArrayPost});
+			}
+		});
+		$(document).delay(1000);
+	});
+})(jQuery);

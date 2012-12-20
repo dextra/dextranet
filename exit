@@ -1,0 +1,180 @@
+diff --git a/pom.xml b/pom.xml
+index f412d4a..f85ffda 100755
+--- a/pom.xml
++++ b/pom.xml
+@@ -46,7 +46,7 @@
+ 	<!-- Specify hard-coded project properties here -->
+ 	<properties>
+ 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+-		<gae.version>1.6.2.1</gae.version>
++		<gae.version>1.7.0</gae.version>
+ 		<gae.plugin.version>0.9.2</gae.plugin.version>
+ 		<gae.application.version>test</gae.application.version>
+ 		<mycontainer.version>1.2.37</mycontainer.version>
+diff --git a/src/main/java/br/com/dextra/repository/PostRepository.java b/src/main/java/br/com/dextra/repository/PostRepository.java
+index 83ac665..724e18e 100644
+--- a/src/main/java/br/com/dextra/repository/PostRepository.java
++++ b/src/main/java/br/com/dextra/repository/PostRepository.java
+@@ -8,28 +8,42 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
+ import com.google.appengine.api.datastore.Entity;
+ import com.google.appengine.api.datastore.FetchOptions;
+ import com.google.appengine.api.datastore.PreparedQuery;
++import com.google.appengine.api.datastore.QueryResultList;
+ import com.google.appengine.api.datastore.Query;
++import com.google.appengine.api.datastore.Query.FilterOperator;
++
++import com.google.appengine.api.search.*;
++import com.google.appengine.api.search.SearchServicePb.SearchRequest;
++
++import static com.google.appengine.api.datastore.FetchOptions.Builder.*;
++
++
+ 
+ public class PostRepository {
+ 
+-	public static Iterable<Entity> buscarPosts(String maxResults, String q) {
++	public static Iterable<Entity> buscarTodosOsPosts(int maxResults) {
+ 
+ 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+ 
+ 		Query query = new Query("post");
+-
+ 		PreparedQuery prepared = datastore.prepare(query);
++
+ 		FetchOptions opts = FetchOptions.Builder.withDefaults();
++		opts.limit(maxResults);
+ 
+-		if (!q.equals("")){
++		return prepared.asIterable(opts);
++	}
+ 
+-		}
++	public static Iterable<Entity> buscarPosts(int maxResults, String q) {
+ 
+-		if (!maxResults.equals("")) {
+-			opts.limit(Integer.parseInt(maxResults));
+-		}
++/*		QueryOptions options = QueryOptions.newBuilder().setFieldsToSnippet(
++				"post").setFieldsToReturn("conteudo").setLimit(maxResults)
++				.build();
+ 
+-		return prepared.asIterable(opts);
++		Query query = Query.newBuilder().setOptions(options).build(q);
++		PreparedQuery prepared = datastore.prepare((Datastore) query);
++		return prepared.asIterable();*/
++		return null;
+ 	}
+ 
+ 	// Integer.parseInt(maxResults)
+diff --git a/src/main/java/br/com/dextra/restAPI/PostResource.java b/src/main/java/br/com/dextra/restAPI/PostResource.java
+index d0513e5..e7ca41a 100644
+--- a/src/main/java/br/com/dextra/restAPI/PostResource.java
++++ b/src/main/java/br/com/dextra/restAPI/PostResource.java
+@@ -24,12 +24,17 @@ public class PostResource {
+ 	@GET
+ 	@Produces("application/json;charset=UTF-8")
+ 	public static String listarPosts(
+-			@DefaultValue("") @QueryParam(value = "max-results") String maxResults,
++			@DefaultValue("20") @QueryParam(value = "max-results") String maxResults,
+ 			@DefaultValue("") @QueryParam(value = "q") String q) {
+-
+-		Iterable<Entity> listaPosts = PostRepository.buscarPosts(maxResults, q);
+-
++		if(q.equals(""))
++		{
++		Iterable<Entity> listaPosts = PostRepository.buscarTodosOsPosts(Integer.parseInt(maxResults));
+ 		return EntityJsonConverter.converterListaEntities(listaPosts).toString();
++		}
++		else
++		{
++			return null;
++		}
+ 	}
+ 
+ }
+diff --git a/src/test/java/br/com/dextra/teste/exemplo/DextraTest.java b/src/test/java/br/com/dextra/teste/exemplo/DextraTest.java
+index 18fa7cc..62e63aa 100755
+--- a/src/test/java/br/com/dextra/teste/exemplo/DextraTest.java
++++ b/src/test/java/br/com/dextra/teste/exemplo/DextraTest.java
+@@ -64,8 +64,13 @@ public class DextraTest extends TesteFuncionalBase{
+ 
+ 	    @Test
+ 	    public void testeListarPosts1() {
++<<<<<<< HEAD
++	    	ArrayList<JsonObject> listaVazia=new ArrayList<JsonObject>();
++	        Assert.assertEquals(listaVazia, PostResource.listarPosts("20",""));
++=======
+ 	    	String resultadoEsperado = "[]";
+ 	        Assert.assertEquals(resultadoEsperado, PostResource.listarPosts("",""));
++>>>>>>> a8599b577eaba1bb700fc27ba3fd79312711fe92
+ 	    }
+ 
+ 	    @Test
+@@ -76,9 +81,17 @@ public class DextraTest extends TesteFuncionalBase{
+ 
+ 			String json = null;
+ 
++<<<<<<< HEAD
++	    	JsonObject json = new JsonObject();
++	    	json.addProperty("conteudo","nosso primeiro post!");
++	    	ArrayList<JsonObject> listaTeste=new ArrayList<JsonObject>();
++	    	listaTeste.add(json);
++	        Assert.assertEquals(listaTeste, PostResource.listarPosts("20",""));
++=======
+ 			json = "[{\"data\":\""+data+"\",\"titulo\":\"1 post\",\"usuario\":\"user\",\"conteudo\":\"bla\"}]";
+ 
+ 	        Assert.assertEquals(json, PostResource.listarPosts("",""));
++>>>>>>> a8599b577eaba1bb700fc27ba3fd79312711fe92
+ 	    }
+ 
+ 		private void meDeUmPost(String titulo,String conteudo,String usuario, Date data) {
+@@ -101,9 +114,49 @@ public class DextraTest extends TesteFuncionalBase{
+ 	    public void testeListarPosts3() {
+ 	    	Date data2 = new Date();
+ 
++<<<<<<< HEAD
++/*	    @Test
++	    public void testeBuscarPosts1() {
++
++	    	doInsertPostsTests();
++
++	    	ArrayList<JsonObject> listaTeste=new ArrayList<JsonObject>();
++
++	    	JsonObject json2 = new JsonObject();
++	    	json2.addProperty("conteudo","post2!");
++	    	listaTeste.add(json2);
++
++	        Assert.assertEquals(listaTeste, PostResource.listarPosts("1","post2"));
++	    }*/
++
++	    public void doInsertPostsTests() {
++	    	Key key=KeyFactory.createKey("post", 16576454);
++	    	Entity valueEntity1=new Entity(key);
++	    	valueEntity1.setProperty("conteudo","post1!");
++
++	    	key=KeyFactory.createKey("post", 25468445);
++	    	Entity valueEntity2=new Entity(key);
++	    	valueEntity2.setProperty("conteudo","post2!");
++
++	    	key=KeyFactory.createKey("post", 384646655);
++	    	Entity valueEntity3=new Entity(key);
++	    	valueEntity3.setProperty("conteudo","post3!");
++
++	    	key=KeyFactory.createKey("post", 484646655);
++	    	Entity valueEntity4=new Entity(key);
++	    	valueEntity3.setProperty("conteudo","post4!");
++
++	    	DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
++	    	ds.put(valueEntity1);
++	    	ds.put(valueEntity2);
++	    	ds.put(valueEntity3);
++	    	ds.put(valueEntity4);
++	    }
++=======
+ 	    	meDeUmPost("2 post","bla2","user2" , data2);
+ 	    	Date data3 = new Date();
+ 	    	meDeUmPost("3 post","bla3","user3" , data3);
++>>>>>>> a8599b577eaba1bb700fc27ba3fd79312711fe92
+ 
+ 			String json = null;
+ 

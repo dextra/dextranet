@@ -156,7 +156,7 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 .list-stories-footer-tags{float:left;}
 .list-stories-footer-call{float:right;text-align:right;}
 
-
+#div-bonito{border-radius:5px;background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-bottom:20px;}
 
 
 
