@@ -13,19 +13,25 @@
 		<!-- Listagem de estorias da Intranet -->
 		<ul class="list-stories">
 
-		{for post in jsonArrayPost}
+			{for post in jsonArrayPost}
 			<li class="clearfix">
+				<div>
+					${post.data}
+				</div>
 					<img src="" alt="photo" class="list-stories-avatar" />
 					<div class="list-stories-headline clearfix">
 						<h2>${post.titulo}</h2>
 						<div class="list-stories-headline-comments">
-							<span class="icon-comments"></span>${post.comentarios} comentários
+							<span class="icon-comments"></span>
+							${post.comentarios} comentários
 						</div>
 						<div class="list-stories-headline-dx">
-							<span class="icon-dx"></span>${post.likes}
+							<span class="icon-dx"></span>
+							${post.likes}
 						</div>
 						<div class="list-stories-headline-author">
-							por <a href="#">${post.usuario}</a>
+							por
+							<a href="#">${post.usuario}</a>
 						</div>
 					</div>
 					<p class="list-stories-lead">
@@ -33,13 +39,15 @@
 					</p>
 					<div class="list-stories-footer clearfix">
 						<div class="list-stories-footer-tags">
-							<a href="#">HTML</a>, <a href="#">CSS</a>
+							<a href="#">HTML</a>
+							,
+							<a href="#">CSS</a>
 						</div>
 						<div class="list-stories-footer-call">
 							<a href="#">+ Ver mais</a>
 						</div>
 					</div>
-				</li>
+			</li>
 			{/for}
 		</ul><!-- .list-stories -->
 	</template>
