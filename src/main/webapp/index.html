@@ -13,7 +13,7 @@
     <script type="text/javascript" src="holy/lib/jquery.holycomponents.js"></script>
 
 	<script type="text/javascript" src="js/interface.js"></script>
-	<script type="text/javascript" src="js/post/postSearch.js"></script>
+	<script type="text/javascript" src="js/post/post.js"></script>
 
 	<title>Dextranet</title>
 </head>
@@ -110,16 +110,22 @@
 		<div id="sidebar-left" rel="section">
 			<ul id="sidebar-left-menu">
 				<li class="active">
-					<a href="#">
+					<a href="#" id="button-sidebar-left-home">
 						<span class="icon-sidebar-left-home"></span>
 						Home
 					</a>
+					<script>
+						$("#button-sidebar-left-home").click(abrePaginaInicial);
+					</script>
 				</li>
 				<li>
-					<a href="pages/post/novo_post.html">
+					<a href="#" id="button-sidebar-left-novopost">
 						<span class="icon-sidebar-left-novopost"></span>
 						Novo Post
 					</a>
+					<script>
+						$("#button-sidebar-left-novopost").click(abrePaginaNovoPost);
+					</script>
 				</li>
 				<li>
 					<a href="pages/categoria/categoria.html">
@@ -144,21 +150,6 @@
 
 		<!-- Miolo -->
 		<div id="container-main" class="clearfix">
-
-			<!-- Sidebar do lado direito -->
-			<div id="sidebar-right" rel="section">
-
-			</div><!-- #sidebar-right -->
-
-			<form action="" id="form-search">
-				<input type="text" id="form-search-input" />
-				<input type="submit" value="" title="Procurar!" id="form-search-submit" />
-			</form>
-
-			<!-- Listagem de estorias da Intranet -->
-			<ul class="list-stories">
-
-			</ul><!-- .list-stories -->
 
 		</div><!-- #container-main -->
 

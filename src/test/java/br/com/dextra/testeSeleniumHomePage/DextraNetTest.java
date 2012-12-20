@@ -1,9 +1,6 @@
 package br.com.dextra.testeSeleniumHomePage;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
-
 import br.com.dextra.teste.TesteFuncionalBase;
 
 public class DextraNetTest extends TesteFuncionalBase {
@@ -24,8 +21,8 @@ public class DextraNetTest extends TesteFuncionalBase {
 		siteDextraNet.clica("span.icon-sidebar-left-novopost");
 		siteDextraNet.preencheInputText("input#form-input-title", "Titulo teste");
 		siteDextraNet.preencheInputText("input#form-input-content", "Corpo teeste");
-		//siteDextraNet.clica("input#form-post-submit");
-		//siteDextraNet.verificaSeApareceuPostIncluido();
+		siteDextraNet.clica("input#form-post-submit");
+		siteDextraNet.verificaSeApareceuPostIncluido();
 	}
 
 

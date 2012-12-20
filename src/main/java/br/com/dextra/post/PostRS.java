@@ -16,7 +16,7 @@ public class PostRS {
 			@FormParam("content") String conteudo, @FormParam("author") String autor) {
 
 		Post novoPost = new Post();
-		novoPost.criaNovoPost(titulo, conteudo, autor);
+		novoPost.criaNovoPost(titulo, conteudo,autor);
 		System.out.println("Inserido? "+novoPost.pegaDadosCorretos(titulo, conteudo, autor));
 	}
 
