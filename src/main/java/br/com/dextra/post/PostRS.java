@@ -13,12 +13,11 @@ public class PostRS {
 	@POST
 	@Produces("application/json;charset=UTF-8")
 	public void novoPost(@FormParam("title") String titulo,
-			@FormParam("content") String conteudo) {
-		String usuario = "usuarioTeste";
+			@FormParam("content") String conteudo, @FormParam("author") String autor) {
 
 		Post novoPost = new Post();
-		novoPost.criaNovoPost(titulo, conteudo, usuario);
-		System.out.println("Inserido? "+novoPost.pegaDadosCorretos(titulo, conteudo, usuario));
+		novoPost.criaNovoPost(titulo, conteudo, autor);
+		System.out.println("Inserido? "+novoPost.pegaDadosCorretos(titulo, conteudo, autor));
 	}
 
 	@Path("/lista")
