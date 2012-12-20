@@ -62,30 +62,7 @@ public class DextraTest extends TesteFuncionalBase{
 	        doTest();
 	    }
 
-	    @Test
-	    public void testeListarPosts1() {
-
-	    	String resultadoEsperado = "[]";
-	        Assert.assertEquals(resultadoEsperado, PostResource.listarPosts("",""));
-
-	    }
-
-	    @Test
-	    public void testeListarPosts2() {
-	    	Date data = new Date();
-
-	    	meDeUmPost("1 post","bla","user" , data);
-
-			String json = null;
-
-
-			json = "[{\"data\":\""+data+"\",\"titulo\":\"1 post\",\"usuario\":\"user\",\"conteudo\":\"bla\"}]";
-
-	        Assert.assertEquals(json, PostResource.listarPosts("",""));
-
-	    }
-
-		private void meDeUmPost(String titulo,String conteudo,String usuario, Date data) {
+	    private void meDeUmPost(String titulo,String conteudo,String usuario, Date data) {
 			long time = new Date().getTime();
 	    	Key key = KeyFactory.createKey("post", time);
 
@@ -102,19 +79,31 @@ public class DextraTest extends TesteFuncionalBase{
 		}
 
 	    @Test
+	    public void testeListarPosts1() {
+	    	String resultadoEsperado = "[]";
+	        Assert.assertEquals(resultadoEsperado, PostResource.listarPosts("20",""));
+	    }
+
+	    @Test
+	    public void testeListarPosts2() {
+	    	Date data = new Date();
+	    	meDeUmPost("1 post","bla","user" , data);
+
+			String json = null;
+			json = "[{\"data\":\""+data+"\",\"titulo\":\"1 post\",\"usuario\":\"user\",\"conteudo\":\"bla\"}]";
+
+	        Assert.assertEquals(json, PostResource.listarPosts("20",""));
+	    }
+
+		@Test
 	    public void testeListarPosts3() {
 	    	Date data2 = new Date();
-
-
-
-
-
 	    	meDeUmPost("2 post","bla2","user2" , data2);
+
 	    	Date data3 = new Date();
 	    	meDeUmPost("3 post","bla3","user3" , data3);
 
 			String json = null;
-
 			json = "[{\"data\":\""+data2+"\",\"titulo\":\"2 post\",\"usuario\":\"user2\",\"conteudo\":\"bla2\"},"+
 			"{\"data\":\""+data3+"\",\"titulo\":\"3 post\",\"usuario\":\"user3\",\"conteudo\":\"bla3\"}]";
 
