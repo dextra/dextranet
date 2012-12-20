@@ -9,7 +9,7 @@ public class DextraNetTest extends TesteFuncionalBase {
 
 	@Test
 	public void testeHomePageDextraNet() {
-		siteDextraNet.navegarNaPagina("http://dextranet-desenvolvimento.appspot.com");
+		siteDextraNet.navegarNaPagina("http://localhost:8080");
 		siteDextraNet.verificaSeTemLogoHomePage();
 	}
 
