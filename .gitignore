@@ -4,5 +4,7 @@
 .settings
 
 # target files
+bin
 target
 .metadata
+WEB-INF/appengine-generated
