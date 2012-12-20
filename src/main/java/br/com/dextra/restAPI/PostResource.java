@@ -33,7 +33,7 @@ public class PostResource {
 		}
 		else
 		{
-			return null;
+			return PostRepository.buscarPosts(Integer.parseInt(maxResults), q).toString();
 		}
 	}
 
