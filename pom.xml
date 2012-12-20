@@ -122,29 +122,19 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-jdk14</artifactId>
-			<version>1.7.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
-			<version>2.2.2</version>
 		</dependency>
 		<dependency>
-        <groupId>commons-lang</groupId>
-        <artifactId>commons-lang</artifactId>
-        <version>2.4</version>
-    </dependency>
-	<dependency>
-		<groupId>org.jboss.resteasy</groupId>
-		<artifactId>resteasy-jaxb-provider</artifactId>
-		<version>2.2.0.GA</version>
-	</dependency>
-
+        	<groupId>commons-lang</groupId>
+        	<artifactId>commons-lang</artifactId>
+    	</dependency>
 	</dependencies>
 
 	<build>
@@ -354,6 +344,11 @@
 				<artifactId>saucerest</artifactId>
 				<version>1.0.2</version>
 			</dependency>
+			<dependency>
+	        	<groupId>commons-lang</groupId>
+	        	<artifactId>commons-lang</artifactId>
+	        	<version>2.4</version>
+	    	</dependency>
 		</dependencies>
 	</dependencyManagement>
 
