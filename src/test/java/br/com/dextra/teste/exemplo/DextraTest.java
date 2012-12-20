@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.dextra.post.Post;
 import br.com.dextra.restAPI.PostResource;
 import br.com.dextra.teste.TesteFuncionalBase;
 
@@ -109,5 +110,23 @@ public class DextraTest extends TesteFuncionalBase{
 
 	        Assert.assertEquals(json, PostResource.listarPosts("2",""));
 	    }
+		//FIXME: Gabriel/Tonho estão com problemas que serão resolvidos rapida e futuramente!
+
+//		@Test
+//	    public void testeBuscarPosts1() {
+//	    	Date data2 = new Date();
+////	    	meDeUmPost("2 post","bla2","user2" , data2);
+//
+//	    	Date data3 = new Date();
+////	    	meDeUmPost("3 post","bla3","user3" , data3);
+//
+//			Post.criaNovoPost("3 post","bla 3","user3");
+//			Post.criaNovoPost("2 post","bla 2","user2");
+//			String json = null;
+//			json = "[{\"data\":\""+data2+"\",\"titulo\":\"2 post\",\"usuario\":\"user2\",\"conteudo\":\"bla2\"},"+
+//			"{\"data\":\""+data3+"\",\"titulo\":\"3 post\",\"usuario\":\"user3\",\"conteudo\":\"bla3\"}]";
+//
+//	        Assert.assertEquals(json, PostResource.listarPosts("2","bla"));
+//	    }
 
 }
