@@ -13,12 +13,11 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
-import com.google.appengine.api.search.StatusCode;
 
 
 public class Post {
 
-	public static void criaNovoPost(String titulo, String conteudo, String usuario) {
+	public void criaNovoPost(String titulo, String conteudo, String usuario) {
 		long time = new Date().getTime();
 		String id = String.valueOf(time);
 		Key key = KeyFactory.createKey("post", id);
