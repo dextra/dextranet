@@ -13,7 +13,7 @@ $(document).ready(function() {
 				url : "/s/post/novo",
 				data : post,
 				success : function() {
-					alert("Sucesso! :)");
+//					alert("Sucesso! :)");
 					location.href = "/index.html";
 				}
 			});
