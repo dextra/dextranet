@@ -23,16 +23,19 @@ public class PostResource {
 	@GET
 	@Produces("application/json;charset=UTF-8")
 	public static ArrayList<JsonObject> listarPosts(
-			@DefaultValue("") @QueryParam(value = "max-results") String maxResults,
+			@DefaultValue("20") @QueryParam(value = "max-results") String maxResults,
 			@DefaultValue("") @QueryParam(value = "q") String q) {
+		if(q.equals(""))
+		{
+		Iterable<Entity> listaPosts = PostRepository.buscarTodosOsPosts(Integer.parseInt(maxResults));
+		return EntityJsonConverter.converterListaEntities(listaPosts);
+		}
+		else
+		{
 
-		Iterable<Entity> listaPosts = PostRepository.buscarPosts(maxResults, q);
-
-		for (Entity entity : listaPosts) {
-			System.out.println(entity.toString());
+			return null;
 		}
 
-		return EntityJsonConverter.converterListaEntities(listaPosts);
 	}
 
 }

@@ -67,7 +67,7 @@ public class DextraTest extends TesteFuncionalBase{
 	    @Test
 	    public void testeListarPosts1() {
 	    	ArrayList<JsonObject> listaVazia=new ArrayList<JsonObject>();
-	        Assert.assertEquals(listaVazia, PostResource.listarPosts("",""));
+	        Assert.assertEquals(listaVazia, PostResource.listarPosts("20",""));
 	    }
 
 	    @Test
@@ -84,7 +84,7 @@ public class DextraTest extends TesteFuncionalBase{
 	    	json.addProperty("conteudo","nosso primeiro post!");
 	    	ArrayList<JsonObject> listaTeste=new ArrayList<JsonObject>();
 	    	listaTeste.add(json);
-	        Assert.assertEquals(listaTeste, PostResource.listarPosts("",""));
+	        Assert.assertEquals(listaTeste, PostResource.listarPosts("20",""));
 	    }
 
 	    @Test
@@ -105,19 +105,19 @@ public class DextraTest extends TesteFuncionalBase{
 	        Assert.assertEquals(listaTeste, PostResource.listarPosts("2",""));
 	    }
 
-//	    @Test
-//	    public void testeListarPosts4() {
-//
-//	    	doInsertPostsTests();
-//
-//	    	ArrayList<JsonObject> listaTeste=new ArrayList<JsonObject>();
-//
-//	    	JsonObject json2 = new JsonObject();
-//	    	json2.addProperty("conteudo","post2!");
-//	    	listaTeste.add(json2);
-//
-//	        Assert.assertEquals(listaTeste, PostResource.listarPosts("1",""));
-//	    }
+/*	    @Test
+	    public void testeBuscarPosts1() {
+
+	    	doInsertPostsTests();
+
+	    	ArrayList<JsonObject> listaTeste=new ArrayList<JsonObject>();
+
+	    	JsonObject json2 = new JsonObject();
+	    	json2.addProperty("conteudo","post2!");
+	    	listaTeste.add(json2);
+
+	        Assert.assertEquals(listaTeste, PostResource.listarPosts("1","post2"));
+	    }*/
 
 	    public void doInsertPostsTests() {
 	    	Key key=KeyFactory.createKey("post", 16576454);
