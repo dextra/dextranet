@@ -21,6 +21,8 @@ public class Post {
 		valueEntity.setProperty("titulo", titulo);
 		valueEntity.setProperty("conteudo", conteudo);
 		valueEntity.setProperty("usuario", usuario);
+		valueEntity.setProperty("comentarios", 0);
+		valueEntity.setProperty("likes", 0);
 		Date data = new Date();
 		valueEntity.setProperty("data", data);
 
