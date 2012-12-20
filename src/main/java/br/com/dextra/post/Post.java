@@ -15,10 +15,10 @@ import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
 import com.google.appengine.api.search.StatusCode;
 
-
 public class Post {
 
-	public static void criaNovoPost(String titulo, String conteudo, String usuario) {
+	public static void criaNovoPost(String titulo, String conteudo,
+			String usuario) {
 		long time = new Date().getTime();
 		String id = String.valueOf(time);
 		Key key = KeyFactory.createKey("post", id);
@@ -32,21 +32,26 @@ public class Post {
 		valueEntity.setProperty("likes", 0);
 		Date data = new Date();
 		valueEntity.setProperty("data", data);
+		valueEntity.setProperty("dataDeAtualizacao", data);
 
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
 		datastore.put(valueEntity);
 
-		Document document = Document.newBuilder().setId(id)
-			.addField(Field.newBuilder().setName("titulo").setText(titulo))
-			.addField(Field.newBuilder().setName("conteudo").setText(conteudo))
-			.addField(Field.newBuilder().setName("usuario").setText(usuario))
-			.addField(Field.newBuilder().setName("data").setText(data.toString()))
-			.build();
+		Document document = Document.newBuilder().setId(id).addField(
+				Field.newBuilder().setName("titulo").setText(titulo)).addField(
+				Field.newBuilder().setName("conteudo").setText(conteudo))
+				.addField(
+						Field.newBuilder().setName("usuario").setText(usuario))
+				.addField(
+						Field.newBuilder().setName("data").setText(
+								data.toString())).addField(
+						Field.newBuilder().setName("dataDeAtualizacao").setText(
+								data.toString())).build();
 
-		    // Put the document.
-		    PostRepository.getIndex("post").add(document);
+		// Put the document.
+		PostRepository.getIndex("post").add(document);
 
 		// System.out.println("Inserido");
 	}

@@ -9,10 +9,13 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.QueryResultList;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.SortDirection;
 
 import com.google.appengine.api.search.*;
 import com.google.appengine.api.search.SearchServicePb.SearchRequest;
@@ -33,11 +36,19 @@ public class PostRepository {
 	    return SearchServiceFactory.getSearchService().getIndex(indexSpec);
 	}
 
-	public static Iterable<Entity> buscarTodosOsPosts(int maxResults) {
+	public static Iterable<Entity> buscarTodosOsPosts(int maxResults, String key) {
 
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
 		Query query = new Query("post");
+		if(!key.equals(""))
+		{
+			Key key2=KeyFactory.createKey("post", key.substring(6, key.length()-2));
+
+			System.out.println(key2.toString()+" # "+key);
+
+		}
+		query.addSort("data",SortDirection.DESCENDING);
 		PreparedQuery prepared = datastore.prepare(query);
 
 		FetchOptions opts = FetchOptions.Builder.withDefaults();
@@ -56,8 +67,8 @@ public class PostRepository {
 
 		com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query.newBuilder().setOptions(options).build(q);
 
+		return	EntityJsonConverter.toJson(getIndex("post").search(query));
 
-		return EntityJsonConverter.toJson(getIndex("post").search(query));
 
 
 	}

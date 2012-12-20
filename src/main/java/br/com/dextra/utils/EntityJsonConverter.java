@@ -20,6 +20,7 @@ public class EntityJsonConverter {
 		for (Entry<String, Object> entry : entity.getProperties().entrySet()) {
 			json.addProperty(entry.getKey(), entry.getValue().toString());
 		}
+		json.addProperty("key",entity.getKey().toString());
 		return json;
 	}
 //FIXME: Gabriel/Tonho estão com problemas que serão resolvidos rapida e futuramente!
@@ -30,21 +31,9 @@ public class EntityJsonConverter {
 		if (results != null) {
 			for (ScoredDocument scoredDocument : results) {
 				idList.add(scoredDocument.getId());
-/*				json.addProperty("titulo", scoredDocument.getField("titulo")
-						.toString());
-				json.addProperty("conteudo", scoredDocument
-						.getField("conteudo").toString());
-				json.addProperty("usuario", scoredDocument.getField("usuario")
-						.toString());
-				json.addProperty("data", scoredDocument.getField("data")
-						.toString());
-				jsonList.add(json);
-				json.remove("titulo");
-				json.remove("conteudo");
-				json.remove("usuario");
-				json.remove("data");*/
 			}
 		}
+//		jsonList=Id
 		return jsonList;
 	}
 
