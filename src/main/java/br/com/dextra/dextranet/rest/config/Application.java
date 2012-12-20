@@ -6,8 +6,6 @@ import java.util.Set;
 import br.com.dextra.post.PostRS;
 import br.com.dextra.restAPI.PostResource;
 
-
-
 public class Application extends javax.ws.rs.core.Application {
 
 	/**
