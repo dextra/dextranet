@@ -1,3 +1,6 @@
+// TODO: Como conversamos hoje, as classes de servicoes web deverao ficar na mesma package dos
+// outros objetos relacionados a um mesmo contexto. Sendo assim, esse cara aqui precisa ser
+// migrado para outra package.
 package br.com.dextra.restAPI;
 
 import javax.ws.rs.DefaultValue;
@@ -11,7 +14,8 @@ import br.com.dextra.utils.EntityJsonConverter;
 
 import com.google.appengine.api.datastore.Entity;
 
-
+// TODO: Conforme combinamos hoje, o padrao para classes de servico web serao RS. Precisamos corrigir
+// isso.
 @Path("/posts")
 public class PostResource {
 
