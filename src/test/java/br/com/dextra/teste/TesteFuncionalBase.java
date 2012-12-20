@@ -1,17 +1,18 @@
 package br.com.dextra.teste;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
+//import java.io.IOException;
+//import java.net.MalformedURLException;
+//import java.net.URL;
+//import java.util.HashMap;
+//import java.util.Map;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
+//import org.openqa.selenium.remote.RemoteWebDriver;
 
 import com.saucelabs.saucerest.SauceREST;
 
@@ -45,31 +46,32 @@ public class TesteFuncionalBase {
 		DesiredCapabilities sauceCapabillities = DesiredCapabilities.chrome();
 		sauceCapabillities.setPlatform(Platform.LINUX);
 
-		try {
-			driver = new RemoteWebDriver(new URL(sauceURL.toString()), sauceCapabillities);
-		} catch (MalformedURLException e) {
-			throw new RuntimeException(e);
-		}
+//		try {
+//			driver = new RemoteWebDriver(new URL(sauceURL.toString()), sauceCapabillities);
+//		} catch (MalformedURLException e) {
+//			throw new RuntimeException(e);
+//		}
+		driver = new FirefoxDriver();
 
-		Map<String, Object> sauceJob = new HashMap<String, Object>();
-		sauceJob.put("name", "Teste dextranet");
-
-		sauceClient = new SauceREST(SAUCELABS_USERNAME, SAUCELABS_KEY);
-		try {
-			sauceClient.updateJobInfo(((RemoteWebDriver) driver).getSessionId().toString(), sauceJob);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+//		Map<String, Object> sauceJob = new HashMap<String, Object>();
+//		sauceJob.put("name", "Teste dextranet");
+//
+//		sauceClient = new SauceREST(SAUCELABS_USERNAME, SAUCELABS_KEY);
+//		try {
+//			sauceClient.updateJobInfo(((RemoteWebDriver) driver).getSessionId().toString(), sauceJob);
+//		} catch (IOException e) {
+//			throw new RuntimeException(e);
+//		}
 	}
 
 	@AfterClass
 	public static void shutdown() {
 		driver.close();
-		try {
-			sauceClient.jobPassed(((RemoteWebDriver) driver).getSessionId().toString());
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
+//		try {
+//			sauceClient.jobPassed(((RemoteWebDriver) driver).getSessionId().toString());
+//		} catch (IOException e) {
+//			throw new RuntimeException(e);
+//		}
 		myContainer.stop();
 	}
 

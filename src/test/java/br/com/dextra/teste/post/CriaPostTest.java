@@ -7,7 +7,7 @@ import org.junit.Test;
 import br.com.dextra.post.Post;
 import br.com.dextra.teste.TesteFuncionalBase;
 
-public class TesteCriaPost extends TesteFuncionalBase {
+public class CriaPostTest extends TesteFuncionalBase {
 	Post post = new Post();
 
 	@Test
