@@ -2,6 +2,9 @@
 	<template selector=".list-stories">
 		{for post in jsonArrayPost}
 			<li class="clearfix">
+					<div>
+						${post.data}
+					</div><br>
 					<img src="" alt="photo" class="list-stories-avatar" />
 					<div class="list-stories-headline clearfix">
 						<h2>${post.titulo}</h2>
