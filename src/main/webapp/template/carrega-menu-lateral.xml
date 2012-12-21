@@ -8,7 +8,7 @@
 					Home
 				</a>
 				<script>
-					$("#button-sidebar-left-home").click(abrePaginaInicial);
+					$("#button-sidebar-left-home").click(carregaDadosHomePage);
 				</script>
 			</li>
 			<li>
