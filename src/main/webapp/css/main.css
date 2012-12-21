@@ -185,13 +185,7 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 
 .message .warning { border:1px solid #9F6000; background-color:#FEEFB3; }
 
-.message .error { background-image:url('imgs/error.png'); }
-
-.message .success { background-image:url('imgs/success.png'); }
-
-.message .info { background-image: url('imgs/info.png'); }
-
-.message .warning { background-image:url('imgs/warning.png'); }
+.message .success { background-image:url('../img/success.png'); }
 
 
 

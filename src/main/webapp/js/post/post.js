@@ -20,7 +20,6 @@ function criaNovoPost() {
 	var post = {
 		"title" : $("#form-input-title").val(),
 		"content" : $("#form-input-content").val(),
-		"author" : "usuario01"
 	}
 	if ((post.title == "") || (post.content == ""))
 		alert("Preencha todos os campos.");
