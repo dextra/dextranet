@@ -23,9 +23,9 @@ public class PostRS {
 	@POST
 	@Produces("application/json;charset=UTF-8")
 	public void novoPost(@FormParam("title") String titulo,
-			@FormParam("content") String conteudo,
-			@FormParam("author") String autor) {
+			@FormParam("content") String conteudo) {
 
+		String autor = "usuarioTemporario";
 		PostRepository novoPost = new PostRepository();
 		novoPost.criaNovoPost(titulo, conteudo, autor);
 		System.out.println("Inserido? "
