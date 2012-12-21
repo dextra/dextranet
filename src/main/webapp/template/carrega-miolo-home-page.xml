@@ -26,7 +26,7 @@
 		<ul class="list-stories">
 			{for post in jsonArrayPost}
 			<li class="clearfix">
-				<div class="list-stories-headline-comments">
+				<div class="list-stories-headline-data">
 					${converteData(post.data)}
 				</div>
 				<img src="" alt="photo" class="list-stories-avatar" />
