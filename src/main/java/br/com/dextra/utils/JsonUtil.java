@@ -1,4 +1,4 @@
-package br.com.dextra.json;
+package br.com.dextra.utils;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

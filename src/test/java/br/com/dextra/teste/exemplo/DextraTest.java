@@ -11,6 +11,7 @@ import org.junit.Test;
 import br.com.dextra.post.PostRS;
 import br.com.dextra.repository.PostRepository;
 import br.com.dextra.teste.TesteIntegracaoBase;
+import br.com.dextra.utils.Utils;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
@@ -49,8 +50,9 @@ public class DextraTest extends TesteIntegracaoBase {
 	@Test
 	public void testeListarPosts1() {
 		String resultadoEsperado = "[]";
-		Assert.assertEquals(resultadoEsperado, PostRS.listarPosts("20",
-				"", ""));
+		Assert
+				.assertEquals(resultadoEsperado, PostRS.listarPosts("20", "",
+						""));
 	}
 
 	@Test
@@ -61,8 +63,7 @@ public class DextraTest extends TesteIntegracaoBase {
 		String usuario = "User1";
 
 		Date data = new Date();
-		long time = new Date().getTime();
-		String id = String.valueOf(time);
+		String id = Utils.geraID();
 		Key key = KeyFactory.createKey("post", id);
 
 		PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
@@ -70,8 +71,8 @@ public class DextraTest extends TesteIntegracaoBase {
 		comparacao.append("["
 				+ criaUmJson(titulo, conteudo, usuario, id, key, data) + "]");
 
-		Assert.assertEquals(comparacao.toString(), PostRS.listarPosts(
-				"20", "", ""));
+		Assert.assertEquals(comparacao.toString(), PostRS.listarPosts("20", "",
+				""));
 	}
 
 	private String criaUmJson(String titulo, String conteudo, String usuario,
@@ -79,6 +80,7 @@ public class DextraTest extends TesteIntegracaoBase {
 
 		JsonObject json = new JsonObject();
 
+		json.addProperty("id", id);
 		json.addProperty("titulo", titulo);
 		json.addProperty("usuario", usuario);
 		json.addProperty("comentarios", "0");
@@ -99,6 +101,92 @@ public class DextraTest extends TesteIntegracaoBase {
 		String usuario = "User1";
 
 		Date data = new Date();
+		String id =  Utils.geraID();
+		Key key = KeyFactory.createKey("post", id);
+
+		PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
+
+		String titulo2 = "Post2";
+		String conteudo2 = "Content2";
+		String usuario2 = "User2";
+
+		Date data2 = new Date();
+		String id2 =  Utils.geraID();
+		Key key2 = KeyFactory.createKey("post", id2);
+
+		PostRepository.criaNovoPost(titulo2, conteudo2, usuario2, id2, key2,
+				data2);
+
+		String titulo3 = "Post3";
+		String conteudo3 = "Content3";
+		String usuario3 = "User3";
+
+		Date data3 = new Date();
+		String id3 = Utils.geraID();
+		Key key3 = KeyFactory.createKey("post", id3);
+
+		PostRepository.criaNovoPost(titulo3, conteudo3, usuario3, id3, key3,
+				data3);
+
+		StringBuilder comparacao = new StringBuilder();
+		comparacao.append("["
+				+ criaUmJson(titulo3, conteudo3, usuario3, id3, key3, data3)
+				+ ",");
+		comparacao.append(criaUmJson(titulo2, conteudo2, usuario2, id2, key2,
+				data2)
+				+ "]");
+
+		Assert.assertEquals(comparacao.toString(), PostRS.listarPosts("2", "",
+				""));
+
+	}
+
+	// FIXME:Gabriel/Tonho encontraram a solução para o FTS e voltarão a esse
+	// test mais tarde
+
+/*
+	 * @Test public void testeListarPosts4() { Date data1 = new Date(); String
+	 * titulo = "Post1"; String conteudo = "Content1"; String usuario = "User1";
+	 *
+	 * Date data = new Date(); long time = new Date().getTime(); String id =
+	 * String.valueOf(time); Key key = KeyFactory.createKey("post", id);
+	 *
+	 * Post.criaNovoPost(titulo, conteudo, usuario, id, key, data);
+	 *
+	 * String titulo2 = "Post2"; String conteudo2 = "Content2"; String usuario2
+	 * = "User2";
+	 *
+	 * Date data2 = new Date(); long time2 = new Date().getTime(); String id2 =
+	 * String.valueOf(time2); Key key2 = KeyFactory.createKey("post", id2);
+	 *
+	 * Post.criaNovoPost(titulo2, conteudo2, usuario2, id2, key2, data2);
+	 *
+	 * String titulo3 = "Post3"; String conteudo3 = "Content3"; String usuario3
+	 * = "User3";
+	 *
+	 * Date data3 = new Date(); long time3 = new Date().getTime(); String id3 =
+	 * String.valueOf(time3); Key key3 = KeyFactory.createKey("post", id3);
+	 *
+	 * Post.criaNovoPost(titulo3, conteudo3, usuario3, id3, key3, data3);
+	 *
+	 * StringBuilder comparacao = new StringBuilder(); comparacao.append("[" +
+	 * criaUmJson(titulo, conteudo, usuario, id, key, data) +"]");
+	 *
+	 * Assert.assertEquals(comparacao.toString(), PostRS.listarPosts("2", "",
+	 * "post(\"" + id + "\")")); }
+	 */
+
+	// FIXME: Gabriel/Tonho estão com problemas que serão resolvidos rapida e
+	// futuramente!
+
+/*	@Test
+	public void testeBuscarPosts1() {
+
+		String titulo = "Post1";
+		String conteudo = "Content1";
+		String usuario = "User1";
+
+		Date data = new Date();
 		long time = new Date().getTime();
 		String id = String.valueOf(time);
 		Key key = KeyFactory.createKey("post", id);
@@ -106,7 +194,7 @@ public class DextraTest extends TesteIntegracaoBase {
 		PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
 
 		String titulo2 = "Post2";
-		String conteudo2 = "Content2";
+		String conteudo2 = "bla";
 		String usuario2 = "User2";
 
 		Date data2 = new Date();
@@ -128,83 +216,12 @@ public class DextraTest extends TesteIntegracaoBase {
 		PostRepository.criaNovoPost(titulo3, conteudo3, usuario3, id3, key3, data3);
 
 		StringBuilder comparacao = new StringBuilder();
-		comparacao.append("["
-				+ criaUmJson(titulo3, conteudo3, usuario3, id3, key3, data3) +",");
-		comparacao.append(criaUmJson(titulo2, conteudo2, usuario2, id2, key2, data2) +"]");
 
-		Assert.assertEquals(comparacao.toString(), PostRS.listarPosts(
-				"2", "", ""));
+		comparacao.append("["+criaUmJson(titulo2, conteudo2, usuario2, id2, key2,
+				data2)
+				+ "]");
 
-	}
-
-
-//FIXME:Gabriel/Tonho encontraram a solução para o FTS e voltarão a esse test mais tarde
-
-	/*@Test
-	public void testeListarPosts4() {
-		Date data1 = new Date();
-		String titulo = "Post1";
-		String conteudo = "Content1";
-		String usuario = "User1";
-
-		Date data = new Date();
-		long time = new Date().getTime();
-		String id = String.valueOf(time);
-		Key key = KeyFactory.createKey("post", id);
-
-		Post.criaNovoPost(titulo, conteudo, usuario, id, key, data);
-
-		String titulo2 = "Post2";
-		String conteudo2 = "Content2";
-		String usuario2 = "User2";
-
-		Date data2 = new Date();
-		long time2 = new Date().getTime();
-		String id2 = String.valueOf(time2);
-		Key key2 = KeyFactory.createKey("post", id2);
-
-		Post.criaNovoPost(titulo2, conteudo2, usuario2, id2, key2, data2);
-
-		String titulo3 = "Post3";
-		String conteudo3 = "Content3";
-		String usuario3 = "User3";
-
-		Date data3 = new Date();
-		long time3 = new Date().getTime();
-		String id3 = String.valueOf(time3);
-		Key key3 = KeyFactory.createKey("post", id3);
-
-		Post.criaNovoPost(titulo3, conteudo3, usuario3, id3, key3, data3);
-
-		StringBuilder comparacao = new StringBuilder();
-		comparacao.append("["
-				+ criaUmJson(titulo, conteudo, usuario, id, key, data) +"]");
-
-		Assert.assertEquals(comparacao.toString(), PostRS.listarPosts("2", "", "post(\""
-				+ id + "\")"));
-	}
-*/
-
-
-	// FIXME: Gabriel/Tonho estão com problemas que serão resolvidos rapida e
-	// futuramente!
-
-	// @Test
-	// public void testeBuscarPosts1() {
-	// Date data2 = new Date();
-	// // meDeUmPost("2 post","bla2","user2" , data2);
-	//
-	// Date data3 = new Date();
-	// // meDeUmPost("3 post","bla3","user3" , data3);
-	//
-	// Post.criaNovoPost("3 post","bla 3","user3");
-	// Post.criaNovoPost("2 post","bla 2","user2");
-	// String json = null;
-	// json =
-	// "[{\"data\":\""+data2+"\",\"titulo\":\"2 post\",\"usuario\":\"user2\",\"conteudo\":\"bla2\"},"+
-	// "{\"data\":\""+data3+"\",\"titulo\":\"3 post\",\"usuario\":\"user3\",\"conteudo\":\"bla3\"}]";
-	//
-	// Assert.assertEquals(json, PostResource.listarPosts("2","bla"));
-	// }
+		Assert.assertEquals(comparacao.toString(), PostRS.listarPosts("20", "bla",""));
+	}*/
 
 }

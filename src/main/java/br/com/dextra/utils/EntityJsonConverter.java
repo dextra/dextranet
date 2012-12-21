@@ -1,5 +1,3 @@
-// TODO: Existe um outro cara chamado JsonUtil. ELes fazem a mesma coisa? Nao deveriam estar no mesmo
-// local?
 package br.com.dextra.utils;
 
 import java.util.ArrayList;
@@ -21,18 +19,19 @@ public class EntityJsonConverter {
 		json.addProperty("key",entity.getKey().toString());
 		return json;
 	}
+
 //FIXME: Gabriel/Tonho estão com problemas que serão resolvidos rapida e futuramente!
-	public static ArrayList<JsonObject> toJson(Results<ScoredDocument> results) {
-		ArrayList<JsonObject> jsonList = new ArrayList<JsonObject>();
+
+	public static ArrayList<String> toJson(Results<ScoredDocument> results) {
 		ArrayList<String> idList=new ArrayList<String>();
 		JsonObject json = new JsonObject();
-		if (results != null) {
 			for (ScoredDocument scoredDocument : results) {
+				System.out.println("oi");
 				idList.add(scoredDocument.getId());
-			}
 		}
+		System.out.println(idList.toString());
 //		jsonList=Id
-		return jsonList;
+		return idList;
 	}
 
 	public static JsonArray converterListaEntities(Iterable<Entity> listaPosts) {

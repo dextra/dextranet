@@ -5,8 +5,8 @@ package br.com.dextra.repository;
 
 import java.util.ArrayList;
 import java.util.Date;
-
 import br.com.dextra.utils.EntityJsonConverter;
+import br.com.dextra.utils.Utils;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -17,15 +17,13 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.search.Document;
+import com.google.appengine.api.search.Field;
 import com.google.appengine.api.search.Index;
 import com.google.appengine.api.search.IndexSpec;
 import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.SearchServiceFactory;
 import com.google.gson.JsonObject;
-
-
-
-
 
 public class PostRepository {
 
@@ -66,8 +64,8 @@ public class PostRepository {
 				.build();
 
 		com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query.newBuilder().setOptions(options).build(q);
-
-		return	EntityJsonConverter.toJson(getIndex("post").search(query));
+		EntityJsonConverter.toJson(getIndex("post").search(query));
+		return	null;
 
 
 
@@ -75,17 +73,17 @@ public class PostRepository {
 
 	public void criaNovoPost(String titulo, String conteudo, String usuario) {
 
-		long time = new Date().getTime();
-		String id = String.valueOf(time);
+		String id = Utils.geraID();
 		Key key = KeyFactory.createKey("post", id);
 		Date data = new Date();
 
-		this.criaNovoPost(titulo, conteudo, usuario, id,key,data);
+		PostRepository.criaNovoPost(titulo, conteudo, usuario, id,key,data);
 	}
 	public static void criaNovoPost(String titulo, String conteudo, String usuario, String id,Key key, Date data) {
 
 		Entity valueEntity = new Entity(key);
 
+		valueEntity.setProperty("id", id);
 		valueEntity.setProperty("titulo", titulo);
 		valueEntity.setProperty("conteudo", conteudo);
 		valueEntity.setProperty("usuario", usuario);
@@ -99,18 +97,21 @@ public class PostRepository {
 
 		datastore.put(valueEntity);
 
-/*		Document document = Document.newBuilder().setId(id).addField(
+		Document document = Document.newBuilder().setId(id).addField(
 				Field.newBuilder().setName("titulo").setText(titulo)).addField(
 				Field.newBuilder().setName("conteudo").setText(conteudo))
 				.addField(
 						Field.newBuilder().setName("usuario").setText(usuario))
 				.addField(
 						Field.newBuilder().setName("data").setText(
-								data.toString())).addField(
+								data.toString()))
+				.addField(
 						Field.newBuilder().setName("dataDeAtualizacao").setText(
-								data.toString())).build();
+								data.toString()))
+				.addField(
+						Field.newBuilder().setName("id").setText(id)).build();
 
-		PostRepository.getIndex("post").add(document);*/
+		PostRepository.getIndex("post").add(document);
 	}
 
 	public boolean pegaDadosCorretos(String titulo, String conteudo,

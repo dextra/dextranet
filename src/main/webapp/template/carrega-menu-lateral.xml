@@ -2,16 +2,16 @@
 <engine>
 	<template selector="#sidebar-left">
 		<ul id="sidebar-left-menu">
-			<li class="active">
+			<li id="sidebar-left-home" class="active">
 				<a href="#" id="button-sidebar-left-home">
 					<span class="icon-sidebar-left-home"></span>
 					Home
 				</a>
 				<script>
-					$("#button-sidebar-left-home").click(carregaDadosHomePage);
+					$("#button-sidebar-left-home").click(chamaMetodoCarregaDadosHomePage);
 				</script>
 			</li>
-			<li>
+			<li id="sidebar-left-new-post">
 				<a href="#" id="button-sidebar-left-novopost">
 					<span class="icon-sidebar-left-novopost"></span>
 					Novo Post
@@ -20,19 +20,19 @@
 					$("#button-sidebar-left-novopost").click(abrePaginaNovoPost);
 				</script>
 			</li>
-			<li>
+			<li id="sidebar-left-category">
 				<a href="pages/categoria/categoria.html">
 					<span class="icon-sidebar-left-categoria"></span>
 					Categoria
 				</a>
 			</li>
-			<li>
+			<li id="sidebar-left-profile">
 				<a href="pages/perfil/perfil.html">
 					<span class="icon-sidebar-left-perfil"></span>
 					Perfil
 				</a>
 			</li>
-			<li>
+			<li id="sidebar-left-team">
 				<a href="pages/equipe/equipe.html">
 					<span class="icon-sidebar-left-equipe"></span>
 					Equipe
