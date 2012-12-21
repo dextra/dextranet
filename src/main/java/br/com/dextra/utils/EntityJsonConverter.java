@@ -3,8 +3,6 @@
 package br.com.dextra.utils;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.Map.Entry;
 
 import com.google.appengine.api.datastore.Entity;

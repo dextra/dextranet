@@ -1,6 +1,5 @@
-package br.com.dextra.teste;
+package br.com.dextra.teste.container;
 
-import br.com.dextra.gae.GAETestHelper;
 
 public class MyContainer {
 
