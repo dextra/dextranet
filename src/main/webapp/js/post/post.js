@@ -37,11 +37,11 @@ function criaNovoPost() {
 
 function converteData(minhaData) {
 
-	minhaData.replace("June","Jun");
+	/*minhaData.replace("June","Jun");
 	minhaData.replace("July","Jun");
 	minhaData.replace("Sept","Sep");
 	minhaData.replace("Tues","Tue");
-	minhaData.replace("Thurs","Thu");
+	minhaData.replace("Thurs","Thu");*/
 
 	var diaS = minhaData.slice(0, 3);
 	var dia  = minhaData.slice(8, 10);
