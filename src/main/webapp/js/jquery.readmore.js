@@ -15,21 +15,22 @@
     var defaults = {
       substr_len: 50,
       split_word: false,
-      ellipses: '...',
-      more_clzz: 'readm-more',
-      ellipse_clzz: 'readm-continue',
-      hidden_clzz: 'readm-hidden'
+      ellipses: '...'
     };
 
-	console.log(this);
     var opts =  $.extend({}, defaults, settings);
     $(this).each(function () {
       var $this = $(this);
       var elemID = $this.attr("id");
       var eachPost = $("#"+elemID);
+      console.log(eachPost.html().length);
       if (eachPost.html().length > opts.substr_len) {
+
         abridge(eachPost);
         linkage(eachPost);
+      }else{
+    	  var button = $('#' + eachPost.attr("id") + "-button");
+    	  button.hide();
       }
     });
 
@@ -38,13 +39,16 @@
       var button = $('#' + elem.attr("id") + "-button");
       elem.append(opts.more_link);
       button.click( function () {
-        if(button.text()=="+ Ver mais"){
+        if(button.text().indexOf("+ Ver mais")>=0){
+        console.log(elem.find(".readm-hidden").text());
     	elem.show();
         elem.find(".readm-hidden").show();
+        elem.find(".readm-continue").hide();
         button.text("- Ver menos");
         }else{
         	elem.show();
             elem.find(".readm-hidden").hide();
+            elem.find(".readm-continue").show();
             button.text("+ Ver mais");
         }
       });
@@ -52,10 +56,10 @@
 
     function abridge(elem) {
       var txt = elem.html();
-      var dots = "<span class='" + opts.ellipse_clzz + "'>" + opts.ellipses + "</span>";
+      var dots = "<span class='readm-continue'>" + opts.ellipses + "</span>";
       var shown = txt.substring(0, (opts.split_word ? opts.substr_len : txt.indexOf(' ', opts.substr_len))) + dots;
       var hidden =
-        '<span class="' + opts.hidden_clzz + '" style="display:none;">' +
+        '<span class="readm-hidden" style="display:none;">' +
           txt.substring((opts.split_word ? opts.substr_len : txt.indexOf(' ', opts.substr_len)), txt.length) +
         '</span>';
       elem.html(shown + hidden);
