@@ -4,6 +4,9 @@
 package br.com.dextra.repository;
 
 import java.util.ArrayList;
+import java.util.Date;
+
+import br.com.dextra.utils.EntityJsonConverter;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -12,18 +15,13 @@ import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.QueryResultList;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
-
-import com.google.appengine.api.search.*;
-import com.google.appengine.api.search.SearchServicePb.SearchRequest;
+import com.google.appengine.api.search.Index;
+import com.google.appengine.api.search.IndexSpec;
+import com.google.appengine.api.search.QueryOptions;
+import com.google.appengine.api.search.SearchServiceFactory;
 import com.google.gson.JsonObject;
-
-import static com.google.appengine.api.datastore.FetchOptions.Builder.*;
-
-import br.com.dextra.utils.EntityJsonConverter;
 
 
 
@@ -75,6 +73,67 @@ public class PostRepository {
 
 	}
 
-	// Integer.parseInt(maxResults)
+	public void criaNovoPost(String titulo, String conteudo, String usuario) {
+
+		long time = new Date().getTime();
+		String id = String.valueOf(time);
+		Key key = KeyFactory.createKey("post", id);
+		Date data = new Date();
+
+		this.criaNovoPost(titulo, conteudo, usuario, id,key,data);
+	}
+	public static void criaNovoPost(String titulo, String conteudo, String usuario, String id,Key key, Date data) {
+
+		Entity valueEntity = new Entity(key);
+
+		valueEntity.setProperty("titulo", titulo);
+		valueEntity.setProperty("conteudo", conteudo);
+		valueEntity.setProperty("usuario", usuario);
+		valueEntity.setProperty("comentarios", 0);
+		valueEntity.setProperty("likes", 0);
+		valueEntity.setProperty("data", data);
+		valueEntity.setProperty("dataDeAtualizacao", data);
+
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+
+		datastore.put(valueEntity);
+
+/*		Document document = Document.newBuilder().setId(id).addField(
+				Field.newBuilder().setName("titulo").setText(titulo)).addField(
+				Field.newBuilder().setName("conteudo").setText(conteudo))
+				.addField(
+						Field.newBuilder().setName("usuario").setText(usuario))
+				.addField(
+						Field.newBuilder().setName("data").setText(
+								data.toString())).addField(
+						Field.newBuilder().setName("dataDeAtualizacao").setText(
+								data.toString())).build();
+
+		PostRepository.getIndex("post").add(document);*/
+	}
+
+	public boolean pegaDadosCorretos(String titulo, String conteudo,
+			String usuario) {
+		// TODO Auto-generated method stub
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+		Query query = new Query("post");
+		PreparedQuery prepare = datastore.prepare(query);
+
+		Iterable<Entity> asIterable = prepare.asIterable();
+		for (Entity entity : asIterable) {
+			System.out.println("Titulo:" + entity.getProperty("titulo")
+					+ " -- Conteudo: " + entity.getProperty("conteudo")
+					+ "-- (" + entity.getProperty("data") + ")" + "\n");
+			if (entity.getProperty("conteudo").equals(conteudo)
+					&& entity.getProperty("titulo").equals(titulo)
+					&& entity.getProperty("usuario").equals(usuario)) {
+				return true;
+			}
+		}
+
+		return true;
+	}
 
 }

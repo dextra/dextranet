@@ -8,13 +8,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.dextra.post.Post;
 import br.com.dextra.post.PostRS;
+import br.com.dextra.repository.PostRepository;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
-import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
@@ -68,7 +65,7 @@ public class DextraTest extends TesteIntegracaoBase {
 		String id = String.valueOf(time);
 		Key key = KeyFactory.createKey("post", id);
 
-		Post.criaNovoPost(titulo, conteudo, usuario, id, key, data);
+		PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
 		StringBuilder comparacao = new StringBuilder();
 		comparacao.append("["
 				+ criaUmJson(titulo, conteudo, usuario, id, key, data) + "]");
@@ -106,7 +103,7 @@ public class DextraTest extends TesteIntegracaoBase {
 		String id = String.valueOf(time);
 		Key key = KeyFactory.createKey("post", id);
 
-		Post.criaNovoPost(titulo, conteudo, usuario, id, key, data);
+		PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
 
 		String titulo2 = "Post2";
 		String conteudo2 = "Content2";
@@ -117,7 +114,7 @@ public class DextraTest extends TesteIntegracaoBase {
 		String id2 = String.valueOf(time2);
 		Key key2 = KeyFactory.createKey("post", id2);
 
-		Post.criaNovoPost(titulo2, conteudo2, usuario2, id2, key2, data2);
+		PostRepository.criaNovoPost(titulo2, conteudo2, usuario2, id2, key2, data2);
 
 		String titulo3 = "Post3";
 		String conteudo3 = "Content3";
@@ -128,7 +125,7 @@ public class DextraTest extends TesteIntegracaoBase {
 		String id3 = String.valueOf(time3);
 		Key key3 = KeyFactory.createKey("post", id3);
 
-		Post.criaNovoPost(titulo3, conteudo3, usuario3, id3, key3, data3);
+		PostRepository.criaNovoPost(titulo3, conteudo3, usuario3, id3, key3, data3);
 
 		StringBuilder comparacao = new StringBuilder();
 		comparacao.append("["
