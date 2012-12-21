@@ -15,7 +15,6 @@ public class Application extends javax.ws.rs.core.Application {
 	@Override
 	public Set<Class<?>> getClasses() {
 		Set<Class<?>> classes = new HashSet<Class<?>>();
-		classes.add(PostResource.class);
 		classes.add(PostRS.class);
 		return classes;
 	}
