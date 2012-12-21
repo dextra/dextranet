@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<template selector="#container-main">
 
 		<!-- Sidebar do lado direito -->
 		<div id="sidebar-right" rel="section">
-		</div><!-- #sidebar-right -->
+		</div><!-- #sidebar-right -->>
+
 
 		<form action="" id="form-search">
 			<input type="text" id="form-search-input" />
@@ -13,7 +13,6 @@
 
 		<!-- Listagem de estorias da Intranet -->
 		<ul class="list-stories">
-		${paginacaoDosPost()}
 			{for post in jsonArrayPost}
 			<li class="clearfix">
 				<div class="list-stories-lead">
