@@ -146,7 +146,7 @@ public class DextraTest extends TesteIntegracaoBase {
 	// FIXME:Gabriel/Tonho encontraram a solução para o FTS e voltarão a esse
 	// test mais tarde
 
-	/*
+/*
 	 * @Test public void testeListarPosts4() { Date data1 = new Date(); String
 	 * titulo = "Post1"; String conteudo = "Content1"; String usuario = "User1";
 	 *

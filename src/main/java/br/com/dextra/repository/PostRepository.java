@@ -15,6 +15,8 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.search.Document;
+import com.google.appengine.api.search.Field;
 import com.google.appengine.api.search.Index;
 import com.google.appengine.api.search.IndexSpec;
 import com.google.appengine.api.search.QueryOptions;
@@ -93,7 +95,7 @@ public class PostRepository {
 
 		datastore.put(valueEntity);
 
-/*		Document document = Document.newBuilder().setId(id).addField(
+		Document document = Document.newBuilder().setId(id).addField(
 				Field.newBuilder().setName("titulo").setText(titulo)).addField(
 				Field.newBuilder().setName("conteudo").setText(conteudo))
 				.addField(
@@ -104,7 +106,7 @@ public class PostRepository {
 						Field.newBuilder().setName("dataDeAtualizacao").setText(
 								data.toString())).build();
 
-		PostRepository.getIndex("post").add(document);*/
+		PostRepository.getIndex("post").add(document);
 	}
 
 	public boolean pegaDadosCorretos(String titulo, String conteudo,
