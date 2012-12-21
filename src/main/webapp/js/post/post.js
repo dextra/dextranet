@@ -37,7 +37,6 @@ function criaNovoPost() {
 }
 
 function converteData(minhaData) {
-
 	minhaData.replace("June","Jun");
 	minhaData.replace("July","Jun");
 	minhaData.replace("Sept","Sep");
