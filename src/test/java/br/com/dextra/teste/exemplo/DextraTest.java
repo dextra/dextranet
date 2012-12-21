@@ -11,6 +11,7 @@ import org.junit.Test;
 import br.com.dextra.post.PostRS;
 import br.com.dextra.repository.PostRepository;
 import br.com.dextra.teste.TesteIntegracaoBase;
+import br.com.dextra.utils.Utils;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
@@ -62,8 +63,7 @@ public class DextraTest extends TesteIntegracaoBase {
 		String usuario = "User1";
 
 		Date data = new Date();
-		long time = new Date().getTime();
-		String id = String.valueOf(time);
+		String id = Utils.geraID();
 		Key key = KeyFactory.createKey("post", id);
 
 		PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
@@ -80,6 +80,7 @@ public class DextraTest extends TesteIntegracaoBase {
 
 		JsonObject json = new JsonObject();
 
+		json.addProperty("id", id);
 		json.addProperty("titulo", titulo);
 		json.addProperty("usuario", usuario);
 		json.addProperty("comentarios", "0");

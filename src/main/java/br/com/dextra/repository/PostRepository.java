@@ -6,6 +6,8 @@ package br.com.dextra.repository;
 import java.util.ArrayList;
 import java.util.Date;
 import br.com.dextra.utils.EntityJsonConverter;
+import br.com.dextra.utils.Utils;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -71,17 +73,17 @@ public class PostRepository {
 
 	public void criaNovoPost(String titulo, String conteudo, String usuario) {
 
-		long time = new Date().getTime();
-		String id = String.valueOf(time);
+		String id = Utils.geraID();
 		Key key = KeyFactory.createKey("post", id);
 		Date data = new Date();
 
-		this.criaNovoPost(titulo, conteudo, usuario, id,key,data);
+		PostRepository.criaNovoPost(titulo, conteudo, usuario, id,key,data);
 	}
 	public static void criaNovoPost(String titulo, String conteudo, String usuario, String id,Key key, Date data) {
 
 		Entity valueEntity = new Entity(key);
 
+		valueEntity.setProperty("id", id);
 		valueEntity.setProperty("titulo", titulo);
 		valueEntity.setProperty("conteudo", conteudo);
 		valueEntity.setProperty("usuario", usuario);
@@ -102,9 +104,12 @@ public class PostRepository {
 						Field.newBuilder().setName("usuario").setText(usuario))
 				.addField(
 						Field.newBuilder().setName("data").setText(
-								data.toString())).addField(
+								data.toString()))
+				.addField(
 						Field.newBuilder().setName("dataDeAtualizacao").setText(
-								data.toString())).build();
+								data.toString()))
+				.addField(
+						Field.newBuilder().setName("id").setText(id)).build();
 
 		PostRepository.getIndex("post").add(document);
 	}
