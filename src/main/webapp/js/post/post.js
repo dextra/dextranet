@@ -81,13 +81,22 @@ function converteData(minhaData) {
 
 function paginacaoDosPost(){
 
+	var paginaSolicitada = 2;
+	var query = "";
+	var ehUmNovoPost = false;
+	var espacoPercorrido = calcularPorcentagemPercorridaDaPagina();
+
 	$(window).scroll(
 			function(){
 				var posicaoDoScroll = window.pageYOffset;
 
-				if(posicaoDoScroll > calcularPorcentagemPercorridaDaPagina()){
-					//busqueMaisPosts();
-					//alert("ok");
+
+				if(posicaoDoScroll > espacoPercorrido){
+
+					alert("ok");
+					espacoPercorrido = posicaoDoScroll;
+					//alert("posição do scrol = " + posicaoDoScroll + " Porcentagem : " + calcularPorcentagemPercorridaDaPagina())
+					//busquePosts(menorPostSolicitado,query,ehUmNovoPost);
 				}
 			}
 	);
@@ -95,7 +104,7 @@ function paginacaoDosPost(){
 
 function calcularPorcentagemPercorridaDaPagina(){
 	var rodapeDaPagina = window.innerHeight;
-	var porcentagemDaPaginaDisparaNovaBusca = 0.70;
+	var porcentagemDaPaginaDisparaNovaBusca = 0.90;
 
 	return(rodapeDaPagina*(porcentagemDaPaginaDisparaNovaBusca));
 }
