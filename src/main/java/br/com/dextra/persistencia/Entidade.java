@@ -2,7 +2,7 @@ package br.com.dextra.persistencia;
 
 import java.util.UUID;
 
-import br.com.dextra.json.JsonUtil;
+import br.com.dextra.utils.JsonUtil;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;

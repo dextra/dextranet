@@ -1,5 +1,3 @@
-// TODO: Existe um outro cara chamado JsonUtil. ELes fazem a mesma coisa? Nao deveriam estar no mesmo
-// local?
 package br.com.dextra.utils;
 
 import java.util.ArrayList;
