@@ -11,14 +11,21 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+
 import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
 import com.google.appengine.api.search.StatusCode;
 
-public class Post {
+/*public class Post {
 
 	public static void criaNovoPost(String titulo, String conteudo,
 			String usuario) {
+*/
+
+public class Post {
+
+	public void criaNovoPost(String titulo, String conteudo, String usuario) {
+
 		long time = new Date().getTime();
 		String id = String.valueOf(time);
 		Key key = KeyFactory.createKey("post", id);
@@ -50,10 +57,7 @@ public class Post {
 						Field.newBuilder().setName("dataDeAtualizacao").setText(
 								data.toString())).build();
 
-		// Put the document.
 		PostRepository.getIndex("post").add(document);
-
-		// System.out.println("Inserido");
 	}
 
 	public boolean pegaDadosCorretos(String titulo, String conteudo,
