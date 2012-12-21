@@ -9,8 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.dextra.post.Post;
-import br.com.dextra.restAPI.PostResource;
-import br.com.dextra.teste.TesteFuncionalBase;
+import br.com.dextra.post.PostRS;
+import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -19,16 +19,9 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import com.google.gson.JsonObject;
 
-public class DextraTest extends TesteFuncionalBase {
-
-	/*
-	 * @Test public void testaBuscaDextraSistemas() {
-	 * siteDextra.navegarNaPagina("http://www.dextra.com.br");
-	 * siteDextra.preencheInputText("input#gsc-i-id1", "java");
-	 * siteDextra.clica("input.gsc-search-button");
-	 * siteDextra.confereResultadoDaBusca(0); }
-	 */
+public class DextraTest extends TesteIntegracaoBase {
 
 	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(
 			new LocalDatastoreServiceTestConfig());
@@ -45,113 +38,151 @@ public class DextraTest extends TesteFuncionalBase {
 	}
 
 	// run this test twice to prove we're not leaking any state across tests
-	private void doTest() {
-		DatastoreService ds = DatastoreServiceFactory.getDatastoreService();
-
-		ds.put(new Entity("yam"));
-		ds.put(new Entity("yam"));
-	}
-
-	@Test
-	public void testInsert1() {
-		doTest();
-	}
-
-	@Test
-	public void testInsert2() {
-		doTest();
-	}
-
-	private void meDeUmPost(String titulo, String conteudo, String usuario,
-			Date data, long time) {
-
-		Key key = KeyFactory.createKey("post", time);
-
-		Entity valueEntity = new Entity(key);
-
-		valueEntity.setProperty("titulo", titulo);
-		valueEntity.setProperty("conteudo", conteudo);
-		valueEntity.setProperty("usuario", usuario);
-		valueEntity.setProperty("data", data);
-
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
-
-		datastore.put(valueEntity);
-	}
+	/*
+	 * private void doTest() { DatastoreService ds =
+	 * DatastoreServiceFactory.getDatastoreService();
+	 *
+	 * ds.put(new Entity("yam")); ds.put(new Entity("yam")); }
+	 *
+	 * @Test public void testInsert1() { doTest(); }
+	 *
+	 * @Test public void testInsert2() { doTest(); }
+	 */
 
 	@Test
 	public void testeListarPosts1() {
 		String resultadoEsperado = "[]";
-		Assert.assertEquals(resultadoEsperado, PostResource.listarPosts("20",
+		Assert.assertEquals(resultadoEsperado, PostRS.listarPosts("20",
 				"", ""));
 	}
 
 	@Test
 	public void testeListarPosts2() {
+
+		String titulo = "Post1";
+		String conteudo = "Content1";
+		String usuario = "User1";
+
 		Date data = new Date();
 		long time = new Date().getTime();
-		meDeUmPost("1 post", "bla", "user", data, time);
+		String id = String.valueOf(time);
+		Key key = KeyFactory.createKey("post", id);
 
-		String json = null;
-		json = "[{\"data\":\""
-				+ data
-				+ "\",\"titulo\":\"1 post\",\"usuario\":\"user\",\"conteudo\":\"bla\",\"key\":\"post("
-				+ time + ")\",\"dataDeAtualizacao\":\""
-				+ data
-				+ "\"}]";
+		Post.criaNovoPost(titulo, conteudo, usuario, id, key, data);
+		StringBuilder comparacao = new StringBuilder();
+		comparacao.append("["
+				+ criaUmJson(titulo, conteudo, usuario, id, key, data) + "]");
 
-		Assert.assertEquals(json, PostResource.listarPosts("20", "", ""));
+		Assert.assertEquals(comparacao.toString(), PostRS.listarPosts(
+				"20", "", ""));
+	}
+
+	private String criaUmJson(String titulo, String conteudo, String usuario,
+			String id, Key key, Date data) {
+
+		JsonObject json = new JsonObject();
+
+		json.addProperty("titulo", titulo);
+		json.addProperty("usuario", usuario);
+		json.addProperty("comentarios", "0");
+		json.addProperty("dataDeAtualizacao", data.toString());
+		json.addProperty("conteudo", conteudo);
+		json.addProperty("likes", "0");
+		json.addProperty("data", data.toString());
+		json.addProperty("key", key.toString());
+
+		return json.toString();
 	}
 
 	@Test
 	public void testeListarPosts3() {
+
+		String titulo = "Post1";
+		String conteudo = "Content1";
+		String usuario = "User1";
+
+		Date data = new Date();
+		long time = new Date().getTime();
+		String id = String.valueOf(time);
+		Key key = KeyFactory.createKey("post", id);
+
+		Post.criaNovoPost(titulo, conteudo, usuario, id, key, data);
+
+		String titulo2 = "Post2";
+		String conteudo2 = "Content2";
+		String usuario2 = "User2";
+
 		Date data2 = new Date();
 		long time2 = new Date().getTime();
-		 meDeUmPost("2 post","bla2","user2" , data2,time2);
+		String id2 = String.valueOf(time2);
+		Key key2 = KeyFactory.createKey("post", id2);
+
+		Post.criaNovoPost(titulo2, conteudo2, usuario2, id2, key2, data2);
+
+		String titulo3 = "Post3";
+		String conteudo3 = "Content3";
+		String usuario3 = "User3";
 
 		Date data3 = new Date();
 		long time3 = new Date().getTime();
-		 meDeUmPost("3 post","bla3","user3" , data3,time3);
+		String id3 = String.valueOf(time3);
+		Key key3 = KeyFactory.createKey("post", id3);
 
-		String json = null;
-		json = "[{\"data\":\""
-				+ data2
-				+ "\",\"titulo\":\"2 post\",\"usuario\":\"user2\",\"conteudo\":\"bla2\",\"key\":\"post("+time2+")\"},"
-				+ "{\"data\":\""
-				+ data3
-				+ "\",\"titulo\":\"3 post\",\"usuario\":\"user3\",\"conteudo\":\"bla3\",\"key\":\"post("+time3+")\",\"dataDeAtualizacao\":\""
-				+ data3
-				+ "\"}]";
+		Post.criaNovoPost(titulo3, conteudo3, usuario3, id3, key3, data3);
 
-		Assert.assertEquals(json, PostResource.listarPosts("2", "", ""));
+		StringBuilder comparacao = new StringBuilder();
+		comparacao.append("["
+				+ criaUmJson(titulo3, conteudo3, usuario3, id3, key3, data3) +",");
+		comparacao.append(criaUmJson(titulo2, conteudo2, usuario2, id2, key2, data2) +"]");
+
+		Assert.assertEquals(comparacao.toString(), PostRS.listarPosts(
+				"2", "", ""));
+
 	}
 
 	@Test
 	public void testeListarPosts4() {
 		Date data1 = new Date();
-		long time1 = new Date().getTime();
-		 meDeUmPost("1 post","bla1","user1" , data1,time1);
+		String titulo = "Post1";
+		String conteudo = "Content1";
+		String usuario = "User1";
+
+		Date data = new Date();
+		long time = new Date().getTime();
+		String id = String.valueOf(time);
+		Key key = KeyFactory.createKey("post", id);
+
+		Post.criaNovoPost(titulo, conteudo, usuario, id, key, data);
+
+		String titulo2 = "Post2";
+		String conteudo2 = "Content2";
+		String usuario2 = "User2";
 
 		Date data2 = new Date();
 		long time2 = new Date().getTime();
-		 meDeUmPost("2 post","bla2","user2" , data2,time2);
+		String id2 = String.valueOf(time2);
+		Key key2 = KeyFactory.createKey("post", id2);
+
+		Post.criaNovoPost(titulo2, conteudo2, usuario2, id2, key2, data2);
+
+		String titulo3 = "Post3";
+		String conteudo3 = "Content3";
+		String usuario3 = "User3";
 
 		Date data3 = new Date();
 		long time3 = new Date().getTime();
-		 meDeUmPost("3 post","bla3","user3" , data3,time3);
+		String id3 = String.valueOf(time3);
+		Key key3 = KeyFactory.createKey("post", id3);
 
-		String json = null;
-		json = "[{\"data\":\""
-				+ data2
-				+ "\",\"titulo\":\"2 post\",\"usuario\":\"user2\",\"conteudo\":\"bla2\",\"key\":\"post("+time2+")\"},"
-				+ "{\"data\":\""
-				+ data3
-				+ "\",\"titulo\":\"3 post\",\"usuario\":\"user3\",\"conteudo\":\"bla3\",\"key\":\"post("+time3+")\"}]";
+		Post.criaNovoPost(titulo3, conteudo3, usuario3, id3, key3, data3);
 
-		Assert.assertEquals(json, PostResource.listarPosts("2", "", "post(\""+time2+"\")"));
+		StringBuilder comparacao = new StringBuilder();
+		comparacao.append("["
+				+ criaUmJson(titulo, conteudo, usuario, id, key, data) +"]");
+
+		Assert.assertEquals(comparacao.toString(), PostRS.listarPosts("2", "", "post(\""
+				+ id + "\")"));
 	}
-
 
 	// FIXME: Gabriel/Tonho estão com problemas que serão resolvidos rapida e
 	// futuramente!
