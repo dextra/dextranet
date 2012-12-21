@@ -1,5 +1,5 @@
 
-import br.com.dextra.gae.*;
+import br.com.dextra.teste.container.*;
 
 helper = new GAETestHelper();
 helper.setPort(8080);
