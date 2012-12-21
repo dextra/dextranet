@@ -101,8 +101,7 @@ public class DextraTest extends TesteIntegracaoBase {
 		String usuario = "User1";
 
 		Date data = new Date();
-		long time = new Date().getTime();
-		String id = String.valueOf(time);
+		String id =  Utils.geraID();
 		Key key = KeyFactory.createKey("post", id);
 
 		PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
@@ -112,8 +111,7 @@ public class DextraTest extends TesteIntegracaoBase {
 		String usuario2 = "User2";
 
 		Date data2 = new Date();
-		long time2 = new Date().getTime();
-		String id2 = String.valueOf(time2);
+		String id2 =  Utils.geraID();
 		Key key2 = KeyFactory.createKey("post", id2);
 
 		PostRepository.criaNovoPost(titulo2, conteudo2, usuario2, id2, key2,
@@ -124,8 +122,7 @@ public class DextraTest extends TesteIntegracaoBase {
 		String usuario3 = "User3";
 
 		Date data3 = new Date();
-		long time3 = new Date().getTime();
-		String id3 = String.valueOf(time3);
+		String id3 = Utils.geraID();
 		Key key3 = KeyFactory.createKey("post", id3);
 
 		PostRepository.criaNovoPost(titulo3, conteudo3, usuario3, id3, key3,
@@ -147,7 +144,7 @@ public class DextraTest extends TesteIntegracaoBase {
 	// FIXME:Gabriel/Tonho encontraram a solução para o FTS e voltarão a esse
 	// test mais tarde
 
-	/*
+/*
 	 * @Test public void testeListarPosts4() { Date data1 = new Date(); String
 	 * titulo = "Post1"; String conteudo = "Content1"; String usuario = "User1";
 	 *

@@ -37,3 +37,15 @@ function busquePosts(menorPostSolicitado,query,ehUmNovoPost){
 		}
 	});
 }
+function setActiveMenuLateral(id)
+{
+	//limpa o active atual
+	$("#sidebar-left-home").attr("class","");
+	$("#sidebar-left-new-post").attr("class","");
+	$("#sidebar-left-category").attr("class","");
+	$("#sidebar-left-profile").attr("class","");
+	$("#sidebar-left-team").attr("class","");
+
+	//adiciona o active na li desejada
+	$(id).attr("class","active");
+}

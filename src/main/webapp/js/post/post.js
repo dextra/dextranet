@@ -1,6 +1,7 @@
 function abrePaginaNovoPost()
 {
 	$.holy("../template/abre-pagina-novo-post.xml", {});
+	setActiveMenuLateral("#sidebar-left-new-post");
 }
 
 function fazPesquisa()
@@ -11,7 +12,7 @@ function fazPesquisa()
 		url : "/s/post",
 		data : "max-results=5&q=" + textSearch,
 		success : function(jsonArrayPost) {
-			$.holy("../template/HomePage.xml", {"jsonArrayPost" : jsonArrayPost});
+			$.holy("../template/carrega-miolo-home-page.xml", {"jsonArrayPost" : jsonArrayPost});
 		}
 	});
 }
@@ -37,11 +38,12 @@ function criaNovoPost() {
 }
 
 function converteData(minhaData) {
-	minhaData.replace("June","Jun");
+
+	/*minhaData.replace("June","Jun");
 	minhaData.replace("July","Jun");
 	minhaData.replace("Sept","Sep");
 	minhaData.replace("Tues","Tue");
-	minhaData.replace("Thurs","Thu");
+	minhaData.replace("Thurs","Thu");*/
 
 	var diaS = minhaData.slice(0, 3);
 	var dia  = minhaData.slice(8, 10);
