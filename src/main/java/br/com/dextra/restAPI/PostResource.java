@@ -19,21 +19,24 @@ import com.google.appengine.api.datastore.Entity;
 @Path("/posts")
 public class PostResource {
 
-
+	static final String SMAXRESULTS = "20";
+	final int MAXRESULTS = Integer.parseInt(SMAXRESULTS);
 
 	@GET
 	@Produces("application/json;charset=UTF-8")
 	public static String listarPosts(
-			@DefaultValue("20") @QueryParam(value = "max-results") String maxResults,
-			@DefaultValue("") @QueryParam(value = "q") String q) {
-		if(q.equals(""))
-		{
-		Iterable<Entity> listaPosts = PostRepository.buscarTodosOsPosts(Integer.parseInt(maxResults));
-		return EntityJsonConverter.converterListaEntities(listaPosts).toString();
-		}
-		else
-		{
-			return PostRepository.buscarPosts(Integer.parseInt(maxResults), q).toString();
+			@DefaultValue(SMAXRESULTS) @QueryParam(value = "max-results") String maxResults,
+			@DefaultValue("") @QueryParam(value = "q") String q,
+			@DefaultValue("") @QueryParam(value = "key") String key) {
+
+		if (q.equals("")) {
+			Iterable<Entity> listaPosts = PostRepository
+					.buscarTodosOsPosts(Integer.parseInt(maxResults),key);
+			return EntityJsonConverter.converterListaEntities(listaPosts)
+					.toString();
+		} else {
+			return PostRepository.buscarPosts(Integer.parseInt(maxResults), q)
+					.toString();
 		}
 	}
 

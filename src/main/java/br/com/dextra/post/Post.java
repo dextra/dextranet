@@ -2,6 +2,8 @@ package br.com.dextra.post;
 
 import java.util.Date;
 
+import br.com.dextra.repository.PostRepository;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -10,9 +12,20 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 
+import com.google.appengine.api.search.Document;
+import com.google.appengine.api.search.Field;
+import com.google.appengine.api.search.StatusCode;
+
+/*public class Post {
+
+	public static void criaNovoPost(String titulo, String conteudo,
+			String usuario) {
+*/
+
 public class Post {
 
 	public void criaNovoPost(String titulo, String conteudo, String usuario) {
+
 		long time = new Date().getTime();
 		String id = String.valueOf(time);
 		Key key = KeyFactory.createKey("post", id);
@@ -26,23 +39,25 @@ public class Post {
 		valueEntity.setProperty("likes", 0);
 		Date data = new Date();
 		valueEntity.setProperty("data", data);
+		valueEntity.setProperty("dataDeAtualizacao", data);
 
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
 		datastore.put(valueEntity);
 
-		// Document document = Document.newBuilder().setId(id)
-		// .addField(Field.newBuilder().setName("titulo").setText(titulo))
-		// .addField(Field.newBuilder().setName("conteudo").setText(conteudo))
-		// .addField(Field.newBuilder().setName("usuario").setText(usuario))
-		// .addField(Field.newBuilder().setName("data").setText(data.toString()))
-		// .build();
-		//
-		// // Put the document.
-		// PostRepository.getIndex("post").add(document);
+		Document document = Document.newBuilder().setId(id).addField(
+				Field.newBuilder().setName("titulo").setText(titulo)).addField(
+				Field.newBuilder().setName("conteudo").setText(conteudo))
+				.addField(
+						Field.newBuilder().setName("usuario").setText(usuario))
+				.addField(
+						Field.newBuilder().setName("data").setText(
+								data.toString())).addField(
+						Field.newBuilder().setName("dataDeAtualizacao").setText(
+								data.toString())).build();
 
-		// System.out.println("Inserido");
+		PostRepository.getIndex("post").add(document);
 	}
 
 	public boolean pegaDadosCorretos(String titulo, String conteudo,
