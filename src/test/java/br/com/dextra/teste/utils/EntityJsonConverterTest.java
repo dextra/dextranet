@@ -1,10 +1,12 @@
-package br.com.dextra.utils;
+package br.com.dextra.teste.utils;
 
 import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import br.com.dextra.utils.EntityJsonConverter;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
