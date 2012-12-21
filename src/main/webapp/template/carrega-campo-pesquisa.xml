@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<template selector="#search">
+		<form action="" id="form-search">
+			<input type="text" id="form-search-input" />
+			<input type="submit" value="" title="Procurar!" id="form-search-submit" />
+		</form>
+	</template>
+</engine>

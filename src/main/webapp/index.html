@@ -13,9 +13,14 @@
     <script type="text/javascript" src="holy/lib/jquery.holycomponents.js"></script>
 
 	<script type="text/javascript" src="js/interface.js"></script>
+	<script type="text/javascript" src="js/home-page.js"></script>
 	<script type="text/javascript" src="js/post/post.js"></script>
 
 	<title>Dextranet - Integrado Continuamente</title>
+
+	<script>
+		$(document).ready(carregaDadosHomePage);
+	</script>
 </head>
 <body>
 
@@ -28,128 +33,36 @@
 
 			<!-- Menu principal no topo -->
 			<ul id="header-main-menu">
-				<li id="header-main-menu-logo">
-					<a href="#">
-						<span class="icon-header-logo"></span>
-					</a>
-				</li>
-				<li>
-					<a href="https://dextranet.dextra.com.br/pma">
-						PMA
-					</a>
-				</li>
-				<li>
-					<a href="https://dextranet.dextra.com.br/tracker/ti/newticket">
-						Infra
-					</a>
-				</li>
-				<li>
-					<a href="https://dextranet.dextra.com.br/wiki/wiki">
-						Wiki
-					</a>
-				</li>
-				<li>
-					<a href="https://dextranet.dextra.com.br/portal/ramais">
-						Ramais
-					</a>
-				</li>
-				<li id="header-main-menu-outros">
-					<a href="#">
-						Outros
-						<span class="shape-arrow-right"></span>
-						<span class="shape-arrow-down"></span>
-					</a>
-					<ul class="header-dropdown">
-						<li>
-							<a href="http://dextra-dexboard.appspot.com/">Dexboard</a>
-						</li>
-						<li>
-							<a href="https://dextranet.dextra.com.br/dextraminds">Minds</a>
-						</li>
-						<li>
-							<a href="https://redmine.dextra.com.br">Redmine</a>
-						</li>
-					</ul>
-				</li>
+
 			</ul><!-- #header-main-menu -->
 
 			<!-- Caixa com dados do usuario -->
 			<div id="box-user">
-				<div id="box-user-info">
-					<img src="" alt="photo" />
-					user.dextra
-					<span class="shape-arrow-right"></span>
-					<span class="shape-arrow-down"></span>
-					<div class="header-dropdown" id="box-user-profile">
-						<h3>User</h3>
-						<span>user@dextra-sw.com</span>
-					</div>
-				</div>
-				<div id="box-user-notifications">
-					<span class="highlight">3</span>
-					<ul id="box-user-notifications-full" class="header-dropdown">
-						<li>
-							<p>
-								Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou
-								não ser, eis a questão"</a>...
-							</p>
-						</li>
-						<li>
-							<p>
-								Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou
-								não ser, eis a questão"</a>...
-							</p>
-						</li>
-					</ul>
-				</div>
+
 			</div><!-- #box-user -->
 
 		</div><!-- #header-container -->
 
 		<!-- Menu lateral esquerdo -->
 		<div id="sidebar-left" rel="section">
-			<ul id="sidebar-left-menu">
-				<li class="active">
-					<a href="#" id="button-sidebar-left-home">
-						<span class="icon-sidebar-left-home"></span>
-						Home
-					</a>
-					<script>
-						$("#button-sidebar-left-home").click(abrePaginaInicial);
-					</script>
-				</li>
-				<li>
-					<a href="#" id="button-sidebar-left-novopost">
-						<span class="icon-sidebar-left-novopost"></span>
-						Novo Post
-					</a>
-					<script>
-						$("#button-sidebar-left-novopost").click(abrePaginaNovoPost);
-					</script>
-				</li>
-				<li>
-					<a href="pages/categoria/categoria.html">
-						<span class="icon-sidebar-left-categoria"></span>
-						Categoria
-					</a>
-				</li>
-				<li>
-					<a href="pages/perfil/perfil.html">
-						<span class="icon-sidebar-left-perfil"></span>
-						Perfil
-					</a>
-				</li>
-				<li>
-					<a href="pages/equipe/equipe.html">
-						<span class="icon-sidebar-left-equipe"></span>
-						Equipe
-					</a>
-				</li>
-			</ul>
+
 		</div><!-- #sidebar-left -->
 
 		<!-- Miolo -->
 		<div id="container-main" class="clearfix">
+			<!-- Sidebar do lado direito -->
+			<div id="sidebar-right" rel="section">
+
+			</div><!-- #sidebar-right -->
+
+			<!-- Campo de pesquisa -->
+			<div id="search">
+
+			</div><!-- #search -->
+
+		<!-- Listagem de estorias da Intranet -->
+		<ul class="list-stories">
+		</ul><!-- .list-stories -->
 
 		</div><!-- #container-main -->
 
