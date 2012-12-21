@@ -14,7 +14,7 @@ function criaNovoPost() {
 	else {
 		$.ajax( {
 			type : "POST",
-			url : "/s/post/novo",
+			url : "/s/post",
 			data : post,
 			success : function() {
 				carregaDadosHomePage2(true);
