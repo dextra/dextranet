@@ -1,4 +1,4 @@
-package br.com.dextra.testeSeleniumHomePage;
+package br.com.dextra.dextranet.web.post;
 
 import org.junit.Test;
 
