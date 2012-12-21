@@ -140,7 +140,10 @@ public class DextraTest extends TesteIntegracaoBase {
 
 	}
 
-	@Test
+
+//FIXME:Gabriel/Tonho encontraram a solução para o FTS e voltarão a esse test mais tarde
+
+	/*@Test
 	public void testeListarPosts4() {
 		Date data1 = new Date();
 		String titulo = "Post1";
@@ -183,6 +186,8 @@ public class DextraTest extends TesteIntegracaoBase {
 		Assert.assertEquals(comparacao.toString(), PostRS.listarPosts("2", "", "post(\""
 				+ id + "\")"));
 	}
+*/
+
 
 	// FIXME: Gabriel/Tonho estão com problemas que serão resolvidos rapida e
 	// futuramente!
