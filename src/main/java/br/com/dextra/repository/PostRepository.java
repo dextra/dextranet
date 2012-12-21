@@ -5,9 +5,7 @@ package br.com.dextra.repository;
 
 import java.util.ArrayList;
 import java.util.Date;
-
 import br.com.dextra.utils.EntityJsonConverter;
-
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -22,10 +20,6 @@ import com.google.appengine.api.search.IndexSpec;
 import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.SearchServiceFactory;
 import com.google.gson.JsonObject;
-
-
-
-
 
 public class PostRepository {
 
@@ -66,8 +60,8 @@ public class PostRepository {
 				.build();
 
 		com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query.newBuilder().setOptions(options).build(q);
-
-		return	EntityJsonConverter.toJson(getIndex("post").search(query));
+		EntityJsonConverter.toJson(getIndex("post").search(query));
+		return	null;
 
 
 
