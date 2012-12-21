@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import br.com.dextra.post.PostRS;
-import br.com.dextra.restAPI.PostResource;
 
 public class Application extends javax.ws.rs.core.Application {
 
@@ -15,7 +14,6 @@ public class Application extends javax.ws.rs.core.Application {
 	@Override
 	public Set<Class<?>> getClasses() {
 		Set<Class<?>> classes = new HashSet<Class<?>>();
-		classes.add(PostResource.class);
 		classes.add(PostRS.class);
 		return classes;
 	}

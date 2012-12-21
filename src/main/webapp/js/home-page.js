@@ -6,7 +6,7 @@ function carregaDadosHomePage()
 
 	$.ajax( {
 		type : 'GET',
-		url : "/s/posts",
+		url : "/s/post",
 		data : "max-results=20&q=",
 		success : function(jsonArrayPost) {
 			$.holy("../template/carrega-miolo-home-page.xml",

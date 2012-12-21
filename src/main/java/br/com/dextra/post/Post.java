@@ -29,6 +29,11 @@ public class Post {
 		long time = new Date().getTime();
 		String id = String.valueOf(time);
 		Key key = KeyFactory.createKey("post", id);
+		Date data = new Date();
+
+		this.criaNovoPost(titulo, conteudo, usuario, id,key,data);
+	}
+	public static void criaNovoPost(String titulo, String conteudo, String usuario, String id,Key key, Date data) {
 
 		Entity valueEntity = new Entity(key);
 
@@ -37,7 +42,6 @@ public class Post {
 		valueEntity.setProperty("usuario", usuario);
 		valueEntity.setProperty("comentarios", 0);
 		valueEntity.setProperty("likes", 0);
-		Date data = new Date();
 		valueEntity.setProperty("data", data);
 		valueEntity.setProperty("dataDeAtualizacao", data);
 
@@ -46,7 +50,7 @@ public class Post {
 
 		datastore.put(valueEntity);
 
-		Document document = Document.newBuilder().setId(id).addField(
+/*		Document document = Document.newBuilder().setId(id).addField(
 				Field.newBuilder().setName("titulo").setText(titulo)).addField(
 				Field.newBuilder().setName("conteudo").setText(conteudo))
 				.addField(
@@ -57,7 +61,7 @@ public class Post {
 						Field.newBuilder().setName("dataDeAtualizacao").setText(
 								data.toString())).build();
 
-		PostRepository.getIndex("post").add(document);
+		PostRepository.getIndex("post").add(document);*/
 	}
 
 	public boolean pegaDadosCorretos(String titulo, String conteudo,

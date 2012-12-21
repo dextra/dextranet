@@ -38,17 +38,19 @@ public class PostRepository {
 
 	public static Iterable<Entity> buscarTodosOsPosts(int maxResults, String key) {
 
-		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
 		Query query = new Query("post");
-		if(!key.equals(""))
-		{
-			Key key2=KeyFactory.createKey("post", key.substring(6, key.length()-2));
+		if (!key.equals("")) {
+			Key key2 = KeyFactory.createKey("post", key.substring(6, key
+					.length() - 2));
 
-			System.out.println(key2.toString()+" # "+key);
+			System.out.println(key2.toString() + " # " + key);
+			query.setAncestor(key2);
 
 		}
-		query.addSort("data",SortDirection.DESCENDING);
+
+		query.addSort("dataDeAtualizacao", SortDirection.DESCENDING);
 		PreparedQuery prepared = datastore.prepare(query);
 
 		FetchOptions opts = FetchOptions.Builder.withDefaults();
