@@ -3,13 +3,18 @@
 	<template selector="#container-main">
 		<div id="div-bonito">
 			<form action="" id="form-new-post">
-				<input size="51" type="text" id="form-input-title" placeholder="Digite o título do post"></input><br/>
-				<textarea cols="50" id="form-input-content" style="resize:none" placeholder="Digite o conteúdo do post"></textarea><br/>
+				<input size="51" type="text" id="form-input-title"
+					placeholder="Digite o título do post"></input>
+				<br />
+				<textarea cols="50" id="form-input-content" style="resize:none"
+					placeholder="Digite o conteúdo do post"></textarea>
+				<br />
 				<input type="submit" value="Postar" id="form-post-submit" />
-				<script>
-					$("#form-new-post").submit(criaNovoPost);
-				</script>
 			</form>
 		</div>
 	</template>
+	<script>
+		new nicEditor().panelInstance('form-input-content');
+		$("#form-new-post").submit(criaNovoPost);
+	</script>
 </engine>
