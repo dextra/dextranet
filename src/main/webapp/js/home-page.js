@@ -1,29 +1,42 @@
-function carregaDadosHomePage(temNovoPost)
-{
-	$.holy("../template/carrega-menu-principal.xml", {});
-	$.holy("../template/carrega-menu-lateral.xml", {});
-	$.holy("../template/carrega-dados-usuario.xml", {});
 
-	$.ajax( {
-		type : 'GET',
-		url : "/s/post",
-		data : "max-results=20&q=",
-		success : function(jsonArrayPost) {
-			$.holy("../template/carrega-miolo-home-page.xml",
-					{
-						"jsonArrayPost" : jsonArrayPost,
-						"sucesso" : temNovoPost
-					});
-		}
-	});
+function carregaDadosHomePage()
+{
+	carregueOsTemplates();
+	busquePosts(0,"",false);
 	$(document).delay(1000);
 }
 
-function chamaMetodoCarregaDadosHomePage()
+function carregaDadosHomePage(temUmNovoPost)
 {
-	carregaDadosHomePage(false);
+	carregueOsTemplates();
+	busquePosts(0,"",temUmNovoPost);
+	$(document).delay(1000);
 }
 
+function carregueOsTemplates(){
+	$.holy("../template/carrega-menu-principal.xml", {});
+	$.holy("../template/carrega-menu-lateral.xml", {});
+	$.holy("../template/carrega-dados-usuario.xml", {});
+}
+
+function busquePosts(menorPostSolicitado,query,ehUmNovoPost){
+	var tipo = 'GET';
+    var url = "/s/post";
+    var quantidadePostsRecuperados = "20";
+
+	$.ajax( {
+		type : tipo,
+		url : url,
+		data : "max-results=" + quantidadePostsRecuperados + "&q="+query,
+		success : function(posts) {
+			$.holy("../template/carrega-miolo-home-page.xml",
+					{
+						"jsonArrayPost" : posts,
+						"sucesso" : ehUmNovoPost
+					});
+		}
+	});
+}
 function setActiveMenuLateral(id)
 {
 	//limpa o active atual

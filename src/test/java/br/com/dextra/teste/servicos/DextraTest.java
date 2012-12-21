@@ -1,4 +1,4 @@
-package br.com.dextra.teste.exemplo;
+package br.com.dextra.teste.servicos;
 
 import java.util.Date;
 
@@ -34,18 +34,6 @@ public class DextraTest extends TesteIntegracaoBase {
 	public void tearDown() {
 		helper.tearDown();
 	}
-
-	// run this test twice to prove we're not leaking any state across tests
-	/*
-	 * private void doTest() { DatastoreService ds =
-	 * DatastoreServiceFactory.getDatastoreService();
-	 *
-	 * ds.put(new Entity("yam")); ds.put(new Entity("yam")); }
-	 *
-	 * @Test public void testInsert1() { doTest(); }
-	 *
-	 * @Test public void testInsert2() { doTest(); }
-	 */
 
 	@Test
 	public void testeListarPosts1() {
