@@ -28,7 +28,7 @@ function abrePaginaNovoPost() {
 function abrePaginaInicial() {
 	$.ajax( {
 		type : 'GET',
-		url : "/s/posts",
+		url : "/s/post",
 		data : "max-results=20&q=",
 		success : function(jsonArrayPost) {
 			$.holy("../template/HomePage.xml", {
