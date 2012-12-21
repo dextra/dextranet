@@ -3,13 +3,10 @@
 	<template selector="#sidebar-left">
 		<ul id="sidebar-left-menu">
 			<li class="active">
-				<a href="#" id="button-sidebar-left-home">
+				<a href="../index.html" id="button-sidebar-left-home">
 					<span class="icon-sidebar-left-home"></span>
 					Home
 				</a>
-				<script>
-					$("#button-sidebar-left-home").click(carregaDadosHomePage);
-				</script>
 			</li>
 			<li>
 				<a href="#" id="button-sidebar-left-novopost">

@@ -21,6 +21,7 @@ function criaNovoPost() {
 		"title" : $("#form-input-title").val(),
 		"content" : $("#form-input-content").val(),
 	}
+
 	if ((post.title == "") || (post.content == ""))
 		alert("Preencha todos os campos.");
 	else {
@@ -29,7 +30,7 @@ function criaNovoPost() {
 			url : "/s/post",
 			data : post,
 			success : function() {
-				carregaDadosHomePage2(true);
+				carregaDadosHomePage(true);
 			}
 		});
 	}
@@ -74,4 +75,25 @@ function converteData(minhaData) {
 	}
 
 	return diaS + ", " + dia + "/" + mes + "/" + ano + " - " + hora;
+}
+
+function paginacaoDosPost(){
+
+	$(window).scroll(
+			function(){
+				var posicaoDoScroll = window.pageYOffset;
+
+				if(posicaoDoScroll > calcularPorcentagemPercorridaDaPagina()){
+					//busqueMaisPosts();
+					//alert("ok");
+				}
+			}
+	);
+}
+
+function calcularPorcentagemPercorridaDaPagina(){
+	var rodapeDaPagina = window.innerHeight;
+	var porcentagemDaPaginaDisparaNovaBusca = 0.70;
+
+	return(rodapeDaPagina*(porcentagemDaPaginaDisparaNovaBusca));
 }
