@@ -64,6 +64,6 @@
 	</template>
 
 	<script>
-		setActiveMenuLateral();
+		carregaOpcaoVerMais();
 	</script>
 </engine>

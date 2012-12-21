@@ -23,7 +23,6 @@
       var $this = $(this);
       var elemID = $this.attr("id");
       var eachPost = $("#"+elemID);
-      console.log(eachPost.html().length);
       if (eachPost.html().length > opts.substr_len) {
 
         abridge(eachPost);

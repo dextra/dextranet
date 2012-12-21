@@ -44,7 +44,7 @@ function setActiveMenuLateral(id) {
 	// adiciona o active na li desejada
 	$(id).attr("class", "active");
 }
-function setActiveMenuLateral(id) {
+function carregaOpcaoVerMais(id) {
 	$(".list-stories-lead").readmore( {
 		substr_len : 50,
 		split_word : false,
