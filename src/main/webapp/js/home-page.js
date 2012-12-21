@@ -41,16 +41,3 @@ function carregaDadosHomePage2(temNovoPost)
 
 	$(document).delay(1000);
 }
-
-function fazPesquisa()
-{
-	var textSearch = $('#form-search-input').val();
-	$.ajax({
-		type : 'GET',
-		url : "/s/post",
-		data : "max-results=5&q=" + textSearch,
-		success : function(jsonArrayPost) {
-			$.holy("../template/HomePage.xml", {"jsonArrayPost" : jsonArrayPost});
-		}
-	});
-}
