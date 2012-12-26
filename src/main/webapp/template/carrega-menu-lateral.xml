@@ -13,9 +13,6 @@
 					<span class="icon-sidebar-left-novopost"></span>
 					Novo Post
 				</a>
-				<script>
-					$("#button-sidebar-left-novopost").click(abrePaginaNovoPost);
-				</script>
 			</li>
 			<li id="sidebar-left-category">
 				<a href="pages/categoria/categoria.html">
@@ -37,4 +34,7 @@
 			</li>
 		</ul>
 	</template>
+	<script>
+		$("#button-sidebar-left-novopost").click(abrePaginaNovoPost);
+	</script>
 </engine>

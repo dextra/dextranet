@@ -125,9 +125,4 @@ public class GAETestHelper {
 
 
 	}
-
-	public static void main(String[] args) {
-		//JsonObject
-	}
-
 }
