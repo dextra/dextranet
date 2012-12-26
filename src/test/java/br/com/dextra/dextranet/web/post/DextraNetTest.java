@@ -18,9 +18,8 @@ public class DextraNetTest extends TesteFuncionalBase {
 		siteDextraNet.navigateTo("http://localhost:8080/");
 		siteDextraNet.click("span.icon-sidebar-left-novopost");
 		siteDextraNet.writeInputText("input#form-input-title",
-				"KaiqueCineminha");
-		siteDextraNet.writeTextArea("#form-input-content",
-				"KaiqueVaiNoCineminha");
+		"KaiqueCineminha");
+		siteDextraNet.writeCKEditor("KaiqueVaiNoCineminha");
 		siteDextraNet.click("input#form-post-submit");
 		siteDextraNet.verificaSeApareceuPostIncluido();
 
