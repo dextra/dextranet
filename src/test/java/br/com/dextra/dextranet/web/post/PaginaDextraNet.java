@@ -18,9 +18,9 @@ public class PaginaDextraNet extends PageObject {
 		Assert.assertTrue(this.getElement("span.icon-header-logo") != null);
 	}
 
-	public void verificaSeApareceuPostIncluido() {
-		Assert.assertEquals("KaiqueVaiNoCineminha", this
-				.getElementContent("p.list-stories-lead"));
+	public void verificaSeIncluiuPost() {
+		Assert.assertEquals("Sucesso!", this
+				.getElementContent("li.success"));
 	}
 
 	public void verificaSeApareceuPostBuscado() {

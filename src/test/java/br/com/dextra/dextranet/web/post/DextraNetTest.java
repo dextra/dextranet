@@ -1,6 +1,5 @@
 package br.com.dextra.dextranet.web.post;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.dextra.teste.TesteFuncionalBase;
@@ -14,7 +13,7 @@ public class DextraNetTest extends TesteFuncionalBase {
 		siteDextraNet.verificaSeTemLogoHomePage();
 	}
 
-
+	@Test
 	public void testeCriarEListarPost() {
 		siteDextraNet.navigateTo("http://localhost:8080/");
 		siteDextraNet.click("span.icon-sidebar-left-novopost");
@@ -22,7 +21,7 @@ public class DextraNetTest extends TesteFuncionalBase {
 		"KaiqueCineminha");
 		siteDextraNet.writeCKEditor("KaiqueVaiNoCineminha");
 		siteDextraNet.click("input#form-post-submit");
-		siteDextraNet.verificaSeApareceuPostIncluido();
+		siteDextraNet.verificaSeIncluiuPost();
 
 	}
 
