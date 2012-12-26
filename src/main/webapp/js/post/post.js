@@ -33,7 +33,7 @@ function criaNovoPost() {
 			url : "/s/post",
 			data : post,
 			success : function() {
-				carregaDadosHomePage(true);
+				carregaDadosHomePageAposInclusao();
 			}
 		});
 	}

@@ -4,9 +4,9 @@ function carregaDadosHomePage() {
 	$(document).delay(1000);
 }
 
-function carregaDadosHomePage(temUmNovoPost) {
+function carregaDadosHomePageAposInclusao() {
 	carregueOsTemplates();
-	busquePosts(0, "", temUmNovoPost);
+	busquePosts(0, "", true);
 	$(document).delay(1000);
 }
 
