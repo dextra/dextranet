@@ -13,6 +13,7 @@
 			</form>
 		</div>
 	</template>
+
 	<script>
 		CKEDITOR.replace('form-input-content');
 		$("#form-new-post").submit(criaNovoPost);
