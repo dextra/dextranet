@@ -39,12 +39,6 @@ function criaNovoPost() {
 
 function converteData(minhaData) {
 
-	/*minhaData.replace("June","Jun");
-	minhaData.replace("July","Jun");
-	minhaData.replace("Sept","Sep");
-	minhaData.replace("Tues","Tue");
-	minhaData.replace("Thurs","Thu");*/
-
 	var diaS = minhaData.slice(0, 3);
 	var dia  = minhaData.slice(8, 10);
 	var mes  = minhaData.slice(4, 7);
@@ -92,10 +86,7 @@ function paginacaoDosPost(){
 
 
 				if(posicaoDoScroll > espacoPercorrido){
-
-					alert("ok");
 					espacoPercorrido = posicaoDoScroll;
-					//alert("posição do scrol = " + posicaoDoScroll + " Porcentagem : " + calcularPorcentagemPercorridaDaPagina())
 					//busquePosts(menorPostSolicitado,query,ehUmNovoPost);
 				}
 			}
