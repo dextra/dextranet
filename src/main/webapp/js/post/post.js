@@ -18,16 +18,16 @@ function fazPesquisa()
 }
 
 function criaNovoPost() {
+	if (($("#form-input-title").val() == "") || (CKEDITOR.instances.form_input_content.getData() == ""))
+	{
+		alert("Preencha todos os campos.");
+	}
+	else {
 	var post = {
 		"title" : $("#form-input-title").val(),
 		"content" : CKEDITOR.instances.form_input_content.getData()
 	}
 
-	if ((post.title == "") || (post.content == ""))
-	{
-		alert("Preencha todos os campos.");
-	}
-	else {
 		$.ajax( {
 			type : "POST",
 			url : "/s/post",
