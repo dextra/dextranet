@@ -5,13 +5,15 @@ function abrePaginaNovoPost() {
 
 function fazPesquisa() {
 	var textSearch = $('#form-search-input').val();
+	alert(textSearch);
 	$.ajax( {
 		type : 'GET',
 		url : "/s/post",
 		data : "max-results=5&q=" + textSearch,
 		success : function(jsonArrayPost) {
 			$.holy("../template/carrega-miolo-home-page.xml", {
-				"jsonArrayPost" : jsonArrayPost
+				"jsonArrayPost" : jsonArrayPost,
+				"sucesso":false
 			});
 		}
 	});
@@ -126,23 +128,6 @@ function paginacaoDosPost() {
 	var margemParaNovaBusca = 1.15;
 	console.log("posição mininma " + posicaoMinimaParaNovaPagina);
 
-<<<<<<< HEAD
-	$(window).scroll(function() {
-		var posicaoDoScroll = window.pageYOffset;
-
-		if (posicaoDoScroll > espacoPercorrido) {
-			espacoPercorrido = posicaoDoScroll;
-			// busquePosts(menorPostSolicitado,query,ehUmNovoPost);
-		}
-	});
-}
-
-function calcularPorcentagemPercorridaDaPagina() {
-	var rodapeDaPagina = window.innerHeight;
-	var porcentagemDaPaginaDisparaNovaBusca = 0.90;
-
-	return (rodapeDaPagina * (porcentagemDaPaginaDisparaNovaBusca));
-=======
 	$(window).scroll(
 			function(){
 				var posicaoDoScroll = $(document).scrollTop();
@@ -162,5 +147,4 @@ function posicaoNecessariaCarregarOutraPagina(){
 	var porcentagemDaPaginaDisparaNovaBusca = 0.90;
 
 	return(maximoValorDoScroll*(porcentagemDaPaginaDisparaNovaBusca));
->>>>>>> 4cbd2ad77c7d258b9863845384639d9c1acb5361
 }

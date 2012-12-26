@@ -9,7 +9,7 @@
 
 		<form action="" id="form-search">
 			<input type="text" id="form-search-input" />
-			<input type="submit" value="" title="Procurar!" id="form-search-submit" />
+			<input type="button" value="" title="Procurar!" id="form-search-submit" />
 		</form>
 
 		<ul class="message">
@@ -61,6 +61,6 @@
 	<script>
 		paginacaoDosPost();
 		carregaOpcaoVerMais();
-		$('#form-search').submit(fazPesquisa);
+		$('#form-search-submit').click(fazPesquisa);
 	</script>
 </engine>
