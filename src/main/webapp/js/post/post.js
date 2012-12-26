@@ -20,8 +20,9 @@ function fazPesquisa()
 function criaNovoPost() {
 	var post = {
 		"title" : $("#form-input-title").val(),
-		"content" : $("#form-input-content").val(),
+		"content" : CKEDITOR.instances.form_input_content.getData()
 	}
+
 	if ((post.title == "") || (post.content == ""))
 	{
 		alert("Preencha todos os campos.");

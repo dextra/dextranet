@@ -6,7 +6,7 @@
 				<input size="51" type="text" id="form-input-title"
 					placeholder="Digite o título do post"></input>
 				<br />
-				<textarea cols="50" id="form-input-content" style="resize:none"
+				<textarea cols="50" id="form_input_content" style="resize:none"
 					placeholder="Digite o conteúdo do post"></textarea>
 				<br />
 				<input type="submit" value="Postar" id="form-post-submit" />
@@ -15,7 +15,7 @@
 	</template>
 
 	<script>
-		CKEDITOR.replace('form-input-content');
+		CKEDITOR.replace('form_input_content');
 		$("#form-new-post").submit(criaNovoPost);
 	</script>
 </engine>
