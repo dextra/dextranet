@@ -3,7 +3,7 @@
 	<template selector="#sidebar-left">
 		<ul id="sidebar-left-menu">
 			<li id="sidebar-left-home" class="active">
-				<a href="../index.html" id="button-sidebar-left-home">
+				<a href="#" id="button-sidebar-left-home">
 					<span class="icon-sidebar-left-home"></span>
 					Home
 				</a>
@@ -13,9 +13,6 @@
 					<span class="icon-sidebar-left-novopost"></span>
 					Novo Post
 				</a>
-				<script>
-					$("#button-sidebar-left-novopost").click(abrePaginaNovoPost);
-				</script>
 			</li>
 			<li id="sidebar-left-category">
 				<a href="pages/categoria/categoria.html">
@@ -37,4 +34,8 @@
 			</li>
 		</ul>
 	</template>
+	<script>
+		$("#button-sidebar-left-novopost").click(abrePaginaNovoPost);
+		$("#button-sidebar-left-home").click(carregaDadosHomePage);
+	</script>
 </engine>

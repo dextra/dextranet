@@ -130,9 +130,6 @@ public class GAETestHelper {
 
 	public LocalServiceTestHelper getGaeHelper() {
 		return helper;
-
-
 	}
-
 
 }
