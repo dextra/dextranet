@@ -14,7 +14,7 @@
 		</div>
 	</template>
 	<script>
-		new nicEditor().panelInstance('form-input-content');
+		CKEDITOR.replace('form-input-content');
 		$("#form-new-post").submit(criaNovoPost);
 	</script>
 </engine>

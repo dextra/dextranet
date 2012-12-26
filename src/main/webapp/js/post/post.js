@@ -23,7 +23,9 @@ function criaNovoPost() {
 		"content" : $("#form-input-content").val(),
 	}
 	if ((post.title == "") || (post.content == ""))
+	{
 		alert("Preencha todos os campos.");
+	}
 	else {
 		$.ajax( {
 			type : "POST",
