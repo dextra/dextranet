@@ -11,11 +11,13 @@ import br.com.dextra.utils.Utils;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.search.AddException;
 import com.google.appengine.api.search.Document;
@@ -30,50 +32,62 @@ import com.google.gson.JsonObject;
 public class PostRepository {
 
 	public static Index getIndex(String index) {
-	    IndexSpec indexSpec = IndexSpec.newBuilder().setName(index).build();
-	    return SearchServiceFactory.getSearchService().getIndex(indexSpec);
+		IndexSpec indexSpec = IndexSpec.newBuilder().setName(index).build();
+		return SearchServiceFactory.getSearchService().getIndex(indexSpec);
 	}
 
-	public static Iterable<Entity> buscarTodosOsPosts(int maxResults, String key) {
+	public static Iterable<Entity> buscarTodosOsPosts(int maxResults,
+			String page) {
 
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 		Query query = new Query("post");
-		if (!key.equals("")) {
-			Key key2 = KeyFactory.createKey("post", key.substring(6, key
-					.length() - 2));
 
-			System.out.println(key2.toString() + " # " + key);
-			query.setAncestor(key2);
-
-		}
 
 		query.addSort("dataDeAtualizacao", SortDirection.DESCENDING);
 		PreparedQuery prepared = datastore.prepare(query);
 
 		FetchOptions opts = FetchOptions.Builder.withDefaults();
 		opts.limit(maxResults);
+		if(!page.equals(""))
+		opts.offset(Integer.parseInt(page));
 
 		return prepared.asIterable(opts);
 	}
 
-	//FIXME: Gabriel/Tonho estão com problemas que serão resolvidos rapida e futuramente!
+	public static Iterable<Entity> buscarPosts(int maxResults, String q, String page) throws EntityNotFoundException {
 
-	public static ArrayList<JsonObject> buscarPosts(int maxResults, String q) {
+		//Faço a Busca das IDs FTS
+		ArrayList<String> listaDeIds = EntityJsonConverter
+		.toListaDeIds(getIndex("post").search("~" + q));
 
+		DatastoreService datastore = DatastoreServiceFactory
+		.getDatastoreService();
 
-		//.setOffset(arg0)
-		QueryOptions options = QueryOptions.newBuilder().setFieldsToSnippet(
-				"conteudo").setFieldsToReturn("conteudo","titulo").setLimit(maxResults)
-				.build();
+		Key key;
+		Query query=new Query("post");
+		query.addSort("dataDeAtualizacao", SortDirection.DESCENDING);
+		PreparedQuery prepared = datastore.prepare(query);
 
-		com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query.newBuilder().setOptions(options).build(q);
-		EntityJsonConverter.toJson(getIndex("post").search(q));
-		return	new ArrayList<JsonObject>();
+		FetchOptions opts = FetchOptions.Builder.withDefaults();
+		opts.limit(maxResults);
+		if(!page.equals(""))
+			opts.offset(Integer.parseInt(page));
 
+		ArrayList<Entity> listaDeEntity =new ArrayList<Entity>();
+		Entity e;
+		for (String id : listaDeIds)
+		{
+			key =  KeyFactory.createKey("post", id);
+			e=datastore.get(key);
+			listaDeEntity.add(e);
+		}
+
+		return listaDeEntity;
 
 
 	}
+
 
 	public void criaNovoPost(String titulo, String conteudo, String usuario) {
 
@@ -81,9 +95,11 @@ public class PostRepository {
 		Key key = KeyFactory.createKey("post", id);
 		Date data = new Date();
 
-		PostRepository.criaNovoPost(titulo, conteudo, usuario, id,key,data);
+		PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
 	}
-	public static void criaNovoPost(String titulo, String conteudo, String usuario, String id,Key key, Date data) {
+
+	public static void criaNovoPost(String titulo, String conteudo,
+			String usuario, String id, Key key, Date data) {
 
 		Entity valueEntity = new Entity(key);
 
@@ -101,50 +117,27 @@ public class PostRepository {
 
 		datastore.put(valueEntity);
 
-		Document document = Document.newBuilder().setId(String.valueOf(key.getId())).addField(
+		Document document = Document.newBuilder().setId(id).addField(
 				Field.newBuilder().setName("titulo").setText(titulo)).addField(
 				Field.newBuilder().setName("conteudo").setText(conteudo))
 				.addField(
 						Field.newBuilder().setName("usuario").setText(usuario))
 				.addField(
 						Field.newBuilder().setName("data").setText(
-								data.toString()))
-				.addField(
-						Field.newBuilder().setName("dataDeAtualizacao").setText(
-								data.toString()))
-				.addField(
+								data.toString())).addField(
+						Field.newBuilder().setName("dataDeAtualizacao")
+								.setText(data.toString())).addField(
 						Field.newBuilder().setName("id").setText(id)).build();
 
-			try {
-		        // Add all the documents.
-		        getIndex("post").add(document);
-			    } catch (AddException e) {
-			        if (StatusCode.TRANSIENT_ERROR.equals(e.getOperationResult().getCode())) {
-			            // retry adding document
-			        }}
+		// try {
+		// Add all the documents.
+
+		getIndex("post").add(document);
+		// } catch (AddException e) {
+		// if
+		// (StatusCode.TRANSIENT_ERROR.equals(e.getOperationResult().getCode()))
+		// {
+		// // retry adding document
+		// }}
 	}
-
-	public boolean pegaDadosCorretos(String titulo, String conteudo,
-			String usuario) {
-		// TODO Auto-generated method stub
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
-		Query query = new Query("post");
-		PreparedQuery prepare = datastore.prepare(query);
-
-		Iterable<Entity> asIterable = prepare.asIterable();
-		for (Entity entity : asIterable) {
-			System.out.println("Titulo:" + entity.getProperty("titulo")
-					+ " -- Conteudo: " + entity.getProperty("conteudo")
-					+ "-- (" + entity.getProperty("data") + ")" + "\n");
-			if (entity.getProperty("conteudo").equals(conteudo)
-					&& entity.getProperty("titulo").equals(titulo)
-					&& entity.getProperty("usuario").equals(usuario)) {
-				return true;
-			}
-		}
-
-		return true;
-	}
-
 }

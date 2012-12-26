@@ -37,7 +37,7 @@ function criaNovoPost() {
 			url : "/s/post",
 			data : post,
 			success : function() {
-				carregaDadosHomePage(true);
+				carregaDadosHomePageAposInclusao();
 			}
 		});
 	}
@@ -119,11 +119,14 @@ function converteData(minhaData) {
 
 function paginacaoDosPost() {
 
-	var paginaSolicitada = 2;
+	var pagina = 1;
 	var query = "";
 	var ehUmNovoPost = false;
-	var espacoPercorrido = calcularPorcentagemPercorridaDaPagina();
+	var posicaoMinimaParaNovaPagina = posicaoNecessariaCarregarOutraPagina();
+	var margemParaNovaBusca = 1.15;
+	console.log("posição mininma " + posicaoMinimaParaNovaPagina);
 
+<<<<<<< HEAD
 	$(window).scroll(function() {
 		var posicaoDoScroll = window.pageYOffset;
 
@@ -139,4 +142,25 @@ function calcularPorcentagemPercorridaDaPagina() {
 	var porcentagemDaPaginaDisparaNovaBusca = 0.90;
 
 	return (rodapeDaPagina * (porcentagemDaPaginaDisparaNovaBusca));
+=======
+	$(window).scroll(
+			function(){
+				var posicaoDoScroll = $(document).scrollTop();
+
+				if(posicaoDoScroll > posicaoMinimaParaNovaPagina){
+					posicaoMinimaParaNovaPagina = (posicaoDoScroll*margemParaNovaBusca);
+					pagina = pagina + 1;
+					//console.log("buscar nova página : " + pagina);
+					//busquePosts(menorPostSolicitado,query,ehUmNovoPost);
+				}
+			}
+	);
+}
+
+function posicaoNecessariaCarregarOutraPagina(){
+	var maximoValorDoScroll =  window.scrollMaxY;
+	var porcentagemDaPaginaDisparaNovaBusca = 0.90;
+
+	return(maximoValorDoScroll*(porcentagemDaPaginaDisparaNovaBusca));
+>>>>>>> 4cbd2ad77c7d258b9863845384639d9c1acb5361
 }

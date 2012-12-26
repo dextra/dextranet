@@ -1,5 +1,7 @@
 package br.com.dextra.post;
 
+import java.util.Iterator;
+
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -12,6 +14,7 @@ import br.com.dextra.repository.PostRepository;
 import br.com.dextra.utils.EntityJsonConverter;
 
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 
 @Path("/post")
 public class PostRS {
@@ -28,8 +31,6 @@ public class PostRS {
 		String autor = "usuarioTemporario";
 		PostRepository novoPost = new PostRepository();
 		novoPost.criaNovoPost(titulo, conteudo, autor);
-		System.out.println("Inserido? "
-				+ novoPost.pegaDadosCorretos(titulo, conteudo, autor));
 	}
 
 	@Path("/")
@@ -38,17 +39,18 @@ public class PostRS {
 	public static String listarPosts(
 			@DefaultValue(SMAXRESULTS) @QueryParam(value = "max-results") String maxResults,
 			@DefaultValue("") @QueryParam(value = "q") String q,
-			@DefaultValue("") @QueryParam(value = "key") String key) {
-		System.out.println(key);
+			@DefaultValue("0") @QueryParam(value = "page") String page) throws NumberFormatException, EntityNotFoundException {
+
+		Iterable<Entity> listaPosts;
 
 		if (q.equals("")) {
-			Iterable<Entity> listaPosts = PostRepository.buscarTodosOsPosts(
-					Integer.parseInt(maxResults), key);
-			return EntityJsonConverter.converterListaEntities(listaPosts)
-					.toString();
+			listaPosts = PostRepository.buscarTodosOsPosts(Integer
+					.parseInt(maxResults), page);
 		} else {
-			return PostRepository.buscarPosts(Integer.parseInt(maxResults), q)
-					.toString();
+			listaPosts = PostRepository.buscarPosts(Integer
+					.parseInt(maxResults), q,page);
 		}
+		return EntityJsonConverter.converterListaEntities(listaPosts)
+				.toString();
 	}
 }
