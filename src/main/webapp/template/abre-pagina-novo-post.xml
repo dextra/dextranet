@@ -4,10 +4,10 @@
 		<div id="div-bonito">
 			<form action="" id="form-new-post">
 				<input size="51" type="text" id="form-input-title"
-					placeholder="Digite o título do post"></input>
+					placeholder="Digite o título do post" name="title"></input>
 				<br />
 				<textarea cols="50" id="form_input_content" style="resize:none"
-					placeholder="Digite o conteúdo do post"></textarea>
+					placeholder="Digite o conteúdo do post" name="content"></textarea>
 				<br />
 				<input type="button" value="Postar" id="form-post-submit" />
 			</form>
