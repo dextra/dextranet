@@ -191,8 +191,8 @@ public class DextraTest extends TesteIntegracaoBase {
 	// FIXME: Gabriel/Tonho estão com problemas que serão resolvidos rapida e
 	// futuramente!
 
-/*
-	@Test
+
+/*	@Test
 	  public void testeBuscarPosts1() throws NumberFormatException, EntityNotFoundException {
 
 	  String titulo = "Post1"; String conteudo = "Content1"; String usuario =

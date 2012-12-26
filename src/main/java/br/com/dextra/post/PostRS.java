@@ -39,7 +39,7 @@ public class PostRS {
 	public static String listarPosts(
 			@DefaultValue(SMAXRESULTS) @QueryParam(value = "max-results") String maxResults,
 			@DefaultValue("") @QueryParam(value = "q") String q,
-			@DefaultValue("1") @QueryParam(value = "page") String page) throws NumberFormatException, EntityNotFoundException {
+			@DefaultValue("0") @QueryParam(value = "page") String page) throws NumberFormatException, EntityNotFoundException {
 
 		Iterable<Entity> listaPosts;
 

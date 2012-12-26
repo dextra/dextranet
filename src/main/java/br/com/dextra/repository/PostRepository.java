@@ -78,19 +78,15 @@ public class PostRepository {
 		Entity e;
 		for (String id : listaDeIds)
 		{
-//			key =  KeyFactory.createKey("post", id);
-//			e
-//			listaDeEntity.add(e);
+			key =  KeyFactory.createKey("post", id);
+			e=datastore.get(key);
+			listaDeEntity.add(e);
 		}
+		
 
 
-//		if (!page.equals("")) {
-//		}
-
-
-
-
-		return prepared.asIterable(opts);
+		return null;
+//		prepared.asIterable(opts);
 
 	}
 
