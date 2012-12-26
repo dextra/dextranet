@@ -60,11 +60,19 @@ public class PostRepository {
 		//Faço a Busca das IDs FTS
 		ArrayList<String> listaDeIds = EntityJsonConverter
 		.toListaDeIds(getIndex("post").search("~" + q));
+		ArrayList<Key> listaDeKeys = new ArrayList<Key>();
+		Key key;
+		for (String id : listaDeIds)
+		{
+			key =  KeyFactory.createKey("post", id);
+			listaDeKeys.add(key);
+		}
 
 		DatastoreService datastore = DatastoreServiceFactory
 		.getDatastoreService();
+		datastore.get((Iterable<Key>) listaDeKeys);
 
-		Key key;
+
 		Query query=new Query("post");
 		query.addSort("dataDeAtualizacao", SortDirection.DESCENDING);
 		PreparedQuery prepared = datastore.prepare(query);
@@ -83,7 +91,30 @@ public class PostRepository {
 			listaDeEntity.add(e);
 		}
 
-		return listaDeEntity;
+		ArrayList<Entity> arrayDeTest = new ArrayList<Entity>();
+
+		for(Entity entity :prepared.asIterable(opts) )
+		{
+			arrayDeTest.add(entity);
+		}
+		System.out.println(arrayDeTest);
+
+
+		for(Entity entity : arrayDeTest)
+		{
+			for (Entity entityCorrect : listaDeEntity)
+			{
+
+				if(!entity.toString().equals(entityCorrect.toString())){}
+						//arrayDeTest.remove(entity);
+
+
+
+			}
+
+		}
+
+		return arrayDeTest;
 
 
 	}
