@@ -27,13 +27,11 @@ public class DextraNetTest extends TesteFuncionalBase {
 
 	public void testebuscaPost()
 	{
-		/*
 		siteDextraNet.navigateTo("http://localhost:8080/");
 		siteDextraNet.writeInputText("#form-search-input",
 				"KaiqueCin");
 		siteDextraNet.click("#form-search-submit");
 		siteDextraNet.verificaSeApareceuPostBuscado();
-		*/
 	}
 
 }

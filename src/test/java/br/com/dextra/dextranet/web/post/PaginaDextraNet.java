@@ -30,7 +30,7 @@ public class PaginaDextraNet extends PageObject {
 
 	public void writeCKEditor(String text) {
 		WebElement iframe = driver.findElement(By.tagName("iframe"));
-		final WebDriver frame = driver.switchTo().frame(iframe);
+		driver.switchTo().frame(iframe);
 		((JavascriptExecutor) driver).executeScript("document.body.innerHTML='"
 				+ text + "'");
 		driver.switchTo().defaultContent();

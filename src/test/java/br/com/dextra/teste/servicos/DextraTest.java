@@ -11,13 +11,11 @@ import org.junit.Test;
 import br.com.dextra.post.PostRS;
 import br.com.dextra.repository.PostRepository;
 import br.com.dextra.teste.TesteIntegracaoBase;
-import br.com.dextra.teste.container.GAETestHelper;
 import br.com.dextra.utils.Utils;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.search.dev.LocalSearchService;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalSearchServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
