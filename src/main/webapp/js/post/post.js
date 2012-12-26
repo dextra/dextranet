@@ -81,17 +81,17 @@ function paginacaoDosPost(){
 	var query = "";
 	var ehUmNovoPost = false;
 	var posicaoMinimaParaNovaPagina = posicaoNecessariaCarregarOutraPagina();
-	var margemParaNovaBusca = 1.05;
+	var margemParaNovaBusca = 1.15;
 	console.log("posição mininma " + posicaoMinimaParaNovaPagina);
 
 	$(window).scroll(
 			function(){
 				var posicaoDoScroll = $(document).scrollTop();
-				console.log("scrol "  + posicaoDoScroll);
 
 				if(posicaoDoScroll > posicaoMinimaParaNovaPagina){
 					posicaoMinimaParaNovaPagina = (posicaoDoScroll*margemParaNovaBusca);
 					pagina = pagina + 1;
+					//console.log("buscar nova página : " + pagina);
 					//busquePosts(menorPostSolicitado,query,ehUmNovoPost);
 				}
 			}
@@ -100,7 +100,7 @@ function paginacaoDosPost(){
 
 function posicaoNecessariaCarregarOutraPagina(){
 	var maximoValorDoScroll =  window.scrollMaxY;
-	var porcentagemDaPaginaDisparaNovaBusca = 0.85;
+	var porcentagemDaPaginaDisparaNovaBusca = 0.90;
 
 	return(maximoValorDoScroll*(porcentagemDaPaginaDisparaNovaBusca));
 }
