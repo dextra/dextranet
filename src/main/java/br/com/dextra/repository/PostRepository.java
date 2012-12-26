@@ -17,12 +17,14 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.search.AddException;
 import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
 import com.google.appengine.api.search.Index;
 import com.google.appengine.api.search.IndexSpec;
 import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.SearchServiceFactory;
+import com.google.appengine.api.search.StatusCode;
 import com.google.gson.JsonObject;
 
 public class PostRepository {
@@ -59,13 +61,15 @@ public class PostRepository {
 
 	public static ArrayList<JsonObject> buscarPosts(int maxResults, String q) {
 
+
+		//.setOffset(arg0)
 		QueryOptions options = QueryOptions.newBuilder().setFieldsToSnippet(
 				"conteudo").setFieldsToReturn("conteudo","titulo").setLimit(maxResults)
 				.build();
 
 		com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query.newBuilder().setOptions(options).build(q);
-		EntityJsonConverter.toJson(getIndex("post").search(query));
-		return	null;
+		EntityJsonConverter.toJson(getIndex("post").search(q));
+		return	new ArrayList<JsonObject>();
 
 
 
@@ -97,7 +101,7 @@ public class PostRepository {
 
 		datastore.put(valueEntity);
 
-		Document document = Document.newBuilder().setId(id).addField(
+		Document document = Document.newBuilder().setId(String.valueOf(key.getId())).addField(
 				Field.newBuilder().setName("titulo").setText(titulo)).addField(
 				Field.newBuilder().setName("conteudo").setText(conteudo))
 				.addField(
@@ -111,7 +115,13 @@ public class PostRepository {
 				.addField(
 						Field.newBuilder().setName("id").setText(id)).build();
 
-		PostRepository.getIndex("post").add(document);
+			try {
+		        // Add all the documents.
+		        getIndex("post").add(document);
+			    } catch (AddException e) {
+			        if (StatusCode.TRANSIENT_ERROR.equals(e.getOperationResult().getCode())) {
+			            // retry adding document
+			        }}
 	}
 
 	public boolean pegaDadosCorretos(String titulo, String conteudo,

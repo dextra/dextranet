@@ -15,6 +15,7 @@ import br.com.dextra.utils.Utils;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.search.dev.LocalSearchService;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.google.gson.JsonObject;
@@ -23,6 +24,7 @@ public class DextraTest extends TesteIntegracaoBase {
 
 	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(
 			new LocalDatastoreServiceTestConfig());
+
 
 	@Before
 	public void setUp() {
@@ -89,7 +91,7 @@ public class DextraTest extends TesteIntegracaoBase {
 		String usuario = "User1";
 
 		Date data = new Date();
-		String id =  Utils.geraID();
+		String id = Utils.geraID();
 		Key key = KeyFactory.createKey("post", id);
 
 		PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
@@ -99,7 +101,7 @@ public class DextraTest extends TesteIntegracaoBase {
 		String usuario2 = "User2";
 
 		Date data2 = new Date();
-		String id2 =  Utils.geraID();
+		String id2 = Utils.geraID();
 		Key key2 = KeyFactory.createKey("post", id2);
 
 		PostRepository.criaNovoPost(titulo2, conteudo2, usuario2, id2, key2,
@@ -132,7 +134,7 @@ public class DextraTest extends TesteIntegracaoBase {
 	// FIXME:Gabriel/Tonho encontraram a solução para o FTS e voltarão a esse
 	// test mais tarde
 
-/*
+	/*
 	 * @Test public void testeListarPosts4() { Date data1 = new Date(); String
 	 * titulo = "Post1"; String conteudo = "Content1"; String usuario = "User1";
 	 *
@@ -167,49 +169,42 @@ public class DextraTest extends TesteIntegracaoBase {
 	// FIXME: Gabriel/Tonho estão com problemas que serão resolvidos rapida e
 	// futuramente!
 
-/*	@Test
-	public void testeBuscarPosts1() {
 
-		String titulo = "Post1";
-		String conteudo = "Content1";
-		String usuario = "User1";
+//	  @Test public void testeBuscarPosts1() {
+//
+//	  String titulo = "Post1"; String conteudo = "Content1"; String usuario =
+//	  "User1";
+//
+//	  Date data = new Date(); long time = new Date().getTime(); String id =
+//	  String.valueOf(time); Key key = KeyFactory.createKey("post", id);
+//
+//	  PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
+//
+//	  String titulo2 = "Post2"; String conteudo2 = "bla"; String usuario2 =
+//	  "User2";
+//
+//	  Date data2 = new Date(); long time2 = new Date().getTime(); String id2 =
+//	  String.valueOf(time2); Key key2 = KeyFactory.createKey("post", id2);
+//
+//	  PostRepository.criaNovoPost(titulo2, conteudo2, usuario2, id2, key2,
+//	  data2);
+//
+//	  String titulo3 = "Post3"; String conteudo3 = "Content3"; String usuario3
+//	  = "User3";
+//
+//	  Date data3 = new Date(); long time3 = new Date().getTime(); String id3 =
+//	  String.valueOf(time3); Key key3 = KeyFactory.createKey("post", id3);
+//
+//	  PostRepository.criaNovoPost(titulo3, conteudo3, usuario3, id3, key3,
+//	  data3);
+//
+//	  StringBuilder comparacao = new StringBuilder();
+//
+//	  comparacao.append("["+criaUmJson(titulo2, conteudo2, usuario2, id2, key2,
+//	  data2) + "]");
+//
+//	  Assert.assertEquals(comparacao.toString(), PostRS.listarPosts("20",
+//	  "bla","")); }
 
-		Date data = new Date();
-		long time = new Date().getTime();
-		String id = String.valueOf(time);
-		Key key = KeyFactory.createKey("post", id);
-
-		PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
-
-		String titulo2 = "Post2";
-		String conteudo2 = "bla";
-		String usuario2 = "User2";
-
-		Date data2 = new Date();
-		long time2 = new Date().getTime();
-		String id2 = String.valueOf(time2);
-		Key key2 = KeyFactory.createKey("post", id2);
-
-		PostRepository.criaNovoPost(titulo2, conteudo2, usuario2, id2, key2, data2);
-
-		String titulo3 = "Post3";
-		String conteudo3 = "Content3";
-		String usuario3 = "User3";
-
-		Date data3 = new Date();
-		long time3 = new Date().getTime();
-		String id3 = String.valueOf(time3);
-		Key key3 = KeyFactory.createKey("post", id3);
-
-		PostRepository.criaNovoPost(titulo3, conteudo3, usuario3, id3, key3, data3);
-
-		StringBuilder comparacao = new StringBuilder();
-
-		comparacao.append("["+criaUmJson(titulo2, conteudo2, usuario2, id2, key2,
-				data2)
-				+ "]");
-
-		Assert.assertEquals(comparacao.toString(), PostRS.listarPosts("20", "bla",""));
-	}*/
 
 }
