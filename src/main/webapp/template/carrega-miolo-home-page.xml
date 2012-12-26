@@ -2,8 +2,6 @@
 <engine>
 	<template selector="#container-main">
 
-		${paginacaoDosPost()}
-
 		<!-- Sidebar do lado direito -->
 		<div id="sidebar-right" rel="section">
 
@@ -23,7 +21,7 @@
 			{/if}
 		</ul>
 		<!-- Listagem de estorias da Intranet -->
-		<ul class="list-stories">
+		<ul class="list-stories" id ="relacao-dos-posts">
 			{for post in jsonArrayPost}
 			<li class="clearfix">
 				<div class="list-stories-headline-data">
@@ -62,10 +60,11 @@
 			</li>
 			{/for}
 		</ul><!-- .list-stories -->
-
 	</template>
 
+
 	<script>
+		paginacaoDosPost();
 		carregaOpcaoVerMais();
 	</script>
 </engine>
