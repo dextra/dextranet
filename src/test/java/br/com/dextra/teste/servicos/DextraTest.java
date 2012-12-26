@@ -192,7 +192,7 @@ public class DextraTest extends TesteIntegracaoBase {
 	// futuramente!
 
 
-/*	@Test
+	@Test
 	  public void testeBuscarPosts1() throws NumberFormatException, EntityNotFoundException {
 
 	  String titulo = "Post1"; String conteudo = "Content1"; String usuario =
@@ -212,7 +212,7 @@ public class DextraTest extends TesteIntegracaoBase {
 	  PostRepository.criaNovoPost(titulo2, conteudo2, usuario2, id2, key2,
 	  data2);
 
-	  String titulo3 = "Post3"; String conteudo3 = "Content"; String usuario3
+	  String titulo3 = "Post3"; String conteudo3 = "Content3"; String usuario3
 	  = "User3";
 
 	  Date data3 = new Date(); long time3 = new Date().getTime(); String id3 =
@@ -227,7 +227,7 @@ public class DextraTest extends TesteIntegracaoBase {
 	  data2) + "]");
 
 	  Assert.assertEquals(comparacao.toString(), PostRS.listarPosts("20",
-	  "Content","")); }*/
+	  "Content","")); }
 
 
 }
