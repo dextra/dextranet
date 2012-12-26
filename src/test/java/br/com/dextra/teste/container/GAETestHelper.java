@@ -10,6 +10,7 @@ import javax.naming.InitialContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.appengine.api.search.dev.LocalSearchService;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
@@ -28,6 +29,7 @@ public class GAETestHelper {
 	protected LocalServiceTestHelper helper;
 
 	private LocalDatastoreServiceTestConfig ds;
+	private LocalSearchService fts;
 
 	private int port = 8380;
 
@@ -49,6 +51,10 @@ public class GAETestHelper {
 		helper.setEnvIsAdmin(false);
 		helper.setEnvEmail("test@example.com");
 		helper.setEnvAuthDomain("example.com");
+	}
+
+	public void prepareSearchServiceTestHelper() throws Exception {
+		fts = new LocalSearchService();
 	}
 
 	public LocalServiceTestHelper getHelper() {
