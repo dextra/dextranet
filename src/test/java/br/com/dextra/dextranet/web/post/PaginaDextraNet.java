@@ -18,4 +18,9 @@ public class PaginaDextraNet extends PageObject {
 	public void verificaSeApareceuPostIncluido() {
 		Assert.assertEquals("Corpo teeste", this.getElementContent("p.list-stories-lead"));
 	}
+
+	public void verificaSeApareceuPostBuscado()
+	{
+		Assert.assertEquals("KaiqueVaiNoCineminha", this.getElementContent("p.list-stories-lead"));
+	}
 }

@@ -26,7 +26,7 @@
 		<ul class="list-stories">
 			{for post in jsonArrayPost}
 			<li class="clearfix">
-				<div class="list-stories-lead">
+				<div class="list-stories-headline-data">
 					${converteData(post.data)}
 				</div>
 				<img src="" alt="photo" class="list-stories-avatar" />
@@ -41,11 +41,10 @@
 						${post.likes}
 					</div>
 					<div class="list-stories-headline-author">
-						por
 						<a href="#">${post.usuario}</a>
 					</div>
 				</div>
-				<p class="list-stories-lead">
+				<p id="${post.id}" class="list-stories-lead">
 					${post.conteudo}
 				</p>
 				<div class="list-stories-footer clearfix">
@@ -54,7 +53,7 @@
 						,
 						<a href="#">CSS</a>
 					</div>
-					<div class="list-stories-footer-call">
+					<div id="${post.id}-button" class="list-stories-footer-call">
 						<a href="#">+ Ver mais</a>
 					</div>
 				</div>
@@ -63,4 +62,8 @@
 		</ul><!-- .list-stories -->
 
 	</template>
+
+	<script>
+		carregaOpcaoVerMais();
+	</script>
 </engine>

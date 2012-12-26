@@ -150,7 +150,7 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 .list-stories-headline-dx{color:#349a94;}
 .list-stories-headline-author{margin-right:0;color:#666;font-weight:normal;}
 .list-stories-headline-author > a{font-weight:bold;}
-.list-stories-lead{clear:both;text-shadow:0 1px 1px #fff;font-size:14px;color:#505153;}
+.list-stories-headline-data,.list-stories-lead{clear:both;text-shadow:0 1px 1px #fff;font-size:14px;color:#505153;}
 .list-stories-footer{background-color:#d5d9db;margin:0 -12px -12px;padding:12px 12px 0;height:31px;}
 .list-stories-footer > a{color:#4e739c;text-shadow:0 1px 1px #fff;font-size:15px;}
 .list-stories-footer-tags{float:left;}
