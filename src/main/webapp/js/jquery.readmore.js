@@ -1,19 +1,11 @@
 /**
- * jquery.readmore
- *
- * Substring long paragraphs and make expandable with "Read More" link.
- * Paragraph will be split either at exactly 'substr_len' chars or at the next
- * space char after 'substr_len' words (default).
- *
- * @date 02 Jul 2012
  * @author Jake Trent (original author) http://www.builtbyjake.com
- * @author Mike Wendt http://www.mikewendt.net
- * @version 1.6
  */
 (function ($) {
   $.fn.readmore = function (settings) {
     var defaults = {
-      substr_len: 50,
+      substr_len: 500,
+      substr_lines: 5,
       split_word: false,
       ellipses: '...'
     };
@@ -23,8 +15,8 @@
       var $this = $(this);
       var elemID = $this.attr("id");
       var eachPost = $("#"+elemID);
+      eachPost.text(eachPost.text().replace(/^\s+|\s+$/g,''));
       if (eachPost.html().length > opts.substr_len) {
-
         abridge(eachPost);
         linkage(eachPost);
       }else{
@@ -39,7 +31,6 @@
       elem.append(opts.more_link);
       button.click( function () {
         if(button.text().indexOf("+ Ver mais")>=0){
-        console.log(elem.find(".readm-hidden").text());
     	elem.show();
         elem.find(".readm-hidden").show();
         elem.find(".readm-continue").hide();

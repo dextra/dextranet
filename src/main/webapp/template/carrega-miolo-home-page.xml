@@ -44,6 +44,8 @@
 						<a href="#">${post.usuario}</a>
 					</div>
 				</div>
+			<script>
+			</script>
 				<p id="${post.id}" class="list-stories-lead">
 					${post.conteudo}
 				</p>

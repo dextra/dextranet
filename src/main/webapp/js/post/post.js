@@ -22,7 +22,6 @@ function criaNovoPost() {
 		"title" : $("#form-input-title").val(),
 		"content" : $("#form-input-content").val(),
 	}
-
 	if ((post.title == "") || (post.content == ""))
 		alert("Preencha todos os campos.");
 	else {
@@ -38,12 +37,6 @@ function criaNovoPost() {
 }
 
 function converteData(minhaData) {
-
-	/*minhaData.replace("June","Jun");
-	minhaData.replace("July","Jun");
-	minhaData.replace("Sept","Sep");
-	minhaData.replace("Tues","Tue");
-	minhaData.replace("Thurs","Thu");*/
 
 	var diaS = minhaData.slice(0, 3);
 	var dia  = minhaData.slice(8, 10);
@@ -86,8 +79,6 @@ function paginacaoDosPost(){
 				var posicaoDoScroll = window.pageYOffset;
 
 				if(posicaoDoScroll > calcularPorcentagemPercorridaDaPagina()){
-					//busqueMaisPosts();
-					//alert("ok");
 				}
 			}
 	);

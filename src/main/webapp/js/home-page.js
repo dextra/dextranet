@@ -26,6 +26,7 @@ function busquePosts(menorPostSolicitado, query, ehUmNovoPost) {
 		url : url,
 		data : "max-results=" + quantidadePostsRecuperados + "&q=" + query,
 		success : function(posts) {
+			console.log(posts);
 			$.holy("../template/carrega-miolo-home-page.xml", {
 				"jsonArrayPost" : posts,
 				"sucesso" : ehUmNovoPost
@@ -44,10 +45,11 @@ function setActiveMenuLateral(id) {
 	// adiciona o active na li desejada
 	$(id).attr("class", "active");
 }
-function carregaOpcaoVerMais(id) {
+function carregaOpcaoVerMais() {
 	$(".list-stories-lead").readmore( {
-		substr_len : 50,
-		split_word : false,
+		substr_len : 300,
+		substr_lines : 5,
+		split_word : true,
 		ellipses : '...'
 	});
 }
