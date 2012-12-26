@@ -82,11 +82,9 @@ public class PostRepository {
 			e=datastore.get(key);
 			listaDeEntity.add(e);
 		}
-		
 
+		return listaDeEntity;
 
-		return null;
-//		prepared.asIterable(opts);
 
 	}
 
