@@ -74,26 +74,30 @@ function converteData(minhaData) {
 
 function paginacaoDosPost(){
 
-	var paginaSolicitada = 2;
+	var pagina = 1;
 	var query = "";
 	var ehUmNovoPost = false;
-	var espacoPercorrido = calcularPorcentagemPercorridaDaPagina();
+	var posicaoMinimaParaNovaPagina = posicaoNecessariaCarregarOutraPagina();
+	var margemParaNovaBusca = 1.05;
+	console.log("posição mininma " + posicaoMinimaParaNovaPagina);
 
 	$(window).scroll(
 			function(){
-				var posicaoDoScroll = window.pageYOffset;
+				var posicaoDoScroll = $(document).scrollTop();
+				console.log("scrol "  + posicaoDoScroll);
 
-				if(posicaoDoScroll > espacoPercorrido){
-					espacoPercorrido = posicaoDoScroll;
+				if(posicaoDoScroll > posicaoMinimaParaNovaPagina){
+					posicaoMinimaParaNovaPagina = (posicaoDoScroll*margemParaNovaBusca);
+					pagina = pagina + 1;
 					//busquePosts(menorPostSolicitado,query,ehUmNovoPost);
 				}
 			}
 	);
 }
 
-function calcularPorcentagemPercorridaDaPagina(){
-	var rodapeDaPagina = window.innerHeight;
-	var porcentagemDaPaginaDisparaNovaBusca = 0.90;
+function posicaoNecessariaCarregarOutraPagina(){
+	var maximoValorDoScroll =  window.scrollMaxY;
+	var porcentagemDaPaginaDisparaNovaBusca = 0.85;
 
-	return(rodapeDaPagina*(porcentagemDaPaginaDisparaNovaBusca));
+	return(maximoValorDoScroll*(porcentagemDaPaginaDisparaNovaBusca));
 }
