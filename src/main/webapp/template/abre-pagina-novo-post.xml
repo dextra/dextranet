@@ -9,13 +9,13 @@
 				<textarea cols="50" id="form_input_content" style="resize:none"
 					placeholder="Digite o conteúdo do post"></textarea>
 				<br />
-				<input type="submit" value="Postar" id="form-post-submit" />
+				<input type="button" value="Postar" id="form-post-submit" />
 			</form>
 		</div>
 	</template>
 
 	<script>
 		CKEDITOR.replace('form_input_content');
-		$("#form-new-post").submit(criaNovoPost);
+		$("#form-post-submit").click(criaNovoPost);
 	</script>
 </engine>

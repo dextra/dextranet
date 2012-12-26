@@ -3,7 +3,7 @@
 	<template selector="#sidebar-left">
 		<ul id="sidebar-left-menu">
 			<li id="sidebar-left-home" class="active">
-				<a href="../index.html" id="button-sidebar-left-home">
+				<a href="#" id="button-sidebar-left-home">
 					<span class="icon-sidebar-left-home"></span>
 					Home
 				</a>
@@ -36,5 +36,6 @@
 	</template>
 	<script>
 		$("#button-sidebar-left-novopost").click(abrePaginaNovoPost);
+		$("#button-sidebar-left-home").click(carregaDadosHomePage);
 	</script>
 </engine>

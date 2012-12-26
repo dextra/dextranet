@@ -22,7 +22,7 @@ function criaNovoPost() {
 	{
 		alert("Preencha todos os campos.");
 	}
-	else {
+	else{
 	var post = {
 		"title" : $("#form-input-title").val(),
 		"content" : CKEDITOR.instances.form_input_content.getData()
@@ -33,7 +33,7 @@ function criaNovoPost() {
 			url : "/s/post",
 			data : post,
 			success : function() {
-				carregaDadosHomePage(true);
+				carregaDadosHomePageAposInclusao();
 			}
 		});
 	}
@@ -77,26 +77,30 @@ function converteData(minhaData) {
 
 function paginacaoDosPost(){
 
-	var paginaSolicitada = 2;
+	var pagina = 1;
 	var query = "";
 	var ehUmNovoPost = false;
-	var espacoPercorrido = calcularPorcentagemPercorridaDaPagina();
+	var posicaoMinimaParaNovaPagina = posicaoNecessariaCarregarOutraPagina();
+	var margemParaNovaBusca = 1.15;
+	console.log("posição mininma " + posicaoMinimaParaNovaPagina);
 
 	$(window).scroll(
 			function(){
-				var posicaoDoScroll = window.pageYOffset;
+				var posicaoDoScroll = $(document).scrollTop();
 
-				if(posicaoDoScroll > espacoPercorrido){
-					espacoPercorrido = posicaoDoScroll;
+				if(posicaoDoScroll > posicaoMinimaParaNovaPagina){
+					posicaoMinimaParaNovaPagina = (posicaoDoScroll*margemParaNovaBusca);
+					pagina = pagina + 1;
+					//console.log("buscar nova página : " + pagina);
 					//busquePosts(menorPostSolicitado,query,ehUmNovoPost);
 				}
 			}
 	);
 }
 
-function calcularPorcentagemPercorridaDaPagina(){
-	var rodapeDaPagina = window.innerHeight;
+function posicaoNecessariaCarregarOutraPagina(){
+	var maximoValorDoScroll =  window.scrollMaxY;
 	var porcentagemDaPaginaDisparaNovaBusca = 0.90;
 
-	return(rodapeDaPagina*(porcentagemDaPaginaDisparaNovaBusca));
+	return(maximoValorDoScroll*(porcentagemDaPaginaDisparaNovaBusca));
 }

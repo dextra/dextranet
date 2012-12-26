@@ -1,6 +1,8 @@
 package br.com.dextra.teste.container;
 
 import java.util.ArrayList;
+import com.google.appengine.tools.development.testing.LocalSearchServiceTestConfig;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +31,9 @@ public class GAETestHelper {
 	protected LocalServiceTestHelper helper;
 
 	private LocalDatastoreServiceTestConfig ds;
-	private LocalSearchService fts;
+	private LocalSearchServiceTestConfig fts;
+
+	private LocalSearchService lss;
 
 	private int port = 8380;
 
@@ -40,8 +44,11 @@ public class GAETestHelper {
 	public void prepareLocalServiceTestHelper() throws Exception {
 		ds = new LocalDatastoreServiceTestConfig();
 		ds.setDefaultHighRepJobPolicyUnappliedJobPercentage(0);
+		fts=new LocalSearchServiceTestConfig();
+
 		List<LocalServiceTestConfig> list = new ArrayList<LocalServiceTestConfig>();
 		list.add(ds);
+		list.add(fts);
 
 		helper = new LocalServiceTestHelper(list.toArray(new LocalServiceTestConfig[0]));
 		Map<String, Object> envs = new HashMap<String, Object>();
@@ -54,7 +61,8 @@ public class GAETestHelper {
 	}
 
 	public void prepareSearchServiceTestHelper() throws Exception {
-		fts = new LocalSearchService();
+		lss = new LocalSearchService();
+
 	}
 
 	public LocalServiceTestHelper getHelper() {
@@ -122,7 +130,6 @@ public class GAETestHelper {
 
 	public LocalServiceTestHelper getGaeHelper() {
 		return helper;
-
-
 	}
+
 }
