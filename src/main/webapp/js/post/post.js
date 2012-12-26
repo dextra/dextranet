@@ -5,7 +5,6 @@ function abrePaginaNovoPost() {
 
 function fazPesquisa() {
 	var textSearch = $('#form-search-input').val();
-	alert(textSearch);
 	$.ajax( {
 		type : 'GET',
 		url : "/s/post",
