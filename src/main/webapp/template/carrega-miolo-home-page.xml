@@ -11,17 +11,17 @@
 			<input type="text" id="form-search-input" />
 			<input type="submit" value="" title="Procurar!" id="form-search-submit" />
 			<script>
-			$('#form-search').submit(fazPesquisa);
+				$('#form-search').submit(fazPesquisa);
 			</script>
 		</form>
 
 		<ul class="message">
 			{if sucesso}
-				<li class="success" style="display: list-item;">Sucesso!</li>
+			<li class="success" style="display: list-item;">Sucesso!</li>
 			{/if}
 		</ul>
 		<!-- Listagem de estorias da Intranet -->
-		<ul class="list-stories" id ="relacao-dos-posts">
+		<ul class="list-stories" id="relacao-dos-posts">
 			{for post in jsonArrayPost}
 			<li class="clearfix">
 				<div class="list-stories-headline-data">
@@ -42,8 +42,8 @@
 						<a href="#">${post.usuario}</a>
 					</div>
 				</div>
-			<script>
-			</script>
+				<script>
+				</script>
 				<p id="${post.id}" class="list-stories-lead">
 					${post.conteudo}
 				</p>
@@ -59,6 +59,8 @@
 				</div>
 			</li>
 			{/for}
+			<div id="container-mais-posts" class="clearfix">
+			</div><!-- #container-main -->
 		</ul><!-- .list-stories -->
 	</template>
 

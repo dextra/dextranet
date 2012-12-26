@@ -1,12 +1,12 @@
 function carregaDadosHomePage() {
 	carregueOsTemplates();
-	busquePosts(0, "", false);
+	busquePosts("", false,0);
 	$(document).delay(1000);
 }
 
 function carregaDadosHomePageAposInclusao() {
 	carregueOsTemplates();
-	busquePosts(0, "", true);
+	busquePosts("", true,0);
 	$(document).delay(1000);
 }
 
@@ -16,7 +16,7 @@ function carregueOsTemplates() {
 	$.holy("../template/carrega-dados-usuario.xml", {});
 }
 
-function busquePosts(menorPostSolicitado, query, ehUmNovoPost) {
+function busquePosts(query, ehUmNovoPost, pagina) {
 	var tipo = 'GET';
 	var url = "/s/post";
 	var quantidadePostsRecuperados = "20";
@@ -24,9 +24,9 @@ function busquePosts(menorPostSolicitado, query, ehUmNovoPost) {
 	$.ajax( {
 		type : tipo,
 		url : url,
-		data : "max-results=" + quantidadePostsRecuperados + "&q=" + query,
+		data : "max-results=" + quantidadePostsRecuperados + "&page=" + pagina +"&q=" + query,
 		success : function(posts) {
-			console.log(posts);
+			//console.log(posts);
 			$.holy("../template/carrega-miolo-home-page.xml", {
 				"jsonArrayPost" : posts,
 				"sucesso" : ehUmNovoPost
@@ -34,6 +34,28 @@ function busquePosts(menorPostSolicitado, query, ehUmNovoPost) {
 		}
 	});
 }
+
+function maisPosts(query, ehUmNovoPost, pagina){
+
+	var tipo = 'GET';
+	var url = "/s/post";
+	var quantidadePostsRecuperados = "20";
+
+	$.ajax( {
+		type : tipo,
+		url : url,
+		data : "max-results=" + quantidadePostsRecuperados + "&page=" + pagina +"&q=" + query,
+		success : function(posts) {
+			//console.log(posts);
+		$.holy("../template/carrega-mais-posts.xml", {
+				"jsonArrayPost" : posts,
+				"sucesso" : ehUmNovoPost
+			});
+		}
+	});
+
+}
+
 function setActiveMenuLateral(id) {
 	// limpa o active atual
 	$("#sidebar-left-home").attr("class", "");
