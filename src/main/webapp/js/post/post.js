@@ -22,7 +22,7 @@ function criaNovoPost() {
 	{
 		alert("Preencha todos os campos.");
 	}
-	else {
+	else{
 	var post = {
 		"title" : $("#form-input-title").val(),
 		"content" : CKEDITOR.instances.form_input_content.getData()
