@@ -26,12 +26,6 @@
 	$(document).ready(function()
 	{
 		$('#form-search-input').placeholder('Procurar pessoas e/ou postagens...');
-		$('#novoPost').click(function(){
-			var link = 'pages/novo_post.html';
-			$('#container-main').html("<h1>HELLO</h1>");
-		});
-
-
 	});
 
 })(jQuery);
