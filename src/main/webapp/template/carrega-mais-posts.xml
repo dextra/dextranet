@@ -2,43 +2,45 @@
 <engine>
 
 	<template selector="#container-mais-posts">
-		{for post in jsonArrayPost}
-		<li class="clearfix">
-			<div class="list-stories-headline-data">
-				${converteData(post.data)}
-				</div>
-			<img src="" alt="photo" class="list-stories-avatar" />
-			<div class="list-stories-headline clearfix">
-				<h2>${post.titulo}</h2>
-				<div class="list-stories-headline-comments">
-					<span class="icon-comments"></span>
-					${post.comentarios} comentários
-				</div>
-				<div class="list-stories-headline-dx">
-					<span class="icon-dx"></span>
-					${post.likes}
-				</div>
-				<div class="list-stories-headline-author">
-					<a href="#">${post.usuario}</a>
-				</div>
+		<ul class="list-stories" id="relacao-dos-posts">
+			{for post in jsonArrayPost}
+			<li class="clearfix">
+				<div class="list-stories-headline-data">
+					${converteData(post.data)}
 			</div>
-			<script>
-			</script>
-			<p id="${post.id}" class="list-stories-lead">
-				${post.conteudo}
+				<img src="" alt="photo" class="list-stories-avatar" />
+				<div class="list-stories-headline clearfix">
+					<h2>${post.titulo}</h2>
+					<div class="list-stories-headline-comments">
+						<span class="icon-comments"></span>
+						${post.comentarios} comentários
+					</div>
+					<div class="list-stories-headline-dx">
+						<span class="icon-dx"></span>
+						${post.likes}
+					</div>
+					<div class="list-stories-headline-author">
+						<a href="#">${post.usuario}</a>
+					</div>
+				</div>
+				<script>
+				</script>
+				<p id="${post.id}" class="list-stories-lead">
+					${post.conteudo}
 				</p>
-			<div class="list-stories-footer clearfix">
-				<div class="list-stories-footer-tags">
-					<a href="#">HTML</a>
-					,
-					<a href="#">CSS</a>
+				<div class="list-stories-footer clearfix">
+					<div class="list-stories-footer-tags">
+						<a href="#">HTML</a>
+						,
+						<a href="#">CSS</a>
+					</div>
+					<div id="${post.id}-button" class="list-stories-footer-call">
+						<a href="#">+ Ver mais</a>
+					</div>
 				</div>
-				<div id="${post.id}-button" class="list-stories-footer-call">
-					<a href="#">+ Ver mais</a>
-				</div>
-			</div>
-		</li>
-		{/for}
+				{/for}
+			</li>
+		</ul><!-- .list-stories -->
 	</template>
 
 </engine>

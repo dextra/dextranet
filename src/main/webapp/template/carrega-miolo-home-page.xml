@@ -51,10 +51,12 @@
 						<a href="#">+ Ver mais</a>
 					</div>
 				</div>
+
+				{/for}
+
+				<div id="container-mais-posts" class="clearfix">
+				</div><!-- #container-main -->
 			</li>
-			{/for}
-			<div id="container-mais-posts" class="clearfix">
-			</div><!-- #container-main -->
 		</ul><!-- .list-stories -->
 	</template>
 
