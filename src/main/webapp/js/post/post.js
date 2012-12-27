@@ -124,7 +124,7 @@ function paginacaoDosPost() {
 	var query = "";
 	var ehUmNovoPost = false;
 	var posicaoMinimaParaNovaPagina = posicaoDoScrollBuscarMaisPosts();
-	var margemParaNovaBusca = 1.15;
+	var margemParaNovaBusca = 1.25;
 	console.log("posição mininma " + posicaoMinimaParaNovaPagina);
 
 	$(window).scroll(
@@ -136,8 +136,7 @@ function paginacaoDosPost() {
 					posicaoMinimaParaNovaPagina = (posicaoDoScroll*margemParaNovaBusca);
 					pagina = pagina + 1;
 					console.log("buscar nova página : " + pagina);
-					//busquePosts(query,ehUmNovoPost,pagina);
-					maisPosts(query,ehUmNovoPost,pagina);
+					busquePosts(query,ehUmNovoPost,pagina);
 				}
 
 			}
