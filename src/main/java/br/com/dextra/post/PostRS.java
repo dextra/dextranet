@@ -7,6 +7,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Response;
 
 import br.com.dextra.repository.PostRepository;
 import br.com.dextra.utils.EntityJsonConverter;
@@ -23,12 +24,14 @@ public class PostRS {
 	@Path("/")
 	@POST
 	@Produces("application/json;charset=UTF-8")
-	public void novoPost(@FormParam("title") String titulo,
+	public Response novoPost(@FormParam("title") String titulo,
 			@FormParam("content") String conteudo) {
 
 		String autor = "usuarioTemporario";
 		PostRepository novoPost = new PostRepository();
-		novoPost.criaNovoPost(titulo, conteudo, autor);
+		Entity entity = novoPost.criaNovoPost(titulo, conteudo, autor);
+		//FIXME so retornar 200 se for ok
+		return Response.ok().build();
 	}
 
 	@Path("/")

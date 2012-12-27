@@ -25,7 +25,7 @@
 
 	$(document).ready(function()
 	{
-		$('#form-search-input').placeholder('Procurar pessoas e/ou postagens...');
+		$('#form_search_input').placeholder('Procurar pessoas e/ou postagens...');
 	});
 
 })(jQuery);

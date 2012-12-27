@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<template selector="#box_user">
+		<div id="box_user_info">
+			<img src="" alt="photo" />
+			user.dextra
+			<span class="shape_arrow_right"></span>
+			<span class="shape_arrow_down"></span>
+			<div class="header_dropdown" id="box_user_profile">
+				<h3>User</h3>
+				<span>user@dextra-sw.com</span>
+			</div>
+		</div>
+		<div id="box_user_notifications">
+			<span class="highlight">3</span>
+			<ul id="box_user_notifications_full" class="header_dropdown">
+				<li>
+					<p>
+						Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou
+						não ser, eis a questão"</a>...
+					</p>
+				</li>
+				<li>
+					<p>
+						Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou
+						não ser, eis a questão"</a>...
+					</p>
+				</li>
+			</ul>
+		</div>
+	</template>
+</engine>
