@@ -5,6 +5,7 @@ package br.com.dextra.repository;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 import br.com.dextra.utils.EntityJsonConverter;
 import br.com.dextra.utils.Utils;
@@ -24,7 +25,11 @@ import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
 import com.google.appengine.api.search.Index;
 import com.google.appengine.api.search.IndexSpec;
+import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.SearchServiceFactory;
+import com.google.appengine.api.search.SortExpression;
+import com.google.appengine.api.search.SortOptions;
+
 
 public class PostRepository {
 
@@ -33,13 +38,11 @@ public class PostRepository {
 		return SearchServiceFactory.getSearchService().getIndex(indexSpec);
 	}
 
-	public static Iterable<Entity> buscarTodosOsPosts(int maxResults,
-			int offSet) {
+	public static Iterable<Entity> buscarTodosOsPosts(int maxResults, int offSet) {
 
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 		Query query = new Query("post");
-
 
 		query.addSort("dataDeAtualizacao", SortDirection.DESCENDING);
 		PreparedQuery prepared = datastore.prepare(query);
@@ -51,71 +54,44 @@ public class PostRepository {
 		return prepared.asIterable(opts);
 	}
 
-	public static Iterable<Entity> buscarPosts(int maxResults, String q, int offSet) throws EntityNotFoundException {
+	public static Iterable<Entity> buscarPosts(int maxResults, String q,
+			int offSet) throws EntityNotFoundException {
 
-		//Faço a Busca das IDs FTS
-		ArrayList<String> listaDeIds = EntityJsonConverter
-		.toListaDeIds(getIndex("post").search("~" + q));
+		SortOptions sortOptions = SortOptions.newBuilder().addSortExpression(
+				SortExpression.newBuilder().setExpression("dataDeAtualizacao")
+						.setDirection(SortExpression.SortDirection.DESCENDING).setDefaultValueNumeric(0.0))
+						.setLimit(1000)
+					.build();
+
+		QueryOptions queryOptions = QueryOptions.newBuilder()
+				.setFieldsToSnippet("titulo", "conteudo", "usuario").setFieldsToReturn("id")
+				.setSortOptions(sortOptions).setLimit(
+						maxResults).build();
+
+		com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query.newBuilder().setOptions(queryOptions).build(q);
+
+		ArrayList<String> listaDeIds = EntityJsonConverter.toListaDeIds(getIndex("post").search(query));
+
 		ArrayList<Key> listaDeKeys = new ArrayList<Key>();
 		Key key;
-		for (String id : listaDeIds)
-		{
-			key =  KeyFactory.createKey("post", id);
+		for (String id : listaDeIds) {
+			key = KeyFactory.createKey("post", id);
 			listaDeKeys.add(key);
 		}
 
 		DatastoreService datastore = DatastoreServiceFactory
-		.getDatastoreService();
-		datastore.get((Iterable<Key>) listaDeKeys);
+				.getDatastoreService();
 
-
-		Query query=new Query("post");
-		query.addSort("dataDeAtualizacao", SortDirection.DESCENDING);
-		PreparedQuery prepared = datastore.prepare(query);
-
-		FetchOptions opts = FetchOptions.Builder.withDefaults();
-		opts.limit(maxResults);
-			opts.offset(offSet);
-
-		ArrayList<Entity> listaDeEntity =new ArrayList<Entity>();
+		ArrayList<Entity> listaFTSResults = new ArrayList<Entity>();
 		Entity e;
-		for (String id : listaDeIds)
-		{
-			key =  KeyFactory.createKey("post", id);
-			e=datastore.get(key);
-			listaDeEntity.add(e);
+		for (String id : listaDeIds) {
+			key = KeyFactory.createKey("post", id);
+			e = datastore.get(key);
+			listaFTSResults.add(e);
 		}
 
-/*
-		ArrayList<Entity> arrayDeTest = new ArrayList<Entity>();
-
-		for(Entity entity :prepared.asIterable(opts) )
-		{
-			arrayDeTest.add(entity);
-		}
-		System.out.println(arrayDeTest);
-
-
-		for(Entity entity : arrayDeTest)
-		{
-			for (Entity entityCorrect : listaDeEntity)
-			{
-
-				if(!entity.toString().equals(entityCorrect.toString())){}
-						//arrayDeTest.remove(entity);
-
-
-
-			}
-
-		}
-
-		return arrayDeTest;*/
-
-
-return listaDeEntity;
+		return listaFTSResults;
 	}
-
 
 	public Entity criaNovoPost(String titulo, String conteudo, String usuario) {
 
@@ -123,7 +99,8 @@ return listaDeEntity;
 		Key key = KeyFactory.createKey("post", id);
 		Date data = new Date();
 
-		return PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
+		return PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key,
+				data);
 	}
 
 	public static Entity criaNovoPost(String titulo, String conteudo,
