@@ -138,10 +138,31 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	public void testeListarPostsPaginados() throws EntityNotFoundException {
+	public void testeListarPostsPaginados0() throws EntityNotFoundException {
 
 		int maxResults = 20;
-		int offSet = 0;
+		int page = 0;
+		int offSet = page*maxResults;
+		int qtdOriginalDePosts = 45;;
+
+		List<Entity> listaPostsOriginais = dadoUmaListaDePostsQueEuSalvei(qtdOriginalDePosts);
+
+		List<Entity> listaPostsConsultados = quandoEuListoOsPostsSalvos(
+				maxResults, offSet);
+
+		List<Entity> listaPostsEsperados = quandoEuSelecionoOsPostsPelaListaOriginal(
+				listaPostsOriginais, maxResults, page);
+
+		entaoEuListeiOsPostsCorretos(listaPostsEsperados, listaPostsConsultados);
+
+	}
+
+	@Test
+	public void testeListarPostsPaginados1() throws EntityNotFoundException {
+
+		int maxResults = 20;
+		int page = 1;
+		int offSet = page*maxResults;
 		int qtdOriginalDePosts = 45;
 
 		List<Entity> listaPostsOriginais = dadoUmaListaDePostsQueEuSalvei(qtdOriginalDePosts);
@@ -150,7 +171,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 				maxResults, offSet);
 
 		List<Entity> listaPostsEsperados = quandoEuSelecionoOsPostsPelaListaOriginal(
-				listaPostsOriginais, maxResults, offSet);
+				listaPostsOriginais, maxResults, page);
 
 		entaoEuListeiOsPostsCorretos(listaPostsEsperados, listaPostsConsultados);
 
