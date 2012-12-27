@@ -12,16 +12,18 @@ function fazPesquisa() {
 		success : function(jsonArrayPost) {
 			$.holy("../template/carrega-miolo-home-page.xml", {
 				"jsonArrayPost" : jsonArrayPost,
-				"sucesso":false
+				"sucesso" : false
 			});
 		}
 	});
+	return false;
 }
 
 function criaNovoPost() {
 	if (($("#form-input-title").val() == "")
 			|| (CKEDITOR.instances.form_input_content.getData() == "")) {
 		alert("Preencha todos os campos.");
+		return false;
 	} else {
 
 		var post = form2js('form-new-post', '.', true, function(node) {
@@ -41,6 +43,7 @@ function criaNovoPost() {
 				carregaDadosHomePageAposInclusao();
 			}
 		});
+		return false;
 	}
 }
 
@@ -127,25 +130,25 @@ function paginacaoDosPost() {
 	var margemParaNovaBusca = 1.25;
 	console.log("posição mininma " + posicaoMinimaParaNovaPagina);
 
-	$(window).scroll(
-			function(){
+	$(window)
+			.scroll(
+					function() {
 
-				var posicaoDoScroll = $(document).scrollTop();
+						var posicaoDoScroll = $(document).scrollTop();
 
-				if(posicaoDoScroll > posicaoMinimaParaNovaPagina){
-					posicaoMinimaParaNovaPagina = (posicaoDoScroll*margemParaNovaBusca);
-					pagina = pagina + 1;
-					console.log("buscar nova página : " + pagina);
-					busquePosts(query,ehUmNovoPost,pagina);
-				}
+						if (posicaoDoScroll > posicaoMinimaParaNovaPagina) {
+							posicaoMinimaParaNovaPagina = (posicaoDoScroll * margemParaNovaBusca);
+							pagina = pagina + 1;
+							console.log("buscar nova página : " + pagina);
+							busquePosts(query, ehUmNovoPost, pagina);
+						}
 
-			}
-	);
+					});
 }
 
-function posicaoDoScrollBuscarMaisPosts(){
-	var maximoValorDoScroll =  window.scrollMaxY;
+function posicaoDoScrollBuscarMaisPosts() {
+	var maximoValorDoScroll = window.scrollMaxY;
 	var porcentagemDaPaginaDisparaNovaBusca = 0.90;
 
-	return(maximoValorDoScroll*(porcentagemDaPaginaDisparaNovaBusca));
+	return (maximoValorDoScroll * (porcentagemDaPaginaDisparaNovaBusca));
 }
