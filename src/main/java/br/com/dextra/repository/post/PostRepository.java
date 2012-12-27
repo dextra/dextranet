@@ -113,7 +113,6 @@ public class PostRepository {
 
 		Entity valueEntity = criaEntityPost(titulo, conteudo, usuario, id, key,
 				data);
-
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
