@@ -15,6 +15,7 @@ del{text-decoration:line-through;}
 table{border-collapse:collapse;border-spacing:0;}
 input,textarea,select{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-khtml-box-sizing:border-box;}
 button{background-color:transparent;border:0;}
+ol{margin:20px;}
 
 /*----------  Preparação para layout elástico  ----------*/
 body{font-size:1em;}
