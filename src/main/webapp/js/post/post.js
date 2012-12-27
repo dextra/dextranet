@@ -58,7 +58,15 @@ function converteData(minhaData) {
 	var dia = minhaData.slice(8, 10);
 	var mes = minhaData.slice(4, 7);
 	var ano = minhaData.slice(24, 28);
-	var hora = minhaData.slice(10, 16);
+	var horario = minhaData.slice(13, 16);
+
+	//Para corrigir erro estranho, gambiarra
+	var hora = minhaData.slice(10, 13);
+	if (hora == "00") {hora = "22"}
+	else if (hora == "01") {hora = "23"}
+	else{
+		hora = hora -2;
+	}
 
 	switch (mes) {
 	case "Jan":
@@ -123,7 +131,7 @@ function converteData(minhaData) {
 		break;
 	}
 
-	return diaS + ", " + dia + "/" + mes + "/" + ano + " - " + hora;
+	return diaS + ", " + dia + "/" + mes + "/" + ano + " - " + hora + horario;
 }
 
 function paginacaoDosPost() {
