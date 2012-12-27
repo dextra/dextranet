@@ -5,10 +5,13 @@ function abrePaginaNovoPost() {
 
 function fazPesquisa() {
 	var textSearch = $('#form_search_input').val();
+	var dados = "max-results=20";
+	if (textSearch != "")
+		dados += "&q=\"" + textSearch + "\"";
 	$.ajax( {
 		type : 'GET',
 		url : "/s/post",
-		data : "max-results=20&q=\"" + textSearch + "\"",
+		data : dados,
 		success : function(jsonArrayPost) {
 			$.holy("../template/carrega_miolo_home_page.xml", {
 				"jsonArrayPost" : jsonArrayPost,
@@ -125,11 +128,11 @@ function converteData(minhaData) {
 
 function paginacaoDosPost() {
 
-	var pagina = 1;
+	var pagina = 0;
 	var query = "";
 	var ehUmNovoPost = false;
 	var posicaoMinimaParaNovaPagina = posicaoDoScrollBuscarMaisPosts();
-	var margemParaNovaBusca = 1.25;
+	var margemParaNovaBusca = 2;
 	console.log("posição mininma " + posicaoMinimaParaNovaPagina);
 
 	$(window)
@@ -137,6 +140,8 @@ function paginacaoDosPost() {
 					function() {
 
 						var posicaoDoScroll = $(document).scrollTop();
+
+						console.log("Posição do Scroll: " + posicaoDoScroll + " || Posição nova página: " + posicaoMinimaParaNovaPagina);
 
 						if (posicaoDoScroll > posicaoMinimaParaNovaPagina) {
 							posicaoMinimaParaNovaPagina = (posicaoDoScroll * margemParaNovaBusca);
