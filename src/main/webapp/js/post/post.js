@@ -138,7 +138,7 @@ function paginacaoDosPost() {
 
 						var posicaoDoScroll = $(document).scrollTop();
 
-						console.log("Posição do Scroll: " + posicaoDoScroll + "Posição nova página: " + posicaoMinimaParaNovaPagina);
+						console.log("Posição do Scroll: " + posicaoDoScroll + " || Posição nova página: " + posicaoMinimaParaNovaPagina);
 
 						if (posicaoDoScroll > posicaoMinimaParaNovaPagina) {
 							posicaoMinimaParaNovaPagina = (posicaoDoScroll * margemParaNovaBusca);
