@@ -5,6 +5,7 @@ package br.com.dextra.repository;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 import br.com.dextra.utils.EntityJsonConverter;
 import br.com.dextra.utils.Utils;
@@ -24,7 +25,10 @@ import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
 import com.google.appengine.api.search.Index;
 import com.google.appengine.api.search.IndexSpec;
+import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.SearchServiceFactory;
+import com.google.appengine.api.search.SortExpression;
+import com.google.appengine.api.search.SortOptions;
 
 public class PostRepository {
 
@@ -53,6 +57,17 @@ public class PostRepository {
 			int offSet) throws EntityNotFoundException {
 
 		// Faço a Busca das IDs FTS
+
+		SortOptions sortOptions = SortOptions.newBuilder().addSortExpression(
+				SortExpression.newBuilder().setExpression("dataDeAtualizacao")
+						.setDirection(SortExpression.SortDirection.DESCENDING).setDefaultValueNumeric(0.0)).setLimit(maxResults)
+					.build();
+
+		QueryOptions queryOptions = QueryOptions.newBuilder()
+				.setFieldsToSnippet("titulo", "conteudo", "autor")
+				.setSortOptions(sortOptions).setLimit(
+						maxResults).build();
+
 		ArrayList<String> listaDeIds = EntityJsonConverter
 				.toListaDeIds(getIndex("post").search("~" + q));
 		ArrayList<Key> listaDeKeys = new ArrayList<Key>();
@@ -64,39 +79,53 @@ public class PostRepository {
 
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
-		datastore.get((Iterable<Key>) listaDeKeys);
+		// datastore.get((Iterable<Key>) listaDeKeys);
 
 		Query query = new Query("post");
 		query.addSort("dataDeAtualizacao", SortDirection.DESCENDING);
 		PreparedQuery prepared = datastore.prepare(query);
 
-		FetchOptions opts = FetchOptions.Builder.withDefaults();
-		opts.limit(maxResults);
-		opts.offset(offSet);
-
-		ArrayList<Entity> listaDeEntity = new ArrayList<Entity>();
+		ArrayList<Entity> listaFTSResults = new ArrayList<Entity>();
 		Entity e;
 		for (String id : listaDeIds) {
 			key = KeyFactory.createKey("post", id);
 			e = datastore.get(key);
-			listaDeEntity.add(e);
+			listaFTSResults.add(e);
 		}
 
-/*		ArrayList<Entity> listaDatastore = new*/
+/*		Iterable<Entity> it = prepared.asIterable();
+		ArrayList<Entity> listaDatastoreAllResults = new ArrayList<Entity>();
 
-		return listaDeEntity;
+		for (Entity entity : it) {
+			listaDatastoreAllResults.add(entity);
+		}
+
+		boolean existe = false;
+
+		for (Entity entity : listaDatastoreAllResults) {
+			existe = false;
+			for (Entity entityFTS : listaFTSResults) {
+				if (entityFTS.toString().equals(entity.toString())) {
+					existe = true;
+				}
+			}
+
+			if (!existe)
+
+				listaDatastoreAllResults.remove(entity);
+		}*/
+
+		return listaFTSResults;
 	}
 
-
-
 	public Entity criaNovoPost(String titulo, String conteudo, String usuario) {
-
 
 		String id = Utils.geraID();
 		Key key = KeyFactory.createKey("post", id);
 		Date data = new Date();
 
-		return PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
+		return PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key,
+				data);
 	}
 
 	public static Entity criaNovoPost(String titulo, String conteudo,
