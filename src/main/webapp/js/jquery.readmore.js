@@ -24,17 +24,16 @@
 			var totalParagraphs = 0;
 			var postID;
 			var tamanhoInicialParagrafo = 0;
-			paragraphs
-					.each(function() {
+			paragraphs.each(function() {
 						var paragraph = $(this);
 						if (paragraph.attr("id")) {
 							postID = paragraph.attr("id");
 						}
 
 						var children = verificarFilho(paragraph);
-						children
-								.each(function() {
-									totalCaracteres = totalCaracteres + $(this).text().length;
+						children.each(function() {
+									var child = $(this);
+									totalCaracteres = totalCaracteres + child.text().length;
 									totalParagraphs++;
 
 									if (totalCaracteres > opts.substr_len) {
@@ -48,17 +47,17 @@
 											showText = paragraph.text()
 													.substring(0, showLength);
 											hideText = '<span class="readm_hidden" style="display:none;">'
-													+ paragraph
+													+ child
 															.text()
 															.substring(
 																	showLength,
-																	paragraph
+																	$(this)
 																			.text().length)
 													+ "</span>";
 											addContinueIndicator(paragraph);
-											paragraph.html(showText + hideText);
+											child.html(showText + hideText);
 										} else {
-											$(paragraph).addClass(
+											$(child).addClass(
 													"readm_hidden");
 										}
 
@@ -66,7 +65,7 @@
 										if (totalParagraphs -2 == opts.substr_lines) {
 											addContinueIndicator(paragraph);
 										}
-										$(this).addClass("readm_hidden");
+										child.addClass("readm_hidden");
 									}
 									tamanhoInicialParagrafo = tamanhoInicialParagrafo
 											+ paragraph.text().length;
