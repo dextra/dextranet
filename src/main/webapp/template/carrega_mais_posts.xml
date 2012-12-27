@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
 
-	<template selector="#container_mais_posts">
+	<template selector="#container_mais_posts" append="true">
 		<ul class="list_stories" id="relacao_dos_posts">
 			{for post in jsonArrayPost}
 			<li class="clearfix">
@@ -23,8 +23,6 @@
 						<a href="#">${post.usuario}</a>
 					</div>
 				</div>
-				<script>
-				</script>
 				<p id="${post.id}" class="list_stories_lead">
 					${post.conteudo}
 				</p>
