@@ -1,28 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <engine>
-	<template selector="#container-main">
 
-		<!-- Sidebar do lado direito -->
-		<div id="sidebar-right" rel="section">
-
-		</div><!-- #sidebar-right -->
-
-		<form id="form-search">
-			<input type="text" id="form-search-input" />
-			<input type="submit" value="" title="Procurar!" id="form-search-submit" />
-		</form>
-
-		<ul class="message">
-			{if sucesso}
-			<li class="success" style="display: list-item;">Sucesso!</li>
-			{/if}
-		</ul>
-		<!-- Listagem de estorias da Intranet -->
+	<template selector="#container-mais-posts">
 		<ul class="list-stories" id="relacao-dos-posts">
 			{for post in jsonArrayPost}
 			<li class="clearfix">
 				<div class="list-stories-headline-data">
 					${converteData(post.data)}
-				</div>
+			</div>
 				<img src="" alt="photo" class="list-stories-avatar" />
 				<div class="list-stories-headline clearfix">
 					<h2>${post.titulo}</h2>
@@ -38,11 +23,11 @@
 						<a href="#">${post.usuario}</a>
 					</div>
 				</div>
-				<div id="${post.id}-post" class="list-stories-lead">
-					<p id="${post.id}">
-						${post.conteudo}
-					</p>
-				</div>
+				<script>
+				</script>
+				<p id="${post.id}" class="list-stories-lead">
+					${post.conteudo}
+				</p>
 				<div class="list-stories-footer clearfix">
 					<div class="list-stories-footer-tags">
 						<a href="#">HTML</a>
@@ -50,22 +35,12 @@
 						<a href="#">CSS</a>
 					</div>
 					<div id="${post.id}-button" class="list-stories-footer-call">
-						+ Ver mais
+						<a href="#">+ Ver mais</a>
 					</div>
 				</div>
-
 				{/for}
-
-				<div id="container-mais-posts" class="clearfix">
-				</div><!-- #container-main -->
 			</li>
 		</ul><!-- .list-stories -->
 	</template>
 
-
-	<script>
-		paginacaoDosPost();
-		carregaOpcaoVerMais();
-		$('#form-search').submit(fazPesquisa);
-	</script>
 </engine>

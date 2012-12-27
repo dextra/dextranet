@@ -37,7 +37,7 @@ public class PostRepository {
 	}
 
 	public static Iterable<Entity> buscarTodosOsPosts(int maxResults,
-			String page) {
+			int offSet) {
 
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
@@ -49,30 +49,36 @@ public class PostRepository {
 
 		FetchOptions opts = FetchOptions.Builder.withDefaults();
 		opts.limit(maxResults);
-		if(!page.equals(""))
-		opts.offset(Integer.parseInt(page));
+		opts.offset(offSet);
 
 		return prepared.asIterable(opts);
 	}
 
-	public static Iterable<Entity> buscarPosts(int maxResults, String q, String page) throws EntityNotFoundException {
+	public static Iterable<Entity> buscarPosts(int maxResults, String q, int offSet) throws EntityNotFoundException {
 
 		//Faço a Busca das IDs FTS
 		ArrayList<String> listaDeIds = EntityJsonConverter
 		.toListaDeIds(getIndex("post").search("~" + q));
+		ArrayList<Key> listaDeKeys = new ArrayList<Key>();
+		Key key;
+		for (String id : listaDeIds)
+		{
+			key =  KeyFactory.createKey("post", id);
+			listaDeKeys.add(key);
+		}
 
 		DatastoreService datastore = DatastoreServiceFactory
 		.getDatastoreService();
+		datastore.get((Iterable<Key>) listaDeKeys);
 
-		Key key;
+
 		Query query=new Query("post");
 		query.addSort("dataDeAtualizacao", SortDirection.DESCENDING);
 		PreparedQuery prepared = datastore.prepare(query);
 
 		FetchOptions opts = FetchOptions.Builder.withDefaults();
 		opts.limit(maxResults);
-		if(!page.equals(""))
-			opts.offset(Integer.parseInt(page));
+			opts.offset(offSet);
 
 		ArrayList<Entity> listaDeEntity =new ArrayList<Entity>();
 		Entity e;
@@ -82,7 +88,35 @@ public class PostRepository {
 			e=datastore.get(key);
 			listaDeEntity.add(e);
 		}
-		return listaDeEntity;
+
+/*
+		ArrayList<Entity> arrayDeTest = new ArrayList<Entity>();
+
+		for(Entity entity :prepared.asIterable(opts) )
+		{
+			arrayDeTest.add(entity);
+		}
+		System.out.println(arrayDeTest);
+
+
+		for(Entity entity : arrayDeTest)
+		{
+			for (Entity entityCorrect : listaDeEntity)
+			{
+
+				if(!entity.toString().equals(entityCorrect.toString())){}
+						//arrayDeTest.remove(entity);
+
+
+
+			}
+
+		}
+
+		return arrayDeTest;*/
+
+
+return listaDeEntity;
 	}
 
 
@@ -126,16 +160,8 @@ public class PostRepository {
 								.setText(data.toString())).addField(
 						Field.newBuilder().setName("id").setText(id)).build();
 
-		// try {
-		// Add all the documents.
-
 		getIndex("post").add(document);
-		// } catch (AddException e) {
-		// if
-		// (StatusCode.TRANSIENT_ERROR.equals(e.getOperationResult().getCode()))
-		// {
-		// // retry adding document
-		// }}
+
 		return valueEntity;
 	}
 }

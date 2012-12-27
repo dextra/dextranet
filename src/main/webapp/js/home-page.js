@@ -1,12 +1,12 @@
 function carregaDadosHomePage() {
 	carregueOsTemplates();
-	busquePosts(0, "", false);
+	busquePosts("", false, 0);
 	$(document).delay(1000);
 }
 
 function carregaDadosHomePageAposInclusao() {
 	carregueOsTemplates();
-	busquePosts(0, "", true);
+	busquePosts("", true, 0);
 	$(document).delay(1000);
 }
 
@@ -16,23 +16,34 @@ function carregueOsTemplates() {
 	$.holy("../template/carrega-dados-usuario.xml", {});
 }
 
-function busquePosts(menorPostSolicitado, query, ehUmNovoPost) {
+function busquePosts(query, ehUmNovoPost, pagina) {
 	var tipo = 'GET';
 	var url = "/s/post";
 	var quantidadePostsRecuperados = "20";
+	var template = escolheTemplateDosPosts(pagina);
 
 	$.ajax( {
 		type : tipo,
 		url : url,
-		data : "max-results=" + quantidadePostsRecuperados + "&q=" + query,
+		data : "max-results=" + quantidadePostsRecuperados + "&page=" + pagina + "&q=" + query,
 		success : function(posts) {
-			$.holy("../template/carrega-miolo-home-page.xml", {
-				"jsonArrayPost" : posts,
-				"sucesso" : ehUmNovoPost
-			});
+			$.holy(template, {"jsonArrayPost" : posts,"sucesso" : ehUmNovoPost});
 		}
 	});
 }
+
+function escolheTemplateDosPosts(pagina){
+	var template;
+
+	if(pagina == 0){
+		template = "../template/carrega-miolo-home-page.xml";
+	}
+	else {
+		template = "../template/carrega-mais-posts.xml";
+	}
+	return template;
+}
+
 function setActiveMenuLateral(id) {
 	// limpa o active atual
 	$("#sidebar-left-home").attr("class", "");
