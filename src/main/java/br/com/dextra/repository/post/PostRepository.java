@@ -3,9 +3,11 @@ package br.com.dextra.repository.post;
 import java.util.ArrayList;
 import java.util.Date;
 
+import br.com.dextra.persistencia.PostFields;
 import br.com.dextra.repository.document.DocumentRepository;
 import br.com.dextra.utils.EntityJsonConverter;
 import br.com.dextra.utils.IndexFacade;
+import br.com.dextra.utils.IndexKeys;
 import br.com.dextra.utils.Utils;
 
 import com.google.appengine.api.datastore.DatastoreService;
@@ -29,9 +31,10 @@ public class PostRepository {
 
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
-		Query query = new Query("post");
+		Query query = new Query(IndexKeys.POST.getKey());
 
-		query.addSort("dataDeAtualizacao", SortDirection.DESCENDING);
+		query.addSort(PostFields.DATA_DE_ATUALIZACAO.getField(),
+				SortDirection.DESCENDING);
 		PreparedQuery prepared = datastore.prepare(query);
 
 		FetchOptions opts = FetchOptions.Builder.withDefaults();
@@ -45,25 +48,29 @@ public class PostRepository {
 			int offSet) throws EntityNotFoundException {
 
 		SortOptions sortOptions = SortOptions.newBuilder().addSortExpression(
-				SortExpression.newBuilder().setExpression("dataDeAtualizacao")
+				SortExpression.newBuilder().setExpression(
+						PostFields.DATA_DE_ATUALIZACAO.getField())
 						.setDirection(SortExpression.SortDirection.DESCENDING)
 						.setDefaultValueNumeric(0.0)).setLimit(1000).build();
 
 		QueryOptions queryOptions = QueryOptions.newBuilder()
-				.setFieldsToSnippet("titulo", "conteudo", "usuario")
-				.setFieldsToReturn("id").setSortOptions(sortOptions).setLimit(
-						maxResults).build();
+				.setFieldsToSnippet(PostFields.TITULO.getField(),
+						PostFields.CONTEUDO.getField(),
+						PostFields.USUARIO.getField()).setFieldsToReturn(
+						PostFields.ID.getField()).setSortOptions(sortOptions)
+				.setLimit(maxResults).build();
 
 		com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query
 				.newBuilder().setOptions(queryOptions).build(q);
 
 		ArrayList<String> listaDeIds = EntityJsonConverter
-				.toListaDeIds(IndexFacade.getIndex("post").search(query));
+				.toListaDeIds(IndexFacade.getIndex(IndexKeys.POST.getKey())
+						.search(query));
 
 		ArrayList<Key> listaDeKeys = new ArrayList<Key>();
 		Key key;
 		for (String id : listaDeIds) {
-			key = KeyFactory.createKey("post", id);
+			key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 			listaDeKeys.add(key);
 		}
 
@@ -73,7 +80,7 @@ public class PostRepository {
 		ArrayList<Entity> listaFTSResults = new ArrayList<Entity>();
 		Entity e;
 		for (String id : listaDeIds) {
-			key = KeyFactory.createKey("post", id);
+			key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 			e = datastore.get(key);
 			listaFTSResults.add(e);
 		}
@@ -84,7 +91,7 @@ public class PostRepository {
 	public Entity criaNovoPost(String titulo, String conteudo, String usuario) {
 
 		String id = Utils.geraID();
-		Key key = KeyFactory.createKey("post", id);
+		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 		Date data = new Date();
 
 		return PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key,
@@ -102,7 +109,7 @@ public class PostRepository {
 
 		datastore.put(valueEntity);
 
-		DocumentRepository.criarDocument(titulo, conteudo, usuario, id, data);
+		DocumentRepository.criarDocumentPost(titulo, conteudo, usuario, id, data);
 
 		return valueEntity;
 	}
@@ -110,20 +117,23 @@ public class PostRepository {
 	private static Entity criaEntityPost(String titulo, String conteudo,
 			String usuario, String id, Key key, Date data) {
 		Entity valueEntity = new Entity(key);
-		valueEntity.setProperty("id", id);
-		valueEntity.setProperty("titulo", titulo);
+		valueEntity.setProperty(PostFields.ID.getField(), id);
+		valueEntity.setProperty(PostFields.TITULO.getField(), titulo);
 
-		valueEntity.setProperty("conteudo", new Text(conteudo));
-		valueEntity.setProperty("usuario", usuario);
-		valueEntity.setProperty("comentarios", 0);
-		valueEntity.setProperty("likes", 0);
-		valueEntity.setProperty("data", data);
-		valueEntity.setProperty("dataDeAtualizacao", data);
+		valueEntity.setProperty(PostFields.CONTEUDO.getField(), new Text(
+				conteudo));
+		valueEntity.setProperty(PostFields.USUARIO.getField(), usuario);
+		valueEntity.setProperty(PostFields.COMENTARIO.getField(), 0);
+		valueEntity.setProperty(PostFields.LIKES.getField(), 0);
+		valueEntity.setProperty(PostFields.DATA.getField(), data);
+		valueEntity
+				.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), data);
 
 		Date dataAtualiza = data;
 		int day = (int) (Math.random() * (30 + 1));
 		dataAtualiza.setDate(day);
-		valueEntity.setProperty("dataDeAtualizacao", dataAtualiza);
+		valueEntity.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(),
+				dataAtualiza);
 		return valueEntity;
 	}
 }
