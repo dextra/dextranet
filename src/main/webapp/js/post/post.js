@@ -133,6 +133,7 @@ function paginacaoDosPost() {
 	$(window)
 			.scroll(
 					function() {
+						posicaoMinimaParaNovaPagina = posicaoDoScrollBuscarMaisPosts();
 
 						var posicaoDoScroll = $(document).scrollTop();
 
