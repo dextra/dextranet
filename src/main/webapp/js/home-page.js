@@ -26,7 +26,6 @@ function busquePosts(menorPostSolicitado, query, ehUmNovoPost) {
 		url : url,
 		data : "max-results=" + quantidadePostsRecuperados + "&q=" + query,
 		success : function(posts) {
-			console.log(posts);
 			$.holy("../template/carrega-miolo-home-page.xml", {
 				"jsonArrayPost" : posts,
 				"sucesso" : ehUmNovoPost
