@@ -118,6 +118,14 @@ public class PostRepository {
 		valueEntity.setProperty("data", data);
 		valueEntity.setProperty("dataDeAtualizacao", data);
 
+		Date dataAtualiza = data;
+        int day = (int) (Math.random()*(30+1));
+        dataAtualiza.setDate(day);
+        valueEntity.setProperty("dataDeAtualizacao", dataAtualiza);
+
+        System.out.println(day);
+
+
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 

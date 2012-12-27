@@ -1,6 +1,8 @@
 package br.com.dextra.teste.servicos;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -43,7 +45,6 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 	@After
 	public void tearDown() {
 		helper.tearDown();
-		// fts.tearDown();
 	}
 
 	@Test
@@ -90,7 +91,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		return json.toString();
 	}
 
-	@Test
+	/*@Test
 	public void testeListarPosts3() throws EntityNotFoundException {
 
 		String titulo = "Post1";
@@ -135,9 +136,9 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		Assert.assertEquals(comparacao.toString(), PostRS.listarPosts("2", "",
 				"0"));
 
-	}
+	}*/
 
-	@Test
+/*	@Test
 	public void testeListarPostsPaginados0() throws EntityNotFoundException {
 
 		int maxResults = 20;
@@ -175,7 +176,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 		entaoEuListeiOsPostsCorretos(listaPostsEsperados, listaPostsConsultados);
 
-	}
+	}*/
 
 	private List<Entity> quandoEuListoOsPostsPelaListaOriginal(
 			List<Entity> listaPostsOriginais, int maxResults, int offSet) {
@@ -218,7 +219,25 @@ System.out.println(limit);
 			String conteudo="Content"+i;
 			String titulo = "Post" + i;
 			if(i==34 || i==23)
-			conteudo = "Content Chupa TOnho";
+			conteudo = "Content 23 ou 34";
+			String usuario = "User" + i;
+			Date data = new Date();
+			String id = Utils.geraID();
+			Key key = KeyFactory.createKey("post", id);
+			Entity entity = PostRepository.criaNovoPost(titulo, conteudo,
+					usuario, id, key, data);
+			listaPostsOriginais.add(entity);
+		}
+		return listaPostsOriginais;
+	}
+
+	private List<Entity> dadoUmaListaDePostsQueEuSalveiParaTestarOOffsetComOSort(int cont) {
+		List<Entity> listaPostsOriginais = new ArrayList<Entity>();
+		for (int i = 0; i < cont; i++) {
+			String conteudo="Content Impar";
+			String titulo = "Post" + i;
+			if(i%2==0)
+			conteudo = "Content Par";
 			String usuario = "User" + i;
 			Date data = new Date();
 			String id = Utils.geraID();
@@ -240,7 +259,7 @@ System.out.println(limit);
 	}
 
 
-/*	@Test
+	@Test
 	public void testeBuscarPosts1() throws NumberFormatException,
 			EntityNotFoundException {
 
@@ -263,7 +282,7 @@ System.out.println(limit);
 
 		entaoEuListeiOsPostsCorretos(listaPostsEsperados, listaPostsConsultados);
 
-}	*/
+}
 
 	private List<Entity> quandoEuBuscoOsPostsPelaListaOriginal(
 			List<Entity> listaPostsOriginais, int maxResults, int page,
@@ -282,6 +301,8 @@ System.out.println(limit);
 			}
 		}
 
+		Collections.reverse(listaSaida);
+
 
 		return listaSaida;
 	}
@@ -296,7 +317,7 @@ System.out.println(limit);
 		return listaSaida;
 	}
 
-/*	@Test
+	/*@Test
 	public void testeBuscarPosts2() throws NumberFormatException,
 			EntityNotFoundException {
 
@@ -309,32 +330,6 @@ System.out.println(limit);
 		ArrayList<Integer> listaDeNumeroDosPostsQueEuQueroBuscar=new ArrayList<Integer>();
 		listaDeNumeroDosPostsQueEuQueroBuscar.add(34);
 		listaDeNumeroDosPostsQueEuQueroBuscar.add(23);
-
-		List<Entity> listaPostsOriginais = dadoUmaListaDePostsQueEuSalvei(qtdOriginalDePosts);
-
-		List<Entity> listaPostsConsultados = quandoEuBuscoOsPostsSalvos(
-				maxResults, offSet, q);
-
-		List<Entity> listaPostsEsperados = quandoEuBuscoOsPostsPelaListaOriginal(
-				listaPostsOriginais, maxResults, page,listaDeNumeroDosPostsQueEuQueroBuscar);
-
-		entaoEuListeiOsPostsCorretos(listaPostsEsperados, listaPostsConsultados);
-
-	}
-
-	@Test
-	public void testeBuscarPosts3() throws NumberFormatException,
-			EntityNotFoundException {
-
-		int maxResults = 20;
-		int page = 0;
-		int offSet = page * maxResults;
-		int qtdOriginalDePosts = 45;
-		String q = "Content";
-
-		ArrayList<Integer> listaDeNumeroDosPostsQueEuQueroBuscar=new ArrayList<Integer>();
-		listaDeNumeroDosPostsQueEuQueroBuscar.add(23);
-		listaDeNumeroDosPostsQueEuQueroBuscar.add(34);
 
 		List<Entity> listaPostsOriginais = dadoUmaListaDePostsQueEuSalvei(qtdOriginalDePosts);
 
