@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<template selector="#container_main">
+		<div id="div_bonito">
+			<form action="" id="form_new_post">
+				<input size="51" type="text" id="form_input_title"
+					placeholder="Digite o título do post" name="title"></input>
+				<br />
+				<textarea cols="50" id="form_input_content" style="resize:none"
+					placeholder="Digite o conteúdo do post" name="content"></textarea>
+				<br />
+				<input type="submit" value="Postar" id="form_post_submit" />
+			</form>
+		</div>
+	</template>
+
+	<script>
+		CKEDITOR.replace('form_input_content');
+		$("#form_new_post").submit(criaNovoPost);
+	</script>
+</engine>

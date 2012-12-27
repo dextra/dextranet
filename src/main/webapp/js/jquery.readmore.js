@@ -40,19 +40,19 @@
 	  					var showLength = opts.substr_len-tamanhoInicialParagrafo-1;
 	  					showText = paragraph.text().substring(0,showLength);
 	  					console.log(showText.legth);
-	  					hideText = '<span class="readm-hidden" style="display:none;">' +
+	  					hideText = '<span class="readm_hidden" style="display:none;">' +
 	  				  					paragraph.text().substring(showLength,paragraph.text().length)+ "</span>";
 	  					addContinueIndicator(paragraph);
 		  				paragraph.html(showText+hideText);
 	  				}else{
-	  					$(paragraph).addClass("readm-hidden");
+	  					$(paragraph).addClass("readm_hidden");
 	  				}
 
 	  			  }else if(totalParagraphs-1 > opts.substr_lines){
 	  				  	if(totalParagraphs-2 == opts.substr_lines){
 	  				  		addContinueIndicator(paragraph);
 	  				  	}
-	  				  	$(paragraph).addClass("readm-hidden");
+	  				  	$(paragraph).addClass("readm_hidden");
 	  			  }
 	  			tamanhoInicialParagrafo=tamanhoInicialParagrafo+paragraph.text().length;
 	  		  }
@@ -68,30 +68,30 @@
     }
 
     function hideContinuation(post){
-    	$(post).find(".readm-hidden").hide();
+    	$(post).find(".readm_hidden").hide();
     }
 
     function addContinueIndicator(limitParagraph){
-  		var dots = "<span class='readm-continue'>" + opts.ellipses + "</span>";
+  		var dots = "<span class='readm_continue'>" + opts.ellipses + "</span>";
 
   		$(limitParagraph).after(dots);
     }
 
     function hideSeeMoreButton(postID){
-	    var button = $("#"+postID+"-button");
+	    var button = $("#"+postID+"_button");
     	 button.hide();
     }
 
     function addButtonEvent(postID){
-    	var button = $("#"+postID+"-button");
+    	var button = $("#"+postID+"_button");
     	button.click(function(){
     		if(button.text().indexOf("+ Ver mais")>=0){
-    			$("#"+postID+"-post").find(".readm-hidden").show();
-    			$("#"+postID+"-post").find(".readm-continue").hide();
+    			$("#"+postID+"_post").find(".readm_hidden").show();
+    			$("#"+postID+"_post").find(".readm_continue").hide();
     			button.text("- Ver menos");
     		}else{
-    			$("#"+postID+"-post").find(".readm-hidden").hide();
-    			$("#"+postID+"-post").find(".readm-continue").show();
+    			$("#"+postID+"_post").find(".readm_hidden").hide();
+    			$("#"+postID+"_post").find(".readm_continue").show();
     			button.text("+ Ver mais");
     		}
     	});
