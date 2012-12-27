@@ -16,11 +16,11 @@ public class DextraNetTest extends TesteFuncionalBase {
 	@Test
 	public void testeCriarEListarPost() {
 		siteDextraNet.navigateTo("http://localhost:8080/");
-		siteDextraNet.click("span.icon-sidebar-left-novopost");
-		siteDextraNet.writeInputText("input#form-input-title",
+		siteDextraNet.click("span.icon_sidebar_left_novopost");
+		siteDextraNet.writeInputText("input#form_input_title",
 		"KaiqueCineminha");
 		siteDextraNet.writeCKEditor("KaiqueVaiNoCineminha");
-		siteDextraNet.click("input#form-post-submit");
+		siteDextraNet.click("input#form_post_submit");
 		siteDextraNet.verificaSeIncluiuPost();
 
 	}
@@ -28,9 +28,9 @@ public class DextraNetTest extends TesteFuncionalBase {
 	public void testebuscaPost()
 	{
 		siteDextraNet.navigateTo("http://localhost:8080/");
-		siteDextraNet.writeInputText("#form-search-input",
+		siteDextraNet.writeInputText("#form_search_input",
 				"KaiqueCin");
-		siteDextraNet.click("#form-search-submit");
+		siteDextraNet.click("#form_search_submit");
 		siteDextraNet.verificaSeApareceuPostBuscado();
 	}
 

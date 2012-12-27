@@ -64,12 +64,20 @@ var CKBUILDER_CONFIG = {
 		'richcombo' : 1,
 		'listblock' : 1,
 		'fakeobjects' : 1,
-		'justify' : 1,
+		'panelbutton' : 1,
+		'colorbutton' : 1,
+		'colordialog' : 1,
+		'find' : 1,
+		'flash' : 1,
+		'font' : 1,
 		'smiley' : 1,
+		'justify' : 1,
+		'liststyle' : 1,
+		'mediaembed' : 1,
+		'pagebreak' : 1,
 		'preview' : 1
 	},
 	languages : {
 		'en' : 1,
-		'pt-br' : 1,
 	}
 };

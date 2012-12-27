@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
-	<template selector="#box-user">
-		<div id="box-user-info">
+	<template selector="#box_user">
+		<div id="box_user_info">
 			<img src="" alt="photo" />
 			user.dextra
-			<span class="shape-arrow-right"></span>
-			<span class="shape-arrow-down"></span>
-			<div class="header-dropdown" id="box-user-profile">
+			<span class="shape_arrow_right"></span>
+			<span class="shape_arrow_down"></span>
+			<div class="header_dropdown" id="box_user_profile">
 				<h3>User</h3>
 				<span>user@dextra-sw.com</span>
 			</div>
 		</div>
-		<div id="box-user-notifications">
+		<div id="box_user_notifications">
 			<span class="highlight">3</span>
-			<ul id="box-user-notifications-full" class="header-dropdown">
+			<ul id="box_user_notifications_full" class="header_dropdown">
 				<li>
 					<p>
 						Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou

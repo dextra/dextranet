@@ -1,16 +1,19 @@
 function abrePaginaNovoPost() {
-	$.holy("../template/abre-pagina-novo-post.xml", {});
-	setActiveMenuLateral("#sidebar-left-new-post");
+	$.holy("../template/abre_pagina_novo_post.xml", {});
+	setActiveMenuLateral("#sidebar_left_new_post");
 }
 
 function fazPesquisa() {
-	var textSearch = $('#form-search-input').val();
+	var textSearch = $('#form_search_input').val();
+	var dados = "max-results=20";
+	if (textSearch != "")
+		dados += "&q=\"" + textSearch + "\"";
 	$.ajax( {
 		type : 'GET',
 		url : "/s/post",
-		data : "max-results=20&q=\"" + textSearch + "\"",
+		data : dados,
 		success : function(jsonArrayPost) {
-			$.holy("../template/carrega-miolo-home-page.xml", {
+			$.holy("../template/carrega_miolo_home_page.xml", {
 				"jsonArrayPost" : jsonArrayPost,
 				"sucesso" : false
 			});
@@ -20,13 +23,13 @@ function fazPesquisa() {
 }
 
 function criaNovoPost() {
-	if (($("#form-input-title").val() == "")
+	if (($("#form_input_title").val() == "")
 			|| (CKEDITOR.instances.form_input_content.getData() == "")) {
 		alert("Preencha todos os campos.");
 		return false;
 	} else {
 
-		var post = form2js('form-new-post', '.', true, function(node) {
+		var post = form2js('form_new_post', '.', true, function(node) {
 			if (node.id && node.id.match(/form_input_content/)) {
 				return {
 					name : "content",
@@ -125,11 +128,11 @@ function converteData(minhaData) {
 
 function paginacaoDosPost() {
 
-	var pagina = 1;
+	var pagina = 0;
 	var query = "";
 	var ehUmNovoPost = false;
 	var posicaoMinimaParaNovaPagina = posicaoDoScrollBuscarMaisPosts();
-	var margemParaNovaBusca = 1.25;
+	var margemParaNovaBusca = 2;
 	console.log("posição mininma " + posicaoMinimaParaNovaPagina);
 
 	$(window)
@@ -137,6 +140,8 @@ function paginacaoDosPost() {
 					function() {
 
 						var posicaoDoScroll = $(document).scrollTop();
+
+						console.log("Posição do Scroll: " + posicaoDoScroll + " || Posição nova página: " + posicaoMinimaParaNovaPagina);
 
 						if (posicaoDoScroll > posicaoMinimaParaNovaPagina) {
 							posicaoMinimaParaNovaPagina = (posicaoDoScroll * margemParaNovaBusca);

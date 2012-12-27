@@ -15,7 +15,7 @@ public class PaginaDextraNet extends PageObject {
 	}
 
 	public void verificaSeTemLogoHomePage() {
-		Assert.assertTrue(this.getElement("span.icon-header-logo") != null);
+		Assert.assertTrue(this.getElement("span.icon_header_logo") != null);
 	}
 
 	public void verificaSeIncluiuPost() {
@@ -25,7 +25,7 @@ public class PaginaDextraNet extends PageObject {
 
 	public void verificaSeApareceuPostBuscado() {
 		Assert.assertEquals("KaiqueVaiNoCineminha", this
-				.getElementContent("p.list-stories-lead"));
+				.getElementContent("p.list_stories_lead"));
 	}
 
 	public void writeCKEditor(String text) {

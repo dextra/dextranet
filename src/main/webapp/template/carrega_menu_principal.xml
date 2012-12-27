@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
-	<template selector="#header-main-menu">
-		<li id="header-main-menu-logo">
+	<template selector="#header_main_menu">
+		<li id="header_main_menu_logo">
 			<a href="#">
-				<span class="icon-header-logo"></span>
+				<span class="icon_header_logo"></span>
 			</a>
 		</li>
 		<li>
@@ -26,13 +26,13 @@
 				Ramais
 			</a>
 		</li>
-		<li id="header-main-menu-outros">
+		<li id="header_main_menu_outros">
 			<a href="#">
 				Outros
-				<span class="shape-arrow-right"></span>
-				<span class="shape-arrow-down"></span>
+				<span class="shape_arrow_right"></span>
+				<span class="shape_arrow_down"></span>
 			</a>
-			<ul class="header-dropdown">
+			<ul class="header_dropdown">
 				<li>
 					<a href="http://dextra-dexboard.appspot.com/">Dexboard</a>
 				</li>

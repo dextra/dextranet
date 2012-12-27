@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<template selector="#sidebar_left">
+		<ul id="sidebar_left_menu">
+			<li id="sidebar_left_home" class="active">
+				<a href="#" id="button_sidebar_left_home">
+					<span class="icon_sidebar_left_home"></span>
+					Home
+				</a>
+			</li>
+			<li id="sidebar_left_new_post">
+				<a href="#" id="button_sidebar_left_novopost">
+					<span class="icon_sidebar_left_novopost"></span>
+					Novo Post
+				</a>
+			</li>
+			<li id="sidebar_left_category">
+				<a href="pages/categoria/categoria.html">
+					<span class="icon_sidebar_left_categoria"></span>
+					Categoria
+				</a>
+			</li>
+			<li id="sidebar_left_profile">
+				<a href="pages/perfil/perfil.html">
+					<span class="icon_sidebar_left_perfil"></span>
+					Perfil
+				</a>
+			</li>
+			<li id="sidebar_left_team">
+				<a href="pages/equipe/equipe.html">
+					<span class="icon_sidebar_left_equipe"></span>
+					Equipe
+				</a>
+			</li>
+		</ul>
+	</template>
+	<script>
+		$("#button_sidebar_left_novopost").click(abrePaginaNovoPost);
+		$("#button_sidebar_left_home").click(carregaDadosHomePage);
+	</script>
+</engine>
