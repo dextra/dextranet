@@ -35,6 +35,8 @@ function criaNovoPost() {
 			}
 		});
 
+		console.log(post);
+
 		$.ajax( {
 			type : "POST",
 			url : "/s/post",

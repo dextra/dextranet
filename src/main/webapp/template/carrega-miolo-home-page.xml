@@ -38,9 +38,11 @@
 						<a href="#">${post.usuario}</a>
 					</div>
 				</div>
-				<p id="${post.id}" class="list-stories-lead">
-					${post.conteudo}
-				</p>
+				<div id="${post.id}-post" class="list-stories-lead">
+					<p id="${post.id}">
+						${post.conteudo}
+					</p>
+				</div>
 				<div class="list-stories-footer clearfix">
 					<div class="list-stories-footer-tags">
 						<a href="#">HTML</a>
@@ -48,7 +50,7 @@
 						<a href="#">CSS</a>
 					</div>
 					<div id="${post.id}-button" class="list-stories-footer-call">
-						<a href="#">+ Ver mais</a>
+						+ Ver mais
 					</div>
 				</div>
 
