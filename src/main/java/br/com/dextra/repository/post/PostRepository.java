@@ -25,7 +25,7 @@ import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.SortExpression;
 import com.google.appengine.api.search.SortOptions;
 
-public class PostRepository {
+public class PostRepository extends BaseRepository {
 
 	public static Iterable<Entity> buscarTodosOsPosts(int maxResults, int offSet) {
 
@@ -113,10 +113,7 @@ public class PostRepository {
 
 		Entity valueEntity = criaEntityPost(titulo, conteudo, usuario, id, key,
 				data);
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
-
-		datastore.put(valueEntity);
+		persist(valueEntity);
 
 		DocumentRepository.criarDocumentPost(titulo, conteudo, usuario, id,
 				data);
@@ -140,6 +137,7 @@ public class PostRepository {
 				.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), data);
 
 		Date dataAtualiza = data;
+		//FIXME porque a data esta assim?
 		int day = (int) (Math.random() * (30 + 1));
 		dataAtualiza.setDate(day);
 		valueEntity.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(),
