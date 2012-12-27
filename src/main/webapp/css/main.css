@@ -141,12 +141,13 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 
 /*----------  Listagem de estórias de usuários  ----------*/
 .list_stories > li{border-radius:5px;background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-bottom:20px;}
+.list_stories_lead > ul{list-style:disc; margin:15px;}
 .list_stories_avatar{float:left;margin-right:10px;border:1px solid #ced1d3;padding:1px;background-color:#eee;width:50px;height:50px;border-radius:5px;}
 .list_stories_headline{margin-bottom:20px;}
 .list_stories_headline > h2{font-weight:bold;font-size:18px;text-transform:uppercase;color:#35679a;margin:4px 0 5px;}
 .list_stories_headline_comments,
 .list_stories_headline_dx,
-.list_stories_headline_author{font-size:13px;font-weight:bold;margin-right:15px;float:left;}
+.list_stories_headline_author{font-size:13px;font-weight:bold;margin-right:13px;float:left;}
 .list_stories_headline_comments{color:#999;}
 .list_stories_headline_dx{color:#349a94;}
 .list_stories_headline_author{margin-right:0;color:#666;font-weight:normal;}
