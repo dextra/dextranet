@@ -8,7 +8,7 @@ function fazPesquisa() {
 	$.ajax( {
 		type : 'GET',
 		url : "/s/post",
-		data : "max-results=5&q=" + textSearch,
+		data : "max-results=20&q=\"" + textSearch + "\"",
 		success : function(jsonArrayPost) {
 			$.holy("../template/carrega-miolo-home-page.xml", {
 				"jsonArrayPost" : jsonArrayPost,
@@ -148,7 +148,7 @@ function paginacaoDosPost() {
 
 function posicaoDoScrollBuscarMaisPosts() {
 	var maximoValorDoScroll = window.scrollMaxY;
-	var porcentagemDaPaginaDisparaNovaBusca = 0.90;
+	var porcentagemDaPaginaDisparaNovaBusca = 0.95;
 
 	return (maximoValorDoScroll * (porcentagemDaPaginaDisparaNovaBusca));
 }
