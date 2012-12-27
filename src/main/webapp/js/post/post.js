@@ -128,11 +128,11 @@ function converteData(minhaData) {
 
 function paginacaoDosPost() {
 
-	var pagina = 1;
+	var pagina = 0;
 	var query = "";
 	var ehUmNovoPost = false;
 	var posicaoMinimaParaNovaPagina = posicaoDoScrollBuscarMaisPosts();
-	var margemParaNovaBusca = 1.25;
+	var margemParaNovaBusca = 2;
 	console.log("posição mininma " + posicaoMinimaParaNovaPagina);
 
 	$(window)
@@ -140,6 +140,8 @@ function paginacaoDosPost() {
 					function() {
 
 						var posicaoDoScroll = $(document).scrollTop();
+
+						console.log("Posição do Scroll: " + posicaoDoScroll + " || Posição nova página: " + posicaoMinimaParaNovaPagina);
 
 						if (posicaoDoScroll > posicaoMinimaParaNovaPagina) {
 							posicaoMinimaParaNovaPagina = (posicaoDoScroll * margemParaNovaBusca);
