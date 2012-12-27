@@ -33,13 +33,11 @@ public class PostRepository {
 		return SearchServiceFactory.getSearchService().getIndex(indexSpec);
 	}
 
-	public static Iterable<Entity> buscarTodosOsPosts(int maxResults,
-			int offSet) {
+	public static Iterable<Entity> buscarTodosOsPosts(int maxResults, int offSet) {
 
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 		Query query = new Query("post");
-
 
 		query.addSort("dataDeAtualizacao", SortDirection.DESCENDING);
 		PreparedQuery prepared = datastore.prepare(query);
@@ -51,71 +49,43 @@ public class PostRepository {
 		return prepared.asIterable(opts);
 	}
 
-	public static Iterable<Entity> buscarPosts(int maxResults, String q, int offSet) throws EntityNotFoundException {
+	public static Iterable<Entity> buscarPosts(int maxResults, String q,
+			int offSet) throws EntityNotFoundException {
 
-		//Faço a Busca das IDs FTS
+		// Faço a Busca das IDs FTS
 		ArrayList<String> listaDeIds = EntityJsonConverter
-		.toListaDeIds(getIndex("post").search("~" + q));
+				.toListaDeIds(getIndex("post").search("~" + q));
 		ArrayList<Key> listaDeKeys = new ArrayList<Key>();
 		Key key;
-		for (String id : listaDeIds)
-		{
-			key =  KeyFactory.createKey("post", id);
+		for (String id : listaDeIds) {
+			key = KeyFactory.createKey("post", id);
 			listaDeKeys.add(key);
 		}
 
 		DatastoreService datastore = DatastoreServiceFactory
-		.getDatastoreService();
+				.getDatastoreService();
 		datastore.get((Iterable<Key>) listaDeKeys);
 
-
-		Query query=new Query("post");
+		Query query = new Query("post");
 		query.addSort("dataDeAtualizacao", SortDirection.DESCENDING);
 		PreparedQuery prepared = datastore.prepare(query);
 
 		FetchOptions opts = FetchOptions.Builder.withDefaults();
 		opts.limit(maxResults);
-			opts.offset(offSet);
+		opts.offset(offSet);
 
-		ArrayList<Entity> listaDeEntity =new ArrayList<Entity>();
+		ArrayList<Entity> listaDeEntity = new ArrayList<Entity>();
 		Entity e;
-		for (String id : listaDeIds)
-		{
-			key =  KeyFactory.createKey("post", id);
-			e=datastore.get(key);
+		for (String id : listaDeIds) {
+			key = KeyFactory.createKey("post", id);
+			e = datastore.get(key);
 			listaDeEntity.add(e);
 		}
 
-/*
-		ArrayList<Entity> arrayDeTest = new ArrayList<Entity>();
+/*		ArrayList<Entity> listaDatastore = new*/
 
-		for(Entity entity :prepared.asIterable(opts) )
-		{
-			arrayDeTest.add(entity);
-		}
-		System.out.println(arrayDeTest);
-
-
-		for(Entity entity : arrayDeTest)
-		{
-			for (Entity entityCorrect : listaDeEntity)
-			{
-
-				if(!entity.toString().equals(entityCorrect.toString())){}
-						//arrayDeTest.remove(entity);
-
-
-
-			}
-
-		}
-
-		return arrayDeTest;*/
-
-
-return listaDeEntity;
+		return listaDeEntity;
 	}
-
 
 	public void criaNovoPost(String titulo, String conteudo, String usuario) {
 

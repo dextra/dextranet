@@ -215,8 +215,10 @@ System.out.println(limit);
 	private List<Entity> dadoUmaListaDePostsQueEuSalvei(int cont) {
 		List<Entity> listaPostsOriginais = new ArrayList<Entity>();
 		for (int i = 0; i < cont; i++) {
+			String conteudo="Content"+i;
 			String titulo = "Post" + i;
-			String conteudo = "Content" + i;
+			if(i==34 || i==23)
+			conteudo = "Content Chupa TOnho";
 			String usuario = "User" + i;
 			Date data = new Date();
 			String id = Utils.geraID();
@@ -238,7 +240,7 @@ System.out.println(limit);
 	}
 
 
-/*	@Test
+	@Test
 	public void testeBuscarPosts1() throws NumberFormatException,
 			EntityNotFoundException {
 
@@ -246,10 +248,10 @@ System.out.println(limit);
 		int page = 0;
 		int offSet = page * maxResults;
 		int qtdOriginalDePosts = 45;
-		String q = "Content22";
+		String q = "Post29";
 
 		ArrayList<Integer> listaDeNumeroDosPostsQueEuQueroBuscar=new ArrayList<Integer>();
-		listaDeNumeroDosPostsQueEuQueroBuscar.add(22);
+		listaDeNumeroDosPostsQueEuQueroBuscar.add(29);
 
 		List<Entity> listaPostsOriginais = dadoUmaListaDePostsQueEuSalvei(qtdOriginalDePosts);
 
@@ -261,17 +263,24 @@ System.out.println(limit);
 
 		entaoEuListeiOsPostsCorretos(listaPostsEsperados, listaPostsConsultados);
 
-	}*/
+	}
 
 	private List<Entity> quandoEuBuscoOsPostsPelaListaOriginal(
 			List<Entity> listaPostsOriginais, int maxResults, int page,
 			ArrayList<Integer> listaDeNumeroDosPostsQueEuQueroBuscar) {
 		ArrayList<Entity> listaSaida = new ArrayList<Entity>();
-/*		for(Entity entity : listaPostsOriginais)
+		for(Entity entity : listaPostsOriginais)
 		{
-			if(Integer.parseInt(entity.getProperty("titulo").toString().substring(4))==
-		}*/
-		return null;
+			for(int post : listaDeNumeroDosPostsQueEuQueroBuscar)
+			{
+				if(Integer.parseInt(entity.getProperty("titulo").toString().substring(4))==post)
+				{
+					listaSaida.add(entity);
+				}
+
+			}
+		}
+		return listaSaida;
 	}
 
 	private List<Entity> quandoEuBuscoOsPostsSalvos(int maxResults, int offSet,
@@ -282,6 +291,58 @@ System.out.println(limit);
 			listaSaida.add(entity);
 		}
 		return listaSaida;
+	}
+
+	@Test
+	public void testeBuscarPosts2() throws NumberFormatException,
+			EntityNotFoundException {
+
+		int maxResults = 20;
+		int page = 0;
+		int offSet = page * maxResults;
+		int qtdOriginalDePosts = 45;
+		String q = "Content";
+
+		ArrayList<Integer> listaDeNumeroDosPostsQueEuQueroBuscar=new ArrayList<Integer>();
+		listaDeNumeroDosPostsQueEuQueroBuscar.add(23);
+		listaDeNumeroDosPostsQueEuQueroBuscar.add(34);
+
+		List<Entity> listaPostsOriginais = dadoUmaListaDePostsQueEuSalvei(qtdOriginalDePosts);
+
+		List<Entity> listaPostsConsultados = quandoEuBuscoOsPostsSalvos(
+				maxResults, offSet, q);
+
+		List<Entity> listaPostsEsperados = quandoEuBuscoOsPostsPelaListaOriginal(
+				listaPostsOriginais, maxResults, page,listaDeNumeroDosPostsQueEuQueroBuscar);
+
+		entaoEuListeiOsPostsCorretos(listaPostsEsperados, listaPostsConsultados);
+
+	}
+	
+	@Test
+	public void testeBuscarPosts3() throws NumberFormatException,
+			EntityNotFoundException {
+
+		int maxResults = 20;
+		int page = 0;
+		int offSet = page * maxResults;
+		int qtdOriginalDePosts = 45;
+		String q = "Content";
+
+		ArrayList<Integer> listaDeNumeroDosPostsQueEuQueroBuscar=new ArrayList<Integer>();
+		listaDeNumeroDosPostsQueEuQueroBuscar.add(23);
+		listaDeNumeroDosPostsQueEuQueroBuscar.add(34);
+
+		List<Entity> listaPostsOriginais = dadoUmaListaDePostsQueEuSalvei(qtdOriginalDePosts);
+
+		List<Entity> listaPostsConsultados = quandoEuBuscoOsPostsSalvos(
+				maxResults, offSet, q);
+
+		List<Entity> listaPostsEsperados = quandoEuBuscoOsPostsPelaListaOriginal(
+				listaPostsOriginais, maxResults, page,listaDeNumeroDosPostsQueEuQueroBuscar);
+
+		entaoEuListeiOsPostsCorretos(listaPostsEsperados, listaPostsConsultados);
+
 	}
 
 }
