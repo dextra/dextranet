@@ -62,7 +62,7 @@
 
 
 	<script>
-		paginacaoDosPost();
+		paginacaoDosPost("");
 		carregaOpcaoVerMais();
 		$('#form_search').submit(fazPesquisa);
 	</script>
