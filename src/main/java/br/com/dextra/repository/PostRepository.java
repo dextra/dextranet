@@ -120,13 +120,13 @@ return listaDeEntity;
 	}
 
 
-	public void criaNovoPost(String titulo, String conteudo, String usuario) {
+	public Entity criaNovoPost(String titulo, String conteudo, String usuario) {
 
 		String id = Utils.geraID();
 		Key key = KeyFactory.createKey("post", id);
 		Date data = new Date();
 
-		PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
+		return PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
 	}
 
 	public static Entity criaNovoPost(String titulo, String conteudo,
