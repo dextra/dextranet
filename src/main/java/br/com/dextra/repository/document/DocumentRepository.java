@@ -27,6 +27,8 @@ public class DocumentRepository {
 						data.toString())).addField(
 				Field.newBuilder().setName(PostFields.ID.getField())
 						.setText(id)).build();
+		//FIXME aqui ao invés do indice post, deve ser o indice de document
+		// porque vai ter que listar nao somente posts
 		IndexFacade.getIndex(IndexKeys.POST.getKey()).add(document);
 		return document;
 	}

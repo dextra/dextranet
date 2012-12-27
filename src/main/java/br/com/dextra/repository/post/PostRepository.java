@@ -47,6 +47,39 @@ public class PostRepository {
 	public static Iterable<Entity> buscarPosts(int maxResults, String q,
 			int offSet) throws EntityNotFoundException {
 
+		ArrayList<String> listaDeIds = buscaIdsPostsFTS(maxResults, q);
+
+		ArrayList<Entity> listaResults = buscaEntitiesPost(listaDeIds);
+
+		return listaResults;
+	}
+
+	private static ArrayList<Entity> buscaEntitiesPost(
+			ArrayList<String> listaDeIds) throws EntityNotFoundException {
+		DatastoreService datastore = DatastoreServiceFactory
+				.getDatastoreService();
+
+		ArrayList<Entity> listaResults = new ArrayList<Entity>();
+
+		for (String id : listaDeIds) {
+			Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
+			Entity e = datastore.get(key);
+			listaResults.add(e);
+		}
+		return listaResults;
+	}
+
+	private static ArrayList<String> buscaIdsPostsFTS(int maxResults, String q) {
+		com.google.appengine.api.search.Query query = preparaQuery(maxResults,
+				q);
+		ArrayList<String> listaDeIds = EntityJsonConverter
+				.toListaDeIds(IndexFacade.getIndex(IndexKeys.POST.getKey())
+						.search(query));
+		return listaDeIds;
+	}
+
+	private static com.google.appengine.api.search.Query preparaQuery(
+			int maxResults, String q) {
 		SortOptions sortOptions = SortOptions.newBuilder().addSortExpression(
 				SortExpression.newBuilder().setExpression(
 						PostFields.DATA_DE_ATUALIZACAO.getField())
@@ -62,30 +95,7 @@ public class PostRepository {
 
 		com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query
 				.newBuilder().setOptions(queryOptions).build(q);
-
-		ArrayList<String> listaDeIds = EntityJsonConverter
-				.toListaDeIds(IndexFacade.getIndex(IndexKeys.POST.getKey())
-						.search(query));
-
-		ArrayList<Key> listaDeKeys = new ArrayList<Key>();
-		Key key;
-		for (String id : listaDeIds) {
-			key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
-			listaDeKeys.add(key);
-		}
-
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
-
-		ArrayList<Entity> listaFTSResults = new ArrayList<Entity>();
-		Entity e;
-		for (String id : listaDeIds) {
-			key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
-			e = datastore.get(key);
-			listaFTSResults.add(e);
-		}
-
-		return listaFTSResults;
+		return query;
 	}
 
 	public Entity criaNovoPost(String titulo, String conteudo, String usuario) {
@@ -103,13 +113,13 @@ public class PostRepository {
 
 		Entity valueEntity = criaEntityPost(titulo, conteudo, usuario, id, key,
 				data);
-
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
 
 		datastore.put(valueEntity);
 
-		DocumentRepository.criarDocumentPost(titulo, conteudo, usuario, id, data);
+		DocumentRepository.criarDocumentPost(titulo, conteudo, usuario, id,
+				data);
 
 		return valueEntity;
 	}
