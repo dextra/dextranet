@@ -12,7 +12,7 @@ import javax.naming.InitialContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.appengine.api.search.dev.LocalSearchService;
+//import com.google.appengine.api.search.dev.LocalSearchService;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
@@ -33,7 +33,7 @@ public class GAETestHelper {
 	private LocalDatastoreServiceTestConfig ds;
 	private LocalSearchServiceTestConfig fts;
 
-	private LocalSearchService lss;
+//	private LocalSearchService lss;
 
 	private int port = 8380;
 
@@ -61,7 +61,7 @@ public class GAETestHelper {
 	}
 
 	public void prepareSearchServiceTestHelper() throws Exception {
-		lss = new LocalSearchService();
+//		lss = new LocalSearchService();
 
 	}
 
