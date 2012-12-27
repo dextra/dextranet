@@ -30,6 +30,7 @@ import com.google.appengine.api.search.SearchServiceFactory;
 import com.google.appengine.api.search.SortExpression;
 import com.google.appengine.api.search.SortOptions;
 
+
 public class PostRepository {
 
 	public static Index getIndex(String index) {
@@ -56,20 +57,21 @@ public class PostRepository {
 	public static Iterable<Entity> buscarPosts(int maxResults, String q,
 			int offSet) throws EntityNotFoundException {
 
-		// Faço a Busca das IDs FTS
-
 		SortOptions sortOptions = SortOptions.newBuilder().addSortExpression(
 				SortExpression.newBuilder().setExpression("dataDeAtualizacao")
-						.setDirection(SortExpression.SortDirection.DESCENDING).setDefaultValueNumeric(0.0)).setLimit(maxResults)
+						.setDirection(SortExpression.SortDirection.DESCENDING).setDefaultValueNumeric(0.0))
+						.setLimit(1000)
 					.build();
 
 		QueryOptions queryOptions = QueryOptions.newBuilder()
-				.setFieldsToSnippet("titulo", "conteudo", "autor")
+				.setFieldsToSnippet("titulo", "conteudo", "usuario").setFieldsToReturn("id")
 				.setSortOptions(sortOptions).setLimit(
 						maxResults).build();
 
-		ArrayList<String> listaDeIds = EntityJsonConverter
-				.toListaDeIds(getIndex("post").search("~" + q));
+		com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query.newBuilder().setOptions(queryOptions).build(q);
+
+		ArrayList<String> listaDeIds = EntityJsonConverter.toListaDeIds(getIndex("post").search(query));
+
 		ArrayList<Key> listaDeKeys = new ArrayList<Key>();
 		Key key;
 		for (String id : listaDeIds) {
@@ -79,11 +81,6 @@ public class PostRepository {
 
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
-		// datastore.get((Iterable<Key>) listaDeKeys);
-
-		Query query = new Query("post");
-		query.addSort("dataDeAtualizacao", SortDirection.DESCENDING);
-		PreparedQuery prepared = datastore.prepare(query);
 
 		ArrayList<Entity> listaFTSResults = new ArrayList<Entity>();
 		Entity e;
@@ -92,28 +89,6 @@ public class PostRepository {
 			e = datastore.get(key);
 			listaFTSResults.add(e);
 		}
-
-/*		Iterable<Entity> it = prepared.asIterable();
-		ArrayList<Entity> listaDatastoreAllResults = new ArrayList<Entity>();
-
-		for (Entity entity : it) {
-			listaDatastoreAllResults.add(entity);
-		}
-
-		boolean existe = false;
-
-		for (Entity entity : listaDatastoreAllResults) {
-			existe = false;
-			for (Entity entityFTS : listaFTSResults) {
-				if (entityFTS.toString().equals(entity.toString())) {
-					existe = true;
-				}
-			}
-
-			if (!existe)
-
-				listaDatastoreAllResults.remove(entity);
-		}*/
 
 		return listaFTSResults;
 	}
