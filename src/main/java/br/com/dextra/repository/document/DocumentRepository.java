@@ -3,13 +3,14 @@ package br.com.dextra.repository.document;
 import java.util.Date;
 
 import br.com.dextra.persistencia.PostFields;
+import br.com.dextra.repository.post.BaseRepository;
 import br.com.dextra.utils.IndexFacade;
 import br.com.dextra.utils.IndexKeys;
 
 import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
 
-public class DocumentRepository {
+public class DocumentRepository extends BaseRepository {
 
 	public static Document criarDocumentPost(String titulo, String conteudo,
 			String usuario, String id, Date data) {
