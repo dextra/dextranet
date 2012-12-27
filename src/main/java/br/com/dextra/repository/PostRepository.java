@@ -91,6 +91,7 @@ public class PostRepository {
 			listaDeEntity.add(e);
 		}
 
+/*
 		ArrayList<Entity> arrayDeTest = new ArrayList<Entity>();
 
 		for(Entity entity :prepared.asIterable(opts) )
@@ -114,9 +115,10 @@ public class PostRepository {
 
 		}
 
-		return arrayDeTest;
+		return arrayDeTest;*/
 
 
+return listaDeEntity;
 	}
 
 
@@ -129,7 +131,7 @@ public class PostRepository {
 		PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
 	}
 
-	public static void criaNovoPost(String titulo, String conteudo,
+	public static Entity criaNovoPost(String titulo, String conteudo,
 			String usuario, String id, Key key, Date data) {
 
 		Entity valueEntity = new Entity(key);
@@ -170,5 +172,6 @@ public class PostRepository {
 		// {
 		// // retry adding document
 		// }}
+		return valueEntity;
 	}
 }

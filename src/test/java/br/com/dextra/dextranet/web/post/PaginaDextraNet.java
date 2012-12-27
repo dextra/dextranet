@@ -18,9 +18,9 @@ public class PaginaDextraNet extends PageObject {
 		Assert.assertTrue(this.getElement("span.icon-header-logo") != null);
 	}
 
-	public void verificaSeApareceuPostIncluido() {
-		Assert.assertEquals("KaiqueVaiNoCineminha", this
-				.getElementContent("p.list-stories-lead"));
+	public void verificaSeIncluiuPost() {
+		Assert.assertEquals("Sucesso!", this
+				.getElementContent("li.success"));
 	}
 
 	public void verificaSeApareceuPostBuscado() {
@@ -30,7 +30,7 @@ public class PaginaDextraNet extends PageObject {
 
 	public void writeCKEditor(String text) {
 		WebElement iframe = driver.findElement(By.tagName("iframe"));
-		final WebDriver frame = driver.switchTo().frame(iframe);
+		driver.switchTo().frame(iframe);
 		((JavascriptExecutor) driver).executeScript("document.body.innerHTML='"
 				+ text + "'");
 		driver.switchTo().defaultContent();

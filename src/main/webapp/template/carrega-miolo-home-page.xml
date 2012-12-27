@@ -9,10 +9,7 @@
 
 		<form action="" id="form-search">
 			<input type="text" id="form-search-input" />
-			<input type="submit" value="" title="Procurar!" id="form-search-submit" />
-			<script>
-			$('#form-search').submit(fazPesquisa);
-			</script>
+			<input type="button" value="" title="Procurar!" id="form-search-submit" />
 		</form>
 
 		<ul class="message">
@@ -42,8 +39,6 @@
 						<a href="#">${post.usuario}</a>
 					</div>
 				</div>
-			<script>
-			</script>
 				<p id="${post.id}" class="list-stories-lead">
 					${post.conteudo}
 				</p>
@@ -66,5 +61,6 @@
 	<script>
 		paginacaoDosPost();
 		carregaOpcaoVerMais();
+		$('#form-search-submit').click(fazPesquisa);
 	</script>
 </engine>
