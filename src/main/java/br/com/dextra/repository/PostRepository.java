@@ -5,6 +5,7 @@ package br.com.dextra.repository;
 
 import java.util.ArrayList;
 import java.util.Date;
+
 import br.com.dextra.utils.EntityJsonConverter;
 import br.com.dextra.utils.Utils;
 
@@ -17,17 +18,13 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Text;
 import com.google.appengine.api.datastore.Query.SortDirection;
-import com.google.appengine.api.search.AddException;
 import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
 import com.google.appengine.api.search.Index;
 import com.google.appengine.api.search.IndexSpec;
-import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.SearchServiceFactory;
-import com.google.appengine.api.search.StatusCode;
-import com.google.gson.JsonObject;
 
 public class PostRepository {
 
@@ -136,7 +133,8 @@ return listaDeEntity;
 
 		valueEntity.setProperty("id", id);
 		valueEntity.setProperty("titulo", titulo);
-		valueEntity.setProperty("conteudo", conteudo);
+
+		valueEntity.setProperty("conteudo", new Text(conteudo));
 		valueEntity.setProperty("usuario", usuario);
 		valueEntity.setProperty("comentarios", 0);
 		valueEntity.setProperty("likes", 0);
