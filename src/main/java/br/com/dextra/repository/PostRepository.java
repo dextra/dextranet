@@ -37,7 +37,7 @@ public class PostRepository {
 	}
 
 	public static Iterable<Entity> buscarTodosOsPosts(int maxResults,
-			String page) {
+			int offSet) {
 
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
@@ -49,13 +49,12 @@ public class PostRepository {
 
 		FetchOptions opts = FetchOptions.Builder.withDefaults();
 		opts.limit(maxResults);
-		if(!page.equals(""))
-		opts.offset(Integer.parseInt(page));
+		opts.offset(offSet);
 
 		return prepared.asIterable(opts);
 	}
 
-	public static Iterable<Entity> buscarPosts(int maxResults, String q, String page) throws EntityNotFoundException {
+	public static Iterable<Entity> buscarPosts(int maxResults, String q, int offSet) throws EntityNotFoundException {
 
 		//Faço a Busca das IDs FTS
 		ArrayList<String> listaDeIds = EntityJsonConverter
@@ -79,8 +78,7 @@ public class PostRepository {
 
 		FetchOptions opts = FetchOptions.Builder.withDefaults();
 		opts.limit(maxResults);
-		if(!page.equals(""))
-			opts.offset(Integer.parseInt(page));
+			opts.offset(offSet);
 
 		ArrayList<Entity> listaDeEntity =new ArrayList<Entity>();
 		Entity e;
@@ -162,16 +160,8 @@ return listaDeEntity;
 								.setText(data.toString())).addField(
 						Field.newBuilder().setName("id").setText(id)).build();
 
-		// try {
-		// Add all the documents.
-
 		getIndex("post").add(document);
-		// } catch (AddException e) {
-		// if
-		// (StatusCode.TRANSIENT_ERROR.equals(e.getOperationResult().getCode()))
-		// {
-		// // retry adding document
-		// }}
+
 		return valueEntity;
 	}
 }

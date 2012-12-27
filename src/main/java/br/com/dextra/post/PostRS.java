@@ -42,13 +42,13 @@ public class PostRS {
 			@DefaultValue("0") @QueryParam(value = "page") String page) throws NumberFormatException, EntityNotFoundException {
 
 		Iterable<Entity> listaPosts;
+		int resultsMax = Integer.parseInt(maxResults);
+		int offSet = Integer.parseInt(page)*resultsMax;
 
 		if (q.equals("")) {
-			listaPosts = PostRepository.buscarTodosOsPosts(Integer
-					.parseInt(maxResults), page);
+			listaPosts = PostRepository.buscarTodosOsPosts(resultsMax, offSet);
 		} else {
-			listaPosts = PostRepository.buscarPosts(Integer
-					.parseInt(maxResults), q,page);
+			listaPosts = PostRepository.buscarPosts(resultsMax, q,offSet);
 		}
 		return EntityJsonConverter.converterListaEntities(listaPosts)
 				.toString();
