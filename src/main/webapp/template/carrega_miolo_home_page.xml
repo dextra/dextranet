@@ -53,8 +53,8 @@
 						+ Ver mais
 					</div>
 				</div>
-				{/for}
 			</li>
+				{/for}
 			<div id="container_mais_posts" class="clearfix">
 			</div><!-- #container_main -->
 		</ul><!-- .list_stories -->
