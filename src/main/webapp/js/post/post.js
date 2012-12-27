@@ -1,10 +1,13 @@
+// Variáveis globais
+query = "";
+
 function abrePaginaNovoPost() {
 	$.holy("../template/abre_pagina_novo_post.xml", {});
 	setActiveMenuLateral("#sidebar_left_new_post");
 }
 
 function fazPesquisa() {
-	var query = $('#form_search_input').val();
+	query = $('#form_search_input').val();
 	var ehUmNovoPost = false;
 	var pagina = 0
 
@@ -109,11 +112,11 @@ function converteData(minhaData) {
 	return diaS + ", " + dia + "/" + mes + "/" + ano + " - " + hora + horario;
 }
 
-function paginacaoDosPost(query) {
+function paginacaoDosPost() {
 
 	var pagina = 0;
 	var ehUmNovoPost = false;
-	var posicaoMinimaParaNovaPagina = posicaoDoScrollBuscarMaisPosts();
+	var posicaoMinimaParaNovaPagina = (posicaoDoScrollBuscarMaisPosts()*0.80);
 	var margemParaNovaBusca = (document.documentElement.scrollHeight);
 
 	$(window)
@@ -125,6 +128,7 @@ function paginacaoDosPost(query) {
 						if (posicaoDoScroll > posicaoMinimaParaNovaPagina) {
 							posicaoMinimaParaNovaPagina = (posicaoDoScroll + margemParaNovaBusca);
 							pagina = pagina + 1;
+							console.log(query);
 							busquePosts(query, ehUmNovoPost, pagina);
 						}
 
