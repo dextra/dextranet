@@ -1,11 +1,10 @@
 /*----------  Reset  -----------*/
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,
 q,s,samp,small,strike,strong,sub,sup, tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,input, table,caption,tbody,tfoot,thead,tr,th,td
 {margin:0;padding:0;border:0;outline:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
 h1,h2,h3,h4,h5,h6,body{margin:0;}
 ul{list-style:none;}
-blockquote,q{quotes:none;}
-blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}
+
 em,i{font-style:italic!important;}
 b,strong{font-weight:bold!important;}
 :focus{outline:0;}
@@ -153,6 +152,7 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 .list_stories_headline_author{margin-right:0;color:#666;font-weight:normal;}
 .list_stories_headline_author > a{font-weight:bold;}
 .list_stories_headline_data,.list_stories_lead{clear:both;text-shadow:0 1px 1px #fff;font-size:14px;color:#505153;}
+.list_stories_lead > blockquote{font-style: italic;	font-family: Georgia, Times, "Times New Roman", serif;	padding: 2px 0;	border-style: solid;	border-color: #ccc;	border-width: 0; background: transparent url(../img/quote.gif) no-repeat; margin: 1em 20px; padding-left: 50px;}
 .list_stories_headline_data{text-align:right;}
 .list_stories_footer{background-color:#d5d9db;margin:0 -12px -12px;padding:12px 12px 0;height:31px;}
 .list_stories_footer > a{color:#4e739c;text-shadow:0 1px 1px #fff;font-size:15px;}
@@ -163,31 +163,22 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 
 #div_bonito{border-radius:5px;background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-bottom:20px;}
 
+#post_blockquote {font-style: italic; font-family: Georgia, "Times New Roman", serif; margin: 1em 20px; padding-left: 50px;  background: transparent url(../img/quote.gif) no-repeat;}
+
 .message { margin:10px 0; }
-
 .message li { color:#000; padding:3px 5px; font-size:11px; background:#FFF; border:1px solid #EEE; margin:3px 10px; list-style:none; margin:2px 15px; padding:3px 5px 3px 25px; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; background-position:5px center; background-repeat: no-repeat; }
-
 .message li a,
 .message li .time { float:right; padding:0 5px; }
-
 .message .error a,
 .message .error { color:#D8000C; }
-
 .message .error { border:1px solid #D8000C; background-color:#FFBABA; }
-
 .message .success a,
 .message .success { color:#4F8A10; }
-
 .message .success { border:1px solid #4F8A10; background-color:#DFF2BF; }
-
 .message .info a,
 .message .info { color:#0092CB; }
-
 .message .info { border:1px solid #0092CB; background-color:#BDE5F8; }
-
 .message .warning a,
 .message .warning { color:#9F6000; }
-
 .message .warning { border:1px solid #9F6000; background-color:#FEEFB3; }
-
 .message .success { background-image:url('../img/success.png'); }
