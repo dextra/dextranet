@@ -55,7 +55,7 @@
 				</div>
 				{/for}
 			</li>
-			<div id="container_mais_posts" class="clearfix">
+			  <div id="container_mais_posts" class="clearfix">
 			</div><!-- #container_main -->
 		</ul><!-- .list_stories -->
 	</template>

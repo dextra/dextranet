@@ -30,6 +30,7 @@ function busquePosts(query, ehUmNovoPost, pagina) {
 			$.holy(template, {"jsonArrayPost" : posts,"sucesso" : ehUmNovoPost});
 		}
 	});
+
 }
 
 function escolheTemplateDosPosts(pagina){

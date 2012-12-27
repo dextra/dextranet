@@ -129,8 +129,7 @@ function paginacaoDosPost() {
 	var query = "";
 	var ehUmNovoPost = false;
 	var posicaoMinimaParaNovaPagina = posicaoDoScrollBuscarMaisPosts();
-	var margemParaNovaBusca = 2;
-	console.log("posição mininma " + posicaoMinimaParaNovaPagina);
+	var margemParaNovaBusca = (document.documentElement.scrollHeight);
 
 	$(window)
 			.scroll(
@@ -138,12 +137,9 @@ function paginacaoDosPost() {
 
 						var posicaoDoScroll = $(document).scrollTop();
 
-						console.log("Posição do Scroll: " + posicaoDoScroll + " || Posição nova página: " + posicaoMinimaParaNovaPagina);
-
 						if (posicaoDoScroll > posicaoMinimaParaNovaPagina) {
-							posicaoMinimaParaNovaPagina = (posicaoDoScroll * margemParaNovaBusca);
+							posicaoMinimaParaNovaPagina = (posicaoDoScroll + margemParaNovaBusca);
 							pagina = pagina + 1;
-							console.log("buscar nova página : " + pagina);
 							busquePosts(query, ehUmNovoPost, pagina);
 						}
 
@@ -151,8 +147,8 @@ function paginacaoDosPost() {
 }
 
 function posicaoDoScrollBuscarMaisPosts() {
-	var maximoValorDoScroll = window.scrollMaxY;
-	var porcentagemDaPaginaDisparaNovaBusca = 0.95;
+	var maximoValorDoScroll =  document.documentElement.scrollHeight;
+	var porcentagemDaPaginaDisparaNovaBusca = 0.80;
 
 	return (maximoValorDoScroll * (porcentagemDaPaginaDisparaNovaBusca));
 }
