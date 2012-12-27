@@ -51,8 +51,6 @@ var CKBUILDER_CONFIG = {
 		'specialchar' : 1,
 		'stylescombo' : 1,
 		'tab' : 1,
-		'table' : 1,
-		'tabletools' : 1,
 		'undo' : 1,
 		'dialog' : 1,
 		'dialogui' : 1,
@@ -73,11 +71,11 @@ var CKBUILDER_CONFIG = {
 		'smiley' : 1,
 		'justify' : 1,
 		'liststyle' : 1,
-		'mediaembed' : 1,
 		'pagebreak' : 1,
 		'preview' : 1
 	},
 	languages : {
 		'en' : 1,
+		'pt-br' : 1,
 	}
 };

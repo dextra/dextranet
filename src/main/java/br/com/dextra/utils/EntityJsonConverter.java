@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map.Entry;
 
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Text;
 import com.google.appengine.api.search.Results;
 import com.google.appengine.api.search.ScoredDocument;
 import com.google.gson.JsonArray;
@@ -35,10 +36,19 @@ public class EntityJsonConverter {
 		JsonArray jsonList = new JsonArray();
 
 		for (Entity entity : listaPosts) {
-			jsonList.add(toJson(entity));
+			String conteudo = converterGAETextToString(entity);
+			JsonObject jsonRetorno = toJson(entity);
+			jsonRetorno.addProperty("conteudo", conteudo);
+			jsonList.add(jsonRetorno);
 		}
 
 		return jsonList;
+	}
+
+	private static String converterGAETextToString(Entity entity) {
+		String conteudo = ((Text) entity.getProperty("conteudo")).getValue();
+		return conteudo;
+
 	}
 
 
