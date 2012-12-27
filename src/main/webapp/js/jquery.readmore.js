@@ -14,47 +14,87 @@
     $(this).each(function () {
       var $this = $(this);
       var elemID = $this.attr("id");
-      var eachPost = $("#"+elemID);
-      eachPost.text(eachPost.text().replace(/^\s+|\s+$/g,''));
-      if (eachPost.html().length > opts.substr_len) {
-        abridge(eachPost);
-        linkage(eachPost);
-      }else{
-    	  var button = $('#' + eachPost.attr("id") + "-button");
-    	  button.hide();
-      }
+      var paragraphs = $this.find("p");
+
+      verifyAndPrepareContinueText(paragraphs,$this);
     });
 
-    function linkage(elem) {
+    function verifyAndPrepareContinueText(paragraphs,post){
+        var totalCaracteres=0;
+        var totalParagraphs = 0;
+        var postID;
+		var tamanhoInicialParagrafo=0;
+	    paragraphs.each(
+	  		  function(){
+	  			  var paragraph = $(this);
+	  			  if(paragraph.attr("id")){
+	  				  postID=paragraph.attr("id");
+	  			  }
+	  			  totalCaracteres=totalCaracteres+paragraph.text().length;
+	  			  totalParagraphs++;
+	  			  if(totalCaracteres > opts.substr_len){
+	  				var showText="";
+	  				var hideText="";
+	  				if(tamanhoInicialParagrafo < opts.substr_len){
 
-      var button = $('#' + elem.attr("id") + "-button");
-      elem.append(opts.more_link);
-      button.click( function () {
-        if(button.text().indexOf("+ Ver mais")>=0){
-    	elem.show();
-        elem.find(".readm-hidden").show();
-        elem.find(".readm-continue").hide();
-        button.text("- Ver menos");
-        }else{
-        	elem.show();
-            elem.find(".readm-hidden").hide();
-            elem.find(".readm-continue").show();
-            button.text("+ Ver mais");
-        }
-      });
+	  					var showLength = opts.substr_len-tamanhoInicialParagrafo-1;
+	  					showText = paragraph.text().substring(0,showLength);
+	  					console.log(showText.legth);
+	  					hideText = '<span class="readm-hidden" style="display:none;">' +
+	  				  					paragraph.text().substring(showLength,paragraph.text().length)+ "</span>";
+	  					addContinueIndicator(paragraph);
+		  				paragraph.html(showText+hideText);
+	  				}else{
+	  					$(paragraph).addClass("readm-hidden");
+	  				}
+
+	  			  }else if(totalParagraphs-1 > opts.substr_lines){
+	  				  	if(totalParagraphs-2 == opts.substr_lines){
+	  				  		addContinueIndicator(paragraph);
+	  				  	}
+	  				  	$(paragraph).addClass("readm-hidden");
+	  			  }
+	  			tamanhoInicialParagrafo=tamanhoInicialParagrafo+paragraph.text().length;
+	  		  }
+	    );
+
+
+	    if(totalCaracteres > opts.substr_len || totalParagraphs-1 > opts.substr_lines){
+	        hideContinuation(post);
+		  		addButtonEvent(postID);
+	    }else{
+	    	hideSeeMoreButton(postID);
+	    }
     }
 
-    function abridge(elem) {
-      var txt = elem.html();
-      var dots = "<span class='readm-continue'>" + opts.ellipses + "</span>";
-      var shown = txt.substring(0, (opts.split_word ? opts.substr_len : txt.indexOf(' ', opts.substr_len))) + dots;
-      var hidden =
-        '<span class="readm-hidden" style="display:none;">' +
-          txt.substring((opts.split_word ? opts.substr_len : txt.indexOf(' ', opts.substr_len)), txt.length) +
-        '</span>';
-      elem.html(shown + hidden);
+    function hideContinuation(post){
+    	$(post).find(".readm-hidden").hide();
     }
 
-    return this;
-  };
+    function addContinueIndicator(limitParagraph){
+  		var dots = "<span class='readm-continue'>" + opts.ellipses + "</span>";
+
+  		$(limitParagraph).after(dots);
+    }
+
+    function hideSeeMoreButton(postID){
+	    var button = $("#"+postID+"-button");
+    	 button.hide();
+    }
+
+    function addButtonEvent(postID){
+    	var button = $("#"+postID+"-button");
+    	button.click(function(){
+    		if(button.text().indexOf("+ Ver mais")>=0){
+    			$("#"+postID+"-post").find(".readm-hidden").show();
+    			$("#"+postID+"-post").find(".readm-continue").hide();
+    			button.text("- Ver menos");
+    		}else{
+    			$("#"+postID+"-post").find(".readm-hidden").hide();
+    			$("#"+postID+"-post").find(".readm-continue").show();
+    			button.text("+ Ver mais");
+    		}
+    	});
+    }
+  }
 })(jQuery);
