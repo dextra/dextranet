@@ -123,25 +123,27 @@ function paginacaoDosPost() {
 	var pagina = 1;
 	var query = "";
 	var ehUmNovoPost = false;
-	var posicaoMinimaParaNovaPagina = posicaoNecessariaCarregarOutraPagina();
-	var margemParaNovaBusca = 1.15;
+	var posicaoMinimaParaNovaPagina = posicaoDoScrollBuscarMaisPosts();
+	var margemParaNovaBusca = 1.25;
 	console.log("posição mininma " + posicaoMinimaParaNovaPagina);
 
 	$(window).scroll(
 			function(){
+
 				var posicaoDoScroll = $(document).scrollTop();
 
 				if(posicaoDoScroll > posicaoMinimaParaNovaPagina){
 					posicaoMinimaParaNovaPagina = (posicaoDoScroll*margemParaNovaBusca);
 					pagina = pagina + 1;
-					//console.log("buscar nova página : " + pagina);
-					//busquePosts(menorPostSolicitado,query,ehUmNovoPost);
+					console.log("buscar nova página : " + pagina);
+					busquePosts(query,ehUmNovoPost,pagina);
 				}
+
 			}
 	);
 }
 
-function posicaoNecessariaCarregarOutraPagina(){
+function posicaoDoScrollBuscarMaisPosts(){
 	var maximoValorDoScroll =  window.scrollMaxY;
 	var porcentagemDaPaginaDisparaNovaBusca = 0.90;
 

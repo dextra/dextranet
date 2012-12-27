@@ -1,28 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <engine>
-	<template selector="#container-main">
 
-		<!-- Sidebar do lado direito -->
-		<div id="sidebar-right" rel="section">
-
-		</div><!-- #sidebar-right -->
-
-		<form action="" id="form-search">
-			<input type="text" id="form-search-input" />
-			<input type="button" value="" title="Procurar!" id="form-search-submit" />
-		</form>
-
-		<ul class="message">
-			{if sucesso}
-			<li class="success" style="display: list-item;">Sucesso!</li>
-			{/if}
-		</ul>
-		<!-- Listagem de estorias da Intranet -->
+	<template selector="#container-mais-posts">
 		<ul class="list-stories" id="relacao-dos-posts">
 			{for post in jsonArrayPost}
 			<li class="clearfix">
 				<div class="list-stories-headline-data">
 					${converteData(post.data)}
-				</div>
+			</div>
 				<img src="" alt="photo" class="list-stories-avatar" />
 				<div class="list-stories-headline clearfix">
 					<h2>${post.titulo}</h2>
@@ -38,6 +23,8 @@
 						<a href="#">${post.usuario}</a>
 					</div>
 				</div>
+				<script>
+				</script>
 				<p id="${post.id}" class="list-stories-lead">
 					${post.conteudo}
 				</p>
@@ -51,19 +38,9 @@
 						<a href="#">+ Ver mais</a>
 					</div>
 				</div>
-
 				{/for}
-
-				<div id="container-mais-posts" class="clearfix">
-				</div><!-- #container-main -->
 			</li>
 		</ul><!-- .list-stories -->
 	</template>
 
-
-	<script>
-		paginacaoDosPost();
-		carregaOpcaoVerMais();
-		$('#form-search-submit').click(fazPesquisa);
-	</script>
 </engine>
