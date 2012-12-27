@@ -1,7 +1,5 @@
 package br.com.dextra.post;
 
-import java.util.Iterator;
-
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
