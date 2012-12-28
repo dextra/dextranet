@@ -21,6 +21,7 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Text;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.search.Cursor;
 import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.SortExpression;
 import com.google.appengine.api.search.SortOptions;
@@ -81,17 +82,27 @@ public class PostRepository extends BaseRepository {
 
 	private static com.google.appengine.api.search.Query preparaQuery(
 			int maxResults, String q, int offSet) {
+		Cursor cursor=Cursor.newBuilder().build();
+
 		SortOptions sortOptions = SortOptions.newBuilder().addSortExpression(
 				SortExpression.newBuilder().setExpression(
 						PostFields.DATA_DE_ATUALIZACAO.getField())
 						.setDirection(SortExpression.SortDirection.DESCENDING)
-						.setDefaultValueNumeric(0.0)).build();
+						.setDefaultValueNumeric(0.0))
+						.setLimit(maxResults).build();
 
 		QueryOptions queryOptions = QueryOptions.newBuilder()
-				.setFieldsToSnippet(PostFields.TITULO.getField(),
+				.setSortOptions(sortOptions)
+				.setOffset(offSet)
+				//.setLimit(maxResults)
+				.setFieldsToReturn(
+						PostFields.ID.getField())
+				.setFieldsToSnippet(
+						PostFields.TITULO.getField(),
 						PostFields.CONTEUDO.getField(),
-						PostFields.USUARIO.getField()).setFieldsToReturn(
-						PostFields.ID.getField()).setSortOptions(sortOptions).setOffset(offSet).setLimit(maxResults)
+						PostFields.USUARIO.getField())
+
+				//.setCursor(cursor)
 				.build();
 
 		com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query
@@ -104,8 +115,8 @@ public class PostRepository extends BaseRepository {
 		String id = Utils.geraID();
 		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 		Date data = new Date();
-		
-		
+
+
 
 		return PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key,
 				data);

@@ -33,10 +33,22 @@ function busquePosts(query, ehUmNovoPost, pagina) {
 				}
 			}
 		});
+}
 
-		if (pagina == 0){
-			$.holy("../template/carrega_miolo_home_page.xml",{});
+function busqueDocuments(query, ehUmNovoPost, pagina) {
+	var tipo = 'GET';
+	var url = "/s/document";
+	var quantidadePostsRecuperados = "20";
+	var template = escolheTemplateDosPosts(pagina);
+
+	$.ajax( {
+		type : tipo,
+		url : url,
+		data : "max-results=" + quantidadePostsRecuperados + "&page=" + pagina + "&q=" + query,
+		success : function(posts) {
+			$.holy(template, {"jsonArrayPost" : posts,"sucesso" : ehUmNovoPost});
 		}
+	});
 }
 
 function setActiveMenuLateral(id) {
