@@ -13,7 +13,8 @@ function carregaDadosHomePageAposInclusao() {
 function carregueOsTemplates() {
 	$.holy("../template/carrega_menu_principal.xml", {});
 	$.holy("../template/carrega_menu_lateral.xml", {});
-	$.holy("../template/carrega_dados_usuario.xml", {});
+	var user = {"name" : $.cookie("userName")}
+	$.holy("../template/carrega_dados_usuario.xml", user);
 }
 
 function busquePosts(query, ehUmNovoPost, pagina) {
