@@ -26,6 +26,8 @@ import com.google.appengine.tools.development.testing.LocalSearchServiceTestConf
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.google.gson.JsonObject;
 
+//FIXME esta classe deve testar direto o repositorio e nao as classes de postRS
+//FIXME 2 porque tantos tests comentados
 public class PostRepositoryTest extends TesteIntegracaoBase {
 
 	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(

@@ -25,7 +25,7 @@ import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.SortExpression;
 import com.google.appengine.api.search.SortOptions;
 
-public class PostRepository {
+public class PostRepository extends BaseRepository {
 
 	public static Iterable<Entity> buscarTodosOsPosts(int maxResults, int offSet) {
 
@@ -115,12 +115,8 @@ public class PostRepository {
 		data = Utils.randomizaDiaDaData(data);
 		String dataFormatada = Utils.formataData(data.toString());
 
-		Entity valueEntity = criaEntityPost(titulo, conteudo, usuario, id, key,
-				dataFormatada);
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
-
-		datastore.put(valueEntity);
+		Entity valueEntity = criaEntityPost(titulo, conteudo, usuario, id, key,dataFormatada);
+				persist(valueEntity);
 
 		DocumentRepository.criarDocumentPost(titulo, conteudo, usuario, id,
 				dataFormatada);
@@ -144,6 +140,5 @@ public class PostRepository {
 
 		return valueEntity;
 	}
-
 
 }

@@ -51,65 +51,19 @@ function criaNovoPost() {
 
 function converteData(minhaData) {
 
-	var diaS = minhaData.slice(0, 3);
-	var dia = minhaData.slice(8, 10);
-	var mes = minhaData.slice(4, 7);
-	var ano = minhaData.slice(24, 28);
-	var horario = minhaData.slice(13, 16);
+	var dateFormat = "E, dd/MM/yyyy hh:mm";
+	var date;
 
-	//Para corrigir erro estranho, gambiarra
-	var hora = minhaData.slice(10, 13);
-	if (hora == "00") {hora = "22"}
-	else if (hora == "01") {hora = "23"}
-	else{
-		hora = hora -2;
+	var dateParse = Date.parse(minhaData);
+
+	//feito para não afetar execução enquanto não é feita a mudança na data enviada pelo serviço.
+	if(isNaN(dateParse)){
+		date = convertToDate(minhaData);
+	}else{
+		date = new Date(minhaData);
 	}
 
-	switch (mes) {
-	case "Jan":	mes = "01";
-		break;
-	case "Fer":	mes = "02";
-		break;
-	case "Mar":	mes = "03";
-		break;
-	case "Apr":	mes = "04";
-		break;
-	case "May":	mes = "05";
-		break;
-	case "Jun":	mes = "06";
-		break;
-	case "Jul":	mes = "07";
-		break;
-	case "Aug":	mes = "08";
-		break;
-	case "Sep":	mes = "09";
-		break;
-	case "Oct": mes = "10";
-		break;
-	case "Nov":	mes = "11";
-		break;
-	case "Dec":	mes = "12";
-		break;
-	}
-
-	switch (diaS) {
-	case "Sun":	diaS = "dom";
-		break;
-	case "Mon":	diaS = "seg";
-		break;
-	case "Tue":	diaS = "ter";
-		break;
-	case "Wed":	diaS = "qua";
-		break;
-	case "Thu":	diaS = "qui";
-		break;
-	case "Fri":	diaS = "sex";
-		break;
-	case "Sat":	diaS = "sab";
-		break;
-	}
-
-	return diaS + ", " + dia + "/" + mes + "/" + ano + " - " + hora + horario;
+	return formatDate(date, dateFormat);
 }
 
 function paginacaoDosPost() {
