@@ -127,12 +127,10 @@
 			var partialParagraph = paragraph.html();
 			var stringAuxiliar = "";
 			var paragraphResult = "";
-
-			if(partialParagraph.indexOf("<img")>0 &&
+			if(partialParagraph.indexOf("<img")>=0 &&
 			   partialParagraph.indexOf(">") != partialParagraph.legth){
 				while(partialParagraph.indexOf(">") != partialParagraph.legth &&
 				      partialParagraph.indexOf(">") >= 0){
-					console.log(partialParagraph);
 					stringAuxiliar = partialParagraph.substring(0,partialParagraph.indexOf("<img"));
 					paragraphResult = paragraphResult + addHideSpanClass(stringAuxiliar) + addEmoticon(partialParagraph);
 					partialParagraph = partialParagraph.substring(partialParagraph.indexOf(">")+1);
@@ -145,7 +143,11 @@
 		}
 
 		function addHideSpanClass(stringAuxiliar){
-			return '<span class="readm_hidden" style="display:none;">' + stringAuxiliar + "</span>";
+			if(stringAuxiliar){
+				return '<span class="readm_hidden" style="display:none;">' + stringAuxiliar + "</span>";
+			}else{
+				return "";
+			}
 		}
 
 		function addEmoticon(partialParagraph){
