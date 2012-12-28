@@ -24,7 +24,9 @@
 
 var MONTH_NAMES=new Array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro','Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez');
 var DAY_NAMES=new Array('Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Dom','Seg','Ter','Qua','Qui','Sex','Sab');
-function LZ(x) {return(x<0||x>9?"":"0")+x}
+function LZ(x) {
+	return (x<0||x>9?"":"0")+x;
+}
 
 // ------------------------------------------------------------------
 // formatDate (date_object, format)
@@ -33,68 +35,45 @@ function LZ(x) {return(x<0||x>9?"":"0")+x}
 // ------------------------------------------------------------------
 function formatDate(date,format) {
 	format=format+"";
-	var result="";
-	var i_format=0;
-	var c="";
-	var token="";
-	var y=date.getYear()+"";
-	var M=date.getMonth()+1;
-	var d=date.getDate();
-	var E=date.getDay();
-	var H=date.getHours();
-	var m=date.getMinutes();
-	var s=date.getSeconds();
+
 	var yyyy,yy,MMM,MM,dd,hh,h,mm,ss,ampm,HH,H,KK,K,kk,k;
-	// Convert real date parts into formatted versions
+
+	var year = date.getYear()+"";
+	var month = date.getMonth()+1;
+	var dayOfMonth = date.getDate();
+	var dayOfWeek = date.getDay();
+	var hour = date.getHours();
+	var minute = date.getMinutes();
+	var second = date.getSeconds();
+
+	if (year.length < 4) {
+		year=""+(year-0+1900);
+	}
+
+
 	var value=new Object();
-	if (y.length < 4) {
-		y=""+(y-0+1900);
-	}
-	value["y"]=""+y;
-	value["yyyy"]=y;
-	value["yy"]=y.substring(2,4);
-	value["M"]=M;
-	value["MM"]=LZ(M);
-	value["MMM"]=MONTH_NAMES[M-1];
-	value["NNN"]=MONTH_NAMES[M+11];
-	value["d"]=d;
-	value["dd"]=LZ(d);
-	value["E"]=DAY_NAMES[E+7];
-	value["EE"]=DAY_NAMES[E];
-	value["H"]=H;
-	value["HH"]=LZ(H);
 
-	if (H==0){value["h"]=12;}
-	else if (H>12){
-		value["h"]=H-12;
-	} else {
-		value["h"]=H;
-	}
+	value = setPossibleFormatsValues(year, month, dayOfMonth, dayOfWeek, hour, minute, second);
 
-	value["hh"]=LZ(value["h"]);
 
-	if (H>11){
-		value["K"]=H-12;
-	} else {
-		value["K"]=H;
-	}
-	value["k"]=H+1;
-	value["KK"]=LZ(value["K"]);
-	value["kk"]=LZ(value["k"]);
-	if (H > 11) {
-		value["a"]="PM";
-	} else {
-		value["a"]="AM";
-	}
-	value["m"]=m;
-	value["mm"]=LZ(m);
-	value["s"]=s;
-	value["ss"]=LZ(s);
-	while (i_format < format.length) {
-		c=format.charAt(i_format);
+
+	return getApplyFormat(value,format);
+}
+
+function getApplyFormat(value, format){
+
+	var formatCharacterIndex=0;
+	var formatCharacter="";
+	var token="";
+
+	var result = "";
+
+	while (formatCharacterIndex < format.length) {
+		formatCharacter=format.charAt(formatCharacterIndex);
 		token="";
-		while ((format.charAt(i_format)==c) && (i_format < format.length)) {
-			token += format.charAt(i_format++);
+		while ((format.charAt(formatCharacterIndex)==formatCharacter) &&
+				(formatCharacterIndex < format.length)) {
+			token += format.charAt(formatCharacterIndex++);
 		}
 		if (value[token] != null) {
 			result=result + value[token];
@@ -103,4 +82,61 @@ function formatDate(date,format) {
 		}
 	}
 	return result;
+}
+
+function setPossibleFormatsValues(year, month, dayOfMonth, dayOfWeek, hour, minute, second){
+	var value=new Object();
+
+	value["y"]=""+year;
+	value["yyyy"]=year;
+	value["yy"]=year.substring(2,4);
+
+	value["M"]=month;
+	value["MM"]=LZ(month);
+	value["MMM"]=MONTH_NAMES[month-1];
+	value["NNN"]=MONTH_NAMES[month+11];
+
+	value["d"]=dayOfMonth;
+	value["dd"]=LZ(dayOfMonth);
+
+	value["E"]=DAY_NAMES[dayOfWeek+7];
+	value["EE"]=DAY_NAMES[dayOfWeek];
+
+	value["H"]=hour;
+	value["HH"]=LZ(hour);
+
+	if (hour==0){
+		value["h"]=12;
+	} else if (hour>12){
+		value["h"]=hour-12;
+	} else {
+		value["h"]=hour;
+	}
+
+	value["hh"]=LZ(value["h"]);
+
+	if (hour>11){
+		value["K"]=hour-12;
+	} else {
+		value["K"]=hour;
+	}
+
+	value["k"]=hour+1;
+	value["KK"]=LZ(value["K"]);
+	value["kk"]=LZ(value["k"]);
+	if (hour > 11) {
+		value["a"]="PM";
+	} else {
+		value["a"]="AM";
+	}
+
+
+	value["m"]=minute;
+	value["mm"]=LZ(minute);
+
+	value["s"]=second;
+	value["ss"]=LZ(second);
+
+	return value;
+
 }
