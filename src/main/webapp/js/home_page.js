@@ -20,30 +20,22 @@ function busquePosts(query, ehUmNovoPost, pagina) {
 	var tipo = 'GET';
 	var url = "/s/post";
 	var quantidadePostsRecuperados = "20";
-	var template = escolheTemplateDosPosts(pagina);
+	var template = "../template/post.xml";
 
-	$.ajax( {
-		type : tipo,
-		url : url,
-		data : "max-results=" + quantidadePostsRecuperados + "&page=" + pagina + "&q=" + query,
-		success : function(posts) {
-			$.holy(template, {"jsonArrayPost" : posts,"sucesso" : ehUmNovoPost});
+		$.ajax( {
+			type : tipo,
+			url : url,
+			data : "max-results=" + quantidadePostsRecuperados + "&page=" + pagina + "&q=" + query,
+			success : function(posts) {
+				$.holy(template, {"jsonArrayPost" : posts,"sucesso" : ehUmNovoPost});
+			}
+		});
+
+		if (pagina == 0){
+			$.holy("../template/carrega_miolo_home_page.xml",{});
 		}
-	});
-
 }
 
-function escolheTemplateDosPosts(pagina){
-	var template;
-
-	if(pagina == 0){
-		template = "../template/carrega_miolo_home_page.xml";
-	}
-	else {
-		template = "../template/carrega_mais_posts.xml";
-	}
-	return template;
-}
 
 function setActiveMenuLateral(id) {
 	// limpa o active atual

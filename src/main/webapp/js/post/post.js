@@ -70,19 +70,23 @@ function paginacaoDosPost() {
 
 	var pagina = 0;
 	var ehUmNovoPost = false;
-	var posicaoMinimaParaNovaPagina = (posicaoDoScrollBuscarMaisPosts()*0.80);
-	var margemParaNovaBusca = (document.documentElement.scrollHeight);
 
 	$(window)
 			.scroll(
 					function() {
 
+						var posicaoMinimaParaNovaPagina = posicaoDoScrollBuscarMaisPosts();
+						var margemParaNovaBusca = (document.documentElement.scrollHeight*0.95);
 						var posicaoDoScroll = $(document).scrollTop();
+
+						console.log("posicaoMinimaParaNovaPagina : " + posicaoMinimaParaNovaPagina
+								+ "!! margemParaNovaBusca : " + margemParaNovaBusca
+								+ "!! posicaoDoScroll : " + posicaoDoScroll);
 
 						if (posicaoDoScroll > posicaoMinimaParaNovaPagina) {
 							posicaoMinimaParaNovaPagina = (posicaoDoScroll + margemParaNovaBusca);
 							pagina = pagina + 1;
-							console.log(query);
+							console.log("nova página =============================");
 							busquePosts(query, ehUmNovoPost, pagina);
 						}
 
