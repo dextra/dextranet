@@ -39,7 +39,7 @@ function busquePosts(query, ehUmNovoPost, pagina) {
 	}
 }
 
-function busqueDocuments(query, ehUmNovoPost, pagina) {
+/*function busqueDocuments(query, ehUmNovoPost, pagina) {
 	var tipo = 'GET';
 	var url = "/s/document";
 	var quantidadePostsRecuperados = "20";
@@ -53,7 +53,7 @@ function busqueDocuments(query, ehUmNovoPost, pagina) {
 			$.holy(template, {"jsonArrayPost" : posts,"sucesso" : ehUmNovoPost});
 		}
 	});
-}
+}*/
 
 function setActiveMenuLateral(id) {
 	// limpa o active atual
