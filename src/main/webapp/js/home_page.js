@@ -17,17 +17,20 @@ function carregueOsTemplates() {
 }
 
 function busquePosts(query, ehUmNovoPost, pagina) {
+
 	var tipo = 'GET';
 	var url = "/s/post";
-	var quantidadePostsRecuperados = "20";
+	var quantidadePostsSolicitados = "20";
 	var template = "../template/post.xml";
 
 		$.ajax( {
 			type : tipo,
 			url : url,
-			data : "max-results=" + quantidadePostsRecuperados + "&page=" + pagina + "&q=" + query,
+			data : "max-results=" + quantidadePostsSolicitados + "&page=" + pagina + "&q=" + query,
 			success : function(posts) {
-				$.holy(template, {"jsonArrayPost" : posts,"sucesso" : ehUmNovoPost});
+				if(posts.length > 0){
+					$.holy(template, {"jsonArrayPost" : posts,"sucesso" : ehUmNovoPost});
+				}
 			}
 		});
 
@@ -35,7 +38,6 @@ function busquePosts(query, ehUmNovoPost, pagina) {
 			$.holy("../template/carrega_miolo_home_page.xml",{});
 		}
 }
-
 
 function setActiveMenuLateral(id) {
 	// limpa o active atual
