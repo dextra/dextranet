@@ -64,3 +64,18 @@ function carregaOpcaoVerMais() {
 		ellipses : '...'
 	});
 }
+
+function abrePaginaCategoria() {
+	$.holy("../template/abre_pagina_categoria.xml", {});
+	setActiveMenuLateral("#sidebar_left_category");
+}
+
+function abrePaginaPerfil() {
+	$.holy("../template/abre_pagina_perfil.xml", {});
+	setActiveMenuLateral("#sidebar_left_profile");
+}
+
+function abrePaginaEquipe() {
+	$.holy("../template/abre_pagina_equipe.xml", {});
+	setActiveMenuLateral("#sidebar_left_team");
+}
