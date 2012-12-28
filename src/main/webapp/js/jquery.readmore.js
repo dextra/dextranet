@@ -53,9 +53,12 @@
 											child.html(showText + hideText);
 										} else {
 											if(child.prop("tagName")=="IMG"){
+												console.log(paragraph.html());
 												paragraph.html(prepareEmoticonParagraph(paragraph));
+												return false;
+											}else{
+												child.addClass(opts.hideClass);
 											}
-											child.addClass(opts.hideClass);
 										}
 
 									} else if (totalParagraphs - 1 > opts.substr_lines) {
@@ -63,7 +66,8 @@
 											addContinueIndicator(paragraph);
 										}
 										if(child.prop("tagName")=="IMG"){
-											paragraph.html(prepareEmoticonParagraph(paragraph));
+											paragraph.addClass(opts.hideClass);
+											return false;
 										}
 										child.addClass(opts.hideClass);
 									}
@@ -128,12 +132,18 @@
 			   partialParagraph.indexOf(">") != partialParagraph.legth){
 				while(partialParagraph.indexOf(">") != partialParagraph.legth &&
 				      partialParagraph.indexOf(">") >= 0){
+
 					stringAuxiliar = partialParagraph.substring(0,partialParagraph.indexOf("<img"));
+
 					paragraphResult = paragraphResult + addSpanClass(stringAuxiliar,opts.hideClass) + addEmoticon(partialParagraph);
+
 					partialParagraph = partialParagraph.substring(partialParagraph.indexOf(">")+1);
+
 					if(partialParagraph.indexOf(">")==-1){
 						paragraphResult = paragraphResult+addSpanClass(partialParagraph,opts.hideClass);
+
 					}
+
 				}
 			}
 			return paragraphResult;
