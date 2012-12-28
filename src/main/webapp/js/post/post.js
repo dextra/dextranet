@@ -13,7 +13,7 @@ function fazPesquisa() {
 
 	if(query != ""){
 		query = "\"" + query + "\"";
-		busquePosts(query, ehUmNovoPost, pagina);
+		busqueDocuments(query, ehUmNovoPost, pagina);
 	}
 
 	return false; //O retorno falso faz com que a página de pesquisa não sofra reload para index
@@ -70,20 +70,22 @@ function paginacaoDosPost() {
 
 	var pagina = 0;
 	var ehUmNovoPost = false;
-	var posicaoMinimaParaNovaPagina = (posicaoDoScrollBuscarMaisPosts()*0.80);
-	var margemParaNovaBusca = (document.documentElement.scrollHeight);
 
 	$(window)
 			.scroll(
 					function() {
 
+						var posicaoMinimaParaNovaPagina = posicaoDoScrollBuscarMaisPosts();
+						var margemParaNovaBusca = (document.documentElement.scrollHeight*0.95);
 						var posicaoDoScroll = $(document).scrollTop();
 
 						if (posicaoDoScroll > posicaoMinimaParaNovaPagina) {
-							posicaoMinimaParaNovaPagina = (posicaoDoScroll + margemParaNovaBusca);
-							pagina = pagina + 1;
-							console.log(query);
-							busquePosts(query, ehUmNovoPost, pagina);
+
+								pagina = pagina + 1;
+								busquePosts(query, ehUmNovoPost, pagina);
+								posicaoMinimaParaNovaPagina = (posicaoDoScroll + margemParaNovaBusca);
+								console.log("mais páginas");
+
 						}
 
 					});

@@ -17,32 +17,48 @@ function carregueOsTemplates() {
 }
 
 function busquePosts(query, ehUmNovoPost, pagina) {
+
 	var tipo = 'GET';
 	var url = "/s/post";
+	var quantidadePostsSolicitados = "20";
+	var template = "../template/post.xml";
+
+	$.ajax( {
+		type : tipo,
+		url : url,
+		data : "max-results=" + quantidadePostsSolicitados + "&page=" + pagina + "&q=" + query,
+		success : function(posts) {
+			if(posts.length > 0){
+				$.holy(template, {"jsonArrayPost" : posts,"sucesso" : ehUmNovoPost});
+			}
+		}
+	});
+
+	if (pagina == 0){
+		$.holy("../template/carrega_miolo_home_page.xml",{});
+	}
+}
+
+function busqueDocuments(query, ehUmNovoPost, pagina) {
+	var tipo = 'GET';
+	var url = "/s/document";
 	var quantidadePostsRecuperados = "20";
-	var template = escolheTemplateDosPosts(pagina);
+	var template = "../template/post.xml";
 
 	$.ajax( {
 		type : tipo,
 		url : url,
 		data : "max-results=" + quantidadePostsRecuperados + "&page=" + pagina + "&q=" + query,
 		success : function(posts) {
-			$.holy(template, {"jsonArrayPost" : posts,"sucesso" : ehUmNovoPost});
+			if(posts.length > 0){
+				$.holy(template, {"jsonArrayPost" : posts,"sucesso" : ehUmNovoPost});
+			}
 		}
 	});
 
-}
-
-function escolheTemplateDosPosts(pagina){
-	var template;
-
-	if(pagina == 0){
-		template = "../template/carrega_miolo_home_page.xml";
+	if (pagina == 0){
+		$.holy("../template/carrega_miolo_home_page.xml",{});
 	}
-	else {
-		template = "../template/carrega_mais_posts.xml";
-	}
-	return template;
 }
 
 function setActiveMenuLateral(id) {
