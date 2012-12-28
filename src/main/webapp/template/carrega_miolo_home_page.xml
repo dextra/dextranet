@@ -13,7 +13,7 @@
 
 		<ul class="message">
 			{if sucesso}
-			<li class="success" style="display: list_item;">Sucesso!</li>
+			<li class="success" style="display: list_item;">Seu post foi inserido com sucesso.</li>
 			{/if}
 		</ul>
 		<!-- Listagem de estorias da Intranet -->
@@ -62,7 +62,7 @@
 
 
 	<script>
-		paginacaoDosPost();
+		paginacaoDosPost("");
 		carregaOpcaoVerMais();
 		$('#form_search').submit(fazPesquisa);
 	</script>

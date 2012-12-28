@@ -12,7 +12,6 @@ import com.google.gson.JsonObject;
 
 public class EntityJsonConverter {
 
-	// Converte uma Entity para JsonObject
 	public static JsonObject toJson(Entity entity) {
 		JsonObject json = new JsonObject();
 		for (Entry<String, Object> entry : entity.getProperties().entrySet()) {
@@ -22,7 +21,6 @@ public class EntityJsonConverter {
 		return json;
 	}
 
-	// Converte ResultsFTS para Lista de IDs
 	public static ArrayList<String> toListaDeIds(Results<ScoredDocument> results) {
 		ArrayList<String> idList=new ArrayList<String>();
 		for (ScoredDocument scoredDocument : results) {
@@ -31,7 +29,6 @@ public class EntityJsonConverter {
 		return idList;
 	}
 
-	//Converter Iterable<Entity> para JsonArray
 	public static JsonArray converterListaEntities(Iterable<Entity> listaPosts) {
 		JsonArray jsonList = new JsonArray();
 
