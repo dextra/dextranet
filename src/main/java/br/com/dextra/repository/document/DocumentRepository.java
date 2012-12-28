@@ -12,7 +12,7 @@ import com.google.appengine.api.search.Field;
 public class DocumentRepository {
 
 	public static Document criarDocumentPost(String titulo, String conteudo,
-			String usuario, String id, Date data) {
+			String usuario, String id, String data) {
 		Document document = Document.newBuilder().setId(id).addField(
 				Field.newBuilder().setName(PostFields.TITULO.getField())
 						.setText(titulo)).addField(
