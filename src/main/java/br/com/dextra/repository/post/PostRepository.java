@@ -104,6 +104,8 @@ public class PostRepository extends BaseRepository {
 		String id = Utils.geraID();
 		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 		Date data = new Date();
+		
+		
 
 		return PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key,
 				data);
@@ -112,7 +114,7 @@ public class PostRepository extends BaseRepository {
 	public static Entity criaNovoPost(String titulo, String conteudo,
 			String usuario, String id, Key key, Date data) {
 
-		data = Utils.randomizaDiaDaData(data);
+		//data = Utils.randomizaDiaDaData(data);
 		String dataFormatada = Utils.formataData(data.toString());
 
 		Entity valueEntity = criaEntityPost(titulo, conteudo, usuario, id, key,dataFormatada);
