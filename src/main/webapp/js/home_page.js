@@ -13,29 +13,54 @@ function carregaDadosHomePageAposInclusao() {
 function carregueOsTemplates() {
 	$.holy("../template/carrega_menu_principal.xml", {});
 	$.holy("../template/carrega_menu_lateral.xml", {});
-	$.holy("../template/carrega_dados_usuario.xml", {});
+	var user = {"name" : $.cookie("userName")}
+	$.holy("../template/carrega_dados_usuario.xml", user);
 }
 
 function busquePosts(query, ehUmNovoPost, pagina) {
+
 	var tipo = 'GET';
 	var url = "/s/post";
+	var quantidadePostsSolicitados = "20";
+	var template = "../template/post.xml";
+
+	$.ajax( {
+		type : tipo,
+		url : url,
+		data : "max-results=" + quantidadePostsSolicitados + "&page=" + pagina + "&q=" + query,
+		success : function(posts) {
+			if(posts.length > 0){
+				$.holy(template, {"jsonArrayPost" : posts,"sucesso" : ehUmNovoPost});
+			}
+		}
+	});
+
+	if (pagina == 0){
+		$.holy("../template/carrega_miolo_home_page.xml",{});
+	}
+}
+
+function busqueDocuments(query, ehUmNovoPost, pagina) {
+	var tipo = 'GET';
+	var url = "/s/document";
 	var quantidadePostsRecuperados = "20";
 	var template = "../template/post.xml";
 
-		$.ajax( {
-			type : tipo,
-			url : url,
-			data : "max-results=" + quantidadePostsRecuperados + "&page=" + pagina + "&q=" + query,
-			success : function(posts) {
+	$.ajax( {
+		type : tipo,
+		url : url,
+		data : "max-results=" + quantidadePostsRecuperados + "&page=" + pagina + "&q=" + query,
+		success : function(posts) {
+			if(posts.length > 0){
 				$.holy(template, {"jsonArrayPost" : posts,"sucesso" : ehUmNovoPost});
 			}
-		});
-
-		if (pagina == 0){
-			$.holy("../template/carrega_miolo_home_page.xml",{});
 		}
-}
+	});
 
+	if (pagina == 0){
+		$.holy("../template/carrega_miolo_home_page.xml",{});
+	}
+}
 
 function setActiveMenuLateral(id) {
 	// limpa o active atual

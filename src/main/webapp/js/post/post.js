@@ -13,7 +13,7 @@ function fazPesquisa() {
 
 	if(query != ""){
 		query = "\"" + query + "\"";
-		busquePosts(query, ehUmNovoPost, pagina);
+		busqueDocuments(query, ehUmNovoPost, pagina);
 	}
 
 	return false; //O retorno falso faz com que a página de pesquisa não sofra reload para index
@@ -26,16 +26,22 @@ function criaNovoPost() {
 		return false;
 	} else {
 
-		var post = form2js('form_new_post', '.', true, function(node) {
-			if (node.id && node.id.match(/form_input_content/)) {
-				return {
-					name : "content",
-					value : CKEDITOR.instances.form_input_content.getData()
-				};
-			}
-		});
+//		var post = form2js('form_new_post', '.', true, function(node) {
+//			if (node.id && node.id.match(/form_input_content/)) {
+//				return {
+//					name : "content",
+//					value : CKEDITOR.instances.form_input_content.getData()
+//				};
+//			}
+//		});
 
 		console.log(post);
+
+		var post =  {
+						"title" : $("#form_input_title").val(),
+						"content" : CKEDITOR.instances.form_input_content.getData(),
+						"author" : $("#user_name").text()
+					}
 
 		$.ajax( {
 			type : "POST",
@@ -79,15 +85,13 @@ function paginacaoDosPost() {
 						var margemParaNovaBusca = (document.documentElement.scrollHeight*0.95);
 						var posicaoDoScroll = $(document).scrollTop();
 
-						console.log("posicaoMinimaParaNovaPagina : " + posicaoMinimaParaNovaPagina
-								+ "!! margemParaNovaBusca : " + margemParaNovaBusca
-								+ "!! posicaoDoScroll : " + posicaoDoScroll);
-
 						if (posicaoDoScroll > posicaoMinimaParaNovaPagina) {
-							posicaoMinimaParaNovaPagina = (posicaoDoScroll + margemParaNovaBusca);
-							pagina = pagina + 1;
-							console.log("nova página =============================");
-							busquePosts(query, ehUmNovoPost, pagina);
+
+								pagina = pagina + 1;
+								busquePosts(query, ehUmNovoPost, pagina);
+								posicaoMinimaParaNovaPagina = (posicaoDoScroll + margemParaNovaBusca);
+								console.log("mais páginas");
+
 						}
 
 					});
