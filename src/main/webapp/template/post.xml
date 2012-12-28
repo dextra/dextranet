@@ -1,0 +1,56 @@
+<engine>
+
+	<template selector="#container_post" append="true">
+
+		<ul class="message">
+			{if sucesso}
+			<li class="success" style="display: list_item;">Seu post foi inserido com sucesso.</li>
+			{/if}
+		</ul>
+
+		<ul class="list_stories" id="relacao_dos_posts">
+			{for post in jsonArrayPost}
+			<li class="clearfix">
+				<div class="list_stories_headline_data">
+					${converteData(post.data)}
+			</div>
+				<img src="" alt="photo" class="list_stories_avatar" />
+				<div class="list_stories_headline clearfix">
+					<h2>${post.titulo}</h2>
+					<div class="list_stories_headline_comments">
+						<span class="icon_comments"></span>
+						${post.comentarios} comentários
+					</div>
+					<div class="list_stories_headline_dx">
+						<span class="icon_dx"></span>
+						${post.likes}
+					</div>
+					<div class="list_stories_headline_author">
+						<a href="#">${post.usuario}</a>
+					</div>
+				</div>
+				<div id="${post.id}_post" class="list_stories_lead">
+					<p id="${post.id}">
+						${post.conteudo}
+					</p>
+				</div>
+				<div class="list_stories_footer clearfix">
+					<div class="list_stories_footer_tags">
+						<a href="#">HTML</a>
+						,
+						<a href="#">CSS</a>
+					</div>
+					<div id="${post.id}_button" class="list_stories_footer_call">
+						+ Ver mais
+					</div>
+				</div>
+			</li>
+			{/for}
+		</ul>
+
+	</template>
+	<script>
+		carregaOpcaoVerMais();
+	</script>
+
+</engine>
