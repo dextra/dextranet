@@ -56,11 +56,8 @@ function formatDate(date,format) {
 	value = setPossibleFormatsValues(year, month, dayOfMonth, dayOfWeek, hour, minute, second);
 
 
-	var result="";
 
-	result = getApplyFormat(value,format);
-
-	return result;
+	return getApplyFormat(value,format);
 }
 
 function getApplyFormat(value, format){
