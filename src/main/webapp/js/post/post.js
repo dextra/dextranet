@@ -81,13 +81,10 @@ function paginacaoDosPost() {
 
 						if (posicaoDoScroll > posicaoMinimaParaNovaPagina) {
 
-
-							//if (tenhoMaisPaginas(pagina) == true){
 								pagina = pagina + 1;
 								busquePosts(query, ehUmNovoPost, pagina);
 								posicaoMinimaParaNovaPagina = (posicaoDoScroll + margemParaNovaBusca);
 								console.log("mais páginas");
-							//}
 
 						}
 

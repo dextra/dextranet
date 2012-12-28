@@ -23,16 +23,20 @@ function busquePosts(query, ehUmNovoPost, pagina) {
 	var quantidadePostsSolicitados = "20";
 	var template = "../template/post.xml";
 
-		$.ajax( {
-			type : tipo,
-			url : url,
-			data : "max-results=" + quantidadePostsSolicitados + "&page=" + pagina + "&q=" + query,
-			success : function(posts) {
-				if(posts.length > 0){
-					$.holy(template, {"jsonArrayPost" : posts,"sucesso" : ehUmNovoPost});
-				}
+	$.ajax( {
+		type : tipo,
+		url : url,
+		data : "max-results=" + quantidadePostsSolicitados + "&page=" + pagina + "&q=" + query,
+		success : function(posts) {
+			if(posts.length > 0){
+				$.holy(template, {"jsonArrayPost" : posts,"sucesso" : ehUmNovoPost});
 			}
-		});
+		}
+	});
+
+	if (pagina == 0){
+		$.holy("../template/carrega_miolo_home_page.xml",{});
+	}
 }
 
 function busqueDocuments(query, ehUmNovoPost, pagina) {
