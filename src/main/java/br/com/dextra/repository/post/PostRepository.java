@@ -47,7 +47,7 @@ public class PostRepository extends BaseRepository {
 	public static Iterable<Entity> buscarPosts(int maxResults, String q,
 			int offSet) throws EntityNotFoundException {
 
-		ArrayList<String> listaDeIds = buscaIdsPostsFTS(maxResults, q);
+		ArrayList<String> listaDeIds = buscaIdsPostsFTS(maxResults, q, offSet);
 
 		ArrayList<Entity> listaResults = buscaEntitiesPost(listaDeIds);
 
@@ -69,9 +69,10 @@ public class PostRepository extends BaseRepository {
 		return listaResults;
 	}
 
-	private static ArrayList<String> buscaIdsPostsFTS(int maxResults, String q) {
+	private static ArrayList<String> buscaIdsPostsFTS(int maxResults, String q, int offSet) {
+
 		com.google.appengine.api.search.Query query = preparaQuery(maxResults,
-				q);
+				q, offSet);
 		ArrayList<String> listaDeIds = EntityJsonConverter
 				.toListaDeIds(IndexFacade.getIndex(IndexKeys.POST.getKey())
 						.search(query));
@@ -79,18 +80,18 @@ public class PostRepository extends BaseRepository {
 	}
 
 	private static com.google.appengine.api.search.Query preparaQuery(
-			int maxResults, String q) {
+			int maxResults, String q, int offSet) {
 		SortOptions sortOptions = SortOptions.newBuilder().addSortExpression(
 				SortExpression.newBuilder().setExpression(
 						PostFields.DATA_DE_ATUALIZACAO.getField())
 						.setDirection(SortExpression.SortDirection.DESCENDING)
-						.setDefaultValueNumeric(0.0)).setLimit(1000).build();
+						.setDefaultValueNumeric(0.0)).build();
 
 		QueryOptions queryOptions = QueryOptions.newBuilder()
 				.setFieldsToSnippet(PostFields.TITULO.getField(),
 						PostFields.CONTEUDO.getField(),
 						PostFields.USUARIO.getField()).setFieldsToReturn(
-						PostFields.ID.getField()).setSortOptions(sortOptions)
+						PostFields.ID.getField()).setSortOptions(sortOptions).setOffset(offSet)
 				.setLimit(maxResults).build();
 
 		com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query
@@ -136,12 +137,17 @@ public class PostRepository extends BaseRepository {
 		valueEntity
 				.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), data);
 
+		//randomizaData(data, valueEntity);
+
+		return valueEntity;
+	}
+
+	private static void randomizaData(Date data, Entity valueEntity) {
 		Date dataAtualiza = data;
 		//FIXME porque a data esta assim?
 		int day = (int) (Math.random() * (30 + 1));
 		dataAtualiza.setDate(day);
 		valueEntity.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(),
 				dataAtualiza);
-		return valueEntity;
 	}
 }

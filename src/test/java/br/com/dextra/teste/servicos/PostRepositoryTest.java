@@ -92,7 +92,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		return json.toString();
 	}
 
-	/*@Test
+	@Test
 	public void testeListarPosts3() throws EntityNotFoundException {
 
 		String titulo = "Post1";
@@ -137,9 +137,9 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		Assert.assertEquals(comparacao.toString(), PostRS.listarPosts("2", "",
 				"0"));
 
-	}*/
+	}
 
-/*	@Test
+	@Test
 	public void testeListarPostsPaginados0() throws EntityNotFoundException {
 
 		int maxResults = 20;
@@ -177,7 +177,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 		entaoEuListeiOsPostsCorretos(listaPostsEsperados, listaPostsConsultados);
 
-	}*/
+	}
 
 	private List<Entity> quandoEuListoOsPostsPelaListaOriginal(
 			List<Entity> listaPostsOriginais, int maxResults, int offSet) {
