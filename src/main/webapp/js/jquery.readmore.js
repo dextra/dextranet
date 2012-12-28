@@ -7,7 +7,9 @@
 			substr_len : 500,
 			substr_lines : 5,
 			split_word : false,
-			ellipses : '...'
+			ellipses : '...',
+			continueClass : 'readm_continue',
+			hideClass : 'readm_hidden'
 		};
 
 		var opts = $.extend( {}, defaults, settings);
@@ -29,13 +31,11 @@
 						if (paragraph.attr("id")) {
 							postID = paragraph.attr("id");
 						}
-
 						var children = verificarFilho(paragraph);
 						children.each(function() {
 									var child = $(this);
 									totalCaracteres = totalCaracteres + child.text().length;
 									totalParagraphs++;
-
 									if (totalCaracteres > opts.substr_len) {
 										var showText = "";
 										var hideText = "";
@@ -46,26 +46,30 @@
 													- 1;
 											showText = paragraph.text()
 													.substring(0, showLength);
-											hideText = '<span class="readm_hidden" style="display:none;">'
-													+ child
-															.text()
-															.substring(
-																	showLength,
-																	$(this)
-																			.text().length)
-													+ "</span>";
+											hideText = addSpanClass(child.text().substring(showLength),
+													   				$(this).text().length,
+													   opts.hideClass);
 											addContinueIndicator(paragraph);
 											child.html(showText + hideText);
 										} else {
-											$(child).addClass(
-													"readm_hidden");
+											if(child.prop("tagName")=="IMG"){
+												console.log(paragraph.html());
+												paragraph.html(prepareEmoticonParagraph(paragraph));
+												return false;
+											}else{
+												child.addClass(opts.hideClass);
+											}
 										}
 
 									} else if (totalParagraphs - 1 > opts.substr_lines) {
 										if (totalParagraphs -2 == opts.substr_lines) {
 											addContinueIndicator(paragraph);
 										}
-										child.addClass("readm_hidden");
+										if(child.prop("tagName")=="IMG"){
+											paragraph.addClass(opts.hideClass);
+											return false;
+										}
+										child.addClass(opts.hideClass);
 									}
 									tamanhoInicialParagrafo = tamanhoInicialParagrafo
 											+ paragraph.text().length;
@@ -81,30 +85,6 @@
 			}
 		}
 
-		function verificarFilho(pai) {
-			if (pai.children().size() != 0) {
-				return pai.children();
-			} else {
-				return pai;
-			}
-		}
-
-		function hideContinuation(post) {
-			$(post).find(".readm_hidden").hide();
-		}
-
-		function addContinueIndicator(limitParagraph) {
-			var dots = "<span class='readm_continue'>" + opts.ellipses
-					+ "</span>";
-
-			$(limitParagraph).after(dots);
-		}
-
-		function hideSeeMoreButton(postID) {
-			var button = $("#" + postID + "_button");
-			button.hide();
-		}
-
 		function addButtonEvent(postID) {
 			var button = $("#" + postID + "_button");
 			button.click(function() {
@@ -118,6 +98,63 @@
 					button.text("+ Ver mais");
 				}
 			});
+		}
+
+		function addContinueIndicator(limitParagraph) {
+			var dots = "<span class='"+opts.continueClass+"'>" + opts.ellipses
+					+ "</span>";
+
+			$(limitParagraph).after(dots);
+		}
+
+		function addEmoticon(partialParagraph){
+			return addSpanClass(partialParagraph.substring(partialParagraph.indexOf("<img"),partialParagraph.indexOf(">")+1),opts.hideClass);
+		}
+
+		function addSpanClass(stringAuxiliar, desiredClass){
+				return '<span class="'+desiredClass+'" style="display:none;">' + stringAuxiliar + "</span>";
+		}
+
+		function hideContinuation(post) {
+			$(post).find("."+opts.hideClass).hide();
+		}
+
+		function hideSeeMoreButton(postID) {
+			var button = $("#" + postID + "_button");
+			button.hide();
+		}
+
+		function prepareEmoticonParagraph(paragraph){
+			var partialParagraph = paragraph.html();
+			var stringAuxiliar = "";
+			var paragraphResult = "";
+			if(partialParagraph.indexOf("<img")>=0 &&
+			   partialParagraph.indexOf(">") != partialParagraph.legth){
+				while(partialParagraph.indexOf(">") != partialParagraph.legth &&
+				      partialParagraph.indexOf(">") >= 0){
+
+					stringAuxiliar = partialParagraph.substring(0,partialParagraph.indexOf("<img"));
+
+					paragraphResult = paragraphResult + addSpanClass(stringAuxiliar,opts.hideClass) + addEmoticon(partialParagraph);
+
+					partialParagraph = partialParagraph.substring(partialParagraph.indexOf(">")+1);
+
+					if(partialParagraph.indexOf(">")==-1){
+						paragraphResult = paragraphResult+addSpanClass(partialParagraph,opts.hideClass);
+
+					}
+
+				}
+			}
+			return paragraphResult;
+		}
+
+		function verificarFilho(pai) {
+			if (pai.children().size() != 0) {
+				return pai.children();
+			} else {
+				return pai;
+			}
 		}
 	}
 })(jQuery);

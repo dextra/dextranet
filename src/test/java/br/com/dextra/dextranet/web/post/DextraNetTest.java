@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import br.com.dextra.teste.TesteFuncionalBase;
 
+
+
 public class DextraNetTest extends TesteFuncionalBase {
 	PaginaDextraNet siteDextraNet = new PaginaDextraNet(driver);
 

@@ -25,9 +25,8 @@ public class PostRS {
 	@POST
 	@Produces("application/json;charset=UTF-8")
 	public Response novoPost(@FormParam("title") String titulo,
-			@FormParam("content") String conteudo) {
+			@FormParam("content") String conteudo, @FormParam("author") String autor) {
 
-		String autor = "usuarioTemporario";
 		PostRepository novoPost = new PostRepository();
 		Entity entity = novoPost.criaNovoPost(titulo, conteudo, autor);
 		//FIXME so retornar 200 se for ok

@@ -3,7 +3,7 @@
 	<template selector="#box_user">
 		<div id="box_user_info">
 			<img src="" alt="photo" />
-			user.dextra
+			<span id="user_name">${name}</span>
 			<span class="shape_arrow_right"></span>
 			<span class="shape_arrow_down"></span>
 			<div class="header_dropdown" id="box_user_profile">
