@@ -29,13 +29,11 @@
 						if (paragraph.attr("id")) {
 							postID = paragraph.attr("id");
 						}
-
 						var children = verificarFilho(paragraph);
 						children.each(function() {
 									var child = $(this);
 									totalCaracteres = totalCaracteres + child.text().length;
 									totalParagraphs++;
-
 									if (totalCaracteres > opts.substr_len) {
 										var showText = "";
 										var hideText = "";
@@ -57,15 +55,20 @@
 											addContinueIndicator(paragraph);
 											child.html(showText + hideText);
 										} else {
-											$(child).addClass(
-													"readm_hidden");
+											if(child.prop("tagName")=="IMG"){
+												paragraph.html(prepareEmoticonParagraph(paragraph));
+											}
+											child.addClass("readm_hidden");
 										}
 
 									} else if (totalParagraphs - 1 > opts.substr_lines) {
 										if (totalParagraphs -2 == opts.substr_lines) {
 											addContinueIndicator(paragraph);
 										}
-										child.addClass("readm_hidden");
+										if(child.prop("tagName")=="IMG"){
+											paragraph.html(prepareEmoticonParagraph(paragraph));
+										}
+										child.wrap('<span class="readm_hidden" style="display:none;" />');
 									}
 									tamanhoInicialParagrafo = tamanhoInicialParagrafo
 											+ paragraph.text().length;
@@ -118,6 +121,39 @@
 					button.text("+ Ver mais");
 				}
 			});
+		}
+
+		function prepareEmoticonParagraph(paragraph){
+			var partialParagraph = paragraph.html();
+			var stringAuxiliar = "";
+			var paragraphResult = "";
+			if(partialParagraph.indexOf("<img")>=0 &&
+			   partialParagraph.indexOf(">") != partialParagraph.legth){
+				while(partialParagraph.indexOf(">") != partialParagraph.legth &&
+				      partialParagraph.indexOf(">") >= 0){
+					stringAuxiliar = partialParagraph.substring(0,partialParagraph.indexOf("<img"));
+					paragraphResult = paragraphResult + addHideSpanClass(stringAuxiliar) + addEmoticon(partialParagraph);
+					partialParagraph = partialParagraph.substring(partialParagraph.indexOf(">")+1);
+					if(partialParagraph.indexOf(">")==-1){
+						paragraphResult = paragraphResult+addHideSpanClass(partialParagraph);
+					}
+				}
+			}
+			return paragraphResult;
+		}
+
+		function addHideSpanClass(stringAuxiliar){
+			if(stringAuxiliar){
+				return '<span class="readm_hidden" style="display:none;">' + stringAuxiliar + "</span>";
+			}else{
+				return "";
+			}
+		}
+
+		function addEmoticon(partialParagraph){
+			return '<span class="readm_hidden" style="display:none;">' +
+					partialParagraph.substring(partialParagraph.indexOf("<img"),partialParagraph.indexOf(">")+1)+
+					"</span>";
 		}
 	}
 })(jQuery);

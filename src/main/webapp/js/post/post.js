@@ -13,7 +13,7 @@ function fazPesquisa() {
 
 	if(query != ""){
 		query = "\"" + query + "\"";
-		busquePosts(query, ehUmNovoPost, pagina);
+		busqueDocuments(query, ehUmNovoPost, pagina);
 	}
 
 	return false; //O retorno falso faz com que a página de pesquisa não sofra reload para index
