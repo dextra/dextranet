@@ -91,8 +91,8 @@ public class PostRepository extends BaseRepository {
 				.setFieldsToSnippet(PostFields.TITULO.getField(),
 						PostFields.CONTEUDO.getField(),
 						PostFields.USUARIO.getField()).setFieldsToReturn(
-						PostFields.ID.getField()).setSortOptions(sortOptions).setOffset(offSet)
-				.setLimit(maxResults).build();
+						PostFields.ID.getField()).setSortOptions(sortOptions).setOffset(offSet).setLimit(maxResults)
+				.build();
 
 		com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query
 				.newBuilder().setOptions(queryOptions).build(q);
@@ -112,18 +112,20 @@ public class PostRepository extends BaseRepository {
 	public static Entity criaNovoPost(String titulo, String conteudo,
 			String usuario, String id, Key key, Date data) {
 
-		Entity valueEntity = criaEntityPost(titulo, conteudo, usuario, id, key,
-				data);
-		persist(valueEntity);
+		data = Utils.randomizaDiaDaData(data);
+		String dataFormatada = Utils.formataData(data.toString());
+
+		Entity valueEntity = criaEntityPost(titulo, conteudo, usuario, id, key,dataFormatada);
+				persist(valueEntity);
 
 		DocumentRepository.criarDocumentPost(titulo, conteudo, usuario, id,
-				data);
+				dataFormatada);
 
 		return valueEntity;
 	}
 
 	private static Entity criaEntityPost(String titulo, String conteudo,
-			String usuario, String id, Key key, Date data) {
+			String usuario, String id, Key key, String data) {
 		Entity valueEntity = new Entity(key);
 		valueEntity.setProperty(PostFields.ID.getField(), id);
 		valueEntity.setProperty(PostFields.TITULO.getField(), titulo);
@@ -134,20 +136,9 @@ public class PostRepository extends BaseRepository {
 		valueEntity.setProperty(PostFields.COMENTARIO.getField(), 0);
 		valueEntity.setProperty(PostFields.LIKES.getField(), 0);
 		valueEntity.setProperty(PostFields.DATA.getField(), data);
-		valueEntity
-				.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), data);
-
-		//randomizaData(data, valueEntity);
+		valueEntity.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), data);
 
 		return valueEntity;
 	}
 
-	private static void randomizaData(Date data, Entity valueEntity) {
-		Date dataAtualiza = data;
-		//FIXME porque a data esta assim?
-		int day = (int) (Math.random() * (30 + 1));
-		dataAtualiza.setDate(day);
-		valueEntity.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(),
-				dataAtualiza);
-	}
 }

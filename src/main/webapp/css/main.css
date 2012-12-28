@@ -125,7 +125,7 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 #sidebar_left_menu > li:hover .icon_sidebar_left_novopost,
 #sidebar_left_menu > li.active .icon_sidebar_left_novopost{background-position:-40px -71px;}
 #sidebar_left_menu > li:hover .icon_sidebar_left_categoria,
-#sidebar_left_menu > li.active.icon_sidebar_left_categoria{background-position:-80px -70px;}
+#sidebar_left_menu > li.active .icon_sidebar_left_categoria{background-position:-80px -70px;}
 #sidebar_left_menu > li:hover .icon_sidebar_left_perfil,
 #sidebar_left_menu > li.active .icon_sidebar_left_perfil{background-position:-120px -69px;}
 #sidebar_left_menu > li:hover .icon_sidebar_left_equipe,
