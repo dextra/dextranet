@@ -25,7 +25,7 @@ import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.SortExpression;
 import com.google.appengine.api.search.SortOptions;
 
-public class PostRepository {
+public class PostRepository extends BaseRepository {
 
 	public static Iterable<Entity> buscarTodosOsPosts(int maxResults, int offSet) {
 
@@ -47,7 +47,7 @@ public class PostRepository {
 	public static Iterable<Entity> buscarPosts(int maxResults, String q,
 			int offSet) throws EntityNotFoundException {
 
-		ArrayList<String> listaDeIds = buscaIdsPostsFTS(maxResults, q);
+		ArrayList<String> listaDeIds = buscaIdsPostsFTS(maxResults, q, offSet);
 
 		ArrayList<Entity> listaResults = buscaEntitiesPost(listaDeIds);
 
@@ -69,9 +69,10 @@ public class PostRepository {
 		return listaResults;
 	}
 
-	private static ArrayList<String> buscaIdsPostsFTS(int maxResults, String q) {
+	private static ArrayList<String> buscaIdsPostsFTS(int maxResults, String q, int offSet) {
+
 		com.google.appengine.api.search.Query query = preparaQuery(maxResults,
-				q);
+				q, offSet);
 		ArrayList<String> listaDeIds = EntityJsonConverter
 				.toListaDeIds(IndexFacade.getIndex(IndexKeys.POST.getKey())
 						.search(query));
@@ -79,19 +80,19 @@ public class PostRepository {
 	}
 
 	private static com.google.appengine.api.search.Query preparaQuery(
-			int maxResults, String q) {
+			int maxResults, String q, int offSet) {
 		SortOptions sortOptions = SortOptions.newBuilder().addSortExpression(
 				SortExpression.newBuilder().setExpression(
 						PostFields.DATA_DE_ATUALIZACAO.getField())
 						.setDirection(SortExpression.SortDirection.DESCENDING)
-						.setDefaultValueNumeric(0.0)).setLimit(1000).build();
+						.setDefaultValueNumeric(0.0)).build();
 
 		QueryOptions queryOptions = QueryOptions.newBuilder()
 				.setFieldsToSnippet(PostFields.TITULO.getField(),
 						PostFields.CONTEUDO.getField(),
 						PostFields.USUARIO.getField()).setFieldsToReturn(
-						PostFields.ID.getField()).setSortOptions(sortOptions)
-				.setLimit(maxResults).build();
+						PostFields.ID.getField()).setSortOptions(sortOptions).setOffset(offSet).setLimit(maxResults)
+				.build();
 
 		com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query
 				.newBuilder().setOptions(queryOptions).build(q);
@@ -103,6 +104,8 @@ public class PostRepository {
 		String id = Utils.geraID();
 		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 		Date data = new Date();
+		
+		
 
 		return PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key,
 				data);
@@ -111,21 +114,20 @@ public class PostRepository {
 	public static Entity criaNovoPost(String titulo, String conteudo,
 			String usuario, String id, Key key, Date data) {
 
-		Entity valueEntity = criaEntityPost(titulo, conteudo, usuario, id, key,
-				data);
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
+		//data = Utils.randomizaDiaDaData(data);
+		String dataFormatada = Utils.formataData(data.toString());
 
-		datastore.put(valueEntity);
+		Entity valueEntity = criaEntityPost(titulo, conteudo, usuario, id, key,dataFormatada);
+				persist(valueEntity);
 
 		DocumentRepository.criarDocumentPost(titulo, conteudo, usuario, id,
-				data);
+				dataFormatada);
 
 		return valueEntity;
 	}
 
 	private static Entity criaEntityPost(String titulo, String conteudo,
-			String usuario, String id, Key key, Date data) {
+			String usuario, String id, Key key, String data) {
 		Entity valueEntity = new Entity(key);
 		valueEntity.setProperty(PostFields.ID.getField(), id);
 		valueEntity.setProperty(PostFields.TITULO.getField(), titulo);
@@ -136,14 +138,9 @@ public class PostRepository {
 		valueEntity.setProperty(PostFields.COMENTARIO.getField(), 0);
 		valueEntity.setProperty(PostFields.LIKES.getField(), 0);
 		valueEntity.setProperty(PostFields.DATA.getField(), data);
-		valueEntity
-				.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), data);
+		valueEntity.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), data);
 
-		Date dataAtualiza = data;
-		int day = (int) (Math.random() * (30 + 1));
-		dataAtualiza.setDate(day);
-		valueEntity.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(),
-				dataAtualiza);
 		return valueEntity;
 	}
+
 }

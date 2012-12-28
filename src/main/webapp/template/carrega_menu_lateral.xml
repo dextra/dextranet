@@ -15,19 +15,19 @@
 				</a>
 			</li>
 			<li id="sidebar_left_category">
-				<a href="pages/categoria/categoria.html">
+				<a href="#" id="button_sidebar_left_category">
 					<span class="icon_sidebar_left_categoria"></span>
 					Categoria
 				</a>
 			</li>
 			<li id="sidebar_left_profile">
-				<a href="pages/perfil/perfil.html">
+				<a href="#" id="button_sidebar_left_profile">
 					<span class="icon_sidebar_left_perfil"></span>
 					Perfil
 				</a>
 			</li>
 			<li id="sidebar_left_team">
-				<a href="pages/equipe/equipe.html">
+				<a href="#" id="button_sidebar_left_team">
 					<span class="icon_sidebar_left_equipe"></span>
 					Equipe
 				</a>
@@ -35,7 +35,10 @@
 		</ul>
 	</template>
 	<script>
-		$("#button_sidebar_left_novopost").click(abrePaginaNovoPost);
 		$("#button_sidebar_left_home").click(carregaDadosHomePage);
+		$("#button_sidebar_left_novopost").click(abrePaginaNovoPost);
+		$("#button_sidebar_left_category").click(abrePaginaCategoria);
+		$("#button_sidebar_left_profile").click(abrePaginaPerfil);
+		$("#button_sidebar_left_team").click(abrePaginaEquipe);
 	</script>
 </engine>

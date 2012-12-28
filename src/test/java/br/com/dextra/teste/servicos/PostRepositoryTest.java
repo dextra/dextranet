@@ -26,6 +26,8 @@ import com.google.appengine.tools.development.testing.LocalSearchServiceTestConf
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.google.gson.JsonObject;
 
+//FIXME esta classe deve testar direto o repositorio e nao as classes de postRS
+//FIXME 2 porque tantos tests comentados
 public class PostRepositoryTest extends TesteIntegracaoBase {
 
 	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(
@@ -66,14 +68,14 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 		PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
 		StringBuilder comparacao = geraJsonComparacao(titulo, conteudo,
-				usuario, data, id, key);
+				usuario, Utils.formataData(data.toString()), id, key);
 
 		Assert.assertEquals(comparacao.toString(), PostRS.listarPosts("20", "",
 				"0"));
 	}
 
 	private String criaUmJson(String titulo, String string, String usuario,
-			String id, Key key, Date data) {
+			String id, Key key, String data) {
 
 		JsonObject json = new JsonObject();
 
@@ -81,16 +83,16 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		json.addProperty("titulo", titulo);
 		json.addProperty("usuario", usuario);
 		json.addProperty("comentarios", "0");
-		json.addProperty("dataDeAtualizacao", data.toString());
+		json.addProperty("dataDeAtualizacao", data);
 		json.addProperty("conteudo", string);
 		json.addProperty("likes", "0");
-		json.addProperty("data", data.toString());
+		json.addProperty("data", data);
 		json.addProperty("key", key.toString());
 
 		return json.toString();
 	}
 
-	/*@Test
+	@Test
 	public void testeListarPosts3() throws EntityNotFoundException {
 
 		String titulo = "Post1";
@@ -98,6 +100,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		String usuario = "User1";
 
 		Date data = new Date();
+		data.setDate(1);
 		String id = Utils.geraID();
 		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 
@@ -108,6 +111,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		String usuario2 = "User2";
 
 		Date data2 = new Date();
+		data2.setDate(2);
 		String id2 = Utils.geraID();
 		Key key2 = KeyFactory.createKey(IndexKeys.POST.getKey(), id2);
 
@@ -119,6 +123,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		String usuario3 = "User3";
 
 		Date data3 = new Date();
+		data3.setDate(3);
 		String id3 = Utils.geraID();
 		Key key3 = KeyFactory.createKey(IndexKeys.POST.getKey(), id3);
 
@@ -127,23 +132,23 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 		StringBuilder comparacao = new StringBuilder();
 		comparacao.append("["
-				+ criaUmJson(titulo3, conteudo3, usuario3, id3, key3, data3)
+				+ criaUmJson(titulo3, conteudo3, usuario3, id3, key3, Utils.formataData(data3.toString()))
 				+ ",");
-		comparacao.append(criaUmJson(titulo2, conteudo2, usuario2, id2, key2, data2)
+		comparacao.append(criaUmJson(titulo2, conteudo2, usuario2, id2, key2, Utils.formataData(data2.toString()))
 				+ "]");
 
 		Assert.assertEquals(comparacao.toString(), PostRS.listarPosts("2", "",
 				"0"));
 
-	}*/
+	}
 
-/*	@Test
+	@Test
 	public void testeListarPostsPaginados0() throws EntityNotFoundException {
 
 		int maxResults = 20;
 		int page = 0;
 		int offSet = page * maxResults;
-		int qtdOriginalDePosts = 45;
+		int qtdOriginalDePosts = 31;
 
 		List<Entity> listaPostsOriginais = dadoUmaListaDePostsQueEuSalvei(qtdOriginalDePosts);
 
@@ -175,7 +180,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 		entaoEuListeiOsPostsCorretos(listaPostsEsperados, listaPostsConsultados);
 
-	}*/
+	}
 
 	private List<Entity> quandoEuListoOsPostsPelaListaOriginal(
 			List<Entity> listaPostsOriginais, int maxResults, int offSet) {
@@ -221,6 +226,7 @@ System.out.println(limit);
 			conteudo = "Content 23 ou 34";
 			String usuario = "User" + i;
 			Date data = new Date();
+			data.setDate(i);
 			String id = Utils.geraID();
 			Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 			Entity entity = PostRepository.criaNovoPost(titulo, conteudo,
@@ -249,7 +255,7 @@ System.out.println(limit);
 	}
 
 	private StringBuilder geraJsonComparacao(String titulo2, String conteudo2,
-			String usuario2, Date data2, String id2, Key key2) {
+			String usuario2, String data2, String id2, Key key2) {
 		StringBuilder comparacao = new StringBuilder();
 		comparacao.append("["
 				+ criaUmJson(titulo2, conteudo2, usuario2, id2, key2, data2)
@@ -341,5 +347,6 @@ System.out.println(limit);
 		entaoEuListeiOsPostsCorretos(listaPostsEsperados, listaPostsConsultados);
 
 	}*/
+
 
 }

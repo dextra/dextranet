@@ -19,13 +19,13 @@ public class PaginaDextraNet extends PageObject {
 	}
 
 	public void verificaSeIncluiuPost() {
-		Assert.assertEquals("Sucesso!", this
+		Assert.assertEquals("Seu post foi inserido com sucesso.", this
 				.getElementContent("li.success"));
 	}
 
 	public void verificaSeApareceuPostBuscado() {
-		Assert.assertEquals("KaiqueVaiNoCineminha", this
-				.getElementContent("p.list_stories_lead"));
+		Assert.assertEquals("Kaique vai no cineminha", this
+				.getElementContent("div.list_stories_lead"));
 	}
 
 	public void writeCKEditor(String text) {
