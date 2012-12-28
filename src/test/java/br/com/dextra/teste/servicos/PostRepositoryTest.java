@@ -26,6 +26,8 @@ import com.google.appengine.tools.development.testing.LocalSearchServiceTestConf
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.google.gson.JsonObject;
 
+//FIXME esta classe deve testar direto o repositorio e nao as classes de postRS
+//FIXME 2 porque tantos tests comentados
 public class PostRepositoryTest extends TesteIntegracaoBase {
 
 	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(
@@ -90,7 +92,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		return json.toString();
 	}
 
-	/*@Test
+	@Test
 	public void testeListarPosts3() throws EntityNotFoundException {
 
 		String titulo = "Post1";
@@ -135,9 +137,9 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		Assert.assertEquals(comparacao.toString(), PostRS.listarPosts("2", "",
 				"0"));
 
-	}*/
+	}
 
-/*	@Test
+	@Test
 	public void testeListarPostsPaginados0() throws EntityNotFoundException {
 
 		int maxResults = 20;
@@ -175,7 +177,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 		entaoEuListeiOsPostsCorretos(listaPostsEsperados, listaPostsConsultados);
 
-	}*/
+	}
 
 	private List<Entity> quandoEuListoOsPostsPelaListaOriginal(
 			List<Entity> listaPostsOriginais, int maxResults, int offSet) {
