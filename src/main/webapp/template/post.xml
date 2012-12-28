@@ -10,16 +10,18 @@
 
 		<ul class="list_stories" id="relacao_dos_posts">
 			{for post in jsonArrayPost}
-			<li class="clearfix">
+			<li class="clearfix ${post.id}">
 				<div class="list_stories_headline_data">
 					${converteData(post.data)}
-			</div>
+				</div>
 				<img src="" alt="photo" class="list_stories_avatar" />
 				<div class="list_stories_headline clearfix">
 					<h2>${post.titulo}</h2>
 					<div class="list_stories_headline_comments">
-						<span class="icon_comments"></span>
-						${post.comentarios} comentários
+						<a id="clearfix ${post.id}" class="link">
+							<span class="icon_comments"></span>
+							${post.comentarios} comentários
+						</a>
 					</div>
 					<div class="list_stories_headline_dx">
 						<span class="icon_dx"></span>
@@ -51,6 +53,12 @@
 	</template>
 	<script>
 		carregaOpcaoVerMais();
+		$(".link").click(function(){
+			if(abreTelaComentario($(this).attr("id"))){
+				CKEDITOR.replace('textarea_comment');
+				console.log("DEU CERTO");
+			}
+		});
 	</script>
 
 </engine>

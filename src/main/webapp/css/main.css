@@ -52,7 +52,7 @@ html{font-size:100%;}
 body{font-family:arial, sans-serif;background:url('../img/body-pattern.jpg') repeat;}
 
 a{color:#4887c6;text-decoration:none;}
-a:hover{color:#d66a00;}
+a:hover{color:#d66a00; cursor:pointer;}
 
 p{padding-bottom:18px; line-height:18px;}
 
