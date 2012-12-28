@@ -52,13 +52,7 @@
 
 	</template>
 	<script>
-		carregaOpcaoVerMais();
-		$(".link").click(function(){
-			if(abreTelaComentario($(this).attr("id"))){
-				CKEDITOR.replace('textarea_comment');
-				console.log("DEU CERTO");
-			}
-		});
+		chamaAbreTela();
 	</script>
 
 </engine>
