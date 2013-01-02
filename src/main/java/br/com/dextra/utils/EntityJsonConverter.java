@@ -23,10 +23,9 @@ public class EntityJsonConverter {
 	}
 
 	public static ArrayList<String> toListaDeIds(Results<ScoredDocument> results) {
-		System.out.println(results+" oi "+results.getNumberFound()+"oi2"+results.getResults().toString());
-		Collection<ScoredDocument> resultsCollection=results.getResults();
+		System.out.println(results+"/n numero de Resultados "+results.getResults().toString());
 		ArrayList<String> idList=new ArrayList<String>();
-		for (ScoredDocument scoredDocument : resultsCollection) {
+		for (ScoredDocument scoredDocument : results) {
 				idList.add(scoredDocument.getField("id").iterator().next().getText());
 		}
 		return idList;
