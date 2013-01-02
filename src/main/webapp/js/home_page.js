@@ -96,3 +96,9 @@ function abrePaginaEquipe() {
 	$.holy("../template/abre_pagina_equipe.xml", {});
 	setActiveMenuLateral("#sidebar_left_team");
 }
+
+function abreCaixaInformacoesUsuario()
+{
+	$("#box_user").css("display", "block");
+	$("#box_user_profile").css("display", "block");
+}
