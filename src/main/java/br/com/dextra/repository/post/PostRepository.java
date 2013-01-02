@@ -29,6 +29,7 @@ import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.ScoredDocument;
 import com.google.appengine.api.search.SortExpression;
 import com.google.appengine.api.search.SortOptions;
+import com.google.appengine.api.search.Index;
 
 public class PostRepository extends BaseRepository {
 
@@ -49,11 +50,10 @@ public class PostRepository extends BaseRepository {
 		return prepared.asIterable(opts);
 	}
 
-	public static Iterable<Entity> buscarPosts(int maxResults, String q
-			, int offset) throws EntityNotFoundException {
+	public static Iterable<Entity> buscarPosts(int maxResults, String q,
+			int offset) throws EntityNotFoundException {
 
 		ArrayList<String> listaDeIds = buscaIdsPostsFTS(maxResults, q, offset);
-
 
 		ArrayList<Entity> listaResults = buscaEntitiesPost(listaDeIds);
 
@@ -75,25 +75,25 @@ public class PostRepository extends BaseRepository {
 		return listaResults;
 	}
 
-	private static ArrayList<String> buscaIdsPostsFTS(int maxResults, String q, int offset) {
+	private static ArrayList<String> buscaIdsPostsFTS(int maxResults, String q,
+			int offset) {
 
-		com.google.appengine.api.search.Query query = preparaQuery(maxResults,
+		com.google.appengine.api.search.Query query = preparaQuery(
 				q);
+		System.out.println("/n/n/n/n/n"+query.toString()+"/n/n/n/n/n/n");
 
 		ArrayList<String> listaDeIds = EntityJsonConverter
-		.toListaDeIds(IndexFacade.getIndex(IndexKeys.POST.getKey())
-				.search(query));
+				.toListaDeIds(IndexFacade.getIndex(IndexKeys.POST.getKey())
+						.search(query));
 
-//FIXME: Set limit dentro da query nao funciona
+		// FIXME: Set limit dentro da query nao funciona
 		Collections.reverse(listaDeIds);
 		ArrayList<String> arrayTemp = new ArrayList<String>();
-		int f = maxResults+offset;
+		int f = maxResults + offset;
 
-
-
-
-		if(maxResults+offset >= listaDeIds.size())
+		if (maxResults + offset > listaDeIds.size())
 			f = listaDeIds.size();
+
 
 		for (String string : listaDeIds.subList(offset, f)) {
 			arrayTemp.add(string);
@@ -104,7 +104,7 @@ public class PostRepository extends BaseRepository {
 	}
 
 	private static com.google.appengine.api.search.Query preparaQuery(
-			int maxResults, String q) {
+			String q) {
 
 		SortOptions sortOptions = SortOptions.newBuilder().addSortExpression(
 				SortExpression.newBuilder().setExpression(
@@ -112,13 +112,12 @@ public class PostRepository extends BaseRepository {
 						.setDirection(SortExpression.SortDirection.ASCENDING)
 						.setDefaultValueNumeric(0.0)).build();
 
-
-		  QueryOptions queryOptions = QueryOptions.newBuilder().setSortOptions(sortOptions)
-		  .setFieldsToReturn( PostFields.ID.getField(), PostFields.DATA_DE_ATUALIZACAO.getField()).build();
+		QueryOptions queryOptions = QueryOptions.newBuilder().setSortOptions(
+				sortOptions).setFieldsToReturn(PostFields.ID.getField(),
+				PostFields.DATA_DE_ATUALIZACAO.getField(),PostFields.TITULO.getField()).setLimit(1000).build();
 
 		com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query
-				.newBuilder().setOptions(queryOptions)
-				.build(q);
+				.newBuilder().setOptions(queryOptions).build(q);
 		return query;
 	}
 

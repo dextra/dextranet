@@ -1,6 +1,7 @@
 package br.com.dextra.utils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Map.Entry;
 
 import com.google.appengine.api.datastore.Entity;
@@ -22,7 +23,7 @@ public class EntityJsonConverter {
 	}
 
 	public static ArrayList<String> toListaDeIds(Results<ScoredDocument> results) {
-		System.out.println(results);
+		System.out.println(results+"/n numero de Resultados "+results.getResults().toString());
 		ArrayList<String> idList=new ArrayList<String>();
 		for (ScoredDocument scoredDocument : results) {
 				idList.add(scoredDocument.getField("id").iterator().next().getText());

@@ -53,6 +53,7 @@
 	</template>
 	<script>
 		chamaAbreTelaComentario();
+		carregaOpcaoVerMais();
 	</script>
 
 </engine>

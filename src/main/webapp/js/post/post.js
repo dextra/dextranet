@@ -13,7 +13,7 @@ function fazPesquisa() {
 
 	if(query != ""){
 		query = "\"" + query + "\"";
-		busqueDocuments(query, ehUmNovoPost, pagina);
+		busquePost(query, ehUmNovoPost, pagina);
 	}
 
 	return false; //O retorno falso faz com que a página de pesquisa não sofra reload para index
@@ -40,7 +40,7 @@ function criaNovoPost() {
 		var post =  {
 						"title" : $("#form_input_title").val(),
 						"content" : CKEDITOR.instances.form_input_content.getData(),
-						"author" : $("#user_name").text()
+						"author" : $.cookie("userName")
 					}
 
 		$.ajax( {
