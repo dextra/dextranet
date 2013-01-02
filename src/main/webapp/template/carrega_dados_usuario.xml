@@ -28,8 +28,5 @@
 				</li>
 			</ul>
 		</div>
-		<script>
-			$("#box_user_info").click(abreCaixaInformacoesUsuario);
-		</script>
 	</template>
 </engine>
