@@ -29,5 +29,6 @@ function chamaAbreTelaComentario() {
 }
 
 function criaComentario() {
+	//esperando serviço de criação de comentario
 	carregaDadosHomePageAposInclusao();
 }
