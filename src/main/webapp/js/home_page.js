@@ -42,18 +42,18 @@ function busquePosts(query, ehUmNovoPost, pagina) {
 			}
 		}
 	});
-
 	if (pagina == 0){
 		$.holy("../template/carrega_miolo_home_page.xml",{});
 	}
 }
 
-function busqueDocuments(query, ehUmNovoPost, pagina) {
+/*function busqueDocuments(query, ehUmNovoPost, pagina) {
 	var tipo = 'GET';
 	var url = "/s/document";
 	var quantidadePostsRecuperados = "20";
 	var template = "../template/post.xml";
 
+	try{
 	$.ajax( {
 		type : tipo,
 		url : url,
@@ -64,12 +64,16 @@ function busqueDocuments(query, ehUmNovoPost, pagina) {
 			}
 		}
 	});
+	}catch(err)
+	{
+		console.log("erro ao solicitar nova página");
+	}
 
 	if (pagina == 0){
 		$.holy("../template/carrega_miolo_home_page.xml",{});
 	}
 }
-
+*/
 function setActiveMenuLateral(id) {
 	// limpa o active atual
 	$("#sidebar_left_home").attr("class", "");

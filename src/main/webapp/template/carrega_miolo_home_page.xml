@@ -2,10 +2,8 @@
 
 	<template selector="#container_main">
 
-		<!-- Sidebar do lado direito -->
 		<div id="sidebar_right" rel="section">
-
-		</div><!-- #sidebar-right -->
+		</div>
 
 		<form id="form_search">
 			<input type="text" id="form_search_input" />
@@ -18,8 +16,6 @@
 	</template>
 
 	<script>
-		paginacaoDosPost("");
 		$('#form_search').submit(fazPesquisa);
 	</script>
-
 </engine>

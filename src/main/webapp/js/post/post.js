@@ -9,7 +9,7 @@ function abrePaginaNovoPost() {
 function fazPesquisa() {
 	query = $('#form_search_input').val();
 	var ehUmNovoPost = false;
-	var pagina = 0
+	var pagina = 0;
 
 	if(query != ""){
 		query = "\"" + query + "\"";
@@ -26,17 +26,7 @@ function criaNovoPost() {
 		return false;
 	} else {
 
-//		var post = form2js('form_new_post', '.', true, function(node) {
-//			if (node.id && node.id.match(/form_input_content/)) {
-//				return {
-//					name : "content",
-//					value : CKEDITOR.instances.form_input_content.getData()
-//				};
-//			}
-//		});
-
 		console.log(post);
-
 		var post =  {
 						"title" : $("#form_input_title").val(),
 						"content" : CKEDITOR.instances.form_input_content.getData(),
@@ -74,7 +64,7 @@ function converteData(minhaData) {
 
 function paginacaoDosPost() {
 
-	var pagina = 0;
+	var pagina = 1;
 	var ehUmNovoPost = false;
 
 	$(window)
@@ -85,15 +75,16 @@ function paginacaoDosPost() {
 						var margemParaNovaBusca = (document.documentElement.scrollHeight*0.95);
 						var posicaoDoScroll = $(document).scrollTop();
 
+						console.log("Posição mínima nova página : " + posicaoMinimaParaNovaPagina +
+								" Margem adicionada : " + margemParaNovaBusca +
+								" posição do Scroll: " + posicaoDoScroll);
+
 						if (posicaoDoScroll > posicaoMinimaParaNovaPagina) {
-
-								pagina = pagina + 1;
 								busquePosts(query, ehUmNovoPost, pagina);
-								posicaoMinimaParaNovaPagina = (posicaoDoScroll + margemParaNovaBusca);
 								console.log("mais páginas");
-
+								posicaoMinimaParaNovaPagina = (posicaoDoScroll + margemParaNovaBusca);
+								pagina = pagina + 1;
 						}
-
 					});
 }
 

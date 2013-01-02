@@ -49,11 +49,10 @@
 			</li>
 			{/for}
 		</ul>
-
 	</template>
+
 	<script>
 		chamaAbreTelaComentario();
 		carregaOpcaoVerMais();
 	</script>
-
 </engine>
