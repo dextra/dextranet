@@ -3,10 +3,6 @@ package br.com.dextra.utils;
 import java.util.Date;
 import java.util.UUID;
 
-import br.com.dextra.persistencia.PostFields;
-
-import com.google.appengine.api.datastore.Entity;
-
 public class Utils {
 
 	static public String geraID() {
@@ -14,14 +10,11 @@ public class Utils {
 		return id;
 	}
 
-	static public Date randomizaDiaDaData(Date data) {
-		Date dataAtualiza = data;
-		int day = (int) (Math.random() * (30 + 1));
-		dataAtualiza.setDate(day);
-		return dataAtualiza;
+	public static String pegaData()
+	{
+		Date data=new Date();
+		return formataData(data.toString());
 	}
-
-
 
 	static public String formataData(String data) {
 		StringBuilder dataFormatada = new StringBuilder();
@@ -64,13 +57,13 @@ public class Utils {
 			return "11";
 		else
 			return "12";
-
 	}
 
-	public static String pegaData()
-	{
-		Date data=new Date();
-		return formataData(data.toString());
+	@SuppressWarnings("deprecation")
+	static public Date randomizaDiaDaData(Date data) {
+		Date dataAtualiza = data;
+		int day = (int) (Math.random() * (30 + 1));
+		dataAtualiza.setDate(day);
+		return dataAtualiza;
 	}
-
 }

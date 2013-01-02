@@ -5,7 +5,7 @@ import java.util.Collections;
 
 import br.com.dextra.persistencia.PostFields;
 import br.com.dextra.repository.document.DocumentRepository;
-import br.com.dextra.utils.EntityJsonConverter;
+import br.com.dextra.utils.Converters;
 import br.com.dextra.utils.IndexFacade;
 import br.com.dextra.utils.IndexKeys;
 import br.com.dextra.utils.Utils;
@@ -75,7 +75,7 @@ public class PostRepository extends BaseRepository {
 		com.google.appengine.api.search.Query query = preparaQuery(
 				q);
 
-		ArrayList<String> listaDeIds = EntityJsonConverter
+		ArrayList<String> listaDeIds = Converters
 				.toListaDeIds(IndexFacade.getIndex(IndexKeys.POST.getKey())
 						.search(query));
 

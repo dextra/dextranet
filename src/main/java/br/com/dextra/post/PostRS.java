@@ -10,7 +10,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import br.com.dextra.repository.post.PostRepository;
-import br.com.dextra.utils.EntityJsonConverter;
+import br.com.dextra.utils.Converters;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -50,7 +50,7 @@ public class PostRS {
 		} else {
 			listaPosts = PostRepository.buscarPosts(resultsMax, q,offSet);
 		}
-		return EntityJsonConverter.converterListaEntities(listaPosts)
+		return Converters.converterListaEntities(listaPosts)
 				.toString();
 	}
 }
