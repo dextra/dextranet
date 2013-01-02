@@ -94,10 +94,12 @@ public class PostRepository extends BaseRepository {
 		if (maxResults + offset > listaDeIds.size())
 			f = listaDeIds.size();
 
-
+		if(offset>listaDeIds.size())
+			offset=listaDeIds.size();
 		for (String string : listaDeIds.subList(offset, f)) {
 			arrayTemp.add(string);
 		}
+
 		listaDeIds = arrayTemp;
 
 		return listaDeIds;
