@@ -3,7 +3,6 @@ package br.com.dextra.repository.document;
 import br.com.dextra.persistencia.CommentFields;
 import br.com.dextra.persistencia.PostFields;
 import br.com.dextra.repository.post.BaseRepository;
-import br.com.dextra.repository.post.PostRepository;
 import br.com.dextra.utils.IndexFacade;
 import br.com.dextra.utils.IndexKeys;
 

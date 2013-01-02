@@ -2,10 +2,9 @@ package br.com.dextra.comment;
 
 import java.util.Date;
 
-import com.google.appengine.api.datastore.Entity;
-
 import br.com.dextra.persistencia.Entidade;
-import br.com.dextra.post.Post;
+
+import com.google.appengine.api.datastore.Entity;
 
 public class Comment extends Entidade{
 
