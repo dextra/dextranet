@@ -52,7 +52,7 @@
 
 	</template>
 	<script>
-		chamaAbreTela();
+		chamaAbreTelaComentario();
 		carregaOpcaoVerMais();
 	</script>
 

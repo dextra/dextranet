@@ -18,7 +18,7 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 @Path("/post")
 public class PostRS {
 
-	static final String SMAXRESULTS = "20";
+	static final String SMAXRESULTS = "40";
 	final int MAXRESULTS = Integer.parseInt(SMAXRESULTS);
 
 	@Path("/")
@@ -37,7 +37,7 @@ public class PostRS {
 	@GET
 	@Produces("application/json;charset=UTF-8")
 	public static String listarPosts(
-			@DefaultValue(SMAXRESULTS) @QueryParam(value = "max-results") String maxResults,
+			@DefaultValue("") @QueryParam(value = "max-results") String maxResults,
 			@DefaultValue("") @QueryParam(value = "q") String q,
 			@DefaultValue("0") @QueryParam(value = "page") String page) throws NumberFormatException, EntityNotFoundException {
 

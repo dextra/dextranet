@@ -8,7 +8,7 @@ for (( n=0;n<$1;n++));do
       texto="X Divisivel3"
     fi
     sleep 1
-	wget --post-data "title=exemplo$n&content=conteudoExemplo$texto" http://localhost:8080/s/post
+	wget --post-data "title=exemplo$n&content=conteudoExemplo$texto&author=bla" http://localhost:8080/s/post
 done; 
 rm post*
 

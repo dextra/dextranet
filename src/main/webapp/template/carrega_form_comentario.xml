@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<template selector="#list_stories_form_comment">
+		<form id='form_comment'>
+			<br/><textarea id='textarea_comment' placeholder='Digite seu comentario' style='resize:none;' />
+			<br/><p align='center'><input type='submit' value='Comentar' id='input_comment_submit' /></p>
+		</form>
+	</template>
+	<script>
+		CKEDITOR.replace('textarea_comment');
+		$("#form_comment").submit(criaComentario);
+	</script>
+</engine>

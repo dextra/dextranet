@@ -2,7 +2,7 @@ package br.com.dextra.utils;
 
 public enum IndexKeys {
 
-	POST("post"),DOCUMENT("document");
+	POST("post"),DOCUMENT("document"),COMMENT("comment");
 
 	private String value;
 

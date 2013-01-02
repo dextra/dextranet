@@ -3,8 +3,8 @@ function abreTelaComentario(idDaDivDoPost) {
 	var deuCerto = false;
 	LIs.each(function() {
 		if ($(this).attr("class") == idDaDivDoPost) {
-			$(this).append("<br><div align='center'><form id='form_comment'><textarea id='textarea_comment' placeholder='Digite seu comentario' style='resize:none;'  />" +
-					"<br><input type='submit' value='Comentar' /></form></div>");
+			$(this).append("<div id='list_stories_form_comment'></div>");
+			$.holy("../template/carrega_form_comentario.xml", {});
 			deuCerto = true;
 		}
 	});
@@ -12,18 +12,23 @@ function abreTelaComentario(idDaDivDoPost) {
 	return deuCerto;
 }
 
-//Erros com o comentario:
-//	quando ele abrir outro textarea (nao na mesmo post)
-//	quando der um submit, ele deve ocultar
-
-function chamaAbreTela() {
+function chamaAbreTelaComentario() {
 	var jaTemTextArea = false;
 	$(".link").click(function(){
 		if(!jaTemTextArea){
 			if(abreTelaComentario($(this).attr("id"))){
-				CKEDITOR.replace('textarea_comment');
+				jaTemTextArea = true;
+			}
+		} else {
+			$("#list_stories_form_comment").remove();
+			if(abreTelaComentario($(this).attr("id"))){
 				jaTemTextArea = true;
 			}
 		}
 	});
+}
+
+function criaComentario() {
+	//esperando serviço de criação de comentario
+	carregaDadosHomePageAposInclusao();
 }

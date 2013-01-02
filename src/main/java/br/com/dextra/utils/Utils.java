@@ -21,9 +21,7 @@ public class Utils {
 		return dataAtualiza;
 	}
 
-	// Wed Dec 26 10:44:10 UTC 2012
-	// 0123456789012345678901234567
-	// 111111111122222222
+
 
 	static public String formataData(String data) {
 		StringBuilder dataFormatada = new StringBuilder();
@@ -67,6 +65,12 @@ public class Utils {
 		else
 			return "12";
 
+	}
+
+	public static String pegaData()
+	{
+		Date data=new Date();
+		return formataData(data.toString());
 	}
 
 }

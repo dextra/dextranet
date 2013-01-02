@@ -1,7 +1,15 @@
 function carregaDadosHomePage() {
+	crieOsCookies();
 	carregueOsTemplates();
 	busquePosts("", false, 0);
 	$(document).delay(1000);
+}
+
+function crieOsCookies()
+{
+	$.cookie("userName","Arara azul");
+	$.cookie("userLogin", "arara");
+	$.cookie("userEmail","arara@dextra-sw.com");
 }
 
 function carregaDadosHomePageAposInclusao() {
@@ -13,7 +21,7 @@ function carregaDadosHomePageAposInclusao() {
 function carregueOsTemplates() {
 	$.holy("../template/carrega_menu_principal.xml", {});
 	$.holy("../template/carrega_menu_lateral.xml", {});
-	var user = {"name" : $.cookie("userName")}
+	var user = {"login" : $.cookie("userLogin"), "name" : $.cookie("userName"), "email" : $.cookie("userEmail")}
 	$.holy("../template/carrega_dados_usuario.xml", user);
 }
 
@@ -95,4 +103,12 @@ function abrePaginaPerfil() {
 function abrePaginaEquipe() {
 	$.holy("../template/abre_pagina_equipe.xml", {});
 	setActiveMenuLateral("#sidebar_left_team");
+}
+
+function deslogarUsuario()
+{
+	$.cookie("userName","");
+	$.cookie("userLogin", "");
+	$.cookie("userEmail","");
+	$.holy("../template/pagina_login.xml", {});
 }
