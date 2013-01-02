@@ -15,24 +15,18 @@
 			</div>
 		</div>
 		<div id="box_user_notifications">
-			<span class="highlight">3</span>
-			<ul id="box_user_notifications_full" class="header_dropdown">
-				<li>
-					<p>
+			<span class="highlight" style="float:right;">3</span>
+			<div id="box_user_notifications_full" class="header_dropdown">
+						Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou
+						não ser, eis a questão"</a>... <br></br>
 						Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou
 						não ser, eis a questão"</a>...
-					</p>
-				</li>
-				<li>
-					<p>
-						Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou
-						não ser, eis a questão"</a>...
-					</p>
-				</li>
-			</ul>
+			</div>
 		</div>
 		<script>
 			$("#logout").click(deslogarUsuario);
+			$(".highlight").click(abrirOuFecharTelaNotificacoes);
+			$("#box_user_info").click(abrirOuFecharTelaUsuario);
 		</script>
 	</template>
 </engine>

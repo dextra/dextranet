@@ -1,7 +1,6 @@
 package br.com.dextra.utils;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Map.Entry;
 
 import com.google.appengine.api.datastore.Entity;
@@ -11,7 +10,7 @@ import com.google.appengine.api.search.ScoredDocument;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-public class EntityJsonConverter {
+public class Converters {
 
 	public static JsonObject toJson(Entity entity) {
 		JsonObject json = new JsonObject();
@@ -47,7 +46,6 @@ public class EntityJsonConverter {
 	private static String converterGAETextToString(Entity entity) {
 		String conteudo = ((Text) entity.getProperty("conteudo")).getValue();
 		return conteudo;
-
 	}
 
 

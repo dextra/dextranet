@@ -116,3 +116,25 @@ function deslogarUsuario()
 	$.cookie("userEmail","");
 	$.holy("../template/pagina_login.xml", {});
 }
+
+function abrirOuFecharTelaUsuario()
+{
+	if($('#box_user_profile').is(':visible')){
+		$("#box_user_profile").css("display","none");
+		$(".shape_arrow_down").css("display","none");
+		$(".shape_arrow_right").css("display","inline-block");
+	}
+	else {
+		$("#box_user_profile").css("display","block");
+		$(".shape_arrow_down").css("display","inline-block");
+		$(".shape_arrow_right").css("display","none");
+	}
+}
+
+function abrirOuFecharTelaNotificacoes()
+{
+	if($('#box_user_notifications_full').is(':visible'))
+		$("#box_user_notifications_full").css("display","none");
+	else
+		$("#box_user_notifications_full").css("display","block");
+}
