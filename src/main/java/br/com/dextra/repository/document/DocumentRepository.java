@@ -1,13 +1,10 @@
 package br.com.dextra.repository.document;
 
-import java.util.Date;
-
+import br.com.dextra.persistencia.CommentFields;
 import br.com.dextra.persistencia.PostFields;
 import br.com.dextra.repository.post.BaseRepository;
-import br.com.dextra.repository.post.PostRepository;
 import br.com.dextra.utils.IndexFacade;
 import br.com.dextra.utils.IndexKeys;
-import br.com.dextra.utils.Utils;
 
 import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
@@ -36,11 +33,24 @@ public class DocumentRepository extends BaseRepository {
 		return document;
 	}
 
+
 	public static void alteraDatadoDocumento(String id, String data) {
 		Document doc = Document.newBuilder().setId(id).addField(
 				Field.newBuilder().setName(
 						PostFields.DATA_DE_ATUALIZACAO.getField()).setText(
 						data)).build();
 		IndexFacade.getIndex(IndexKeys.POST.getKey()).add(doc);
+	}
+
+	public static Document criarDocumentComment(String text, String autor, String date, String id){
+
+		Document document = Document.newBuilder().setId(id)
+							.addField(Field.newBuilder().setName(CommentFields.AUTOR.getField()).setText(autor))
+							.addField(Field.newBuilder().setName(CommentFields.DATE.getField()).setText(date.toString()))
+							.addField(Field.newBuilder().setName(CommentFields.TEXT.getField()).setText(text))
+							.addField(Field.newBuilder().setName(CommentFields.ID.getField()).setText(id)).build();
+
+		IndexFacade.getIndex(IndexKeys.COMMENT.getKey()).add(document);
+		return document;
 	}
 }

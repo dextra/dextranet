@@ -51,8 +51,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 	@Test
 	public void testeListarPostsVazios() throws EntityNotFoundException {
 		String resultadoEsperado = "[]";
-		Assert.assertEquals(resultadoEsperado, PostRS
-				.listarPosts("20", "", "0"));
+		Assert.assertEquals(resultadoEsperado, PostRS.listarPosts("20", "", "0"));
 	}
 
 	@Test
@@ -70,8 +69,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		StringBuilder comparacao = geraJsonComparacao(titulo, conteudo,
 				usuario, data, id, key);
 
-		Assert.assertEquals(comparacao.toString(), PostRS.listarPosts("20", "",
-				"0"));
+		Assert.assertEquals(comparacao.toString(), PostRS.listarPosts("20", "","0"));
 	}
 
 	private String criaUmJson(String titulo, String string, String usuario,
