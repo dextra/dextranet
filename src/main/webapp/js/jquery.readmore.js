@@ -41,14 +41,12 @@
 										var hideText = "";
 										if (tamanhoInicialParagrafo < opts.substr_len) {
 
-											var showLength = opts.substr_len
-													- tamanhoInicialParagrafo
-													- 1;
-											showText = paragraph.text()
-													.substring(0, showLength);
-											hideText = addSpanClass(child.text().substring(showLength),
-													   				$(this).text().length,
-													   opts.hideClass);
+											var showLength = opts.substr_len - tamanhoInicialParagrafo - 1;
+											showText = paragraph.text().substring(0, showLength);
+
+											hideText = child.text().substring(showLength,child.text().length);
+											hideText = addSpanClass(hideText,opts.hideClass);
+
 											addContinueIndicator(paragraph);
 											child.html(showText + hideText);
 										} else {
