@@ -69,7 +69,7 @@ public class PostRepository extends BaseRepository {
 		return listaResults;
 	}
 
-	private static ArrayList<String> buscaIdsPostsFTS(int maxResults, String q,
+	public static ArrayList<String> buscaIdsPostsFTS(int maxResults, String q,
 			int offset) {
 
 		com.google.appengine.api.search.Query query = preparaQuery(
@@ -163,7 +163,7 @@ public class PostRepository extends BaseRepository {
 		return valueEntity;
 	}
 
-	public static void alteraData(String id) {
+	public static void alteraData(String id) throws EntityNotFoundException {
 
 		String data=Utils.pegaData();
 
@@ -173,10 +173,16 @@ public class PostRepository extends BaseRepository {
 
 	}
 
-	public static void alteraDatadaEntity(String id, String data) {
+	public static void alteraDatadaEntity(String id, String data) throws EntityNotFoundException {
+		DatastoreService datastore = DatastoreServiceFactory
+		.getDatastoreService();
 
+		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
+		Entity valueEntity = datastore.get(key);
+		valueEntity
+				.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), data);
 
-
+		persist(valueEntity);
 	}
 
 }
