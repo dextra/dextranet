@@ -4,8 +4,10 @@ import java.util.Date;
 
 import br.com.dextra.persistencia.PostFields;
 import br.com.dextra.repository.post.BaseRepository;
+import br.com.dextra.repository.post.PostRepository;
 import br.com.dextra.utils.IndexFacade;
 import br.com.dextra.utils.IndexKeys;
+import br.com.dextra.utils.Utils;
 
 import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
@@ -28,9 +30,17 @@ public class DocumentRepository extends BaseRepository {
 						data.toString())).addField(
 				Field.newBuilder().setName(PostFields.ID.getField())
 						.setText(id)).build();
-		//FIXME aqui ao invés do indice post, deve ser o indice de document
+		// FIXME aqui ao invés do indice post, deve ser o indice de document
 		// porque vai ter que listar nao somente posts
 		IndexFacade.getIndex(IndexKeys.POST.getKey()).add(document);
 		return document;
+	}
+
+	public static void alteraDatadoDocumento(String id, String data) {
+		Document doc = Document.newBuilder().setId(id).addField(
+				Field.newBuilder().setName(
+						PostFields.DATA_DE_ATUALIZACAO.getField()).setText(
+						data)).build();
+		IndexFacade.getIndex(IndexKeys.POST.getKey()).add(doc);
 	}
 }

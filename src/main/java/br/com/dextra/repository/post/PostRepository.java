@@ -1,10 +1,7 @@
 package br.com.dextra.repository.post;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
-import java.util.List;
 
 import br.com.dextra.persistencia.PostFields;
 import br.com.dextra.repository.document.DocumentRepository;
@@ -24,12 +21,9 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Text;
 import com.google.appengine.api.datastore.Query.SortDirection;
-import com.google.appengine.api.search.Cursor;
 import com.google.appengine.api.search.QueryOptions;
-import com.google.appengine.api.search.ScoredDocument;
 import com.google.appengine.api.search.SortExpression;
 import com.google.appengine.api.search.SortOptions;
-import com.google.appengine.api.search.Index;
 
 public class PostRepository extends BaseRepository {
 
@@ -80,13 +74,18 @@ public class PostRepository extends BaseRepository {
 
 		com.google.appengine.api.search.Query query = preparaQuery(
 				q);
-		System.out.println("/n/n/n/n/n"+query.toString()+"/n/n/n/n/n/n");
 
 		ArrayList<String> listaDeIds = EntityJsonConverter
 				.toListaDeIds(IndexFacade.getIndex(IndexKeys.POST.getKey())
 						.search(query));
 
 		// FIXME: Set limit dentro da query nao funciona
+		return ListaDeIdsParaMostrarComOffsetForcado(maxResults, offset,
+				listaDeIds);
+	}
+
+	private static ArrayList<String> ListaDeIdsParaMostrarComOffsetForcado(
+			int maxResults, int offset, ArrayList<String> listaDeIds) {
 		Collections.reverse(listaDeIds);
 		ArrayList<String> arrayTemp = new ArrayList<String>();
 		int f = maxResults + offset;
@@ -127,24 +126,21 @@ public class PostRepository extends BaseRepository {
 
 		String id = Utils.geraID();
 		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
-		Date data = new Date();
+		String data = Utils.pegaData();
 
 		return PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key,
 				data);
 	}
 
 	public static Entity criaNovoPost(String titulo, String conteudo,
-			String usuario, String id, Key key, Date data) {
-
-		// data = Utils.randomizaDiaDaData(data);
-		String dataFormatada = Utils.formataData(data.toString());
+			String usuario, String id, Key key, String data) {
 
 		Entity valueEntity = criaEntityPost(titulo, conteudo, usuario, id, key,
-				dataFormatada);
+				data);
 		persist(valueEntity);
 
 		DocumentRepository.criarDocumentPost(titulo, conteudo, usuario, id,
-				dataFormatada);
+				data);
 
 		return valueEntity;
 	}
@@ -165,6 +161,22 @@ public class PostRepository extends BaseRepository {
 				.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), data);
 
 		return valueEntity;
+	}
+
+	public static void alteraData(String id) {
+
+		String data=Utils.pegaData();
+
+		DocumentRepository.alteraDatadoDocumento(id,data);
+
+		alteraDatadaEntity(id,data);
+
+	}
+
+	public static void alteraDatadaEntity(String id, String data) {
+
+
+
 	}
 
 }

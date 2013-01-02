@@ -62,13 +62,13 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		String conteudo = "Content1";
 		String usuario = "User1";
 
-		Date data = new Date();
+		String data = Utils.pegaData();
 		String id = Utils.geraID();
 		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 
 		PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
 		StringBuilder comparacao = geraJsonComparacao(titulo, conteudo,
-				usuario, Utils.formataData(data.toString()), id, key);
+				usuario, data, id, key);
 
 		Assert.assertEquals(comparacao.toString(), PostRS.listarPosts("20", "",
 				"0"));
@@ -104,7 +104,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		String id = Utils.geraID();
 		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 
-		PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
+		PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, Utils.formataData(data.toString()));
 
 		String titulo2 = "Post2";
 		String conteudo2 = "Content2";
@@ -116,7 +116,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		Key key2 = KeyFactory.createKey(IndexKeys.POST.getKey(), id2);
 
 		PostRepository.criaNovoPost(titulo2, conteudo2, usuario2, id2, key2,
-				data2);
+				Utils.formataData(data2.toString()));
 
 		String titulo3 = "Post3";
 		String conteudo3 = "Content3";
@@ -128,7 +128,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		Key key3 = KeyFactory.createKey(IndexKeys.POST.getKey(), id3);
 
 		PostRepository.criaNovoPost(titulo3, conteudo3, usuario3, id3, key3,
-				data3);
+				Utils.formataData(data3.toString()));
 
 		StringBuilder comparacao = new StringBuilder();
 		comparacao.append("["
@@ -230,7 +230,7 @@ System.out.println(limit);
 			String id = Utils.geraID();
 			Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 			Entity entity = PostRepository.criaNovoPost(titulo, conteudo,
-					usuario, id, key, data);
+					usuario, id, key, Utils.formataData(data.toString()));
 			listaPostsOriginais.add(entity);
 		}
 		return listaPostsOriginais;
@@ -244,11 +244,10 @@ System.out.println(limit);
 			if(i%2==0)
 			conteudo = "Content Par";
 			String usuario = "User" + i;
-			Date data = new Date();
 			String id = Utils.geraID();
 			Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 			Entity entity = PostRepository.criaNovoPost(titulo, conteudo,
-					usuario, id, key, data);
+					usuario, id, key, Utils.pegaData());
 			listaPostsOriginais.add(entity);
 		}
 		return listaPostsOriginais;
@@ -322,7 +321,7 @@ System.out.println(limit);
 		return listaSaida;
 	}
 
-	/*@Test
+	@Test
 	public void testeBuscarPosts2() throws NumberFormatException,
 			EntityNotFoundException {
 
@@ -346,7 +345,7 @@ System.out.println(limit);
 
 		entaoEuListeiOsPostsCorretos(listaPostsEsperados, listaPostsConsultados);
 
-	}*/
+	}
 
 
 }
