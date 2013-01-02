@@ -80,6 +80,7 @@ public class PostRepository extends BaseRepository {
 
 		com.google.appengine.api.search.Query query = preparaQuery(
 				q);
+		System.out.println("/n/n/n/n/n"+query.toString()+"/n/n/n/n/n/n");
 
 		ArrayList<String> listaDeIds = EntityJsonConverter
 				.toListaDeIds(IndexFacade.getIndex(IndexKeys.POST.getKey())
@@ -92,9 +93,9 @@ public class PostRepository extends BaseRepository {
 
 		if (maxResults + offset > listaDeIds.size())
 			f = listaDeIds.size();
-		listaDeIds.subList(offset, f);
 
-		for (String string : listaDeIds) {
+
+		for (String string : listaDeIds.subList(offset, f)) {
 			arrayTemp.add(string);
 		}
 		listaDeIds = arrayTemp;
@@ -113,7 +114,7 @@ public class PostRepository extends BaseRepository {
 
 		QueryOptions queryOptions = QueryOptions.newBuilder().setSortOptions(
 				sortOptions).setFieldsToReturn(PostFields.ID.getField(),
-				PostFields.DATA_DE_ATUALIZACAO.getField(),PostFields.TITULO.getField()).build();
+				PostFields.DATA_DE_ATUALIZACAO.getField(),PostFields.TITULO.getField()).setLimit(1000).build();
 
 		com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query
 				.newBuilder().setOptions(queryOptions).build(q);
