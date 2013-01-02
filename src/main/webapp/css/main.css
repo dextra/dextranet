@@ -142,6 +142,8 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 
 #sidebar_right{width:250px;float:right;}
 
+#box_user_profile{background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-top:11px;}
+
 /*----------  Listagem de estórias de usuários  ----------*/
 .list_stories > li{border-radius:5px;background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-bottom:20px;}
 .list_stories_lead > ul{list-style:disc; margin:15px;}
