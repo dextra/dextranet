@@ -3,12 +3,15 @@
 	<template selector="#box_user">
 		<div id="box_user_info">
 			<img src="" alt="photo" />
-				<span id="user_name">${name}</span>
+				<span id="user_login">${login}</span>
 				<span class="shape_arrow_right"></span>
 				<span class="shape_arrow_down"></span>
 			<div class="header_dropdown" id="box_user_profile">
-				<h3>User</h3>
-				<span>user@dextra-sw.com</span>
+				<h3>${name}</h3>
+				<span>${email}</span><br></br>
+				<center>
+					<a id="logout" href="#">Sair</a>
+				</center>
 			</div>
 		</div>
 		<div id="box_user_notifications">
@@ -28,5 +31,8 @@
 				</li>
 			</ul>
 		</div>
+		<script>
+			$("#logout").click(deslogarUsuario);
+		</script>
 	</template>
 </engine>
