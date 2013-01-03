@@ -12,7 +12,6 @@ function fazPesquisa() {
 	var pagina = 0
 
 	if(query != ""){
-		query = "\"" + query + "\"";
 		busquePosts(query, ehUmNovoPost, pagina);
 	}
 

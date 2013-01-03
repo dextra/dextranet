@@ -27,7 +27,7 @@ import com.google.appengine.api.search.SortOptions;
 
 public class PostRepository extends BaseRepository {
 
-	public static Iterable<Entity> buscarTodosOsPosts(int maxResults, int offSet) {
+	public Iterable<Entity> buscarTodosOsPosts(int maxResults, int offSet) {
 
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
@@ -44,7 +44,7 @@ public class PostRepository extends BaseRepository {
 		return prepared.asIterable(opts);
 	}
 
-	public static Iterable<Entity> buscarPosts(int maxResults, String q,
+	public Iterable<Entity> buscarPosts(int maxResults, String q,
 			int offset) throws EntityNotFoundException {
 
 		ArrayList<String> listaDeIds = buscaIdsPostsFTS(maxResults, q, offset);
@@ -54,7 +54,7 @@ public class PostRepository extends BaseRepository {
 		return listaResults;
 	}
 
-	private static ArrayList<Entity> buscaEntitiesPost(
+	private ArrayList<Entity> buscaEntitiesPost(
 			ArrayList<String> listaDeIds) throws EntityNotFoundException {
 		DatastoreService datastore = DatastoreServiceFactory
 				.getDatastoreService();
@@ -69,11 +69,10 @@ public class PostRepository extends BaseRepository {
 		return listaResults;
 	}
 
-	public static ArrayList<String> buscaIdsPostsFTS(int maxResults, String q,
+	public ArrayList<String> buscaIdsPostsFTS(int maxResults, String q,
 			int offset) {
 
-		com.google.appengine.api.search.Query query = preparaQuery(
-				q);
+		com.google.appengine.api.search.Query query = preparaQuery(q);
 
 		ArrayList<String> listaDeIds = Converters
 				.toListaDeIds(IndexFacade.getIndex(IndexKeys.POST.getKey())
@@ -84,7 +83,7 @@ public class PostRepository extends BaseRepository {
 				listaDeIds);
 	}
 
-	private static ArrayList<String> ListaDeIdsParaMostrarComOffsetForcado(
+	private ArrayList<String> ListaDeIdsParaMostrarComOffsetForcado(
 			int maxResults, int offset, ArrayList<String> listaDeIds) {
 		Collections.reverse(listaDeIds);
 		ArrayList<String> arrayTemp = new ArrayList<String>();
@@ -104,21 +103,21 @@ public class PostRepository extends BaseRepository {
 		return listaDeIds;
 	}
 
-	private static com.google.appengine.api.search.Query preparaQuery(
+	private com.google.appengine.api.search.Query preparaQuery(
 			String q) {
 
 		SortOptions sortOptions = SortOptions.newBuilder().addSortExpression(
 				SortExpression.newBuilder().setExpression(
 						PostFields.DATA_DE_ATUALIZACAO.getField())
 						.setDirection(SortExpression.SortDirection.ASCENDING)
-						.setDefaultValueNumeric(0.0)).build();
+						.setDefaultValue("0")).build();
 
 		QueryOptions queryOptions = QueryOptions.newBuilder().setSortOptions(
 				sortOptions).setFieldsToReturn(PostFields.ID.getField(),
 				PostFields.DATA_DE_ATUALIZACAO.getField(),PostFields.TITULO.getField()).setLimit(1000).build();
 
 		com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query
-				.newBuilder().setOptions(queryOptions).build(q);
+				.newBuilder().setOptions(queryOptions).build("~\""+q+"\"");
 		return query;
 	}
 
@@ -128,11 +127,11 @@ public class PostRepository extends BaseRepository {
 		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 		String data = Utils.pegaData();
 
-		return PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key,
+		return this.criaNovoPost(titulo, conteudo, usuario, id, key,
 				data);
 	}
 
-	public static Entity criaNovoPost(String titulo, String conteudo,
+	public Entity criaNovoPost(String titulo, String conteudo,
 			String usuario, String id, Key key, String data) {
 
 		Entity valueEntity = criaEntityPost(titulo, conteudo, usuario, id, key,
@@ -145,7 +144,7 @@ public class PostRepository extends BaseRepository {
 		return valueEntity;
 	}
 
-	private static Entity criaEntityPost(String titulo, String conteudo,
+	private Entity criaEntityPost(String titulo, String conteudo,
 			String usuario, String id, Key key, String data) {
 		Entity valueEntity = new Entity(key);
 		valueEntity.setProperty(PostFields.ID.getField(), id);
@@ -163,7 +162,7 @@ public class PostRepository extends BaseRepository {
 		return valueEntity;
 	}
 
-	public static void alteraDatadaEntity(String id, String data) throws EntityNotFoundException {
+	public void alteraDatadaEntity(String id, String data) throws EntityNotFoundException {
 		DatastoreService datastore = DatastoreServiceFactory
 		.getDatastoreService();
 
@@ -175,7 +174,7 @@ public class PostRepository extends BaseRepository {
 		persist(valueEntity);
 	}
 
-	public static void incrementaNumeroDeComentariosDaEntityDoPost(String id) throws EntityNotFoundException
+	public void incrementaNumeroDeComentariosDaEntityDoPost(String id) throws EntityNotFoundException
 	{
 		DatastoreService datastore = DatastoreServiceFactory
 		.getDatastoreService();
@@ -188,11 +187,11 @@ public class PostRepository extends BaseRepository {
 		persist(valueEntity);
 	}
 
-	public static void umPostFoiComentado(String id) throws EntityNotFoundException
+	public void umPostFoiComentado(String id) throws EntityNotFoundException
 	{
 		String data=Utils.pegaData();
 		DocumentRepository.alteraDatadoDocumento(id,data);
-		PostRepository.alteraDatadaEntity(id, data);
+		this.alteraDatadaEntity(id, data);
 
 		incrementaNumeroDeComentariosDaEntityDoPost(id);
 

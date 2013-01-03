@@ -36,7 +36,7 @@ public class PostRS {
 	@Path("/")
 	@GET
 	@Produces("application/json;charset=UTF-8")
-	public static String listarPosts(
+	public String listarPosts(
 			@DefaultValue("") @QueryParam(value = "max-results") String maxResults,
 			@DefaultValue("") @QueryParam(value = "q") String q,
 			@DefaultValue("0") @QueryParam(value = "page") String page) throws NumberFormatException, EntityNotFoundException {
@@ -44,11 +44,12 @@ public class PostRS {
 		Iterable<Entity> listaPosts;
 		int resultsMax = Integer.parseInt(maxResults);
 		int offSet = Integer.parseInt(page)*resultsMax;
+		PostRepository novoPost = new PostRepository();
 
 		if (q.equals("")) {
-			listaPosts = PostRepository.buscarTodosOsPosts(resultsMax, offSet);
+			listaPosts = novoPost.buscarTodosOsPosts(resultsMax, offSet);
 		} else {
-			listaPosts = PostRepository.buscarPosts(resultsMax, q,offSet);
+			listaPosts = novoPost.buscarPosts(resultsMax, q,offSet);
 		}
 		return Converters.converterListaEntities(listaPosts)
 				.toString();
