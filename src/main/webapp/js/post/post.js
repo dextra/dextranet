@@ -1,19 +1,16 @@
-// Variáveis globais
-query = "";
-
 function abrePaginaNovoPost() {
 	$.holy("../template/abre_pagina_novo_post.xml", {});
 	setActiveMenuLateral("#sidebar_left_new_post");
 }
 
 function fazPesquisa() {
-	query = $('#form_search_input').val();
+	var cons = $('#form_search_input').val();
+	consulta.setText(cons);
 	var ehUmNovoPost = false;
-	var pagina = 0
+	var pagina = 0;
 
-	if(query != ""){
-		query = "\"" + query + "\"";
-		busquePosts(query, ehUmNovoPost, pagina);
+	if(consulta.getText() != ""){
+		busquePosts(consulta.getText(), ehUmNovoPost, pagina);
 	}
 
 	return false; //O retorno falso faz com que a página de pesquisa não sofra reload para index
@@ -26,17 +23,7 @@ function criaNovoPost() {
 		return false;
 	} else {
 
-//		var post = form2js('form_new_post', '.', true, function(node) {
-//			if (node.id && node.id.match(/form_input_content/)) {
-//				return {
-//					name : "content",
-//					value : CKEDITOR.instances.form_input_content.getData()
-//				};
-//			}
-//		});
-
 		console.log(post);
-
 		var post =  {
 						"title" : $("#form_input_title").val(),
 						"content" : CKEDITOR.instances.form_input_content.getData(),
@@ -74,7 +61,6 @@ function converteData(minhaData) {
 
 function paginacaoDosPost() {
 
-	var pagina = 0;
 	var ehUmNovoPost = false;
 
 	$(window)
@@ -86,14 +72,10 @@ function paginacaoDosPost() {
 						var posicaoDoScroll = $(document).scrollTop();
 
 						if (posicaoDoScroll > posicaoMinimaParaNovaPagina) {
-
-								pagina = pagina + 1;
-								busquePosts(query, ehUmNovoPost, pagina);
+								busquePosts(consulta.getText(), ehUmNovoPost, numeroDaPagina.getPagina());
 								posicaoMinimaParaNovaPagina = (posicaoDoScroll + margemParaNovaBusca);
-								console.log("mais páginas");
-
+								numeroDaPagina.next();
 						}
-
 					});
 }
 
@@ -102,4 +84,42 @@ function posicaoDoScrollBuscarMaisPosts() {
 	var porcentagemDaPaginaDisparaNovaBusca = 0.80;
 
 	return (maximoValorDoScroll * (porcentagemDaPaginaDisparaNovaBusca));
+}
+
+
+function pagina(){
+	var numero;
+
+	this.next = function(){
+		numero = numero + 1;
+	}
+	this.back = function(){
+		if(numero > 1){
+			numero = numero - 1;
+		}
+	}
+	this.setPaginaInicial = function(){
+		numero  = 1;
+	}
+	this.getPagina = function(){
+		return numero;
+	}
+
+}
+
+function query(){
+	var text = "";
+
+	this.setText = function(novoTexto){
+		if(novoTexto == ""){
+			text = "";
+		}
+		else{
+			text= "\"" + novoTexto + "\"";
+		}
+	}
+	this.getText = function(){
+		return text;
+	}
+
 }
