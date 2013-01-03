@@ -20,7 +20,6 @@ public class Utils {
 
 		String postDate = simpleDateFormat.format(data);
 
-		System.out.println(formataData(postDate));
 		return formataData(postDate);
 	}
 
