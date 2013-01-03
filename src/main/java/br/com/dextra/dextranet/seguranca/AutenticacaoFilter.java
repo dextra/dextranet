@@ -24,7 +24,6 @@ public class AutenticacaoFilter implements Filter {
         UserService userService = UserServiceFactory.getUserService();
 
         String thisURI = ((HttpServletRequest)request).getRequestURI();
-        System.out.println(userService.getCurrentUser());
         if(userService.getCurrentUser() != null || uriExcludedFromFilter(thisURI)){
     		filterChain.doFilter(request, response);
 
