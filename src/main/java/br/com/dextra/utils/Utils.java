@@ -20,7 +20,8 @@ public class Utils {
 
 		String postDate = simpleDateFormat.format(data);
 
-		return formataData(postDate);
+		//return formataData(postDate);
+		return postDate;
 	}
 
 	static public String formataData(String data) {
