@@ -9,7 +9,8 @@
 				<textarea cols="50" id="form_input_content" style="resize:none;"
 					placeholder="Digite o conteúdo do post" name="content"></textarea>
 				<br />
-				<input type="submit" value="Postar" id="form_post_submit" />
+					<input type="submit" value="Postar" id="form_post_submit" />
+					<img src="../img/carregando.gif" id="form_gif_loading" style="display:none"></img>
 			</form>
 		</div>
 	</template>

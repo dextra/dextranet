@@ -9,6 +9,7 @@ import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.dextra.persistencia.PostFields;
@@ -217,7 +218,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 	}
 
-	@Test
+	@Ignore
 	public void testeDeAtualizarPostQuandoComentado()
 			throws NumberFormatException, EntityNotFoundException,
 			InterruptedException {

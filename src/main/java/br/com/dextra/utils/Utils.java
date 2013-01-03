@@ -19,7 +19,7 @@ public class Utils {
 	}
 
 	public static String formataPelaBiblioteca(Date data) {
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd-hh:mm:ss-EEE");
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss-EEE");
 		simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT-2"));
 
 		String postDate = simpleDateFormat.format(data);

@@ -15,6 +15,7 @@ function carregaDadosHomePageAposInclusao() {
 function carregueOsTemplates() {
 	$.holy("../template/carrega_menu_principal.xml", {});
 	$.holy("../template/carrega_menu_lateral.xml", {});
+	$.holy("../template/carrega_dados_usuario.xml", {"nickName":"usuario.teste","email":"usuario.teste@dextra-sw.com","nome":"Usuário Teste"});
 
 //	$.ajax({
 //		type : "GET",
@@ -41,6 +42,16 @@ function busquePosts(query, ehUmNovoPost, pagina) {
 		success : function(posts) {
 			if(posts.length > 0){
 				$.holy(template, {"jsonArrayPost" : posts,"sucesso" : ehUmNovoPost});
+				/*$.ajax( {
+					type : 'GET',
+					url : '/s/comment',
+					data : '',
+					success : function(comments) {
+						if(comments.length > 0){
+							$.holy("../template/comment.xml", {"jsonArrayComment" : comments});
+						}
+					}
+				});*/
 			}
 		}
 	});
@@ -87,6 +98,7 @@ function setActiveMenuLateral(id) {
 	// adiciona o active na li desejada
 	$(id).attr("class", "active");
 }
+
 
 function carregaOpcaoVerMais() {
 	$(".list_stories_lead").readmore( {

@@ -18,6 +18,8 @@ function fazPesquisa() {
 }
 
 function criaNovoPost() {
+	$("#form_new_post").css("display", "none");
+	$("#form_gif_loading").css("display", "inline");
 	if (($("#form_input_title").val() == "")
 			|| (CKEDITOR.instances.form_input_content.getData() == "")) {
 		alert("Preencha todos os campos.");
@@ -46,7 +48,7 @@ function criaNovoPost() {
 
 function converteData(minhaData) {
 
-	var dateFormat = "E, dd/MM/yyyy hh:mm";
+	var dateFormat = "E, dd/MM/yyyy HH:mm";
 	var date;
 
 	var dateParse = Date.parse(minhaData);
