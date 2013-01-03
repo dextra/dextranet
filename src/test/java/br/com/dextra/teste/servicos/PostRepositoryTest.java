@@ -72,6 +72,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 				"0"));
 	}
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testeListarPosts3() throws EntityNotFoundException {
 
@@ -84,8 +85,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		String id = Utils.geraID();
 		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 
-		PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, Utils
-				.formataData(data.toString()));
+		PostRepository.criaNovoPost(titulo, conteudo, usuario, id, key, Utils.formataPelaBiblioteca(data));
 
 		String titulo2 = "Post2";
 		String conteudo2 = "Content2";
@@ -96,8 +96,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		String id2 = Utils.geraID();
 		Key key2 = KeyFactory.createKey(IndexKeys.POST.getKey(), id2);
 
-		PostRepository.criaNovoPost(titulo2, conteudo2, usuario2, id2, key2,
-				Utils.formataData(data2.toString()));
+		PostRepository.criaNovoPost(titulo2, conteudo2, usuario2, id2, key2,Utils.formataPelaBiblioteca(data2));
 
 		String titulo3 = "Post3";
 		String conteudo3 = "Content3";
@@ -109,14 +108,13 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		Key key3 = KeyFactory.createKey(IndexKeys.POST.getKey(), id3);
 
 		PostRepository.criaNovoPost(titulo3, conteudo3, usuario3, id3, key3,
-				Utils.formataData(data3.toString()));
+				Utils.formataPelaBiblioteca(data3));
 
 		StringBuilder comparacao = new StringBuilder();
 		comparacao.append("["
-				+ criaUmJson(titulo3, conteudo3, usuario3, id3, key3, Utils
-						.formataData(data3.toString()), "0") + ",");
+				+ criaUmJson(titulo3, conteudo3, usuario3, id3, key3, Utils.formataPelaBiblioteca(data3), "0") + ",");
 		comparacao.append(criaUmJson(titulo2, conteudo2, usuario2, id2, key2,
-				Utils.formataData(data2.toString()), "0")
+				Utils.formataPelaBiblioteca(data2), "0")
 				+ "]");
 
 		Assert.assertEquals(comparacao.toString(), PostRS.listarPosts("2", "",
@@ -328,6 +326,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		return listaSaida;
 	}
 
+	@SuppressWarnings("deprecation")
 	private List<Entity> dadoUmaListaDePostsQueEuSalvei(int cont) {
 		List<Entity> listaPostsOriginais = new ArrayList<Entity>();
 		for (int i = 0; i < cont; i++) {
@@ -341,7 +340,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 			String id = Utils.geraID();
 			Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 			Entity entity = PostRepository.criaNovoPost(titulo, conteudo,
-					usuario, id, key, Utils.formataData(data.toString()));
+					usuario, id, key, Utils.formataPelaBiblioteca(data));
 			listaPostsOriginais.add(entity);
 		}
 		return listaPostsOriginais;

@@ -28,7 +28,7 @@ public class PostRS {
 			@FormParam("content") String conteudo, @FormParam("author") String autor) {
 
 		PostRepository novoPost = new PostRepository();
-		Entity entity = novoPost.criaNovoPost(titulo, conteudo, autor);
+		novoPost.criaNovoPost(titulo, conteudo, autor);
 		//FIXME so retornar 200 se for ok
 		return Response.ok().build();
 	}
