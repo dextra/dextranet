@@ -1,10 +1,12 @@
 package br.com.dextra.post;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
@@ -53,5 +55,14 @@ public class PostRS {
 		}
 		return Converters.converterListaEntities(listaPosts)
 				.toString();
+	}
+
+	@Path("/{id}")
+	@DELETE
+	@Produces("application/json;charset=UTF-8")
+	public Response removePost(@PathParam(value = "id") String id) {
+		new PostRepository().remove(id);
+		
+		return Response.ok().build();
 	}
 }

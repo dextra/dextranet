@@ -19,18 +19,18 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Text;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.Text;
 import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.SortExpression;
 import com.google.appengine.api.search.SortOptions;
 
 public class PostRepository extends BaseRepository {
 
+	private DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
 	public Iterable<Entity> buscarTodosOsPosts(int maxResults, int offSet) {
 
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
 		Query query = new Query(IndexKeys.POST.getKey());
 
 		query.addSort(PostFields.DATA_DE_ATUALIZACAO.getField(),
@@ -56,9 +56,6 @@ public class PostRepository extends BaseRepository {
 
 	private ArrayList<Entity> buscaEntitiesPost(
 			ArrayList<String> listaDeIds) throws EntityNotFoundException {
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
-
 		ArrayList<Entity> listaResults = new ArrayList<Entity>();
 
 		for (String id : listaDeIds) {
@@ -163,8 +160,6 @@ public class PostRepository extends BaseRepository {
 	}
 
 	public void alteraDatadaEntity(String id, String data) throws EntityNotFoundException {
-		DatastoreService datastore = DatastoreServiceFactory
-		.getDatastoreService();
 
 		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 		Entity valueEntity = datastore.get(key);
@@ -176,8 +171,6 @@ public class PostRepository extends BaseRepository {
 
 	public void incrementaNumeroDeComentariosDaEntityDoPost(String id) throws EntityNotFoundException
 	{
-		DatastoreService datastore = DatastoreServiceFactory
-		.getDatastoreService();
 
 		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 		Entity valueEntity = datastore.get(key);
@@ -197,5 +190,20 @@ public class PostRepository extends BaseRepository {
 
 	}
 
+	public void remove(String id) {
+		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
+		
+		try {
+			datastore.delete(key);	
+		} finally {
+			DocumentRepository indexacao = new DocumentRepository();
+			indexacao.removeIndex(IndexKeys.POST.getKey(), id);
+		}
+	}
 
+
+	public Entity obtemPorId(String id) throws EntityNotFoundException  {
+		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
+		return datastore.get(key);
+	}
 }

@@ -428,4 +428,18 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		return listaPostsOriginais;
 	}
 
+	@Test
+	public void testaRemocaoPost() {
+		Entity postCriado = postDoRepository.criaNovoPost("Titulo", "Conteudo", "Usuario");
+		String idDoPost = postCriado.getProperty("id").toString();
+
+		postDoRepository.remove(idDoPost);
+		
+		try {
+			postDoRepository.obtemPorId(idDoPost);
+			Assert.fail();
+		} catch (EntityNotFoundException e) {
+			Assert.assertTrue(true);
+		}
+	}
 }
