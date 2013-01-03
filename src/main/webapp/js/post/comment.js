@@ -1,10 +1,11 @@
-function abreTelaComentario(idDaDivDoPost) {
+var idUltimo = "";
+
+function abreTelaComentario(idDaDivDoPost, idDoPost) {
 	var LIs = $("#relacao_dos_posts").children();
 	var deuCerto = false;
 	LIs.each(function() {
 		if ($(this).attr("class") == idDaDivDoPost) {
-			$(this).append("<div id='list_stories_form_comment'></div>");
-			$.holy("../template/carrega_form_comentario.xml", {});
+			carregaComentario(idDoPost);
 			deuCerto = true;
 		}
 	});
@@ -15,17 +16,34 @@ function abreTelaComentario(idDaDivDoPost) {
 function chamaAbreTelaComentario() {
 	var jaTemTextArea = false;
 	$(".link").click(function(){
+		var idDoPost = $(this).attr("id").substring(9);
 		if(!jaTemTextArea){
-			if(abreTelaComentario($(this).attr("id"))){
+			if(abreTelaComentario($(this).attr("id"),idDoPost)){
 				jaTemTextArea = true;
 			}
 		} else {
-			$("#list_stories_form_comment").remove();
-			if(abreTelaComentario($(this).attr("id"))){
+			$("div.esteAqui").empty();
+			$("div.esteAqui").removeClass("esteAqui");
+			if(abreTelaComentario($(this).attr("id"),idDoPost)){
 				jaTemTextArea = true;
 			}
 		}
 	});
+}
+
+function carregaComentario(idDoPost) {
+	$("div." + idDoPost).addClass("esteAqui");
+	$.ajax( {
+		type : 'GET',
+		url : '/s/comment',
+		data : '',
+		success : function(comments) {
+			if(comments.length > 0){
+				$.holy("../template/comment.xml", {"jsonArrayComment" : comments}); //colocar seletor antes
+			}
+		}
+	});
+	idUltimo = idDoPost;
 }
 
 function criaComentario() {

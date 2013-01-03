@@ -46,6 +46,10 @@
 					<div id="${post.id}_button" class="list_stories_footer_call">
 						+ Ver mais
 					</div>
+					<br/>
+					<div class="list_stories_comments ${post.id}">
+
+					</div>
 				</div>
 			</li>
 			{/for}
@@ -54,6 +58,6 @@
 
 	<script>
 		chamaAbreTelaComentario();
-		carregaOpcaoVerMais();
+		carregaOpcaoVerMais(".list_stories_lead");
 	</script>
 </engine>

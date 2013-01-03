@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<template selector=".esteAqui">
+		<ul class="list_stories" id="relacao_dos_posts">
+			{for comment in jsonArrayComment}
+			<li class="clearfix ${comment.id}">
+				<div class="list_stories_headline_data">
+					${converteData(comment.date)}
+				</div>
+				<img src="" alt="photo" class="list_stories_avatar" />
+				<div class="list_stories_headline clearfix">
+					<div class="list_stories_headline_author">
+						<a href="#">${comment.autor}</a>
+					</div>
+				</div>
+				<div id="${comment.id}_post" class="list_stories_lead">
+					<p id="${comment.id}">
+						${comment.text}
+					</p>
+				</div>
+				<div class="list_stories_footer clearfix">
+					<div class="list_stories_footer_tags">
+						<a href="#">HTML</a>
+						,
+						<a href="#">CSS</a>
+					</div>
+					<div id="${comment.id}_button" class="list_stories_footer_call">
+						+ Ver mais
+					</div>
+				</div>
+			</li>
+			{/for}
+		</ul>
+		<div id='list_stories_form_comment'>
+			<form id='form_comment'>
+				<br/><textarea id='textarea_comment' placeholder='Digite seu comentario' style='resize:none;' />
+				<br/><p align='center'><input type='submit' value='Comentar' id='input_comment_submit' /></p>
+			</form>
+		</div>
+		<div id="${comment.id}_button" class="list_stories_footer_call">
+			+ Ver mais
+		</div>
+
+	</template>
+	<script>
+			CKEDITOR.replace('textarea_comment');
+	</script>
+</engine>
