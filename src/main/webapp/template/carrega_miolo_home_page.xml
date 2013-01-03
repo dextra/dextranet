@@ -5,7 +5,7 @@
 		<div id="sidebar_right" rel="section">
 		</div>
 
-		<form id="form_search">
+		<form id="form_search" onSubmit="fazPesquisa()">
 			<input type="text" id="form_search_input" />
 			<input type="submit" value="" title="Procurar!" id="form_search_submit" />
 		</form>
@@ -16,6 +16,6 @@
 	</template>
 
 	<script>
-		$('#form_search').submit(fazPesquisa);
+		numeroDaPagina.setPaginaInicial();
 	</script>
 </engine>

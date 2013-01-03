@@ -1,5 +1,6 @@
 function carregaDadosHomePage() {
 	crieOsCookies();
+	consulta.setText("");
 	carregueOsTemplates();
 	busquePosts("", false, 0);
 	$(document).delay(1000);
@@ -13,6 +14,7 @@ function crieOsCookies()
 }
 
 function carregaDadosHomePageAposInclusao() {
+	consulta.setText("");
 	carregueOsTemplates();
 	busquePosts("", true, 0);
 	$(document).delay(1000);
@@ -31,6 +33,7 @@ function busquePosts(query, ehUmNovoPost, pagina) {
 	var url = "/s/post";
 	var quantidadePostsSolicitados = "20";
 	var template = "../template/post.xml";
+	//var template = $(this).closest('template').find('div[id="#container_post"]').val();
 
 	$.ajax( {
 		type : tipo,

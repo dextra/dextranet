@@ -27,10 +27,14 @@
 	<title>Dextranet - Integrado Continuamente</title>
 
 	<script>
+		this.numeroDaPagina = new pagina();
+		this.consulta = new query();
+		numeroDaPagina.setPaginaInicial();
 		$(document).ready(carregaDadosHomePage());
+		paginacaoDosPost();
 	</script>
 </head>
-<body onload="paginacaoDosPost()">
+<body>
 
 	<!-- Container do site -->
 	<div id="container">

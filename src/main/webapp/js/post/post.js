@@ -1,19 +1,16 @@
-// Variáveis globais
-query = "";
-
 function abrePaginaNovoPost() {
 	$.holy("../template/abre_pagina_novo_post.xml", {});
 	setActiveMenuLateral("#sidebar_left_new_post");
 }
 
 function fazPesquisa() {
-	query = $('#form_search_input').val();
+	var cons = $('#form_search_input').val();
+	consulta.setText(cons);
 	var ehUmNovoPost = false;
 	var pagina = 0;
 
-	if(query != ""){
-		query = "\"" + query + "\"";
-		busquePosts(query, ehUmNovoPost, pagina);
+	if(consulta.getText() != ""){
+		busquePosts(consulta.getText(), ehUmNovoPost, pagina);
 	}
 
 	return false; //O retorno falso faz com que a página de pesquisa não sofra reload para index
@@ -64,7 +61,6 @@ function converteData(minhaData) {
 
 function paginacaoDosPost() {
 
-	var pagina = 1;
 	var ehUmNovoPost = false;
 
 	$(window)
@@ -78,12 +74,13 @@ function paginacaoDosPost() {
 						console.log("Posição mínima nova página : " + posicaoMinimaParaNovaPagina +
 								" Margem adicionada : " + margemParaNovaBusca +
 								" posição do Scroll: " + posicaoDoScroll);
+						console.log("consulta >" + consulta.getText());
 
 						if (posicaoDoScroll > posicaoMinimaParaNovaPagina) {
-								busquePosts(query, ehUmNovoPost, pagina);
+								busquePosts(consulta.getText(), ehUmNovoPost, numeroDaPagina.getPagina());
 								console.log("mais páginas");
 								posicaoMinimaParaNovaPagina = (posicaoDoScroll + margemParaNovaBusca);
-								pagina = pagina + 1;
+								numeroDaPagina.next();
 						}
 					});
 }
@@ -93,4 +90,42 @@ function posicaoDoScrollBuscarMaisPosts() {
 	var porcentagemDaPaginaDisparaNovaBusca = 0.80;
 
 	return (maximoValorDoScroll * (porcentagemDaPaginaDisparaNovaBusca));
+}
+
+
+function pagina(){
+	var numero;
+
+	this.next = function(){
+		numero = numero + 1;
+	}
+	this.back = function(){
+		if(numero > 1){
+			numero = numero - 1;
+		}
+	}
+	this.setPaginaInicial = function(){
+		numero  = 1;
+	}
+	this.getPagina = function(){
+		return numero;
+	}
+
+}
+
+function query(){
+	var text = "";
+
+	this.setText = function(novoTexto){
+		if(novoTexto == ""){
+			text = "";
+		}
+		else{
+			text= "\"" + novoTexto + "\"";
+		}
+	}
+	this.getText = function(){
+		return text;
+	}
+
 }
