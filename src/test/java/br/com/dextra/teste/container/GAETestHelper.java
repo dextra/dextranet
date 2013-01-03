@@ -56,7 +56,7 @@ public class GAETestHelper {
 		helper.setEnvAttributes(envs);
 		helper.setEnvIsLoggedIn(true);
 		helper.setEnvIsAdmin(false);
-		helper.setEnvEmail("test@example.com");
+		helper.setEnvEmail("login.google@example.com");
 		helper.setEnvAuthDomain("example.com");
 	}
 

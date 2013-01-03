@@ -1,16 +1,8 @@
 function carregaDadosHomePage() {
-	crieOsCookies();
 	consulta.setText("");
 	carregueOsTemplates();
 	busquePosts("", false, 0);
 	$(document).delay(1000);
-}
-
-function crieOsCookies()
-{
-	$.cookie("userName","Arara azul");
-	$.cookie("userLogin", "arara");
-	$.cookie("userEmail","ararinha.azul@dextra-sw.com");
 }
 
 function carregaDadosHomePageAposInclusao() {
@@ -23,8 +15,15 @@ function carregaDadosHomePageAposInclusao() {
 function carregueOsTemplates() {
 	$.holy("../template/carrega_menu_principal.xml", {});
 	$.holy("../template/carrega_menu_lateral.xml", {});
-	var user = {"login" : $.cookie("userLogin"), "name" : $.cookie("userName"), "email" : $.cookie("userEmail")}
-	$.holy("../template/carrega_dados_usuario.xml", user);
+
+	$.ajax({
+		type : "GET",
+		url : "/s/usuario",
+		success : function(usuario) {
+			$.holy("../template/carrega_dados_usuario.xml", usuario);
+		}
+	});
+
 }
 
 function busquePosts(query, ehUmNovoPost, pagina) {
@@ -88,6 +87,7 @@ function setActiveMenuLateral(id) {
 	// adiciona o active na li desejada
 	$(id).attr("class", "active");
 }
+
 function carregaOpcaoVerMais() {
 	$(".list_stories_lead").readmore( {
 		substr_len : 300,
@@ -114,9 +114,6 @@ function abrePaginaEquipe() {
 
 function deslogarUsuario()
 {
-	$.cookie("userName","");
-	$.cookie("userLogin", "");
-	$.cookie("userEmail","");
 	$.holy("../template/pagina_login.xml", {});
 }
 
