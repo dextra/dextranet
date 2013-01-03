@@ -28,8 +28,8 @@
 			<url>https://repository-saucelabs.forge.cloudbees.com/release</url>
 		</repository>
         <repository>
-            <id>dextra</id>
-            <url>https://mvn.dextra.com.br/repository/releases</url>
+            <id>leguimas-repository</id>
+            <url>https://github.com/leguimas/maven/raw/master/</url>
         </repository>
 	</repositories>
 
@@ -168,6 +168,16 @@
 					<includes>
 						<include>**/*Test.java</include>
 					</includes>
+					<!-- expertus properties -->
+                    <systemPropertyVariables>
+						<expertus.environment.type>${expertus.environment.type}</expertus.environment.type>
+						<expertus.environment.local.test>${expertus.environment.local.test}</expertus.environment.local.test>
+						<expertus.environment.sauce.platform>${expertus.environment.sauce.platform}</expertus.environment.sauce.platform>
+						<expertus.environment.browser>${expertus.environment.browser}</expertus.environment.browser>
+						<expertus.environment.sauce.browser.version>${expertus.environment.sauce.browser.version}</expertus.environment.sauce.browser.version>
+						<expertus.environment.sauce.username>${expertus.environment.sauce.username}</expertus.environment.sauce.username>
+						<expertus.environment.sauce.key>${expertus.environment.sauce.key}</expertus.environment.sauce.key>
+                    </systemPropertyVariables>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -219,6 +229,11 @@
 					<artifactId>maven-gae-plugin</artifactId>
 					<version>${gae.plugin.version}</version>
 				</plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.12.4</version>
+                </plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -355,7 +370,7 @@
 	    	<dependency>
                 <groupId>br.com.dextra</groupId>
                 <artifactId>expertus</artifactId>
-                <version>1.0.2</version>
+                <version>1.0.3</version>
 	    	</dependency>
 		</dependencies>
 	</dependencyManagement>

@@ -24,7 +24,7 @@ public class PaginaDextraNet extends PageObject {
 	}
 
 	public void verificaSeApareceuPostBuscado() {
-		Assert.assertEquals("Kaique vai no cineminha", this
+		Assert.assertEquals("Conteudo do Teste de Busca", this
 				.getElementContent("div.list_stories_lead"));
 	}
 

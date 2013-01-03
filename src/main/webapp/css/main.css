@@ -100,24 +100,28 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 #header_main_menu > li > ul > li:last_child > a{border-radius:0 0 6px 6px;}
 #header_main_menu > li:hover > ul{display:block;}
 
-#box_user{position:absolute;right:10px;height:36px;border-left:solid 1px #cfd5d9;border-right:1px solid #f7f8fc;top:-1px;background-color:#f0f3f4;cursor:pointer;}
-#box_user_info{padding:10px 15px 5px;color:#566c7c;font-weight:bold;font-size:13px;float:left;}
-#box_user_info .shape_arrow_down{display:none;}
-#box_user_info > img{background-color:#ccc;border:1px solid #93b4cc;padding:1px;width:18px;height:18px;vertical-align:middle;margin-right:15px;}
+/*----------  Informações do usuário  ----------*/
+#box_user{position:absolute;right:10px;height:36px;border-left:solid 1px #cfd5d9;border-right:1px solid #f7f8fc;top:-1px;background-color:#f0f3f4;cursor:pointer;list-style-type:none;}
+#box_user > li{float:right;height:36px;margin-top:-1px;position:relative;}
+#box_user > li > a{display:block;padding:13px 25px 8px;font-weight:bold;font-size:13px;text-shadow:0 1px 1px #fff;color:#35679a;border-right:solid 1px #cfd5d9;border-left:solid 1px #f7f8fc;}
 
-#box_user_info:hover .shape_arrow_down{display:inline-block;}
-#box_user_info:hover .shape_arrow_right{display:none;}
-#box_user_info:hover #box_user{display:block;}
-#box_user_info:hover #box_user_profile{display:block;}
+#box_user > li#box_user_info{padding:10px 15px 5px;color:#566c7c;font-weight:bold;font-size:13px;float:left;}
+#box_user > li#box_user_info .shape_arrow_down{display:none;}
+#box_user > li#box_user_info > img{background-color:#ccc;border:1px solid #93b4cc;padding:1px;width:18px;height:18px;vertical-align:middle;margin-right:15px;}
 
-#box_user_profile{background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-top:11px;}
+#box_user > li#box_user_notifications{padding:7px 10px 6px;float:left;}
+#box_user > li#box_user_notifications .highlight{vertical-align:middle;padding:4px 6px;background-color:#e76538;font-weight:bold;color:#fff;font-size:12px;text-shadow:0 1px 1px #8a5527;border-radius:5px;border:1px solid #b25e50;box-shadow:inset 0 10px 10px -10px #b7502c;}
+#box_user > li#box_user_notifications .highlight:hover{background-color:#FF9900}
 
-#box_user_notifications{border-left:1px solid #f7f8fc;border-right:solid 1px #cfd5d9;padding:7px 10px 6px;float:left;text-align:center;}
-#box_user_notifications .highlight{display:inline-block;vertical-align:middle;padding:4px 6px;background-color:#e76538;font-weight:bold;color:#fff;font-size:12px;text-shadow:0 1px 1px #8a5527;border-radius:5px;border:1px solid #b25e50;box-shadow:inset 0 10px 10px -10px #b7502c;}
-#box_user_notifications > ul{display:none;}
-#box_user_notifications .highlight:hover{background-color:#FF9900}
-
+#box_user > li > ul#box_user_profile{position:absolute;left:-1px;top:28px;max-width:190px;width:auto;border-top:1px solid #d5d9db;display:none;z-index:2;}
+#box_user > li > ul#box_user_notifications_full{position:absolute;left:-180px;top:19px;max-width:400px;width:auto;border-top:1px solid #d5d9db;display:none;z-index:2;}
+#box_user > li > ul > li > a:hover{opacity:0.65;}
+#box_user > li > ul > li:last_child,
+#box_user > li > ul > li:last_child > a{border-radius:0 0 6px 6px;}
 #box_user .header_dropdown{display:none;}
+
+#box_user_profile{background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-top:11px;font-size:11px;}
+#box_user_notifications_full{background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-top:20px;font-size:11px;word-wrap:break-word;}
 
 /*---------  Barra lateral esquerda  ----------*/
 #sidebar_left{background-color:#ebeef1;position:fixed;left:0;top:0;height:100%;border-right:solid 1px #d9dbdd;box-shadow:inset -15px 15px 15px -15px #fff;}
@@ -158,9 +162,9 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 .list_stories_headline_dx{color:#349a94;}
 .list_stories_headline_author{margin-right:0;color:#666;font-weight:normal;}
 .list_stories_headline_author > a{font-weight:bold;}
-.list_stories_headline_data,.list_stories_lead{clear:both;text-shadow:0 1px 1px #fff;font-size:14px;color:#505153;word-wrap:break-word;}
+.list_stories_headline_data{float:right;clear:both;text-shadow:0 1px 1px #fff;font-size:14px;color:#35679A;font-weight:bold;word-wrap:break-word;}
+.list_stories_lead{clear:both;text-shadow:0 1px 1px #fff;font-size:14px;color:#505153;word-wrap:break-word;}
 .list_stories_lead > blockquote{font-style: italic;	font-family: Georgia, Times, "Times New Roman", serif;	padding: 2px 0;	border-style: solid;	border-color: #ccc;	border-width: 0; background: transparent url(../img/quote.gif) no-repeat; margin: 1em 20px; padding-left: 50px;}
-.list_stories_headline_data{text-align:right;}
 .list_stories_footer{background-color:#d5d9db;margin:0 -12px -12px;padding:12px 12px 0;height:31px;}
 .list_stories_footer > a{color:#4e739c;text-shadow:0 1px 1px #fff;font-size:15px;}
 .list_stories_footer_tags{float:left;}
@@ -173,18 +177,8 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 #post_blockquote {font-style: italic; font-family: Georgia, "Times New Roman", serif; margin: 1em 20px; padding-left: 50px;  background: transparent url(../img/quote.gif) no-repeat;}
 
 
-.wordwrap
-{
-    white-space: pre; /* CSS2 */
-    white-space: -moz-pre-wrap; /* Mozilla */
-    white-space: -hp-pre-wrap; /* HP printers */
-    white-space: -o-pre-wrap; /* Opera 7 */
-    white-space: -pre-wrap; /* Opera 4-6 */
-    white-space: pre-wrap; /* CSS 2.1 */
-    white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
-    word-wrap: break-word; /* IE */
-    _white-space: pre; /* IE hack to re-specify in addition to word-wrap */
-}
+.wordwrap{white-space: pre; /* CSS2 */white-space: -moz-pre-wrap; /* Mozilla */white-space: -hp-pre-wrap; /* HP printers */white-space: -o-pre-wrap; /* Opera 7 */white-space: -pre-wrap; /* Opera 4-6 */white-space: pre-wrap; /* CSS 2.1 */white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */word-wrap: break-word; /* IE */_white-space: pre; /* IE hack to re-specify in addition to word-wrap */}
+
 .message { margin:10px 0; }
 .message li { color:#000; padding:3px 5px; font-size:11px; background:#FFF; border:1px solid #EEE; margin:3px 10px; list-style:none; margin:2px 15px; padding:3px 5px 3px 25px; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; background-position:5px center; background-repeat: no-repeat; }
 .message li a,

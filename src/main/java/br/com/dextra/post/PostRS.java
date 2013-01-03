@@ -10,7 +10,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
 import br.com.dextra.repository.post.PostRepository;
-import br.com.dextra.utils.EntityJsonConverter;
+import br.com.dextra.utils.Converters;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -28,7 +28,7 @@ public class PostRS {
 			@FormParam("content") String conteudo, @FormParam("author") String autor) {
 
 		PostRepository novoPost = new PostRepository();
-		Entity entity = novoPost.criaNovoPost(titulo, conteudo, autor);
+		novoPost.criaNovoPost(titulo, conteudo, autor);
 		//FIXME so retornar 200 se for ok
 		return Response.ok().build();
 	}
@@ -36,7 +36,7 @@ public class PostRS {
 	@Path("/")
 	@GET
 	@Produces("application/json;charset=UTF-8")
-	public static String listarPosts(
+	public String listarPosts(
 			@DefaultValue("") @QueryParam(value = "max-results") String maxResults,
 			@DefaultValue("") @QueryParam(value = "q") String q,
 			@DefaultValue("0") @QueryParam(value = "page") String page) throws NumberFormatException, EntityNotFoundException {
@@ -44,13 +44,14 @@ public class PostRS {
 		Iterable<Entity> listaPosts;
 		int resultsMax = Integer.parseInt(maxResults);
 		int offSet = Integer.parseInt(page)*resultsMax;
+		PostRepository novoPost = new PostRepository();
 
 		if (q.equals("")) {
-			listaPosts = PostRepository.buscarTodosOsPosts(resultsMax, offSet);
+			listaPosts = novoPost.buscarTodosOsPosts(resultsMax, offSet);
 		} else {
-			listaPosts = PostRepository.buscarPosts(resultsMax, q,offSet);
+			listaPosts = novoPost.buscarPosts(resultsMax, q,offSet);
 		}
-		return EntityJsonConverter.converterListaEntities(listaPosts)
+		return Converters.converterListaEntities(listaPosts)
 				.toString();
 	}
 }

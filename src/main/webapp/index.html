@@ -24,10 +24,14 @@
 	<script type="text/javascript" src="js/convertDate.js"></script>
 	<script type="text/javascript" src="js/dateUtils.js"></script>
 
-	<title>Dextranet - Integrado Continuamente</title>
+	<title>Dextranet</title>
 
 	<script>
-	$(document).ready(carregaDadosHomePage());
+		this.numeroDaPagina = new pagina();
+		this.consulta = new query();
+		numeroDaPagina.setPaginaInicial();
+		$(document).ready(carregaDadosHomePage());
+		paginacaoDosPost();
 	</script>
 </head>
 <body>
@@ -41,29 +45,22 @@
 
 			<!-- Menu principal no topo -->
 			<ul id="header_main_menu">
-
 			</ul><!-- #header_main_menu -->
 
 			<!-- Caixa com dados do usuario -->
 			<div id="box_user">
-
 			</div><!-- #box_user -->
 
 		</div><!-- #header_container -->
 
 		<!-- Menu lateral esquerdo -->
 		<div id="sidebar_left" rel="section">
-
 		</div><!-- #sidebar_left -->
 
 		<!-- Miolo -->
 		<div id="container_main" class="clearfix">
+		</div>
 
-		</div><!-- #container_main -->
-
-
-	</div><!-- #container -->
-
-
+	</div>
 </body>
 </html>

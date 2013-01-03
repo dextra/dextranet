@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.dextra.utils.EntityJsonConverter;
+import br.com.dextra.utils.Converters;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
@@ -41,7 +41,7 @@ public class EntityJsonConverterTest {
 	}
 
 	private String quandoEuConvertoPraUmJson(Entity entity) {
-		return EntityJsonConverter.toJson(entity).toString();
+		return Converters.toJson(entity).toString();
 	}
 
 	private Entity dadoUmaEntity() {

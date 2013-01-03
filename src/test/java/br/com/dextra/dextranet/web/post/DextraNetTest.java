@@ -20,8 +20,8 @@ public class DextraNetTest extends TesteFuncionalBase {
 		siteDextraNet.navigateTo("http://localhost:8080/");
 		siteDextraNet.click("span.icon_sidebar_left_novopost");
 		siteDextraNet.writeInputText("input#form_input_title",
-		"Kaique cineminha");
-		siteDextraNet.writeCKEditor("Kaique vai no cineminha");
+		"Titulo de Teste");
+		siteDextraNet.writeCKEditor("Comentario de Teste");
 		siteDextraNet.click("input#form_post_submit");
 		siteDextraNet.verificaSeIncluiuPost();
 	}
@@ -32,13 +32,15 @@ public class DextraNetTest extends TesteFuncionalBase {
 		siteDextraNet.navigateTo("http://localhost:8080/");
 		siteDextraNet.click("span.icon_sidebar_left_novopost");
 		siteDextraNet.writeInputText("input#form_input_title",
-		"OutroPost");
-		siteDextraNet.writeCKEditor("Texto do outro post :B");
+		"Titulo de Teste de Busca");
+		siteDextraNet.writeCKEditor("Conteudo do Teste de Busca");
 		siteDextraNet.click("input#form_post_submit");
 		siteDextraNet.writeInputText("#form_search_input",
-				"Kaique");
+				"Teste");
 		siteDextraNet.click("#form_search_submit");
 		siteDextraNet.verificaSeApareceuPostBuscado();
 	}
+
+
 
 }

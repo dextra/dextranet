@@ -1,6 +1,10 @@
 package br.com.dextra.respository.comment;
 
-import java.util.Date;
+import br.com.dextra.persistencia.CommentFields;
+import br.com.dextra.repository.document.DocumentRepository;
+import br.com.dextra.repository.post.BaseRepository;
+import br.com.dextra.utils.IndexKeys;
+import br.com.dextra.utils.Utils;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -11,28 +15,22 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Text;
 
-import br.com.dextra.persistencia.CommentFields;
-import br.com.dextra.repository.document.DocumentRepository;
-import br.com.dextra.repository.post.BaseRepository;
-import br.com.dextra.utils.IndexKeys;
-import br.com.dextra.utils.Utils;
-
 public class CommentRepository extends BaseRepository  {
 
 	public Entity criar(String text,String autor){
 		String id = Utils.geraID();
 		Key key = KeyFactory.createKey(IndexKeys.COMMENT.getKey(), id);
-		Date data = new Date();
+
+		String data = Utils.pegaData();
 
 		return CommentRepository.criar(text, autor, data, id, key);
 	}
 
-	public static Entity criar(String text, String autor, Date date, String id, Key key){
-		String dataFormatada = Utils.formataData(date.toString());
+	public static Entity criar(String text, String autor, String data, String id, Key key){
 
-		Entity entidade = criarEntidade(text, autor, dataFormatada, id, key);
+		Entity entidade = criarEntidade(text, autor, data, id, key);
 		persist(entidade);
-		DocumentRepository.criarDocumentComment(text, autor, dataFormatada, id);
+		DocumentRepository.criarDocumentComment(text, autor, data, id);
 
 		return entidade;
 	}

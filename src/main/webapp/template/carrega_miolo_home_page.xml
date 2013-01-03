@@ -2,12 +2,10 @@
 
 	<template selector="#container_main">
 
-		<!-- Sidebar do lado direito -->
 		<div id="sidebar_right" rel="section">
+		</div>
 
-		</div><!-- #sidebar-right -->
-
-		<form id="form_search">
+		<form id="form_search" onSubmit="fazPesquisa()">
 			<input type="text" id="form_search_input" />
 			<input type="submit" value="" title="Procurar!" id="form_search_submit" />
 		</form>
@@ -18,8 +16,6 @@
 	</template>
 
 	<script>
-		paginacaoDosPost("");
-		$('#form_search').submit(fazPesquisa);
+		numeroDaPagina.setPaginaInicial();
 	</script>
-
 </engine>

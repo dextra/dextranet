@@ -1,38 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<template selector="#box_user">
-		<div id="box_user_info">
+
+		<li id="box_user_info">
 			<img src="" alt="photo" />
-				<span id="user_login">${login}</span>
-				<span class="shape_arrow_right"></span>
-				<span class="shape_arrow_down"></span>
-			<div class="header_dropdown" id="box_user_profile">
-				<h3>${name}</h3>
-				<span>${email}</span><br></br>
-				<center>
-					<a id="logout" href="#">Sair</a>
-				</center>
-			</div>
-		</div>
-		<div id="box_user_notifications">
-			<span class="highlight">3</span>
-			<ul id="box_user_notifications_full" class="header_dropdown">
+			<span id="user_login">${nickName}</span>
+			<span class="shape_arrow_right"></span>
+			<span class="shape_arrow_down"></span>
+
+			<ul class="header_dropdown" id="box_user_profile">
 				<li>
-					<p>
-						Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou
-						não ser, eis a questão"</a>...
-					</p>
-				</li>
-				<li>
-					<p>
-						Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou
-						não ser, eis a questão"</a>...
-					</p>
+					<h4>${nome}</h4>
+					<span>${email}</span><br></br>
+					<center>
+						<a id="logout" href="#">Sair</a>
+					</center>
 				</li>
 			</ul>
-		</div>
+		</li>
+
+<!--		<li id="box_user_notifications">-->
+<!--			<span class="highlight" style="float:right;">3</span>-->
+<!--			<ul id="box_user_notifications_full" class="header_dropdown">-->
+<!--				<li>-->
+<!--					Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou-->
+<!--					não ser, eis a questão"</a>... <br></br>-->
+<!--					Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou-->
+<!--					não ser, eis a questão"</a>...-->
+<!--				</li>-->
+<!--			</ul>-->
+<!--		</li>-->
+
 		<script>
 			$("#logout").click(deslogarUsuario);
+<!--			$(".highlight").click(abrirOuFecharTelaNotificacoes);-->
+			$("#box_user_info").click(abrirOuFecharTelaUsuario);
 		</script>
 	</template>
 </engine>
