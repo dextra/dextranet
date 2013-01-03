@@ -16,7 +16,7 @@ public class UsuarioRS {
 	@Path("/")
 	@GET
 	@Produces("application/json;charset=UTF-8")
-	public static String getDadosUsuario(){
+	public String getDadosUsuario(){
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
 

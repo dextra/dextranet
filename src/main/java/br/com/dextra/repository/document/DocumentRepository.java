@@ -85,4 +85,8 @@ public class DocumentRepository extends BaseRepository {
 		IndexFacade.getIndex(IndexKeys.COMMENT.getKey()).add(document);
 		return document;
 	}
+
+	public void removeIndex(String indexKey, String id) {
+		IndexFacade.getIndex(indexKey).remove(id);
+	}
 }

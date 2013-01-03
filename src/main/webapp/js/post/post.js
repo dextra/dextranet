@@ -11,12 +11,15 @@ function fazPesquisa() {
 
 	if(consulta.getText() != ""){
 		busquePosts(consulta.getText(), ehUmNovoPost, pagina);
+
 	}
 
 	return false; //O retorno falso faz com que a página de pesquisa não sofra reload para index
 }
 
 function criaNovoPost() {
+	$("#form_new_post").css("display", "none");
+	$("#form_gif_loading").css("display", "inline");
 	if (($("#form_input_title").val() == "")
 			|| (CKEDITOR.instances.form_input_content.getData() == "")) {
 		alert("Preencha todos os campos.");
@@ -27,7 +30,8 @@ function criaNovoPost() {
 		var post =  {
 						"title" : $("#form_input_title").val(),
 						"content" : CKEDITOR.instances.form_input_content.getData(),
-						"author" : $("#user_login").text()
+						"author" : "usuario.teste"
+//						"author" : $("#user_login").text()
 					}
 
 		$.ajax( {
@@ -44,7 +48,7 @@ function criaNovoPost() {
 
 function converteData(minhaData) {
 
-	var dateFormat = "E, dd/MM/yyyy hh:mm";
+	var dateFormat = "E, dd/MM/yyyy HH:mm";
 	var date;
 
 	var dateParse = Date.parse(minhaData);
