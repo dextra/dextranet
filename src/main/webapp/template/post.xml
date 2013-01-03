@@ -10,6 +10,7 @@
 
 		<ul class="list_stories" id="relacao_dos_posts">
 			{for post in jsonArrayPost}
+
 			<li class="clearfix ${post.id}">
 				<div class="list_stories_headline_data">
 					${converteData(post.data)}

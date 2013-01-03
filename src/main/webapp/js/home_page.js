@@ -15,6 +15,7 @@ function carregaDadosHomePageAposInclusao() {
 function carregueOsTemplates() {
 	$.holy("../template/carrega_menu_principal.xml", {});
 	$.holy("../template/carrega_menu_lateral.xml", {});
+	$.holy("../template/carrega_dados_usuario.xml", {"nickName":"usuario.teste","email":"usuario.teste@dextra-sw.com","nome":"Usuário Teste"});
 
 //	$.ajax({
 //		type : "GET",
