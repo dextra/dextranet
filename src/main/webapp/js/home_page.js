@@ -9,7 +9,7 @@ function crieOsCookies()
 {
 	$.cookie("userName","Arara azul");
 	$.cookie("userLogin", "arara");
-	$.cookie("userEmail","arara@dextra-sw.com");
+	$.cookie("userEmail","ararinha.azul@dextra-sw.com");
 }
 
 function carregaDadosHomePageAposInclusao() {
@@ -115,6 +115,7 @@ function deslogarUsuario()
 
 function abrirOuFecharTelaUsuario()
 {
+	//mostra ou oculta a tela de inf. do usuário
 	if($('#box_user_profile').is(':visible')){
 		$("#box_user_profile").css("display","none");
 		$(".shape_arrow_down").css("display","none");
@@ -124,13 +125,26 @@ function abrirOuFecharTelaUsuario()
 		$("#box_user_profile").css("display","block");
 		$(".shape_arrow_down").css("display","inline-block");
 		$(".shape_arrow_right").css("display","none");
+
+		//se a tela de notificações estiver visível, a esconde
+		if($('#box_user_notifications_full').is(':visible'))
+			$("#box_user_notifications_full").css("display","none");
 	}
 }
 
 function abrirOuFecharTelaNotificacoes()
 {
+	//mostra ou oculta a tela de notificações
 	if($('#box_user_notifications_full').is(':visible'))
 		$("#box_user_notifications_full").css("display","none");
-	else
-		$("#box_user_notifications_full").css("display","block");
+	else {
+			$("#box_user_notifications_full").css("display","block");
+
+			//se a tela de inf. do usuário estiver vísivel, a esconde
+			if($('#box_user_profile').is(':visible')){
+				$("#box_user_profile").css("display","none");
+				$(".shape_arrow_down").css("display","none");
+				$(".shape_arrow_right").css("display","inline-block");
+			}
+	}
 }
