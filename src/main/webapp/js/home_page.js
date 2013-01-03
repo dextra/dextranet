@@ -39,6 +39,16 @@ function busquePosts(query, ehUmNovoPost, pagina) {
 		success : function(posts) {
 			if(posts.length > 0){
 				$.holy(template, {"jsonArrayPost" : posts,"sucesso" : ehUmNovoPost});
+				/*$.ajax( {
+					type : 'GET',
+					url : '/s/comment',
+					data : '',
+					success : function(comments) {
+						if(comments.length > 0){
+							$.holy("../template/comment.xml", {"jsonArrayComment" : comments});
+						}
+					}
+				});*/
 			}
 		}
 	});
@@ -81,8 +91,8 @@ function setActiveMenuLateral(id) {
 	// adiciona o active na li desejada
 	$(id).attr("class", "active");
 }
-function carregaOpcaoVerMais() {
-	$(".list_stories_lead").readmore( {
+function carregaOpcaoVerMais(seletor) {
+	$(seletor).readmore( {
 		substr_len : 300,
 		substr_lines : 5,
 		split_word : true,
