@@ -1,6 +1,8 @@
 package br.com.dextra.utils;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.UUID;
 
 public class Utils {
@@ -12,51 +14,41 @@ public class Utils {
 
 	public static String pegaData()
 	{
-		Date data=new Date();
-		return formataData(data.toString());
+		Date data = new Date();
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd-hh:mm:ss-EEE");
+		simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT-2"));
+
+		String postDate = simpleDateFormat.format(data);
+
+		System.out.println(formataData(postDate));
+		return formataData(postDate);
 	}
 
 	static public String formataData(String data) {
+		//retorna 2013/01/03-10:47:08-Thu
 		StringBuilder dataFormatada = new StringBuilder();
-		dataFormatada.append(data.substring(24, 28));
-		dataFormatada.append("/");
-		dataFormatada.append(formataMes(data.substring(4, 7)));
-		dataFormatada.append("/");
-		dataFormatada.append(data.substring(8, 10));
-		dataFormatada.append("-");
-		dataFormatada.append(data.substring(11, 19));
-		dataFormatada.append("-");
-		dataFormatada.append(data.substring(0, 3));
+		dataFormatada.append(data.substring(0,20));
+		dataFormatada.append(formataDiaSemana(data.substring(20,23)));
 
 		return dataFormatada.toString();
 	}
 
-	private static Object formataMes(String mes) {
+	private static Object formataDiaSemana(String dia) {
 
-		if (mes.equals("Jan"))
-			return "01";
-		else if (mes.equals("Feb"))
-			return "02";
-		else if (mes.equals("Mar"))
-			return "03";
-		else if (mes.equals("Apr"))
-			return "04";
-		else if (mes.equals("May"))
-			return "05";
-		else if (mes.equals("Jun"))
-			return "06";
-		else if (mes.equals("Jul"))
-			return "07";
-		else if (mes.equals("Aug"))
-			return "08";
-		else if (mes.equals("Sep"))
-			return "09";
-		else if (mes.equals("Oct"))
-			return "10";
-		else if (mes.equals("Nov"))
-			return "11";
+		if (dia.equals("Seg"))
+			return "Mon";
+		else if (dia.equals("Ter"))
+			return "Tue";
+		else if (dia.equals("Qua"))
+			return "Wed";
+		else if (dia.equals("Qui"))
+			return "Thu";
+		else if (dia.equals("Sex"))
+			return "Fri";
+		else if (dia.equals("Sab"))
+			return "Sat";
 		else
-			return "12";
+			return "Sun";
 	}
 
 	@SuppressWarnings("deprecation")
