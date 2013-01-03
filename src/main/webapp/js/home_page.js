@@ -16,13 +16,13 @@ function carregueOsTemplates() {
 	$.holy("../template/carrega_menu_principal.xml", {});
 	$.holy("../template/carrega_menu_lateral.xml", {});
 
-	$.ajax({
-		type : "GET",
-		url : "/s/usuario",
-		success : function(usuario) {
-			$.holy("../template/carrega_dados_usuario.xml", usuario);
-		}
-	});
+//	$.ajax({
+//		type : "GET",
+//		url : "/s/usuario",
+//		success : function(usuario) {
+//			$.holy("../template/carrega_dados_usuario.xml", usuario);
+//		}
+//	});
 
 }
 

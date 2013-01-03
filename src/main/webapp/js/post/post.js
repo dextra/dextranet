@@ -27,7 +27,8 @@ function criaNovoPost() {
 		var post =  {
 						"title" : $("#form_input_title").val(),
 						"content" : CKEDITOR.instances.form_input_content.getData(),
-						"author" : $("#user_login").text()
+						"author" : "usuario.teste"
+//						"author" : $("#user_login").text()
 					}
 
 		$.ajax( {
