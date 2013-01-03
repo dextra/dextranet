@@ -71,14 +71,8 @@ function paginacaoDosPost() {
 						var margemParaNovaBusca = (document.documentElement.scrollHeight*0.95);
 						var posicaoDoScroll = $(document).scrollTop();
 
-						console.log("Posição mínima nova página : " + posicaoMinimaParaNovaPagina +
-								" Margem adicionada : " + margemParaNovaBusca +
-								" posição do Scroll: " + posicaoDoScroll);
-						console.log("consulta >" + consulta.getText());
-
 						if (posicaoDoScroll > posicaoMinimaParaNovaPagina) {
 								busquePosts(consulta.getText(), ehUmNovoPost, numeroDaPagina.getPagina());
-								console.log("mais páginas");
 								posicaoMinimaParaNovaPagina = (posicaoDoScroll + margemParaNovaBusca);
 								numeroDaPagina.next();
 						}

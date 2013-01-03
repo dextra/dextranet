@@ -11,7 +11,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
@@ -25,13 +24,11 @@ public class AutenticacaoFilter implements Filter {
         UserService userService = UserServiceFactory.getUserService();
 
         String thisURI = ((HttpServletRequest)request).getRequestURI();
-
-
-        try{
-        	User user = userService.getCurrentUser();
+        System.out.println(userService.getCurrentUser());
+        if(userService.getCurrentUser() != null || uriExcludedFromFilter(thisURI)){
     		filterChain.doFilter(request, response);
 
-        }catch(NullPointerException e){
+        }else{
             String loginUrl = userService.createLoginURL(thisURI);
             HttpServletResponse httpResp = (HttpServletResponse) response;
             httpResp.sendRedirect(loginUrl);
@@ -39,6 +36,13 @@ public class AutenticacaoFilter implements Filter {
         }
 
 
+	}
+
+	private boolean uriExcludedFromFilter(String uri) {
+		if(uri.startsWith("/_ah")){
+			return true;
+		}
+		return false;
 	}
 
 	@Override
