@@ -46,7 +46,7 @@ function criaNovoPost() {
 
 function converteData(minhaData) {
 
-	var dateFormat = "E, dd/MM/yyyy hh:mm";
+	var dateFormat = "E, dd/MM/yyyy HH:mm";
 	var date;
 
 	var dateParse = Date.parse(minhaData);
