@@ -4,8 +4,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import org.openqa.selenium.remote.JsonException;
-
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
@@ -18,7 +16,7 @@ public class UsuarioRS {
 	@Path("/")
 	@GET
 	@Produces("application/json;charset=UTF-8")
-	public static String getDadosUsuario() throws JsonException {
+	public static String getDadosUsuario(){
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
 
