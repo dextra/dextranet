@@ -163,12 +163,6 @@ public class PostRepository extends BaseRepository {
 		return valueEntity;
 	}
 
-	public static void alteraData(String id) throws EntityNotFoundException {
-		String data=Utils.pegaData();
-		DocumentRepository.alteraDatadoDocumento(id,data);
-		PostRepository.alteraDatadaEntity(id, data);
-	}
-
 	public static void alteraDatadaEntity(String id, String data) throws EntityNotFoundException {
 		DatastoreService datastore = DatastoreServiceFactory
 		.getDatastoreService();
@@ -180,5 +174,29 @@ public class PostRepository extends BaseRepository {
 
 		persist(valueEntity);
 	}
+
+	public static void incrementaNumeroDeComentariosDaEntityDoPost(String id) throws EntityNotFoundException
+	{
+		DatastoreService datastore = DatastoreServiceFactory
+		.getDatastoreService();
+
+		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
+		Entity valueEntity = datastore.get(key);
+		int comments=Integer.parseInt(valueEntity.getProperty(PostFields.COMENTARIO.getField()).toString());
+		valueEntity
+				.setProperty(PostFields.COMENTARIO.getField(), comments+1);
+		persist(valueEntity);
+	}
+
+	public static void umPostFoiComentado(String id) throws EntityNotFoundException
+	{
+		String data=Utils.pegaData();
+		DocumentRepository.alteraDatadoDocumento(id,data);
+		PostRepository.alteraDatadaEntity(id, data);
+
+		incrementaNumeroDeComentariosDaEntityDoPost(id);
+
+	}
+
 
 }
