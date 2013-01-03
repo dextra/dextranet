@@ -1,18 +1,12 @@
 function carregaDadosHomePage() {
-	crieOsCookies();
+	consulta.setText("");
 	carregueOsTemplates();
 	busquePosts("", false, 0);
 	$(document).delay(1000);
 }
 
-function crieOsCookies()
-{
-	$.cookie("userName","Arara azul");
-	$.cookie("userLogin", "arara");
-	$.cookie("userEmail","ararinha.azul@dextra-sw.com");
-}
-
 function carregaDadosHomePageAposInclusao() {
+	consulta.setText("");
 	carregueOsTemplates();
 	busquePosts("", true, 0);
 	$(document).delay(1000);
@@ -21,8 +15,16 @@ function carregaDadosHomePageAposInclusao() {
 function carregueOsTemplates() {
 	$.holy("../template/carrega_menu_principal.xml", {});
 	$.holy("../template/carrega_menu_lateral.xml", {});
-	var user = {"login" : $.cookie("userLogin"), "name" : $.cookie("userName"), "email" : $.cookie("userEmail")}
-	$.holy("../template/carrega_dados_usuario.xml", user);
+	$.holy("../template/carrega_dados_usuario.xml", {"nickName":"usuario.teste","email":"usuario.teste@dextra-sw.com","nome":"Usuário Teste"});
+
+//	$.ajax({
+//		type : "GET",
+//		url : "/s/usuario",
+//		success : function(usuario) {
+//			$.holy("../template/carrega_dados_usuario.xml", usuario);
+//		}
+//	});
+
 }
 
 function busquePosts(query, ehUmNovoPost, pagina) {
@@ -31,6 +33,7 @@ function busquePosts(query, ehUmNovoPost, pagina) {
 	var url = "/s/post";
 	var quantidadePostsSolicitados = "20";
 	var template = "../template/post.xml";
+	//var template = $(this).closest('template').find('div[id="#container_post"]').val();
 
 	$.ajax( {
 		type : tipo,
@@ -39,21 +42,31 @@ function busquePosts(query, ehUmNovoPost, pagina) {
 		success : function(posts) {
 			if(posts.length > 0){
 				$.holy(template, {"jsonArrayPost" : posts,"sucesso" : ehUmNovoPost});
+				/*$.ajax( {
+					type : 'GET',
+					url : '/s/comment',
+					data : '',
+					success : function(comments) {
+						if(comments.length > 0){
+							$.holy("../template/comment.xml", {"jsonArrayComment" : comments});
+						}
+					}
+				});*/
 			}
 		}
 	});
-
 	if (pagina == 0){
 		$.holy("../template/carrega_miolo_home_page.xml",{});
 	}
 }
 
-function busqueDocuments(query, ehUmNovoPost, pagina) {
+/*function busqueDocuments(query, ehUmNovoPost, pagina) {
 	var tipo = 'GET';
 	var url = "/s/document";
 	var quantidadePostsRecuperados = "20";
 	var template = "../template/post.xml";
 
+	try{
 	$.ajax( {
 		type : tipo,
 		url : url,
@@ -64,12 +77,16 @@ function busqueDocuments(query, ehUmNovoPost, pagina) {
 			}
 		}
 	});
+	}catch(err)
+	{
+		console.log("erro ao solicitar nova página");
+	}
 
 	if (pagina == 0){
 		$.holy("../template/carrega_miolo_home_page.xml",{});
 	}
 }
-
+*/
 function setActiveMenuLateral(id) {
 	// limpa o active atual
 	$("#sidebar_left_home").attr("class", "");
@@ -81,6 +98,8 @@ function setActiveMenuLateral(id) {
 	// adiciona o active na li desejada
 	$(id).attr("class", "active");
 }
+
+
 function carregaOpcaoVerMais() {
 	$(".list_stories_lead").readmore( {
 		substr_len : 300,
@@ -107,9 +126,6 @@ function abrePaginaEquipe() {
 
 function deslogarUsuario()
 {
-	$.cookie("userName","");
-	$.cookie("userLogin", "");
-	$.cookie("userEmail","");
 	$.holy("../template/pagina_login.xml", {});
 }
 
