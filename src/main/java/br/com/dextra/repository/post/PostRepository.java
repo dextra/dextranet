@@ -117,7 +117,7 @@ public class PostRepository extends BaseRepository {
 				PostFields.DATA_DE_ATUALIZACAO.getField(),PostFields.TITULO.getField()).setLimit(1000).build();
 
 		com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query
-				.newBuilder().setOptions(queryOptions).build("~\""+q+"\"");
+				.newBuilder().setOptions(queryOptions).build("~"+q+"");
 		return query;
 	}
 
