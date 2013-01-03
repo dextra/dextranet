@@ -7,8 +7,6 @@ import org.openqa.selenium.WebDriver;
 import br.com.dextra.expertus.EnvironmentFactory;
 import br.com.dextra.expertus.environment.Environment;
 
-//import org.openqa.selenium.remote.RemoteWebDriver;
-
 public class TesteFuncionalBase extends TesteIntegracaoBase {
 
 	private static Environment environment;

@@ -164,13 +164,9 @@ public class PostRepository extends BaseRepository {
 	}
 
 	public static void alteraData(String id) throws EntityNotFoundException {
-
 		String data=Utils.pegaData();
-
 		DocumentRepository.alteraDatadoDocumento(id,data);
-
-		alteraDatadaEntity(id,data);
-
+		PostRepository.alteraDatadaEntity(id, data);
 	}
 
 	public static void alteraDatadaEntity(String id, String data) throws EntityNotFoundException {
