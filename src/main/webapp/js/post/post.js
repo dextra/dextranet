@@ -10,29 +10,27 @@ function fazPesquisa() {
 	var pagina = 0;
 
 	if(consulta.getText() != ""){
+		$("#form_gif_loading").css("display", "inline");
 		busquePosts(consulta.getText(), ehUmNovoPost, pagina);
-
 	}
-
+	//$("#form_gif_loading").css("display", "none");
 	return false; //O retorno falso faz com que a página de pesquisa não sofra reload para index
 }
 
 function criaNovoPost() {
-	$("#form_new_post").css("display", "none");
-	$("#form_gif_loading").css("display", "inline");
 	if (($("#form_input_title").val() == "")
 			|| (CKEDITOR.instances.form_input_content.getData() == "")) {
 		alert("Preencha todos os campos.");
-		return false;
 	} else {
-
+		$("#form_post_submit").css("display", "none");
+		$("#form_gif_loading").css("display", "inline");
 		console.log(post);
-		var post =  {
-						"title" : $("#form_input_title").val(),
-						"content" : CKEDITOR.instances.form_input_content.getData(),
-						"author" : "usuario.teste"
-//						"author" : $("#user_login").text()
-					}
+		var post = {
+			"title" : $("#form_input_title").val(),
+			"content" : CKEDITOR.instances.form_input_content.getData(),
+//			"author" : "usuario.teste"
+			"author" : $("#user_login").text()
+		}
 
 		$.ajax( {
 			type : "POST",
@@ -42,8 +40,8 @@ function criaNovoPost() {
 				carregaDadosHomePageAposInclusao();
 			}
 		});
-		return false;
 	}
+	return false;
 }
 
 function converteData(minhaData) {
@@ -53,7 +51,8 @@ function converteData(minhaData) {
 
 	var dateParse = Date.parse(minhaData);
 
-	//feito para não afetar execução enquanto não é feita a mudança na data enviada pelo serviço.
+	// feito para não afetar execução enquanto não é feita a mudança na data
+	// enviada pelo serviço.
 	if(isNaN(dateParse)){
 		date = convertToDate(minhaData);
 	}else{

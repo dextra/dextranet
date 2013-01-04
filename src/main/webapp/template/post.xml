@@ -1,7 +1,7 @@
 <engine>
 
 	<template selector="#container_post" append="true">
-
+		<img src="../img/carregando.gif" id="form_gif_loading" style="display:none"></img>
 		<ul class="message">
 			{if sucesso}
 			<li class="success" style="display: list_item;">Seu post foi inserido com sucesso.</li>

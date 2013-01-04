@@ -8,6 +8,7 @@
 		<form id="form_search" onSubmit="fazPesquisa()">
 			<input type="text" id="form_search_input" />
 			<input type="submit" value="" title="Procurar!" id="form_search_submit" />
+			<img src="../img/carregando.gif" id="form_gif_loading" style="display:none"></img>
 		</form>
 
 		<div id="container_post" class="clearfix">

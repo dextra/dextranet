@@ -14,24 +14,24 @@
 					Novo Post
 				</a>
 			</li>
-<!--			<li id="sidebar_left_category">-->
-<!--				<a href="#" id="button_sidebar_left_category">-->
-<!--					<span class="icon_sidebar_left_categoria"></span>-->
-<!--					Categoria-->
-<!--				</a>-->
-<!--			</li>-->
-<!--			<li id="sidebar_left_profile">-->
-<!--				<a href="#" id="button_sidebar_left_profile">-->
-<!--					<span class="icon_sidebar_left_perfil"></span>-->
-<!--					Perfil-->
-<!--				</a>-->
-<!--			</li>-->
-<!--			<li id="sidebar_left_team">-->
-<!--				<a href="#" id="button_sidebar_left_team">-->
-<!--					<span class="icon_sidebar_left_equipe"></span>-->
-<!--					Equipe-->
-<!--				</a>-->
-<!--			</li>-->
+			<li id="sidebar_left_category">
+				<a href="#" id="button_sidebar_left_category">
+					<span class="icon_sidebar_left_categoria"></span>
+					Categoria
+				</a>
+			</li>
+			<li id="sidebar_left_profile">
+				<a href="#" id="button_sidebar_left_profile">
+					<span class="icon_sidebar_left_perfil"></span>
+					Perfil
+				</a>
+			</li>
+			<li id="sidebar_left_team">
+				<a href="#" id="button_sidebar_left_team">
+					<span class="icon_sidebar_left_equipe"></span>
+					Equipe
+				</a>
+			</li>
 		</ul>
 	</template>
 	<script>

@@ -1,4 +1,4 @@
-package br.com.dextra.respository.comment;
+package br.com.dextra.repository.comment;
 
 import br.com.dextra.persistencia.CommentFields;
 import br.com.dextra.repository.document.DocumentRepository;
@@ -17,33 +17,31 @@ import com.google.appengine.api.datastore.Text;
 
 public class CommentRepository extends BaseRepository  {
 
-	public Entity criar(String text,String autor){
+	public void criar(String text,String autor,String PostId){
+		Entity entidade = criarUmaEntidade(text, autor);
+		persist(entidade);
+		persistDocument(entidade,PostId);
+	}
+
+	private Entity criarUmaEntidade(String text, String autor){
 		String id = Utils.geraID();
 		Key key = KeyFactory.createKey(IndexKeys.COMMENT.getKey(), id);
 
-		String data = Utils.pegaData();
-
-		return CommentRepository.criar(text, autor, data, id, key);
-	}
-
-	public static Entity criar(String text, String autor, String data, String id, Key key){
-
-		Entity entidade = criarEntidade(text, autor, data, id, key);
-		persist(entidade);
-		DocumentRepository.criarDocumentComment(text, autor, data, id);
-
-		return entidade;
-	}
-
-	public static Entity criarEntidade(String text, String autor, String date, String id, Key key){
 		Entity entidade = new Entity(key);
-
 		entidade.setProperty(CommentFields.ID.getField(),id);
 		entidade.setProperty(CommentFields.AUTOR.getField(),autor);
-		entidade.setProperty(CommentFields.DATE.getField(),date);
+		entidade.setProperty(CommentFields.DATE.getField(),Utils.pegaData());
 		entidade.setProperty(CommentFields.TEXT.getField(),new Text(text));
 
 		return entidade;
+	}
+
+	private void persistDocument(Entity entidade, String PostID) {
+		Text text = (Text) entidade.getProperty(CommentFields.TEXT.getField());
+		String id = (String) entidade.getProperty(CommentFields.ID.getField());
+
+		DocumentRepository respositorioDeDocumentos = new DocumentRepository();
+		respositorioDeDocumentos.crieUmDocumentoDoComentario(text,id,PostID);
 	}
 
 	public Iterable<Entity> buscar(){

@@ -15,20 +15,19 @@ function carregaDadosHomePageAposInclusao() {
 function carregueOsTemplates() {
 	$.holy("../template/carrega_menu_principal.xml", {});
 	$.holy("../template/carrega_menu_lateral.xml", {});
-	$.holy("../template/carrega_dados_usuario.xml", {"nickName":"usuario.teste","email":"usuario.teste@dextra-sw.com","nome":"Usuário Teste"});
 
-//	$.ajax({
-//		type : "GET",
-//		url : "/s/usuario",
-//		success : function(usuario) {
-//			$.holy("../template/carrega_dados_usuario.xml", usuario);
-//		}
-//	});
+	$.ajax({
+		type : "GET",
+		url : "/s/usuario",
+		success : function(usuario) {
+			$.holy("../template/carrega_dados_usuario.xml", usuario);
+		}
+	});
 
 }
 
 function busquePosts(query, ehUmNovoPost, pagina) {
-
+	$("#form_gif_loading").css("display", "inline");
 	var tipo = 'GET';
 	var url = "/s/post";
 	var quantidadePostsSolicitados = "20";
@@ -126,13 +125,13 @@ function abrirOuFecharTelaUsuario()
 	//mostra ou oculta a tela de inf. do usuário
 	if($('#box_user_profile').is(':visible')){
 		$("#box_user_profile").css("display","none");
-		$(".shape_arrow_down").css("display","none");
-		$(".shape_arrow_right").css("display","inline-block");
+		$("#box_user_info .shape_arrow_down").css("display","none");
+		$("#box_user_info .shape_arrow_right").css("display","inline-block");
 	}
 	else {
 		$("#box_user_profile").css("display","block");
-		$(".shape_arrow_down").css("display","inline-block");
-		$(".shape_arrow_right").css("display","none");
+		$("#box_user_info .shape_arrow_down").css("display","inline-block");
+		$("#box_user_info .shape_arrow_right").css("display","none");
 
 		//se a tela de notificações estiver visível, a esconde
 		if($('#box_user_notifications_full').is(':visible'))
@@ -151,8 +150,8 @@ function abrirOuFecharTelaNotificacoes()
 			//se a tela de inf. do usuário estiver vísivel, a esconde
 			if($('#box_user_profile').is(':visible')){
 				$("#box_user_profile").css("display","none");
-				$(".shape_arrow_down").css("display","none");
-				$(".shape_arrow_right").css("display","inline-block");
+				$("#box_user_info .shape_arrow_down").css("display","none");
+				$("#box_user_info .shape_arrow_right").css("display","inline-block");
 			}
 	}
 }
