@@ -218,7 +218,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 	}
 
-	@Ignore
+	@Test
 	public void testeDeAtualizarPostQuandoComentado()
 			throws NumberFormatException, EntityNotFoundException,
 			InterruptedException {
@@ -435,7 +435,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		String idDoPost = postCriado.getProperty("id").toString();
 
 		postDoRepository.remove(idDoPost);
-		
+
 		try {
 			postDoRepository.obtemPorId(idDoPost);
 			Assert.fail();
