@@ -25,7 +25,7 @@ public class PaginacaoTest extends TesteFuncionalBase{
 
 	@Test
 	public void criarPosts(){
-		int quantidadePosts = 83;
+		int quantidadePosts = 42;
 		int vezes = (int) Math.round(((double)quantidadePosts/20)+0.5);
 
 		dadoOSiteDaDextraNET();
