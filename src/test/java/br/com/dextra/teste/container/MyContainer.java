@@ -3,7 +3,7 @@ package br.com.dextra.teste.container;
 
 public class MyContainer {
 
-	private int port = 8080;
+	private int port = 9087;
 
 	private GAETestHelper gaeHelper;
 
