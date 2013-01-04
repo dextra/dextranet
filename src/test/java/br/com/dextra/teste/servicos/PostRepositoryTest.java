@@ -242,8 +242,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		postDoRepository
 				.umPostFoiComentado(entity.getProperty("id").toString());
 
-		List<Entity> listaPostsConsultados = quandoEuBuscoOsPostsSalvos(
-				maxResults, q, offSet);
+		List<Entity> listaPostsConsultados = quandoEuListoOsPostsSalvos(maxResults, offSet);
 
 		System.out.println(listaPostsConsultados);
 
@@ -253,12 +252,12 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 		System.out.println("lista de posts esperados\n" + listaPostsEsperados);
 		System.out.println("Lista de posts buscado\n" + listaPostsConsultados);
-//		entaoComparoSeOCampoQueEuQueroEhDiferente(listaPostsEsperados,
-//				listaPostsConsultados, PostFields.DATA_DE_ATUALIZACAO
-//						.getField());
-//
-//		entaoEuComparoSeONumeroDeComentariosFoiIncrementado(
-//				listaPostsEsperados, listaPostsConsultados);
+		entaoComparoSeOCampoQueEuQueroEhDiferente(listaPostsEsperados,
+				listaPostsConsultados, PostFields.DATA_DE_ATUALIZACAO
+						.getField());
+
+		entaoEuComparoSeONumeroDeComentariosFoiIncrementado(
+				listaPostsEsperados, listaPostsConsultados);
 
 	}
 
