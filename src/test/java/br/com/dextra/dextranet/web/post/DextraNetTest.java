@@ -7,13 +7,11 @@ import br.com.dextra.teste.TesteFuncionalBase;
 public class DextraNetTest extends TesteFuncionalBase {
 	PaginaDextraNet siteDextraNet = new PaginaDextraNet(driver);
 
-	@Test
 	public void testeHomePageDextraNet() {
 		this.acessaPaginaPrincipal();
 		siteDextraNet.verificaSeTemLogoHomePage();
 	}
 
-	@Test
 	public void testeCriarPost() {
 		this.acessaPaginaPrincipal();
 
@@ -29,7 +27,6 @@ public class DextraNetTest extends TesteFuncionalBase {
 		siteDextraNet.verificaSeIncluiuPost();
 	}
 
-	@Test
 	public void testebuscaPost() {
 		this.acessaPaginaPrincipal();
 

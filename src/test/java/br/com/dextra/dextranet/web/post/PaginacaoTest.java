@@ -23,7 +23,6 @@ public class PaginacaoTest extends TesteFuncionalBase{
 	private ArrayList<String> listaDosPostsEncontradosNaPagina = new ArrayList<String>();
 	private ArrayList<String> listaDosPostsInseridosPeloTest = new ArrayList<String>();
 
-	@Test
 	public void criarPosts(){
 		int quantidadePosts = 42;
 		int vezes = (int) Math.round(((double)quantidadePosts/20)+0.5);
