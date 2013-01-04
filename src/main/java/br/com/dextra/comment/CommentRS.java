@@ -22,9 +22,9 @@ public class CommentRS {
 	@Path("/")
 	@POST
 	@Produces("application/json;charset=UTF-8")
-	public Response criar(@FormParam("text") String text, @FormParam("post")String keyPost, @FormParam("autor") String autor)throws EntityNotFoundException{
+	public Response criar(@FormParam("text") String text, @FormParam("post")String PostID, @FormParam("autor") String autor)throws EntityNotFoundException{
 
-		repositorio.criar(text,autor);
+		repositorio.criar(text,autor,PostID);
 		return Response.ok().build();
 	}
 

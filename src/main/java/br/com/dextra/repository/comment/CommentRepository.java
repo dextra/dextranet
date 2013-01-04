@@ -17,10 +17,10 @@ import com.google.appengine.api.datastore.Text;
 
 public class CommentRepository extends BaseRepository  {
 
-	public void criar(String text,String autor){
+	public void criar(String text,String autor,String PostId){
 		Entity entidade = criarUmaEntidade(text, autor);
 		persist(entidade);
-		persistDocument(entidade);
+		persistDocument(entidade,PostId);
 	}
 
 	private Entity criarUmaEntidade(String text, String autor){
@@ -36,12 +36,12 @@ public class CommentRepository extends BaseRepository  {
 		return entidade;
 	}
 
-	private void persistDocument(Entity entidade) {
+	private void persistDocument(Entity entidade, String PostID) {
 		Text text = (Text) entidade.getProperty(CommentFields.TEXT.getField());
 		String id = (String) entidade.getProperty(CommentFields.ID.getField());
 
 		DocumentRepository respositorioDeDocumentos = new DocumentRepository();
-		respositorioDeDocumentos.crieUmDocumentoDoComentario(text,id);
+		respositorioDeDocumentos.crieUmDocumentoDoComentario(text,id,PostID);
 	}
 
 	public Iterable<Entity> buscar(){
