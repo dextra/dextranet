@@ -392,7 +392,7 @@
                 <expertus.environment.local.test>true</expertus.environment.local.test>
                 <expertus.environment.browser>FIREFOX</expertus.environment.browser>
                 <expertus.environment.host>localhost</expertus.environment.host>
-                <expertus.environment.port>9087</expertus.environment.port>
+                <expertus.environment.port>8080</expertus.environment.port>
                 <expertus.environment.application></expertus.environment.application>
             </properties>
         </profile>
