@@ -10,7 +10,7 @@ public class DextraNetTest extends TesteFuncionalBase {
 	@Test
 	public void testeHomePageDextraNet() {
 		try {
-			Thread.sleep(10000);
+			Thread.sleep(60000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
