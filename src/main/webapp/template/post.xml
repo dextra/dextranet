@@ -13,28 +13,28 @@
 
 			<li class="clearfix ${post.id}">
 				<div class="list_stories_headline_data">
-					${converteData(post.data)}
+					${converteData(post.postObjectJson.data)}
 				</div>
 				<img src="" alt="photo" class="list_stories_avatar" />
 				<div class="list_stories_headline clearfix">
-					<h2>${post.titulo}</h2>
+					<h2>${post.postObjectJson.titulo}</h2>
 					<div class="list_stories_headline_comments">
-						<a id="clearfix ${post.id}" class="link">
+						<a id="clearfix ${post.postObjectJson.id}" class="link">
 							<span class="icon_comments"></span>
-							${post.comentarios} comentários
+							${post.postObjectJson.comentarios} comentários
 						</a>
 					</div>
 					<div class="list_stories_headline_dx">
 						<span class="icon_dx"></span>
-						${post.likes}
+						${post.postObjectJson.likes}
 					</div>
 					<div class="list_stories_headline_author">
-						<a href="#">${post.usuario}</a>
+						<a href="#">${post.postObjectJson.usuario}</a>
 					</div>
 				</div>
-				<div id="${post.id}_post" class="list_stories_lead">
-					<p id="${post.id}">
-						${post.conteudo}
+				<div id="${post.postObjectJson.id}_post" class="list_stories_lead">
+					<p id="${post.postObjectJson.id}">
+						${post.postObjectJson.visibleText}
 					</p>
 				</div>
 				<div class="list_stories_footer clearfix">
@@ -43,11 +43,8 @@
 						,
 						<a href="#">CSS</a>
 					</div>
-					<div id="${post.id}_button" class="list_stories_footer_call">
-						+ Ver mais
-					</div>
 					<br/>
-					<div class="list_stories_comments ${post.id}">
+					<div class="list_stories_comments ${post.postObjectJson.id}">
 
 					</div>
 				</div>
