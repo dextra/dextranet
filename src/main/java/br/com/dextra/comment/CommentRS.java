@@ -22,7 +22,7 @@ public class CommentRS {
 	public Response criar(@FormParam("text") String text, @FormParam("post")String postArg, @FormParam("autor") String autor)throws EntityNotFoundException{
 
 		CommentRepository comentario = new CommentRepository();
-		Entity entidade = comentario.criar(text,autor);
+		comentario.criar(text,autor);
 
 		return Response.ok().build();
 	}

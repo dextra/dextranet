@@ -74,11 +74,9 @@ public class DocumentRepository extends BaseRepository {
 		IndexFacade.getIndex(IndexKeys.POST.getKey()).add(document);
 	}
 
-	public static Document criarDocumentComment(String text, String autor, String date, String id){
+	public Document crieUmDocumentoDoComentario(String text, String id){
 
 		Document document = Document.newBuilder().setId(id)
-							.addField(Field.newBuilder().setName(CommentFields.AUTOR.getField()).setText(autor))
-							.addField(Field.newBuilder().setName(CommentFields.DATE.getField()).setText(date.toString()))
 							.addField(Field.newBuilder().setName(CommentFields.TEXT.getField()).setText(text))
 							.addField(Field.newBuilder().setName(CommentFields.ID.getField()).setText(id)).build();
 
