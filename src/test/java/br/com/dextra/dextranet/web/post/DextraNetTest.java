@@ -9,6 +9,11 @@ public class DextraNetTest extends TesteFuncionalBase {
 
 	@Test
 	public void testeHomePageDextraNet() {
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		this.acessaPaginaPrincipal();
 		siteDextraNet.verificaSeTemLogoHomePage();
 	}
