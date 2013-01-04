@@ -8,7 +8,6 @@ readMoreButton.addButtonEvent = function(buttons,postObjectArray) {
 			button.click(function(){
 				var postToShow = findPostInArrayByID(postID,postObjectArray);
 				$("#"+postID+"_post").html(postToShow.postObjectJson.conteudo) ;
-				console.log($("#"+postID+"_post").html());
 			});
 		});
 	}
@@ -16,7 +15,6 @@ readMoreButton.addButtonEvent = function(buttons,postObjectArray) {
 function findPostInArrayByID(postID,postObjectArray){
 	var postObject;
 	$(postObjectArray).each(function(){
-		console.log(this);
 		if(this.postObjectJson.id == postID){
 			postObject = this;
 			return false;
