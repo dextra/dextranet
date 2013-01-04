@@ -17,25 +17,27 @@ import com.google.appengine.api.datastore.Text;
 
 public class CommentRepository extends BaseRepository  {
 
+	private DocumentRepository postDoDocumentReository = new DocumentRepository();
+
 	public Entity criar(String text,String autor){
 		String id = Utils.geraID();
 		Key key = KeyFactory.createKey(IndexKeys.COMMENT.getKey(), id);
 
 		String data = Utils.pegaData();
 
-		return CommentRepository.criar(text, autor, data, id, key);
+		return this.criar(text, autor, data, id, key);
 	}
 
-	public static Entity criar(String text, String autor, String data, String id, Key key){
+	public Entity criar(String text, String autor, String data, String id, Key key){
 
 		Entity entidade = criarEntidade(text, autor, data, id, key);
 		persist(entidade);
-		DocumentRepository.criarDocumentComment(text, autor, data, id);
+		postDoDocumentReository.criarDocumentComment(text, autor, data, id);
 
 		return entidade;
 	}
 
-	public static Entity criarEntidade(String text, String autor, String date, String id, Key key){
+	public Entity criarEntidade(String text, String autor, String date, String id, Key key){
 		Entity entidade = new Entity(key);
 
 		entidade.setProperty(CommentFields.ID.getField(),id);
