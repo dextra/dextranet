@@ -1,4 +1,4 @@
-package br.com.dextra.respository.comment;
+package br.com.dextra.repository.comment;
 
 import br.com.dextra.persistencia.CommentFields;
 import br.com.dextra.repository.document.DocumentRepository;

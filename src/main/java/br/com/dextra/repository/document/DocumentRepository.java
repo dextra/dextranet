@@ -12,6 +12,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.Text;
 import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
 
@@ -74,9 +75,9 @@ public class DocumentRepository extends BaseRepository {
 		IndexFacade.getIndex(IndexKeys.POST.getKey()).add(document);
 	}
 
-	public Document crieUmDocumentoDoComentario(String text, String id){
+	public Document crieUmDocumentoDoComentario(Text text, String id){
 		Document document = Document.newBuilder().setId(id)
-							.addField(Field.newBuilder().setName(CommentFields.TEXT.getField()).setText(text))
+							.addField(Field.newBuilder().setName(CommentFields.TEXT.getField()).setText(text.toString()))
 							.addField(Field.newBuilder().setName(CommentFields.ID.getField()).setText(id)).build();
 
 		IndexFacade.getIndex(IndexKeys.COMMENT.getKey()).add(document);
