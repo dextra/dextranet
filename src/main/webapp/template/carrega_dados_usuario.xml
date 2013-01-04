@@ -10,30 +10,30 @@
 
 			<ul class="header_dropdown" id="box_user_profile">
 				<li>
-					<h4>${nome}</h4>
+					<h4>${nickName}</h4>
 					<span>${email}</span><br></br>
-<!--					<center>-->
-<!--						<a id="logout" href="#">Sair</a>-->
-<!--					</center>-->
+					<center>
+						<a id="logout" href="#">Sair</a>
+					</center>
 				</li>
 			</ul>
 		</li>
 
-<!--		<li id="box_user_notifications">-->
-<!--			<span class="highlight" style="float:right;">3</span>-->
-<!--			<ul id="box_user_notifications_full" class="header_dropdown">-->
-<!--				<li>-->
-<!--					Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou-->
-<!--					não ser, eis a questão"</a>... <br></br>-->
-<!--					Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou-->
-<!--					não ser, eis a questão"</a>...-->
-<!--				</li>-->
-<!--			</ul>-->
-<!--		</li>-->
+		<li id="box_user_notifications">
+			<span class="highlight" style="float:right;">3</span>
+			<ul id="box_user_notifications_full" class="header_dropdown">
+				<li>
+					Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou
+					não ser, eis a questão"</a>... <br></br>
+					Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou
+					não ser, eis a questão"</a>...
+				</li>
+			</ul>
+		</li>
 
 		<script>
 			$("#logout").click(deslogarUsuario);
-<!--			$(".highlight").click(abrirOuFecharTelaNotificacoes);-->
+			$(".highlight").click(abrirOuFecharTelaNotificacoes);
 			$("#box_user_info").click(abrirOuFecharTelaUsuario);
 		</script>
 	</template>
