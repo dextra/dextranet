@@ -28,6 +28,7 @@ import com.google.appengine.api.search.SortOptions;
 public class PostRepository extends BaseRepository {
 
 	private DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+	private DocumentRepository postDoDocumentReository = new DocumentRepository();
 
 	public Iterable<Entity> buscarTodosOsPosts(int maxResults, int offSet) {
 
@@ -135,7 +136,7 @@ public class PostRepository extends BaseRepository {
 				data);
 		persist(valueEntity);
 
-		DocumentRepository.criarDocumentPost(titulo, conteudo, usuario, id,
+		postDoDocumentReository.criarDocumentPost(titulo, conteudo, usuario, id,
 				data);
 
 		return valueEntity;
@@ -183,7 +184,7 @@ public class PostRepository extends BaseRepository {
 	public void umPostFoiComentado(String id) throws EntityNotFoundException
 	{
 		String data=Utils.pegaData();
-		DocumentRepository.alteraDatadoDocumento(id,data);
+		postDoDocumentReository.alteraDatadoDocumento(id,data);
 		this.alteraDatadaEntity(id, data);
 
 		incrementaNumeroDeComentariosDaEntityDoPost(id);
@@ -192,9 +193,9 @@ public class PostRepository extends BaseRepository {
 
 	public void remove(String id) {
 		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
-		
+
 		try {
-			datastore.delete(key);	
+			datastore.delete(key);
 		} finally {
 			DocumentRepository indexacao = new DocumentRepository();
 			indexacao.removeIndex(IndexKeys.POST.getKey(), id);
