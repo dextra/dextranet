@@ -12,9 +12,9 @@
 				<li>
 					<h4>${nome}</h4>
 					<span>${email}</span><br></br>
-					<center>
-						<a id="logout" href="#">Sair</a>
-					</center>
+<!--					<center>-->
+<!--						<a id="logout" href="#">Sair</a>-->
+<!--					</center>-->
 				</li>
 			</ul>
 		</li>
