@@ -1,5 +1,4 @@
 function carregaDadosHomePage() {
-	$("#form_gif_loading").css("display", "inline");
 	consulta.setText("");
 	carregueOsTemplates();
 	busquePosts("", false, 0);
@@ -7,7 +6,6 @@ function carregaDadosHomePage() {
 }
 
 function carregaDadosHomePageAposInclusao() {
-	$("#form_gif_loading").css("display", "inline");
 	consulta.setText("");
 	carregueOsTemplates();
 	busquePosts("", true, 0);
@@ -15,7 +13,6 @@ function carregaDadosHomePageAposInclusao() {
 }
 
 function carregueOsTemplates() {
-	$("#form_gif_loading").css("display", "inline");
 	$.holy("../template/carrega_menu_principal.xml", {});
 	$.holy("../template/carrega_menu_lateral.xml", {});
 
@@ -30,7 +27,7 @@ function carregueOsTemplates() {
 }
 
 function busquePosts(query, ehUmNovoPost, pagina) {
-
+	$("#form_gif_loading").css("display", "inline");
 	var tipo = 'GET';
 	var url = "/s/post";
 	var quantidadePostsSolicitados = "20";
