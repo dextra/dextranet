@@ -29,7 +29,8 @@ public class TesteFuncionalBase extends TesteIntegracaoBase {
 	}
 
 	public String getUrlApplication() {
-		return "http://" + environment.getEnvironmentUrlBase();
+		//return "http://" + environment.getEnvironmentUrlBase();
+		return "http://localhost:4445/";
 	}
 
 }
