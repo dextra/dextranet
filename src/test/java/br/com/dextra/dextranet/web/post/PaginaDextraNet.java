@@ -10,8 +10,13 @@ import org.openqa.selenium.WebElement;
 import br.com.dextra.expertus.page.PageObject;
 
 public class PaginaDextraNet extends PageObject {
+
 	public PaginaDextraNet(WebDriver driver) {
 		super(driver);
+	}
+
+	public void esperaCarregarPaginaInicial() {
+		this.waitForElement("#button_sidebar_left_home");
 	}
 
 	public void verificaSeTemLogoHomePage() {
@@ -35,4 +40,5 @@ public class PaginaDextraNet extends PageObject {
 				+ text + "'");
 		driver.switchTo().defaultContent();
 	}
+
 }

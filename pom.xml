@@ -177,6 +177,9 @@
 						<expertus.environment.sauce.browser.version>${expertus.environment.sauce.browser.version}</expertus.environment.sauce.browser.version>
 						<expertus.environment.sauce.username>${expertus.environment.sauce.username}</expertus.environment.sauce.username>
 						<expertus.environment.sauce.key>${expertus.environment.sauce.key}</expertus.environment.sauce.key>
+		                <expertus.environment.host>${expertus.environment.host}</expertus.environment.host>
+		                <expertus.environment.port>${expertus.environment.port}</expertus.environment.port>
+		                <expertus.environment.application>${expertus.environment.application}</expertus.environment.application>
                     </systemPropertyVariables>
 				</configuration>
 			</plugin>
@@ -370,7 +373,7 @@
 	    	<dependency>
                 <groupId>br.com.dextra</groupId>
                 <artifactId>expertus</artifactId>
-                <version>1.0.3</version>
+                <version>1.0.7</version>
 	    	</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -388,6 +391,9 @@
                 <expertus.environment.type>local</expertus.environment.type>
                 <expertus.environment.local.test>true</expertus.environment.local.test>
                 <expertus.environment.browser>FIREFOX</expertus.environment.browser>
+                <expertus.environment.host>localhost</expertus.environment.host>
+                <expertus.environment.port>8080</expertus.environment.port>
+                <expertus.environment.application></expertus.environment.application>
             </properties>
         </profile>
 
@@ -406,6 +412,9 @@
                 <expertus.environment.sauce.browser.version>17</expertus.environment.sauce.browser.version>
                 <expertus.environment.sauce.username>cloudbees_dextra-con</expertus.environment.sauce.username>
                 <expertus.environment.sauce.key>b6f5241c-0038-404a-81d6-7bd848b8e56b</expertus.environment.sauce.key>
+                <expertus.environment.host>dextranet-desenvolvimento.appspot.com</expertus.environment.host>
+                <expertus.environment.port>80</expertus.environment.port>
+                <expertus.environment.application></expertus.environment.application>
             </properties>
         </profile>
 

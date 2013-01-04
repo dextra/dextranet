@@ -28,4 +28,8 @@ public class TesteFuncionalBase extends TesteIntegracaoBase {
 		TesteIntegracaoBase.shutdown();
 	}
 
+	public String getUrlApplication() {
+		return "http://" + environment.getEnvironmentUrlBase();
+	}
+
 }
