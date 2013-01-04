@@ -28,6 +28,7 @@ public class AutenticacaoFilter implements Filter {
     		filterChain.doFilter(request, response);
 
         }else{
+
             String loginUrl = userService.createLoginURL(thisURI);
             HttpServletResponse httpResp = (HttpServletResponse) response;
             httpResp.sendRedirect(loginUrl);

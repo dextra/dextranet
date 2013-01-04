@@ -17,7 +17,7 @@ import com.google.appengine.api.search.Field;
 
 public class DocumentRepository extends BaseRepository {
 
-	public static Document criarDocumentPost(String titulo, String conteudo,
+	public Document criarDocumentPost(String titulo, String conteudo,
 			String usuario, String id, String data) {
 		Document document = Document.newBuilder().setId(id).addField(
 				Field.newBuilder().setName(PostFields.TITULO.getField())
@@ -40,7 +40,7 @@ public class DocumentRepository extends BaseRepository {
 	}
 
 
-	public static void alteraDatadoDocumento(String id, String data) throws EntityNotFoundException {
+	public void alteraDatadoDocumento(String id, String data) throws EntityNotFoundException {
 
 		DatastoreService datastore = DatastoreServiceFactory
 		.getDatastoreService();
@@ -75,7 +75,6 @@ public class DocumentRepository extends BaseRepository {
 	}
 
 	public Document crieUmDocumentoDoComentario(String text, String id){
-
 		Document document = Document.newBuilder().setId(id)
 							.addField(Field.newBuilder().setName(CommentFields.TEXT.getField()).setText(text))
 							.addField(Field.newBuilder().setName(CommentFields.ID.getField()).setText(id)).build();

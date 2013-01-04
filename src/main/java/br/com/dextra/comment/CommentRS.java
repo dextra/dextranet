@@ -5,13 +5,13 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.EntityNotFoundException;
 import javax.ws.rs.core.Response;
 
 import br.com.dextra.respository.comment.CommentRepository;
 import br.com.dextra.utils.CommentToJson;
+
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 
 @Path("/comment")
 public class CommentRS {

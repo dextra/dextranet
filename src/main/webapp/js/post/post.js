@@ -10,10 +10,10 @@ function fazPesquisa() {
 	var pagina = 0;
 
 	if(consulta.getText() != ""){
+		$("#form_gif_loading").css("display", "inline");
 		busquePosts(consulta.getText(), ehUmNovoPost, pagina);
-
 	}
-
+	//$("#form_gif_loading").css("display", "none");
 	return false; //O retorno falso faz com que a página de pesquisa não sofra reload para index
 }
 
@@ -22,7 +22,7 @@ function criaNovoPost() {
 			|| (CKEDITOR.instances.form_input_content.getData() == "")) {
 		alert("Preencha todos os campos.");
 	} else {
-		$("#form_new_post").css("display", "none");
+		$("#form_post_submit").css("display", "none");
 		$("#form_gif_loading").css("display", "inline");
 		console.log(post);
 		var post = {

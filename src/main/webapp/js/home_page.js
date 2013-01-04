@@ -27,7 +27,7 @@ function carregueOsTemplates() {
 }
 
 function busquePosts(query, ehUmNovoPost, pagina) {
-
+	$("#form_gif_loading").css("display", "inline");
 	var tipo = 'GET';
 	var url = "/s/post";
 	var quantidadePostsSolicitados = "20";
