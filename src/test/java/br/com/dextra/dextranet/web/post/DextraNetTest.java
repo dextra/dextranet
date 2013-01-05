@@ -9,6 +9,9 @@ public class DextraNetTest extends TesteFuncionalBase {
 
 	@Test
 	public void testeHomePageDextraNet() {
+		System.out.println("********************************************************");
+		System.out.println("SELENIUM_URL: " + System.getenv("SELENIUM_URL"));
+		System.out.println("********************************************************");
 		this.acessaPaginaPrincipal();
 		siteDextraNet.verificaSeTemLogoHomePage();
 	}
