@@ -23,6 +23,7 @@ public class PaginacaoTest extends TesteFuncionalBase{
 	private ArrayList<String> listaDosPostsEncontradosNaPagina = new ArrayList<String>();
 	private ArrayList<String> listaDosPostsInseridosPeloTest = new ArrayList<String>();
 
+	@Test
 	public void criarPosts(){
 		int quantidadePosts = 42;
 		int vezes = (int) Math.round(((double)quantidadePosts/20)+0.5);
@@ -37,7 +38,7 @@ public class PaginacaoTest extends TesteFuncionalBase{
 	}
 
 	private void dadoOSiteDaDextraNET() {
-		dextraNet.navigateTo(this.getUrlApplication());
+		dextraNet.navigateTo("http://localhost:8080");
 	}
 
 	private void quandoEuCrioPosts(int quantidadeDePosts){

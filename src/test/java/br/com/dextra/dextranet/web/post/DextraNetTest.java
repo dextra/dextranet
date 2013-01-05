@@ -9,11 +9,6 @@ public class DextraNetTest extends TesteFuncionalBase {
 
 	@Test
 	public void testeHomePageDextraNet() {
-		try {
-			Thread.sleep(60000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		this.acessaPaginaPrincipal();
 		siteDextraNet.verificaSeTemLogoHomePage();
 	}
@@ -54,7 +49,7 @@ public class DextraNetTest extends TesteFuncionalBase {
 	}
 
 	protected void acessaPaginaPrincipal() {
-		siteDextraNet.navigateTo(this.getUrlApplication());
+		siteDextraNet.navigateTo("http://localhost:8080");
 		siteDextraNet.esperaCarregarPaginaInicial();
 	}
 

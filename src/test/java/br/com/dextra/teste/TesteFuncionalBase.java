@@ -23,14 +23,9 @@ public class TesteFuncionalBase extends TesteIntegracaoBase {
 
 	@AfterClass
 	public static void shutdown() {
-		driver.close();
+		driver.quit();
 
 		TesteIntegracaoBase.shutdown();
-	}
-
-	public String getUrlApplication() {
-		//return "http://" + environment.getEnvironmentUrlBase();
-		return "http://localhost:4445/";
 	}
 
 }

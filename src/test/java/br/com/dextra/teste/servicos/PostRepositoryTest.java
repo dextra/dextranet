@@ -48,14 +48,14 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		helper.tearDown();
 	}
 
-
+	@Test
 	public void testeListarPostsVazios() throws EntityNotFoundException {
 		String resultadoEsperado = "[]";
 		Assert.assertEquals(resultadoEsperado, new PostRS().listarPosts("20",
 				"", "0"));
 	}
 
-
+	@Test
 	public void testeListarPosts2() throws EntityNotFoundException {
 
 		String titulo = "Post1";
@@ -75,6 +75,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 	}
 
 	@SuppressWarnings("deprecation")
+	@Test
 	public void testeListarPosts3() throws EntityNotFoundException {
 
 		String titulo = "Post1";
@@ -126,7 +127,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 	}
 
-
+	@Test
 	public void testeBuscarPosts1() throws NumberFormatException,
 			EntityNotFoundException {
 
@@ -152,6 +153,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 	}
 
+	@Test
 	public void testeBuscarPosts2() throws NumberFormatException,
 			EntityNotFoundException {
 
@@ -178,6 +180,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 	}
 
+	@Test
 	public void testeListarPostsPaginados0() throws EntityNotFoundException {
 
 		int maxResults = 20;
@@ -197,6 +200,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 	}
 
+	@Test
 	public void testeListarPostsPaginados1() throws EntityNotFoundException {
 
 		int maxResults = 5;
@@ -216,6 +220,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 	}
 
+	@Test
 	public void testeDeAtualizarPostQuandoComentado()
 			throws NumberFormatException, EntityNotFoundException,
 			InterruptedException {
