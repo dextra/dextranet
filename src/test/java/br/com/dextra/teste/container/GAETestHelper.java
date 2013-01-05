@@ -1,8 +1,6 @@
 package br.com.dextra.teste.container;
 
 import java.util.ArrayList;
-import com.google.appengine.tools.development.testing.LocalSearchServiceTestConfig;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,8 +10,9 @@ import javax.naming.InitialContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-//import com.google.appengine.api.search.dev.LocalSearchService;
+import com.google.appengine.api.search.dev.LocalSearchService;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalSearchServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.googlecode.mycontainer.gae.web.LocalServiceTestHelperFilter;
@@ -23,6 +22,7 @@ import com.googlecode.mycontainer.web.ContextWebServer;
 import com.googlecode.mycontainer.web.FilterDesc;
 import com.googlecode.mycontainer.web.WebServerDeployer;
 import com.googlecode.mycontainer.web.jetty.JettyServerDeployer;
+//import com.google.appengine.api.search.dev.LocalSearchService;
 
 public class GAETestHelper {
 
@@ -33,7 +33,7 @@ public class GAETestHelper {
 	private LocalDatastoreServiceTestConfig ds;
 	private LocalSearchServiceTestConfig fts;
 
-//	private LocalSearchService lss;
+	private LocalSearchService lss;
 
 	private int port = 8380;
 
@@ -61,8 +61,7 @@ public class GAETestHelper {
 	}
 
 	public void prepareSearchServiceTestHelper() throws Exception {
-//		lss = new LocalSearchService();
-
+		lss = new LocalSearchService();
 	}
 
 	public LocalServiceTestHelper getHelper() {
