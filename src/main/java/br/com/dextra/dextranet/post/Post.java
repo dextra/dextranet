@@ -2,7 +2,9 @@ package br.com.dextra.dextranet.post;
 
 
 import br.com.dextra.dextranet.entidade.Entidade;
+import br.com.dextra.repository.document.DocumentRepository;
 import br.com.dextra.utils.Converters;
+import br.com.dextra.utils.Data;
 import br.com.dextra.utils.IndexKeys;
 
 import com.google.appengine.api.datastore.DatastoreService;
@@ -76,12 +78,18 @@ public class Post extends Entidade {
 		return likes;
 	}
 
-	public Entity toEntity() throws EntityNotFoundException
+	public void comentar(String id) throws EntityNotFoundException
 	{
-		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), this.id);
-		Entity e = datastore.get(key);
-		return e;
+
+		//FIXME: COMEÇANDO A FAZER O COMENTARIO NO REFACTORING
+		DocumentRepository postDoDocumentReository = new DocumentRepository();
+		PostRepository postDoRepository = new PostRepository();
+
+		String data = new Data().pegaData();;
+		postDoDocumentReository.alteraDatadoDocumento(id,data);
+		postDoRepository.alteraDatadaEntity(id, data);
+
+		postDoRepository.incrementaNumeroDeComentariosDaEntityDoPost(id);
 	}
 
 

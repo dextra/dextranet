@@ -199,16 +199,6 @@ public class PostRepository extends BaseRepository {
 		persist(valueEntity);
 	}
 
-	public void umPostFoiComentado(String id) throws EntityNotFoundException
-	{
-		String data = new Data().pegaData();;
-		postDoDocumentReository.alteraDatadoDocumento(id,data);
-		this.alteraDatadaEntity(id, data);
-
-		incrementaNumeroDeComentariosDaEntityDoPost(id);
-
-	}
-
 	public void remove(String id) {
 		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 
