@@ -1,4 +1,4 @@
-package br.com.dextra.post;
+package br.com.dextra.dextranet.post;
 
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
@@ -11,7 +11,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-import br.com.dextra.repository.post.PostRepository;
 import br.com.dextra.utils.Converters;
 
 import com.google.appengine.api.datastore.Entity;
