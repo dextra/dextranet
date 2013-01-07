@@ -3,7 +3,6 @@ package br.com.dextra.dextranet.post;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import br.com.dextra.persistencia.PostFields;
 import br.com.dextra.repository.document.DocumentRepository;
 import br.com.dextra.repository.post.BaseRepository;
 import br.com.dextra.utils.Converters;
@@ -222,8 +221,5 @@ public class PostRepository extends BaseRepository {
 	}
 
 
-	public Entity obtemPorId(String id) throws EntityNotFoundException  {
-		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
-		return datastore.get(key);
-	}
+
 }

@@ -41,4 +41,5 @@ public class Entidade {
 	public Key getKey() {
 		return KeyFactory.createKey(this.getClass().getName(), this.getId());
 	}
+
 }

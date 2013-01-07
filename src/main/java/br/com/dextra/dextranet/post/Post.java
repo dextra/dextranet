@@ -2,7 +2,6 @@ package br.com.dextra.dextranet.post;
 
 
 import br.com.dextra.dextranet.entidade.Entidade;
-import br.com.dextra.persistencia.PostFields;
 import br.com.dextra.utils.Converters;
 import br.com.dextra.utils.IndexKeys;
 
@@ -41,6 +40,12 @@ public class Post extends Entidade {
 		this.comentarios =  ((Long) postEntity.getProperty(PostFields.COMENTARIO.getField())).intValue();
 		this.likes = ((Long) postEntity.getProperty(PostFields.LIKES.getField())).intValue();
 
+	}
+
+	public Post (String id) throws EntityNotFoundException  {
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
+		new Post(datastore.get(key));
 	}
 
 	public String getTitulo() {
