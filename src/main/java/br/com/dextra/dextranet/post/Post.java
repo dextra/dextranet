@@ -1,22 +1,33 @@
 package br.com.dextra.dextranet.post;
 
-import java.util.Date;
-
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.Text;
 import br.com.dextra.dextranet.entidade.Entidade;
 import br.com.dextra.persistencia.PostFields;
+import br.com.dextra.utils.Converters;
 import br.com.dextra.utils.Data;
+import br.com.dextra.utils.IndexKeys;
+
 import com.google.appengine.api.datastore.Entity;
 
 
 public class Post extends Entidade {
+
 
 	private String titulo;
 
 	private int comentario;
 
 	private int likes;
-
-	private String dataDeCriacao;
 
 	private String dataDeAtualizacao;
 
@@ -34,15 +45,16 @@ public class Post extends Entidade {
 	}
 
 	public Post(Entity postEntity) {
+		Converters conversores=new Converters();
 
 		this.id = (String) postEntity.getProperty(PostFields.ID.getField());
 		this.titulo = (String) postEntity.getProperty(PostFields.TITULO.getField());
-		this.conteudo = (String) postEntity.getProperty(PostFields.CONTEUDO.getField());
+		this.conteudo = conversores.converterGAETextToString(postEntity);
 		this.dataDeCriacao = (String) postEntity.getProperty(PostFields.DATA.getField());
 		this.dataDeAtualizacao = (String) postEntity.getProperty(PostFields.DATA_DE_ATUALIZACAO.getField());
 		this.usuario = (String) postEntity.getProperty(PostFields.USUARIO.getField());
-		this.comentario = (Integer) postEntity.getProperty(PostFields.COMENTARIO.getField());
-		this.likes = (Integer) postEntity.getProperty(PostFields.LIKES.getField());
+		this.comentario =  ((Long) postEntity.getProperty(PostFields.COMENTARIO.getField())).intValue();
+		this.likes = ((Long) postEntity.getProperty(PostFields.LIKES.getField())).intValue();
 
 	}
 
@@ -73,6 +85,16 @@ public class Post extends Entidade {
 	public int getLikes() {
 		return likes;
 	}
+
+	public Entity toEntity() throws EntityNotFoundException
+	{
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), this.id);
+		Entity e = datastore.get(key);
+		return e;
+	}
+
+
 
 
 

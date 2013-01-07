@@ -11,6 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.dextra.dextranet.post.Post;
 import br.com.dextra.dextranet.post.PostRS;
 import br.com.dextra.persistencia.PostFields;
 import br.com.dextra.dextranet.post.PostRepository;
@@ -67,6 +68,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 
 		postDoRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
+
 		StringBuilder comparacao = geraJsonComparacao(titulo, conteudo,
 				usuario, data, id, key);
 
@@ -117,9 +119,9 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		StringBuilder comparacao = new StringBuilder();
 		comparacao.append("["
 				+ criaUmJson(titulo3, conteudo3, usuario3, id3, key3, new Data()
-						.formataPelaBiblioteca(data3), "0") + ",");
+						.formataPelaBiblioteca(data3), 0) + ", ");
 		comparacao.append(criaUmJson(titulo2, conteudo2, usuario2, id2, key2,
-				new Data().formataPelaBiblioteca(data2), "0")
+				new Data().formataPelaBiblioteca(data2), 0)
 				+ "]");
 
 		Assert.assertEquals(comparacao.toString(), new PostRS().listarPosts(
@@ -362,12 +364,13 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 	}
 
-	private List<Entity> quandoEuListoOsPostsSalvos(int maxResults, int offSet) {
-		List<Entity> listaSaida = new ArrayList<Entity>();
-		Iterable<Entity> it = postDoRepository.buscarTodosOsPosts(maxResults,
+	private List<Entity> quandoEuListoOsPostsSalvos(int maxResults, int offSet) throws EntityNotFoundException {
+		ArrayList<Entity> listaSaida = new ArrayList<Entity>();
+		ArrayList<Post> busca = postDoRepository.buscarTodosOsPosts(maxResults,
 				offSet);
-		for (Entity entity : it) {
-			listaSaida.add(entity);
+		for (Post post : busca) {
+
+			listaSaida.add(post.toEntity());
 		}
 		return listaSaida;
 	}
@@ -397,24 +400,24 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		StringBuilder comparacao = new StringBuilder();
 		comparacao.append("["
 				+ criaUmJson(titulo2, conteudo2, usuario2, id2, key2, data2,
-						"0") + "]");
+						0) + "]");
 		return comparacao;
 	}
 
 	private String criaUmJson(String titulo, String string, String usuario,
-			String id, Key key, String data, String comentario) {
+			String id, Key key, String data, int comentario) {
 
 		JsonObject json = new JsonObject();
 
-		json.addProperty("id", id);
+
 		json.addProperty("titulo", titulo);
-		json.addProperty("usuario", usuario);
-		json.addProperty("comentarios", comentario);
+		json.addProperty("comentario", comentario);
+		json.addProperty("likes", 0);
 		json.addProperty("dataDeAtualizacao", data);
+		json.addProperty("id", id);
+		json.addProperty("usuario", usuario);
 		json.addProperty("conteudo", string);
-		json.addProperty("likes", "0");
-		json.addProperty("data", data);
-		json.addProperty("key", key.toString());
+		json.addProperty("dataDeCriacao", data);
 
 		return json.toString();
 	}
@@ -443,10 +446,10 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 			int offSet) throws EntityNotFoundException {
 
 		List<Entity> listaSaida = new ArrayList<Entity>();
-		Iterable<Entity> it = postDoRepository.buscarPosts(maxResults, q,
+		ArrayList<Post> busca = postDoRepository.buscarPosts(maxResults, q,
 				offSet);
-		for (Entity entity : it) {
-			listaSaida.add(entity);
+		for (Post post : busca) {
+			listaSaida.add(post.toEntity());
 		}
 		return listaSaida;
 	}

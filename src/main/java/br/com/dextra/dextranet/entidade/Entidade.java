@@ -16,7 +16,7 @@ public class Entidade {
 
 	protected String conteudo;
 
-	protected Date dataDeCriacao;
+	protected String dataDeCriacao;
 
 	public String getId() {
 		return id;

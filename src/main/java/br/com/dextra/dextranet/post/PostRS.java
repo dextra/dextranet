@@ -1,5 +1,6 @@
 package br.com.dextra.dextranet.post;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.DELETE;
@@ -44,7 +45,7 @@ public class PostRS {
 			@DefaultValue("") @QueryParam(value = "q") String q,
 			@DefaultValue("0") @QueryParam(value = "page") String page) throws NumberFormatException, EntityNotFoundException {
 
-		Iterable<Entity> listaPosts;
+		ArrayList<Post> listaPosts = new ArrayList<Post>();
 
 		int resultsMax = Integer.parseInt(maxResults);
 		int offSet = Integer.parseInt(page)*resultsMax;
@@ -53,11 +54,13 @@ public class PostRS {
 
 		if (q.equals("")) {
 			listaPosts = novoPost.buscarTodosOsPosts(resultsMax, offSet);
-		} else {
+
+		}
+		else {
 			listaPosts = novoPost.buscarPosts(resultsMax, q,offSet);
 		}
-		return Converters.converterListaEntities(listaPosts)
-				.toString();
+
+		return Converters.converterListaEntities(listaPosts).toString();
 	}
 
 	@Path("/{id}")
