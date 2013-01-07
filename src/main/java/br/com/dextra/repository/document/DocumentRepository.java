@@ -1,5 +1,7 @@
 package br.com.dextra.repository.document;
 
+import org.jsoup.Jsoup;
+
 import br.com.dextra.persistencia.CommentFields;
 import br.com.dextra.persistencia.PostFields;
 import br.com.dextra.repository.post.BaseRepository;
@@ -22,7 +24,7 @@ public class DocumentRepository extends BaseRepository {
 
 		Document document = Document.newBuilder().setId(id)
 				.addField(Field.newBuilder().setName(PostFields.TITULO.getField()).setText(titulo))
-				.addField(Field.newBuilder().setName(PostFields.CONTEUDO.getField()).setText(conteudo))
+				.addField(Field.newBuilder().setName(PostFields.CONTEUDO.getField()).setText(Jsoup.parse(conteudo).text()))
 				.addField(Field.newBuilder().setName(PostFields.USUARIO.getField()).setText(usuario))
 				.addField(Field.newBuilder().setName(PostFields.DATA.getField()).setText(data.toString()))
 				.addField(Field.newBuilder().setName(PostFields.DATA_DE_ATUALIZACAO.getField()).setText(data.toString()))
@@ -33,7 +35,6 @@ public class DocumentRepository extends BaseRepository {
 		IndexFacade.getIndex(IndexKeys.POST.getKey()).add(document);
 		return document;
 	}
-
 
 	public void alteraDatadoDocumento(String id, String data) throws EntityNotFoundException {
 
