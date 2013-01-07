@@ -12,9 +12,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.dextra.dextranet.post.Post;
+import br.com.dextra.dextranet.post.PostFields;
 import br.com.dextra.dextranet.post.PostRS;
 import br.com.dextra.dextranet.post.PostRepository;
-import br.com.dextra.persistencia.PostFields;
 import br.com.dextra.teste.TesteIntegracaoBase;
 import br.com.dextra.utils.Data;
 import br.com.dextra.utils.IndexKeys;
@@ -472,6 +472,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		return listaPostsOriginais;
 	}
 
+	@Test
 	public void testaRemocaoPost() {
 		Entity postCriado = postDoRepository.criaNovoPost("Titulo", "Conteudo",
 				"Usuario");
@@ -480,7 +481,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		postDoRepository.remove(idDoPost);
 
 		try {
-			postDoRepository.obtemPorId(idDoPost);
+			new Post (idDoPost);
 			Assert.fail();
 		} catch (EntityNotFoundException e) {
 			Assert.assertTrue(true);
