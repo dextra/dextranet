@@ -1,8 +1,7 @@
 package br.com.dextra.dextranet.post;
 
-import java.util.Date;
-
 import br.com.dextra.dextranet.entidade.Entidade;
+import br.com.dextra.utils.Data;
 
 import com.google.appengine.api.datastore.Entity;
 
@@ -12,15 +11,15 @@ public class Post extends Entidade {
 
 	private String conteudo;
 
-	private Date dataDeCriacao;
+	private String dataDeCriacao;
 
-	private Date dataDeAtualizacao;
+	private String dataDeAtualizacao;
 
 	public Post(String titulo, String conteudo) {
 		this.geraId();
 		this.titulo = titulo;
 		this.conteudo = conteudo;
-		this.dataDeCriacao = new Date();
+		this.dataDeCriacao = new Data().pegaData();
 		this.dataDeAtualizacao = this.dataDeCriacao;
 	}
 
@@ -28,8 +27,8 @@ public class Post extends Entidade {
 		this.id = (String) postEntity.getProperty("id");
 		this.titulo = (String) postEntity.getProperty("titulo");
 		this.conteudo = (String) postEntity.getProperty("conteudo");
-		this.dataDeCriacao = (Date) postEntity.getProperty("dataDeCriacao");
-		this.dataDeAtualizacao = (Date) postEntity.getProperty("dataDeAtualizacao");
+		this.dataDeCriacao = (String) postEntity.getProperty("dataDeCriacao");
+		this.dataDeAtualizacao = (String) postEntity.getProperty("dataDeAtualizacao");
 	}
 
 	public String getTitulo() {
@@ -40,11 +39,11 @@ public class Post extends Entidade {
 		return conteudo;
 	}
 
-	public Date getDataDeCriacao() {
+	public String getDataDeCriacao() {
 		return dataDeCriacao;
 	}
 
-	public Date getDataDeAtualizacao() {
+	public String getDataDeAtualizacao() {
 		return dataDeAtualizacao;
 	}
 

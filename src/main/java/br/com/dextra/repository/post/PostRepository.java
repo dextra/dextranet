@@ -8,7 +8,7 @@ import br.com.dextra.repository.document.DocumentRepository;
 import br.com.dextra.utils.Converters;
 import br.com.dextra.utils.IndexFacade;
 import br.com.dextra.utils.IndexKeys;
-import br.com.dextra.utils.Utils;
+import br.com.dextra.utils.Data;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -121,9 +121,9 @@ public class PostRepository extends BaseRepository {
 
 	public Entity criaNovoPost(String titulo, String conteudo, String usuario) {
 
-		String id = Utils.geraID();
+		String id = Data.geraID();
 		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
-		String data = Utils.pegaData();
+		String data = new Data().pegaData();
 
 		return this.criaNovoPost(titulo, conteudo, usuario, id, key,
 				data);
@@ -183,7 +183,7 @@ public class PostRepository extends BaseRepository {
 
 	public void umPostFoiComentado(String id) throws EntityNotFoundException
 	{
-		String data=Utils.pegaData();
+		String data = new Data().pegaData();;
 		postDoDocumentReository.alteraDatadoDocumento(id,data);
 		this.alteraDatadaEntity(id, data);
 

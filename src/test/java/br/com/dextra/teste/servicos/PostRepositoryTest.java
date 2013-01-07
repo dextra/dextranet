@@ -16,7 +16,7 @@ import br.com.dextra.post.PostRS;
 import br.com.dextra.repository.post.PostRepository;
 import br.com.dextra.teste.TesteIntegracaoBase;
 import br.com.dextra.utils.IndexKeys;
-import br.com.dextra.utils.Utils;
+import br.com.dextra.utils.Data;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -62,8 +62,8 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		String conteudo = "Content1";
 		String usuario = "User1";
 
-		String data = Utils.pegaData();
-		String id = Utils.geraID();
+		String data = new Data().pegaData();
+		String id = Data.geraID();
 		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 
 		postDoRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
@@ -84,10 +84,10 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 		Date data = new Date();
 		data.setDate(1);
-		String id = Utils.geraID();
+		String id = Data.geraID();
 		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 
-		postDoRepository.criaNovoPost(titulo, conteudo, usuario, id, key, Utils
+		postDoRepository.criaNovoPost(titulo, conteudo, usuario, id, key, new Data()
 				.formataPelaBiblioteca(data));
 
 		String titulo2 = "Post2";
@@ -96,11 +96,11 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 		Date data2 = new Date();
 		data2.setDate(2);
-		String id2 = Utils.geraID();
+		String id2 = Data.geraID();
 		Key key2 = KeyFactory.createKey(IndexKeys.POST.getKey(), id2);
 
 		postDoRepository.criaNovoPost(titulo2, conteudo2, usuario2, id2, key2,
-				Utils.formataPelaBiblioteca(data2));
+				new Data().formataPelaBiblioteca(data2));
 
 		String titulo3 = "Post3";
 		String conteudo3 = "Content3";
@@ -108,18 +108,18 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 		Date data3 = new Date();
 		data3.setDate(3);
-		String id3 = Utils.geraID();
+		String id3 = Data.geraID();
 		Key key3 = KeyFactory.createKey(IndexKeys.POST.getKey(), id3);
 
 		postDoRepository.criaNovoPost(titulo3, conteudo3, usuario3, id3, key3,
-				Utils.formataPelaBiblioteca(data3));
+				new Data().formataPelaBiblioteca(data3));
 
 		StringBuilder comparacao = new StringBuilder();
 		comparacao.append("["
-				+ criaUmJson(titulo3, conteudo3, usuario3, id3, key3, Utils
+				+ criaUmJson(titulo3, conteudo3, usuario3, id3, key3, new Data()
 						.formataPelaBiblioteca(data3), "0") + ",");
 		comparacao.append(criaUmJson(titulo2, conteudo2, usuario2, id2, key2,
-				Utils.formataPelaBiblioteca(data2), "0")
+				new Data().formataPelaBiblioteca(data2), "0")
 				+ "]");
 
 		Assert.assertEquals(comparacao.toString(), new PostRS().listarPosts(
@@ -383,10 +383,10 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 			String usuario = "User" + i;
 			Date data = new Date();
 			data.setDate(i);
-			String id = Utils.geraID();
+			String id = Data.geraID();
 			Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 			Entity entity = postDoRepository.criaNovoPost(titulo, conteudo,
-					usuario, id, key, Utils.formataPelaBiblioteca(data));
+					usuario, id, key, new Data().formataPelaBiblioteca(data));
 			listaPostsOriginais.add(entity);
 		}
 		return listaPostsOriginais;
@@ -458,8 +458,8 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 			String conteudo = "Content " + i;
 			String titulo = "Post" + i;
 			String usuario = "User" + i;
-			String data = Utils.pegaData();
-			String id = Utils.geraID();
+			String data = new Data().pegaData();
+			String id = Data.geraID();
 			Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 			Entity entity = postDoRepository.criaNovoPost(titulo, conteudo,
 					usuario, id, key, data);
