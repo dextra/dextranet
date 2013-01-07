@@ -16,16 +16,21 @@ public class DextraNetTest extends TesteFuncionalBase {
 
 	@Test
 	public void testeCriarPost() {
-		this.acessaPaginaPrincipal();
+		try {
+			this.acessaPaginaPrincipal();
 
-		siteDextraNet.click("span.icon_sidebar_left_novopost");
-		siteDextraNet.waitForElement("input#form_input_title");
+			siteDextraNet.click("span.icon_sidebar_left_novopost");
+			siteDextraNet.waitForElement("input#form_input_title");
 
-		siteDextraNet.writeInputText("input#form_input_title", "Titulo de Teste");
-		siteDextraNet.writeCKEditor("Comentario de Teste");
+			siteDextraNet.writeInputText("input#form_input_title", "Titulo de Teste");
+			siteDextraNet.writeCKEditor("Comentario de Teste");
 
-		siteDextraNet.click("input#form_post_submit");
-		siteDextraNet.esperaCarregarPaginaInicial();
+			siteDextraNet.click("input#form_post_submit");
+			siteDextraNet.esperaCarregarPaginaInicial();
+			Thread.sleep(550);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
 		siteDextraNet.verificaSeIncluiuPost();
 	}
