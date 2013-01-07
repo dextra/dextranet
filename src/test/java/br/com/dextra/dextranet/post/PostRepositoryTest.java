@@ -1,5 +1,7 @@
 package br.com.dextra.dextranet.post;
 
+import java.util.ArrayList;
+
 import junit.framework.Assert;
 
 import org.junit.After;
@@ -17,9 +19,11 @@ import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 public class PostRepositoryTest extends TesteIntegracaoBase {
 
-	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(
+			new LocalDatastoreServiceTestConfig());
 
-	private final LocalServiceTestHelper fts = new LocalServiceTestHelper(new LocalSearchServiceTestConfig());
+	private final LocalServiceTestHelper fts = new LocalServiceTestHelper(
+			new LocalSearchServiceTestConfig());
 	private PostRepository postRepository = new PostRepository();
 
 	@Before
@@ -36,10 +40,8 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 	@Test
 	public void criarNovoPost() {
 		Post novoPost = null;
-		for (int i = 0; i < 4; i++) {
-			novoPost = new Post("titulo de teste"+i+1, "conteudo de teste"+i+1, "usuario");
+			novoPost = new Post("titulo de teste", "conteudo de teste", "usuario");
 			postRepository.criar(novoPost);
-		}
 
 		Post postRecuperado = null;
 		try {
@@ -49,8 +51,10 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		}
 
 		Assert.assertEquals(novoPost.getTitulo(), postRecuperado.getTitulo());
-		Assert.assertEquals(novoPost.getConteudo(), postRecuperado.getConteudo());
+		Assert.assertEquals(novoPost.getConteudo(), postRecuperado
+				.getConteudo());
 	}
+
 
 	@Test
 	public void buscaTodosOsPosts() {
@@ -58,7 +62,39 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	public void buscaUmPostDaLista() {
+	public void testeBuscarPosts() throws NumberFormatException,
+			EntityNotFoundException {
+
+//		int maxResults = 20;
+//		int page = 0;
+//		int offSet = page * maxResults;
+//		int qtdOriginalDePosts = 45;
+//		String q = "Content";
+//
+//		ArrayList<Integer> listaDeNumeroDosPostsQueEuQueroBuscar = new ArrayList<Integer>();
+//		listaDeNumeroDosPostsQueEuQueroBuscar.add(34);
+//		listaDeNumeroDosPostsQueEuQueroBuscar.add(23);
+//
+//		List<Entity> listaPostsOriginais = dadoUmaListaDePostsQueEuSalvei(qtdOriginalDePosts);
+//		List<Entity> listaPostsConsultados = quandoEuBuscoOsPostsSalvos(
+//				maxResults, q, offSet);
+//		List<Entity> listaPostsEsperados = quandoEuBuscoOsPostsPelaListaOriginal(
+//				listaPostsOriginais, maxResults, page,
+//				listaDeNumeroDosPostsQueEuQueroBuscar);
+//
+//		entaoEuListeiOsPostsCorretos(listaPostsEsperados, listaPostsConsultados);
 	}
 
+	private ArrayList<Post> geraPosts(int numeroDePosts) {
+
+		ArrayList<Post> listaDePostsCriados = new ArrayList<Post>();
+		Post novoPost = null;
+
+		for (int i = 0; i < numeroDePosts; i++) {
+			new Post("titulo de teste" + i + 1, "conteudo de teste" + i + 1,
+			"usuario");
+			listaDePostsCriados.add(postRepository.criar(novoPost));
+		}
+		return listaDePostsCriados;
+	}
 }
