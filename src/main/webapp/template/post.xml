@@ -13,7 +13,7 @@
 
 			<li class="clearfix ${post.id}">
 				<div class="list_stories_headline_data">
-					${converteData(post.postObjectJson.data)}
+					${converteData(post.postObjectJson.dataDeCriacao)}
 				</div>
 				<img src="" alt="photo" class="list_stories_avatar" />
 				<div class="list_stories_headline clearfix">
