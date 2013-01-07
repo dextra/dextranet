@@ -2,7 +2,6 @@ package br.com.dextra.dextranet.post;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 
 import br.com.dextra.repository.document.DocumentRepository;
 import br.com.dextra.repository.post.BaseRepository;
