@@ -1,6 +1,6 @@
 package br.com.dextra.dextranet.post;
 
-import br.com.dextra.dextranet.entidade.Entidade;
+import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.repository.document.DocumentRepository;
 import br.com.dextra.utils.Converters;
 import br.com.dextra.utils.Data;

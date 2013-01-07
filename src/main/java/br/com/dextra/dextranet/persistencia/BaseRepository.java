@@ -1,4 +1,4 @@
-package br.com.dextra.repository.post;
+package br.com.dextra.dextranet.persistencia;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;

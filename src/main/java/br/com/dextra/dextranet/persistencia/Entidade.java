@@ -1,4 +1,4 @@
-package br.com.dextra.dextranet.entidade;
+package br.com.dextra.dextranet.persistencia;
 
 import java.util.UUID;
 

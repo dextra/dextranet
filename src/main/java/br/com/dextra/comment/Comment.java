@@ -2,7 +2,7 @@ package br.com.dextra.comment;
 
 import java.util.Date;
 
-import br.com.dextra.dextranet.entidade.Entidade;
+import br.com.dextra.dextranet.persistencia.Entidade;
 
 import com.google.appengine.api.datastore.Entity;
 
