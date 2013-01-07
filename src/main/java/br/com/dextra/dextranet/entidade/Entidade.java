@@ -17,6 +17,9 @@ public class Entidade {
 	protected int comentarios;
 	protected int likes;
 
+	public Entidade() {
+	}
+
 	public Entidade(String usuario, String conteudo) {
 		this.id = UUID.randomUUID().toString();
 		this.conteudo = conteudo;
@@ -24,10 +27,6 @@ public class Entidade {
 		this.dataDeCriacao = new Data().pegaData();
 		this.comentarios = 0;
 		this.likes = 0;
-	}
-
-	public Entidade() {
-
 	}
 
 	public String getId() {

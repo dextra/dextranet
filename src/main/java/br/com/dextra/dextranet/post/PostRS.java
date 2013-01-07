@@ -21,17 +21,19 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 @Path("/post")
 public class PostRS {
 
-	static final String SMAXRESULTS = "40";
-	final int MAXRESULTS = Integer.parseInt(SMAXRESULTS);
+	private static final String SMAXRESULTS = "40";
+
+	private final int MAXRESULTS = Integer.parseInt(SMAXRESULTS);
+
+	PostRepository postRepository = new PostRepository();
 
 	@Path("/")
 	@POST
 	@Produces("application/json;charset=UTF-8")
 	public Response novoPost(@FormParam("title") String titulo,@FormParam("content") String conteudo, @FormParam("author") String autor) {
-		PostRepository novoPost = new PostRepository();
-		novoPost.criar(titulo, conteudo, autor);
+		Post post = new Post(titulo, conteudo, autor);
+		postRepository.criar(post);
 
-		//FIXME so retornar 200 se for ok
 		return Response.ok().build();
 	}
 
