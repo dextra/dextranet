@@ -44,10 +44,15 @@ public class PaginacaoTest extends TesteFuncionalBase{
 	private void quandoEuCrioPosts(int quantidadeDePosts){
 
 		for(int i = 1; i <= quantidadeDePosts ; i++){
+			try {
 			String titulo = "Titulo de Teste Numero: " + i;
 			String conteudo = "Texto do teste numero: " + i;
 			novoPost(titulo, conteudo);
 			alimentarBaseDosTestes(conteudo);
+			Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -100,9 +105,6 @@ public class PaginacaoTest extends TesteFuncionalBase{
 				}
 			}
 		}
-
-		System.out.println("Pilha de Posts Encontrados na Pagina:");
-		exibeOsPosts(this.listaDosPostsEncontradosNaPagina);
 	}
 
 	private void paraVerificarSeAlgumPostNaoFoiEncontrado(){
@@ -115,9 +117,6 @@ public class PaginacaoTest extends TesteFuncionalBase{
 	    	  }
 	      }
 
-		System.out.println("Pilha de Posts Nao Encontrados Pagina:");
-		exibeOsPosts(retorno);
-
 		Assert.assertEquals(0,retorno.size());
 	}
 
@@ -126,21 +125,6 @@ public class PaginacaoTest extends TesteFuncionalBase{
 		Collections.sort(listaDosPostsInseridosPeloTest);
 		Collections.sort(listaDosPostsEncontradosNaPagina);
 
-		System.out.println("Posts Inseridos: ");
-		exibeOsPosts(listaDosPostsInseridosPeloTest);
-
-		System.out.println("Posts Encontrados: ");
-		exibeOsPosts(listaDosPostsEncontradosNaPagina);
-
 		Assert.assertEquals(listaDosPostsInseridosPeloTest,listaDosPostsEncontradosNaPagina);
-	}
-
-	private void exibeOsPosts(ArrayList<String> listaDePosts) {
-		Iterator<String> iterator = listaDePosts.iterator();
-
-		while(iterator.hasNext()){
-			String post = iterator.next();
-			System.out.println(post);
-		}
 	}
 }
