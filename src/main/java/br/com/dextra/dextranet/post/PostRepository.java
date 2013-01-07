@@ -2,6 +2,7 @@ package br.com.dextra.dextranet.post;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 
 import br.com.dextra.persistencia.PostFields;
 import br.com.dextra.repository.document.DocumentRepository;
@@ -31,7 +32,9 @@ public class PostRepository extends BaseRepository {
 	private DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 	private DocumentRepository postDoDocumentReository = new DocumentRepository();
 
-	public Iterable<Entity> buscarTodosOsPosts(int maxResults, int offSet) {
+
+
+	public Iterable<Entity> buscarTodosOsPosts (int maxResults, int offSet) {
 
 		Query query = new Query(IndexKeys.POST.getKey());
 

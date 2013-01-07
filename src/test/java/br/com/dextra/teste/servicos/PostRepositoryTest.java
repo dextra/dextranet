@@ -11,8 +11,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.dextra.dextranet.post.PostRS;
 import br.com.dextra.persistencia.PostFields;
-import br.com.dextra.post.PostRS;
 import br.com.dextra.repository.post.PostRepository;
 import br.com.dextra.teste.TesteIntegracaoBase;
 import br.com.dextra.utils.IndexKeys;

@@ -1,5 +1,7 @@
 package br.com.dextra.dextranet.post;
 
+import java.util.List;
+
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
@@ -43,8 +45,10 @@ public class PostRS {
 			@DefaultValue("0") @QueryParam(value = "page") String page) throws NumberFormatException, EntityNotFoundException {
 
 		Iterable<Entity> listaPosts;
+
 		int resultsMax = Integer.parseInt(maxResults);
 		int offSet = Integer.parseInt(page)*resultsMax;
+
 		PostRepository novoPost = new PostRepository();
 
 		if (q.equals("")) {
@@ -61,7 +65,7 @@ public class PostRS {
 	@Produces("application/json;charset=UTF-8")
 	public Response removePost(@PathParam(value = "id") String id) {
 		new PostRepository().remove(id);
-		
+
 		return Response.ok().build();
 	}
 }

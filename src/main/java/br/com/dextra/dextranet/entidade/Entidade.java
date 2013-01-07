@@ -1,5 +1,6 @@
 package br.com.dextra.dextranet.entidade;
 
+import java.util.Date;
 import java.util.UUID;
 
 import br.com.dextra.utils.JsonUtil;
@@ -10,6 +11,12 @@ import com.google.appengine.api.datastore.KeyFactory;
 public class Entidade {
 
 	protected String id;
+
+	protected String usuario;
+
+	protected String conteudo;
+
+	protected Date dataDeCriacao;
 
 	public String getId() {
 		return id;
