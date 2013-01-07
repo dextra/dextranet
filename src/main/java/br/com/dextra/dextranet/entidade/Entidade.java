@@ -1,8 +1,8 @@
 package br.com.dextra.dextranet.entidade;
 
-import java.util.Date;
 import java.util.UUID;
 
+import br.com.dextra.utils.Data;
 import br.com.dextra.utils.JsonUtil;
 
 import com.google.appengine.api.datastore.Key;
@@ -16,15 +16,17 @@ public class Entidade {
 
 	protected String conteudo;
 
-	protected Date dataDeCriacao;
+	protected String dataDeCriacao;
+
+	public Entidade(String usuario, String conteudo) {
+		this.id = UUID.randomUUID().toString();
+		this.conteudo = conteudo;
+		this.usuario = usuario;
+		this.dataDeCriacao = new Data().pegaData();
+	}
 
 	public String getId() {
 		return id;
-	}
-
-	public Entidade geraId() {
-		this.id = UUID.randomUUID().toString();
-		return this;
 	}
 
 	public String toJson() {
