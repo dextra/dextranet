@@ -3,6 +3,8 @@ package br.com.dextra.dextranet.post;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import br.com.dextra.persistencia.CommentFields;
+import br.com.dextra.persistencia.PostFields;
 import br.com.dextra.repository.document.DocumentRepository;
 import br.com.dextra.repository.post.BaseRepository;
 import br.com.dextra.utils.Converters;
@@ -28,7 +30,6 @@ import com.google.appengine.api.search.SortOptions;
 public class PostRepository extends BaseRepository {
 
 	private DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-	private DocumentRepository postDoDocumentReository = new DocumentRepository();
 
 
 
@@ -137,46 +138,53 @@ public class PostRepository extends BaseRepository {
 		return query;
 	}
 
-	public Entity criaNovoPost(String titulo, String conteudo, String usuario) {
+	public Entity criar(String titulo, String conteudo, String usuario) {
+		Entity entidade = criarEntidade(titulo, conteudo,usuario);
+		persist(entidade);
+		persistirDocumento(entidade);
 
+<<<<<<< HEAD
+		return entidade;
+	}
+
+	private Entity criarEntidade(String titulo, String conteudo,String usuario) {
+		String id = Utils.geraID();
+		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
+		String data = Utils.pegaData();
+		Entity entidade = new Entity(key);
+
+		entidade.setProperty(PostFields.ID.getField(), id);
+		entidade.setProperty(PostFields.TITULO.getField(), titulo);
+		entidade.setProperty(PostFields.CONTEUDO.getField(), new Text(conteudo));
+		entidade.setProperty(PostFields.USUARIO.getField(), usuario);
+		entidade.setProperty(PostFields.COMENTARIO.getField(), 0);
+		entidade.setProperty(PostFields.LIKES.getField(), 0);
+		entidade.setProperty(PostFields.DATA.getField(), data);
+		entidade.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), data);
+
+		return entidade;
+=======
 		String id = Data.geraID();
 		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 		String data = new Data().pegaData();
 
 		return this.criaNovoPost(titulo, conteudo, usuario, id, key,
 				data);
+>>>>>>> f4d63a3108b3b969c133a0e1b67616a4a430d18a
 	}
 
-	public Entity criaNovoPost(String titulo, String conteudo,
-			String usuario, String id, Key key, String data) {
+	private void persistirDocumento(Entity entidade) {
+		DocumentRepository respositoryDocument = new DocumentRepository();
 
-		Entity valueEntity = criaEntityPost(titulo, conteudo, usuario, id, key,
-				data);
-		persist(valueEntity);
+		String titulo = (String) entidade.getProperty(PostFields.TITULO.getField());
+		Text conteudo = (Text) entidade.getProperty(PostFields.CONTEUDO.getField());
+		String usuario = (String) entidade.getProperty(PostFields.USUARIO.getField());
+		String id = (String) entidade.getProperty(PostFields.ID.getField());
+		String data = (String) entidade.getProperty(PostFields.DATA.getField());
 
-		postDoDocumentReository.criarDocumentPost(titulo, conteudo, usuario, id,
-				data);
-
-		return valueEntity;
+		respositoryDocument.criarDocumentPost(titulo, conteudo, usuario, id, data);
 	}
 
-	private Entity criaEntityPost(String titulo, String conteudo,
-			String usuario, String id, Key key, String data) {
-		Entity valueEntity = new Entity(key);
-		valueEntity.setProperty(PostFields.ID.getField(), id);
-		valueEntity.setProperty(PostFields.TITULO.getField(), titulo);
-
-		valueEntity.setProperty(PostFields.CONTEUDO.getField(), new Text(
-				conteudo));
-		valueEntity.setProperty(PostFields.USUARIO.getField(), usuario);
-		valueEntity.setProperty(PostFields.COMENTARIO.getField(), 0);
-		valueEntity.setProperty(PostFields.LIKES.getField(), 0);
-		valueEntity.setProperty(PostFields.DATA.getField(), data);
-		valueEntity
-				.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), data);
-
-		return valueEntity;
-	}
 
 	public void alteraDatadaEntity(String id, String data) throws EntityNotFoundException {
 
@@ -199,16 +207,19 @@ public class PostRepository extends BaseRepository {
 		persist(valueEntity);
 	}
 
-	public void umPostFoiComentado(String id) throws EntityNotFoundException
-	{
-		String data = new Data().pegaData();;
+<<<<<<< HEAD
+	public void umPostFoiComentado(String id) throws EntityNotFoundException{
+		DocumentRepository postDoDocumentReository = new DocumentRepository();
+
+		String data=Utils.pegaData();
 		postDoDocumentReository.alteraDatadoDocumento(id,data);
 		this.alteraDatadaEntity(id, data);
 
 		incrementaNumeroDeComentariosDaEntityDoPost(id);
-
 	}
 
+=======
+>>>>>>> f4d63a3108b3b969c133a0e1b67616a4a430d18a
 	public void remove(String id) {
 		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 

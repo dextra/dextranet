@@ -18,11 +18,11 @@ import com.google.appengine.api.search.Field;
 
 public class DocumentRepository extends BaseRepository {
 
-	public Document criarDocumentPost(String titulo, String conteudo,String usuario, String id, String data) {
+	public Document criarDocumentPost(String titulo, Text conteudo,String usuario, String id, String data) {
 
 		Document document = Document.newBuilder().setId(id)
 				.addField(Field.newBuilder().setName(PostFields.TITULO.getField()).setText(titulo))
-				.addField(Field.newBuilder().setName(PostFields.CONTEUDO.getField()).setHTML(conteudo))
+				.addField(Field.newBuilder().setName(PostFields.CONTEUDO.getField()).setHTML(conteudo.getValue()))
 				.addField(Field.newBuilder().setName(PostFields.USUARIO.getField()).setText(usuario))
 				.addField(Field.newBuilder().setName(PostFields.DATA.getField()).setText(data.toString()))
 				.addField(Field.newBuilder().setName(PostFields.DATA_DE_ATUALIZACAO.getField()).setText(data.toString()))

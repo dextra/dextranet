@@ -27,11 +27,10 @@ public class PostRS {
 	@Path("/")
 	@POST
 	@Produces("application/json;charset=UTF-8")
-	public Response novoPost(@FormParam("title") String titulo,
-			@FormParam("content") String conteudo, @FormParam("author") String autor) {
-
+	public Response novoPost(@FormParam("title") String titulo,@FormParam("content") String conteudo, @FormParam("author") String autor) {
 		PostRepository novoPost = new PostRepository();
-		novoPost.criaNovoPost(titulo, conteudo, autor);
+		novoPost.criar(titulo, conteudo, autor);
+
 		//FIXME so retornar 200 se for ok
 		return Response.ok().build();
 	}
