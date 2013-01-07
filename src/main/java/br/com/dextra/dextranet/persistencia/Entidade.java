@@ -7,8 +7,9 @@ import br.com.dextra.utils.JsonUtil;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.search.Document;
 
-public class Entidade {
+public abstract class Entidade {
 
 	protected String id;
 	protected String usuario;
@@ -40,5 +41,7 @@ public class Entidade {
 	public Key getKey() {
 		return KeyFactory.createKey(this.getClass().getName(), this.getId());
 	}
+
+	public abstract Document toDocument();
 
 }

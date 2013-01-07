@@ -5,6 +5,7 @@ import java.util.Date;
 import br.com.dextra.dextranet.persistencia.Entidade;
 
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.search.Document;
 
 public class Comment extends Entidade{
 
@@ -36,4 +37,7 @@ public class Comment extends Entidade{
 		return this.conteudo;
 	}
 
+	public Document toDocument(){
+		return null;
+	}
 }

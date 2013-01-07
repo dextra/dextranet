@@ -2,6 +2,7 @@ package br.com.dextra.repository.document;
 
 import br.com.dextra.comment.CommentFields;
 import br.com.dextra.dextranet.persistencia.BaseRepository;
+import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.post.PostFields;
 import br.com.dextra.utils.IndexFacade;
 import br.com.dextra.utils.IndexKeys;
@@ -18,21 +19,12 @@ import com.google.appengine.api.search.Field;
 
 public class DocumentRepository extends BaseRepository {
 
-	public Document criarDocumentPost(String titulo, Text conteudo,String usuario, String id, String data) {
 
-		Document document = Document.newBuilder().setId(id)
-				.addField(Field.newBuilder().setName(PostFields.TITULO.getField()).setText(titulo))
-				.addField(Field.newBuilder().setName(PostFields.CONTEUDO.getField()).setHTML(conteudo.getValue()))
-				.addField(Field.newBuilder().setName(PostFields.USUARIO.getField()).setText(usuario))
-				.addField(Field.newBuilder().setName(PostFields.DATA.getField()).setText(data.toString()))
-				.addField(Field.newBuilder().setName(PostFields.DATA_DE_ATUALIZACAO.getField()).setText(data.toString()))
-				.addField(Field.newBuilder().setName(PostFields.ID.getField()).setText(id))
-				.build();
-		// FIXME aqui ao invés do indice post, deve ser o indice de document
-		// porque vai ter que listar nao somente posts
-		IndexFacade.getIndex(IndexKeys.POST.getKey()).add(document);
-		return document;
+	@SuppressWarnings("unchecked")
+	public void indexar(Entidade entidade,Class clazz){
+		IndexFacade.getIndex(clazz.getName()).add(entidade.toDocument());
 	}
+
 
 	public void alteraDatadoDocumento(String id, String data) throws EntityNotFoundException {
 

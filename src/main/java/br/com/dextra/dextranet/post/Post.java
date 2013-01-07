@@ -8,6 +8,8 @@ import br.com.dextra.utils.Data;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Text;
+import com.google.appengine.api.search.Document;
+import com.google.appengine.api.search.Field;
 
 public class Post extends Entidade {
 
@@ -90,17 +92,28 @@ public class Post extends Entidade {
 
 		entidade.setProperty(PostFields.ID.getField(), id);
 		entidade.setProperty(PostFields.TITULO.getField(), titulo);
-		entidade
-				.setProperty(PostFields.CONTEUDO.getField(), new Text(conteudo));
+		entidade.setProperty(PostFields.CONTEUDO.getField(), new Text(conteudo));
 		entidade.setProperty(PostFields.USUARIO.getField(), usuario);
-		entidade
-				.setProperty(PostFields.COMENTARIO.getField(), this.comentarios);
+		entidade.setProperty(PostFields.COMENTARIO.getField(), this.comentarios);
 		entidade.setProperty(PostFields.LIKES.getField(), this.likes);
 		entidade.setProperty(PostFields.DATA.getField(), this.dataDeCriacao);
-		entidade.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(),
-				this.dataDeAtualizacao);
+		entidade.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(),this.dataDeAtualizacao);
 
 		return entidade;
+	}
+
+	public Document toDocument(){
+
+		Document document = Document.newBuilder().setId(id)
+			.addField(Field.newBuilder().setName(PostFields.TITULO.getField()).setText(titulo))
+			.addField(Field.newBuilder().setName(PostFields.CONTEUDO.getField()).setHTML(conteudo))
+			.addField(Field.newBuilder().setName(PostFields.USUARIO.getField()).setText(usuario))
+			.addField(Field.newBuilder().setName(PostFields.DATA.getField()).setText(dataDeCriacao))
+			.addField(Field.newBuilder().setName(PostFields.DATA_DE_ATUALIZACAO.getField()).setText(dataDeAtualizacao))
+			.addField(Field.newBuilder().setName(PostFields.ID.getField()).setText(id))
+			.build();
+
+		return document;
 	}
 
 }

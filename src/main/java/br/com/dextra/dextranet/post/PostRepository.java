@@ -18,7 +18,6 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Text;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.SortExpression;
@@ -31,7 +30,8 @@ public class PostRepository extends BaseRepository {
 
 	public Post criar(Post post) {
 		this.persist(post.toEntity());
-		// TODO: indexacao
+		DocumentRepository respositoryDocument = new DocumentRepository();
+		respositoryDocument.indexar(post, Post.class);
 
 		return post;
 	}
@@ -140,22 +140,16 @@ public class PostRepository extends BaseRepository {
 		return query;
 	}
 
-	private void persistirDocumento(Entity entidade) {
+/*	private void persistirDocumento(Entity entidade) {
 		DocumentRepository respositoryDocument = new DocumentRepository();
 
-		String titulo = (String) entidade.getProperty(PostFields.TITULO
-				.getField());
-		Text conteudo = (Text) entidade.getProperty(PostFields.CONTEUDO
-				.getField());
-		String usuario = (String) entidade.getProperty(PostFields.USUARIO
-				.getField());
+		String titulo = (String) entidade.getProperty(PostFields.TITULO.getField());
+		Text conteudo = (Text) entidade.getProperty(PostFields.CONTEUDO.getField());
+		String usuario = (String) entidade.getProperty(PostFields.USUARIO.getField());
 		String id = (String) entidade.getProperty(PostFields.ID.getField());
 		String data = (String) entidade.getProperty(PostFields.DATA.getField());
-
-		respositoryDocument.criarDocumentPost(titulo, conteudo, usuario, id,
-				data);
 	}
-
+*/
 	public void alteraDatadaEntity(String id, String data)
 			throws EntityNotFoundException {
 
