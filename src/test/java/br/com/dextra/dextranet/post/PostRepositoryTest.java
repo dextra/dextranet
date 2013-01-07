@@ -40,8 +40,8 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 	@Test
 	public void criarNovoPost() {
 		Post novoPost = null;
-			novoPost = new Post("titulo de teste", "conteudo de teste", "usuario");
-			postRepository.criar(novoPost);
+		novoPost = new Post("titulo de teste", "conteudo de teste", "usuario");
+		postRepository.criar(novoPost);
 
 		Post postRecuperado = null;
 		try {
@@ -55,7 +55,6 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 				.getConteudo());
 	}
 
-
 	@Test
 	public void buscaTodosOsPosts() {
 
@@ -65,24 +64,33 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 	public void testeBuscarPosts() throws NumberFormatException,
 			EntityNotFoundException {
 
-//		int maxResults = 20;
-//		int page = 0;
-//		int offSet = page * maxResults;
-//		int qtdOriginalDePosts = 45;
-//		String q = "Content";
-//
-//		ArrayList<Integer> listaDeNumeroDosPostsQueEuQueroBuscar = new ArrayList<Integer>();
-//		listaDeNumeroDosPostsQueEuQueroBuscar.add(34);
-//		listaDeNumeroDosPostsQueEuQueroBuscar.add(23);
-//
-//		List<Entity> listaPostsOriginais = dadoUmaListaDePostsQueEuSalvei(qtdOriginalDePosts);
-//		List<Entity> listaPostsConsultados = quandoEuBuscoOsPostsSalvos(
-//				maxResults, q, offSet);
-//		List<Entity> listaPostsEsperados = quandoEuBuscoOsPostsPelaListaOriginal(
-//				listaPostsOriginais, maxResults, page,
-//				listaDeNumeroDosPostsQueEuQueroBuscar);
-//
-//		entaoEuListeiOsPostsCorretos(listaPostsEsperados, listaPostsConsultados);
+		int maxResults = 20;
+		int page = 0;
+		int offSet = page * maxResults;
+		int qtdOriginalDePosts = 4;
+
+		ArrayList<Post> postsCriados = geraPosts(qtdOriginalDePosts);
+		ArrayList<Post> listaPostQueEuQuero = new ArrayList<Post>();
+
+		String idDoPostQueEuQuero = pegaOIdDoPostQueEuQuero(2, postsCriados);
+
+		Post postQueEuQuero = postRepository.obtemPorId(idDoPostQueEuQuero);
+		listaPostQueEuQuero.add(postQueEuQuero);
+
+		ArrayList<Post> listaPostRecuperado = null;
+
+		listaPostRecuperado = postRepository.buscarPosts(maxResults, postQueEuQuero.getTitulo(), offSet);
+
+		Assert.assertEquals(1, listaPostRecuperado.size());
+		Assert.assertEquals(listaPostQueEuQuero.get(0).getTitulo(),
+				listaPostRecuperado.get(0).getTitulo());
+		Assert.assertEquals(listaPostQueEuQuero.get(0).getConteudo(),
+				listaPostRecuperado.get(0).getConteudo());
+	}
+
+	private String pegaOIdDoPostQueEuQuero(int i, ArrayList<Post> postsCriados) {
+
+		return postsCriados.get(i).getId();
 	}
 
 	private ArrayList<Post> geraPosts(int numeroDePosts) {
@@ -91,8 +99,8 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		Post novoPost = null;
 
 		for (int i = 0; i < numeroDePosts; i++) {
-			new Post("titulo de teste" + i + 1, "conteudo de teste" + i + 1,
-			"usuario");
+			novoPost=new Post("titulo de teste" + i + 1, "conteudo de teste" + i + 1,
+					"usuario");
 			listaDePostsCriados.add(postRepository.criar(novoPost));
 		}
 		return listaDePostsCriados;

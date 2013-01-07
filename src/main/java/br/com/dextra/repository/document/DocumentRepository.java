@@ -1,11 +1,12 @@
 package br.com.dextra.repository.document;
 
+import br.com.dextra.comment.Comment;
 import br.com.dextra.comment.CommentFields;
 import br.com.dextra.dextranet.persistencia.BaseRepository;
 import br.com.dextra.dextranet.persistencia.Entidade;
+import br.com.dextra.dextranet.post.Post;
 import br.com.dextra.dextranet.post.PostFields;
 import br.com.dextra.utils.IndexFacade;
-import br.com.dextra.utils.IndexKeys;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -29,7 +30,7 @@ public class DocumentRepository extends BaseRepository {
 	public void alteraDatadoDocumento(String id, String data) throws EntityNotFoundException {
 
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
+		Key key = KeyFactory.createKey(Post.class.getName(), id);
 		Entity e = datastore.get(key);
 
 		Document document = Document.newBuilder().setId(id)
@@ -42,7 +43,7 @@ public class DocumentRepository extends BaseRepository {
 				.build();
 
 
-		IndexFacade.getIndex(IndexKeys.POST.getKey()).add(document);
+		IndexFacade.getIndex(Post.class.getName()).add(document);
 	}
 
 	public Document crieUmDocumentoDoComentario(Text text, String id, String idReferencia){
@@ -53,7 +54,7 @@ public class DocumentRepository extends BaseRepository {
 				.addField(Field.newBuilder().setName(CommentFields.ID.getField()).setText(id))
 				.build();
 
-		IndexFacade.getIndex(IndexKeys.COMMENT.getKey()).add(document);
+		IndexFacade.getIndex(Comment.class.getName()).add(document);
 		return document;
 	}
 

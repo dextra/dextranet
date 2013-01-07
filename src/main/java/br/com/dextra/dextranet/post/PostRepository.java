@@ -7,7 +7,6 @@ import br.com.dextra.dextranet.persistencia.BaseRepository;
 import br.com.dextra.repository.document.DocumentRepository;
 import br.com.dextra.utils.Converters;
 import br.com.dextra.utils.IndexFacade;
-import br.com.dextra.utils.IndexKeys;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -42,7 +41,7 @@ public class PostRepository extends BaseRepository {
 
 	public ArrayList<Post> buscarTodosOsPosts(int maxResults, int offSet) {
 
-		Query query = new Query(IndexKeys.POST.getKey());
+		Query query = new Query(Post.class.getName());
 
 		query.addSort(PostFields.DATA_DE_ATUALIZACAO.getField(),
 				SortDirection.DESCENDING);
@@ -82,7 +81,7 @@ public class PostRepository extends BaseRepository {
 		ArrayList<Post> listaResults = new ArrayList<Post>();
 
 		for (String id : listaDeIds) {
-			Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
+			Key key = KeyFactory.createKey(Post.class.getName(), id);
 			Entity e = datastore.get(key);
 			listaResults.add(new Post(e));
 		}
@@ -95,7 +94,7 @@ public class PostRepository extends BaseRepository {
 		com.google.appengine.api.search.Query query = preparaQuery(q);
 
 		ArrayList<String> listaDeIds = Converters.toListaDeIds(IndexFacade
-				.getIndex(IndexKeys.POST.getKey()).search(query));
+				.getIndex(Post.class.getName()).search(query));
 
 		// FIXME: Set limit dentro da query nao funciona
 		return ListaDeIdsParaMostrarComOffsetForcado(maxResults, offset,
@@ -153,7 +152,7 @@ public class PostRepository extends BaseRepository {
 	public void alteraDatadaEntity(String id, String data)
 			throws EntityNotFoundException {
 
-		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
+		Key key = KeyFactory.createKey(Post.class.getName(), id);
 		Entity valueEntity = datastore.get(key);
 		valueEntity
 				.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), data);
@@ -164,7 +163,7 @@ public class PostRepository extends BaseRepository {
 	public void incrementaNumeroDeComentariosDaEntityDoPost(String id)
 			throws EntityNotFoundException {
 
-		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
+		Key key = KeyFactory.createKey(Post.class.getName(), id);
 		Entity valueEntity = datastore.get(key);
 		int comments = Integer.parseInt(valueEntity.getProperty(
 				PostFields.COMENTARIO.getField()).toString());
@@ -173,13 +172,13 @@ public class PostRepository extends BaseRepository {
 	}
 
 	public void remove(String id) {
-		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
+		Key key = KeyFactory.createKey(Post.class.getName(), id);
 
 		try {
 			datastore.delete(key);
 		} finally {
 			DocumentRepository indexacao = new DocumentRepository();
-			indexacao.removeIndex(IndexKeys.POST.getKey(), id);
+			indexacao.removeIndex(Post.class.getName(), id);
 		}
 	}
 

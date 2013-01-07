@@ -1,9 +1,9 @@
 package br.com.dextra.repository.comment;
 
+import br.com.dextra.comment.Comment;
 import br.com.dextra.comment.CommentFields;
 import br.com.dextra.dextranet.persistencia.BaseRepository;
 import br.com.dextra.repository.document.DocumentRepository;
-import br.com.dextra.utils.IndexKeys;
 import br.com.dextra.utils.Data;
 
 import com.google.appengine.api.datastore.DatastoreService;
@@ -25,7 +25,7 @@ public class CommentRepository extends BaseRepository  {
 
 	private Entity criarUmaEntidade(String text, String autor){
 		String id = Data.geraID();
-		Key key = KeyFactory.createKey(IndexKeys.COMMENT.getKey(), id);
+		Key key = KeyFactory.createKey(Comment.class.getName(), id);
 
 		Entity entidade = new Entity(key);
 		entidade.setProperty(CommentFields.ID.getField(),id);
@@ -47,7 +47,7 @@ public class CommentRepository extends BaseRepository  {
 	public Iterable<Entity> buscar(){
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-		Query query = new Query(IndexKeys.COMMENT.getKey());
+		Query query = new Query(Comment.class.getName());
 		PreparedQuery prepared = datastore.prepare(query);
 
 		return prepared.asIterable();
