@@ -23,7 +23,6 @@ public class Converters {
 }
 
 	public static ArrayList<String> toListaDeIds(Results<ScoredDocument> results) {
-		System.out.println(results+"/n numero de Resultados "+results.getResults().toString());
 		ArrayList<String> idList=new ArrayList<String>();
 		for (ScoredDocument scoredDocument : results) {
 				idList.add(scoredDocument.getField("id").iterator().next().getText());
@@ -37,7 +36,6 @@ public class Converters {
 		for (Post post : listaPosts) {
 			stringList.add(post.toJson());
 		}
-		System.out.println("CONVERTER LISTA ENTITY"+stringList);
 
 		return stringList;
 	}
