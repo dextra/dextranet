@@ -44,7 +44,7 @@ public class PostRS {
 			@DefaultValue("") @QueryParam(value = "q") String q,
 			@DefaultValue("0") @QueryParam(value = "page") String page) throws NumberFormatException, EntityNotFoundException {
 
-		Iterable<Entity> listaPosts;
+		Iterable<Post> listaPosts;
 
 		int resultsMax = Integer.parseInt(maxResults);
 		int offSet = Integer.parseInt(page)*resultsMax;

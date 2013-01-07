@@ -1,4 +1,4 @@
-package br.com.dextra.persistencia;
+package br.com.dextra.comment;
 
 public enum CommentFields {
 

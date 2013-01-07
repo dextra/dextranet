@@ -1,7 +1,6 @@
 package br.com.dextra.dextranet.post;
 
 import br.com.dextra.dextranet.entidade.Entidade;
-import br.com.dextra.persistencia.PostFields;
 import com.google.appengine.api.datastore.Entity;
 
 
