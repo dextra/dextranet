@@ -221,7 +221,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	public void testeDeAtualizarPostQuandoComentado()
+	public void testeDeAtualizarPostQuandoComentadoNaEntity()
 			throws NumberFormatException, EntityNotFoundException,
 			InterruptedException {
 
@@ -229,7 +229,6 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		int page = 0;
 		int offSet = page * maxResults;
 		int qtdOriginalDePosts = 5;
-		String q = "Content";
 		int postQueEuQuero = 3;
 
 		ArrayList<Integer> listaDeNumeroDosPostsQueEuQueroBuscar = new ArrayList<Integer>();
@@ -242,7 +241,8 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		postDoRepository
 				.umPostFoiComentado(entity.getProperty("id").toString());
 
-		List<Entity> listaPostsConsultados = quandoEuListoOsPostsSalvos(maxResults, offSet);
+		List<Entity> listaPostsConsultados = quandoEuListoOsPostsSalvos(
+				maxResults, offSet);
 
 		System.out.println(listaPostsConsultados);
 
@@ -250,8 +250,45 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 				listaPostsOriginais, maxResults, page,
 				listaDeNumeroDosPostsQueEuQueroBuscar);
 
-		System.out.println("lista de posts esperados\n" + listaPostsEsperados);
-		System.out.println("Lista de posts buscado\n" + listaPostsConsultados);
+		entaoComparoSeOCampoQueEuQueroEhDiferente(listaPostsEsperados,
+				listaPostsConsultados, PostFields.DATA_DE_ATUALIZACAO
+						.getField());
+
+		entaoEuComparoSeONumeroDeComentariosFoiIncrementado(
+				listaPostsEsperados, listaPostsConsultados);
+
+	}
+
+	@Test
+	public void testeDeAtualizarPostQuandoComentadoNoDocumment()
+			throws NumberFormatException, EntityNotFoundException,
+			InterruptedException {
+
+		int maxResults = 1;
+		int page = 0;
+		int offSet = page * maxResults;
+		int qtdOriginalDePosts = 5;
+		String q = "Content ";
+		int postQueEuQuero = 3;
+
+		ArrayList<Integer> listaDeNumeroDosPostsQueEuQueroBuscar = new ArrayList<Integer>();
+		listaDeNumeroDosPostsQueEuQueroBuscar.add(postQueEuQuero);
+
+		List<Entity> listaPostsOriginais = dadoUmaOutraListaDePostsQueEuSalvei(qtdOriginalDePosts);
+
+		Entity entity = listaPostsOriginais.get(postQueEuQuero);
+
+		postDoRepository
+				.umPostFoiComentado(entity.getProperty("id").toString());
+
+		List<Entity> listaPostsConsultados = quandoEuBuscoOsPostsSalvos(maxResults, q, offSet);
+
+		System.out.println(listaPostsConsultados);
+
+		List<Entity> listaPostsEsperados = quandoEuBuscoOsPostsPelaListaOriginal(
+				listaPostsOriginais, maxResults, page,
+				listaDeNumeroDosPostsQueEuQueroBuscar);
+
 		entaoComparoSeOCampoQueEuQueroEhDiferente(listaPostsEsperados,
 				listaPostsConsultados, PostFields.DATA_DE_ATUALIZACAO
 						.getField());
@@ -418,7 +455,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 			throws InterruptedException {
 		List<Entity> listaPostsOriginais = new ArrayList<Entity>();
 		for (int i = 0; i < cont; i++) {
-			String conteudo = "Content" + i;
+			String conteudo = "Content " + i;
 			String titulo = "Post" + i;
 			String usuario = "User" + i;
 			String data = Utils.pegaData();
