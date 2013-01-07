@@ -33,8 +33,6 @@ public class GAETestHelper {
 	private LocalDatastoreServiceTestConfig ds;
 	private LocalSearchServiceTestConfig fts;
 
-	private LocalSearchService lss;
-
 	private int port = 8380;
 
 	public void setPort(int port) {
@@ -61,7 +59,7 @@ public class GAETestHelper {
 	}
 
 	public void prepareSearchServiceTestHelper() throws Exception {
-		lss = new LocalSearchService();
+		new LocalSearchService();
 	}
 
 	public LocalServiceTestHelper getHelper() {

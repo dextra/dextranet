@@ -8,9 +8,9 @@ import br.com.dextra.persistencia.PostFields;
 import br.com.dextra.repository.document.DocumentRepository;
 import br.com.dextra.repository.post.BaseRepository;
 import br.com.dextra.utils.Converters;
+import br.com.dextra.utils.Data;
 import br.com.dextra.utils.IndexFacade;
 import br.com.dextra.utils.IndexKeys;
-import br.com.dextra.utils.Utils;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -21,8 +21,8 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.datastore.Text;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.SortExpression;
 import com.google.appengine.api.search.SortOptions;
@@ -31,7 +31,9 @@ public class PostRepository extends BaseRepository {
 
 	private DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-	public Iterable<Entity> buscarTodosOsPosts(int maxResults, int offSet) {
+
+
+	public ArrayList<Post> buscarTodosOsPosts (int maxResults, int offSet) {
 
 		Query query = new Query(IndexKeys.POST.getKey());
 
@@ -42,28 +44,44 @@ public class PostRepository extends BaseRepository {
 		FetchOptions opts = FetchOptions.Builder.withDefaults();
 		opts.limit(maxResults);
 		opts.offset(offSet);
+		System.out.println("jdskghfdasjdfhfdh "+prepared.asIterable(opts).toString());
 
-		return prepared.asIterable(opts);
+		return toListaDePost(prepared.asIterable(opts));
 	}
 
-	public Iterable<Entity> buscarPosts(int maxResults, String q,
+	private ArrayList<Post> toListaDePost(Iterable<Entity> asIterable) {
+
+		ArrayList<Post> listaDePost = new ArrayList<Post>();
+
+		for (Entity entity : asIterable) {
+			System.out.println("entity >>>>>>>>>>> "+entity.toString());
+
+			listaDePost.add(new Post(entity));
+		}
+		System.out.println("TO LISTA DE POST"+listaDePost);
+
+		return listaDePost;
+
+	}
+
+	public ArrayList<Post> buscarPosts(int maxResults, String q,
 			int offset) throws EntityNotFoundException {
 
 		ArrayList<String> listaDeIds = buscaIdsPostsFTS(maxResults, q, offset);
 
-		ArrayList<Entity> listaResults = buscaEntitiesPost(listaDeIds);
+		ArrayList<Post> listaResults = buscaEntitiesPost(listaDeIds);
 
 		return listaResults;
 	}
 
-	private ArrayList<Entity> buscaEntitiesPost(
+	private ArrayList<Post> buscaEntitiesPost(
 			ArrayList<String> listaDeIds) throws EntityNotFoundException {
-		ArrayList<Entity> listaResults = new ArrayList<Entity>();
+		ArrayList<Post> listaResults = new ArrayList<Post>();
 
 		for (String id : listaDeIds) {
 			Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 			Entity e = datastore.get(key);
-			listaResults.add(e);
+			listaResults.add(new Post(e));
 		}
 		return listaResults;
 	}
@@ -125,6 +143,7 @@ public class PostRepository extends BaseRepository {
 		persist(entidade);
 		persistirDocumento(entidade);
 
+<<<<<<< HEAD
 		return entidade;
 	}
 
@@ -144,6 +163,14 @@ public class PostRepository extends BaseRepository {
 		entidade.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), data);
 
 		return entidade;
+=======
+		String id = Data.geraID();
+		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
+		String data = new Data().pegaData();
+
+		return this.criaNovoPost(titulo, conteudo, usuario, id, key,
+				data);
+>>>>>>> f4d63a3108b3b969c133a0e1b67616a4a430d18a
 	}
 
 	private void persistirDocumento(Entity entidade) {
@@ -180,6 +207,7 @@ public class PostRepository extends BaseRepository {
 		persist(valueEntity);
 	}
 
+<<<<<<< HEAD
 	public void umPostFoiComentado(String id) throws EntityNotFoundException{
 		DocumentRepository postDoDocumentReository = new DocumentRepository();
 
@@ -190,6 +218,8 @@ public class PostRepository extends BaseRepository {
 		incrementaNumeroDeComentariosDaEntityDoPost(id);
 	}
 
+=======
+>>>>>>> f4d63a3108b3b969c133a0e1b67616a4a430d18a
 	public void remove(String id) {
 		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 
@@ -202,8 +232,5 @@ public class PostRepository extends BaseRepository {
 	}
 
 
-	public Entity obtemPorId(String id) throws EntityNotFoundException  {
-		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
-		return datastore.get(key);
-	}
+
 }

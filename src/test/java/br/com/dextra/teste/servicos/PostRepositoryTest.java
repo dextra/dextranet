@@ -13,13 +13,18 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import br.com.dextra.dextranet.post.Post;
+import br.com.dextra.dextranet.post.PostFields;
 import br.com.dextra.dextranet.post.PostRS;
 import br.com.dextra.dextranet.post.PostRepository;
+<<<<<<< HEAD
 import br.com.dextra.persistencia.CommentFields;
 import br.com.dextra.persistencia.PostFields;
+=======
+>>>>>>> f4d63a3108b3b969c133a0e1b67616a4a430d18a
 import br.com.dextra.teste.TesteIntegracaoBase;
+import br.com.dextra.utils.Data;
 import br.com.dextra.utils.IndexKeys;
-import br.com.dextra.utils.Utils;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -66,8 +71,19 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		String conteudo = "Content1";
 		String usuario = "User1";
 
+<<<<<<< HEAD
 		Entity entidade = repositorio.criar(titulo, conteudo, usuario);
 		lista.add(entidade);
+=======
+		String data = new Data().pegaData();
+		String id = Data.geraID();
+		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
+
+		postDoRepository.criaNovoPost(titulo, conteudo, usuario, id, key, data);
+
+		StringBuilder comparacao = geraJsonComparacao(titulo, conteudo,
+				usuario, data, id, key);
+>>>>>>> f4d63a3108b3b969c133a0e1b67616a4a430d18a
 
 		Assert.assertEquals(extraiEntityToJson(lista), new PostRS().listarPosts("20", "", "0"));
 	}
@@ -81,13 +97,24 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		Assert.assertEquals(retornoEsperado, new PostRS().listarPosts(Integer.toString(quantidade), "", "0"));
 	}
 
+<<<<<<< HEAD
 
 	private String criaPostsERecuperaJson (int quantidade) throws InterruptedException {
 		ArrayList<Entity> entidades = criarPosts(quantidade);
+=======
+		Date data = new Date();
+		data.setDate(1);
+		String id = Data.geraID();
+		Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
+
+		postDoRepository.criaNovoPost(titulo, conteudo, usuario, id, key, new Data()
+				.formataPelaBiblioteca(data));
+>>>>>>> f4d63a3108b3b969c133a0e1b67616a4a430d18a
 
 		return extraiEntityToJson(entidades);
 	}
 
+<<<<<<< HEAD
 	private ArrayList<Entity> criarPosts(int quantidade)throws InterruptedException {
 		ArrayList<Entity> entidades =  new ArrayList<Entity>();
 
@@ -100,11 +127,21 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 		return entidades;
 	}
+=======
+		Date data2 = new Date();
+		data2.setDate(2);
+		String id2 = Data.geraID();
+		Key key2 = KeyFactory.createKey(IndexKeys.POST.getKey(), id2);
+
+		postDoRepository.criaNovoPost(titulo2, conteudo2, usuario2, id2, key2,
+				new Data().formataPelaBiblioteca(data2));
+>>>>>>> f4d63a3108b3b969c133a0e1b67616a4a430d18a
 
 	private String extraiEntityToJson(ArrayList<Entity> entidades) {
 		StringBuilder jsonExtraido = new StringBuilder();
 		jsonExtraido.append("[");
 
+<<<<<<< HEAD
 		Iterator<Entity> iterator = entidades.iterator();
 
 		while(iterator.hasNext()){
@@ -117,6 +154,23 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 			String data = (String) entidade.getProperty(PostFields.DATA.getField());
 			String comentarios = "0";
 			Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
+=======
+		Date data3 = new Date();
+		data3.setDate(3);
+		String id3 = Data.geraID();
+		Key key3 = KeyFactory.createKey(IndexKeys.POST.getKey(), id3);
+
+		postDoRepository.criaNovoPost(titulo3, conteudo3, usuario3, id3, key3,
+				new Data().formataPelaBiblioteca(data3));
+
+		StringBuilder comparacao = new StringBuilder();
+		comparacao.append("["
+				+ criaUmJson(titulo3, conteudo3, usuario3, id3, key3, new Data()
+						.formataPelaBiblioteca(data3), 0) + ", ");
+		comparacao.append(criaUmJson(titulo2, conteudo2, usuario2, id2, key2,
+				new Data().formataPelaBiblioteca(data2), 0)
+				+ "]");
+>>>>>>> f4d63a3108b3b969c133a0e1b67616a4a430d18a
 
 			jsonExtraido.append(this.criaUmJson(titulo, conteudo.getValue(), usuario, id, key, data, comentarios));
 
@@ -393,16 +447,18 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 	}
 
-	private List<Entity> quandoEuListoOsPostsSalvos(int maxResults, int offSet) {
-		List<Entity> listaSaida = new ArrayList<Entity>();
-		Iterable<Entity> it = postDoRepository.buscarTodosOsPosts(maxResults,
+	private List<Entity> quandoEuListoOsPostsSalvos(int maxResults, int offSet) throws EntityNotFoundException {
+		ArrayList<Entity> listaSaida = new ArrayList<Entity>();
+		ArrayList<Post> busca = postDoRepository.buscarTodosOsPosts(maxResults,
 				offSet);
-		for (Entity entity : it) {
-			listaSaida.add(entity);
+		for (Post post : busca) {
+
+			listaSaida.add(post.toEntity());
 		}
 		return listaSaida;
 	}
 
+<<<<<<< HEAD
 	private StringBuilder geraJsonComparacao(String titulo2, String conteudo2,
 			String usuario2, String data2, String id2, Key key2) {
 			StringBuilder comparacao = new StringBuilder();
@@ -412,18 +468,51 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 	}
 
 	private String criaUmJson(String titulo, String string, String usuario,String id, Key key, String data, String comentario) {
+=======
+	@SuppressWarnings("deprecation")
+	private List<Entity> dadoUmaListaDePostsQueEuSalvei(int cont) {
+		List<Entity> listaPostsOriginais = new ArrayList<Entity>();
+		for (int i = 0; i < cont; i++) {
+			String conteudo = "Content" + i;
+			String titulo = "Post" + i;
+			if (i == 34 || i == 23)
+				conteudo = "Content 23 ou 34";
+			String usuario = "User" + i;
+			Date data = new Date();
+			data.setDate(i);
+			String id = Data.geraID();
+			Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
+			Entity entity = postDoRepository.criaNovoPost(titulo, conteudo,
+					usuario, id, key, new Data().formataPelaBiblioteca(data));
+			listaPostsOriginais.add(entity);
+		}
+		return listaPostsOriginais;
+	}
+
+	private StringBuilder geraJsonComparacao(String titulo2, String conteudo2,
+			String usuario2, String data2, String id2, Key key2) {
+		StringBuilder comparacao = new StringBuilder();
+		comparacao.append("["
+				+ criaUmJson(titulo2, conteudo2, usuario2, id2, key2, data2,
+						0) + "]");
+		return comparacao;
+	}
+
+	private String criaUmJson(String titulo, String string, String usuario,
+			String id, Key key, String data, int comentario) {
+>>>>>>> f4d63a3108b3b969c133a0e1b67616a4a430d18a
 
 		JsonObject json = new JsonObject();
 
-		json.addProperty("id", id);
+
 		json.addProperty("titulo", titulo);
-		json.addProperty("usuario", usuario);
-		json.addProperty("comentarios", comentario);
 		json.addProperty("dataDeAtualizacao", data);
+		json.addProperty("id", id);
+		json.addProperty("usuario", usuario);
 		json.addProperty("conteudo", string);
-		json.addProperty("likes", "0");
-		json.addProperty("data", data);
-		json.addProperty("key", key.toString());
+		json.addProperty("dataDeCriacao", data);
+		json.addProperty("comentarios", comentario);
+		json.addProperty("likes", 0);
 
 		return json.toString();
 	}
@@ -449,10 +538,17 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 	private List<Entity> quandoEuBuscoOsPostsSalvos(int maxResults, String q,int offSet) throws EntityNotFoundException {
 		List<Entity> listaSaida = new ArrayList<Entity>();
+<<<<<<< HEAD
 		Iterable<Entity> it = postDoRepository.buscarPosts(maxResults, q,offSet);
 
 		for (Entity entity : it) {
 			listaSaida.add(entity);
+=======
+		ArrayList<Post> busca = postDoRepository.buscarPosts(maxResults, q,
+				offSet);
+		for (Post post : busca) {
+			listaSaida.add(post.toEntity());
+>>>>>>> f4d63a3108b3b969c133a0e1b67616a4a430d18a
 		}
 
 		return listaSaida;
@@ -465,8 +561,8 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 			String conteudo = "Content " + i;
 			String titulo = "Post" + i;
 			String usuario = "User" + i;
-			String data = Utils.pegaData();
-			String id = Utils.geraID();
+			String data = new Data().pegaData();
+			String id = Data.geraID();
 			Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 			Entity entity = postDoRepository.criar(titulo, conteudo, usuario);
 			listaPostsOriginais.add(entity);
@@ -475,6 +571,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		return listaPostsOriginais;
 	}
 
+	@Test
 	public void testaRemocaoPost() {
 		Entity postCriado = postDoRepository.criar("Titulo", "Conteudo","Usuario");
 		String idDoPost = postCriado.getProperty("id").toString();
@@ -482,7 +579,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		postDoRepository.remove(idDoPost);
 
 		try {
-			postDoRepository.obtemPorId(idDoPost);
+			new Post (idDoPost);
 			Assert.fail();
 		} catch (EntityNotFoundException e) {
 			Assert.assertTrue(true);

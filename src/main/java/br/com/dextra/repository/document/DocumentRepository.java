@@ -2,8 +2,8 @@ package br.com.dextra.repository.document;
 
 import org.jsoup.Jsoup;
 
-import br.com.dextra.persistencia.CommentFields;
-import br.com.dextra.persistencia.PostFields;
+import br.com.dextra.comment.CommentFields;
+import br.com.dextra.dextranet.post.PostFields;
 import br.com.dextra.repository.post.BaseRepository;
 import br.com.dextra.utils.IndexFacade;
 import br.com.dextra.utils.IndexKeys;
@@ -51,7 +51,6 @@ public class DocumentRepository extends BaseRepository {
 				.addField(Field.newBuilder().setName(PostFields.ID.getField()).setText(e.getProperty(PostFields.ID.getField()).toString()))
 				.build();
 
-		System.out.println("O DOC AQUI Ó"+document);
 
 		IndexFacade.getIndex(IndexKeys.POST.getKey()).add(document);
 	}

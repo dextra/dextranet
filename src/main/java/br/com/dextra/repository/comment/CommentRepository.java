@@ -1,10 +1,10 @@
 package br.com.dextra.repository.comment;
 
-import br.com.dextra.persistencia.CommentFields;
+import br.com.dextra.comment.CommentFields;
 import br.com.dextra.repository.document.DocumentRepository;
 import br.com.dextra.repository.post.BaseRepository;
 import br.com.dextra.utils.IndexKeys;
-import br.com.dextra.utils.Utils;
+import br.com.dextra.utils.Data;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -24,13 +24,13 @@ public class CommentRepository extends BaseRepository  {
 	}
 
 	private Entity criarUmaEntidade(String text, String autor){
-		String id = Utils.geraID();
+		String id = Data.geraID();
 		Key key = KeyFactory.createKey(IndexKeys.COMMENT.getKey(), id);
 
 		Entity entidade = new Entity(key);
 		entidade.setProperty(CommentFields.ID.getField(),id);
 		entidade.setProperty(CommentFields.AUTOR.getField(),autor);
-		entidade.setProperty(CommentFields.DATE.getField(),Utils.pegaData());
+		entidade.setProperty(CommentFields.DATE.getField(),new Data().pegaData());
 		entidade.setProperty(CommentFields.TEXT.getField(),new Text(text));
 
 		return entidade;

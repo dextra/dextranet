@@ -5,13 +5,11 @@ import org.junit.Test;
 import br.com.dextra.teste.TesteFuncionalBase;
 
 public class DextraNetTest extends TesteFuncionalBase {
+
 	PaginaDextraNet siteDextraNet = new PaginaDextraNet(driver);
 
 	@Test
 	public void testeHomePageDextraNet() {
-		System.out.println("********************************************************");
-		System.out.println("SELENIUM_URL: " + System.getenv("SELENIUM_URL"));
-		System.out.println("********************************************************");
 		this.acessaPaginaPrincipal();
 		siteDextraNet.verificaSeTemLogoHomePage();
 	}
@@ -25,7 +23,7 @@ public class DextraNetTest extends TesteFuncionalBase {
 
 		siteDextraNet.writeInputText("input#form_input_title", "Titulo de Teste");
 		siteDextraNet.writeCKEditor("Comentario de Teste");
-	
+
 		siteDextraNet.click("input#form_post_submit");
 		siteDextraNet.esperaCarregarPaginaInicial();
 

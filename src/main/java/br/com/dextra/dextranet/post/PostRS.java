@@ -1,5 +1,8 @@
 package br.com.dextra.dextranet.post;
 
+
+import java.util.ArrayList;
+
 import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
@@ -13,7 +16,6 @@ import javax.ws.rs.core.Response;
 
 import br.com.dextra.utils.Converters;
 
-import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 
 @Path("/post")
@@ -41,18 +43,22 @@ public class PostRS {
 			@DefaultValue("") @QueryParam(value = "q") String q,
 			@DefaultValue("0") @QueryParam(value = "page") String page) throws NumberFormatException, EntityNotFoundException {
 
-		Iterable<Entity> listaPosts;
+		ArrayList<Post> listaPosts = new ArrayList<Post>();
+
 		int resultsMax = Integer.parseInt(maxResults);
 		int offSet = Integer.parseInt(page)*resultsMax;
+
 		PostRepository novoPost = new PostRepository();
 
 		if (q.equals("")) {
 			listaPosts = novoPost.buscarTodosOsPosts(resultsMax, offSet);
-		} else {
+
+		}
+		else {
 			listaPosts = novoPost.buscarPosts(resultsMax, q,offSet);
 		}
-		return Converters.converterListaEntities(listaPosts)
-				.toString();
+
+		return Converters.converterListaEntities(listaPosts).toString();
 	}
 
 	@Path("/{id}")
