@@ -80,7 +80,7 @@ public class Post extends Entidade {
 		PostRepository postDoRepository = new PostRepository();
 
 		String data = new Data().pegaData();
-		;
+
 		postDoDocumentReository.alteraDatadoDocumento(id, data);
 		postDoRepository.alteraDatadaEntity(id, data);
 

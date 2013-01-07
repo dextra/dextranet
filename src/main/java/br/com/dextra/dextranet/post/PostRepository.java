@@ -97,11 +97,11 @@ public class PostRepository extends BaseRepository {
 				.getIndex(Post.class.getName()).search(query));
 
 		// FIXME: Set limit dentro da query nao funciona
-		return ListaDeIdsParaMostrarComOffsetForcado(maxResults, offset,
+		return listaDeIdsParaMostrarComOffsetForcado(maxResults, offset,
 				listaDeIds);
 	}
 
-	private ArrayList<String> ListaDeIdsParaMostrarComOffsetForcado(
+	private ArrayList<String> listaDeIdsParaMostrarComOffsetForcado(
 			int maxResults, int offset, ArrayList<String> listaDeIds) {
 		Collections.reverse(listaDeIds);
 		ArrayList<String> arrayTemp = new ArrayList<String>();
@@ -139,16 +139,6 @@ public class PostRepository extends BaseRepository {
 		return query;
 	}
 
-/*	private void persistirDocumento(Entity entidade) {
-		DocumentRepository respositoryDocument = new DocumentRepository();
-
-		String titulo = (String) entidade.getProperty(PostFields.TITULO.getField());
-		Text conteudo = (Text) entidade.getProperty(PostFields.CONTEUDO.getField());
-		String usuario = (String) entidade.getProperty(PostFields.USUARIO.getField());
-		String id = (String) entidade.getProperty(PostFields.ID.getField());
-		String data = (String) entidade.getProperty(PostFields.DATA.getField());
-	}
-*/
 	public void alteraDatadaEntity(String id, String data)
 			throws EntityNotFoundException {
 
