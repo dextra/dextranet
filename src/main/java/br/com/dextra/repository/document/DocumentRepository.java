@@ -1,7 +1,5 @@
 package br.com.dextra.repository.document;
 
-import org.jsoup.Jsoup;
-
 import br.com.dextra.comment.CommentFields;
 import br.com.dextra.dextranet.post.PostFields;
 import br.com.dextra.repository.post.BaseRepository;
@@ -24,7 +22,7 @@ public class DocumentRepository extends BaseRepository {
 
 		Document document = Document.newBuilder().setId(id)
 				.addField(Field.newBuilder().setName(PostFields.TITULO.getField()).setText(titulo))
-				.addField(Field.newBuilder().setName(PostFields.CONTEUDO.getField()).setText(Jsoup.parse(conteudo).text()))
+				.addField(Field.newBuilder().setName(PostFields.CONTEUDO.getField()).setHTML(conteudo))
 				.addField(Field.newBuilder().setName(PostFields.USUARIO.getField()).setText(usuario))
 				.addField(Field.newBuilder().setName(PostFields.DATA.getField()).setText(data.toString()))
 				.addField(Field.newBuilder().setName(PostFields.DATA_DE_ATUALIZACAO.getField()).setText(data.toString()))
