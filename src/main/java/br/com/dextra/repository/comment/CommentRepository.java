@@ -1,6 +1,6 @@
 package br.com.dextra.repository.comment;
 
-import br.com.dextra.persistencia.CommentFields;
+import br.com.dextra.comment.CommentFields;
 import br.com.dextra.repository.document.DocumentRepository;
 import br.com.dextra.repository.post.BaseRepository;
 import br.com.dextra.utils.IndexKeys;

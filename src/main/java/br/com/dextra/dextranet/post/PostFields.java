@@ -1,4 +1,4 @@
-package br.com.dextra.persistencia;
+package br.com.dextra.dextranet.post;
 
 public enum PostFields {
 

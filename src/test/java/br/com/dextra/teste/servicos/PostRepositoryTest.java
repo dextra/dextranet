@@ -13,11 +13,11 @@ import org.junit.Test;
 
 import br.com.dextra.dextranet.post.Post;
 import br.com.dextra.dextranet.post.PostRS;
-import br.com.dextra.persistencia.PostFields;
 import br.com.dextra.dextranet.post.PostRepository;
+import br.com.dextra.persistencia.PostFields;
 import br.com.dextra.teste.TesteIntegracaoBase;
-import br.com.dextra.utils.IndexKeys;
 import br.com.dextra.utils.Data;
+import br.com.dextra.utils.IndexKeys;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -411,13 +411,13 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 
 		json.addProperty("titulo", titulo);
-		json.addProperty("comentario", comentario);
-		json.addProperty("likes", 0);
 		json.addProperty("dataDeAtualizacao", data);
 		json.addProperty("id", id);
 		json.addProperty("usuario", usuario);
 		json.addProperty("conteudo", string);
 		json.addProperty("dataDeCriacao", data);
+		json.addProperty("comentarios", comentario);
+		json.addProperty("likes", 0);
 
 		return json.toString();
 	}

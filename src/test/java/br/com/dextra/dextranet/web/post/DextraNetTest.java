@@ -3,15 +3,21 @@ package br.com.dextra.dextranet.web.post;
 import org.junit.Test;
 
 import br.com.dextra.teste.TesteFuncionalBase;
+import br.com.dextra.teste.utils.LoremIpsum4J;
 
 public class DextraNetTest extends TesteFuncionalBase {
+
+	private LoremIpsum4J loremIpsum = new LoremIpsum4J();
+
 	PaginaDextraNet siteDextraNet = new PaginaDextraNet(driver);
 
 	@Test
 	public void testeHomePageDextraNet() {
-		System.out.println("********************************************************");
-		System.out.println("SELENIUM_URL: " + System.getenv("SELENIUM_URL"));
-		System.out.println("********************************************************");
+		try {
+			Thread.sleep(60000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		this.acessaPaginaPrincipal();
 		siteDextraNet.verificaSeTemLogoHomePage();
 	}
@@ -23,9 +29,9 @@ public class DextraNetTest extends TesteFuncionalBase {
 		siteDextraNet.click("span.icon_sidebar_left_novopost");
 		siteDextraNet.waitForElement("input#form_input_title");
 
-		siteDextraNet.writeInputText("input#form_input_title", "Titulo de Teste");
-		siteDextraNet.writeCKEditor("Comentario de Teste");
-	
+		siteDextraNet.writeInputText("input#form_input_title", loremIpsum.getWordsAsText(5));
+		siteDextraNet.writeCKEditor(loremIpsum.getParagraphsAsText(1));
+
 		siteDextraNet.click("input#form_post_submit");
 		siteDextraNet.esperaCarregarPaginaInicial();
 

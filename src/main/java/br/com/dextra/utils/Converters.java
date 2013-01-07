@@ -4,14 +4,11 @@ import java.util.ArrayList;
 import java.util.Map.Entry;
 
 import br.com.dextra.dextranet.post.Post;
-import br.com.dextra.persistencia.PostFields;
 
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.Text;
 import com.google.appengine.api.search.Results;
 import com.google.appengine.api.search.ScoredDocument;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 public class Converters {

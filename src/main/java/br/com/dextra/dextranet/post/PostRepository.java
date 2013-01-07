@@ -1,6 +1,5 @@
 package br.com.dextra.dextranet.post;
 
-import java.awt.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -8,9 +7,9 @@ import br.com.dextra.persistencia.PostFields;
 import br.com.dextra.repository.document.DocumentRepository;
 import br.com.dextra.repository.post.BaseRepository;
 import br.com.dextra.utils.Converters;
+import br.com.dextra.utils.Data;
 import br.com.dextra.utils.IndexFacade;
 import br.com.dextra.utils.IndexKeys;
-import br.com.dextra.utils.Data;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -21,8 +20,8 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.datastore.Text;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.SortExpression;
 import com.google.appengine.api.search.SortOptions;
