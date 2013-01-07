@@ -3,12 +3,13 @@ package br.com.dextra.dextranet.post;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import br.com.dextra.persistencia.PostFields;
 import br.com.dextra.repository.document.DocumentRepository;
 import br.com.dextra.repository.post.BaseRepository;
 import br.com.dextra.utils.Converters;
+import br.com.dextra.utils.Data;
 import br.com.dextra.utils.IndexFacade;
 import br.com.dextra.utils.IndexKeys;
-import br.com.dextra.utils.Data;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -19,8 +20,8 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.datastore.Text;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.SortExpression;
 import com.google.appengine.api.search.SortOptions;
@@ -32,7 +33,7 @@ public class PostRepository extends BaseRepository {
 
 
 
-	public Iterable<Entity> buscarTodosOsPosts (int maxResults, int offSet) {
+	public ArrayList<Post> buscarTodosOsPosts (int maxResults, int offSet) {
 
 		Query query = new Query(IndexKeys.POST.getKey());
 
@@ -43,28 +44,44 @@ public class PostRepository extends BaseRepository {
 		FetchOptions opts = FetchOptions.Builder.withDefaults();
 		opts.limit(maxResults);
 		opts.offset(offSet);
+		System.out.println("jdskghfdasjdfhfdh "+prepared.asIterable(opts).toString());
 
-		return prepared.asIterable(opts);
+		return toListaDePost(prepared.asIterable(opts));
 	}
 
-	public Iterable<Entity> buscarPosts(int maxResults, String q,
+	private ArrayList<Post> toListaDePost(Iterable<Entity> asIterable) {
+
+		ArrayList<Post> listaDePost = new ArrayList<Post>();
+
+		for (Entity entity : asIterable) {
+			System.out.println("entity >>>>>>>>>>> "+entity.toString());
+
+			listaDePost.add(new Post(entity));
+		}
+		System.out.println("TO LISTA DE POST"+listaDePost);
+
+		return listaDePost;
+
+	}
+
+	public ArrayList<Post> buscarPosts(int maxResults, String q,
 			int offset) throws EntityNotFoundException {
 
 		ArrayList<String> listaDeIds = buscaIdsPostsFTS(maxResults, q, offset);
 
-		ArrayList<Entity> listaResults = buscaEntitiesPost(listaDeIds);
+		ArrayList<Post> listaResults = buscaEntitiesPost(listaDeIds);
 
 		return listaResults;
 	}
 
-	private ArrayList<Entity> buscaEntitiesPost(
+	private ArrayList<Post> buscaEntitiesPost(
 			ArrayList<String> listaDeIds) throws EntityNotFoundException {
-		ArrayList<Entity> listaResults = new ArrayList<Entity>();
+		ArrayList<Post> listaResults = new ArrayList<Post>();
 
 		for (String id : listaDeIds) {
 			Key key = KeyFactory.createKey(IndexKeys.POST.getKey(), id);
 			Entity e = datastore.get(key);
-			listaResults.add(e);
+			listaResults.add(new Post(e));
 		}
 		return listaResults;
 	}

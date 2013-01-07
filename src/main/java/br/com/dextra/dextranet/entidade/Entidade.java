@@ -26,6 +26,10 @@ public class Entidade {
 		this.likes = 0;
 	}
 
+	public Entidade() {
+
+	}
+
 	public String getId() {
 		return id;
 	}

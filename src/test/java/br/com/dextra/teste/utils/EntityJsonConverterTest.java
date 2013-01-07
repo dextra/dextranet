@@ -6,9 +6,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.dextra.dextranet.post.Post;
 import br.com.dextra.utils.Converters;
 
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
@@ -28,8 +30,8 @@ public class EntityJsonConverterTest {
 	}
 
 	@Test
-	public void entityJsonConverterTest() {
-		Entity entity = dadoUmaEntity();
+	public void entityJsonConverterTest() throws EntityNotFoundException{
+		Entity entity = dadoUmPost();
 		String json = quandoEuConvertoPraUmJson(entity);
 		entaoDeemUmNomeMelhor(json);
 	}
@@ -44,10 +46,9 @@ public class EntityJsonConverterTest {
 		return Converters.toJson(entity).toString();
 	}
 
-	private Entity dadoUmaEntity() {
-		Entity entity = new Entity("Teste");
-		entity.setProperty("teste", "valorDeTeste");
-		entity.setProperty("nome", "Gabriel");
-		return entity;
+	private Entity dadoUmPost() throws EntityNotFoundException {
+
+		Post post=new Post("Post de Teste", "Conteudo de Teste", "User de Teste");
+		return post.toEntity();
 	}
 }

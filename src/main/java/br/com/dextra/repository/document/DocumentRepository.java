@@ -49,7 +49,6 @@ public class DocumentRepository extends BaseRepository {
 				.addField(Field.newBuilder().setName(PostFields.ID.getField()).setText(e.getProperty(PostFields.ID.getField()).toString()))
 				.build();
 
-		System.out.println("O DOC AQUI Ó"+document);
 
 		IndexFacade.getIndex(IndexKeys.POST.getKey()).add(document);
 	}
