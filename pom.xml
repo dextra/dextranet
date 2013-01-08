@@ -27,10 +27,10 @@
 			<id>saucelabs-repository</id>
 			<url>https://repository-saucelabs.forge.cloudbees.com/release</url>
 		</repository>
-        <repository>
-            <id>leguimas-repository</id>
-            <url>https://github.com/leguimas/maven/raw/master/</url>
-        </repository>
+		<repository>
+			<id>leguimas-repository</id>
+			<url>https://github.com/leguimas/maven/raw/master/</url>
+		</repository>
 	</repositories>
 
 	<pluginRepositories>
@@ -130,19 +130,32 @@
 			<artifactId>gson</artifactId>
 		</dependency>
 		<dependency>
-        	<groupId>commons-lang</groupId>
-        	<artifactId>commons-lang</artifactId>
-    	</dependency>
-        <dependency>
-            <groupId>br.com.dextra</groupId>
-            <artifactId>expertus</artifactId>
-            <scope>test</scope>
-        </dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>br.com.dextra</groupId>
+			<artifactId>expertus</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<finalName>dextranet</finalName>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>LATEST</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
@@ -169,7 +182,7 @@
 						<include>**/*Test.java</include>
 					</includes>
 					<!-- expertus properties -->
-                    <systemPropertyVariables>
+					<systemPropertyVariables>
 						<expertus.environment.type>${expertus.environment.type}</expertus.environment.type>
 						<expertus.environment.local.test>${expertus.environment.local.test}</expertus.environment.local.test>
 						<expertus.environment.sauce.platform>${expertus.environment.sauce.platform}</expertus.environment.sauce.platform>
@@ -177,10 +190,10 @@
 						<expertus.environment.sauce.browser.version>${expertus.environment.sauce.browser.version}</expertus.environment.sauce.browser.version>
 						<expertus.environment.sauce.username>${expertus.environment.sauce.username}</expertus.environment.sauce.username>
 						<expertus.environment.sauce.key>${expertus.environment.sauce.key}</expertus.environment.sauce.key>
-		                <expertus.environment.host>${expertus.environment.host}</expertus.environment.host>
-		                <expertus.environment.port>${expertus.environment.port}</expertus.environment.port>
-		                <expertus.environment.application>${expertus.environment.application}</expertus.environment.application>
-                    </systemPropertyVariables>
+						<expertus.environment.host>${expertus.environment.host}</expertus.environment.host>
+						<expertus.environment.port>${expertus.environment.port}</expertus.environment.port>
+						<expertus.environment.application>${expertus.environment.application}</expertus.environment.application>
+					</systemPropertyVariables>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -232,11 +245,11 @@
 					<artifactId>maven-gae-plugin</artifactId>
 					<version>${gae.plugin.version}</version>
 				</plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.12.4</version>
-                </plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.12.4</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -366,70 +379,70 @@
 				<version>1.0.2</version>
 			</dependency>
 			<dependency>
-	        	<groupId>commons-lang</groupId>
-	        	<artifactId>commons-lang</artifactId>
-	        	<version>2.4</version>
-	    	</dependency>
-	    	<dependency>
-                <groupId>br.com.dextra</groupId>
-                <artifactId>expertus</artifactId>
-                <version>1.0.11</version>
-	    	</dependency>
+				<groupId>commons-lang</groupId>
+				<artifactId>commons-lang</artifactId>
+				<version>2.4</version>
+			</dependency>
+			<dependency>
+				<groupId>br.com.dextra</groupId>
+				<artifactId>expertus</artifactId>
+				<version>1.0.11</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
-    <profiles>
-        <profile>
-            <id>local</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-                <property>
-                    <name>local</name>
-                </property>
-            </activation>
-            <properties>
-                <expertus.environment.type>local</expertus.environment.type>
-                <expertus.environment.local.test>true</expertus.environment.local.test>
-                <expertus.environment.browser>FIREFOX</expertus.environment.browser>
-                <expertus.environment.host>localhost</expertus.environment.host>
-                <expertus.environment.port>8080</expertus.environment.port>
-                <expertus.environment.application></expertus.environment.application>
-            </properties>
-        </profile>
+	<profiles>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+				<property>
+					<name>local</name>
+				</property>
+			</activation>
+			<properties>
+				<expertus.environment.type>local</expertus.environment.type>
+				<expertus.environment.local.test>true</expertus.environment.local.test>
+				<expertus.environment.browser>FIREFOX</expertus.environment.browser>
+				<expertus.environment.host>localhost</expertus.environment.host>
+				<expertus.environment.port>8080</expertus.environment.port>
+				<expertus.environment.application></expertus.environment.application>
+			</properties>
+		</profile>
 
-        <profile>
-            <id>sauceLocal</id>
-            <activation>
-                <property>
-                    <name>sauceLocal</name>
-                </property>
-            </activation>
-            <properties>
-                <expertus.environment.type>sauceLocal</expertus.environment.type>
-                <expertus.environment.local.test>false</expertus.environment.local.test>
-                <expertus.environment.sauce.platform>Linux</expertus.environment.sauce.platform>
-                <expertus.environment.browser>FIREFOX</expertus.environment.browser>
-                <expertus.environment.sauce.browser.version>17</expertus.environment.sauce.browser.version>
-                <expertus.environment.sauce.username>cloudbees_dextra-con</expertus.environment.sauce.username>
-                <expertus.environment.sauce.key>b6f5241c-0038-404a-81d6-7bd848b8e56b</expertus.environment.sauce.key>
-                <expertus.environment.host>dextranet-desenvolvimento.appspot.com</expertus.environment.host>
-                <expertus.environment.port>80</expertus.environment.port>
-                <expertus.environment.application></expertus.environment.application>
-            </properties>
-        </profile>
+		<profile>
+			<id>sauceLocal</id>
+			<activation>
+				<property>
+					<name>sauceLocal</name>
+				</property>
+			</activation>
+			<properties>
+				<expertus.environment.type>sauceLocal</expertus.environment.type>
+				<expertus.environment.local.test>false</expertus.environment.local.test>
+				<expertus.environment.sauce.platform>Linux</expertus.environment.sauce.platform>
+				<expertus.environment.browser>FIREFOX</expertus.environment.browser>
+				<expertus.environment.sauce.browser.version>17</expertus.environment.sauce.browser.version>
+				<expertus.environment.sauce.username>cloudbees_dextra-con</expertus.environment.sauce.username>
+				<expertus.environment.sauce.key>b6f5241c-0038-404a-81d6-7bd848b8e56b</expertus.environment.sauce.key>
+				<expertus.environment.host>dextranet-desenvolvimento.appspot.com</expertus.environment.host>
+				<expertus.environment.port>80</expertus.environment.port>
+				<expertus.environment.application></expertus.environment.application>
+			</properties>
+		</profile>
 
-        <profile>
-            <id>sauceCloudbees</id>
-            <activation>
-                <property>
-                    <name>sauceCloudbees</name>
-                </property>
-            </activation>
-            <properties>
-                <expertus.environment.type>sauceCloudbees</expertus.environment.type>
-                <expertus.environment.local.test>false</expertus.environment.local.test>
-            </properties>
-        </profile>
-    </profiles>
+		<profile>
+			<id>sauceCloudbees</id>
+			<activation>
+				<property>
+					<name>sauceCloudbees</name>
+				</property>
+			</activation>
+			<properties>
+				<expertus.environment.type>sauceCloudbees</expertus.environment.type>
+				<expertus.environment.local.test>false</expertus.environment.local.test>
+			</properties>
+		</profile>
+	</profiles>
 
 </project>
