@@ -29,7 +29,7 @@ function criaNovoPost() {
 			url : "/s/post",
 			data : post,
 			success : function() {
-			dextranet.home.carregaDadosAposInclusaoDeUmPost();
+			dextranet.home.carregaDados(true);
 			}
 		});
 	}
