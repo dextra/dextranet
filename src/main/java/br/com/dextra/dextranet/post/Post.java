@@ -37,7 +37,7 @@ public class Post extends Entidade {
 		AntiSamy as = new AntiSamy();
 	    Policy policy = null;
 
-        policy = Policy.getInstance("/dextranet/src/test/resources/antisamy.xml");
+        policy = Policy.getInstance("src/test/resources/antisamy.xml");
 
         this.conteudo=as.scan(this.conteudo,policy).getCleanHTML();
 	}
