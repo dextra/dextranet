@@ -1,8 +1,7 @@
-dextranet = {};
-dextranet.home = {};
-dextranet.home.busquePosts = function busquePosts(query, ehUmNovoPost, pagina){
+var dextranet = {
 
-	$("#form_gif_loading").css("display", "inline");
+	busquePosts : function(query, ehUmNovoPost, pagina){
+
 	var tipo = 'GET';
 	var url = "/s/post";
 	var quantidadePostsSolicitados = "20";
@@ -28,5 +27,22 @@ dextranet.home.busquePosts = function busquePosts(query, ehUmNovoPost, pagina){
 	});
 	if (pagina == 0){
 		$.holy("../template/carrega_miolo_home_page.xml",{});
-	}
-}
+		}
+
+	},
+
+	configuraLoading : function() {
+		$.loading({
+			text : 'Carregando...',
+			overlay : '#23557E',
+			opacity: '60'
+		});
+	},
+
+	setLoading : function() {
+		jQuery.ajaxSetup({
+			loading : true
+		});
+	},
+};
+
