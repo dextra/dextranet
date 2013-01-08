@@ -5,31 +5,31 @@
 			<li id="sidebar_left_home" class="active">
 				<a href="#" id="button_sidebar_left_home">
 					<span class="icon_sidebar_left_home"></span>
-					Home
+					${messages.label_home}
 				</a>
 			</li>
 			<li id="sidebar_left_new_post">
 				<a href="#" id="button_sidebar_left_novopost">
 					<span class="icon_sidebar_left_novopost"></span>
-					Novo Post
+					${messages.label_newPost}
 				</a>
 			</li>
 			<li id="sidebar_left_category">
 				<a href="#" id="button_sidebar_left_category">
 					<span class="icon_sidebar_left_categoria"></span>
-					Categoria
+					${messages.label_category}
 				</a>
 			</li>
 			<li id="sidebar_left_profile">
 				<a href="#" id="button_sidebar_left_profile">
 					<span class="icon_sidebar_left_perfil"></span>
-					Perfil
+					${messages.label_profile}
 				</a>
 			</li>
 			<li id="sidebar_left_team">
 				<a href="#" id="button_sidebar_left_team">
 					<span class="icon_sidebar_left_equipe"></span>
-					Equipe
+					${messages.label_team}
 				</a>
 			</li>
 		</ul>

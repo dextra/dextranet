@@ -1,0 +1,9 @@
+{ "messages" : {
+	"label_newPost" : "Novo Post",
+	"label_home" : "Home",
+	"label_category" : "Categoria",
+	"label_profile" : "Perfil",
+	"label_team" : "Equipe",
+	"placeholder_titulo" : "Digite o título do novo post"
+	}
+}

@@ -1,5 +1,5 @@
-dextranet = {
 
+dextranet = {
 	configuraLoading : function() {
 		$.loading( {
 			text : 'Carregando...',
@@ -23,9 +23,16 @@ dextranet.home = {
 
 	carregaDados : function(novoPost) {
 		dextranet.configuraLoading();
+		dextranet.home.loadMessages();
 		consulta.setText("");
 		dextranet.home.carregueOsTemplates();
 		busquePosts("", novoPost, 0);
+	},
+
+	loadMessages : function() {
+		if (!$.i18n.loaded) {
+			setTimeout("$.loadMessages()", 100);
+		}
 	},
 
 	carregueOsTemplates : function() {
@@ -75,7 +82,7 @@ dextranet.home = {
 	},
 
 	abrirOuFecharTelaUsuario : function() {
-		if ($('#box_user_profile').is(':visible')) {
+		if (dextranet.home.EhVisivel('#box_user_profile')){
 			dextranet.home.abrirTelaUsuario();
 		} else {
 			dextranet.home.fecharTelaUsuario();
@@ -97,7 +104,7 @@ dextranet.home = {
 	},
 
 	abrirOuFecharTelaNotificacoes : function() {
-		if (dextranet.home.notificacaoEhVisivel()){
+		if (dextranet.home.EhVisivel('#box_user_notifications_full')){
 			dextranet.home.someODisplayDeNotificacao();
 			}
 		else {
@@ -105,9 +112,8 @@ dextranet.home = {
 		}
 	},
 
-	notificacaoEhVisivel : function(){
-		return $('#box_user_notifications_full').is(':visible');
-
+	EhVisivel : function(element){
+		return $(element).is(':visible');
 	},
 
 	someODisplayDeNotificacao : function(){
@@ -120,18 +126,7 @@ dextranet.home = {
 		if ($('#box_user_profile').is(':visible')) {
 			dextranet.home.abrirTelaUsuario();
 		}
-	},
-
-	removeExtraParagraphs : function(paragraphs) {
-		var firstPosition = 0;
-		var lastPosition = paragraphs.size() - 1;
-
-		$(paragraphs[firstPosition]).remove();
-		$(paragraphs[lastPosition]).remove();
-
-		paragraphs.splice(firstPosition, 1);
-		paragraphs.splice(lastPosition, 1);
-
-		return paragraphs;
 	}
-}
+	},
+};
+
