@@ -5,14 +5,22 @@
 
 	<link rel="stylesheet" type="text/css" href="css/main.css" media="all" />
 
+	<!-- Biblioteca Holy -->
 	<script type="text/javascript" src="js/lib/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="holy/lib/jquery.js"></script>
     <script type="text/javascript" src="holy/lib/trimpath.js"></script>
     <script type="text/javascript" src="holy/lib/jquery.holyavenger.js"></script>
     <script type="text/javascript" src="holy/lib/jquery.holyavenger.trimpath.js"></script>
     <script type="text/javascript" src="holy/lib/jquery.holycomponents.js"></script>
+    <script type="text/javascript" src="holy/loading/jquery.loading.js"></script>
+    <link rel="stylesheet" type="text/css" href="holy/loading/jquery.loading.css" media="all" />
+
+    <!-- RichText -->
     <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
 	<script type="text/javascript" src="js/lib/form2js.js"></script>
+
+    <!-- Scripts Dextranet -->
+    <script type="text/javascript" src="js/dextranet/home.js"></script>
 	<script type="text/javascript" src="js/json2.js"></script>
 
 	<script type="text/javascript" src="js/interface.js"></script>
@@ -29,6 +37,7 @@
 	<title>Dextranet</title>
 
 	<script>
+		dextranet.home.setLoading();
 		this.numeroDaPagina = new pagina();
 		this.consulta = new query();
 		numeroDaPagina.setPaginaInicial();
@@ -59,7 +68,6 @@
 
 		<!-- Miolo -->
 		<div id="container_main" class="clearfix">
-			<img src="../img/carregando.gif" id="form_gif_loading" style="display:inline"></img>
 		</div>
 
 	</div>

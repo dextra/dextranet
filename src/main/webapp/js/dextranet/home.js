@@ -3,6 +3,7 @@ dextranet = {};
 dextranet.home = {};
 
 dextranet.home.carregaDados = function() {
+	dextranet.home.configuraLoading();
 	consulta.setText("");
 	dextranet.home.carregueOsTemplates();
 	busquePosts("", false, 0);
@@ -10,6 +11,7 @@ dextranet.home.carregaDados = function() {
 }
 
 dextranet.home.carregaDadosAposInclusaoDeUmPost = function() {
+	dextranet.home.configuraLoading();
 	consulta.setText("");
 	dextranet.home.carregueOsTemplates();
 	busquePosts("", true, 0);
@@ -63,47 +65,60 @@ dextranet.home.deslogarUsuario = function() {
 }
 
 dextranet.home.abrirOuFecharTelaUsuario = function() {
-	if($('#box_user_profile').is(':visible')){
-		$("#box_user_profile").css("display","none");
-		$("#box_user_info .shape_arrow_down").css("display","none");
-		$("#box_user_info .shape_arrow_right").css("display","inline-block");
-	}
-	else {
-		$("#box_user_profile").css("display","block");
-		$("#box_user_info .shape_arrow_down").css("display","inline-block");
-		$("#box_user_info .shape_arrow_right").css("display","none");
+	if ($('#box_user_profile').is(':visible')) {
+		$("#box_user_profile").css("display", "none");
+		$("#box_user_info .shape_arrow_down").css("display", "none");
+		$("#box_user_info .shape_arrow_right").css("display", "inline-block");
+	} else {
+		$("#box_user_profile").css("display", "block");
+		$("#box_user_info .shape_arrow_down").css("display", "inline-block");
+		$("#box_user_info .shape_arrow_right").css("display", "none");
 
-		//se a tela de notificações estiver visível, a esconde
-		if($('#box_user_notifications_full').is(':visible'))
-			$("#box_user_notifications_full").css("display","none");
+		// se a tela de notificações estiver visível, a esconde
+		if ($('#box_user_notifications_full').is(':visible'))
+			$("#box_user_notifications_full").css("display", "none");
 	}
 }
 
 dextranet.home.abrirOuFecharTelaNotificacoes = function() {
-	//mostra ou oculta a tela de notificações
-	if($('#box_user_notifications_full').is(':visible'))
-		$("#box_user_notifications_full").css("display","none");
+	// mostra ou oculta a tela de notificações
+	if ($('#box_user_notifications_full').is(':visible'))
+		$("#box_user_notifications_full").css("display", "none");
 	else {
-			$("#box_user_notifications_full").css("display","block");
+		$("#box_user_notifications_full").css("display", "block");
 
-			//se a tela de inf. do usuário estiver vísivel, a esconde
-			if($('#box_user_profile').is(':visible')){
-				$("#box_user_profile").css("display","none");
-				$("#box_user_info .shape_arrow_down").css("display","none");
-				$("#box_user_info .shape_arrow_right").css("display","inline-block");
-			}
+		// se a tela de inf. do usuário estiver vísivel, a esconde
+		if ($('#box_user_profile').is(':visible')) {
+			$("#box_user_profile").css("display", "none");
+			$("#box_user_info .shape_arrow_down").css("display", "none");
+			$("#box_user_info .shape_arrow_right").css("display",
+					"inline-block");
+		}
 	}
 }
 
-dextranet.home.removeExtraParagraphs = function(paragraphs){
+dextranet.home.removeExtraParagraphs = function(paragraphs) {
 	var firstPosition = 0;
-	var lastPosition = paragraphs.size()-1;
+	var lastPosition = paragraphs.size() - 1;
 
 	$(paragraphs[firstPosition]).remove();
 	$(paragraphs[lastPosition]).remove();
 
-	paragraphs.splice(firstPosition,1);
-	paragraphs.splice(lastPosition,1);
+	paragraphs.splice(firstPosition, 1);
+	paragraphs.splice(lastPosition, 1);
 
 	return paragraphs;
+}
+
+dextranet.home.configuraLoading = function() {
+	$.loading( {
+		text : 'Carregando...',
+		overlay : '#23557E',
+		opacity : '60'
+	});
+}
+dextranet.home.setLoading = function() {
+	jQuery.ajaxSetup( {
+		loading : true
+	});
 }
