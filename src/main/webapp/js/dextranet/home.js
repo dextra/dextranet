@@ -1,7 +1,6 @@
 
 dextranet = {
 
-
 	busquePosts : function(query, ehUmNovoPost, pagina){
 
 	var tipo = 'GET';
@@ -100,9 +99,6 @@ dextranet.home = {
 		dextranet.home.setActiveMenuLateral("#sidebar_left_category");
 	},
 
-};
-
-
 	abrePaginaPerfil : function() {
 		$.holy("../template/abre_pagina_perfil.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_profile");
@@ -140,8 +136,7 @@ dextranet.home = {
 	if ($('#box_user_notifications_full').is(':visible'))
 		$("#box_user_notifications_full").css("display", "none");
 	else {
-		$("#box_user_notifications_full").css("display", "block");
-
+	$("#box_user_notifications_full").css("display", "block");
 		// se a tela de inf. do usuário estiver vísivel, a esconde
 		if ($('#box_user_profile').is(':visible')) {
 			$("#box_user_profile").css("display", "none");
@@ -150,20 +145,6 @@ dextranet.home = {
 					"inline-block");
 		}
 	}
-},
-
-removeExtraParagraphs : function(paragraphs) {
-	var firstPosition = 0;
-	var lastPosition = paragraphs.size() - 1;
-
-	$(paragraphs[firstPosition]).remove();
-	$(paragraphs[lastPosition]).remove();
-
-	paragraphs.splice(firstPosition, 1);
-	paragraphs.splice(lastPosition, 1);
-
-
-	return paragraphs;
-}
-}
+	},
+};
 

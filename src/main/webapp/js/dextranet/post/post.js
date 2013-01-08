@@ -1,8 +1,6 @@
-
 dextranet.post = {
 
 //FIXME carregaDadosHomePage() -> usar hide() do javascript ou não
-//FIXME tirar alert do "Preencha todos os campos" :)
 //FIXME postObject
 
 	fazPesquisa:function() {
@@ -85,4 +83,3 @@ dextranet.post = {
 	}
 
 };
-
