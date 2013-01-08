@@ -24,7 +24,7 @@ public class AutenticacaoFilter implements Filter {
         UserService userService = UserServiceFactory.getUserService();
 
         String thisURI = ((HttpServletRequest)request).getRequestURI();
-        if(userService.getCurrentUser() != null || uriExcludedFromFilter(thisURI)){
+        if(userService.getCurrentUser() != null){
     		filterChain.doFilter(request, response);
 
         }else{
@@ -32,7 +32,7 @@ public class AutenticacaoFilter implements Filter {
             String loginUrl = userService.createLoginURL(thisURI);
             HttpServletResponse httpResp = (HttpServletResponse) response;
             httpResp.sendRedirect(loginUrl);
-        	return ;
+    		filterChain.doFilter(request, response);
         }
 
 
