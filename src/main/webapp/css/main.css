@@ -171,7 +171,7 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 .list_stories_footer_call{color:#4887C6;font-size:12px}
 .list_stories_footer_call:hover{cursor:pointer;color:#D66A00}
 
-#div_bonito{border-radius:5px;background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-bottom:20px;}
+#div_novo_post{border-radius:5px;background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-bottom:20px;}
 
 #post_blockquote {font-style: italic; font-family: Georgia, "Times New Roman", serif; margin: 1em 20px; padding-left: 50px;  background: transparent url(../img/quote.gif) no-repeat;}
 
@@ -193,5 +193,5 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 .message .info { border:1px solid #0092CB; background-color:#BDE5F8; }
 .message .warning a,
 .message .warning { color:#9F6000; }
-.message .warning { border:1px solid #9F6000; background-color:#FEEFB3; }
+.message .warning { border:1px solid #9F6000; background-color:#FEEFB3; background-image:url('../img/warning.png'); }
 .message .success { background-image:url('../img/success.png'); }
