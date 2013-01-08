@@ -17,6 +17,6 @@
 	<script>
 		CKEDITOR.replace('form_input_content');
 		CKEDITOR.config.contentsCss = 'ckeditor/body.css';
-		$("#form_new_post").submit(criaNovoPost);
+		$("#form_new_post").submit(dextranet.post.criaNovoPost);
 	</script>
 </engine>

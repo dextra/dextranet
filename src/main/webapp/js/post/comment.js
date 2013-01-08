@@ -48,5 +48,5 @@ function carregaComentario(idDoPost) {
 
 function criaComentario() {
 	//esperando serviço de criação de comentario
-	carregaDadosHomePageAposInclusao();
+	dextranet.home.carregaDadosAposInclusaoDeUmPost();
 }
