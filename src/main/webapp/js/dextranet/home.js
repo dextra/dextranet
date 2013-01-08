@@ -1,8 +1,6 @@
-<<<<<<< HEAD
-var dextranet = {
-=======
+
 dextranet = {
->>>>>>> 487552d18b163370a82edb03abceef7f21d89336
+
 
 	busquePosts : function(query, ehUmNovoPost, pagina){
 
@@ -94,10 +92,9 @@ dextranet.home = {
 		$.holy("../template/abre_pagina_categoria.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_category");
 	},
-<<<<<<< HEAD
+
 };
 
-=======
 
 	abrePaginaPerfil : function() {
 		$.holy("../template/abre_pagina_perfil.xml", {});
@@ -159,4 +156,4 @@ dextranet.home = {
 		return paragraphs;
 	}
 }
->>>>>>> 487552d18b163370a82edb03abceef7f21d89336
+
