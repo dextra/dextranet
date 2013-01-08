@@ -28,7 +28,7 @@
 		</li>
 		<li id="header_main_menu_outros">
 			<a href="#">
-				Outros
+				${messages.menu_others}
 				<span class="shape_arrow_right"></span>
 				<span class="shape_arrow_down"></span>
 			</a>

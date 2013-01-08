@@ -24,7 +24,7 @@ public class PaginaDextraNet extends PageObject {
 	}
 
 	public void verificaSeIncluiuPost() {
-		Assert.assertEquals("Seu post foi inserido com sucesso.", this
+		Assert.assertEquals("Seu post foi inserido com sucesso!", this
 				.getElementContent("li.success"));
 	}
 
