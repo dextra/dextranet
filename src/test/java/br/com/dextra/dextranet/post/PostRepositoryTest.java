@@ -1,6 +1,7 @@
 package br.com.dextra.dextranet.post;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import junit.framework.Assert;
 
@@ -8,8 +9,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.dextra.dextranet.post.Post;
-import br.com.dextra.dextranet.post.PostRepository;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -56,13 +55,44 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	public void buscaTodosOsPosts() {
+	public void listaTodosPosts() throws InterruptedException {
+		ArrayList<Post> posts = geraPosts(4);
+		Iterator<Post> iterator = posts.iterator();
+		ArrayList<String> conteudoCriado = new ArrayList<String>();
 
+		while (iterator.hasNext()){
+			Post post = iterator.next();
+			conteudoCriado.add(post.getConteudo());
+		}
+
+		Assert.assertEquals(inverteLista(conteudoCriado), pegaListaDePosts());
+	}
+
+	private ArrayList<String> inverteLista(ArrayList<String> conteudoCriado) {
+		ArrayList<String> aux = new ArrayList<String>();
+		for (int i = conteudoCriado.size()-1; i >= 0; i--)  {
+			aux.add(conteudoCriado.get(i));
+		}
+
+		return aux;
+	}
+
+	private ArrayList<String> pegaListaDePosts() {
+		Iterable<Post> postsEncontradosNaBusca = this.postRepository.buscarTodosOsPosts(4, 0);
+		Iterator<Post> iterator = postsEncontradosNaBusca.iterator();
+		ArrayList<String> lista = new ArrayList<String>();
+
+		while (iterator.hasNext()) {
+			Post post = iterator.next();
+			lista.add(post.getConteudo());
+		}
+
+		return lista;
 	}
 
 	@Test
 	public void testeBuscarPosts() throws NumberFormatException,
-			EntityNotFoundException {
+			EntityNotFoundException, InterruptedException {
 
 		int maxResults = 20;
 		int page = 0;
@@ -93,14 +123,15 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		return postsCriados.get(i).getId();
 	}
 
-	private ArrayList<Post> geraPosts(int numeroDePosts) {
+	private ArrayList<Post> geraPosts(int numeroDePosts) throws InterruptedException {
 
 		ArrayList<Post> listaDePostsCriados = new ArrayList<Post>();
 		Post novoPost = null;
 
 		for (int i = 0; i < numeroDePosts; i++) {
-			novoPost=new Post("titulo de teste" + i + 1, "conteudo de teste" + i + 1,
+			novoPost=new Post("titulo de teste" + (i + 1), "conteudo de teste" + (i + 1),
 					"usuario");
+			Thread.sleep(1000);
 			listaDePostsCriados.add(postRepository.criar(novoPost));
 		}
 		return listaDePostsCriados;
