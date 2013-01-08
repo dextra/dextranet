@@ -35,18 +35,17 @@
 	<title>Dextranet</title>
 
 	<script>
-		jQuery.ajaxSetup({
-			loading : true
+		dextranet.setLoading();
+
+		$(document).ready(function() {
+			dextranet.configuraLoading();
+			carregaDadosHomePage();
 		});
 
 		this.numeroDaPagina = new pagina();
 		this.consulta = new query();
 		numeroDaPagina.setPaginaInicial();
 
-		$(document).ready(function() {
-			dextranet.loading();
-			carregaDadosHomePage();
-		});
 		paginacaoDosPost();
 	</script>
 </head>
