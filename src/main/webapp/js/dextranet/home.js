@@ -10,7 +10,7 @@ dextranet = {
         jQuery.ajaxSetup( {
             loading : true
         });
-	},
+	}
 };
 
 dextranet.home = {
