@@ -80,6 +80,6 @@ dextranet.post = {
 			});
 		}
 		return false;
-	};
+	}
 
 };

@@ -91,6 +91,7 @@ dextranet.home = {
 		$("#box_user_info .shape_arrow_down").css("display", "none");
 		$("#box_user_info .shape_arrow_right").css("display", "inline-block");
 	},
+
 	fecharTelaUsuario : function() {
 		$("#box_user_profile").css("display", "block");
 		$("#box_user_info .shape_arrow_down").css("display", "inline-block");
@@ -124,6 +125,6 @@ dextranet.home = {
 			dextranet.home.abrirTelaUsuario();
 		}
 	}
-	},
+
 };
 
