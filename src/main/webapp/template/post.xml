@@ -3,7 +3,7 @@
 	<template selector="#container_post" append="true">
 		<ul class="message">
 			{if sucesso}
-			<li class="success" style="display: list_item;">Seu post foi inserido com sucesso.</li>
+			<li class="success" style="display: list_item;">${messages.success_message}</li>
 			{/if}
 		</ul>
 
