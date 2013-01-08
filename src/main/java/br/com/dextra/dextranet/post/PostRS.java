@@ -21,10 +21,6 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 @Path("/post")
 public class PostRS {
 
-	private static final String SMAXRESULTS = "40";
-
-	private final int MAXRESULTS = Integer.parseInt(SMAXRESULTS);
-
 	PostRepository postRepository = new PostRepository();
 
 	@Path("/")
