@@ -10,7 +10,6 @@
 					placeholder="Digite o conteúdo do post" name="content"></textarea>
 				<br />
 					<input type="submit" value="Postar" id="form_post_submit" />
-					<img src="../img/carregando.gif" id="form_gif_loading" style="display:none"></img>
 			</form>
 		</div>
 	</template>
@@ -18,6 +17,6 @@
 	<script>
 		CKEDITOR.replace('form_input_content');
 		CKEDITOR.config.contentsCss = 'ckeditor/body.css';
-		$("#form_new_post").submit(criaNovoPost);
+		$("#form_new_post").submit(dextranet.post.criaNovoPost);
 	</script>
 </engine>

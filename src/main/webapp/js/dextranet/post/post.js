@@ -76,7 +76,7 @@ dextranet.post.criaNovoPost=function() {
 			url : "/s/post",
 			data : post,
 			success : function() {
-				dextranet.home.carregaDadosHomePageAposInclusao();
+				dextranet.home.carregaDadosAposInclusaoDeUmPost();
 			}
 		});
 	}
