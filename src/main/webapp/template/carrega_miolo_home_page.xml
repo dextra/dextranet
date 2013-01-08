@@ -6,7 +6,7 @@
 		</div>
 
 		<form id="form_search" onSubmit="dextranet.post.fazPesquisa()">
-			<input type="text" id="form_search_input" />
+			<input type="text" placeholder="${messages.placeholder_pesquisa}" id="form_search_input" />
 			<input type="submit" value="" title="Procurar!" id="form_search_submit" />
 		</form>
 

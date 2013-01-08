@@ -13,7 +13,7 @@
 					<h4>${nickName}</h4>
 					<span>${email}</span><br></br>
 					<center>
-						<a id="logout" href= "${logout}">Sair</a>
+						<a id="logout" href= "${logout}">${messages.logout}</a>
 					</center>
 				</li>
 			</ul>

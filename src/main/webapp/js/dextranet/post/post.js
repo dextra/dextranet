@@ -58,8 +58,7 @@ dextranet.post = {
 	criaNovoPost:function() {
 		if (($("#form_input_title").val() == "")
 				|| (CKEDITOR.instances.form_input_content.getData() == "")) {
-			if(!$("#message-warning").length)
-				$("#div_novo_post").before('<ul class="message" id="message-warning"><li class="warning" style="display: list_item;">Preencha todos os campos.</li></ul>');
+			$("li.warning").css("display", "list-item");
 		} else {
 			$("#form_post_submit").css("display", "none");
 			$("#form_gif_loading").css("display", "inline");

@@ -23,9 +23,4 @@
 		}
 	});
 
-	$(document).ready(function()
-	{
-		$('#form_search_input').placeholder('Procurar pessoas e/ou postagens...');
-	});
-
 })(jQuery);
