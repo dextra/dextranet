@@ -32,7 +32,6 @@ function busquePosts(query, ehUmNovoPost, pagina) {
 	var url = "/s/post";
 	var quantidadePostsSolicitados = "20";
 	var template = "../template/post.xml";
-	//var template = $(this).closest('template').find('div[id="#container_post"]').val();
 
 	$.ajax( {
 		type : tipo,
@@ -57,33 +56,6 @@ function busquePosts(query, ehUmNovoPost, pagina) {
 	}
 }
 
-/*function busqueDocuments(query, ehUmNovoPost, pagina) {
-	var tipo = 'GET';
-	var url = "/s/document";
-	var quantidadePostsRecuperados = "20";
-	var template = "../template/post.xml";
-
-	try{
-	$.ajax( {
-		type : tipo,
-		url : url,
-		data : "max-results=" + quantidadePostsRecuperados + "&page=" + pagina + "&q=" + query,
-		success : function(posts) {
-			if(posts.length > 0){
-				$.holy(template, {"jsonArrayPost" : posts,"sucesso" : ehUmNovoPost});
-			}
-		}
-	});
-	}catch(err)
-	{
-		console.log("erro ao solicitar nova página");
-	}
-
-	if (pagina == 0){
-		$.holy("../template/carrega_miolo_home_page.xml",{});
-	}
-}
-*/
 function setActiveMenuLateral(id) {
 	// limpa o active atual
 	$("#sidebar_left_home").attr("class", "");
