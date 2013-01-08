@@ -7,20 +7,20 @@ dextranet.home.abrePaginaNovoPost=function() {
 };
 
 dextranet.home.carregaDados = function() {
-	dextranet.home.configuraLoading();
-	consulta.setText("");
-	dextranet.home.carregueOsTemplates();
-	dextranet.post.listarPosts("", false, 0);
-	$(document).delay(1000);
+	dextranet.home.carregaDadosHome(false);
 }
 
 dextranet.home.carregaDadosAposInclusaoDeUmPost = function() {
+	dextranet.home.carregaDadosHome(true);
+}
+
+dextranet.home.carregaDadosHome=function(ehUmNovoPost){
 	dextranet.home.configuraLoading();
 	consulta.setText("");
 	dextranet.home.carregueOsTemplates();
-	dextranet.post.listarPosts("", true, 0);
+	dextranet.post.listarPosts("", ehUmNovoPost, 0);
 	$(document).delay(1000);
-}
+};
 
 dextranet.home.carregueOsTemplates = function() {
 	$.holy("../template/carrega_menu_principal.xml", {});
