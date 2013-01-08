@@ -48,11 +48,13 @@
 	<title>Dextranet</title>
 
 	<script>
-		dextranet.setLoading();
 		this.numeroDaPagina = new dextranet.paginacao.pagina();
 		this.consulta = new dextranet.paginacao.query();
 		numeroDaPagina.setPaginaInicial();
-		$(document).ready(dextranet.home.carregaDados(false));
+		$(document).ready(function() {
+		    dextranet.configuraLoading();
+            dextranet.home.carregaDados(false);
+        });
 		dextranet.paginacao.paginacaoDosPosts();
 	</script>
 </head>

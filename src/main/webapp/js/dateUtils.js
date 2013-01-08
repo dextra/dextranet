@@ -25,7 +25,6 @@ function convertToDate(dateString){
 	var hourArray = setHourArray(dateStringArray[1]);
 
 	date = setDate(date,fullYearArray,hourArray);
-	console.log(date);
 
 	return date;
 
