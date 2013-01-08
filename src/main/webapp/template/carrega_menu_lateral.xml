@@ -35,10 +35,10 @@
 		</ul>
 	</template>
 	<script>
-		$("#button_sidebar_left_home").click(carregaDadosHomePage);
-		$("#button_sidebar_left_novopost").click(abrePaginaNovoPost);
-		$("#button_sidebar_left_category").click(abrePaginaCategoria);
-		$("#button_sidebar_left_profile").click(abrePaginaPerfil);
-		$("#button_sidebar_left_team").click(abrePaginaEquipe);
+		$("#button_sidebar_left_home").click(dextranet.home.carregaDadosHomePage);
+		$("#button_sidebar_left_novopost").click(dextranet.home.abrePaginaNovoPost);
+		$("#button_sidebar_left_category").click(dextranet.home.abrePaginaCategoria);
+		$("#button_sidebar_left_profile").click(dextranet.home.abrePaginaPerfil);
+		$("#button_sidebar_left_team").click(dextranet.home.abrePaginaEquipe);
 	</script>
 </engine>
