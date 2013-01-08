@@ -1,8 +1,3 @@
-function abrePaginaNovoPost() {
-	$.holy("../template/abre_pagina_novo_post.xml", {});
-	setActiveMenuLateral("#sidebar_left_new_post");
-}
-
 function fazPesquisa() {
 	var cons = $('#form_search_input').val();
 	consulta.setText(cons);
@@ -37,7 +32,7 @@ function criaNovoPost() {
 			url : "/s/post",
 			data : post,
 			success : function() {
-				carregaDadosHomePageAposInclusao();
+			dextranet.home.carregaDadosAposInclusaoDeUmPost();
 			}
 		});
 	}

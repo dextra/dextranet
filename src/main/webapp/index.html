@@ -5,19 +5,19 @@
 
 	<link rel="stylesheet" type="text/css" href="css/main.css" media="all" />
 
-	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="js/lib/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="holy/lib/jquery.js"></script>
     <script type="text/javascript" src="holy/lib/trimpath.js"></script>
     <script type="text/javascript" src="holy/lib/jquery.holyavenger.js"></script>
     <script type="text/javascript" src="holy/lib/jquery.holyavenger.trimpath.js"></script>
     <script type="text/javascript" src="holy/lib/jquery.holycomponents.js"></script>
     <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
-	<script type="text/javascript" src="js/form2js.js"></script>
+	<script type="text/javascript" src="js/lib/form2js.js"></script>
 	<script type="text/javascript" src="js/json2.js"></script>
-	<script type="text/javascript" src="js/jquery.cookie.js"></script>
 
 	<script type="text/javascript" src="js/interface.js"></script>
 	<script type="text/javascript" src="js/home_page.js"></script>
+	<script type="text/javascript" src="js/dextranet/home.js"></script>
 	<script type="text/javascript" src="js/post/post.js"></script>
 	<script type="text/javascript" src="js/post/postObject.js"></script>
 	<script type="text/javascript" src="js/post/comment.js"></script>
@@ -32,7 +32,7 @@
 		this.numeroDaPagina = new pagina();
 		this.consulta = new query();
 		numeroDaPagina.setPaginaInicial();
-		$(document).ready(carregaDadosHomePage());
+		$(document).ready(dextranet.home.carregaDados());
 		paginacaoDosPost();
 	</script>
 </head>
