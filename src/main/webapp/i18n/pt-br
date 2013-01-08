@@ -6,6 +6,14 @@
 	"label_team" : "Equipe",
 	"placeholder_title_post" : "Digite o título do novo post",
 	"placeholder_content_post" : "Digite o conteúdo do novo post",
-	"button_newPost" : "Postar"
+	"button_newPost" : "Postar",
+	"placeholder_pesquisa" : "Procurar pessoas e/ou postagens...",
+	"warning_message" : "Preencha todos os campos!",
+	"logout" : "Sair",
+	"menu_others" : "Outros",
+	"link_readMore" : "+ Ver Mais",
+	"placeholder_comment" : "Digite seu comentário",
+	"button_comment" : "Comentar",
+	"success_message" : "Seu post foi inserido com sucesso!"
 	}
 }
