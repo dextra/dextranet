@@ -4,7 +4,7 @@
 		<div id="div_bonito">
 			<form action="" id="form_new_post">
 				<input size="51" type="text" id="form_input_title"
-					placeholder="Digite o título do post" name="title"></input>
+					placeholder="sethesth" name="title"></input>
 				<br />
 				<textarea cols="50" id="form_input_content" style="resize:none;"
 					placeholder="Digite o conteúdo do post" name="content"></textarea>
