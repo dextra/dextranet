@@ -42,18 +42,9 @@ public class PaginacaoTest extends TesteFuncionalBase{
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0,0);");
 
-		try {
-			dextraNet.writeInputText("#form_search_input","Titulo de Teste Numero: 15");
-			Thread.sleep(6000);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
+		dextraNet.writeInputText("#form_search_input","Titulo de Teste Numero: 15");
+
 		dextraNet.click("#form_search_submit");
-		try {
-			Thread.sleep(50000000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 
 	private void dadoOSiteDaDextraNET() {
