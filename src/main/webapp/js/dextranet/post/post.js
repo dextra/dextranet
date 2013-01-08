@@ -2,7 +2,7 @@
 dextranet.post = {
 
 //FIXME carregaDadosHomePage() -> usar hide() do javascript ou não
-//FIXME tirar alert do "Preencha todos os campos"
+//FIXME tirar alert do "Preencha todos os campos" :)
 //FIXME postObject
 
 	fazPesquisa:function() {
@@ -60,7 +60,8 @@ dextranet.post = {
 	criaNovoPost:function() {
 		if (($("#form_input_title").val() == "")
 				|| (CKEDITOR.instances.form_input_content.getData() == "")) {
-			alert("Preencha todos os campos.");
+			if(!$("#message-warning").length)
+				$("#div_novo_post").before('<ul class="message" id="message-warning"><li class="warning" style="display: list_item;">Preencha todos os campos.</li></ul>');
 		} else {
 			$("#form_post_submit").css("display", "none");
 			$("#form_gif_loading").css("display", "inline");
