@@ -6,13 +6,11 @@ dextranet = {
 			overlay : '#23557E',
 			opacity : '60'
 		});
-	},
 
-	setLoading : function() {
-		jQuery.ajaxSetup( {
-			loading : true
-		});
-	}
+        jQuery.ajaxSetup( {
+            loading : true
+        });
+	},
 };
 
 dextranet.home = {
@@ -22,7 +20,6 @@ dextranet.home = {
 	},
 
 	carregaDados : function(novoPost) {
-		dextranet.configuraLoading();
 		dextranet.home.loadMessages();
 		consulta.setText("");
 		dextranet.home.carregueOsTemplates();

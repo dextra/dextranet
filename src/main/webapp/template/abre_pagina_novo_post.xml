@@ -4,12 +4,12 @@
 		<div id="div_novo_post">
 			<form action="" id="form_new_post">
 				<input size="51" type="text" id="form_input_title"
-					placeholder="sethesth" name="title"></input>
+					placeholder="${messages.placeholder_title_post}" name="title"></input>
 				<br />
 				<textarea cols="50" id="form_input_content" style="resize:none;"
-					placeholder="Digite o conteúdo do post" name="content"></textarea>
+					placeholder="${messages.placeholder_content_post}" name="content"></textarea>
 				<br />
-					<input type="submit" value="Postar" id="form_post_submit" />
+					<input type="submit" value="${messages.button_newPost}" id="form_post_submit" />
 			</form>
 		</div>
 	</template>

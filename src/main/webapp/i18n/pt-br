@@ -4,6 +4,8 @@
 	"label_category" : "Categoria",
 	"label_profile" : "Perfil",
 	"label_team" : "Equipe",
-	"placeholder_titulo" : "Digite o título do novo post"
+	"placeholder_title_post" : "Digite o título do novo post",
+	"placeholder_content_post" : "Digite o conteúdo do novo post",
+	"button_newPost" : "Postar"
 	}
 }
