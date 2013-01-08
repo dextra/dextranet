@@ -11,10 +11,15 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
 public class AutenticacaoFilter implements Filter {
+
+	Logger log = LoggerFactory.getLogger(AutenticacaoFilter.class);
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
@@ -23,16 +28,17 @@ public class AutenticacaoFilter implements Filter {
 
         UserService userService = UserServiceFactory.getUserService();
 
-        String thisURI = ((HttpServletRequest)request).getRequestURI();
-        if(userService.getCurrentUser() != null){
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+
+        String thisURI = httpRequest.getRequestURI();
+
+        if(userService.getCurrentUser() != null || uriExcludedFromFilter(thisURI)){
     		filterChain.doFilter(request, response);
 
         }else{
 
             String loginUrl = userService.createLoginURL(thisURI);
-            HttpServletResponse httpResp = (HttpServletResponse) response;
-            httpResp.sendRedirect(loginUrl);
-    		filterChain.doFilter(request, response);
+            httpRequest.getRequestDispatcher(loginUrl).forward(request, response);
         }
 
 
