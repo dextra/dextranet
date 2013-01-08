@@ -1,37 +1,5 @@
 
 dextranet = {
-
-	busquePosts : function(query, ehUmNovoPost, pagina){
-
-	var tipo = 'GET';
-	var url = "/s/post";
-	var quantidadePostsSolicitados = "20";
-	var template = "../template/post.xml";
-
-	$.ajax( {
-		type : tipo,
-		url : url,
-		data : "max-results=" + quantidadePostsSolicitados + "&page=" + pagina + "&q=" + query,
-		success : function(posts) {
-			if(posts.length > 0){
-				var postObjectArray = postObject.getpostObjectArrayFromPostJsonArray(posts);
-				$(postObjectArray).each(function(){
-					this.setHiddenText();
-				});
-				$.when($.holy(template, {"jsonArrayPost" : postObjectArray,"sucesso" : ehUmNovoPost})).done(
-						function(){
-							readMoreButton.addButtonEvent($(".list_stories_footer_call"),postObjectArray);
-						}
-				);
-			}
-		}
-	});
-	if (pagina == 0){
-		$.holy("../template/carrega_miolo_home_page.xml",{});
-		}
-
-	},
-
 	configuraLoading : function() {
 		$.loading( {
 			text : 'Carregando...',
@@ -55,7 +23,7 @@ dextranet.home = {
 		dextranet.home.loadMessages();
 		consulta.setText("");
 		dextranet.home.carregueOsTemplates();
-		busquePosts("", novoPost, 0);
+		dextranet.post.listarPosts("", novoPost, 0);
 	},
 
 	loadMessages : function() {
@@ -111,37 +79,52 @@ dextranet.home = {
 	},
 
 	abrirOuFecharTelaUsuario : function() {
-		if ($('#box_user_profile').is(':visible')) {
-			$("#box_user_profile").css("display", "none");
-			$("#box_user_info .shape_arrow_down").css("display", "none");
-			$("#box_user_info .shape_arrow_right").css("display",
-					"inline-block");
+		if (dextranet.home.EhVisivel('#box_user_profile')){
+			dextranet.home.abrirTelaUsuario();
 		} else {
-			$("#box_user_profile").css("display", "block");
-			$("#box_user_info .shape_arrow_down")
-					.css("display", "inline-block");
-			$("#box_user_info .shape_arrow_right").css("display", "none");
-
-			// se a tela de notificações estiver visível, a esconde
-			if ($('#box_user_notifications_full').is(':visible'))
-				$("#box_user_notifications_full").css("display", "none");
+			dextranet.home.fecharTelaUsuario();
 		}
+	},
+
+	abrirTelaUsuario : function() {
+		$("#box_user_profile").css("display", "none");
+		$("#box_user_info .shape_arrow_down").css("display", "none");
+		$("#box_user_info .shape_arrow_right").css("display", "inline-block");
+	},
+
+	fecharTelaUsuario : function() {
+		$("#box_user_profile").css("display", "block");
+		$("#box_user_info .shape_arrow_down").css("display", "inline-block");
+		$("#box_user_info .shape_arrow_right").css("display", "none");
+
+		if ($('#box_user_notifications_full').is(':visible'))
+			$("#box_user_notifications_full").css("display", "none");
 	},
 
 	abrirOuFecharTelaNotificacoes : function() {
-		// mostra ou oculta a tela de notificações
-	if ($('#box_user_notifications_full').is(':visible'))
+		if (dextranet.home.EhVisivel('#box_user_notifications_full')){
+			dextranet.home.someODisplayDeNotificacao();
+			}
+		else {
+			dextranet.home.apareceODisplayDeNotificacao();
+		}
+	},
+
+	EhVisivel : function(element){
+		return $(element).is(':visible');
+	},
+
+	someODisplayDeNotificacao : function(){
 		$("#box_user_notifications_full").css("display", "none");
-	else {
-	$("#box_user_notifications_full").css("display", "block");
-		// se a tela de inf. do usuário estiver vísivel, a esconde
+	},
+
+	apareceODisplayDeNotificacao : function(){
+		$("#box_user_notifications_full").css("display", "block");
+
 		if ($('#box_user_profile').is(':visible')) {
-			$("#box_user_profile").css("display", "none");
-			$("#box_user_info .shape_arrow_down").css("display", "none");
-			$("#box_user_info .shape_arrow_right").css("display",
-					"inline-block");
+			dextranet.home.abrirTelaUsuario();
 		}
 	}
-	},
+
 };
 
