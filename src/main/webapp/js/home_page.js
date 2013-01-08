@@ -56,7 +56,7 @@ function busquePosts(query, ehUmNovoPost, pagina) {
 	}
 }
 
-function setActiveMenuLateral(id) {
+ function setActiveMenuLateral(id) {
 	// limpa o active atual
 	$("#sidebar_left_home").attr("class", "");
 	$("#sidebar_left_new_post").attr("class", "");
