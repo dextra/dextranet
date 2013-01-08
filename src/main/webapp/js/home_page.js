@@ -57,14 +57,12 @@ function busquePosts(query, ehUmNovoPost, pagina) {
 }
 
  function setActiveMenuLateral(id) {
-	// limpa o active atual
 	$("#sidebar_left_home").attr("class", "");
 	$("#sidebar_left_new_post").attr("class", "");
 	$("#sidebar_left_category").attr("class", "");
 	$("#sidebar_left_profile").attr("class", "");
 	$("#sidebar_left_team").attr("class", "");
 
-	// adiciona o active na li desejada
 	$(id).attr("class", "active");
 }
 
