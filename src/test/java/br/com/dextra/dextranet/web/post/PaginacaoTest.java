@@ -39,12 +39,16 @@ public class PaginacaoTest extends TesteFuncionalBase{
 	}
 
 	private void procurarAleatoriamentePorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado() {
+		subirScrollAteOTopo();
+		dextraNet.writeInputText("#form_search_input","Titulo de Teste Numero: 15");
+		dextraNet.click("#form_search_submit");
+
+
+	}
+
+	private void subirScrollAteOTopo() {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scrollBy(0,0);");
-
-		dextraNet.writeInputText("#form_search_input","Titulo de Teste Numero: 15");
-
-		dextraNet.click("#form_search_submit");
 	}
 
 	private void dadoOSiteDaDextraNET() {
@@ -54,12 +58,13 @@ public class PaginacaoTest extends TesteFuncionalBase{
 	private void quandoEuCrioPosts(int quantidadeDePosts){
 
 		for(int i = 1; i <= quantidadeDePosts ; i++){
+
 			try {
-			String titulo = "Titulo de Teste Numero: " + i;
-			String conteudo = "Texto do teste numero: " + i;
-			novoPost(titulo, conteudo);
-			alimentarBaseDosTestes(conteudo);
-			Thread.sleep(500);
+				String titulo = "Titulo de Teste Numero: " + i;
+				String conteudo = "Texto do teste numero: " + i;
+				novoPost(titulo, conteudo);
+				alimentarBaseDosTestes(conteudo);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

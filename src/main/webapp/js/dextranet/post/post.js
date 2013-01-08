@@ -4,11 +4,9 @@ dextranet.post = {
 //FIXME postObject
 
 	fazPesquisa:function() {
-		var cons = $('#form_search_input').val();
 		var ehUmNovoPost = false;
 		var pagina = 0;
-
-		consulta.setText(cons);
+		consulta.setText($('#form_search_input').val());
 
 		if(consulta.getText() != ""){
 			$("#form_gif_loading").css("display", "inline");
