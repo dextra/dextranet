@@ -56,9 +56,16 @@ dextranet.home = {
 
 	carregaDados : function(novoPost) {
 		dextranet.configuraLoading();
+		dextranet.home.loadMessages();
 		consulta.setText("");
 		dextranet.home.carregueOsTemplates();
 		busquePosts("", novoPost, 0);
+	},
+
+	loadMessages : function() {
+		if (!$.i18n.loaded) {
+			setTimeout("$.loadMessages()", 100);
+		}
 	},
 
 	carregueOsTemplates : function() {
@@ -114,10 +121,12 @@ dextranet.home = {
 		if ($('#box_user_profile').is(':visible')) {
 			$("#box_user_profile").css("display", "none");
 			$("#box_user_info .shape_arrow_down").css("display", "none");
-			$("#box_user_info .shape_arrow_right").css("display", "inline-block");
+			$("#box_user_info .shape_arrow_right").css("display",
+					"inline-block");
 		} else {
 			$("#box_user_profile").css("display", "block");
-			$("#box_user_info .shape_arrow_down").css("display", "inline-block");
+			$("#box_user_info .shape_arrow_down")
+					.css("display", "inline-block");
 			$("#box_user_info .shape_arrow_right").css("display", "none");
 
 			// se a tela de notificações estiver visível, a esconde
@@ -128,32 +137,33 @@ dextranet.home = {
 
 	abrirOuFecharTelaNotificacoes : function() {
 		// mostra ou oculta a tela de notificações
-		if ($('#box_user_notifications_full').is(':visible'))
-			$("#box_user_notifications_full").css("display", "none");
-		else {
-			$("#box_user_notifications_full").css("display", "block");
+	if ($('#box_user_notifications_full').is(':visible'))
+		$("#box_user_notifications_full").css("display", "none");
+	else {
+		$("#box_user_notifications_full").css("display", "block");
 
-			// se a tela de inf. do usuário estiver vísivel, a esconde
-			if ($('#box_user_profile').is(':visible')) {
-				$("#box_user_profile").css("display", "none");
-				$("#box_user_info .shape_arrow_down").css("display", "none");
-				$("#box_user_info .shape_arrow_right").css("display",
-						"inline-block");
-			}
+		// se a tela de inf. do usuário estiver vísivel, a esconde
+		if ($('#box_user_profile').is(':visible')) {
+			$("#box_user_profile").css("display", "none");
+			$("#box_user_info .shape_arrow_down").css("display", "none");
+			$("#box_user_info .shape_arrow_right").css("display",
+					"inline-block");
 		}
-	},
-
-	removeExtraParagraphs : function(paragraphs) {
-		var firstPosition = 0;
-		var lastPosition = paragraphs.size() - 1;
-
-		$(paragraphs[firstPosition]).remove();
-		$(paragraphs[lastPosition]).remove();
-
-		paragraphs.splice(firstPosition, 1);
-		paragraphs.splice(lastPosition, 1);
-
-		return paragraphs;
 	}
+},
+
+removeExtraParagraphs : function(paragraphs) {
+	var firstPosition = 0;
+	var lastPosition = paragraphs.size() - 1;
+
+	$(paragraphs[firstPosition]).remove();
+	$(paragraphs[lastPosition]).remove();
+
+	paragraphs.splice(firstPosition, 1);
+	paragraphs.splice(lastPosition, 1);
+
+
+	return paragraphs;
+}
 }
 
