@@ -23,7 +23,7 @@ dextranet.home = {
 		dextranet.home.loadMessages();
 		consulta.setText("");
 		dextranet.home.carregueOsTemplates();
-		busquePosts("", novoPost, 0);
+		dextranet.post.listarPosts("", novoPost, 0);
 	},
 
 	loadMessages : function() {
