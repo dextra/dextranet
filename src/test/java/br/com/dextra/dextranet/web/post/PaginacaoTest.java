@@ -25,7 +25,7 @@ public class PaginacaoTest extends TesteFuncionalBase{
 
 	@Test
 	public void criarPosts(){
-		int quantidadePosts = 17;
+		int quantidadePosts = 5;
 		int vezes = (int) Math.round(((double)quantidadePosts/20)+0.5);
 
 		dadoOSiteDaDextraNET();
@@ -35,20 +35,7 @@ public class PaginacaoTest extends TesteFuncionalBase{
 		paraVerificarSeTodosOsPostsInseridosEstaoSendoListados();
 		paraVerificarSeAlgumPostNaoFoiEncontrado();
 		eParaConfrontarSeARelacaoDePostsInseridosEstaIgualARelacaoDePostsEncontrados();
-		procurarAleatoriamentePorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado();
-	}
-
-	private void procurarAleatoriamentePorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado() {
-		subirScrollAteOTopo();
-		dextraNet.writeInputText("#form_search_input","Titulo de Teste Numero: 15");
-		dextraNet.click("#form_search_submit");
-
-
-	}
-
-	private void subirScrollAteOTopo() {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("window.scrollBy(0,0);");
+		procurarPorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado();
 	}
 
 	private void dadoOSiteDaDextraNET() {
@@ -95,7 +82,15 @@ public class PaginacaoTest extends TesteFuncionalBase{
 																"document.documentElement.clientHeight)" +
 																");" +
 												"");
-			this.dextraNet.waitToLoad();
+			esperePorDoisSegundos();
+		}
+	}
+
+	private void esperePorDoisSegundos() {
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -142,4 +137,18 @@ public class PaginacaoTest extends TesteFuncionalBase{
 
 		Assert.assertEquals(listaDosPostsInseridosPeloTest,listaDosPostsEncontradosNaPagina);
 	}
+
+	private void procurarPorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado() {
+		dextraNet.writeInputText("#form_search_input","1");
+		dextraNet.click("#form_search_submit");
+		esperePorDoisSegundos();
+
+		this.listaDosPostsEncontradosNaPagina.clear();
+		this.entaoEuPossoPercorrerAPaginaEListarTodosOsPosts();
+		System.out.println(this.listaDosPostsEncontradosNaPagina);
+
+		Assert.assertEquals(1,this.listaDosPostsEncontradosNaPagina.size());
+		Assert.assertEquals("[Texto do teste numero: 1]",this.listaDosPostsEncontradosNaPagina);
+	}
 }
+
