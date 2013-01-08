@@ -1,9 +1,16 @@
 package br.com.dextra.dextranet.post;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+
 import org.owasp.validator.html.AntiSamy;
 import org.owasp.validator.html.Policy;
 import org.owasp.validator.html.PolicyException;
 import org.owasp.validator.html.ScanException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.repository.document.DocumentRepository;
@@ -23,6 +30,8 @@ public class Post extends Entidade {
 
 	private String dataDeAtualizacao;
 
+	Logger log = LoggerFactory.getLogger(Post.class);
+
 	public Post(String titulo, String conteudo, String usuario) throws PolicyException, ScanException {
 		super(usuario, conteudo);
 		this.removeJS();
@@ -33,13 +42,25 @@ public class Post extends Entidade {
 	}
 
 	private void removeJS() throws PolicyException, ScanException {
+		Properties properties = new Properties();
 
-		AntiSamy as = new AntiSamy();
-	    Policy policy = null;
+		try {
+			properties.load(new FileInputStream("src/main/resources/config.properties"));
 
-        policy = Policy.getInstance("src/test/resources/antisamy.xml");
+			AntiSamy as = new AntiSamy();
+		    Policy policy = null;
+			log.info(properties.getProperty("antisamy.policyXML"));
 
-        this.conteudo=as.scan(this.conteudo,policy).getCleanHTML();
+	        policy = Policy.getInstance(properties.getProperty("antisamy.policyXML"));
+
+	        this.conteudo=as.scan(this.conteudo,policy).getCleanHTML();
+		} catch (FileNotFoundException e) {
+			log.error("config.properties file not found");
+			e.printStackTrace();
+		} catch (IOException e) {
+			log.error("trying to access config.properties file");
+			e.printStackTrace();
+		}
 	}
 
 	public Post(Entity postEntity) {
