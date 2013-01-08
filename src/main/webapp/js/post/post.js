@@ -1,8 +1,3 @@
-function abrePaginaNovoPost() {
-	$.holy("../template/abre_pagina_novo_post.xml", {});
-	setActiveMenuLateral("#sidebar_left_new_post");
-}
-
 function fazPesquisa() {
 	var cons = $('#form_search_input').val();
 	consulta.setText(cons);
@@ -10,7 +5,6 @@ function fazPesquisa() {
 	var pagina = 0;
 
 	if(consulta.getText() != ""){
-		$("#form_gif_loading").css("display", "inline");
 		busquePosts(consulta.getText(), ehUmNovoPost, pagina);
 	}
 	//$("#form_gif_loading").css("display", "none");
@@ -23,8 +17,6 @@ function criaNovoPost() {
 		alert("Preencha todos os campos.");
 	} else {
 		$("#form_post_submit").css("display", "none");
-		$("#form_gif_loading").css("display", "inline");
-		console.log(post);
 		var post = {
 			"title" : $("#form_input_title").val(),
 			"content" : CKEDITOR.instances.form_input_content.getData(),
@@ -37,7 +29,7 @@ function criaNovoPost() {
 			url : "/s/post",
 			data : post,
 			success : function() {
-				carregaDadosHomePageAposInclusao();
+			dextranet.home.carregaDados(true);
 			}
 		});
 	}

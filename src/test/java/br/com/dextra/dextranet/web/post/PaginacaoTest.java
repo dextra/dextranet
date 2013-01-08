@@ -25,7 +25,7 @@ public class PaginacaoTest extends TesteFuncionalBase{
 
 	@Test
 	public void criarPosts(){
-		int quantidadePosts = 42;
+		int quantidadePosts = 17;
 		int vezes = (int) Math.round(((double)quantidadePosts/20)+0.5);
 
 		dadoOSiteDaDextraNET();
@@ -35,6 +35,25 @@ public class PaginacaoTest extends TesteFuncionalBase{
 		paraVerificarSeTodosOsPostsInseridosEstaoSendoListados();
 		paraVerificarSeAlgumPostNaoFoiEncontrado();
 		eParaConfrontarSeARelacaoDePostsInseridosEstaIgualARelacaoDePostsEncontrados();
+		procurarAleatoriamentePorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado();
+	}
+
+	private void procurarAleatoriamentePorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollBy(0,0);");
+
+		try {
+			dextraNet.writeInputText("#form_search_input","Titulo de Teste Numero: 15");
+			Thread.sleep(6000);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+		dextraNet.click("#form_search_submit");
+		try {
+			Thread.sleep(50000000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void dadoOSiteDaDextraNET() {
