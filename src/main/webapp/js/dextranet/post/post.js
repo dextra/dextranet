@@ -17,7 +17,7 @@ dextranet.post = {
 			dextranet.post.listarPosts(consulta.getText(), ehUmNovoPost, pagina);
 		}
 		return false;
-	};
+	},
 
 	listarPosts:function(query, ehUmNovoPost, pagina) {
 		var url = "/s/post";
@@ -47,15 +47,15 @@ dextranet.post = {
 		if (pagina == 0){
 			$.holy("../template/carrega_miolo_home_page.xml",{});
 		}
-	};
+	},
 
 	carregaTemplatePost:function(template, postObjectArray, ehUmNovoPost){
 		return $.holy(template, {"jsonArrayPost" : postObjectArray,"sucesso" : ehUmNovoPost});
-	};
+	},
 
 	adicionaBotaoVerMais:function(postObjectArray){
 		readMoreButton.addButtonEvent($(".list_stories_footer_call"),postObjectArray);
-	};
+	},
 
 	criaNovoPost:function() {
 		if (($("#form_input_title").val() == "")
@@ -76,11 +76,11 @@ dextranet.post = {
 				url : "/s/post",
 				data : post,
 				success : function() {
-					dextranet.home.carregaDadosAposInclusaoDeUmPost();
+					dextranet.home.carregaDados(true);
 				}
 			});
 		}
 		return false;
-	};
+	}
 
 };
