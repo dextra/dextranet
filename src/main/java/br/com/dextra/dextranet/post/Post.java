@@ -1,5 +1,10 @@
 package br.com.dextra.dextranet.post;
 
+import org.owasp.validator.html.AntiSamy;
+import org.owasp.validator.html.Policy;
+import org.owasp.validator.html.PolicyException;
+import org.owasp.validator.html.ScanException;
+
 import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.repository.document.DocumentRepository;
 import br.com.dextra.utils.Converters;
@@ -11,18 +16,30 @@ import com.google.appengine.api.datastore.Text;
 import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
 
+
 public class Post extends Entidade {
 
 	private String titulo;
 
 	private String dataDeAtualizacao;
 
-	public Post(String titulo, String conteudo, String usuario) {
+	public Post(String titulo, String conteudo, String usuario) throws PolicyException, ScanException {
 		super(usuario, conteudo);
+		this.removeJS();
 		this.titulo = titulo;
 		this.dataDeAtualizacao = this.dataDeCriacao;
 		this.comentarios = 0;
 		this.likes = 0;
+	}
+
+	private void removeJS() throws PolicyException, ScanException {
+
+		AntiSamy as = new AntiSamy();
+	    Policy policy = null;
+
+        policy = Policy.getInstance("/dextranet/src/test/resources/antisamy.xml");
+
+        this.conteudo=as.scan(this.conteudo,policy).getCleanHTML();
 	}
 
 	public Post(Entity postEntity) {

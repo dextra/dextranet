@@ -8,6 +8,8 @@ import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.owasp.validator.html.PolicyException;
+import org.owasp.validator.html.ScanException;
 
 import br.com.dextra.teste.TesteIntegracaoBase;
 
@@ -39,7 +41,16 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 	@Test
 	public void criarNovoPost() {
 		Post novoPost = null;
-		novoPost = new Post("titulo de teste", "conteudo de teste", "usuario");
+		try {
+			novoPost = new Post("titulo de teste", "conteudo de teste", "usuario");
+
+		} catch (PolicyException e1) {
+			Assert.fail("Policy exception");
+
+		} catch (ScanException e1) {
+
+			Assert.fail("Scan exception");
+		}
 		postRepository.criar(novoPost);
 
 		Post postRecuperado = null;
@@ -129,8 +140,14 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		Post novoPost = null;
 
 		for (int i = 0; i < numeroDePosts; i++) {
-			novoPost=new Post("titulo de teste" + (i + 1), "conteudo de teste" + (i + 1),
-					"usuario");
+			try {
+				novoPost=new Post("titulo de teste" + (i + 1), "conteudo de teste" + (i + 1),
+						"usuario");
+			} catch (PolicyException e1) {
+				Assert.fail("Policy exception");
+			} catch (ScanException e1) {
+				Assert.fail("Scan exception");
+			}
 			Thread.sleep(1000);
 			listaDePostsCriados.add(postRepository.criar(novoPost));
 		}
