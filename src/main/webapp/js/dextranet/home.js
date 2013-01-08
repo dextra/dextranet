@@ -76,34 +76,49 @@ dextranet.home = {
 
 	abrirOuFecharTelaUsuario : function() {
 		if ($('#box_user_profile').is(':visible')) {
-			$("#box_user_profile").css("display", "none");
-			$("#box_user_info .shape_arrow_down").css("display", "none");
-			$("#box_user_info .shape_arrow_right").css("display", "inline-block");
+			dextranet.home.abrirTelaUsuario();
 		} else {
-			$("#box_user_profile").css("display", "block");
-			$("#box_user_info .shape_arrow_down").css("display", "inline-block");
-			$("#box_user_info .shape_arrow_right").css("display", "none");
-
-			// se a tela de notificações estiver visível, a esconde
-			if ($('#box_user_notifications_full').is(':visible'))
-				$("#box_user_notifications_full").css("display", "none");
+			dextranet.home.fecharTelaUsuario();
 		}
 	},
 
-	abrirOuFecharTelaNotificacoes : function() {
-		// mostra ou oculta a tela de notificações
+	abrirTelaUsuario : function() {
+		$("#box_user_profile").css("display", "none");
+		$("#box_user_info .shape_arrow_down").css("display", "none");
+		$("#box_user_info .shape_arrow_right").css("display", "inline-block");
+	},
+	fecharTelaUsuario : function() {
+		$("#box_user_profile").css("display", "block");
+		$("#box_user_info .shape_arrow_down").css("display", "inline-block");
+		$("#box_user_info .shape_arrow_right").css("display", "none");
+
 		if ($('#box_user_notifications_full').is(':visible'))
 			$("#box_user_notifications_full").css("display", "none");
-		else {
-			$("#box_user_notifications_full").css("display", "block");
+	},
 
-			// se a tela de inf. do usuário estiver vísivel, a esconde
-			if ($('#box_user_profile').is(':visible')) {
-				$("#box_user_profile").css("display", "none");
-				$("#box_user_info .shape_arrow_down").css("display", "none");
-				$("#box_user_info .shape_arrow_right").css("display",
-						"inline-block");
+	abrirOuFecharTelaNotificacoes : function() {
+		if (dextranet.home.notificacaoEhVisivel()){
+			dextranet.home.someODisplayDeNotificacao();
 			}
+		else {
+			dextranet.home.apareceODisplayDeNotificacao();
+		}
+	},
+
+	notificacaoEhVisivel : function(){
+		return $('#box_user_notifications_full').is(':visible');
+
+	},
+
+	someODisplayDeNotificacao : function(){
+		$("#box_user_notifications_full").css("display", "none");
+	},
+
+	apareceODisplayDeNotificacao : function(){
+		$("#box_user_notifications_full").css("display", "block");
+
+		if ($('#box_user_profile').is(':visible')) {
+			dextranet.home.abrirTelaUsuario();
 		}
 	},
 
