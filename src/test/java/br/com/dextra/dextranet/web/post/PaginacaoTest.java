@@ -23,12 +23,12 @@ public class PaginacaoTest extends TesteFuncionalBase{
 	private ArrayList<String> listaDosPostsEncontradosNaPagina = new ArrayList<String>();
 	private ArrayList<String> listaDosPostsInseridosPeloTest = new ArrayList<String>();
 
-	private int quantidadePosts = 3;
+	private int quantidadePosts = 21;
 
 	@Test
 	public void criarPosts(){
 		int vezes = (int) Math.round(((double)quantidadePosts/20)+0.5);
-		String termoQueSeraPesquisado = "3";
+		String termoQueSeraPesquisado = "20";
 
 		dadoOSiteDaDextraNET();
 		quandoEuCrioPosts(quantidadePosts);
@@ -38,33 +38,13 @@ public class PaginacaoTest extends TesteFuncionalBase{
 		paraVerificarSeAlgumPostNaoFoiEncontrado();
 		eParaConfrontarSeARelacaoDePostsInseridosEstaIgualARelacaoDePostsEncontrados();
 		possoTambemProcurarPorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado(termoQueSeraPesquisado);
-		eProcurarTambemPorUmTermoQueRetorneTodosOsPosts();
+		entaoEuVoltoParaAHome();
+		eProcuroPorUmTermoQueRetorneTodosOsPosts();
 		eDescoOScrollAteOFinalDaPaginaPor(vezes);
 		paraVerificarSeTodosOsPostsPesquisadosEstaoSendoPaginados();
 		entaoEuVoltoParaAHome();
 		eDescoOScrollAteOFinalDaPaginaPor(vezes);
 		eContinuareiListandoTodosOsPostsQueForamInseridos();
-	}
-
-	private void entaoEuVoltoParaAHome() {
-		this.dextraNet.click("#button_sidebar_left_home");
-	}
-
-	private void eContinuareiListandoTodosOsPostsQueForamInseridos() {
-		entaoEuPossoPercorrerAPaginaEListarTodosOsPosts();
-		paraVerificarSeTodosOsPostsInseridosEstaoSendoListados();
-		paraVerificarSeAlgumPostNaoFoiEncontrado();
-		eParaConfrontarSeARelacaoDePostsInseridosEstaIgualARelacaoDePostsEncontrados();
-	}
-
-	private void eProcurarTambemPorUmTermoQueRetorneTodosOsPosts() {
-		this.procurarPorUmPost("Teste");
-		this.entaoEuPossoPercorrerAPaginaEListarTodosOsPosts();
-	}
-
-	private void paraVerificarSeTodosOsPostsPesquisadosEstaoSendoPaginados() {
-		Assert.assertEquals(this.quantidadePosts,this.listaDosPostsEncontradosNaPagina.size());
-		Assert.assertEquals(this.listaDosPostsInseridosPeloTest,this.listaDosPostsEncontradosNaPagina);
 	}
 
 	private void dadoOSiteDaDextraNET() {
@@ -177,5 +157,25 @@ public class PaginacaoTest extends TesteFuncionalBase{
 		espereCarregarOFadeDeAtualizacaoDaPagina();
 		this.entaoEuPossoPercorrerAPaginaEListarTodosOsPosts();
 	}
+
+	private void eProcuroPorUmTermoQueRetorneTodosOsPosts() {
+		this.procurarPorUmPost("Teste");
+	}
+
+	private void paraVerificarSeTodosOsPostsPesquisadosEstaoSendoPaginados() {
+		Assert.assertEquals(this.quantidadePosts,this.listaDosPostsEncontradosNaPagina.size());
+		Assert.assertEquals(this.listaDosPostsInseridosPeloTest,this.listaDosPostsEncontradosNaPagina);
+	}
+	private void entaoEuVoltoParaAHome() {
+		this.dextraNet.click("#button_sidebar_left_home");
+	}
+
+	private void eContinuareiListandoTodosOsPostsQueForamInseridos() {
+		entaoEuPossoPercorrerAPaginaEListarTodosOsPosts();
+		paraVerificarSeTodosOsPostsInseridosEstaoSendoListados();
+		paraVerificarSeAlgumPostNaoFoiEncontrado();
+		eParaConfrontarSeARelacaoDePostsInseridosEstaIgualARelacaoDePostsEncontrados();
+	}
+
 }
 
