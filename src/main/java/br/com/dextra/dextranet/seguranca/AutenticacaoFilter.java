@@ -31,15 +31,10 @@ public class AutenticacaoFilter implements Filter {
 
         String thisURI = httpRequest.getRequestURI();
 
-        if(userService.getCurrentUser() != null){
-        	log.info("user != null");
+        if(userService.getCurrentUser() != null || uriExcludedFromFilter(thisURI)){
     		filterChain.doFilter(request, response);
 
-        }else if( uriExcludedFromFilter(thisURI)){
-        	log.info("uriExcludedFromFilter");
-        	return;
         }else{
-        	log.info("else");
             String loginUrl = userService.createLoginURL(thisURI);
             httpRequest.getRequestDispatcher(loginUrl).forward(request, response);
         }
