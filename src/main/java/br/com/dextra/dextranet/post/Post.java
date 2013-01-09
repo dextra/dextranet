@@ -32,7 +32,7 @@ public class Post extends Entidade {
 
 	Logger log = LoggerFactory.getLogger(Post.class);
 
-	public Post(String titulo, String conteudo, String usuario) throws PolicyException, ScanException {
+	public Post(String titulo, String conteudo, String usuario) throws PolicyException, ScanException, FileNotFoundException, IOException {
 		super(usuario, conteudo);
 		this.removeJS();
 		this.titulo = titulo;
@@ -41,26 +41,19 @@ public class Post extends Entidade {
 		this.likes = 0;
 	}
 
-	private void removeJS() throws PolicyException, ScanException {
+	private void removeJS() throws PolicyException, ScanException, FileNotFoundException, IOException {
 		Properties properties = new Properties();
 
-		try {
+
 			properties.load(new FileInputStream("src/main/resources/config.properties"));
 
 			AntiSamy as = new AntiSamy();
 		    Policy policy = null;
-			log.info(properties.getProperty("antisamy.policyXML"));
 
 	        policy = Policy.getInstance(properties.getProperty("antisamy.policyXML"));
 
 	        this.conteudo=as.scan(this.conteudo,policy).getCleanHTML();
-		} catch (FileNotFoundException e) {
-			log.error("config.properties file not found");
-			e.printStackTrace();
-		} catch (IOException e) {
-			log.error("trying to access config.properties file");
-			e.printStackTrace();
-		}
+
 	}
 
 	public Post(Entity postEntity) {
