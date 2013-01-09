@@ -1,7 +1,7 @@
 package br.com.dextra.repository.document;
 
-import br.com.dextra.comment.Comment;
-import br.com.dextra.comment.CommentFields;
+import br.com.dextra.dextranet.comment.Comment;
+import br.com.dextra.dextranet.comment.CommentFields;
 import br.com.dextra.dextranet.persistencia.BaseRepository;
 import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.post.Post;
@@ -49,8 +49,8 @@ public class DocumentRepository extends BaseRepository {
 	public Document crieUmDocumentoDoComentario(Text text, String id, String idReferencia){
 
 		Document document = Document.newBuilder().setId(id)
-				.addField(Field.newBuilder().setName(CommentFields.TEXT.getField()).setText(text.toString()))
-				.addField(Field.newBuilder().setName(CommentFields.POSTID.getField()).setText(idReferencia))
+				.addField(Field.newBuilder().setName(CommentFields.CONTEUDO.getField()).setText(text.toString()))
+				.addField(Field.newBuilder().setName(CommentFields.ID_REFERENCE.getField()).setText(idReferencia))
 				.addField(Field.newBuilder().setName(CommentFields.ID.getField()).setText(id))
 				.build();
 

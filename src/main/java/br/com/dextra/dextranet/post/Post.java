@@ -23,7 +23,6 @@ import com.google.appengine.api.datastore.Text;
 import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
 
-
 public class Post extends Entidade {
 
 	private String titulo;
@@ -32,7 +31,9 @@ public class Post extends Entidade {
 
 	Logger log = LoggerFactory.getLogger(Post.class);
 
-	public Post(String titulo, String conteudo, String usuario) throws PolicyException, ScanException, FileNotFoundException, IOException {
+	public Post(String titulo, String conteudo, String usuario)
+			throws PolicyException, ScanException, FileNotFoundException,
+			IOException {
 		super(usuario, conteudo);
 		this.removeJS();
 		this.titulo = titulo;
@@ -41,18 +42,20 @@ public class Post extends Entidade {
 		this.likes = 0;
 	}
 
-	private void removeJS() throws PolicyException, ScanException, FileNotFoundException, IOException {
+	private void removeJS() throws PolicyException, ScanException,
+			FileNotFoundException, IOException {
 		Properties properties = new Properties();
 
+		properties.load(new FileInputStream(
+				"src/main/resources/config.properties"));
 
-			properties.load(new FileInputStream("src/main/resources/config.properties"));
+		AntiSamy as = new AntiSamy();
+		Policy policy = null;
 
-			AntiSamy as = new AntiSamy();
-		    Policy policy = null;
+		policy = Policy.getInstance(properties
+				.getProperty("antisamy.policyXML"));
 
-	        policy = Policy.getInstance(properties.getProperty("antisamy.policyXML"));
-
-	        this.conteudo=as.scan(this.conteudo,policy).getCleanHTML();
+		this.conteudo = as.scan(this.conteudo, policy).getCleanHTML();
 
 	}
 
@@ -121,30 +124,43 @@ public class Post extends Entidade {
 	public Entity toEntity() {
 		Entity entidade = new Entity(this.getKey());
 
-		entidade.setProperty(PostFields.ID.getField(), id);
-		entidade.setProperty(PostFields.TITULO.getField(), titulo);
-		entidade.setProperty(PostFields.CONTEUDO.getField(), new Text(conteudo));
-		entidade.setProperty(PostFields.USUARIO.getField(), usuario);
-		entidade.setProperty(PostFields.COMENTARIO.getField(), this.comentarios);
+		entidade.setProperty(PostFields.ID.getField(), this.id);
+		entidade.setProperty(PostFields.TITULO.getField(), this.titulo);
+		entidade.setProperty(PostFields.CONTEUDO.getField(), new Text(
+				this.conteudo));
+		entidade.setProperty(PostFields.USUARIO.getField(), this.usuario);
+		entidade
+				.setProperty(PostFields.COMENTARIO.getField(), this.comentarios);
 		entidade.setProperty(PostFields.LIKES.getField(), this.likes);
 		entidade.setProperty(PostFields.DATA.getField(), this.dataDeCriacao);
-		entidade.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(),this.dataDeAtualizacao);
+		entidade.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(),
+				this.dataDeAtualizacao);
 
 		return entidade;
 	}
 
-	public Document toDocument(){
+	public Document toDocument() {
 
-		Document document = Document.newBuilder().setId(id)
-			.addField(Field.newBuilder().setName(PostFields.TITULO.getField()).setText(titulo))
-			.addField(Field.newBuilder().setName(PostFields.CONTEUDO.getField()).setHTML(conteudo))
-			.addField(Field.newBuilder().setName(PostFields.USUARIO.getField()).setText(usuario))
-			.addField(Field.newBuilder().setName(PostFields.DATA.getField()).setText(dataDeCriacao))
-			.addField(Field.newBuilder().setName(PostFields.DATA_DE_ATUALIZACAO.getField()).setText(dataDeAtualizacao))
-			.addField(Field.newBuilder().setName(PostFields.ID.getField()).setText(id))
-			.build();
+		Document document = Document.newBuilder().setId(id).addField(
+				Field.newBuilder().setName(PostFields.TITULO.getField())
+						.setText(titulo)).addField(
+				Field.newBuilder().setName(PostFields.CONTEUDO.getField())
+						.setHTML(conteudo)).addField(
+				Field.newBuilder().setName(PostFields.USUARIO.getField())
+						.setText(usuario)).addField(
+				Field.newBuilder().setName(PostFields.DATA.getField()).setText(
+						dataDeCriacao)).addField(
+				Field.newBuilder().setName(
+						PostFields.DATA_DE_ATUALIZACAO.getField()).setText(
+						dataDeAtualizacao)).addField(
+				Field.newBuilder().setName(PostFields.ID.getField())
+						.setText(id)).build();
 
 		return document;
+	}
+
+	public void delete(String id) {
+		new PostRepository().remove(id);
 	}
 
 }
