@@ -25,9 +25,9 @@ public class PaginacaoTest extends TesteFuncionalBase{
 
 	@Test
 	public void criarPosts(){
-		int quantidadePosts = 41;
+		int quantidadePosts = 61;
 		int vezes = (int) Math.round(((double)quantidadePosts/20)+0.5);
-		String termoQueSeraPesquisado = "17";
+		String termoQueSeraPesquisado = "60";
 
 		dadoOSiteDaDextraNET();
 		quandoEuCrioPosts(quantidadePosts);
@@ -46,16 +46,12 @@ public class PaginacaoTest extends TesteFuncionalBase{
 	private void quandoEuCrioPosts(int quantidadeDePosts){
 
 		for(int i = 1; i <= quantidadeDePosts ; i++){
+			String titulo = "Titulo de Teste Numero: " + i;
+			String conteudo = "Texto do teste numero: " + i;
 
-			try {
-				String titulo = "Titulo de Teste Numero: " + i;
-				String conteudo = "Texto do teste numero: " + i;
-				novoPost(titulo, conteudo);
-				alimentarBaseDosTestes(conteudo);
-				Thread.sleep(700);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			novoPost(titulo, conteudo);
+			alimentarBaseDosTestes(conteudo);
+			espereCarregarOFadeDeAtualizacaoDaPagina();
 		}
 	}
 
@@ -83,13 +79,13 @@ public class PaginacaoTest extends TesteFuncionalBase{
 																"document.documentElement.clientHeight)" +
 																");" +
 												"");
-			esperePorDoisSegundos();
+			espereCarregarOFadeDeAtualizacaoDaPagina();
 		}
 	}
 
-	private void esperePorDoisSegundos() {
+	private void espereCarregarOFadeDeAtualizacaoDaPagina() {
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(700);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -151,7 +147,7 @@ public class PaginacaoTest extends TesteFuncionalBase{
 	private void procurarPorUmPost(String termoASerPesquisado) {
 		dextraNet.writeInputText("#form_search_input",termoASerPesquisado);
 		dextraNet.click("#form_search_submit");
-		esperePorDoisSegundos();
+		espereCarregarOFadeDeAtualizacaoDaPagina();
 	}
 }
 
