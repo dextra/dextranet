@@ -1,4 +1,4 @@
-package br.com.dextra.teste.servicos;
+package br.com.dextra.dextranet.comment;
 
 
 import org.junit.Ignore;
