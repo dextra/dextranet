@@ -19,30 +19,30 @@ import br.com.dextra.teste.TesteFuncionalBase;
 public class PaginacaoTest extends TesteFuncionalBase{
 
 	private PaginaDextraNet dextraNet = new PaginaDextraNet(driver);
-	private HashMap<String, Boolean> mapaDosPosts = new HashMap<String, Boolean>();
-	private ArrayList<String> listaDosPostsEncontradosNaPagina = new ArrayList<String>();
-	private ArrayList<String> listaDosPostsInseridosPeloTest = new ArrayList<String>();
+
+	private HashMap<String, Boolean> statusDosPosts = new HashMap<String, Boolean>();
+	private ArrayList<String> postsEncontrados = new ArrayList<String>();
+	private ArrayList<String> postsInseridos = new ArrayList<String>();
 
 	private int quantidadePosts = 61;
-	private int vezes = (int) Math.round(((double)quantidadePosts/20)+0.5);
+	private int vezesQueOScrollDescera = (int) Math.round(((double)quantidadePosts/20)+0.5);
+	private String termoQueSeraPesquisado = "60";
 
 	@Test
-	public void criarPosts(){
-		String termoQueSeraPesquisado = "60";
-
+	public void fluxoDeCriacaoPesquisaEPaginacaoDePosts(){
 		dadoOSiteDaDextraNET();
 		quandoEuCrioPosts(quantidadePosts);
-		eDescoOScrollAteOFinalDaPaginaPor(vezes);
+		eDescoOScrollAteOFinalDaPaginaPor(vezesQueOScrollDescera);
 		entaoEuPossoPercorrerAPaginaEListarTodosOsPosts();
 		paraVerificarSeTodosOsPostsInseridosEstaoSendoListados();
 		paraVerificarSeAlgumPostNaoFoiEncontrado();
 		eParaConfrontarSeARelacaoDePostsInseridosEstaIgualARelacaoDePostsEncontrados();
 		possoTambemProcurarPorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado(termoQueSeraPesquisado);
 		entaoEuVoltoParaAHome();
-		eProcuroPorUmTermoQueRetorneTodosOsPosts();
+		procuroPorUmTermoQueRetorneTodosOsPosts();
 		paraVerificarSeTodosOsPostsPesquisadosEstaoSendoPaginados();
 		entaoEuVoltoParaAHome();
-		eDescoOScrollAteOFinalDaPaginaPor(vezes);
+		eDescoOScrollAteOFinalDaPaginaPor(vezesQueOScrollDescera);
 		eContinuareiListandoTodosOsPostsQueForamInseridos();
 	}
 
@@ -70,9 +70,17 @@ public class PaginacaoTest extends TesteFuncionalBase{
 	}
 
 	private void alimentarBaseDosTestes(String conteudo) {
-		this.mapaDosPosts.put(conteudo, false);
-		this.listaDosPostsInseridosPeloTest.add(conteudo);
-		Collections.sort(listaDosPostsInseridosPeloTest);
+		this.statusDosPosts.put(conteudo, false);
+		this.postsInseridos.add(conteudo);
+		Collections.sort(postsInseridos);
+	}
+
+	private void espereCarregarOFadeDeAtualizacaoDaPagina() {
+		try {
+			Thread.sleep(700);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void eDescoOScrollAteOFinalDaPaginaPor(int quantidadeDeVezesQueDescoOScroll){
@@ -89,38 +97,29 @@ public class PaginacaoTest extends TesteFuncionalBase{
 												"");
 			espereCarregarOFadeDeAtualizacaoDaPagina();
 		}
-		espereCarregarOFadeDeAtualizacaoDaPagina();
-	}
-
-	private void espereCarregarOFadeDeAtualizacaoDaPagina() {
-		try {
-			Thread.sleep(700);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 
 	private void entaoEuPossoPercorrerAPaginaEListarTodosOsPosts(){
 		List<WebElement> textoDoComentario =  driver.findElements(By.cssSelector(".list_stories_lead"));
-		this.listaDosPostsEncontradosNaPagina.clear();
+		postsEncontrados.clear();
 
 		Iterator<WebElement> it = textoDoComentario.iterator();
 		while(it.hasNext()){
 			String post = it.next().getText().toString();
-			this.listaDosPostsEncontradosNaPagina.add(post);
+			postsEncontrados.add(post);
 		}
 
-		Collections.sort(this.listaDosPostsEncontradosNaPagina);
+		Collections.sort(postsEncontrados);
 	}
 
 	private void paraVerificarSeTodosOsPostsInseridosEstaoSendoListados(){
-		Iterator<String> iterator = listaDosPostsEncontradosNaPagina.iterator();
+		Iterator<String> iterator = postsEncontrados.iterator();
 
 		while (iterator.hasNext()) {
 			String it = iterator.next();
-			for (String post : mapaDosPosts.keySet()) {
+			for (String post : statusDosPosts.keySet()) {
 				if (post.equals(it)) {
-					mapaDosPosts.put(post, true);
+					statusDosPosts.put(post, true);
 				}
 			}
 		}
@@ -129,8 +128,8 @@ public class PaginacaoTest extends TesteFuncionalBase{
 	private void paraVerificarSeAlgumPostNaoFoiEncontrado(){
         ArrayList<String> retorno = new ArrayList<String>();
 
-        for(String post : mapaDosPosts.keySet()) {
-	    	  Boolean status = mapaDosPosts.get(post);
+        for(String post : statusDosPosts.keySet()) {
+	    	  Boolean status = statusDosPosts.get(post);
 	    	  if(status.booleanValue() == false){
 		          retorno.add(post);
 	    	  }
@@ -140,36 +139,36 @@ public class PaginacaoTest extends TesteFuncionalBase{
 
 
 	private void eParaConfrontarSeARelacaoDePostsInseridosEstaIgualARelacaoDePostsEncontrados() {
-		Assert.assertEquals(listaDosPostsInseridosPeloTest,listaDosPostsEncontradosNaPagina);
+		Assert.assertEquals(postsInseridos,postsEncontrados);
 	}
 
 	private void possoTambemProcurarPorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado(String termoPesquisado) {
-		this.procurarPorUmPost(termoPesquisado);
+		procurarPorUmPost(termoPesquisado);
 
-		Assert.assertEquals(1,this.listaDosPostsEncontradosNaPagina.size());
-		Assert.assertEquals("[Texto do teste numero: " + termoPesquisado + "]",this.listaDosPostsEncontradosNaPagina.toString());
+		Assert.assertEquals(1,this.postsEncontrados.size());
+		Assert.assertEquals("[Texto do teste numero: " + termoPesquisado + "]",this.postsEncontrados.toString());
 	}
 
 	private void procurarPorUmPost(String termoASerPesquisado) {
 		dextraNet.writeInputText("#form_search_input",termoASerPesquisado);
 		dextraNet.click("#form_search_submit");
 		espereCarregarOFadeDeAtualizacaoDaPagina();
-		eDescoOScrollAteOFinalDaPaginaPor(vezes);
+		eDescoOScrollAteOFinalDaPaginaPor(vezesQueOScrollDescera);
 		this.entaoEuPossoPercorrerAPaginaEListarTodosOsPosts();
-	}
-
-	private void eProcuroPorUmTermoQueRetorneTodosOsPosts() {
-		this.procurarPorUmPost("Teste");
-	}
-
-	private void paraVerificarSeTodosOsPostsPesquisadosEstaoSendoPaginados() {
-		Assert.assertEquals(this.quantidadePosts,this.listaDosPostsEncontradosNaPagina.size());
-		Assert.assertEquals(this.listaDosPostsInseridosPeloTest,this.listaDosPostsEncontradosNaPagina);
 	}
 
 	private void entaoEuVoltoParaAHome() {
 		this.dextraNet.click("#button_sidebar_left_home");
 		espereCarregarOFadeDeAtualizacaoDaPagina();
+	}
+
+	private void procuroPorUmTermoQueRetorneTodosOsPosts() {
+		this.procurarPorUmPost("Teste");
+	}
+
+	private void paraVerificarSeTodosOsPostsPesquisadosEstaoSendoPaginados() {
+		Assert.assertEquals(this.quantidadePosts,this.postsEncontrados.size());
+		Assert.assertEquals(this.postsInseridos,this.postsEncontrados);
 	}
 
 	private void eContinuareiListandoTodosOsPostsQueForamInseridos() {
