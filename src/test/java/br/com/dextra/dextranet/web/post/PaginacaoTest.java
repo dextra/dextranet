@@ -27,6 +27,7 @@ public class PaginacaoTest extends TesteFuncionalBase{
 	public void criarPosts(){
 		int quantidadePosts = 5;
 		int vezes = (int) Math.round(((double)quantidadePosts/20)+0.5);
+		String termoQueSeraPesquisado = "5";
 
 		dadoOSiteDaDextraNET();
 		quandoEuCrioPosts(quantidadePosts);
@@ -35,7 +36,7 @@ public class PaginacaoTest extends TesteFuncionalBase{
 		paraVerificarSeTodosOsPostsInseridosEstaoSendoListados();
 		paraVerificarSeAlgumPostNaoFoiEncontrado();
 		eParaConfrontarSeARelacaoDePostsInseridosEstaIgualARelacaoDePostsEncontrados();
-		procurarPorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado();
+		procurarPorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado(termoQueSeraPesquisado);
 	}
 
 	private void dadoOSiteDaDextraNET() {
@@ -139,13 +140,12 @@ public class PaginacaoTest extends TesteFuncionalBase{
 		Assert.assertEquals(listaDosPostsInseridosPeloTest,listaDosPostsEncontradosNaPagina);
 	}
 
-	private void procurarPorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado() {
-		procurarPorUmPost("1");
-
+	private void procurarPorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado(String termoPesquisado) {
+		this.procurarPorUmPost(termoPesquisado);
 		this.entaoEuPossoPercorrerAPaginaEListarTodosOsPosts();
 
 		Assert.assertEquals(1,this.listaDosPostsEncontradosNaPagina.size());
-		Assert.assertEquals("[Texto do teste numero: 1]",this.listaDosPostsEncontradosNaPagina.toString());
+		Assert.assertEquals("[Texto do teste numero: " + termoPesquisado + "]",this.listaDosPostsEncontradosNaPagina.toString());
 	}
 
 	private void procurarPorUmPost(String termoASerPesquisado) {
