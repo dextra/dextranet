@@ -12,7 +12,7 @@
 				<textarea cols="50" id="form_input_content" style="resize:none;"
 					placeholder="${messages.placeholder_content_post}" name="content"></textarea>
 				<br />
-					<input type="submit" value="${messages.button_newPost}" id="form_post_submit" />
+					<input type="submit" value="${messages.button_newPost}" id="form_post_submit" class="submit" />
 			</form>
 		</div>
 	</template>
