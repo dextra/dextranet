@@ -52,10 +52,10 @@ public class GAETestHelper {
 		Map<String, Object> envs = new HashMap<String, Object>();
 		envs.put("com.google.appengine.api.users.UserService.user_id_key", "10");
 		helper.setEnvAttributes(envs);
-		helper.setEnvIsLoggedIn(true);
+		helper.setEnvIsLoggedIn(false);
 		helper.setEnvIsAdmin(false);
-	  	helper.setEnvEmail("login.google@example.com");
-	  	helper.setEnvAuthDomain("example.com");
+	  //	helper.setEnvEmail("login.google@example.com");
+	 // 	helper.setEnvAuthDomain("example.com");
 	}
 
 	public void prepareSearchServiceTestHelper() throws Exception {
