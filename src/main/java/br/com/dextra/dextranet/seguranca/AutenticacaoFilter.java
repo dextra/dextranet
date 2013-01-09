@@ -42,7 +42,7 @@ public class AutenticacaoFilter implements Filter {
             String loginUrl = userService.createLoginURL(thisURI);
         	log.info("URL " + loginUrl);
         	httpReponse.setStatus(HttpStatus.SC_MOVED_PERMANENTLY);
-        	httpReponse.sendRedirect(loginUrl);
+        	httpReponse.setHeader("Location", loginUrl);
         	return;
         }
 
