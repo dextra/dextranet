@@ -9,7 +9,6 @@ dextranet.post = {
 		consulta.setText($('#form_search_input').val());
 
 		if(consulta.getText() != ""){
-			$("#form_gif_loading").css("display", "inline");
 			dextranet.post.listarPosts(consulta.getText(), ehUmNovoPost, pagina);
 		}
 		return false;
@@ -19,8 +18,6 @@ dextranet.post = {
 		var url = "/s/post";
 		var quantidadePostsSolicitados = "20";
 		var template = "../template/post.xml";
-
-		$("#form_gif_loading").css("display", "inline");
 
 		$.ajax( {
 			type : "GET",
@@ -58,8 +55,6 @@ dextranet.post = {
 				|| (CKEDITOR.instances.form_input_content.getData() == "")) {
 			$("li.warning").css("display", "list-item");
 		} else {
-			$("#form_post_submit").css("display", "none");
-			$("#form_gif_loading").css("display", "inline");
 
 			var post = {
 				"title" : $("#form_input_title").val(),
