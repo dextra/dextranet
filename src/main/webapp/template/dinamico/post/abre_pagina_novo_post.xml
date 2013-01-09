@@ -6,7 +6,7 @@
 	</ul>
 		<div id="div_novo_post">
 			<form action="" id="form_new_post">
-				<input size="51" type="text" id="form_input_title"
+				<input size="98%" type="text" id="form_input_title"
 					placeholder="${messages.placeholder_title_post}" name="title"></input>
 				<br />
 				<textarea cols="50" id="form_input_content" style="resize:none;"
@@ -18,7 +18,7 @@
 	</template>
 
 	<script>
-		CKEDITOR.replace('form_input_content');
+		CKEDITOR.replace('form_input_content',{removePlugins:'elementspath',height:"230", width:"100%"});
 		CKEDITOR.config.contentsCss = 'ckeditor/body.css';
 		$("#form_new_post").submit(dextranet.post.criaNovoPost);
 	</script>
