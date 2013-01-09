@@ -33,9 +33,6 @@ dextranet.home = {
 	},
 
 	carregueOsTemplates : function() {
-		$.holy("../template/estatico/carrega_menu_principal.xml", {});
-		$.holy("../template/estatico/carrega_menu_lateral.xml", {});
-
 		$.ajax( {
 			type : "GET",
 			url : "/s/usuario",
@@ -43,6 +40,9 @@ dextranet.home = {
 				$.holy("../template/estatico/carrega_dados_usuario.xml", usuario);
 			}
 		});
+
+		$.holy("../template/estatico/carrega_menu_principal.xml", {});
+		$.holy("../template/estatico/carrega_menu_lateral.xml", {});
 	},
 
 	setActiveMenuLateral : function(id) {
