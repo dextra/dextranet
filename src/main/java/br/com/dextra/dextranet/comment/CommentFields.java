@@ -2,7 +2,8 @@ package br.com.dextra.dextranet.comment;
 
 public enum CommentFields {
 
-	TEXT("text"),AUTOR("autor"),DATE("date"),ID("id"),POSTID("postID");
+	CONTEUDO("conteudo"), USUARIO("usuario"), DATA_DE_CRIACAO("dataDeCriacao"), ID("id"), ID_REFERENCE(
+			"idReference"), COMENTARIOS("comentarios"), LIKES("likes"), TREE("tree");
 
 	private String value;
 

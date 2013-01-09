@@ -8,7 +8,7 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.junit.Ignore;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -23,7 +23,7 @@ public class PaginacaoTest extends TesteFuncionalBase{
 	private ArrayList<String> listaDosPostsEncontradosNaPagina = new ArrayList<String>();
 	private ArrayList<String> listaDosPostsInseridosPeloTest = new ArrayList<String>();
 
-	@Ignore
+	@Test
 	public void criarPosts(){
 		int quantidadePosts = 61;
 		int vezes = (int) Math.round(((double)quantidadePosts/20)+0.5);
