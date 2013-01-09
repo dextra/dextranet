@@ -1,7 +1,5 @@
 package br.com.dextra.dextranet.document;
 
-import br.com.dextra.dextranet.comment.Comment;
-import br.com.dextra.dextranet.comment.CommentFields;
 import br.com.dextra.dextranet.persistencia.BaseRepository;
 import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.post.Post;
@@ -14,7 +12,6 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.datastore.Text;
 import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
 
@@ -46,17 +43,6 @@ public class DocumentRepository extends BaseRepository {
 		IndexFacade.getIndex(Post.class.getName()).add(document);
 	}
 
-	public Document crieUmDocumentoDoComentario(Text text, String id, String idReferencia){
-
-		Document document = Document.newBuilder().setId(id)
-				.addField(Field.newBuilder().setName(CommentFields.CONTEUDO.getField()).setText(text.toString()))
-				.addField(Field.newBuilder().setName(CommentFields.ID_REFERENCE.getField()).setText(idReferencia))
-				.addField(Field.newBuilder().setName(CommentFields.ID.getField()).setText(id))
-				.build();
-
-		IndexFacade.getIndex(Comment.class.getName()).add(document);
-		return document;
-	}
 
 	public void removeIndex(String indexKey, String id) {
 		IndexFacade.getIndex(indexKey).remove(id);
