@@ -51,6 +51,4 @@ public class Converters {
 		else
 		return false;
 	}
-
-
 }
