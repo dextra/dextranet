@@ -45,6 +45,7 @@ public class AutenticacaoFilter implements Filter {
         	log.info("URL " + loginUrl);
         	httpResponse.setStatus(HttpStatus.SC_MOVED_PERMANENTLY);
         	httpResponse.setHeader("Location", loginUrl);
+        	httpResponse.sendRedirect(loginUrl);
         	return;
         }
 
