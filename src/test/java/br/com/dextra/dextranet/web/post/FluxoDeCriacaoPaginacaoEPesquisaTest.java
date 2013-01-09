@@ -16,7 +16,7 @@ import org.openqa.selenium.WebElement;
 import br.com.dextra.teste.TesteFuncionalBase;
 
 
-public class PaginacaoTest extends TesteFuncionalBase{
+public class FluxoDeCriacaoPaginacaoEPesquisaTest extends TesteFuncionalBase{
 
 	private PaginaDextraNet dextraNet = new PaginaDextraNet(driver);
 
