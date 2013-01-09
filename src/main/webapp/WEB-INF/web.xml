@@ -33,6 +33,7 @@
     <filter-mapping>
         <filter-name>autenticacaoFilter</filter-name>
         <url-pattern>*</url-pattern>
+        <url-pattern>http://dextranet-desenvolvimento.appspot.com/</url-pattern>
     </filter-mapping>
 
 </web-app>
