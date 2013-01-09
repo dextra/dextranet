@@ -96,8 +96,9 @@ public class PaginacaoTest extends TesteFuncionalBase{
 
 	private void entaoEuPossoPercorrerAPaginaEListarTodosOsPosts(){
 		List<WebElement> textoDoComentario =  driver.findElements(By.cssSelector(".list_stories_lead"));
-		Iterator<WebElement> it = textoDoComentario.iterator();
+		this.listaDosPostsEncontradosNaPagina.clear();
 
+		Iterator<WebElement> it = textoDoComentario.iterator();
 		while(it.hasNext()){
 			String post = it.next().getText().toString();
 			listaDosPostsEncontradosNaPagina.add(post);
@@ -141,9 +142,7 @@ public class PaginacaoTest extends TesteFuncionalBase{
 	private void procurarPorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado() {
 		procurarPorUmPost("1");
 
-		this.listaDosPostsEncontradosNaPagina.clear();
 		this.entaoEuPossoPercorrerAPaginaEListarTodosOsPosts();
-		System.out.println(this.listaDosPostsEncontradosNaPagina);
 
 		Assert.assertEquals(1,this.listaDosPostsEncontradosNaPagina.size());
 		Assert.assertEquals("[Texto do teste numero: 1]",this.listaDosPostsEncontradosNaPagina.toString());
