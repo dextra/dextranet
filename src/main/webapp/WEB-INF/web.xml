@@ -32,7 +32,7 @@
     </filter>
     <filter-mapping>
         <filter-name>autenticacaoFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/s/*</url-pattern>
     </filter-mapping>
 
 </web-app>
