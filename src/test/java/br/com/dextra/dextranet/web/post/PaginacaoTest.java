@@ -23,12 +23,12 @@ public class PaginacaoTest extends TesteFuncionalBase{
 	private ArrayList<String> listaDosPostsEncontradosNaPagina = new ArrayList<String>();
 	private ArrayList<String> listaDosPostsInseridosPeloTest = new ArrayList<String>();
 
-	private int quantidadePosts = 5;
+	private int quantidadePosts = 3;
 
 	@Test
 	public void criarPosts(){
 		int vezes = (int) Math.round(((double)quantidadePosts/20)+0.5);
-		String termoQueSeraPesquisado = "5";
+		String termoQueSeraPesquisado = "3";
 
 		dadoOSiteDaDextraNET();
 		quandoEuCrioPosts(quantidadePosts);
@@ -46,10 +46,15 @@ public class PaginacaoTest extends TesteFuncionalBase{
 		eContinuareiListandoTodosOsPostsQueForamInseridos();
 	}
 
-	private void eContinuareiListandoTodosOsPostsQueForamInseridos() {
+	private void entaoEuVoltoParaAHome() {
+		this.dextraNet.click("#button_sidebar_left_home");
 	}
 
-	private void entaoEuVoltoParaAHome() {
+	private void eContinuareiListandoTodosOsPostsQueForamInseridos() {
+		entaoEuPossoPercorrerAPaginaEListarTodosOsPosts();
+		paraVerificarSeTodosOsPostsInseridosEstaoSendoListados();
+		paraVerificarSeAlgumPostNaoFoiEncontrado();
+		eParaConfrontarSeARelacaoDePostsInseridosEstaIgualARelacaoDePostsEncontrados();
 	}
 
 	private void eProcurarTambemPorUmTermoQueRetorneTodosOsPosts() {
