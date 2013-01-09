@@ -14,7 +14,7 @@ dextranet.post = {
 	listarPosts : function(query, ehUmNovoPost, pagina) {
 		var url = "/s/post";
 		var quantidadePostsSolicitados = "20";
-		var template = "../template/post.xml";
+		var template = "../template/post/post.xml";
 
 		$.ajax( {
 			type : "GET",
@@ -35,7 +35,7 @@ dextranet.post = {
 		});
 
 		if (pagina == 0){
-			$.holy("../template/carrega_miolo_home_page.xml",{});
+			$.holy("../template/menuLateral/carrega_miolo_home_page.xml",{});
 		}
 	},
 
