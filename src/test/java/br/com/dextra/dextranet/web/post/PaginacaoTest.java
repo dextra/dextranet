@@ -41,6 +41,15 @@ public class PaginacaoTest extends TesteFuncionalBase{
 		eProcurarTambemPorUmTermoQueRetorneTodosOsPosts();
 		eDescoOScrollAteOFinalDaPaginaPor(vezes);
 		paraVerificarSeTodosOsPostsPesquisadosEstaoSendoPaginados();
+		entaoEuVoltoParaAHome();
+		eDescoOScrollAteOFinalDaPaginaPor(vezes);
+		eContinuareiListandoTodosOsPostsQueForamInseridos();
+	}
+
+	private void eContinuareiListandoTodosOsPostsQueForamInseridos() {
+	}
+
+	private void entaoEuVoltoParaAHome() {
 	}
 
 	private void eProcurarTambemPorUmTermoQueRetorneTodosOsPosts() {
