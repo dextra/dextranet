@@ -33,14 +33,14 @@ dextranet.home = {
 	},
 
 	carregueOsTemplates : function() {
-		$.holy("../template/carrega_menu_principal.xml", {});
-		$.holy("../template/carrega_menu_lateral.xml", {});
+		$.holy("../template/estatico/carrega_menu_principal.xml", {});
+		$.holy("../template/estatico/carrega_menu_lateral.xml", {});
 
 		$.ajax( {
 			type : "GET",
 			url : "/s/usuario",
 			success : function(usuario) {
-				$.holy("../template/carrega_dados_usuario.xml", usuario);
+				$.holy("../template/estatico/carrega_dados_usuario.xml", usuario);
 			}
 		});
 	},
@@ -55,27 +55,23 @@ dextranet.home = {
 	},
 
 	abrePaginaNovoPost : function() {
-		$.holy("../template/abre_pagina_novo_post.xml", {});
+		$.holy("../template/menuLateral/abre_pagina_novo_post.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_new_post");
 	},
 
 	abrePaginaCategoria : function() {
-		$.holy("../template/abre_pagina_categoria.xml", {});
+		$.holy("../template/menuLateral/abre_pagina_categoria.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_category");
 	},
 
 	abrePaginaPerfil : function() {
-		$.holy("../template/abre_pagina_perfil.xml", {});
+		$.holy("../template/menuLateral/abre_pagina_perfil.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_profile");
 	},
 
 	abrePaginaEquipe : function() {
-		$.holy("../template/abre_pagina_equipe.xml", {});
+		$.holy("../template/menuLateral/abre_pagina_equipe.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_team");
-	},
-
-	deslogarUsuario : function() {
-		$.holy("../template/pagina_login.xml", {});
 	},
 
 	abrirOuFecharTelaUsuario : function() {
