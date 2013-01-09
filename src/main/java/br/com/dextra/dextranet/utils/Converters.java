@@ -45,5 +45,12 @@ public class Converters {
 		return conteudo;
 	}
 
+	public boolean toBoolean(String field) {
+		if(field.equals("true"))
+			return true;
+		else
+		return false;
+	}
+
 
 }

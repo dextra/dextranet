@@ -49,8 +49,8 @@ public class DocumentRepository extends BaseRepository {
 	public Document crieUmDocumentoDoComentario(Text text, String id, String idReferencia){
 
 		Document document = Document.newBuilder().setId(id)
-				.addField(Field.newBuilder().setName(CommentFields.TEXT.getField()).setText(text.toString()))
-				.addField(Field.newBuilder().setName(CommentFields.POSTID.getField()).setText(idReferencia))
+				.addField(Field.newBuilder().setName(CommentFields.CONTEUDO.getField()).setText(text.toString()))
+				.addField(Field.newBuilder().setName(CommentFields.ID_REFERENCE.getField()).setText(idReferencia))
 				.addField(Field.newBuilder().setName(CommentFields.ID.getField()).setText(id))
 				.build();
 
