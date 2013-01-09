@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ public class AutenticacaoFilter implements Filter {
 
         UserService userService = UserServiceFactory.getUserService();
 
+        HttpServletResponse httpReponse = (HttpServletResponse) response;
         HttpServletRequest httpRequest = (HttpServletRequest) request;
 
         String thisURI = httpRequest.getRequestURI();
@@ -38,7 +40,8 @@ public class AutenticacaoFilter implements Filter {
         }else{
             String loginUrl = userService.createLoginURL(thisURI);
         	log.info("URL " + loginUrl);
-            httpRequest.getRequestDispatcher(loginUrl).forward(request, response);
+        	httpReponse.sendRedirect(loginUrl);
+        	return;
         }
 
 
