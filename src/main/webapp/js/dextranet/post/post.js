@@ -51,8 +51,13 @@ dextranet.post = {
 	},
 
 	criaNovoPost:function() {
-		if (($("#form_input_title").val() == "")
-				|| (CKEDITOR.instances.form_input_content.getData() == "")) {
+
+		var contentComparacao = CKEDITOR.instances.form_input_content.getData();
+		contentComparacao = dextranet.stripHTML(contentComparacao);
+
+		console.log(contentComparacao);
+
+		if (($("#form_input_title").val() == "") || (contentComparacao == "")) {
 			$("li.warning").css("display", "list-item");
 		} else {
 
@@ -73,5 +78,4 @@ dextranet.post = {
 		}
 		return false;
 	}
-
 };
