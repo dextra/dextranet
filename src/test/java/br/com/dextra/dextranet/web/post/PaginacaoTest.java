@@ -23,12 +23,12 @@ public class PaginacaoTest extends TesteFuncionalBase{
 	private ArrayList<String> listaDosPostsEncontradosNaPagina = new ArrayList<String>();
 	private ArrayList<String> listaDosPostsInseridosPeloTest = new ArrayList<String>();
 
-	private int quantidadePosts = 21;
+	private int quantidadePosts = 61;
+	private int vezes = (int) Math.round(((double)quantidadePosts/20)+0.5);
 
 	@Test
 	public void criarPosts(){
-		int vezes = (int) Math.round(((double)quantidadePosts/20)+0.5);
-		String termoQueSeraPesquisado = "20";
+		String termoQueSeraPesquisado = "60";
 
 		dadoOSiteDaDextraNET();
 		quandoEuCrioPosts(quantidadePosts);
@@ -40,7 +40,6 @@ public class PaginacaoTest extends TesteFuncionalBase{
 		possoTambemProcurarPorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado(termoQueSeraPesquisado);
 		entaoEuVoltoParaAHome();
 		eProcuroPorUmTermoQueRetorneTodosOsPosts();
-		eDescoOScrollAteOFinalDaPaginaPor(vezes);
 		paraVerificarSeTodosOsPostsPesquisadosEstaoSendoPaginados();
 		entaoEuVoltoParaAHome();
 		eDescoOScrollAteOFinalDaPaginaPor(vezes);
@@ -90,6 +89,7 @@ public class PaginacaoTest extends TesteFuncionalBase{
 												"");
 			espereCarregarOFadeDeAtualizacaoDaPagina();
 		}
+		espereCarregarOFadeDeAtualizacaoDaPagina();
 	}
 
 	private void espereCarregarOFadeDeAtualizacaoDaPagina() {
@@ -135,7 +135,6 @@ public class PaginacaoTest extends TesteFuncionalBase{
 		          retorno.add(post);
 	    	  }
 	      }
-
 		Assert.assertEquals(0,retorno.size());
 	}
 
@@ -155,6 +154,7 @@ public class PaginacaoTest extends TesteFuncionalBase{
 		dextraNet.writeInputText("#form_search_input",termoASerPesquisado);
 		dextraNet.click("#form_search_submit");
 		espereCarregarOFadeDeAtualizacaoDaPagina();
+		eDescoOScrollAteOFinalDaPaginaPor(vezes);
 		this.entaoEuPossoPercorrerAPaginaEListarTodosOsPosts();
 	}
 
@@ -166,8 +166,10 @@ public class PaginacaoTest extends TesteFuncionalBase{
 		Assert.assertEquals(this.quantidadePosts,this.listaDosPostsEncontradosNaPagina.size());
 		Assert.assertEquals(this.listaDosPostsInseridosPeloTest,this.listaDosPostsEncontradosNaPagina);
 	}
+
 	private void entaoEuVoltoParaAHome() {
 		this.dextraNet.click("#button_sidebar_left_home");
+		espereCarregarOFadeDeAtualizacaoDaPagina();
 	}
 
 	private void eContinuareiListandoTodosOsPostsQueForamInseridos() {
