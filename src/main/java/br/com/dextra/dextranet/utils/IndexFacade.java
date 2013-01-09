@@ -1,4 +1,4 @@
-package br.com.dextra.utils;
+package br.com.dextra.dextranet.utils;
 
 import com.google.appengine.api.search.Index;
 import com.google.appengine.api.search.IndexSpec;
