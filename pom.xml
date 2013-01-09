@@ -138,6 +138,11 @@
 			<artifactId>expertus</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+        <groupId>org.owasp</groupId>
+        <artifactId>antisamy</artifactId>
+      </dependency>
+
 	</dependencies>
 
 	<build>
@@ -387,6 +392,11 @@
 				<groupId>br.com.dextra</groupId>
 				<artifactId>expertus</artifactId>
 				<version>1.0.11</version>
+			</dependency>
+			<dependency>
+        		<groupId>org.owasp</groupId>
+        		<artifactId>antisamy</artifactId>
+        		<version>1.4</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

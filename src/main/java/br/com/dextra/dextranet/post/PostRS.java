@@ -14,6 +14,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import org.owasp.validator.html.PolicyException;
+import org.owasp.validator.html.ScanException;
+
 import br.com.dextra.utils.Converters;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -21,16 +24,12 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 @Path("/post")
 public class PostRS {
 
-	private static final String SMAXRESULTS = "40";
-
-	private final int MAXRESULTS = Integer.parseInt(SMAXRESULTS);
-
 	PostRepository postRepository = new PostRepository();
 
 	@Path("/")
 	@POST
 	@Produces("application/json;charset=UTF-8")
-	public Response novoPost(@FormParam("title") String titulo,@FormParam("content") String conteudo, @FormParam("author") String autor) {
+	public Response novoPost(@FormParam("title") String titulo,@FormParam("content") String conteudo, @FormParam("author") String autor) throws PolicyException, ScanException {
 		Post post = new Post(titulo, conteudo, autor);
 		postRepository.criar(post);
 
