@@ -29,6 +29,8 @@ public class AutenticacaoFilter implements Filter {
 
         UserService userService = UserServiceFactory.getUserService();
 
+        log.info(userService.getCurrentUser().getEmail());
+
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpServletRequest httpRequest = (HttpServletRequest) request;
 
