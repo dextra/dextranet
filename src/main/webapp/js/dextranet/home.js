@@ -55,22 +55,22 @@ dextranet.home = {
 	},
 
 	abrePaginaNovoPost : function() {
-		$.holy("../template/menuLateral/abre_pagina_novo_post.xml", {});
+		$.holy("../template/dinamico/post/abre_pagina_novo_post.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_new_post");
 	},
 
 	abrePaginaCategoria : function() {
-		$.holy("../template/menuLateral/abre_pagina_categoria.xml", {});
+		$.holy("../template/dinamico/abre_pagina_categoria.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_category");
 	},
 
 	abrePaginaPerfil : function() {
-		$.holy("../template/menuLateral/abre_pagina_perfil.xml", {});
+		$.holy("../template/dinamico/abre_pagina_perfil.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_profile");
 	},
 
 	abrePaginaEquipe : function() {
-		$.holy("../template/menuLateral/abre_pagina_equipe.xml", {});
+		$.holy("../template/dinamico/abre_pagina_equipe.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_team");
 	},
 
