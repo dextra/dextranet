@@ -74,10 +74,6 @@ dextranet.home = {
 		dextranet.home.setActiveMenuLateral("#sidebar_left_team");
 	},
 
-	deslogarUsuario : function() {
-		$.holy("../template/pagina_login.xml", {});
-	},
-
 	abrirOuFecharTelaUsuario : function() {
 		if (dextranet.home.EhVisivel('#box_user_profile')){
 			dextranet.home.abrirTelaUsuario();
