@@ -139,9 +139,7 @@ public class PaginacaoTest extends TesteFuncionalBase{
 	}
 
 	private void procurarPorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado() {
-		dextraNet.writeInputText("#form_search_input","1");
-		dextraNet.click("#form_search_submit");
-		esperePorDoisSegundos();
+		procurarPorUmPost("1");
 
 		this.listaDosPostsEncontradosNaPagina.clear();
 		this.entaoEuPossoPercorrerAPaginaEListarTodosOsPosts();
@@ -149,6 +147,12 @@ public class PaginacaoTest extends TesteFuncionalBase{
 
 		Assert.assertEquals(1,this.listaDosPostsEncontradosNaPagina.size());
 		Assert.assertEquals("[Texto do teste numero: 1]",this.listaDosPostsEncontradosNaPagina.toString());
+	}
+
+	private void procurarPorUmPost(String termoASerPesquisado) {
+		dextraNet.writeInputText("#form_search_input",termoASerPesquisado);
+		dextraNet.click("#form_search_submit");
+		esperePorDoisSegundos();
 	}
 }
 
