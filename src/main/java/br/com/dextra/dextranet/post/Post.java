@@ -12,10 +12,10 @@ import org.owasp.validator.html.ScanException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.dextra.dextranet.document.DocumentRepository;
 import br.com.dextra.dextranet.persistencia.Entidade;
-import br.com.dextra.repository.document.DocumentRepository;
-import br.com.dextra.utils.Converters;
-import br.com.dextra.utils.Data;
+import br.com.dextra.dextranet.utils.Converters;
+import br.com.dextra.dextranet.utils.Data;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;

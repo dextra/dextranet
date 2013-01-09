@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import br.com.dextra.dextranet.comment.CommentRS;
+import br.com.dextra.dextranet.document.DocumentRS;
 import br.com.dextra.dextranet.post.PostRS;
-import br.com.dextra.dextranet.seguranca.UsuarioRS;
-import br.com.dextra.post.DocumentRS;
+import br.com.dextra.dextranet.usuario.UsuarioRS;
 
 
 public class Application extends javax.ws.rs.core.Application {

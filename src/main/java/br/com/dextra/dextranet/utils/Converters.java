@@ -1,4 +1,4 @@
-package br.com.dextra.utils;
+package br.com.dextra.dextranet.utils;
 
 import java.util.ArrayList;
 import java.util.Map.Entry;
@@ -43,6 +43,13 @@ public class Converters {
 	public String converterGAETextToString(Entity entity) {
 		String conteudo = ((Text) entity.getProperty("conteudo")).getValue();
 		return conteudo;
+	}
+
+	public boolean toBoolean(String field) {
+		if(field.equals("true"))
+			return true;
+		else
+		return false;
 	}
 
 

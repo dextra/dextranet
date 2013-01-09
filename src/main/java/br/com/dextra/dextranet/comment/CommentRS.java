@@ -8,7 +8,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import br.com.dextra.utils.CommentToJson;
+import br.com.dextra.dextranet.utils.CommentToJson;
+import br.com.dextra.dextranet.utils.Converters;
 
 import com.google.appengine.api.datastore.Entity;
 
@@ -25,11 +26,7 @@ public class CommentRS {
 			@FormParam("idReference") String id,
 			@DefaultValue("false") @FormParam("tree") String arvore) {
 
-		boolean tree=false;
-		if(arvore.equals("true"))
-			tree=true;
-
-		Comment comment = new Comment(text, autor, id, tree);
+		Comment comment = new Comment(text, autor, id, new Converters().toBoolean(arvore));
 		repositorio.criar(comment);
 
 		return Response.ok().build();

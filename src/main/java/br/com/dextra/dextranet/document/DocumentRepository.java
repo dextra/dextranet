@@ -1,4 +1,4 @@
-package br.com.dextra.repository.document;
+package br.com.dextra.dextranet.document;
 
 import br.com.dextra.dextranet.comment.Comment;
 import br.com.dextra.dextranet.comment.CommentFields;
@@ -6,7 +6,7 @@ import br.com.dextra.dextranet.persistencia.BaseRepository;
 import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.post.Post;
 import br.com.dextra.dextranet.post.PostFields;
-import br.com.dextra.utils.IndexFacade;
+import br.com.dextra.dextranet.utils.IndexFacade;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;

@@ -19,7 +19,7 @@ import javax.ws.rs.core.Response;
 import org.owasp.validator.html.PolicyException;
 import org.owasp.validator.html.ScanException;
 
-import br.com.dextra.utils.Converters;
+import br.com.dextra.dextranet.utils.Converters;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
 

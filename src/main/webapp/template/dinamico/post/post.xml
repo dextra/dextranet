@@ -36,16 +36,8 @@
 						${post.postObjectJson.visibleText}
 					</p>
 				</div>
-				<div class="list_stories_footer clearfix">
-					<div class="list_stories_footer_tags">
-						<a href="#">HTML</a>
-						,
-						<a href="#">CSS</a>
-					</div>
-					<br/>
-					<div class="list_stories_comments ${post.postObjectJson.id}">
+				<div class="list_stories_comments ${post.postObjectJson.id}">
 
-					</div>
 				</div>
 			</li>
 			{/for}

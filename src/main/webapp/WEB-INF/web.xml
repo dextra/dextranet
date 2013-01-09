@@ -32,7 +32,9 @@
     </filter>
     <filter-mapping>
         <filter-name>autenticacaoFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/s/*</url-pattern>
+        <url-pattern>/template/*</url-pattern>
+        <url-pattern>/i18n/*</url-pattern>
     </filter-mapping>
 
 </web-app>

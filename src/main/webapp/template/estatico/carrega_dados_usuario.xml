@@ -32,7 +32,6 @@
 		</li>
 
 		<script>
-			$("#logout").click(dextranet.home.deslogarUsuario);
 			$(".highlight").click(dextranet.home.abrirOuFecharTelaNotificacoes);
 			$("#box_user_info").click(dextranet.home.abrirOuFecharTelaUsuario);
 		</script>

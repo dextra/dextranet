@@ -3,10 +3,10 @@ package br.com.dextra.dextranet.post;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import br.com.dextra.dextranet.document.DocumentRepository;
 import br.com.dextra.dextranet.persistencia.BaseRepository;
-import br.com.dextra.repository.document.DocumentRepository;
-import br.com.dextra.utils.Converters;
-import br.com.dextra.utils.IndexFacade;
+import br.com.dextra.dextranet.utils.Converters;
+import br.com.dextra.dextranet.utils.IndexFacade;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
