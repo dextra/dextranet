@@ -11,6 +11,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +41,7 @@ public class AutenticacaoFilter implements Filter {
         }else{
             String loginUrl = userService.createLoginURL(thisURI);
         	log.info("URL " + loginUrl);
+        	httpReponse.setStatus(HttpStatus.SC_MOVED_PERMANENTLY);
         	httpReponse.sendRedirect(loginUrl);
         	return;
         }
