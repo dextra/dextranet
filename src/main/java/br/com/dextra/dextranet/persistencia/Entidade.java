@@ -31,7 +31,7 @@ public abstract class Entidade {
 	}
 
 	public String getId() {
-		return id;
+		return this.id;
 	}
 
 	public String toJson() {
@@ -42,6 +42,10 @@ public abstract class Entidade {
 		return KeyFactory.createKey(this.getClass().getName(), this.getId());
 	}
 
-	public abstract Document toDocument();
+	public Document toDocument() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

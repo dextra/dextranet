@@ -65,6 +65,8 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		Assert.assertEquals(novoPost.getTitulo(), postRecuperado.getTitulo());
 		Assert.assertEquals(novoPost.getConteudo(), postRecuperado
 				.getConteudo());
+		Assert.assertEquals(novoPost.getId(), postRecuperado
+				.getId());
 	}
 
 	@Test

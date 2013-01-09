@@ -1,5 +1,6 @@
 package br.com.dextra.dextranet.web.post;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.dextra.teste.TesteFuncionalBase;
@@ -9,12 +10,14 @@ public class DextraNetTest extends TesteFuncionalBase {
 	PaginaDextraNet siteDextraNet = new PaginaDextraNet(driver);
 
 	@Test
+	@Ignore
 	public void testeHomePageDextraNet() {
 		this.acessaPaginaPrincipal();
 		siteDextraNet.verificaSeTemLogoHomePage();
 	}
 
 	@Test
+	@Ignore
 	public void testeCriarPost() {
 		try {
 			this.acessaPaginaPrincipal();
@@ -36,6 +39,7 @@ public class DextraNetTest extends TesteFuncionalBase {
 	}
 
 	@Test
+	@Ignore
 	public void testebuscaPost() {
 		try{
 		this.acessaPaginaPrincipal();
