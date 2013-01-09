@@ -30,12 +30,14 @@ public class AutenticacaoFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
 
         String thisURI = httpRequest.getRequestURI();
+    	log.info("URI " + thisURI);
 
         if(userService.getCurrentUser() != null){
     		filterChain.doFilter(request, response);
 
         }else{
             String loginUrl = userService.createLoginURL(thisURI);
+        	log.info("URL " + loginUrl);
             httpRequest.getRequestDispatcher(loginUrl).forward(request, response);
         }
 
