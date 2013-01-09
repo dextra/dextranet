@@ -20,6 +20,10 @@ dextranet.home = {
 	},
 
 	carregaDados : function(novoPost) {
+		$.ajax( {
+			type : "GET",
+			url : "/s/usuario"
+		});
 		dextranet.home.loadMessages();
 		consulta.setText("");
 		dextranet.home.carregueOsTemplates();
