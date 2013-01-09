@@ -1,4 +1,4 @@
-package br.com.dextra.utils;
+package br.com.dextra.dextranet.utils;
 
 import java.util.ArrayList;
 import java.util.Map.Entry;

@@ -9,7 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,28 +29,24 @@ public class AutenticacaoFilter implements Filter {
 
         UserService userService = UserServiceFactory.getUserService();
 
+        HttpServletResponse httpReponse = (HttpServletResponse) response;
         HttpServletRequest httpRequest = (HttpServletRequest) request;
 
         String thisURI = httpRequest.getRequestURI();
+    	log.info("URI " + thisURI);
 
         if(userService.getCurrentUser() != null){
     		filterChain.doFilter(request, response);
 
-        }else if( uriExcludedFromFilter(thisURI)){
-        	return;
         }else{
             String loginUrl = userService.createLoginURL(thisURI);
-            httpRequest.getRequestDispatcher(loginUrl).forward(request, response);
+        	log.info("URL " + loginUrl);
+        	httpReponse.setStatus(HttpStatus.SC_MOVED_PERMANENTLY);
+        	httpReponse.setHeader("Location", loginUrl);
+        	return;
         }
 
 
-	}
-
-	private boolean uriExcludedFromFilter(String uri) {
-		if(uri.startsWith("/_ah")){
-			return true;
-		}
-		return false;
 	}
 
 	@Override

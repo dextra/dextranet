@@ -1,5 +1,7 @@
 package br.com.dextra.dextranet.post;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -39,7 +41,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	public void criarNovoPost() {
+	public void criarNovoPost() throws FileNotFoundException, IOException {
 		Post novoPost = null;
 		try {
 			novoPost = new Post("titulo de teste", "conteudo de teste", "usuario");
@@ -66,7 +68,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	public void listaTodosPosts() throws InterruptedException {
+	public void listaTodosPosts() throws InterruptedException, FileNotFoundException, IOException {
 		ArrayList<Post> posts = geraPosts(4);
 		Iterator<Post> iterator = posts.iterator();
 		ArrayList<String> conteudoCriado = new ArrayList<String>();
@@ -103,7 +105,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testeBuscarPosts() throws NumberFormatException,
-			EntityNotFoundException, InterruptedException {
+			EntityNotFoundException, InterruptedException, FileNotFoundException, IOException {
 
 		int maxResults = 20;
 		int page = 0;
@@ -134,7 +136,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		return postsCriados.get(i).getId();
 	}
 
-	private ArrayList<Post> geraPosts(int numeroDePosts) throws InterruptedException {
+	private ArrayList<Post> geraPosts(int numeroDePosts) throws InterruptedException, FileNotFoundException, IOException {
 
 		ArrayList<Post> listaDePostsCriados = new ArrayList<Post>();
 		Post novoPost = null;

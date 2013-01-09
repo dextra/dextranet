@@ -1,4 +1,4 @@
-package br.com.dextra.comment;
+package br.com.dextra.dextranet.comment;
 
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -7,8 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import br.com.dextra.repository.comment.CommentRepository;
-import br.com.dextra.utils.CommentToJson;
+import br.com.dextra.dextranet.utils.CommentToJson;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;

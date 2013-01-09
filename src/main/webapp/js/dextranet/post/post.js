@@ -1,9 +1,6 @@
 dextranet.post = {
 
-//FIXME carregaDadosHomePage() -> usar hide() do javascript ou não
-//FIXME postObject
-
-	fazPesquisa:function() {
+	fazPesquisa : function() {
 		var ehUmNovoPost = false;
 		var pagina = 0;
 		consulta.setText($('#form_search_input').val());
@@ -14,10 +11,10 @@ dextranet.post = {
 		return false;
 	},
 
-	listarPosts:function(query, ehUmNovoPost, pagina) {
+	listarPosts : function(query, ehUmNovoPost, pagina) {
 		var url = "/s/post";
 		var quantidadePostsSolicitados = "20";
-		var template = "../template/post.xml";
+		var template = "../template/dinamico/post/post.xml";
 
 		$.ajax( {
 			type : "GET",
@@ -38,11 +35,11 @@ dextranet.post = {
 		});
 
 		if (pagina == 0){
-			$.holy("../template/carrega_miolo_home_page.xml",{});
+			$.holy("../template/dinamico/carrega_miolo_home_page.xml",{});
 		}
 	},
 
-	carregaTemplatePost:function(template, postObjectArray, ehUmNovoPost){
+	carregaTemplatePost : function(template, postObjectArray, ehUmNovoPost){
 		return $.holy(template, {"jsonArrayPost" : postObjectArray,"sucesso" : ehUmNovoPost});
 	},
 
@@ -50,12 +47,11 @@ dextranet.post = {
 		readMoreButton.addButtonEvent($(".list_stories_footer_call"),postObjectArray);
 	},
 
+
 	criaNovoPost:function() {
 
 		var contentComparacao = CKEDITOR.instances.form_input_content.getData();
 		contentComparacao = dextranet.stripHTML(contentComparacao);
-
-		console.log(contentComparacao);
 
 		if (($("#form_input_title").val() == "") || (contentComparacao == "")) {
 			$("li.warning").css("display", "list-item");

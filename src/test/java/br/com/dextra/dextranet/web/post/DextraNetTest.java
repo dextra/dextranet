@@ -27,7 +27,7 @@ public class DextraNetTest extends TesteFuncionalBase {
 
 			siteDextraNet.click("input#form_post_submit");
 			siteDextraNet.esperaCarregarPaginaInicial();
-			Thread.sleep(550);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -37,6 +37,7 @@ public class DextraNetTest extends TesteFuncionalBase {
 
 	@Test
 	public void testebuscaPost() {
+		try{
 		this.acessaPaginaPrincipal();
 
 		siteDextraNet.click("span.icon_sidebar_left_novopost");
@@ -47,9 +48,14 @@ public class DextraNetTest extends TesteFuncionalBase {
 		siteDextraNet.click("input#form_post_submit");
 		siteDextraNet.esperaCarregarPaginaInicial();
 
-		siteDextraNet.writeInputText("#form_search_input", "Teste");
+		Thread.sleep(1000);
+		siteDextraNet.writeInputText("#form_search_input", "Busca");
 		siteDextraNet.click("#form_search_submit");
 		siteDextraNet.waitToLoad();
+		}
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
 		siteDextraNet.verificaSeApareceuPostBuscado();
 	}
