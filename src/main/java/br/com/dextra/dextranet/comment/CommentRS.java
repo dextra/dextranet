@@ -1,5 +1,8 @@
 package br.com.dextra.dextranet.comment;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -7,6 +10,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
+
+import org.owasp.validator.html.PolicyException;
+import org.owasp.validator.html.ScanException;
 
 import br.com.dextra.dextranet.utils.CommentToJson;
 import br.com.dextra.dextranet.utils.Converters;
@@ -24,7 +30,7 @@ public class CommentRS {
 	public Response novoComment(@FormParam("texto") String text ,
 			@FormParam("author") String autor,
 			@FormParam("idReference") String id,
-			@DefaultValue("false") @FormParam("tree") String arvore) {
+			@DefaultValue("false") @FormParam("tree") String arvore) throws FileNotFoundException, PolicyException, ScanException, IOException {
 
 		Comment comment = new Comment(text, autor, id, new Converters().toBoolean(arvore));
 		repositorio.criar(comment);

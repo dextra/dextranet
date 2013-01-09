@@ -69,6 +69,7 @@ small{font-size:70%;}
 input,
 selected,
 textarea{background-color:#fdfdfd;border-radius:5px;border:1px solid #ddd;padding:5px 10px;box-shadow:0 0 3px #ddd,inset 0 6px 6px #fafafa,inset 0 0 0 1px #fff;color:#bbb;font-size:14px;}
+input.submit{background-color:#ebeef1;color:#7d7e7e;text-shadow:0 1px 1px #fff;font-weight:bold;font-size:11px;}
 input:focus,
 selected:focus,
 textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 6px #f7f7f7,inset 0 0 0 1px #fff;}
