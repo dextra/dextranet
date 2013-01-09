@@ -51,7 +51,7 @@ public class PaginacaoTest extends TesteFuncionalBase{
 				String conteudo = "Texto do teste numero: " + i;
 				novoPost(titulo, conteudo);
 				alimentarBaseDosTestes(conteudo);
-				Thread.sleep(500);
+				Thread.sleep(700);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -148,7 +148,7 @@ public class PaginacaoTest extends TesteFuncionalBase{
 		System.out.println(this.listaDosPostsEncontradosNaPagina);
 
 		Assert.assertEquals(1,this.listaDosPostsEncontradosNaPagina.size());
-		Assert.assertEquals("[Texto do teste numero: 1]",this.listaDosPostsEncontradosNaPagina);
+		Assert.assertEquals("[Texto do teste numero: 1]",this.listaDosPostsEncontradosNaPagina.toString());
 	}
 }
 
