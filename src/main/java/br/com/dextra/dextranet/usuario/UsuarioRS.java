@@ -1,4 +1,4 @@
-package br.com.dextra.dextranet.seguranca;
+package br.com.dextra.dextranet.usuario;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;

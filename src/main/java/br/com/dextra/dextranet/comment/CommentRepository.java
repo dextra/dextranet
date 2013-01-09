@@ -1,10 +1,8 @@
-package br.com.dextra.repository.comment;
+package br.com.dextra.dextranet.comment;
 
-import br.com.dextra.comment.Comment;
-import br.com.dextra.comment.CommentFields;
+import br.com.dextra.dextranet.document.DocumentRepository;
 import br.com.dextra.dextranet.persistencia.BaseRepository;
-import br.com.dextra.repository.document.DocumentRepository;
-import br.com.dextra.utils.Data;
+import br.com.dextra.dextranet.utils.Data;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;

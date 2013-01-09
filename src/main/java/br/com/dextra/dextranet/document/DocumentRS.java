@@ -1,4 +1,4 @@
-package br.com.dextra.post;
+package br.com.dextra.dextranet.document;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
