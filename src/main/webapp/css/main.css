@@ -124,7 +124,7 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 #box_user_notifications_full{background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-top:20px;font-size:11px;word-wrap:break-word;}
 
 /*---------  Barra lateral esquerda  ----------*/
-#sidebar_left{background-color:#ebeef1;position:fixed;left:0;top:0;height:100%;border-right:solid 1px #d9dbdd;box-shadow:inset -15px 15px 15px -15px #fff;}
+#sidebar_left{background-color:#ebeef1;position:fixed;left:0;top:0;height:100%;border-right:solid 1px #d9dbdd;box-shadow:inset -15px 15px 15px -15px #fff;list-style-type:none;}
 #sidebar_left_menu{padding:40px 10px 0;}
 #sidebar_left_menu > li{border-bottom:solid 1px #dfe3e6;border-top:1px solid #fafafb;}
 #sidebar_left_menu > li:first_child{border-top:0;}
@@ -144,9 +144,15 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 #sidebar_left_menu > li.active .icon_sidebar_left_equipe{background-position:-164px -69px;}
 #sidebar_left_menu > li > a > span{display:block;width:38px;height:38px;margin:0 auto 10px;}
 
+#sidebar_left_menu > li > ul > li > a:hover{opacity:0.65;}
+#sidebar_left_menu > li > ul > li:last_child,
+#sidebar_left_menu > li > ul > li:last_child > a{border-radius:0 0 6px 6px;}
+#sidebar_left_menu > li > ul#box_new_post{position:absolute;left:91px;top:140px;width:500px;background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-bottom:20px;}
+#sidebar_left_menu > li > ul#box_new_post > li{position:relative;}
+#sidebar_left_menu .sidebar_show_right{display:none;}
+
 /*----------  Estrutura dos blocos centrais de conteúdo  ----------*/
 #container_main{margin-left:110px;clear:both;padding-right:10px;}
-
 #sidebar_right{width:250px;float:right;}
 
 /*----------  Listagem de estórias de usuários  ----------*/
@@ -171,10 +177,7 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 .list_stories_footer_call{color:#4887C6;font-size:12px}
 .list_stories_footer_call:hover{cursor:pointer;color:#D66A00}
 
-#div_novo_post{border-radius:5px;background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-bottom:20px; width:70%}
-
 #post_blockquote {font-style: italic; font-family: Georgia, "Times New Roman", serif; margin: 1em 20px; padding-left: 50px;  background: transparent url(../img/quote.gif) no-repeat;}
-
 
 .wordwrap{white-space: pre; /* CSS2 */white-space: -moz-pre-wrap; /* Mozilla */white-space: -hp-pre-wrap; /* HP printers */white-space: -o-pre-wrap; /* Opera 7 */white-space: -pre-wrap; /* Opera 4-6 */white-space: pre-wrap; /* CSS 2.1 */white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */word-wrap: break-word; /* IE */_white-space: pre; /* IE hack to re-specify in addition to word-wrap */}
 

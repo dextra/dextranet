@@ -54,9 +54,16 @@ dextranet.home = {
 		$(id).attr("class", "active");
 	},
 
-	abrePaginaNovoPost : function() {
-		$.holy("../template/dinamico/post/abre_pagina_novo_post.xml", {});
-		dextranet.home.setActiveMenuLateral("#sidebar_left_new_post");
+	abrePopUpNovoPost : function() {
+		if (dextranet.home.EhVisivel('.sidebar_show_right')){
+			$(".sidebar_show_right").css("display","none");
+			dextranet.home.setActiveMenuLateral("#sidebar_left_home");
+		}
+		else {
+			$(".sidebar_show_right").css("display","block");
+			dextranet.home.setActiveMenuLateral("#sidebar_left_new_post");
+		}
+
 	},
 
 	abrePaginaCategoria : function() {
