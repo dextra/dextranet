@@ -25,8 +25,9 @@ public class PaginacaoTest extends TesteFuncionalBase{
 
 	@Test
 	public void criarPosts(){
-		int quantidadePosts = 17;
+		int quantidadePosts = 61;
 		int vezes = (int) Math.round(((double)quantidadePosts/20)+0.5);
+		String termoQueSeraPesquisado = "60";
 
 		dadoOSiteDaDextraNET();
 		quandoEuCrioPosts(quantidadePosts);
@@ -35,16 +36,7 @@ public class PaginacaoTest extends TesteFuncionalBase{
 		paraVerificarSeTodosOsPostsInseridosEstaoSendoListados();
 		paraVerificarSeAlgumPostNaoFoiEncontrado();
 		eParaConfrontarSeARelacaoDePostsInseridosEstaIgualARelacaoDePostsEncontrados();
-		procurarAleatoriamentePorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado();
-	}
-
-	private void procurarAleatoriamentePorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado() {
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		js.executeScript("window.scrollBy(0,0);");
-
-		dextraNet.writeInputText("#form_search_input","Titulo de Teste Numero: 15");
-
-		dextraNet.click("#form_search_submit");
+		procurarPorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado(termoQueSeraPesquisado);
 	}
 
 	private void dadoOSiteDaDextraNET() {
@@ -54,15 +46,12 @@ public class PaginacaoTest extends TesteFuncionalBase{
 	private void quandoEuCrioPosts(int quantidadeDePosts){
 
 		for(int i = 1; i <= quantidadeDePosts ; i++){
-			try {
 			String titulo = "Titulo de Teste Numero: " + i;
 			String conteudo = "Texto do teste numero: " + i;
+
 			novoPost(titulo, conteudo);
 			alimentarBaseDosTestes(conteudo);
-			Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			espereCarregarOFadeDeAtualizacaoDaPagina();
 		}
 	}
 
@@ -90,14 +79,23 @@ public class PaginacaoTest extends TesteFuncionalBase{
 																"document.documentElement.clientHeight)" +
 																");" +
 												"");
-			this.dextraNet.waitToLoad();
+			espereCarregarOFadeDeAtualizacaoDaPagina();
+		}
+	}
+
+	private void espereCarregarOFadeDeAtualizacaoDaPagina() {
+		try {
+			Thread.sleep(700);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 
 	private void entaoEuPossoPercorrerAPaginaEListarTodosOsPosts(){
 		List<WebElement> textoDoComentario =  driver.findElements(By.cssSelector(".list_stories_lead"));
-		Iterator<WebElement> it = textoDoComentario.iterator();
+		this.listaDosPostsEncontradosNaPagina.clear();
 
+		Iterator<WebElement> it = textoDoComentario.iterator();
 		while(it.hasNext()){
 			String post = it.next().getText().toString();
 			listaDosPostsEncontradosNaPagina.add(post);
@@ -137,4 +135,19 @@ public class PaginacaoTest extends TesteFuncionalBase{
 
 		Assert.assertEquals(listaDosPostsInseridosPeloTest,listaDosPostsEncontradosNaPagina);
 	}
+
+	private void procurarPorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado(String termoPesquisado) {
+		this.procurarPorUmPost(termoPesquisado);
+		this.entaoEuPossoPercorrerAPaginaEListarTodosOsPosts();
+
+		Assert.assertEquals(1,this.listaDosPostsEncontradosNaPagina.size());
+		Assert.assertEquals("[Texto do teste numero: " + termoPesquisado + "]",this.listaDosPostsEncontradosNaPagina.toString());
+	}
+
+	private void procurarPorUmPost(String termoASerPesquisado) {
+		dextraNet.writeInputText("#form_search_input",termoASerPesquisado);
+		dextraNet.click("#form_search_submit");
+		espereCarregarOFadeDeAtualizacaoDaPagina();
+	}
 }
+
