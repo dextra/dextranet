@@ -31,7 +31,7 @@ public class AutenticacaoFilter implements Filter {
 
         String thisURI = httpRequest.getRequestURI();
 
-        if(userService.getCurrentUser() != null || uriExcludedFromFilter(thisURI)){
+        if(userService.getCurrentUser() != null){
     		filterChain.doFilter(request, response);
 
         }else{
@@ -40,13 +40,6 @@ public class AutenticacaoFilter implements Filter {
         }
 
 
-	}
-
-	private boolean uriExcludedFromFilter(String uri) {
-		if(uri.startsWith("/_ah")){
-			return true;
-		}
-		return false;
 	}
 
 	@Override
