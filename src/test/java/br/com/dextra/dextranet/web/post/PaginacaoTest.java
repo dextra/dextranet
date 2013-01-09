@@ -77,7 +77,7 @@ public class PaginacaoTest extends TesteFuncionalBase{
 
 	private void espereCarregarOFadeDeAtualizacaoDaPagina() {
 		try {
-			Thread.sleep(700);
+			Thread.sleep(650);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
