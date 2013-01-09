@@ -29,7 +29,9 @@ public class AutenticacaoFilter implements Filter {
 
         UserService userService = UserServiceFactory.getUserService();
 
-        HttpServletResponse httpReponse = (HttpServletResponse) response;
+        log.info(userService.getCurrentUser().getEmail());
+
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpServletRequest httpRequest = (HttpServletRequest) request;
 
         String thisURI = httpRequest.getRequestURI();
@@ -41,8 +43,8 @@ public class AutenticacaoFilter implements Filter {
         }else{
             String loginUrl = userService.createLoginURL(thisURI);
         	log.info("URL " + loginUrl);
-        	httpReponse.setStatus(HttpStatus.SC_MOVED_PERMANENTLY);
-        	httpReponse.setHeader("Location", loginUrl);
+        	httpResponse.setStatus(HttpStatus.SC_MOVED_PERMANENTLY);
+        	httpResponse.setHeader("Location", loginUrl);
         	return;
         }
 
