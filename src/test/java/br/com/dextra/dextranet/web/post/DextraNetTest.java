@@ -28,6 +28,7 @@ public class DextraNetTest extends TesteFuncionalBase {
 			siteDextraNet.click("input#form_post_submit");
 			siteDextraNet.esperaCarregarPaginaInicial();
 			Thread.sleep(550);
+			
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

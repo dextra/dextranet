@@ -5,7 +5,7 @@
 		<div id="sidebar_right" rel="section">
 		</div>
 
-		<form id="form_search" onSubmit="dextranet.post.fazPesquisa()">
+		<form id="form_search">
 			<input type="text" placeholder="${messages.placeholder_pesquisa}" id="form_search_input" />
 			<input type="submit" value="" title="Procurar!" id="form_search_submit" />
 		</form>
@@ -17,5 +17,6 @@
 
 	<script>
 		numeroDaPagina.setPaginaInicial();
+		$('#form_search').submit(dextranet.post.fazPesquisa);
 	</script>
 </engine>

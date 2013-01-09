@@ -1,6 +1,8 @@
 package br.com.dextra.dextranet.post;
 
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.ws.rs.DELETE;
@@ -29,7 +31,7 @@ public class PostRS {
 	@Path("/")
 	@POST
 	@Produces("application/json;charset=UTF-8")
-	public Response novoPost(@FormParam("title") String titulo,@FormParam("content") String conteudo, @FormParam("author") String autor) throws PolicyException, ScanException {
+	public Response novoPost(@FormParam("title") String titulo,@FormParam("content") String conteudo, @FormParam("author") String autor) throws PolicyException, ScanException, FileNotFoundException, IOException {
 		Post post = new Post(titulo, conteudo, autor);
 		postRepository.criar(post);
 
