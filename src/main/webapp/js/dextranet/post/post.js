@@ -58,7 +58,7 @@ dextranet.post = {
 		} else {
 
 			var post = {
-				"title" : $("#form_input_title").val(),
+				"title" : dextranet.stripHTML($("#form_input_title").val()),
 				"content" : CKEDITOR.instances.form_input_content.getData(),
 				"author" : $("#user_login").text()
 			};
