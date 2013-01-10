@@ -1,11 +1,77 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html lang="en">
-	<head>
-		<title>Dextranet</title>
-		<script>
-			window.location = "home.html";
-		</script>
-	</head>
-	<body>
-	</body>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="css/main.css" media="all" />
+
+	<!-- Biblioteca Holy -->
+	<script type="text/javascript" src="js/lib/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="js/lib/convertDate.js"></script>
+	<script type="text/javascript" src="holy/lib/jquery.js"></script>
+	<script type="text/javascript" src="holy/lib/trimpath.js"></script>
+	<script type="text/javascript" src="holy/lib/jquery.holyavenger.js"></script>
+	<script type="text/javascript" src="holy/lib/jquery.holyavenger.trimpath.js"></script>
+	<script type="text/javascript" src="holy/lib/jquery.holycomponents.js"></script>
+	<script type="text/javascript" src="holy/lib/jquery.i18n.js"></script>
+	<script type="text/javascript" src="holy/loading/jquery.loading.js"></script>
+	<link rel="stylesheet" type="text/css"	href="holy/loading/jquery.loading.css" media="all" />
+
+	<!-- RichText -->
+	<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+
+	<!-- Scripts Dextranet -->
+	<script type="text/javascript" src="js/dextranet/home.js"></script>
+	<script type="text/javascript" src="js/dextranet/post/post.js"></script>
+
+	<!-- Internacionalizacao -->
+	<script type="text/javascript" src="js/dextranet/i18n.js"></script>
+
+    <!-- Scripts Dextranet -->
+	<script type="text/javascript" src="js/dextranet/home.js"></script>
+	<script type="text/javascript" src="js/dextranet/post/interface.js"></script>
+	<script type="text/javascript" src="js/dextranet/post/post.js"></script>
+	<script type="text/javascript" src="js/dextranet/post/postObject.js"></script>
+	<script type="text/javascript" src="js/dextranet/post/readMore/readmore.js"></script>
+	<script type="text/javascript" src="js/dextranet/post/readMore/verMais.js"></script>
+	<script type="text/javascript" src="js/dextranet/post/readMore/readMoreButton.js"></script>
+	<script type="text/javascript" src="js/dextranet/paginacao/paginacao.js"></script>
+	<script type="text/javascript" src="js/dextranet/paginacao/pagina.js"></script>
+	<script type="text/javascript" src="js/dextranet/paginacao/query.js"></script>
+	<script type="text/javascript" src="js/dextranet/utils/dateUtils.js"></script>
+	<script type="text/javascript" src="js/dextranet/utils/HTMLClean.js"></script>
+	<script type="text/javascript" src="js/dextranet/post/comment.js"></script>
+
+<title>Dextranet</title>
+
+<script>
+		this.numeroDaPagina = new dextranet.paginacao.pagina();
+		this.consulta = new dextranet.paginacao.query();
+		numeroDaPagina.setPaginaInicial();
+		$(document).ready(function() {
+		    dextranet.configuraLoading();
+            dextranet.home.carregaDados(false);
+        });
+		dextranet.paginacao.paginacaoDosPosts();
+	</script>
+
+</head>
+<body>
+
+<!-- Container do site -->
+<div id="container"><!-- Container do topo -->
+<div id="header_placeholder"></div>
+<div id="header_container" rel="section"><!-- Menu principal no topo -->
+<ul id="header_main_menu">
+</ul>
+<!-- #header_main_menu --> <!-- Caixa com dados do usuario -->
+<div id="box_user"></div>
+<!-- #box_user --></div>
+<!-- #header_container --> <!-- Menu lateral esquerdo -->
+<div id="sidebar_left" rel="section"></div>
+<!-- #sidebar_left --> <!-- Miolo -->
+<div id="container_main" class="clearfix"></div>
+
+</div>
+</body>
 </html>
