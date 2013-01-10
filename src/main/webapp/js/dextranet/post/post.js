@@ -29,7 +29,7 @@ dextranet.post = {
 					});
 
 					$.when(dextranet.post.carregaTemplatePost(template,postObjectArray,ehUmNovoPost))
-						.done(dextranet.post.adicionaBotaoVerMais(postObjectArray));
+						dextranet.post.adicionaBotaoVerMais(postObjectArray);
 				}
 			}
 		});
@@ -44,7 +44,8 @@ dextranet.post = {
 	},
 
 	adicionaBotaoVerMais:function(postObjectArray){
-		readMoreButton.addButtonEvent($(".list_stories_footer_call"),postObjectArray);
+		dextranet.readMoreButton.addButtonEvent($(".list_stories_footer_call"),postObjectArray);
+		console.info("here");
 	},
 
 
