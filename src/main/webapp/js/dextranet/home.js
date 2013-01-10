@@ -20,19 +20,10 @@ dextranet.home = {
 	},
 
 	carregaDados : function(novoPost) {
-		$.when(dextranet.home.authenticate()).done(function(){
 		dextranet.home.loadMessages();
 		consulta.setText("");
 		dextranet.home.carregueOsTemplates();
 		dextranet.post.listarPosts("", novoPost, 0);
-		});
-	},
-
-	authenticate : function(){
-		return $.ajax( {
-			type : "GET",
-			url : "/s/usuario"
-		});
 	},
 
 	loadMessages : function() {
