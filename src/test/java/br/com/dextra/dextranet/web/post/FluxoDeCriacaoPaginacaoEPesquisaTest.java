@@ -77,7 +77,7 @@ public class FluxoDeCriacaoPaginacaoEPesquisaTest extends TesteFuncionalBase{
 
 	private void espereCarregarOFadeDeAtualizacaoDaPagina() {
 		try {
-			Thread.sleep(650);
+			Thread.sleep(700);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
