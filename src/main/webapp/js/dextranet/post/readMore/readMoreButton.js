@@ -8,9 +8,8 @@ dextranet.readMoreButton = {
 			var postID = buttonID.replace("_button","");
 
 				button.click(function(){
-					//var postToShow = findPostInArrayByID(postID,postObjectArray);
-					//$("#"+postID+"_post").html(postToShow.postObjectJson.conteudo);
-					console.info("teste");
+					var postToShow = dextranet.readMoreButton.findPostInArrayByID(postID,postObjectArray);
+					$("#"+postID+"_post").html(postToShow.postObjectJson.conteudo);
 			});
 		});
 	},

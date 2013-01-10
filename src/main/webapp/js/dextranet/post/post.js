@@ -1,3 +1,5 @@
+this.postObjectArray = "",
+
 dextranet.post = {
 
 	fazPesquisa : function() {
@@ -21,14 +23,13 @@ dextranet.post = {
 			data : "max-results=" + quantidadePostsSolicitados + "&page=" + pagina + "&q=" + query,
 			success : function(posts) {
 				if(posts.length > 0){
-					var postObjectArray = postObject.getpostObjectArrayFromPostJsonArray(posts);
+					postObjectArray = postObject.getpostObjectArrayFromPostJsonArray(posts);
 
 					$(postObjectArray).each(function(){
 						this.setHiddenText();
 					});
 
-					$.when(dextranet.post.carregaTemplatePost(postObjectArray,ehUmNovoPost))
-						.done(dextranet.post.adicionaBotaoVerMais(postObjectArray));
+					dextranet.post.carregaTemplatePost(postObjectArray,ehUmNovoPost);
 				}
 			}
 		});
@@ -43,10 +44,8 @@ dextranet.post = {
 		return $.holy(template, {"jsonArrayPost" : postObjectArray,"sucesso" : ehUmNovoPost});
 	},
 
-	adicionaBotaoVerMais:function(postObjectArray){
+	adicionaBotaoVerMais:function(){
 		dextranet.readMoreButton.addButtonEvent($(".list_stories_footer_call"),postObjectArray);
-		console.info($(".list_stories_footer_call"));
-		console.info("here");
 	},
 
 
