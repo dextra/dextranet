@@ -14,7 +14,6 @@ dextranet.post = {
 	listarPosts : function(query, ehUmNovoPost, pagina) {
 		var url = "/s/post";
 		var quantidadePostsSolicitados = "20";
-		var template = "../template/dinamico/post/post.xml";
 
 		$.ajax( {
 			type : "GET",
@@ -28,8 +27,8 @@ dextranet.post = {
 						this.setHiddenText();
 					});
 
-					$.when(dextranet.post.carregaTemplatePost(template,postObjectArray,ehUmNovoPost))
-						dextranet.post.adicionaBotaoVerMais(postObjectArray);
+					$.when(dextranet.post.carregaTemplatePost(postObjectArray,ehUmNovoPost))
+						.done(dextranet.post.adicionaBotaoVerMais(postObjectArray));
 				}
 			}
 		});
@@ -39,12 +38,14 @@ dextranet.post = {
 		}
 	},
 
-	carregaTemplatePost : function(template, postObjectArray, ehUmNovoPost){
+	carregaTemplatePost : function(postObjectArray, ehUmNovoPost){
+		var template = "../template/dinamico/post/post.xml";
 		return $.holy(template, {"jsonArrayPost" : postObjectArray,"sucesso" : ehUmNovoPost});
 	},
 
 	adicionaBotaoVerMais:function(postObjectArray){
 		dextranet.readMoreButton.addButtonEvent($(".list_stories_footer_call"),postObjectArray);
+		console.info($(".list_stories_footer_call"));
 		console.info("here");
 	},
 
