@@ -2,7 +2,6 @@
 dextranet.paginacao = {}
 
 dextranet.paginacao.paginacaoDosPosts=function() {
-	//$(window).scroll(onScroll());
 
 	$(window).scroll(function (){
 		var ehUmNovoPost = false;
@@ -14,7 +13,6 @@ dextranet.paginacao.paginacaoDosPosts=function() {
 				dextranet.post.listarPosts(consulta.getText(), ehUmNovoPost, numeroDaPagina.getPagina());
 				posicaoMinimaParaNovaPagina = (posicaoDoScroll + margemParaNovaBusca);
 				numeroDaPagina.next();
-				console.info("Pagina + 1");
 		}
 	})
 

@@ -22,7 +22,7 @@ public class UsuarioRS {
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
 
-		String logout = userService.createLogoutURL(((HttpServletRequest)re).getRequestURI());
+		String logout = userService.createLogoutURL("");
 
 		JsonObject json = new JsonObject();
 		json.addProperty("nickName", user.getNickname());
