@@ -64,9 +64,13 @@ dextranet.post = {
 			$("li.warning").css("display", "list-item");
 		} else {
 
+			var conteudo = dextranet.post.removeLinebreak(CKEDITOR.instances.form_input_content.getData());
+
+			console.info(conteudo);
+
 			var post = {
 				"title" : dextranet.stripHTML($("#form_input_title").val()),
-				"content" : CKEDITOR.instances.form_input_content.getData(),
+				"content" : conteudo,
 				"author" : $("#user_login").text()
 			};
 
@@ -80,5 +84,9 @@ dextranet.post = {
 			});
 		}
 		return false;
+	},
+
+	removeLinebreak : function(CKEditorText){
+		return CKEditorText.replace(/\n/g,"");
 	}
 };
