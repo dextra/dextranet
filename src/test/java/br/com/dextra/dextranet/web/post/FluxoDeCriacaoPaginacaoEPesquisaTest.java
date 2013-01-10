@@ -56,9 +56,9 @@ public class FluxoDeCriacaoPaginacaoEPesquisaTest extends TesteFuncionalBase{
 			String titulo = "Titulo de Teste Numero: " + i;
 			String conteudo = "Texto do teste numero: " + i;
 
+			espereCarregarOFadeDeAtualizacaoDaPagina();
 			novoPost(titulo, conteudo);
 			alimentarBaseDosTestes(conteudo);
-			espereCarregarOFadeDeAtualizacaoDaPagina();
 		}
 	}
 
@@ -77,7 +77,7 @@ public class FluxoDeCriacaoPaginacaoEPesquisaTest extends TesteFuncionalBase{
 
 	private void espereCarregarOFadeDeAtualizacaoDaPagina() {
 		try {
-			Thread.sleep(700);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
