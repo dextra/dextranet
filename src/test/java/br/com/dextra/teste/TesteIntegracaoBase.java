@@ -9,7 +9,6 @@ public class TesteIntegracaoBase {
 
 	protected static MyContainer myContainer;
 
-
 	@BeforeClass
 	public static void setup() {
 		myContainer = new MyContainer();
