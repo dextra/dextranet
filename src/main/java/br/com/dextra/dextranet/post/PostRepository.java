@@ -130,7 +130,9 @@ public class PostRepository extends BaseRepository {
 						.setDefaultValue("0")).build();
 
 		QueryOptions queryOptions = QueryOptions.newBuilder().setSortOptions(
-				sortOptions).setFieldsToSnippet(PostFields.USUARIO.getField(),PostFields.TITULO.getField()).setFieldsToReturn(PostFields.ID.getField(),
+				sortOptions).setFieldsToSnippet(PostFields.USUARIO.getField(),
+				PostFields.TITULO.getField()).setFieldsToReturn(
+				PostFields.ID.getField(),
 				PostFields.DATA_DE_ATUALIZACAO.getField(),
 				PostFields.TITULO.getField()).setLimit(1000).build();
 
