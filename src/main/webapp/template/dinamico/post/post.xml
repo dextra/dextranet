@@ -45,7 +45,7 @@
 	</template>
 
 	<script>
-		dextranet.post.adicionaBotaoVerMais();
+		dextranet.post.adicionaBotaoVerMais(this.jsonArrayPost);
 		chamaAbreTelaComentario();
 	</script>
 </engine>
