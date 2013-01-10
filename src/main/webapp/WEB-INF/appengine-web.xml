@@ -8,11 +8,12 @@
 
 	<static-files>
 		<include path="/**" />
-		<exclude path="/r/**" />
+		<exclude path="/index.html" />
 	</static-files>
 
 	<resource-files>
-		<include path="/r/**" />
+		<include path="/index.html" />
+		<include path="/template/**" />
 	</resource-files>
 
 	<sessions-enabled>false</sessions-enabled>
