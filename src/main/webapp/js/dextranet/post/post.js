@@ -15,10 +15,16 @@ dextranet.post = {
 		var url = "/s/post";
 		var quantidadePostsSolicitados = "20";
 
+		var busca = {
+				"max-results" : quantidadePostsSolicitados,
+				"page" : pagina,
+				"q" : query
+		};
+
 		$.ajax( {
 			type : "GET",
 			url : url,
-			data : "max-results=" + quantidadePostsSolicitados + "&page=" + pagina + "&q=" + query,
+			data : busca,
 			success : function(posts) {
 				if(posts.length > 0){
 					postObjectArray = postObject.getpostObjectArrayFromPostJsonArray(posts);
