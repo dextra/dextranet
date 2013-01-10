@@ -12,6 +12,7 @@
 	</static-files>
 
 	<resource-files>
+		<include path="/index.html" />
 		<include path="/template/**" />
 	</resource-files>
 
