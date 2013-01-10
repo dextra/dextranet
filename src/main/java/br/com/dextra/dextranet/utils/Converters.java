@@ -43,11 +43,11 @@ public class Converters {
 			json.addProperty(Post.class.getName(), post.toJson().toString());
 			//FIXME: trocar os valores enviados em commentsToArrayDeCommentsToJson
 			//para os valores de max results(1000) e offset(0) para as variaveis
-			try {
+			/*try {
 				json.addProperty(CommentToJson.class.getName(), new Converters().commentsToArrayDeCommentsToJson(1000,0,post).toString());
 			} catch (EntityNotFoundException e) {
 				e.printStackTrace();
-			}
+			}*/
 			jsonList.add(json);
 		}
 
