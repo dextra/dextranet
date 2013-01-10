@@ -29,7 +29,7 @@
 				var paragraphLength = paragraphJQueryObject.text().length;
 				totalCaracters += paragraphLength;
 
-				if(totalCaracters <= opts.substr_len && paragraphs.indexOf(this) <= opts.substr_lines){
+				if(totalCaracters <= opts.substr_len && paragraphs.indexOf(this) +1 <= opts.substr_lines){
 					visibleTextArray.push(getHTMLFromJQuery(paragraphJQueryObject));
 				}else if(totalCaracters > opts.substr_len){
 					if(totalCaracters-paragraphLength < opts.substr_len){
@@ -37,10 +37,10 @@
 						var caractersLeft = totalCaracters-opts.substr_len;
 						var paragraphToDivide = paragraphJQueryObject;
 						var continueText =
-							" <span id=\""+postJson.id+"_button\" class=\"list_stories_footer_call\">"+$.i18n.messages.link_readMore+"</span>";
+							" <span id=\""+postJson.id+"_button\" class=\"list_stories_footer_call\">...Ver mais</span>";
 
-						var showText = paragraphJQueryObject.text().substring(0 , paragraphLength-caractersLeft) +
-						continueText;
+						var showText = paragraphJQueryObject.text().substring(0 , paragraphLength-caractersLeft)
+						+continueText;
 
 						paragraphToDivide.html(showText);
 						visibleTextArray.push(getHTMLFromJQuery(paragraphToDivide));
