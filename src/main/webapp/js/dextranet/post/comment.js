@@ -1,5 +1,7 @@
 var idUltimo = "";
 
+dextranet.post = {
+
 function abreTelaComentario(idDaDivDoPost, idDoPost) {
 	var LIs = $("#relacao_dos_posts").children();
 	var deuCerto = false;
@@ -47,6 +49,6 @@ function carregaComentario(idDoPost) {
 }
 
 function criaComentario() {
-	//esperando serviço de criação de comentario
 	dextranet.home.carregaDadosAposInclusaoDeUmPost();
+}
 }

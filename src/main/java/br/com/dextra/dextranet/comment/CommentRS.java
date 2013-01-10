@@ -17,8 +17,6 @@ import org.owasp.validator.html.ScanException;
 import br.com.dextra.dextranet.utils.CommentToJson;
 import br.com.dextra.dextranet.utils.Converters;
 
-import com.google.appengine.api.datastore.Entity;
-
 @Path("/comment")
 public class CommentRS {
 
@@ -27,7 +25,7 @@ public class CommentRS {
 	@Path("/")
 	@POST
 	@Produces("application/json;charset=UTF-8")
-	public Response novoComment(@FormParam("texto") String text ,
+	public Response novoComment(@FormParam("text") String text ,
 			@FormParam("author") String autor,
 			@FormParam("idReference") String id,
 			@DefaultValue("false") @FormParam("tree") String arvore) throws FileNotFoundException, PolicyException, ScanException, IOException {
@@ -42,9 +40,9 @@ public class CommentRS {
 	@GET
 	@Produces("application/json;charset=UTF-8")
 	public String consultar() {
-		Iterable<Entity> retorno = this.repositorio.buscar();
+		//Iterable<Entity> retorno = this.repositorio.buscar();
 
-		return CommentToJson.converterListaEntities(retorno).toString();
+		return CommentToJson.converterListaEntities(null).toString();
 	}
 
 }

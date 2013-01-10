@@ -61,7 +61,7 @@ public class PostRS {
 			listaPosts = novoPost.buscarPosts(resultsMax, q,offSet);
 		}
 
-		return Converters.converterListaEntities(listaPosts).toString();
+		return new Converters().converterListaEntities(listaPosts).toString();
 	}
 
 	@Path("/{id}")

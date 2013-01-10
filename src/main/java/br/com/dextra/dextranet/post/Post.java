@@ -9,8 +9,6 @@ import org.owasp.validator.html.AntiSamy;
 import org.owasp.validator.html.Policy;
 import org.owasp.validator.html.PolicyException;
 import org.owasp.validator.html.ScanException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import br.com.dextra.dextranet.document.DocumentRepository;
 import br.com.dextra.dextranet.persistencia.Entidade;
@@ -22,14 +20,13 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Text;
 import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
+import com.google.gson.JsonObject;
 
 public class Post extends Entidade {
 
 	private String titulo;
 
 	private String dataDeAtualizacao;
-
-	Logger log = LoggerFactory.getLogger(Post.class);
 
 	public Post(String titulo, String conteudo, String usuario)
 			throws PolicyException, ScanException, FileNotFoundException,
@@ -80,32 +77,33 @@ public class Post extends Entidade {
 	}
 
 	public String getTitulo() {
-		return titulo;
+		return this.titulo;
 	}
 
 	public String getConteudo() {
-		return conteudo;
+		return this.conteudo;
 	}
 
 	public String getDataDeCriacao() {
-		return dataDeCriacao;
+		return this.dataDeCriacao;
 	}
 
 	public String getDataDeAtualizacao() {
-		return dataDeAtualizacao;
+		return this.dataDeAtualizacao;
 	}
 
 	public String getUsuario() {
-		return usuario;
+		return this.usuario;
 	}
 
 	public int getComentarios() {
-		return comentarios;
+		return this.comentarios;
 	}
 
 	public int getLikes() {
-		return likes;
+		return this.likes;
 	}
+
 
 	public void comentar(String id) throws EntityNotFoundException {
 
@@ -139,6 +137,20 @@ public class Post extends Entidade {
 		return entidade;
 	}
 
+	public JsonObject toJson(){
+		JsonObject json =new JsonObject();
+		json.addProperty(PostFields.ID.getField(), this.id);
+		json.addProperty(PostFields.TITULO.getField(), this.titulo);
+		json.addProperty(PostFields.CONTEUDO.getField(), this.conteudo);
+		json.addProperty(PostFields.USUARIO.getField(), this.usuario);
+		json.addProperty(PostFields.COMENTARIO.getField(), this.comentarios);
+		json.addProperty(PostFields.LIKES.getField(), this.likes);
+		json.addProperty(PostFields.DATA.getField(), this.dataDeCriacao);
+		json.addProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), this.dataDeAtualizacao);
+
+		return json;
+	}
+
 	public Document toDocument() {
 
 		Document document = Document.newBuilder().setId(id).addField(
@@ -162,5 +174,7 @@ public class Post extends Entidade {
 	public void delete(String id) {
 		new PostRepository().remove(id);
 	}
+
+
 
 }

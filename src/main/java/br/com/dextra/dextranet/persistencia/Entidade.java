@@ -3,7 +3,6 @@ package br.com.dextra.dextranet.persistencia;
 import java.util.UUID;
 
 import br.com.dextra.dextranet.utils.Data;
-import br.com.dextra.dextranet.utils.JsonUtil;
 
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
@@ -34,9 +33,6 @@ public abstract class Entidade {
 		return this.id;
 	}
 
-	public String toJson() {
-		return JsonUtil.stringify(this);
-	}
 
 	public Key getKey() {
 		return KeyFactory.createKey(this.getClass().getName(), this.getId());

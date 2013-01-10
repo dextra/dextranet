@@ -93,7 +93,7 @@ public class PostRepository extends BaseRepository {
 
 		com.google.appengine.api.search.Query query = preparaQuery(q);
 
-		ArrayList<String> listaDeIds = Converters.toListaDeIds(IndexFacade
+		ArrayList<String> listaDeIds = new Converters().toListaDeIds(IndexFacade
 				.getIndex(Post.class.getName()).search(query));
 
 		// FIXME: Set limit dentro da query nao funciona
