@@ -15,9 +15,12 @@
 				</a>
 				<ul id="box_new_post" class="sidebar_show_right">
 					<li>
+						<ul class="message" id="message-warning">
+							<li class="warning" style="display: none;">${messages.warning_message}</li>
+						</ul>
 						<form action="" id="form_new_post">
 							<input width="98%" type="text" id="form_input_title"
-								placeholder="${messages.placeholder_title_post}" name="title"></input>
+								placeholder="${messages.placeholder_title_post}" name="title" maxlength="60"></input>
 							<br />
 							<textarea cols="50" id="form_input_content" style="resize:none;"
 								placeholder="${messages.placeholder_content_post}" name="content"></textarea>
