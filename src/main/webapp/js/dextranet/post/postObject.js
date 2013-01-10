@@ -1,6 +1,6 @@
 var postObject = function(postJson){
 	this.postObjectJson = postJson;
-	this.postObjectJson.visibleText = "";
+	this.postObjectJson.visibleText = this.postObjectJson.conteudo;
 
 	this.setHiddenText = function(){
 		$(this).readmore( {
