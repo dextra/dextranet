@@ -56,9 +56,9 @@ public class FluxoDeCriacaoPaginacaoEPesquisaTest extends TesteFuncionalBase{
 			String titulo = "Titulo de Teste Numero: " + i;
 			String conteudo = "Texto do teste numero: " + i;
 
+			espereCarregarOFadeDeAtualizacaoDaPagina();
 			novoPost(titulo, conteudo);
 			alimentarBaseDosTestes(conteudo);
-			espereCarregarOFadeDeAtualizacaoDaPagina();
 		}
 	}
 
