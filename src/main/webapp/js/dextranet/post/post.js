@@ -16,10 +16,16 @@ dextranet.post = {
 		var quantidadePostsSolicitados = "20";
 		var template = "../template/dinamico/post/post.xml";
 
+		var busca = {
+				"max-results" : quantidadePostsSolicitados,
+				"page" : pagina,
+				"q" : query
+		};
+
 		$.ajax( {
 			type : "GET",
 			url : url,
-			data : "max-results=" + quantidadePostsSolicitados + "&page=" + pagina + "&q=" + query,
+			data : busca,
 			success : function(posts) {
 				if(posts.length > 0){
 					var postObjectArray = postObject.getpostObjectArrayFromPostJsonArray(posts);
