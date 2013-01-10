@@ -1,4 +1,4 @@
-var idUltimo = "";
+/*var idUltimo = "";
 
 dextranet.post = {
 
@@ -51,4 +51,4 @@ function carregaComentario(idDoPost) {
 function criaComentario() {
 	dextranet.home.carregaDadosAposInclusaoDeUmPost();
 }
-}
+}*/

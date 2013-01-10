@@ -40,7 +40,7 @@ public class Converters {
 		JsonObject json = new JsonObject();
 
 		for (Post post : listaPosts) {
-			json.addProperty(Post.class.getName(), post.toJson().toString());
+			//json.addProperty(Post.class.getName(), post.toJson().toString());
 			//FIXME: trocar os valores enviados em commentsToArrayDeCommentsToJson
 			//para os valores de max results(1000) e offset(0) para as variaveis
 			/*try {
@@ -48,7 +48,7 @@ public class Converters {
 			} catch (EntityNotFoundException e) {
 				e.printStackTrace();
 			}*/
-			jsonList.add(json);
+			jsonList.add(post.toJson());
 		}
 
 		return jsonList;
