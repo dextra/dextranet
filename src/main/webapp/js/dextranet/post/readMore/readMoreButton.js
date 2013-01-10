@@ -2,15 +2,15 @@ dextranet.readMoreButton = {
 
 	addButtonEvent : function(buttons,postObjectArray) {
 
-
+		console.log($.i18n.messages);
 
 		$(postObjectArray).each(function(){
 			var postJson = this.postObjectJson;
 			if(postJson.conteudo != postJson.visibleText){
 				var contentJQuery = $(postJson.conteudo);
 				var visibleJQuery = $(postJson.visibleText);
-				postJson.visibleText = dextranet.readMoreButton.addContinueText(postJson,visibleJQuery, "...Ver Mais");
-				postJson.conteudo = dextranet.readMoreButton.addReduceText(postJson, postJson.conteudo, "...Ver Menos");
+				postJson.visibleText = dextranet.readMoreButton.addContinueText(postJson,visibleJQuery, $.i18n.messages.link_readMore);
+				postJson.conteudo = dextranet.readMoreButton.addReduceText(postJson, postJson.conteudo, $.i18n.messages.link_readLess);
 			}
 		});
 	},
@@ -66,7 +66,7 @@ dextranet.readMoreButton = {
 
 	addEvent : function(button, postJson){
 		button.click(function(){
-			if($(this).text() == "...Ver Mais"){
+			if($(this).text() == $.i18n.messages.link_readMore){
 				$("#"+postJson.id+"_post").html(postJson.conteudo);
 				dextranet.readMoreButton.addEvent($("#"+postJson.id+"_button"), postJson);
 			}else{
