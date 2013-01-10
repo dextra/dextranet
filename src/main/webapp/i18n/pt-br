@@ -11,7 +11,8 @@
 	"warning_message" : "Preencha todos os campos!",
 	"logout" : "Sair",
 	"menu_others" : "Outros",
-	"link_readMore" : "... + Ver Mais",
+	"link_readMore" : "...Continuar Lendo",
+	"link_readLess" : "Recolher",
 	"placeholder_comment" : "Digite seu comentário",
 	"button_comment" : "Comentar",
 	"success_message" : "Seu post foi inserido com sucesso!"

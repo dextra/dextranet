@@ -1,5 +1,3 @@
-this.postObjectArray = "",
-
 dextranet.post = {
 
 	fazPesquisa : function() {
@@ -17,10 +15,16 @@ dextranet.post = {
 		var url = "/s/post";
 		var quantidadePostsSolicitados = "20";
 
+		var busca = {
+				"max-results" : quantidadePostsSolicitados,
+				"page" : pagina,
+				"q" : query
+		};
+
 		$.ajax( {
 			type : "GET",
 			url : url,
-			data : "max-results=" + quantidadePostsSolicitados + "&page=" + pagina + "&q=" + query,
+			data : busca,
 			success : function(posts) {
 				if(posts.length > 0){
 					postObjectArray = postObject.getpostObjectArrayFromPostJsonArray(posts);
@@ -44,23 +48,36 @@ dextranet.post = {
 		return $.holy(template, {"jsonArrayPost" : postObjectArray,"sucesso" : ehUmNovoPost});
 	},
 
-	adicionaBotaoVerMais:function(){
+	adicionaBotaoVerMais:function(postObjectArray){
+		dextranet.post.removeParagrafosVazios($(".list_stories_lead"));
 		dextranet.readMoreButton.addButtonEvent($(".list_stories_footer_call"),postObjectArray);
+	},
+
+	removeParagrafosVazios:function(posts){
+		posts.each(function(){
+			var paragrafos = $(this).children();
+			$(paragrafos[0]).remove();
+			$(paragrafos[$(paragrafos).size()-1]).remove();
+		});
 	},
 
 
 	criaNovoPost:function() {
 
 		var contentComparacao = CKEDITOR.instances.form_input_content.getData();
-		contentComparacao = dextranet.stripHTML(contentComparacao);
+		contentComparacao = dextranet.stripHTML(contentComparacao,1);
 
 		if (($("#form_input_title").val() == "") || (contentComparacao == "")) {
 			$("li.warning").css("display", "list-item");
 		} else {
 
+			var conteudo = dextranet.post.removeLinebreak(CKEDITOR.instances.form_input_content.getData());
+
+			console.info(conteudo);
+
 			var post = {
 				"title" : dextranet.stripHTML($("#form_input_title").val()),
-				"content" : CKEDITOR.instances.form_input_content.getData(),
+				"content" : conteudo,
 				"author" : $("#user_login").text()
 			};
 
@@ -74,5 +91,9 @@ dextranet.post = {
 			});
 		}
 		return false;
+	},
+
+	removeLinebreak : function(CKEditorText){
+		return CKEditorText.replace(/\n/g,"");
 	}
 };

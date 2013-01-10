@@ -18,6 +18,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Text;
 import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
+import com.google.gson.JsonObject;
 
 public class Comment extends Entidade {
 
@@ -106,6 +107,20 @@ public class Comment extends Entidade {
 		entidade.setProperty(CommentFields.TREE.getField(), this.tree);
 
 		return entidade;
+	}
+
+	public JsonObject toJson(){
+		JsonObject json =new JsonObject();
+		json.addProperty(CommentFields.ID.getField(), this.id);
+		json.addProperty(CommentFields.ID_REFERENCE.getField(), this.idReference);
+		json.addProperty(CommentFields.CONTEUDO.getField(), this.conteudo);
+		json.addProperty(CommentFields.USUARIO.getField(), this.usuario);
+		json.addProperty(CommentFields.COMENTARIOS.getField(), this.comentarios);
+		json.addProperty(CommentFields.LIKES.getField(), this.likes);
+		json.addProperty(CommentFields.DATA_DE_CRIACAO.getField(), this.dataDeCriacao);
+		json.addProperty(CommentFields.TREE.getField(), this.tree);
+
+		return json;
 	}
 
 	public Document toDocument() {
