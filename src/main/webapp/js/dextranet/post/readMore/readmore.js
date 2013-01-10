@@ -36,11 +36,8 @@
 
 						var caractersLeft = totalCaracters-opts.substr_len;
 						var paragraphToDivide = paragraphJQueryObject;
-						var continueText =
-							" <span id=\""+postJson.id+"_button\" class=\"list_stories_footer_call\">...Ver mais</span>";
 
-						var showText = paragraphJQueryObject.text().substring(0 , paragraphLength-caractersLeft)
-						+continueText;
+						var showText = paragraphJQueryObject.text().substring(0 , paragraphLength-caractersLeft);
 
 						paragraphToDivide.html(showText);
 						visibleTextArray.push(getHTMLFromJQuery(paragraphToDivide));
