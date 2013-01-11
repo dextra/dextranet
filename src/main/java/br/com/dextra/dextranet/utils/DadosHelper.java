@@ -1,11 +1,8 @@
 package br.com.dextra.dextranet.utils;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Properties;
 import java.util.TimeZone;
 import java.util.UUID;
 
@@ -40,34 +37,24 @@ public class DadosHelper {
 		return dataAtualiza;
 	}
 
-	public String removeConteudoJS(String conteudoHTML) {
-		Properties properties = new Properties();
+	public String removeConteudoJS(String conteudoHTML)  {
 
 		try {
-			// FIXME: nao eh legal deixar o src como referencia
-			properties.load(new FileInputStream("src/main/resources/config.properties"));
-		} catch (FileNotFoundException e) {
-			throw new RuntimeException("Erro ao remover codigo indevido do conteudo.", e);
-		} catch (IOException e) {
-			throw new RuntimeException("Erro ao remover codigo indevido do conteudo.", e);
-		}
+			InputStream inputStream = this.getClass().getClassLoader()
+	        .getResourceAsStream("antisamy.xml");
 
-		AntiSamy as = new AntiSamy();
-		Policy policy = null;
+			AntiSamy as = new AntiSamy();
+			Policy policy = null;
+			policy = Policy.getInstance(inputStream);
 
-		try {
-			policy = Policy.getInstance(properties.getProperty("antisamy.policyXML"));
-		} catch (PolicyException e) {
-			throw new RuntimeException("Erro ao remover codigo indevido do conteudo.", e);
-		}
-
-		try {
 			return as.scan(conteudoHTML, policy).getCleanHTML();
-		} catch (ScanException e) {
-			throw new RuntimeException("Erro ao remover codigo indevido do conteudo.", e);
+
 		} catch (PolicyException e) {
 			throw new RuntimeException("Erro ao remover codigo indevido do conteudo.", e);
+		}catch (ScanException e) {
+			throw new RuntimeException("Erro ao remover codigo indevido do conteudo.", e);
 		}
+
 	}
 
 }
