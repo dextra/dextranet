@@ -1,6 +1,7 @@
 package br.com.dextra.dextranet.comment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.dextra.dextranet.document.DocumentRepository;
 import br.com.dextra.dextranet.persistencia.BaseRepository;
@@ -31,7 +32,7 @@ public class CommentRepository extends BaseRepository {
 	}
 
 	@SuppressWarnings("deprecation")
-	public ArrayList<Comment> listarCommentsDeUmPost(int maxResults,
+	public List<Comment> listarCommentsDeUmPost(int maxResults,
 			int offSet, Post post) {
 
 		Query query = new Query(Comment.class.getName());
@@ -49,9 +50,9 @@ public class CommentRepository extends BaseRepository {
 		return toListaDeComments(prepared.asIterable(opts));
 	}
 
-	private ArrayList<Comment> toListaDeComments(Iterable<Entity> asIterable) {
+	private List<Comment> toListaDeComments(Iterable<Entity> asIterable) {
 
-		ArrayList<Comment> listaDeComments = new ArrayList<Comment>();
+		List<Comment> listaDeComments = new ArrayList<Comment>();
 
 		for (Entity entity : asIterable) {
 			listaDeComments.add(new Comment(entity));

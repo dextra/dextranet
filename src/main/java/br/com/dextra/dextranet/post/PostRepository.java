@@ -2,6 +2,7 @@ package br.com.dextra.dextranet.post;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import br.com.dextra.dextranet.document.DocumentRepository;
 import br.com.dextra.dextranet.persistencia.BaseRepository;
@@ -39,7 +40,7 @@ public class PostRepository extends BaseRepository {
 		return new Post(this.obtemPorId(id, Post.class));
 	}
 
-	public ArrayList<Post> buscarTodosOsPosts(int maxResults, int offSet) {
+	public List<Post> buscarTodosOsPosts(int maxResults, int offSet) {
 
 		Query query = new Query(Post.class.getName());
 
@@ -54,9 +55,9 @@ public class PostRepository extends BaseRepository {
 		return toListaDePost(prepared.asIterable(opts));
 	}
 
-	private ArrayList<Post> toListaDePost(Iterable<Entity> asIterable) {
+	private List<Post> toListaDePost(Iterable<Entity> asIterable) {
 
-		ArrayList<Post> listaDePost = new ArrayList<Post>();
+		List<Post> listaDePost = new ArrayList<Post>();
 
 		for (Entity entity : asIterable) {
 			listaDePost.add(new Post(entity));
@@ -66,19 +67,19 @@ public class PostRepository extends BaseRepository {
 
 	}
 
-	public ArrayList<Post> buscarPosts(int maxResults, String q, int offset)
+	public List<Post> buscarPosts(int maxResults, String q, int offset)
 			throws EntityNotFoundException {
 
-		ArrayList<String> listaDeIds = buscaIdsPostsFTS(maxResults, q, offset);
+		List<String> listaDeIds = buscaIdsPostsFTS(maxResults, q, offset);
 
-		ArrayList<Post> listaResults = buscaEntitiesPost(listaDeIds);
+		List<Post> listaResults = buscaEntitiesPost(listaDeIds);
 
 		return listaResults;
 	}
 
-	private ArrayList<Post> buscaEntitiesPost(ArrayList<String> listaDeIds)
+	private List<Post> buscaEntitiesPost(List<String> listaDeIds)
 			throws EntityNotFoundException {
-		ArrayList<Post> listaResults = new ArrayList<Post>();
+		List<Post> listaResults = new ArrayList<Post>();
 
 		for (String id : listaDeIds) {
 			Key key = KeyFactory.createKey(Post.class.getName(), id);
@@ -88,12 +89,12 @@ public class PostRepository extends BaseRepository {
 		return listaResults;
 	}
 
-	public ArrayList<String> buscaIdsPostsFTS(int maxResults, String q,
+	public List<String> buscaIdsPostsFTS(int maxResults, String q,
 			int offset) {
 
 		com.google.appengine.api.search.Query query = preparaQuery(q);
 
-		ArrayList<String> listaDeIds = new Converters().toListaDeIds(IndexFacade
+		List<String> listaDeIds = new Converters().toListaDeIds(IndexFacade
 				.getIndex(Post.class.getName()).search(query));
 
 		// FIXME: Set limit dentro da query nao funciona
@@ -101,10 +102,10 @@ public class PostRepository extends BaseRepository {
 				listaDeIds);
 	}
 
-	private ArrayList<String> listaDeIdsParaMostrarComOffsetForcado(
-			int maxResults, int offset, ArrayList<String> listaDeIds) {
+	private List<String> listaDeIdsParaMostrarComOffsetForcado(
+			int maxResults, int offset, List<String> listaDeIds) {
 		Collections.reverse(listaDeIds);
-		ArrayList<String> arrayTemp = new ArrayList<String>();
+		List<String> arrayTemp = new ArrayList<String>();
 		int f = maxResults + offset;
 
 		if (maxResults + offset > listaDeIds.size())

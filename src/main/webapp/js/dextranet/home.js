@@ -10,6 +10,10 @@ dextranet = {
         jQuery.ajaxSetup( {
             loading : true
         });
+
+        numeroDaPagina = new dextranet.paginacao.pagina();
+        consulta = new dextranet.paginacao.query();
+        dextranet.paginacao.paginacaoDosPosts();
 	}
 };
 
