@@ -3,7 +3,6 @@ dextranet.paginacao = {}
 
 dextranet.paginacao.paginacaoDosPosts = function() {
 
-	var ehUmNovoPost = false;
 	var scroll = new dextranet.paginacao.scroll();
 
 	$(window).scroll(function (){
