@@ -3,7 +3,7 @@ package br.com.dextra.dextranet.post;
 import br.com.dextra.dextranet.document.DocumentRepository;
 import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.utils.Converters;
-import br.com.dextra.dextranet.utils.DadosHelper;
+import br.com.dextra.dextranet.utils.Data;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -18,12 +18,20 @@ public class Post extends Entidade {
 
 	private String dataDeAtualizacao;
 
-	public Post(String titulo, String conteudo, String usuario) {
+	public Post(String titulo, String conteudo, String usuario, String dataDeAtualizacaoParametro) {
 		super(usuario, conteudo);
 		this.titulo = titulo;
-		this.dataDeAtualizacao = this.dataDeCriacao;
+		if (dataDeAtualizacaoParametro.isEmpty())
+		{
+			dataDeAtualizacaoParametro = this.dataDeCriacao;
+		}
+		this.dataDeAtualizacao = dataDeAtualizacaoParametro;
 		this.comentarios = 0;
 		this.likes = 0;
+	}
+
+	public Post(String titulo, String conteudo, String usuario) {
+		this(titulo, conteudo, usuario, "");
 	}
 
 	public Post(Entity postEntity) {
@@ -74,7 +82,7 @@ public class Post extends Entidade {
 		DocumentRepository postDoDocumentReository = new DocumentRepository();
 		PostRepository postDoRepository = new PostRepository();
 
-		String data = DadosHelper.pegaData();
+		String data = new Data().pegaData();
 
 		postDoDocumentReository.alteraDatadoDocumento(id, data);
 		postDoRepository.alteraDatadaEntity(id, data);

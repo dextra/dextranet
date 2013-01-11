@@ -11,6 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.dextra.dextranet.utils.Data;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -141,10 +142,11 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 		ArrayList<Post> listaDePostsCriados = new ArrayList<Post>();
 		Post novoPost = null;
-
+		String dataDeAtualizacao;
+		//ESSE FOR NÃO DEVE PASSSAR DE 59 POR CAUSO DO setSegundoDaData(i)
 		for (int i = 0; i < numeroDePosts; i++) {
-			novoPost = new Post("titulo de teste" + (i + 1), "conteudo de teste" + (i + 1), "usuario");
-			Thread.sleep(1000);
+			dataDeAtualizacao = new Data().setSegundoDaData(i);
+			novoPost = new Post("titulo de teste" + (i + 1), "conteudo de teste" + (i + 1), "usuario", dataDeAtualizacao);
 			listaDePostsCriados.add(postRepository.criar(novoPost));
 		}
 		return listaDePostsCriados;
