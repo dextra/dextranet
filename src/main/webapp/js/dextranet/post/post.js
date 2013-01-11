@@ -68,7 +68,6 @@ dextranet.post = {
 		var titulo = dextranet.strip.tagHTML($("#form_input_title").val());
 		var conteudo = CKEDITOR.instances.form_input_content.getData();
 
-		console.log(dextranet.strip.allElem(conteudo));
 
 		if (dextranet.strip.allElem(titulo) == "" || dextranet.strip.allElem(conteudo) == "") {
 			if(!dextranet.home.EhVisivel("#message-warning"))
