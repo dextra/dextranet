@@ -2,8 +2,6 @@ package br.com.dextra.dextranet.web.post;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import junit.framework.Assert;
