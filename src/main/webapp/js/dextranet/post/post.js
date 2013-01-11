@@ -64,20 +64,18 @@ dextranet.post = {
 
 	criaNovoPost:function() {
 
-		var contentComparacao = CKEDITOR.instances.form_input_content.getData();
-		contentComparacao = dextranet.stripHTML(contentComparacao,1);
+		var titulo = dextranet.strip.tagHTML($("#form_input_title").val());
+		var conteudo = CKEDITOR.instances.form_input_content.getData();
 
-		if (($("#form_input_title").val() == "") || (contentComparacao == "")) {
+		console.log(dextranet.strip.allElem(conteudo));
+
+		if (dextranet.strip.allElem(titulo) == "" || dextranet.strip.allElem(conteudo) == "") {
 			$("li.warning").css("display", "list-item");
 		} else {
 
-			var conteudo = dextranet.post.removeLinebreak(CKEDITOR.instances.form_input_content.getData());
-
-			console.info(conteudo);
-
 			var post = {
-				"title" : dextranet.stripHTML($("#form_input_title").val()),
-				"content" : conteudo,
+				"title" : titulo.replace(/ /g, "&nbsp;"), //.replace serve pro browser reconhecer os espaços digitados pelo usuario
+				"content" : dextranet.strip.lineBreak(conteudo),
 				"author" : $("#user_login").text()
 			};
 
@@ -91,9 +89,5 @@ dextranet.post = {
 			});
 		}
 		return false;
-	},
-
-	removeLinebreak : function(CKEditorText){
-		return CKEditorText.replace(/\n/g,"");
 	}
 };
