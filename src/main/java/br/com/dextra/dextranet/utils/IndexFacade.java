@@ -10,4 +10,5 @@ public class IndexFacade {
 		IndexSpec indexSpec = IndexSpec.newBuilder().setName(index).build();
 		return SearchServiceFactory.getSearchService().getIndex(indexSpec);
 	}
+
 }

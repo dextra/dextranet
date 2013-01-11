@@ -7,9 +7,8 @@ dextranet.paginacao.paginacaoDosPosts = function() {
 	var scroll = new dextranet.paginacao.scroll();
 
 	$(window).scroll(function (){
-
 		if (scroll.solicitarNovaPagina()==true) {
-			dextranet.post.listarPosts(consulta.getText(), ehUmNovoPost, numeroDaPagina.getPagina());
+			dextranet.post.listaPost(consulta.getText(),numeroDaPagina.getPagina());
 			numeroDaPagina.next();
 		}
 	})
@@ -38,7 +37,6 @@ dextranet.paginacao.scroll = function() {
 				r = true;
 			}
 		}
-
 		return r;
 	}
 

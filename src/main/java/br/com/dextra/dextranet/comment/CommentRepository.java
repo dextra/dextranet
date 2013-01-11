@@ -32,15 +32,17 @@ public class CommentRepository extends BaseRepository {
 	}
 
 	@SuppressWarnings("deprecation")
-	public List<Comment> listarCommentsDeUmPost(int maxResults,
-			int offSet, Post post) {
+	public List<Comment> listarCommentsDeUmPost(int maxResults, int offSet,
+			Post post) {
 
 		Query query = new Query(Comment.class.getName());
 
-		query.addSort(PostFields.DATA_DE_ATUALIZACAO.getField(),
-				SortDirection.DESCENDING);
 		query.addFilter(CommentFields.ID_REFERENCE.getField(),
 				FilterOperator.EQUAL, post.getId());
+
+		query.addSort(PostFields.DATA_DE_ATUALIZACAO.getField(),
+				SortDirection.DESCENDING);
+
 		PreparedQuery prepared = datastore.prepare(query);
 
 		FetchOptions opts = FetchOptions.Builder.withDefaults();

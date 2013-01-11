@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<template selector="#container_main">
-	<ul class="message" id="message-warning">
-		<li class="warning" style="display: none;">${messages.warning_message}</li>
-	</ul>
+
 		<div id="div_novo_post">
 			<form action="" id="form_new_post">
 				<input size="90" type="text" id="form_input_title"

@@ -1,5 +1,6 @@
 package br.com.dextra.dextranet.post;
 
+import br.com.dextra.dextranet.comment.Comment;
 import br.com.dextra.dextranet.document.DocumentRepository;
 import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.utils.Converters;
@@ -32,6 +33,10 @@ public class Post extends Entidade {
 
 	public Post(String titulo, String conteudo, String usuario) {
 		this(titulo, conteudo, usuario, "");
+	}
+
+	public Post() {
+
 	}
 
 	public Post(Entity postEntity) {
@@ -76,18 +81,19 @@ public class Post extends Entidade {
 	}
 
 
-	public void comentar(String id) throws EntityNotFoundException {
+	public void comentar(Comment comment) throws EntityNotFoundException {
 
 		// FIXME: COMEÇANDO A FAZER O COMENTARIO NO REFACTORING
+
 		DocumentRepository postDoDocumentReository = new DocumentRepository();
 		PostRepository postDoRepository = new PostRepository();
 
-		String data = new Data().pegaData();
+		postDoDocumentReository.alteraDocumento(comment);
+		postDoRepository.alteraDataDaEntity(comment.getIdReference(), comment.getDataDeCriacao());
 
-		postDoDocumentReository.alteraDatadoDocumento(id, data);
-		postDoRepository.alteraDatadaEntity(id, data);
+		postDoRepository.incrementaNumeroDeComentariosDaEntityDoPost(comment.getIdReference());
 
-		postDoRepository.incrementaNumeroDeComentariosDaEntityDoPost(id);
+		this.comentarios=this.comentarios+1;
 	}
 
 	@Override

@@ -2,6 +2,7 @@ package br.com.dextra.dextranet.comment;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
@@ -14,6 +15,9 @@ import javax.ws.rs.core.Response;
 import org.owasp.validator.html.PolicyException;
 import org.owasp.validator.html.ScanException;
 
+import com.google.appengine.api.datastore.EntityNotFoundException;
+
+import br.com.dextra.dextranet.post.Post;
 import br.com.dextra.dextranet.utils.CommentToJson;
 import br.com.dextra.dextranet.utils.Converters;
 
@@ -28,19 +32,23 @@ public class CommentRS {
 	public Response novoComment(@FormParam("text") String text ,
 			@FormParam("author") String autor,
 			@FormParam("idReference") String id,
-			@DefaultValue("false") @FormParam("tree") String arvore) throws FileNotFoundException, PolicyException, ScanException, IOException {
+			@DefaultValue("false") @FormParam("tree") String arvore) throws FileNotFoundException, PolicyException, ScanException, IOException, EntityNotFoundException {
 
 		Comment comment = new Comment(text, autor, id, new Converters().toBoolean(arvore));
+
 		repositorio.criar(comment);
+		new Post().comentar(comment);
 
 		return Response.ok().build();
 	}
 
-	@Path("/")
+	@Path("/{id}")
 	@GET
 	@Produces("application/json;charset=UTF-8")
-	public String consultar() {
-		//Iterable<Entity> retorno = this.repositorio.buscar();
+	public String consultar(@FormParam("id") String idReference) {
+
+		//List<Comment> listaDeComments = repositorio.listarCommentsDeUmPost(1000, 0, new Post)
+
 
 		return CommentToJson.converterListaEntities(null).toString();
 	}

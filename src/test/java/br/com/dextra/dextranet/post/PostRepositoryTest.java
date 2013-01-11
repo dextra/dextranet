@@ -138,18 +138,5 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		return postsCriados.get(i).getId();
 	}
 
-	private List<Post> geraPosts(int numeroDePosts) throws InterruptedException, FileNotFoundException,
-			IOException {
 
-		List<Post> listaDePostsCriados = new ArrayList<Post>();
-		Post novoPost = null;
-		String dataDeAtualizacao;
-		//ESSE FOR NÃO DEVE PASSSAR DE 59 POR CAUSO DO setSegundoDaData(i)
-		for (int i = 0; i < numeroDePosts; i++) {
-			dataDeAtualizacao = new Data().setSegundoDaData(i);
-			novoPost = new Post("titulo de teste" + (i + 1), "conteudo de teste" + (i + 1), "usuario", dataDeAtualizacao);
-			listaDePostsCriados.add(postRepository.criar(novoPost));
-		}
-		return listaDePostsCriados;
-	}
 }

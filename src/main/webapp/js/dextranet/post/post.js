@@ -1,17 +1,17 @@
 dextranet.post = {
 
 	fazPesquisa : function() {
-		var ehUmNovoPost = false;
 		var pagina = 0;
 		consulta.setText($('#form_search_input').val());
 
 		if(consulta.getText() != ""){
-			dextranet.post.listarPosts(consulta.getText(), ehUmNovoPost, pagina);
+			dextranet.post.listaPost(consulta.getText(), pagina);
 		}
 		return false;
 	},
 
-	listarPosts : function(query, ehUmNovoPost, pagina) {
+	listaPost : function(query, pagina)
+	{
 		var url = "/s/post";
 		var quantidadePostsSolicitados = "20";
 
@@ -33,19 +33,20 @@ dextranet.post = {
 						this.setHiddenText();
 					});
 
-					dextranet.post.carregaTemplatePost(postObjectArray,ehUmNovoPost);
+					dextranet.post.carregaTemplatePost(postObjectArray);
 				}
 			}
 		});
 
 		if (pagina == 0){
 			$.holy("../template/dinamico/carrega_miolo_home_page.xml",{});
+
 		}
 	},
 
-	carregaTemplatePost : function(postObjectArray, ehUmNovoPost){
+	carregaTemplatePost : function(postObjectArray){
 		var template = "../template/dinamico/post/post.xml";
-		return $.holy(template, {"jsonArrayPost" : postObjectArray,"sucesso" : ehUmNovoPost});
+		return $.holy(template, {"jsonArrayPost" : postObjectArray});
 	},
 
 	adicionaBotaoVerMais:function(postObjectArray){
@@ -64,20 +65,19 @@ dextranet.post = {
 
 	criaNovoPost:function() {
 
-		var contentComparacao = CKEDITOR.instances.form_input_content.getData();
-		contentComparacao = dextranet.stripHTML(contentComparacao,1);
+		var titulo = dextranet.strip.tagHTML($("#form_input_title").val());
+		var conteudo = CKEDITOR.instances.form_input_content.getData();
 
-		if (($("#form_input_title").val() == "") || (contentComparacao == "")) {
-			$("li.warning").css("display", "list-item");
+		console.log(dextranet.strip.allElem(conteudo));
+
+		if (dextranet.strip.allElem(titulo) == "" || dextranet.strip.allElem(conteudo) == "") {
+			if(!dextranet.home.EhVisivel("#message-warning"))
+				$("#form_new_post").before('<ul class="message" id="message-warning"><li class="warning">Preencha</li></ul>');
 		} else {
 
-			var conteudo = dextranet.post.removeLinebreak(CKEDITOR.instances.form_input_content.getData());
-
-			console.info(conteudo);
-
 			var post = {
-				"title" : dextranet.stripHTML($("#form_input_title").val()),
-				"content" : conteudo,
+				"title" : titulo.replace(/ /g, "&nbsp;"), //.replace serve pro browser reconhecer os espaços digitados pelo usuario
+				"content" : dextranet.strip.lineBreak(conteudo),
 				"author" : $("#user_login").text()
 			};
 
@@ -86,14 +86,12 @@ dextranet.post = {
 				url : "/s/post",
 				data : post,
 				success : function() {
-					dextranet.home.carregaDados(true);
+				$("#container_post").before();
+					dextranet.home.carregaDados();
+					$.holy("../template/dinamico/post/mensagem.xml", {});
 				}
 			});
 		}
 		return false;
-	},
-
-	removeLinebreak : function(CKEditorText){
-		return CKEditorText.replace(/\n/g,"");
 	}
 };
