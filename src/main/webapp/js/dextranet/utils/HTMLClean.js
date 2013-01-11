@@ -1,20 +1,20 @@
 dextranet.strip = {
 
-	allElem : function(conteudo) {
+	allElem : function(texto) {
 
-		conteudo = conteudo.replace(/<.*?>/g, '');
-		conteudo = conteudo.replace(/\n/g, '');
-		conteudo = conteudo.replace(/ /g, '');
-		conteudo = conteudo.replace(/&nbsp;/g, '');
+		texto = texto.replace(/<.*?>/g, '');
+		texto = texto.replace(/\n/g, '');
+		texto = texto.replace(/ /g, '');
+		texto = texto.replace(/&nbsp;/g, '');
 
-		return conteudo;
+		return texto;
 	},
 
-	lineBreak : function(conteudo) {
-		return conteudo.replace(/\n/g,"");
+	lineBreak : function(texto) {
+		return texto.replace(/\n/g,"");
 	},
 
-	tagHTML : function(conteudo) {
-		return conteudo.replace(/<.*?>/g, '');
+	tagHTML : function(texto) {
+		return texto.replace(/<.*?>/g, '');
 	}
 }

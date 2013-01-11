@@ -64,17 +64,17 @@ dextranet.post = {
 
 	criaNovoPost:function() {
 
-		var conteudo = CKEDITOR.instances.form_input_content.getData();
 		var titulo = dextranet.strip.tagHTML($("#form_input_title").val());
+		var conteudo = CKEDITOR.instances.form_input_content.getData();
 
-		if (dextranet.strip.allElem(tituloComparacao) == "" || dextranet.strip.allElem(contentComparacao) == "") {
+		if (dextranet.strip.allElem(titulo) == "" || dextranet.strip.allElem(conteudo) == "") {
 			$("li.warning").css("display", "list-item");
 		} else {
 
-			console.info(conteudo);
+			console.log(titulo);
 
 			var post = {
-				"title" : dextranet.strip.lineBreak(titulo),
+				"title" : titulo.replace(/ /g, "&nbsp;"), //.replace serve pro browser reconhecer os espaços digitados pelo usuario
 				"content" : dextranet.strip.lineBreak(conteudo),
 				"author" : $("#user_login").text()
 			};
