@@ -1,11 +1,6 @@
 <engine>
 
 	<template selector="#container_post" append="true">
-		<ul class="message">
-			{if sucesso}
-			<li class="success" style="display: list_item;">${messages.success_message}</li>
-			{/if}
-		</ul>
 
 		<ul class="list_stories" id="relacao_dos_posts">
 			{for post in jsonArrayPost}

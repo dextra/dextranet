@@ -23,7 +23,10 @@ dextranet.home = {
 		dextranet.home.loadMessages();
 		consulta.setText("");
 		dextranet.home.carregueOsTemplates();
-		dextranet.post.listarPosts("", novoPost, 0);
+		dextranet.post.listaPost("", 0);
+
+		if(novoPost)
+			$("#container_post").before('<ul class="message" id="success-message"><li class="success" style="display: list_item;">Sucesso</li></ul>');
 	},
 
 	loadMessages : function() {
@@ -131,3 +134,11 @@ dextranet.home = {
 
 };
 
+function sleep(milliseconds) {
+	  var start = new Date().getTime();
+	  for (var i = 0; i < 1e7; i++) {
+	    if ((new Date().getTime() - start) > milliseconds){
+	      break;
+	    }
+	  }
+	}
