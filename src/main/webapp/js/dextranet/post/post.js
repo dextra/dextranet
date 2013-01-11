@@ -87,7 +87,7 @@ dextranet.post = {
 				data : post,
 				success : function() {
 				$("#container_post").before();
-					dextranet.home.carregaDados(true);
+					dextranet.home.carregaDados();
 					$.holy("../template/dinamico/post/mensagem.xml", {});
 				}
 			});

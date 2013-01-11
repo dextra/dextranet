@@ -19,11 +19,7 @@ dextranet = {
 
 dextranet.home = {
 
-	carregaDadosSemParametro : function() {
-		dextranet.home.carregaDados(false);
-	},
-
-	carregaDados : function(novoPost) {
+	carregaDados : function() {
 		dextranet.home.loadMessages();
 		consulta.setText("");
 		dextranet.home.carregueOsTemplates();
