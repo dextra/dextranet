@@ -1,6 +1,7 @@
 package br.com.dextra.dextranet.utils;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map.Entry;
 
 import br.com.dextra.dextranet.comment.Comment;
@@ -25,37 +26,26 @@ public class Converters {
         return json;
 }
 
-	public ArrayList<String> toListaDeIds(Results<ScoredDocument> results) {
-		ArrayList<String> idList=new ArrayList<String>();
+	public List<String> toListaDeIds(Results<ScoredDocument> results) {
+		List<String> idList=new ArrayList<String>();
 		for (ScoredDocument scoredDocument : results) {
 				idList.add(scoredDocument.getField("id").iterator().next().getText());
 		}
 		return idList;
 	}
 
-	//public ArrayList<JsonObject> toListaDeJsons(ArrayList<Posts>)
-
-	public ArrayList<JsonObject> converterListaEntities(ArrayList<Post> listaPosts) {
-		ArrayList<JsonObject> jsonList = new ArrayList<JsonObject>();
-		JsonObject json = new JsonObject();
+	public List<JsonObject> converterListaEntities(List<Post> listaPosts) {
+		List<JsonObject> jsonList = new ArrayList<JsonObject>();
 
 		for (Post post : listaPosts) {
-			//json.addProperty(Post.class.getName(), post.toJson().toString());
-			//FIXME: trocar os valores enviados em commentsToArrayDeCommentsToJson
-			//para os valores de max results(1000) e offset(0) para as variaveis
-			/*try {
-				json.addProperty(CommentToJson.class.getName(), new Converters().commentsToArrayDeCommentsToJson(1000,0,post).toString());
-			} catch (EntityNotFoundException e) {
-				e.printStackTrace();
-			}*/
 			jsonList.add(post.toJson());
 		}
 
 		return jsonList;
 	}
 
-	private ArrayList<JsonObject> commentsToArrayDeCommentsToJson(int maxResults, int offset, Post post) throws EntityNotFoundException {
-		ArrayList<JsonObject> listaDeJsonDosComments = new ArrayList<JsonObject>();
+	private List<JsonObject> commentsToArrayDeCommentsToJson(int maxResults, int offset, Post post) throws EntityNotFoundException {
+		List<JsonObject> listaDeJsonDosComments = new ArrayList<JsonObject>();
 
 		for (Comment comment : new CommentRepository().listarCommentsDeUmPost(maxResults, offset, post)) {
 			listaDeJsonDosComments.add(comment.toJson());
