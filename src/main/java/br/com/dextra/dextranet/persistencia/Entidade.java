@@ -3,6 +3,7 @@ package br.com.dextra.dextranet.persistencia;
 import java.util.UUID;
 
 import br.com.dextra.dextranet.utils.DadosHelper;
+import br.com.dextra.dextranet.utils.Data;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
@@ -26,7 +27,7 @@ public abstract class Entidade {
 		this.id = UUID.randomUUID().toString();
 		this.conteudo = new DadosHelper().removeConteudoJS(conteudo);
 		this.usuario = usuario;
-		this.dataDeCriacao = DadosHelper.pegaData();
+		this.dataDeCriacao = new Data().pegaData();
 		this.comentarios = 0;
 		this.likes = 0;
 	}
