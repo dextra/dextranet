@@ -24,7 +24,7 @@ public class PostFuncionalTest extends TesteFuncionalBase{
 
 	private int quantidadePosts = 61;
 	private int vezesQueOScrollDescera = (int) Math.round(((double)quantidadePosts/20)+0.5);
-	private String termoQueSeraPesquisado = "60";
+//	private String termoQueSeraPesquisado = "60";
 
 	@Test
 	public void fluxoDeCriacaoPesquisaEPaginacaoDePosts(){
@@ -96,41 +96,41 @@ public class PostFuncionalTest extends TesteFuncionalBase{
 		Assert.assertEquals("Todos os posts inseridos deveriam ter sido visualizados.", postsInseridos, postsEncontrados);
 	}
 
-	private void possoTambemProcurarPorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado(String termoPesquisado) {
-		procurarPorUmPost(termoPesquisado);
+//	private void possoTambemProcurarPorUmPostInseridoParaVerificarSeOMesmoSeraEncontrado(String termoPesquisado) {
+//		procurarPorUmPost(termoPesquisado);
+//
+//		Assert.assertEquals(1,this.postsEncontrados.size());
+//		Assert.assertEquals("[Texto do teste numero: " + termoPesquisado + "]",this.postsEncontrados.toString());
+//	}
 
-		Assert.assertEquals(1,this.postsEncontrados.size());
-		Assert.assertEquals("[Texto do teste numero: " + termoPesquisado + "]",this.postsEncontrados.toString());
-	}
+//	private void procurarPorUmPost(String termoASerPesquisado) {
+//		paginaPrincipal.writeInputText("#form_search_input",termoASerPesquisado);
+//		paginaPrincipal.click("#form_search_submit");
+//		//espereCarregarOFadeDeAtualizacaoDaPagina();
+//		quandoUsuarioDesceScrollAteFimDaPagina(vezesQueOScrollDescera);
+//		this.entaoUsuarioVisualizaOsPosts();
+//	}
 
-	private void procurarPorUmPost(String termoASerPesquisado) {
-		paginaPrincipal.writeInputText("#form_search_input",termoASerPesquisado);
-		paginaPrincipal.click("#form_search_submit");
-		//espereCarregarOFadeDeAtualizacaoDaPagina();
-		quandoUsuarioDesceScrollAteFimDaPagina(vezesQueOScrollDescera);
-		this.entaoUsuarioVisualizaOsPosts();
-	}
+//	private void entaoEuVoltoParaAHome() {
+//		this.paginaPrincipal.click("#button_sidebar_left_home");
+//		//espereCarregarOFadeDeAtualizacaoDaPagina();
+//	}
 
-	private void entaoEuVoltoParaAHome() {
-		this.paginaPrincipal.click("#button_sidebar_left_home");
-		//espereCarregarOFadeDeAtualizacaoDaPagina();
-	}
+//	private void procuroPorUmTermoQueRetorneTodosOsPosts() {
+//		this.procurarPorUmPost("Teste");
+//	}
 
-	private void procuroPorUmTermoQueRetorneTodosOsPosts() {
-		this.procurarPorUmPost("Teste");
-	}
+//	private void paraVerificarSeTodosOsPostsPesquisadosEstaoSendoPaginados() {
+//		Assert.assertEquals(this.quantidadePosts,this.postsEncontrados.size());
+//		Assert.assertEquals(this.postsInseridos,this.postsEncontrados);
+//	}
 
-	private void paraVerificarSeTodosOsPostsPesquisadosEstaoSendoPaginados() {
-		Assert.assertEquals(this.quantidadePosts,this.postsEncontrados.size());
-		Assert.assertEquals(this.postsInseridos,this.postsEncontrados);
-	}
-
-	private void eContinuareiListandoTodosOsPostsQueForamInseridos() {
-		entaoUsuarioVisualizaOsPosts();
-		//paraVerificarSeTodosOsPostsInseridosEstaoSendoListados();
-		//paraVerificarSeAlgumPostNaoFoiEncontrado();
-		//eParaConfrontarSeARelacaoDePostsInseridosEstaIgualARelacaoDePostsEncontrados();
-	}
+//	private void eContinuareiListandoTodosOsPostsQueForamInseridos() {
+//		entaoUsuarioVisualizaOsPosts();
+//		//paraVerificarSeTodosOsPostsInseridosEstaoSendoListados();
+//		//paraVerificarSeAlgumPostNaoFoiEncontrado();
+//		//eParaConfrontarSeARelacaoDePostsInseridosEstaIgualARelacaoDePostsEncontrados();
+//	}
 
 }
 

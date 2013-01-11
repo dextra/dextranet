@@ -13,6 +13,7 @@ dextranet = {
 
         numeroDaPagina = new dextranet.paginacao.pagina();
         consulta = new dextranet.paginacao.query();
+        numeroDaPagina.setPaginaInicial();
         dextranet.paginacao.paginacaoDosPosts();
 	}
 };

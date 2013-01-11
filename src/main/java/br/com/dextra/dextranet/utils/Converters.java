@@ -44,6 +44,7 @@ public class Converters {
 		return jsonList;
 	}
 
+
 	public List<JsonObject> commentsToArrayDeCommentsToJson(int maxResults, int offset, Post post) throws EntityNotFoundException {
 		List<JsonObject> listaDeJsonDosComments = new ArrayList<JsonObject>();
 
@@ -54,6 +55,7 @@ public class Converters {
 
 		return listaDeJsonDosComments;
 	}
+
 
 	public String converterGAETextToString(Entity entity) {
 		String conteudo = ((Text) entity.getProperty("conteudo")).getValue();
