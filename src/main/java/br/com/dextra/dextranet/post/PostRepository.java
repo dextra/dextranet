@@ -155,7 +155,7 @@ public class PostRepository extends BaseRepository {
 		return query;
 	}
 
-	public void alteraDatadaEntity(String id, String data)
+	public void alteraDataDaEntity(String id, String data)
 			throws EntityNotFoundException {
 
 		Key key = KeyFactory.createKey(Post.class.getName(), id);
