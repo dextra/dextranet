@@ -4,13 +4,12 @@ dextranet.paginacao = {}
 dextranet.paginacao.paginacaoDosPosts=function() {
 
 	$(window).scroll(function (){
-		var ehUmNovoPost = false;
 		var posicaoMinimaParaNovaPagina = posicaoDoScrollBuscarMaisPosts();
 		var margemParaNovaBusca = (document.documentElement.scrollHeight*0.95);
 		var posicaoDoScroll = $(document).scrollTop();
 
 		if (posicaoDoScroll > posicaoMinimaParaNovaPagina) {
-				dextranet.post.listarPosts(consulta.getText(), ehUmNovoPost, numeroDaPagina.getPagina());
+				dextranet.post.listaPost(consulta.getText(), numeroDaPagina.getPagina());
 				posicaoMinimaParaNovaPagina = (posicaoDoScroll + margemParaNovaBusca);
 				numeroDaPagina.next();
 		}

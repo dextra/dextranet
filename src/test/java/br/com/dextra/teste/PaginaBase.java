@@ -2,7 +2,6 @@ package br.com.dextra.teste;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -23,7 +22,7 @@ public class PaginaBase extends PageObject {
 	}
 
 	public void waitingForLoading() {
-		String loadingCssSeletor = ".isLoading";
+		String loadingCssSeletor = "div.loading";
 
 		// faz um sleep inicial para o carregando aparecer
 		this.waitToLoad(TIME_TO_WAIT);
@@ -31,9 +30,9 @@ public class PaginaBase extends PageObject {
 		int tentativas = 1;
 
 		while (tentativas < MAX_ATTEMPT_TO_WAIT) {
-			try {
-				this.driver.findElement(By.cssSelector(loadingCssSeletor));
-			} catch (NoSuchElementException e) {
+			boolean loadingAtivo = Boolean.valueOf(this.getElementAttribute(loadingCssSeletor, "active"));
+			
+			if (! loadingAtivo) {
 				break;
 			}
 

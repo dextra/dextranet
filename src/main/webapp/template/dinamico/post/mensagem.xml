@@ -1,0 +1,9 @@
+<engine>
+	<template selector="#container_mensagem" append="true">
+	<ul class="message" id="success-message">
+		<li class="success" style="display: list_item;">
+			${messages.success_message}
+		</li>
+	</ul>
+	</template>
+</engine>

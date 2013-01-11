@@ -10,6 +10,7 @@
 			<input type="submit" value="" title="Procurar!" id="form_search_submit" />
 		</form>
 
+		<div id="container_mensagem" class="clearfix"></div>
 		<div id="container_post" class="clearfix">
 		</div>
 
