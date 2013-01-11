@@ -29,6 +29,7 @@ limitations under the License.*/
 		if (stack == 1) {
 			$('.loading .load').center();
 			$('.loading').show();
+			$('.loading').addClass('isLoading');
 		}
 		$('.loading').data('loading-ajax-stack', stack);
 	}
@@ -43,6 +44,7 @@ limitations under the License.*/
 		}
 		if (stack == 1) {
 			$('.loading').hide();
+			$('.loading').removeClass('isLoading');
 		}
 		stack--;
 		$('.loading').data('loading-ajax-stack', stack);

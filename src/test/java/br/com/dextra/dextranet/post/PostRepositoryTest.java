@@ -10,8 +10,6 @@ import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.owasp.validator.html.PolicyException;
-import org.owasp.validator.html.ScanException;
 
 import br.com.dextra.teste.TesteIntegracaoBase;
 
@@ -22,11 +20,9 @@ import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 public class PostRepositoryTest extends TesteIntegracaoBase {
 
-	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(
-			new LocalDatastoreServiceTestConfig());
+	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
 
-	private final LocalServiceTestHelper fts = new LocalServiceTestHelper(
-			new LocalSearchServiceTestConfig());
+	private final LocalServiceTestHelper fts = new LocalServiceTestHelper(new LocalSearchServiceTestConfig());
 	private PostRepository postRepository = new PostRepository();
 
 	@Before
@@ -42,17 +38,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 	@Test
 	public void criarNovoPost() throws FileNotFoundException, IOException {
-		Post novoPost = null;
-		try {
-			novoPost = new Post("titulo de teste", "conteudo de teste", "usuario");
-
-		} catch (PolicyException e1) {
-			Assert.fail("Policy exception");
-
-		} catch (ScanException e1) {
-
-			Assert.fail("Scan exception");
-		}
+		Post novoPost = new Post("titulo de teste", "conteudo de teste", "usuario");
 		postRepository.criar(novoPost);
 
 		Post postRecuperado = null;
@@ -63,10 +49,8 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		}
 
 		Assert.assertEquals(novoPost.getTitulo(), postRecuperado.getTitulo());
-		Assert.assertEquals(novoPost.getConteudo(), postRecuperado
-				.getConteudo());
-		Assert.assertEquals(novoPost.getId(), postRecuperado
-				.getId());
+		Assert.assertEquals(novoPost.getConteudo(), postRecuperado.getConteudo());
+		Assert.assertEquals(novoPost.getId(), postRecuperado.getId());
 	}
 
 	@Test
@@ -75,7 +59,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		Iterator<Post> iterator = posts.iterator();
 		ArrayList<String> conteudoCriado = new ArrayList<String>();
 
-		while (iterator.hasNext()){
+		while (iterator.hasNext()) {
 			Post post = iterator.next();
 			conteudoCriado.add(post.getConteudo());
 		}
@@ -83,31 +67,25 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		Assert.assertEquals(inverteLista(conteudoCriado), pegaListaDePosts());
 	}
 
-	private ArrayList<String> inverteLista(ArrayList<String> conteudoCriado) {
-		ArrayList<String> aux = new ArrayList<String>();
-		for (int i = conteudoCriado.size()-1; i >= 0; i--)  {
-			aux.add(conteudoCriado.get(i));
+	@Test
+	public void testaRemocaoPost() {
+		Post novoPost = new Post("Titulo", "Conteudo", "Usuario");
+		Post postCriado = postRepository.criar(novoPost);
+
+		String idDoPostCriado = postCriado.getId();
+		postRepository.remove(idDoPostCriado);
+
+		try {
+			postRepository.obtemPorId(idDoPostCriado);
+			Assert.fail();
+		} catch (EntityNotFoundException e) {
+			Assert.assertTrue(true);
 		}
-
-		return aux;
-	}
-
-	private ArrayList<String> pegaListaDePosts() {
-		Iterable<Post> postsEncontradosNaBusca = this.postRepository.buscarTodosOsPosts(4, 0);
-		Iterator<Post> iterator = postsEncontradosNaBusca.iterator();
-		ArrayList<String> lista = new ArrayList<String>();
-
-		while (iterator.hasNext()) {
-			Post post = iterator.next();
-			lista.add(post.getConteudo());
-		}
-
-		return lista;
 	}
 
 	@Test
-	public void testeBuscarPosts() throws NumberFormatException,
-			EntityNotFoundException, InterruptedException, FileNotFoundException, IOException {
+	public void testeBuscarPosts() throws NumberFormatException, EntityNotFoundException, InterruptedException,
+			FileNotFoundException, IOException {
 
 		int maxResults = 20;
 		int page = 0;
@@ -127,10 +105,30 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		listaPostRecuperado = postRepository.buscarPosts(maxResults, postQueEuQuero.getTitulo(), offSet);
 
 		Assert.assertEquals(1, listaPostRecuperado.size());
-		Assert.assertEquals(listaPostQueEuQuero.get(0).getTitulo(),
-				listaPostRecuperado.get(0).getTitulo());
-		Assert.assertEquals(listaPostQueEuQuero.get(0).getConteudo(),
-				listaPostRecuperado.get(0).getConteudo());
+		Assert.assertEquals(listaPostQueEuQuero.get(0).getTitulo(), listaPostRecuperado.get(0).getTitulo());
+		Assert.assertEquals(listaPostQueEuQuero.get(0).getConteudo(), listaPostRecuperado.get(0).getConteudo());
+	}
+
+	private ArrayList<String> inverteLista(ArrayList<String> conteudoCriado) {
+		ArrayList<String> aux = new ArrayList<String>();
+		for (int i = conteudoCriado.size() - 1; i >= 0; i--) {
+			aux.add(conteudoCriado.get(i));
+		}
+
+		return aux;
+	}
+
+	private ArrayList<String> pegaListaDePosts() {
+		Iterable<Post> postsEncontradosNaBusca = this.postRepository.buscarTodosOsPosts(4, 0);
+		Iterator<Post> iterator = postsEncontradosNaBusca.iterator();
+		ArrayList<String> lista = new ArrayList<String>();
+
+		while (iterator.hasNext()) {
+			Post post = iterator.next();
+			lista.add(post.getConteudo());
+		}
+
+		return lista;
 	}
 
 	private String pegaOIdDoPostQueEuQuero(int i, ArrayList<Post> postsCriados) {
@@ -138,20 +136,14 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		return postsCriados.get(i).getId();
 	}
 
-	private ArrayList<Post> geraPosts(int numeroDePosts) throws InterruptedException, FileNotFoundException, IOException {
+	private ArrayList<Post> geraPosts(int numeroDePosts) throws InterruptedException, FileNotFoundException,
+			IOException {
 
 		ArrayList<Post> listaDePostsCriados = new ArrayList<Post>();
 		Post novoPost = null;
 
 		for (int i = 0; i < numeroDePosts; i++) {
-			try {
-				novoPost=new Post("titulo de teste" + (i + 1), "conteudo de teste" + (i + 1),
-						"usuario");
-			} catch (PolicyException e1) {
-				Assert.fail("Policy exception");
-			} catch (ScanException e1) {
-				Assert.fail("Scan exception");
-			}
+			novoPost = new Post("titulo de teste" + (i + 1), "conteudo de teste" + (i + 1), "usuario");
 			Thread.sleep(1000);
 			listaDePostsCriados.add(postRepository.criar(novoPost));
 		}

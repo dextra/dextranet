@@ -46,6 +46,6 @@
 
 	<script>
 		dextranet.post.adicionaBotaoVerMais(this.jsonArrayPost);
-		chamaAbreTelaComentario();
+		dextranet.comment.chamaAbreTelaComentario();
 	</script>
 </engine>

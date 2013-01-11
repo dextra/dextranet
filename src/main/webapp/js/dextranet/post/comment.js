@@ -1,37 +1,39 @@
 var idUltimo = "";
 
-function abreTelaComentario(idDaDivDoPost, idDoPost) {
+dextranet.comment = {
+
+		abreTelaComentario :function(idDaDivDoPost, idDoPost) {
 	var LIs = $("#relacao_dos_posts").children();
 	var deuCerto = false;
 	LIs.each(function() {
 		if ($(this).attr("class") == idDaDivDoPost) {
-			carregaComentario(idDoPost);
+			dextranet.comment.carregaComentario(idDoPost);
 			deuCerto = true;
 		}
 	});
 
 	return deuCerto;
-}
+},
 
-function chamaAbreTelaComentario() {
+chamaAbreTelaComentario: function () {
 	var jaTemTextArea = false;
 	$(".link").click(function(){
 		var idDoPost = $(this).attr("id").substring(9);
 		if(!jaTemTextArea){
-			if(abreTelaComentario($(this).attr("id"),idDoPost)){
+			if(dextranet.comment.abreTelaComentario($(this).attr("id"),idDoPost)){
 				jaTemTextArea = true;
 			}
 		} else {
 			$("div.esteAqui").empty();
 			$("div.esteAqui").removeClass("esteAqui");
-			if(abreTelaComentario($(this).attr("id"),idDoPost)){
+			if(dextranet.comment.abreTelaComentario($(this).attr("id"),idDoPost)){
 				jaTemTextArea = true;
 			}
 		}
 	});
-}
+},
 
-function carregaComentario(idDoPost) {
+carregaComentario: function (idDoPost) {
 	$("div." + idDoPost).addClass("esteAqui");
 	$.ajax( {
 		type : 'GET',
@@ -44,9 +46,9 @@ function carregaComentario(idDoPost) {
 		}
 	});
 	idUltimo = idDoPost;
-}
+},
 
-function criaComentario() {
-	//esperando serviço de criação de comentario
+criaComentario :function () {
 	dextranet.home.carregaDadosAposInclusaoDeUmPost();
+}
 }

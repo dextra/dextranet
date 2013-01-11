@@ -65,7 +65,7 @@ dextranet.post = {
 	criaNovoPost:function() {
 
 		var contentComparacao = CKEDITOR.instances.form_input_content.getData();
-		contentComparacao = dextranet.stripHTML(contentComparacao);
+		contentComparacao = dextranet.stripHTML(contentComparacao,1);
 
 		if (($("#form_input_title").val() == "") || (contentComparacao == "")) {
 			$("li.warning").css("display", "list-item");

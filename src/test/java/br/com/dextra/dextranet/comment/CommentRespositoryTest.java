@@ -1,17 +1,12 @@
 package br.com.dextra.dextranet.comment;
 
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.owasp.validator.html.PolicyException;
-import org.owasp.validator.html.ScanException;
 
 import br.com.dextra.teste.TesteIntegracaoBase;
 
@@ -41,24 +36,7 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 
 	@Test
 	public void criarUmComentario(){
-		Comment novoComment = null;
-		try {
-			novoComment = new Comment("Teste de Content", "marco.bordon", "123123123",false);
-
-		} catch (PolicyException e1) {
-			Assert.fail("Policy exception");
-
-		} catch (ScanException e1) {
-
-			Assert.fail("Scan exception");
-		} catch (FileNotFoundException e) {
-
-			Assert.fail("Arquivo de policy nao encontrado");
-		} catch (IOException e) {
-
-			Assert.fail("IO Exception");
-		}
-
+		Comment novoComment = new Comment("Teste de Content", "marco.bordon", "123123123",false);
 		commentRepository.criar(novoComment);
 
 		Comment commentRecuperado = null;
