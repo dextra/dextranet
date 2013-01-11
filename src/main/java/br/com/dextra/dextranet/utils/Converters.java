@@ -44,7 +44,7 @@ public class Converters {
 		return jsonList;
 	}
 
-	private List<JsonObject> commentsToArrayDeCommentsToJson(int maxResults, int offset, Post post) throws EntityNotFoundException {
+	public List<JsonObject> commentsToArrayDeCommentsToJson(int maxResults, int offset, Post post) throws EntityNotFoundException {
 		List<JsonObject> listaDeJsonDosComments = new ArrayList<JsonObject>();
 
 		for (Comment comment : new CommentRepository().listarCommentsDeUmPost(maxResults, offset, post)) {

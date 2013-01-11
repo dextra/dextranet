@@ -2,7 +2,6 @@ package br.com.dextra.dextranet.comment;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
@@ -15,11 +14,11 @@ import javax.ws.rs.core.Response;
 import org.owasp.validator.html.PolicyException;
 import org.owasp.validator.html.ScanException;
 
-import com.google.appengine.api.datastore.EntityNotFoundException;
-
 import br.com.dextra.dextranet.post.Post;
-import br.com.dextra.dextranet.utils.CommentToJson;
+import br.com.dextra.dextranet.post.PostRepository;
 import br.com.dextra.dextranet.utils.Converters;
+
+import com.google.appengine.api.datastore.EntityNotFoundException;
 
 @Path("/comment")
 public class CommentRS {
@@ -29,12 +28,15 @@ public class CommentRS {
 	@Path("/")
 	@POST
 	@Produces("application/json;charset=UTF-8")
-	public Response novoComment(@FormParam("text") String text ,
+	public Response novoComment(@FormParam("text") String text,
 			@FormParam("author") String autor,
 			@FormParam("idReference") String id,
-			@DefaultValue("false") @FormParam("tree") String arvore) throws FileNotFoundException, PolicyException, ScanException, IOException, EntityNotFoundException {
+			@DefaultValue("false") @FormParam("tree") String arvore)
+			throws FileNotFoundException, PolicyException, ScanException,
+			IOException, EntityNotFoundException {
 
-		Comment comment = new Comment(text, autor, id, new Converters().toBoolean(arvore));
+		Comment comment = new Comment(text, autor, id, new Converters()
+				.toBoolean(arvore));
 
 		repositorio.criar(comment);
 		new Post().comentar(comment);
@@ -45,12 +47,10 @@ public class CommentRS {
 	@Path("/{id}")
 	@GET
 	@Produces("application/json;charset=UTF-8")
-	public String consultar(@FormParam("id") String idReference) {
-
-		//List<Comment> listaDeComments = repositorio.listarCommentsDeUmPost(1000, 0, new Post)
-
-
-		return CommentToJson.converterListaEntities(null).toString();
+	public String consultar(@FormParam("id") String idReference)
+			throws EntityNotFoundException {
+		return new Converters().commentsToArrayDeCommentsToJson(1000, 0,
+				new PostRepository().obtemPorId(idReference)).toString();
 	}
 
 }
