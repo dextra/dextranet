@@ -13,6 +13,7 @@ dextranet.paginacao.paginacaoDosPosts=function() {
 				dextranet.post.listarPosts(consulta.getText(), ehUmNovoPost, numeroDaPagina.getPagina());
 				posicaoMinimaParaNovaPagina = (posicaoDoScroll + margemParaNovaBusca);
 				numeroDaPagina.next();
+				console.info(numeroDaPagina.getPagina());
 		}
 	})
 
