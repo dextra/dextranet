@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
-import br.com.dextra.dextranet.comment.Comment;
-import br.com.dextra.dextranet.comment.CommentRepository;
+//import br.com.dextra.dextranet.comment.Comment;
+//import br.com.dextra.dextranet.comment.CommentRepository;
 import br.com.dextra.dextranet.post.Post;
 
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.EntityNotFoundException;
+//import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Text;
 import com.google.appengine.api.search.Results;
 import com.google.appengine.api.search.ScoredDocument;
@@ -44,16 +44,16 @@ public class Converters {
 		return jsonList;
 	}
 
-	private List<JsonObject> commentsToArrayDeCommentsToJson(int maxResults, int offset, Post post) throws EntityNotFoundException {
-		List<JsonObject> listaDeJsonDosComments = new ArrayList<JsonObject>();
-
-		for (Comment comment : new CommentRepository().listarCommentsDeUmPost(maxResults, offset, post)) {
-			listaDeJsonDosComments.add(comment.toJson());
-		}
-
-
-		return listaDeJsonDosComments;
-	}
+//	private List<JsonObject> commentsToArrayDeCommentsToJson(int maxResults, int offset, Post post) throws EntityNotFoundException {
+//		List<JsonObject> listaDeJsonDosComments = new ArrayList<JsonObject>();
+//
+//		for (Comment comment : new CommentRepository().listarCommentsDeUmPost(maxResults, offset, post)) {
+//			listaDeJsonDosComments.add(comment.toJson());
+//		}
+//
+//
+//		return listaDeJsonDosComments;
+//	}
 
 	public String converterGAETextToString(Entity entity) {
 		String conteudo = ((Text) entity.getProperty("conteudo")).getValue();

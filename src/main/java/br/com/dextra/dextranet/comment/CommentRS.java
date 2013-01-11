@@ -2,7 +2,6 @@ package br.com.dextra.dextranet.comment;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
@@ -15,11 +14,11 @@ import javax.ws.rs.core.Response;
 import org.owasp.validator.html.PolicyException;
 import org.owasp.validator.html.ScanException;
 
-import com.google.appengine.api.datastore.EntityNotFoundException;
-
 import br.com.dextra.dextranet.post.Post;
 import br.com.dextra.dextranet.utils.CommentToJson;
 import br.com.dextra.dextranet.utils.Converters;
+
+import com.google.appengine.api.datastore.EntityNotFoundException;
 
 @Path("/comment")
 public class CommentRS {
