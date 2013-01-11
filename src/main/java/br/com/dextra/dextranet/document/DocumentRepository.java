@@ -18,8 +18,7 @@ import com.google.appengine.api.search.Field;
 public class DocumentRepository extends BaseRepository {
 
 
-	@SuppressWarnings("unchecked")
-	public void indexar(Entidade entidade,Class clazz){
+	public <T extends Entidade> void indexar(Entidade entidade,Class<T> clazz){
 		IndexFacade.getIndex(clazz.getName()).add(entidade.toDocument());
 	}
 

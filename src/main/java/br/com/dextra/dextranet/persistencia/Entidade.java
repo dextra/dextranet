@@ -2,11 +2,13 @@ package br.com.dextra.dextranet.persistencia;
 
 import java.util.UUID;
 
-import br.com.dextra.dextranet.utils.Data;
+import br.com.dextra.dextranet.utils.DadosHelper;
 
+import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.search.Document;
+import com.google.gson.JsonObject;
 
 public abstract class Entidade {
 
@@ -22,9 +24,9 @@ public abstract class Entidade {
 
 	public Entidade(String usuario, String conteudo) {
 		this.id = UUID.randomUUID().toString();
-		this.conteudo = conteudo;
+		this.conteudo = new DadosHelper().removeConteudoJS(conteudo);
 		this.usuario = usuario;
-		this.dataDeCriacao = new Data().pegaData();
+		this.dataDeCriacao = DadosHelper.pegaData();
 		this.comentarios = 0;
 		this.likes = 0;
 	}
@@ -33,15 +35,14 @@ public abstract class Entidade {
 		return this.id;
 	}
 
-
 	public Key getKey() {
 		return KeyFactory.createKey(this.getClass().getName(), this.getId());
 	}
 
-	public Document toDocument() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public abstract Entity toEntity();
 
+	public abstract Document toDocument();
+
+	public abstract JsonObject toJson();
 
 }

@@ -16,8 +16,7 @@ public class BaseRepository {
 		return datastore.put(valueEntity);
 	}
 
-	@SuppressWarnings("unchecked")
-	protected Entity obtemPorId(String id, Class clazz) throws EntityNotFoundException {
+	protected <T extends Entidade> Entity obtemPorId(String id, Class<T> clazz) throws EntityNotFoundException {
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		Key key = KeyFactory.createKey(clazz.getName(), id);
 		return datastore.get(key);
