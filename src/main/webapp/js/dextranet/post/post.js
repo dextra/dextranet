@@ -64,20 +64,18 @@ dextranet.post = {
 
 	criaNovoPost:function() {
 
-		var contentComparacao = CKEDITOR.instances.form_input_content.getData();
-		contentComparacao = dextranet.stripHTML(contentComparacao,1);
+		var conteudo = CKEDITOR.instances.form_input_content.getData();
+		var titulo = dextranet.strip.tagHTML($("#form_input_title").val());
 
-		if (($("#form_input_title").val() == "") || (contentComparacao == "")) {
+		if (dextranet.strip.allElem(tituloComparacao) == "" || dextranet.strip.allElem(contentComparacao) == "") {
 			$("li.warning").css("display", "list-item");
 		} else {
-
-			var conteudo = dextranet.post.removeLinebreak(CKEDITOR.instances.form_input_content.getData());
 
 			console.info(conteudo);
 
 			var post = {
-				"title" : dextranet.stripHTML($("#form_input_title").val()),
-				"content" : conteudo,
+				"title" : dextranet.strip.lineBreak(titulo),
+				"content" : dextranet.strip.lineBreak(conteudo),
 				"author" : $("#user_login").text()
 			};
 
@@ -91,9 +89,5 @@ dextranet.post = {
 			});
 		}
 		return false;
-	},
-
-	removeLinebreak : function(CKEditorText){
-		return CKEditorText.replace(/\n/g,"");
 	}
 };
