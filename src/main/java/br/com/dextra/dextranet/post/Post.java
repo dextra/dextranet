@@ -23,7 +23,7 @@ public class Post extends Entidade {
 		this.titulo = titulo;
 		if (dataDeAtualizacaoParametro.isEmpty())
 		{
-			dataDeAtualizacaoParametro = this.dataDeCriacao;
+			dataDeAtualizacaoParametro = new Data().pegaDataDeAtualizacao();
 		}
 		this.dataDeAtualizacao = dataDeAtualizacaoParametro;
 		this.comentarios = 0;
@@ -127,7 +127,6 @@ public class Post extends Entidade {
 				.addField(Field.newBuilder().setName(PostFields.TITULO.getField()).setText(titulo))
 				.addField(Field.newBuilder().setName(PostFields.CONTEUDO.getField()).setHTML(conteudo))
 				.addField(Field.newBuilder().setName(PostFields.USUARIO.getField()).setText(usuario))
-				.addField(Field.newBuilder().setName(PostFields.DATA.getField()).setText(dataDeCriacao))
 				.addField(Field.newBuilder().setName(PostFields.DATA_DE_ATUALIZACAO.getField()).setText(dataDeAtualizacao))
 				.addField(Field.newBuilder().setName(PostFields.ID.getField()).setText(id))
 				.build();
