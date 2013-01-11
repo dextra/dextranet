@@ -1,24 +1,22 @@
 
 dextranet.paginacao = {}
 
-dextranet.paginacao.paginacaoDosPosts=function() {
+dextranet.paginacao.paginacaoDosPosts = function() {
 
 	var ehUmNovoPost = false;
 	var scroll = new dextranet.paginacao.scroll();
 
 	$(window).scroll(function (){
 
-		if (scroll.solicitarNovaPagina()) {
+		if (scroll.solicitarNovaPagina()==true) {
 			dextranet.post.listarPosts(consulta.getText(), ehUmNovoPost, numeroDaPagina.getPagina());
 			numeroDaPagina.next();
-			console.info(numeroDaPagina.getPagina());
 		}
 	})
 };
 
 dextranet.paginacao.scroll = function() {
 
-	var posicaoMaximaQueOScrollChegou = 0;
 	var chegouAteOFinal = true;
 
 	getPosicao = function(){
@@ -32,23 +30,25 @@ dextranet.paginacao.scroll = function() {
 	}
 
 	this.solicitarNovaPagina = function(){
+		var r = false;
+
 		if (getPosicao() > proximaPosicaoScrollParaRecarregar()){
-			scrollChegouAteOFinal();
-			return true;
+			verificaSeOScrollChegouAteOFinal();
+			if(getChegouAteOFinal() == false){
+				r = true;
+			}
 		}
-		else{
-			return false;
-		}
+
+		return r;
 	}
 
-	scrollChegouAteOFinal = function(){
+	verificaSeOScrollChegouAteOFinal = function(){
 		var url = "/s/post";
 		var quantidadePostsSolicitados = "20";
 		var busca = {
 				"max-results" : quantidadePostsSolicitados,
 				"page" : numeroDaPagina.getPagina(),
-				"q" : consulta.getText()
-		};
+				"q" : consulta.getText()};
 
 		$.ajax( {
 			type : "GET",
@@ -66,11 +66,10 @@ dextranet.paginacao.scroll = function() {
 	}
 
 	setChegouAteOFinal = function(status){
-		console.info(status);
 		chegouAteOFinal = status;
 	}
 
-	this.getChetouAteOFinal = function(){
+	getChegouAteOFinal = function(){
 		return chegouAteOFinal;
 	}
 }
