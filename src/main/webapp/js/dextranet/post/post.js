@@ -1,17 +1,17 @@
 dextranet.post = {
 
 	fazPesquisa : function() {
-		var ehUmNovoPost = false;
 		var pagina = 0;
 		consulta.setText($('#form_search_input').val());
 
 		if(consulta.getText() != ""){
-			dextranet.post.listarPosts(consulta.getText(), ehUmNovoPost, pagina);
+			dextranet.post.listaPost(consulta.getText(), pagina);
 		}
 		return false;
 	},
 
-	listarPosts : function(query, ehUmNovoPost, pagina) {
+	listaPost : function(query, pagina)
+	{
 		var url = "/s/post";
 		var quantidadePostsSolicitados = "20";
 
@@ -33,19 +33,20 @@ dextranet.post = {
 						this.setHiddenText();
 					});
 
-					dextranet.post.carregaTemplatePost(postObjectArray,ehUmNovoPost);
+					dextranet.post.carregaTemplatePost(postObjectArray);
 				}
 			}
 		});
 
 		if (pagina == 0){
 			$.holy("../template/dinamico/carrega_miolo_home_page.xml",{});
+
 		}
 	},
 
-	carregaTemplatePost : function(postObjectArray, ehUmNovoPost){
+	carregaTemplatePost : function(postObjectArray){
 		var template = "../template/dinamico/post/post.xml";
-		return $.holy(template, {"jsonArrayPost" : postObjectArray,"sucesso" : ehUmNovoPost});
+		return $.holy(template, {"jsonArrayPost" : postObjectArray});
 	},
 
 	adicionaBotaoVerMais:function(postObjectArray){
@@ -70,7 +71,8 @@ dextranet.post = {
 		console.log(dextranet.strip.allElem(conteudo));
 
 		if (dextranet.strip.allElem(titulo) == "" || dextranet.strip.allElem(conteudo) == "") {
-			$("li.warning").css("display", "list-item");
+			if(!dextranet.home.EhVisivel("#message-warning"))
+				$("#form_new_post").before('<ul class="message" id="message-warning"><li class="warning">Preencha</li></ul>');
 		} else {
 
 			var post = {
