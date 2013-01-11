@@ -1,7 +1,6 @@
 package br.com.dextra.teste;
 
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
 
@@ -13,8 +12,6 @@ public class TesteFuncionalBase extends TesteIntegracaoBase {
 	private static Environment environment;
 
 	protected static WebDriver driver;
-
-	private boolean nomeDoTesteSetado = false;
 
 	@BeforeClass
 	public static void setup() {
@@ -29,14 +26,6 @@ public class TesteFuncionalBase extends TesteIntegracaoBase {
 		driver.quit();
 
 		TesteIntegracaoBase.shutdown();
-	}
-
-	@Before
-	public void beforeTest() {
-		if (! nomeDoTesteSetado) {
-			environment.setSessionName(this.getClass().getName());
-			nomeDoTesteSetado = true;
-		}
 	}
 
 }
