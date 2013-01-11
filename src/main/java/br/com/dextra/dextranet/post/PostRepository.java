@@ -3,6 +3,7 @@ package br.com.dextra.dextranet.post;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import br.com.dextra.dextranet.document.DocumentRepository;
 import br.com.dextra.dextranet.persistencia.BaseRepository;
@@ -81,16 +82,28 @@ public class PostRepository extends BaseRepository {
 			throws EntityNotFoundException {
 		List<Post> listaResults = new ArrayList<Post>();
 
-		for (String id : listaDeIds) {
-			Key key = KeyFactory.createKey(Post.class.getName(), id);
-			Entity e = datastore.get(key);
-			listaResults.add(new Post(e));
+		List<Key> listaDeKeys = (geraIterableDeKeys(listaDeIds));
+
+		Map<Key, Entity> mapa = datastore.get(listaDeKeys);
+
+		for (Key key : listaDeKeys) {
+			listaResults.add(new Post(mapa.get(key)));
 		}
+
 		return listaResults;
 	}
 
-	public List<String> buscaIdsPostsFTS(int maxResults, String q,
-			int offset) {
+	private List<Key> geraIterableDeKeys(List<String> listaDeIds) {
+		List<Key> listaDeKeys = new ArrayList<Key>();
+
+		for (String id : listaDeIds) {
+			listaDeKeys.add(KeyFactory.createKey(Post.class.getName(), id));
+		}
+
+		return listaDeKeys;
+	}
+
+	public List<String> buscaIdsPostsFTS(int maxResults, String q, int offset) {
 
 		com.google.appengine.api.search.Query query = preparaQuery(q);
 
@@ -102,8 +115,8 @@ public class PostRepository extends BaseRepository {
 				listaDeIds);
 	}
 
-	private List<String> listaDeIdsParaMostrarComOffsetForcado(
-			int maxResults, int offset, List<String> listaDeIds) {
+	private List<String> listaDeIdsParaMostrarComOffsetForcado(int maxResults,
+			int offset, List<String> listaDeIds) {
 		Collections.reverse(listaDeIds);
 		List<String> arrayTemp = new ArrayList<String>();
 		int f = maxResults + offset;
