@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import junit.framework.Assert;
 
@@ -56,9 +57,9 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 	@Test
 	public void listaTodosPosts() throws InterruptedException, FileNotFoundException, IOException {
-		ArrayList<Post> posts = geraPosts(4);
+		List<Post> posts = geraPosts(4);
 		Iterator<Post> iterator = posts.iterator();
-		ArrayList<String> conteudoCriado = new ArrayList<String>();
+		List<String> conteudoCriado = new ArrayList<String>();
 
 		while (iterator.hasNext()) {
 			Post post = iterator.next();
@@ -93,15 +94,15 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		int offSet = page * maxResults;
 		int qtdOriginalDePosts = 4;
 
-		ArrayList<Post> postsCriados = geraPosts(qtdOriginalDePosts);
-		ArrayList<Post> listaPostQueEuQuero = new ArrayList<Post>();
+		List<Post> postsCriados = geraPosts(qtdOriginalDePosts);
+		List<Post> listaPostQueEuQuero = new ArrayList<Post>();
 
 		String idDoPostQueEuQuero = pegaOIdDoPostQueEuQuero(2, postsCriados);
 
 		Post postQueEuQuero = postRepository.obtemPorId(idDoPostQueEuQuero);
 		listaPostQueEuQuero.add(postQueEuQuero);
 
-		ArrayList<Post> listaPostRecuperado = null;
+		List<Post> listaPostRecuperado = null;
 
 		listaPostRecuperado = postRepository.buscarPosts(maxResults, postQueEuQuero.getTitulo(), offSet);
 
@@ -110,8 +111,8 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		Assert.assertEquals(listaPostQueEuQuero.get(0).getConteudo(), listaPostRecuperado.get(0).getConteudo());
 	}
 
-	private ArrayList<String> inverteLista(ArrayList<String> conteudoCriado) {
-		ArrayList<String> aux = new ArrayList<String>();
+	private List<String> inverteLista(List<String> conteudoCriado) {
+		List<String> aux = new ArrayList<String>();
 		for (int i = conteudoCriado.size() - 1; i >= 0; i--) {
 			aux.add(conteudoCriado.get(i));
 		}
@@ -119,10 +120,10 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		return aux;
 	}
 
-	private ArrayList<String> pegaListaDePosts() {
+	private List<String> pegaListaDePosts() {
 		Iterable<Post> postsEncontradosNaBusca = this.postRepository.buscarTodosOsPosts(4, 0);
 		Iterator<Post> iterator = postsEncontradosNaBusca.iterator();
-		ArrayList<String> lista = new ArrayList<String>();
+		List<String> lista = new ArrayList<String>();
 
 		while (iterator.hasNext()) {
 			Post post = iterator.next();
@@ -132,15 +133,15 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		return lista;
 	}
 
-	private String pegaOIdDoPostQueEuQuero(int i, ArrayList<Post> postsCriados) {
+	private String pegaOIdDoPostQueEuQuero(int i, List<Post> postsCriados) {
 
 		return postsCriados.get(i).getId();
 	}
 
-	private ArrayList<Post> geraPosts(int numeroDePosts) throws InterruptedException, FileNotFoundException,
+	private List<Post> geraPosts(int numeroDePosts) throws InterruptedException, FileNotFoundException,
 			IOException {
 
-		ArrayList<Post> listaDePostsCriados = new ArrayList<Post>();
+		List<Post> listaDePostsCriados = new ArrayList<Post>();
 		Post novoPost = null;
 		String dataDeAtualizacao;
 		//ESSE FOR NÃO DEVE PASSSAR DE 59 POR CAUSO DO setSegundoDaData(i)
