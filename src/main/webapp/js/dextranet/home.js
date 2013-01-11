@@ -28,9 +28,6 @@ dextranet.home = {
 		consulta.setText("");
 		dextranet.home.carregueOsTemplates();
 		dextranet.post.listaPost("", 0);
-
-		if(novoPost)
-			$("#container_post").before('<ul class="message" id="success-message"><li class="success" style="display: list_item;">Sucesso</li></ul>');
 	},
 
 	loadMessages : function() {

@@ -86,7 +86,9 @@ dextranet.post = {
 				url : "/s/post",
 				data : post,
 				success : function() {
+				$("#container_post").before();
 					dextranet.home.carregaDados(true);
+					$.holy("../template/dinamico/post/mensagem.xml", {});
 				}
 			});
 		}
