@@ -60,7 +60,7 @@ public class PostRS {
 		else {
 			listaPosts = novoPost.buscarPosts(resultsMax, q,offSet);
 		}
-		return new Converters().converterListaEntities(listaPosts).toString();
+		return new Converters().converterListaDePostsParaListaDeJson(listaPosts).toString();
 	}
 
 	@Path("/{id}")

@@ -3,16 +3,12 @@ package br.com.dextra.dextranet.comment;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.dextra.dextranet.document.DocumentRepository;
 import br.com.dextra.dextranet.persistencia.BaseRepository;
-import br.com.dextra.dextranet.post.Post;
-import br.com.dextra.dextranet.post.PostFields;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
@@ -29,30 +25,25 @@ public class CommentRepository extends BaseRepository {
 
 		//TODO: indexação do post que foi comentado com conteudo do comment
 		//FIXME: arrumar o set do document ja existente
-		DocumentRepository respositoryDocument = new DocumentRepository();
-		respositoryDocument.indexar(comment, Comment.class);
+		//DocumentRepository respositoryDocument = new DocumentRepository();
+		//respositoryDocument.indexar(comment, Comment.class);
 
 		return comment;
 	}
 
 	@SuppressWarnings("deprecation")
-	public List<Comment> listarCommentsDeUmPost(int maxResults, int offSet,
-			Post post) {
+	public List<Comment> listarCommentsDeUmPost(String IdReference) {
 
 		Query query = new Query(Comment.class.getName());
 
-		query.addFilter(CommentFields.ID_REFERENCE.getField(),FilterOperator.EQUAL, post.getId());
+		query.addFilter(CommentFields.ID_REFERENCE.getField(),FilterOperator.EQUAL, IdReference);
 
-		query.addSort(PostFields.DATA_DE_ATUALIZACAO.getField(),
-				SortDirection.DESCENDING);
+		query.addSort(CommentFields.DATA_DE_CRIACAO.getField(),
+				SortDirection.ASCENDING);
 
 		PreparedQuery prepared = datastore.prepare(query);
 
-		FetchOptions opts = FetchOptions.Builder.withDefaults();
-		opts.limit(maxResults);
-		opts.offset(offSet);
-
-		return toListaDeComments(prepared.asIterable(opts));
+		return toListaDeComments(prepared.asIterable());
 	}
 
 	private List<Comment> toListaDeComments(Iterable<Entity> asIterable) {

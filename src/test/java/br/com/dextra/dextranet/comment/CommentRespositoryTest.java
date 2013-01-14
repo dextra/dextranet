@@ -16,13 +16,13 @@ import org.owasp.validator.html.ScanException;
 
 import br.com.dextra.dextranet.post.Post;
 import br.com.dextra.dextranet.post.PostRepository;
+import br.com.dextra.dextranet.utils.Converters;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalSearchServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import com.google.gson.JsonObject;
 
 public class CommentRespositoryTest extends TesteIntegracaoBase {
 	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(
@@ -103,28 +103,39 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 
 		List<Post> listaDePosts = geraPosts(6);
 
-		Comment comment1= new Comment("text1", "author", listaDePosts.get(2).getId() , false);
+		Comment comment1 = comentar(listaDePosts.get(2).getId());
+		Comment comment2 = comentar(listaDePosts.get(4).getId());
+		Comment comment3 = comentar(listaDePosts.get(2).getId());
 
-		new CommentRepository().criar(comment1);
-		listaDePosts.get(2).comentar(comment1);
+		List<Comment> listaEsperada = new ArrayList<Comment>();
+		listaEsperada.add(comment1);
+		listaEsperada.add(comment3);
+
+		Assert.assertEquals(
+				new Converters().converterListaDeCommentParaListaDeJson(listaEsperada).toString(),
+				new CommentRS().consultar(comment1.getIdReference()));
+
+		listaEsperada.clear();
+		listaEsperada.add(comment2);
+
+//		Assert.assertEquals(
+//				new Converters().converterListaDeCommentParaListaDeJson(listaEsperada).toString(),
+//				new CommentRS().consultar(comment2.getIdReference()));
 
 
-		//Assert.assertEquals(new ArrayList<JsonObject>().add(comment1.toJson()), new CommentRS().consultar(listaDePosts.get(2).getId()));
+
 
 	}
 
-	private String geraStringDeArrayDeJson(Comment novoComment,
-			Comment novoComment3) {
-		List<JsonObject> listaDeJson = new ArrayList<JsonObject>();
-
-		listaDeJson.add(novoComment3.toJson());
-		listaDeJson.add(novoComment.toJson());
-
-
-
-
-		return listaDeJson.toString();
+	private Comment comentar(String idDoPostQueVouComentar)
+			throws EntityNotFoundException, InterruptedException {
+		Comment comment = new Comment("teste de comentário", "usuario.dextra", idDoPostQueVouComentar, false);
+		new CommentRepository().criar(comment);
+		new Post().comentar(comment);
+		Thread.sleep(1000);
+		return comment;
 	}
+
 
 	@Test
 	@Ignore
