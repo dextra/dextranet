@@ -37,8 +37,7 @@ public class CommentRepository extends BaseRepository {
 
 		Query query = new Query(Comment.class.getName());
 
-		query.addFilter(CommentFields.ID_REFERENCE.getField(),
-				FilterOperator.EQUAL, post.getId());
+		query.addFilter(CommentFields.ID_REFERENCE.getField(),FilterOperator.EQUAL, post.getId());
 
 		query.addSort(PostFields.DATA_DE_ATUALIZACAO.getField(),
 				SortDirection.DESCENDING);

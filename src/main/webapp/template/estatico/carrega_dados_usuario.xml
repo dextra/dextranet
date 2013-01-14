@@ -3,7 +3,7 @@
 	<template selector="#box_user">
 
 		<li id="box_user_info">
-			<img src="" alt="photo" />
+			<img src="../img/usuario_sem_foto.png" alt="photo"/>
 			<span id="user_login">${nickName}</span>
 			<span class="shape_arrow_right"></span>
 			<span class="shape_arrow_down"></span>
