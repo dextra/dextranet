@@ -36,8 +36,9 @@ public abstract class Entidade {
 		return this.id;
 	}
 
-	public Key getKey() {
-		return KeyFactory.createKey(this.getClass().getName(), this.getId());
+	@SuppressWarnings("unchecked")
+	public Key getKey(Class clazz) {
+		return KeyFactory.createKey(clazz.getName(), this.getId());
 	}
 
 	public abstract Entity toEntity();
