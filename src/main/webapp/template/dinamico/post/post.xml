@@ -5,7 +5,7 @@
 		<ul class="list_stories" id="relacao_dos_posts">
 			{for post in jsonArrayPost}
 
-			<li class="clearfix ${post.id}">
+			<li class="clearfix ${post.postObjectJson.id}">
 				<div class="list_stories_headline_data">
 					${converteData(post.postObjectJson.dataDeCriacao)}
 				</div>
@@ -15,7 +15,12 @@
 					<div class="list_stories_headline_comments">
 						<a id="clearfix ${post.postObjectJson.id}" class="link">
 							<span class="icon_comments"></span>
-							${post.postObjectJson.comentarios} comentários
+							${post.postObjectJson.comentarios}
+							{if post.postObjectJson.comentarios == "1"}
+								comentário
+							{else}
+								comentários
+							{/if}
 						</a>
 					</div>
 					<div class="list_stories_headline_dx">
