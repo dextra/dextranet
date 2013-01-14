@@ -113,9 +113,6 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 		List<Comment> listaEsperada1 = comentar(listaDePosts.get(2).getId(), 2);
 		List<Comment> listaEsperada2 = comentar(listaDePosts.get(4).getId(), 1);
 
-		System.out.println(listaDePosts.get(2).getId());
-		System.out.println(listaDePosts.get(2).getComentarios());
-
 		Assert.assertEquals(new Converters()
 				.converterListaDeCommentParaListaDeJson(listaEsperada1)
 				.toString(), new CommentRS().consultar(listaEsperada1.get(0)
