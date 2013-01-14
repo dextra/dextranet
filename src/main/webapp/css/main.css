@@ -108,7 +108,7 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 
 #box_user > li#box_user_info{padding:10px 15px 5px;color:#566c7c;font-weight:bold;font-size:13px;float:left;}
 #box_user > li#box_user_info .shape_arrow_down{display:none;}
-#box_user > li#box_user_info > img{background-color:#ccc;border:1px solid #93b4cc;padding:1px;width:18px;height:18px;vertical-align:middle;margin-right:15px;}
+#box_user > li#box_user_info > img{background-color:#ccc;border:1px solid #93b4cc;padding:1px;width:22px;height:22px;vertical-align:middle;margin-right:15px;}
 
 #box_user > li#box_user_notifications{padding:7px 10px 6px;float:left;}
 #box_user > li#box_user_notifications .highlight{vertical-align:middle;padding:4px 6px;background-color:#e76538;font-weight:bold;color:#fff;font-size:12px;text-shadow:0 1px 1px #8a5527;border-radius:5px;border:1px solid #b25e50;box-shadow:inset 0 10px 10px -10px #b7502c;}
