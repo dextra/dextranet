@@ -83,8 +83,6 @@ public class Post extends Entidade {
 
 	public void comentar(Comment comment) throws EntityNotFoundException {
 
-		// FIXME: COMEÇANDO A FAZER O COMENTARIO NO REFACTORING
-
 		DocumentRepository postDoDocumentReository = new DocumentRepository();
 		PostRepository postDoRepository = new PostRepository();
 
@@ -94,6 +92,21 @@ public class Post extends Entidade {
 		postDoRepository.incrementaNumeroDeComentariosDaEntityDoPost(comment.getIdReference());
 
 		this.comentarios=this.comentarios+1;
+	}
+
+	public void curtir(String user, String id) throws EntityNotFoundException {
+
+		DocumentRepository postDoDocumentReository = new DocumentRepository();
+		PostRepository postDoRepository = new PostRepository();
+
+		String data = new Data().pegaDataDeAtualizacao();
+
+
+		postDoDocumentReository.alteraDocumento(id, data);
+		postDoRepository.alteraDataDaEntity(id,data);
+		postDoRepository.incrementaNumeroDeComentariosDaEntityDoPost(id);
+
+		postDoRepository.incrementaNumeroDeComentariosDaEntityDoPost(id);
 	}
 
 	@Override
