@@ -1,7 +1,10 @@
 package br.com.dextra.dextranet.comment;
 
+import java.util.Date;
+
 import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.utils.Converters;
+import br.com.dextra.dextranet.utils.Data;
 import br.com.dextra.dextranet.utils.IndexFacade;
 
 import com.google.appengine.api.datastore.Entity;
@@ -53,6 +56,12 @@ public class Comment extends Entidade {
 		return this.dataDeCriacao;
 	}
 
+	@SuppressWarnings("deprecation")
+	public void setSgundoDaDataDeCriação (int segundo){
+		Date data = new Date();
+		data.setSeconds(segundo);
+		this.dataDeCriacao = new Data().formataDataDeCriacaoPelaBiblioteca(data);
+	}
 	@Override
 	public Entity toEntity() {
 		Entity entidade = new Entity(this.getKey(this.getClass()));
