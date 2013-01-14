@@ -16,13 +16,13 @@ import org.owasp.validator.html.ScanException;
 
 import br.com.dextra.dextranet.post.Post;
 import br.com.dextra.dextranet.post.PostRepository;
+import br.com.dextra.dextranet.utils.Converters;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalSearchServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
-import com.google.gson.JsonObject;
 
 public class CommentRespositoryTest extends TesteIntegracaoBase {
 	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(
@@ -69,25 +69,30 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	public void criarComentarioEmUmPost() throws FileNotFoundException, InterruptedException, IOException, EntityNotFoundException{
+	public void criarComentarioEmUmPost() throws FileNotFoundException,
+			InterruptedException, IOException, EntityNotFoundException {
 
 		List<Post> listaDePosts = geraPosts(6);
 
-		Comment novoComment = new Comment("Teste de Content", "marco.bordon",listaDePosts.get(2).getId() ,false);
+		Comment novoComment = new Comment("Teste de Content", "marco.bordon",
+				listaDePosts.get(2).getId(), false);
 		commentRepository.criar(novoComment);
 
-		listaDePosts = comentaOPost(2, listaDePosts,novoComment);
+		listaDePosts = comentaOPost(2, listaDePosts, novoComment);
 
 		Post postRecuperado = null;
 		try {
-			postRecuperado = postRepository.obtemPorId(novoComment.getIdReference());
+			postRecuperado = postRepository.obtemPorId(novoComment
+					.getIdReference());
 		} catch (EntityNotFoundException e) {
 			Assert.fail("Post nao encontrado.");
 		}
 
-		Assert.assertEquals(novoComment.getIdReference(), postRecuperado.getId());
-		Assert.assertEquals(postRecuperado.getComentarios(),1);
-		Assert.assertEquals(novoComment.getDataDeCriacao(), postRecuperado.getDataDeAtualizacao());
+		Assert.assertEquals(novoComment.getIdReference(), postRecuperado
+				.getId());
+		Assert.assertEquals(postRecuperado.getComentarios(), 1);
+		Assert.assertEquals(novoComment.getDataDeCriacao(), postRecuperado
+				.getDataDeAtualizacao());
 
 	}
 
@@ -99,37 +104,42 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	public void consultarComentarioPeloID() throws FileNotFoundException, InterruptedException, IOException, EntityNotFoundException, PolicyException, ScanException {
+	public void consultarComentarioPeloID() throws FileNotFoundException,
+			InterruptedException, IOException, EntityNotFoundException,
+			PolicyException, ScanException {
 
 		List<Post> listaDePosts = geraPosts(6);
 
-		Comment comment1= new Comment("text1", "author", listaDePosts.get(2).getId() , false);
+		List<Comment> listaEsperada1 = comentar(listaDePosts.get(2).getId(), 2);
+		List<Comment> listaEsperada2 = comentar(listaDePosts.get(4).getId(), 1);
 
-		new CommentRepository().criar(comment1);
-		listaDePosts.get(2).comentar(comment1);
+		Assert.assertEquals(new Converters()
+				.converterListaDeCommentParaListaDeJson(listaEsperada1)
+				.toString(), new CommentRS().consultar(listaEsperada1.get(0)
+				.getIdReference()));
 
-
-		//Assert.assertEquals(new ArrayList<JsonObject>().add(comment1.toJson()), new CommentRS().consultar(listaDePosts.get(2).getId()));
+		Assert.assertEquals(new Converters()
+				.converterListaDeCommentParaListaDeJson(listaEsperada2)
+				.toString(), new CommentRS().consultar(listaEsperada2.get(0)
+				.getIdReference()));
 
 	}
 
-	private String geraStringDeArrayDeJson(Comment novoComment,
-			Comment novoComment3) {
-		List<JsonObject> listaDeJson = new ArrayList<JsonObject>();
-
-		listaDeJson.add(novoComment3.toJson());
-		listaDeJson.add(novoComment.toJson());
-
-
-
-
-		return listaDeJson.toString();
+	private List<Comment> comentar(String idDoPostQueVouComentar, int qtd)
+			throws EntityNotFoundException, InterruptedException {
+		Comment comment;
+		List<Comment> retorno = new ArrayList<Comment>();
+		for (int i = 0; i < qtd; i++) {
+			comment = new Comment("teste de comentário " + i, "usuario.dextra",
+					idDoPostQueVouComentar, false);
+			comment.setSgundoDaDataDeCriação(i);
+			new CommentRepository().criar(comment);
+			new Post().comentar(comment);
+			retorno.add(comment);
+		}
+		return retorno;
 	}
 
-	@Test
-	@Ignore
-	public void consultarUmaListaDeComentariosDeUmPost() {
-	}
 
 	@Test
 	@Ignore

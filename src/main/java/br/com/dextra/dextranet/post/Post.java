@@ -19,6 +19,14 @@ public class Post extends Entidade {
 
 	private String dataDeAtualizacao;
 
+	public Post() {
+
+	}
+
+	public Post(String titulo, String conteudo, String usuario) {
+		this(titulo, conteudo, usuario, "");
+	}
+
 	public Post(String titulo, String conteudo, String usuario, String dataDeAtualizacaoParametro) {
 		super(usuario, conteudo);
 		this.titulo = titulo;
@@ -29,14 +37,6 @@ public class Post extends Entidade {
 		this.dataDeAtualizacao = dataDeAtualizacaoParametro;
 		this.comentarios = 0;
 		this.likes = 0;
-	}
-
-	public Post(String titulo, String conteudo, String usuario) {
-		this(titulo, conteudo, usuario, "");
-	}
-
-	public Post() {
-
 	}
 
 	public Post(Entity postEntity) {
@@ -82,18 +82,23 @@ public class Post extends Entidade {
 
 
 	public void comentar(Comment comment) throws EntityNotFoundException {
+		new DocumentRepository().alteraDocumento(comment);
+		new PostRepository().alteraEntity(comment);
 
-		// FIXME: COMEÇANDO A FAZER O COMENTARIO NO REFACTORING
+		this.comentarios=this.comentarios+1;
+	}
+
+	public void curtir(String user, String id) throws EntityNotFoundException {
 
 		DocumentRepository postDoDocumentReository = new DocumentRepository();
 		PostRepository postDoRepository = new PostRepository();
 
-		postDoDocumentReository.alteraDocumento(comment);
-		postDoRepository.alteraDataDaEntity(comment.getIdReference(), comment.getDataDeCriacao());
+		String data = new Data().pegaDataDeAtualizacao();
 
-		postDoRepository.incrementaNumeroDeComentariosDaEntityDoPost(comment.getIdReference());
 
-		this.comentarios=this.comentarios+1;
+		postDoDocumentReository.alteraDocumento(id, data);
+		postDoRepository.alteraDataDaEntity(id,data);
+		postDoRepository.incrementaNumeroDeComentariosDaEntityDoPost(id);
 	}
 
 	@Override

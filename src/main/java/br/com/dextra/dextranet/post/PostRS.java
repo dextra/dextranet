@@ -60,9 +60,16 @@ public class PostRS {
 		else {
 			listaPosts = novoPost.buscarPosts(resultsMax, q,offSet);
 		}
-		return new Converters().converterListaEntities(listaPosts).toString();
+		return new Converters().converterListaDePostsParaListaDeJson(listaPosts).toString();
 	}
 
+	@Path("/")
+	@POST
+	@Produces("application/json;charset=UTF-8")
+	public Response comentar(@FormParam("Usuario") String usuario) {
+
+		return Response.ok().build();
+	}
 	@Path("/{id}")
 	@DELETE
 	@Produces("application/json;charset=UTF-8")
