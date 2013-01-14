@@ -11,9 +11,8 @@ public class DocumentRepository extends BaseRepository {
 		IndexFacade.getIndex(clazz.getName()).add(entidade.toDocument());
 	}
 
-	//TODO: indexação do conteudo do documento do post pelo novo comment
-//	public void alteraDocumento(Comment comment)
-//			throws EntityNotFoundException {
+//	TODO: indexação do conteudo do documento do post pelo novo comment
+	public void alteraDocumento(Comment comment){
 //
 //		DatastoreService datastore = DatastoreServiceFactory
 //				.getDatastoreService();
@@ -29,14 +28,9 @@ public class DocumentRepository extends BaseRepository {
 //						.setText(comment.getDataDeCriacao())).build();
 //
 //		IndexFacade.getIndex(Post.class.getName()).add(document);
-//	}
+	}
 
 	public void removeIndex(String indexKey, String id) {
 		IndexFacade.getIndex(indexKey).remove(id);
-	}
-
-	public void alteraDocumento(Comment comment) {
-		// TODO Auto-generated method stub
-
 	}
 }
