@@ -98,7 +98,7 @@ public class Post extends Entidade {
 
 	@Override
 	public Entity toEntity() {
-		Entity entidade = new Entity(this.getKey());
+		Entity entidade = new Entity(this.getKey(this.getClass()));
 
 		entidade.setProperty(PostFields.ID.getField(), this.id);
 		entidade.setProperty(PostFields.TITULO.getField(), this.titulo);

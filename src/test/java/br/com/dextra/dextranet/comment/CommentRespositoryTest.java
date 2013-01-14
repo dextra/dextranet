@@ -11,6 +11,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.owasp.validator.html.PolicyException;
+import org.owasp.validator.html.ScanException;
 
 import br.com.dextra.dextranet.post.Post;
 import br.com.dextra.dextranet.post.PostRepository;
@@ -97,32 +99,17 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	public void consultarComentarioPeloID() throws FileNotFoundException, InterruptedException, IOException, EntityNotFoundException {
+	public void consultarComentarioPeloID() throws FileNotFoundException, InterruptedException, IOException, EntityNotFoundException, PolicyException, ScanException {
 
 		List<Post> listaDePosts = geraPosts(6);
 
-		Comment novoComment = new Comment("Teste de Content", "marco.bordon",listaDePosts.get(2).getId() ,false);
-		Comment novoComment2 = new Comment("Teste de Content2", "gabriel.ferreira",listaDePosts.get(4).getId() ,false);
-		Comment novoComment3 = new Comment("Teste de Content3", "leticia.domingues",listaDePosts.get(2).getId() ,false);
-		commentRepository.criar(novoComment);
-		commentRepository.criar(novoComment2);
-		commentRepository.criar(novoComment3);
+		Comment comment1= new Comment("text1", "author", listaDePosts.get(2).getId() , false);
 
-		listaDePosts = comentaOPost(2, listaDePosts,novoComment);
-		listaDePosts = comentaOPost(4, listaDePosts,novoComment2);
-		listaDePosts = comentaOPost(2, listaDePosts,novoComment3);
-
-		String resultadoDaBusca2 = null;
-		try {
-			resultadoDaBusca2 = new CommentRS().consultar(novoComment.getIdReference());
-		} catch (EntityNotFoundException e) {
-			Assert.fail("Post nao encontrado.");
-		}
+		new CommentRepository().criar(comment1);
+		listaDePosts.get(2).comentar(comment1);
 
 
-
-		//Assert.assertEquals(geraStringDeArrayDeJson(novoComment,novoComment3) ,resultadoDaBusca2);
-
+		//Assert.assertEquals(new ArrayList<JsonObject>().add(comment1.toJson()), new CommentRS().consultar(listaDePosts.get(2).getId()));
 
 	}
 

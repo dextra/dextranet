@@ -25,6 +25,10 @@ public class CommentRepository extends BaseRepository {
 
 	public Comment criar(Comment comment) {
 		this.persist(comment.toEntity());
+
+
+		//TODO: indexação do post que foi comentado com conteudo do comment
+		//FIXME: arrumar o set do document ja existente
 		DocumentRepository respositoryDocument = new DocumentRepository();
 		respositoryDocument.indexar(comment, Comment.class);
 

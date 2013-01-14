@@ -55,7 +55,7 @@ public class Comment extends Entidade {
 
 	@Override
 	public Entity toEntity() {
-		Entity entidade = new Entity(this.getKey());
+		Entity entidade = new Entity(this.getKey(this.getClass()));
 
 		entidade.setProperty(CommentFields.ID.getField(), this.id);
 		entidade.setProperty(CommentFields.ID_REFERENCE.getField(),	this.idReference);
