@@ -156,7 +156,7 @@ public class PostRepository extends BaseRepository {
 		return query;
 	}
 
-	private void alteraDataDaEntity(String id, String data)
+	void alteraDataDaEntity(String id, String data)
 			throws EntityNotFoundException {
 
 		Key key = KeyFactory.createKey(Post.class.getName(), id);
@@ -167,7 +167,7 @@ public class PostRepository extends BaseRepository {
 		persist(valueEntity);
 	}
 
-	private void incrementaNumeroDeComentariosDaEntityDoPost(String id)
+	void incrementaNumeroDeComentariosDaEntityDoPost(String id)
 			throws EntityNotFoundException {
 
 		Key key = KeyFactory.createKey(Post.class.getName(), id);
@@ -175,6 +175,17 @@ public class PostRepository extends BaseRepository {
 		int comments = Integer.parseInt(valueEntity.getProperty(
 				PostFields.COMENTARIO.getField()).toString());
 		valueEntity.setProperty(PostFields.COMENTARIO.getField(), comments + 1);
+		persist(valueEntity);
+	}
+
+	public void incrementaNumeroDeLikesDaEntityDoPost(String id)
+			throws EntityNotFoundException {
+
+		Key key = KeyFactory.createKey(Post.class.getName(), id);
+		Entity valueEntity = datastore.get(key);
+		int likes = Integer.parseInt(valueEntity.getProperty(
+				PostFields.LIKES.getField()).toString());
+		valueEntity.setProperty(PostFields.LIKES.getField(), likes + 1);
 		persist(valueEntity);
 	}
 
