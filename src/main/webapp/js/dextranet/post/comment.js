@@ -35,22 +35,49 @@ dextranet.comment = {
 
 	carregaComentario : function(idDoPost) {
 		$("div." + idDoPost).addClass("esteAqui");
-		$.ajax( {
-			type : 'GET',
-			url : '/s/comment',
-			data : {"idReference" : idDoPost},
-			success : function(comments) {
-				if (comments.length > 0) {
-					$.holy("../template/comment.xml", {
-						"jsonArrayComment" : comments
-					}); // colocar seletor antes
-		}
-	}
-		});
+
+		$.holy("../template/dinamico/post/abre_pagina_novo_comment.xml", {"idDoPost" : idDoPost});
+//		$.ajax( {
+//			type : 'GET',
+//			url : '/s/comment',
+//			data : {
+//				"idReference" : idDoPost
+//				},
+//			success : function(comments) {
+//					if(!isEmpty(comments))
+//						$.holy("../template/comment.xml", {"jsonArrayComment" : comments});
+//					$.holy("../template/dinamico/post/abre_pagina_novo_comment.xml", {"idDoPost" : idDoPost});
+//			}
+//		});
 		idUltimo = idDoPost;
 	},
 
-	criaComentario : function() {
-		dextranet.home.carregaDadosAposInclusaoDeUmPost();
+	comentar : function() {
+
+		var conteudo = CKEDITOR.instances.textarea_comment.getData();
+		var autor = $("#user_login").text();
+
+		$.ajax( {
+			type : 'POST',
+			url : '/s/comment',
+			data : {
+				"text" : conteudo,
+				"author" : autor,
+				"idReference" : "6535adc4-c9a9-4665-a118-ed36281ec001"
+				},
+			success : function() {
+					alert("COMENTOU!!!!");
+//					$.holy("../template/dinamico/post/comment.xml", {"jsonArrayComment" : comments});
+			}
+		});
 	}
+}
+
+function isEmpty(obj) {
+    for(var prop in obj) {
+        if(obj.hasOwnProperty(prop))
+            return false;
+    }
+
+    return true;
 }

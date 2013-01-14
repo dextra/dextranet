@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<template selector=".esteAqui" append="true">
+		<div id='list_stories_form_comment'>
+			<form id='form_comment'>
+				<br/><textarea id='textarea_comment' placeholder='${messages.placeholder_comment}' style='resize:none;' />
+				<br/><p align='center'><input type='submit' value='${messages.button_comment}' id='input_comment_submit' class="${idDoPost}" /></p>
+			</form>
+		</div>
+	</template>
+	<script>
+			CKEDITOR.replace('textarea_comment');
+			$("#form_comment").submit(dextranet.comment.comentar);
+	</script>
+</engine>

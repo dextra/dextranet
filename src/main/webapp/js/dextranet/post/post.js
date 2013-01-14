@@ -67,6 +67,7 @@ dextranet.post = {
 
 		var titulo = dextranet.strip.tagHTML($("#form_input_title").val());
 		var conteudo = CKEDITOR.instances.form_input_content.getData();
+		var autor = $("#user_login").text();
 
 
 		if (dextranet.strip.allElem(titulo) == "" || dextranet.strip.allElem(conteudo) == "") {
@@ -77,7 +78,7 @@ dextranet.post = {
 			var post = {
 				"title" : titulo.replace(/ /g, "&nbsp;"), //.replace serve pro browser reconhecer os espaços digitados pelo usuario
 				"content" : dextranet.strip.lineBreak(conteudo),
-				"author" : $("#user_login").text()
+				"author" : autor
 			};
 
 			$.ajax( {
