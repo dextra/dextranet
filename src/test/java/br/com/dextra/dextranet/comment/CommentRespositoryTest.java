@@ -128,13 +128,14 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 	private List<Comment> comentar(String idDoPostQueVouComentar, int qtd)
 			throws EntityNotFoundException, InterruptedException {
 		Comment comment;
+		Post post = new PostRepository().obtemPorId(idDoPostQueVouComentar);
 		List<Comment> retorno = new ArrayList<Comment>();
 		for (int i = 0; i < qtd; i++) {
 			comment = new Comment("teste de comentário " + i, "usuario.dextra",
 					idDoPostQueVouComentar, false);
 			comment.setSgundoDaDataDeCriação(i);
 			new CommentRepository().criar(comment);
-			new Post().comentar(comment);
+			post.comentar(comment);
 			retorno.add(comment);
 		}
 		return retorno;

@@ -33,7 +33,7 @@ public class DocumentRepository extends BaseRepository {
 	}
 
 //	TODO: indexação do conteudo do documento do post pelo novo comment
-	public void alteraDocumento(Comment comment){
+	public void alteraDocumento(String id, Comment comment){
 //
 //		DatastoreService datastore = DatastoreServiceFactory
 //				.getDatastoreService();

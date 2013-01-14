@@ -200,9 +200,10 @@ public class PostRepository extends BaseRepository {
 		}
 	}
 
-	public void alteraEntity(Comment comment) throws EntityNotFoundException {
-		alteraDataDaEntity(comment.getIdReference(), comment.getDataDeCriacao());
+	public void alteraEntity(String id, Comment comment) throws EntityNotFoundException {
+		alteraDataDaEntity(id, comment.getDataDeCriacao());
 		incrementaNumeroDeComentariosDaEntityDoPost(comment.getIdReference());
 	}
+
 
 }

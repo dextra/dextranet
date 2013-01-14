@@ -82,10 +82,12 @@ public class Post extends Entidade {
 
 
 	public void comentar(Comment comment) throws EntityNotFoundException {
-		new DocumentRepository().alteraDocumento(comment);
-		new PostRepository().alteraEntity(comment);
+
+		new DocumentRepository().alteraDocumento(this.id, comment);
+		new PostRepository().alteraEntity(this.id, comment);
 
 		this.comentarios=this.comentarios+1;
+
 	}
 
 	public void curtir(String user, String id) throws EntityNotFoundException {
