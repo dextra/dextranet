@@ -44,7 +44,7 @@ public class CommentRS {
 		return Response.ok().build();
 	}
 
-	@Path("/{id}")
+	@Path("/")
 	@GET
 	@Produces("application/json;charset=UTF-8")
 	public String consultar(@FormParam("id") String idReference)

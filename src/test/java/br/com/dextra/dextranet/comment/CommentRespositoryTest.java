@@ -2,6 +2,7 @@ package br.com.dextra.dextranet.comment;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -125,18 +126,18 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 
 	}
 
-//	private String geraStringDeArrayDeJson(Comment novoComment,
-//			Comment novoComment3) {
-//		List<JsonObject> listaDeJson = new ArrayList<JsonObject>();
-//
-//		listaDeJson.add(novoComment3.toJson());
-//		listaDeJson.add(novoComment.toJson());
-//
-//
-//
-//
-//		return listaDeJson.toString();
-//	}
+	private String geraStringDeArrayDeJson(Comment novoComment,
+			Comment novoComment3) {
+		List<JsonObject> listaDeJson = new ArrayList<JsonObject>();
+
+		listaDeJson.add(novoComment3.toJson());
+		listaDeJson.add(novoComment.toJson());
+
+
+
+
+		return listaDeJson.toString();
+	}
 
 	@Test
 	@Ignore
