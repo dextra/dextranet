@@ -2,6 +2,7 @@ package br.com.dextra.dextranet.comment;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -19,6 +20,7 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalSearchServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import com.google.gson.JsonObject;
 
 public class CommentRespositoryTest extends TesteIntegracaoBase {
 	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(
@@ -95,8 +97,46 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	@Ignore
-	public void consultarComentarioPeloID() {
+	public void consultarComentarioPeloID() throws FileNotFoundException, InterruptedException, IOException, EntityNotFoundException {
+
+		List<Post> listaDePosts = geraPosts(6);
+
+		Comment novoComment = new Comment("Teste de Content", "marco.bordon",listaDePosts.get(2).getId() ,false);
+		Comment novoComment2 = new Comment("Teste de Content2", "gabriel.ferreira",listaDePosts.get(4).getId() ,false);
+		Comment novoComment3 = new Comment("Teste de Content3", "leticia.domingues",listaDePosts.get(2).getId() ,false);
+		commentRepository.criar(novoComment);
+		commentRepository.criar(novoComment2);
+		commentRepository.criar(novoComment3);
+
+		listaDePosts = comentaOPost(2, listaDePosts,novoComment);
+		listaDePosts = comentaOPost(4, listaDePosts,novoComment2);
+		listaDePosts = comentaOPost(2, listaDePosts,novoComment3);
+
+		String resultadoDaBusca2 = null;
+		try {
+			resultadoDaBusca2 = new CommentRS().consultar(novoComment.getIdReference());
+		} catch (EntityNotFoundException e) {
+			Assert.fail("Post nao encontrado.");
+		}
+
+
+
+		//Assert.assertEquals(geraStringDeArrayDeJson(novoComment,novoComment3) ,resultadoDaBusca2);
+
+
+	}
+
+	private String geraStringDeArrayDeJson(Comment novoComment,
+			Comment novoComment3) {
+		List<JsonObject> listaDeJson = new ArrayList<JsonObject>();
+
+		listaDeJson.add(novoComment3.toJson());
+		listaDeJson.add(novoComment.toJson());
+
+
+
+
+		return listaDeJson.toString();
 	}
 
 	@Test

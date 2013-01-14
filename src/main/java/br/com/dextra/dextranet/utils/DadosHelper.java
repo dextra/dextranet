@@ -22,9 +22,9 @@ public class DadosHelper {
 			return as.scan(conteudoHTML, policy).getCleanHTML();
 
 		} catch (PolicyException e) {
-			throw new RuntimeException("Erro ao remover codigo indevido do conteudo.", e);
+			throw new RuntimeException("Erro ao remover codigo indevido do conteudo. 5", e);
 		}catch (ScanException e) {
-			throw new RuntimeException("Erro ao remover codigo indevido do conteudo.", e);
+			throw new RuntimeException("Erro ao remover codigo indevido do conteudo. 6", e);
 		}
 
 	}
