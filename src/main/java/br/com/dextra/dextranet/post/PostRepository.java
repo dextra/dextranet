@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import br.com.dextra.dextranet.comment.Comment;
 import br.com.dextra.dextranet.document.DocumentRepository;
 import br.com.dextra.dextranet.persistencia.BaseRepository;
 import br.com.dextra.dextranet.utils.Converters;
@@ -155,7 +156,7 @@ public class PostRepository extends BaseRepository {
 		return query;
 	}
 
-	public void alteraDataDaEntity(String id, String data)
+	private void alteraDataDaEntity(String id, String data)
 			throws EntityNotFoundException {
 
 		Key key = KeyFactory.createKey(Post.class.getName(), id);
@@ -166,7 +167,7 @@ public class PostRepository extends BaseRepository {
 		persist(valueEntity);
 	}
 
-	public void incrementaNumeroDeComentariosDaEntityDoPost(String id)
+	private void incrementaNumeroDeComentariosDaEntityDoPost(String id)
 			throws EntityNotFoundException {
 
 		Key key = KeyFactory.createKey(Post.class.getName(), id);
@@ -186,6 +187,11 @@ public class PostRepository extends BaseRepository {
 			DocumentRepository indexacao = new DocumentRepository();
 			indexacao.removeIndex(Post.class.getName(), id);
 		}
+	}
+
+	public void alteraEntity(Comment comment) throws EntityNotFoundException {
+		alteraDataDaEntity(comment.getIdReference(), comment.getDataDeCriacao());
+		incrementaNumeroDeComentariosDaEntityDoPost(comment.getIdReference());
 	}
 
 }

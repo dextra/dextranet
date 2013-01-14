@@ -69,25 +69,30 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	public void criarComentarioEmUmPost() throws FileNotFoundException, InterruptedException, IOException, EntityNotFoundException{
+	public void criarComentarioEmUmPost() throws FileNotFoundException,
+			InterruptedException, IOException, EntityNotFoundException {
 
 		List<Post> listaDePosts = geraPosts(6);
 
-		Comment novoComment = new Comment("Teste de Content", "marco.bordon",listaDePosts.get(2).getId() ,false);
+		Comment novoComment = new Comment("Teste de Content", "marco.bordon",
+				listaDePosts.get(2).getId(), false);
 		commentRepository.criar(novoComment);
 
-		listaDePosts = comentaOPost(2, listaDePosts,novoComment);
+		listaDePosts = comentaOPost(2, listaDePosts, novoComment);
 
 		Post postRecuperado = null;
 		try {
-			postRecuperado = postRepository.obtemPorId(novoComment.getIdReference());
+			postRecuperado = postRepository.obtemPorId(novoComment
+					.getIdReference());
 		} catch (EntityNotFoundException e) {
 			Assert.fail("Post nao encontrado.");
 		}
 
-		Assert.assertEquals(novoComment.getIdReference(), postRecuperado.getId());
-		Assert.assertEquals(postRecuperado.getComentarios(),1);
-		Assert.assertEquals(novoComment.getDataDeCriacao(), postRecuperado.getDataDeAtualizacao());
+		Assert.assertEquals(novoComment.getIdReference(), postRecuperado
+				.getId());
+		Assert.assertEquals(postRecuperado.getComentarios(), 1);
+		Assert.assertEquals(novoComment.getDataDeCriacao(), postRecuperado
+				.getDataDeAtualizacao());
 
 	}
 
@@ -99,48 +104,42 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	public void consultarComentarioPeloID() throws FileNotFoundException, InterruptedException, IOException, EntityNotFoundException, PolicyException, ScanException {
+	public void consultarComentarioPeloID() throws FileNotFoundException,
+			InterruptedException, IOException, EntityNotFoundException,
+			PolicyException, ScanException {
 
 		List<Post> listaDePosts = geraPosts(6);
 
-		Comment comment1 = comentar(listaDePosts.get(2).getId());
-		Comment comment2 = comentar(listaDePosts.get(4).getId());
-		Comment comment3 = comentar(listaDePosts.get(2).getId());
+		List<Comment> listaEsperada1 = comentar(listaDePosts.get(2).getId(), 2);
+		List<Comment> listaEsperada2 = comentar(listaDePosts.get(4).getId(), 1);
 
-		List<Comment> listaEsperada = new ArrayList<Comment>();
-		listaEsperada.add(comment1);
-		listaEsperada.add(comment3);
+		Assert.assertEquals(new Converters()
+				.converterListaDeCommentParaListaDeJson(listaEsperada1)
+				.toString(), new CommentRS().consultar(listaEsperada1.get(0)
+				.getIdReference()));
 
-		Assert.assertEquals(
-				new Converters().converterListaDeCommentParaListaDeJson(listaEsperada).toString(),
-				new CommentRS().consultar(comment1.getIdReference()));
-
-		listaEsperada.clear();
-		listaEsperada.add(comment2);
-
-//		Assert.assertEquals(
-//				new Converters().converterListaDeCommentParaListaDeJson(listaEsperada).toString(),
-//				new CommentRS().consultar(comment2.getIdReference()));
-
-
-
+		Assert.assertEquals(new Converters()
+				.converterListaDeCommentParaListaDeJson(listaEsperada2)
+				.toString(), new CommentRS().consultar(listaEsperada2.get(0)
+				.getIdReference()));
 
 	}
 
-	private Comment comentar(String idDoPostQueVouComentar)
+	private List<Comment> comentar(String idDoPostQueVouComentar, int qtd)
 			throws EntityNotFoundException, InterruptedException {
-		Comment comment = new Comment("teste de comentário", "usuario.dextra", idDoPostQueVouComentar, false);
-		new CommentRepository().criar(comment);
-		new Post().comentar(comment);
-		Thread.sleep(1000);
-		return comment;
+		Comment comment;
+		List<Comment> retorno = new ArrayList<Comment>();
+		for (int i = 0; i < qtd; i++) {
+			comment = new Comment("teste de comentário " + i, "usuario.dextra",
+					idDoPostQueVouComentar, false);
+			comment.setSgundoDaDataDeCriação(i);
+			new CommentRepository().criar(comment);
+			new Post().comentar(comment);
+			retorno.add(comment);
+		}
+		return retorno;
 	}
 
-
-	@Test
-	@Ignore
-	public void consultarUmaListaDeComentariosDeUmPost() {
-	}
 
 	@Test
 	@Ignore
