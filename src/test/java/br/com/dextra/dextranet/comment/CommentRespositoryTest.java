@@ -113,6 +113,9 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 		List<Comment> listaEsperada1 = comentar(listaDePosts.get(2).getId(), 2);
 		List<Comment> listaEsperada2 = comentar(listaDePosts.get(4).getId(), 1);
 
+		System.out.println(listaDePosts.get(2).getId());
+		System.out.println(listaDePosts.get(2).getComentarios());
+
 		Assert.assertEquals(new Converters()
 				.converterListaDeCommentParaListaDeJson(listaEsperada1)
 				.toString(), new CommentRS().consultar(listaEsperada1.get(0)
@@ -128,13 +131,14 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 	private List<Comment> comentar(String idDoPostQueVouComentar, int qtd)
 			throws EntityNotFoundException, InterruptedException {
 		Comment comment;
+		Post post = new PostRepository().obtemPorId(idDoPostQueVouComentar);
 		List<Comment> retorno = new ArrayList<Comment>();
 		for (int i = 0; i < qtd; i++) {
 			comment = new Comment("teste de comentário " + i, "usuario.dextra",
 					idDoPostQueVouComentar, false);
 			comment.setSgundoDaDataDeCriação(i);
 			new CommentRepository().criar(comment);
-			new Post().comentar(comment);
+			post.comentar(comment);
 			retorno.add(comment);
 		}
 		return retorno;

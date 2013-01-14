@@ -17,6 +17,7 @@ import org.owasp.validator.html.PolicyException;
 import org.owasp.validator.html.ScanException;
 
 import br.com.dextra.dextranet.post.Post;
+import br.com.dextra.dextranet.post.PostRepository;
 import br.com.dextra.dextranet.utils.Converters;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -40,7 +41,9 @@ public class CommentRS {
 				.toBoolean(arvore));
 
 		repositorio.criar(comment);
-		new Post().comentar(comment);
+
+		Post post = new PostRepository().obtemPorId(id);
+		post.comentar(comment);
 
 		return Response.ok().build();
 	}
@@ -53,7 +56,6 @@ public class CommentRS {
 
 		List<Comment> listaComments = new ArrayList<Comment>();
 		listaComments = repositorio.listarCommentsDeUmPost(idReference);
-		System.out.println("OH A LISTA AQUI OH (RS): "+listaComments);
 		return new Converters().converterListaDeCommentParaListaDeJson(listaComments).toString();
 	}
 
