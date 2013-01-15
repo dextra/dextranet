@@ -91,10 +91,15 @@ public class Post extends Entidade {
 
 	}
 
-	public void curtir(String user) throws EntityNotFoundException {
+	public boolean curtir(String user) throws EntityNotFoundException {
+
+
 
 		DocumentRepository postDoDocumentReository = new DocumentRepository();
 		PostRepository postDoRepository = new PostRepository();
+
+		if(this.jaCurtiu(user))
+		{
 
 		Curtida curtida = new Curtida(user, this.id);
 
@@ -103,6 +108,18 @@ public class Post extends Entidade {
 		postDoRepository.insereUsuarioQueCurtiuNoPost(curtida,this);
 		postDoRepository.incrementaNumeroDeLikesDaEntityDoPost(curtida);
 		this.likes++;
+		return true;
+		}
+
+		else
+			return false;
+
+
+	}
+
+	private boolean jaCurtiu(String user) {
+
+		return new PostRepository().verificaSeOUsuarioJaCurtiuOPost(this.id,user);
 	}
 
 	@Override

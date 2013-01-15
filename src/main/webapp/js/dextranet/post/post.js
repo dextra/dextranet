@@ -75,18 +75,15 @@ dextranet.post = {
 				$("#form_new_post").before('<ul class="message" id="message-warning"><li class="warning">Preencha</li></ul>');
 		} else {
 
-			var post = {
-				"title" : titulo.replace(/ /g, "&nbsp;"), //.replace serve pro browser reconhecer os espaços digitados pelo usuario
-				"content" : dextranet.strip.lineBreak(conteudo),
-				"author" : autor
-			};
-
 			$.ajax( {
 				type : "POST",
 				url : "/s/post",
-				data : post,
+				data : {
+					"title" : titulo.replace(/ /g, "&nbsp;"), //.replace serve pro browser reconhecer os espaços digitados pelo usuario
+					"content" : dextranet.strip.lineBreak(conteudo),
+					"author" : autor
+				},
 				success : function() {
-				$("#container_post").before();
 					dextranet.home.carregaDados();
 					$.holy("../template/dinamico/post/mensagem.xml", {});
 				}
