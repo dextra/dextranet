@@ -3,7 +3,7 @@ package br.com.dextra.dextranet.post;
 public enum PostFields {
 
 	DATA_DE_ATUALIZACAO("dataDeAtualizacao"), TITULO("titulo"), CONTEUDO(
-			"conteudo"), USUARIO("usuario"), ID("id"), COMENTARIO("comentarios"), LIKES("likes"), DATA("dataDeCriacao");
+			"conteudo"), USUARIO("usuario"), ID("id"), COMENTARIO("comentarios"), LIKES("likes"), DATA("dataDeCriacao"), USER_LIKE("userLike");
 
 	private String value;
 

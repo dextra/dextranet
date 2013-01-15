@@ -11,6 +11,7 @@ import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -64,12 +65,15 @@ public class PostRS {
 	}
 
 	@Path("/")
-	@POST
+	@PUT
 	@Produces("application/json;charset=UTF-8")
-	public Response comentar(@FormParam("Usuario") String usuario) {
+	public Response curtir(@FormParam("usuario") String usuario, @FormParam("id") String id) throws EntityNotFoundException {
+		Post post = new PostRepository().obtemPorId(id);
+		post.curtir(usuario);
 
 		return Response.ok().build();
 	}
+
 	@Path("/{id}")
 	@DELETE
 	@Produces("application/json;charset=UTF-8")

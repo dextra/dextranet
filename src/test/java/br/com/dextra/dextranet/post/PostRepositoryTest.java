@@ -10,7 +10,6 @@ import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import br.com.dextra.teste.TesteIntegracaoBase;
@@ -151,9 +150,9 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 		System.out.println(postsCriados.get(2).getId());
 
-		postsCriados.get(2).curtir("gabriel.ferreira",postsCriados.get(2).getId());
-		postsCriados.get(2).curtir("marco.bordon",postsCriados.get(2).getId());
-		postsCriados.get(2).curtir("kaique.monteiro",postsCriados.get(2).getId());
+		postsCriados.get(2).curtir("gabriel.ferreira");
+		postsCriados.get(2).curtir("marco.bordon");
+		postsCriados.get(2).curtir("kaique.monteiro");
 
 
 
@@ -161,7 +160,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 		listaPostRecuperado = postRepository.buscarTodosOsPosts(maxResults, offSet);
 
-		Assert.assertEquals(listaPostRecuperado.get(0).getLikes(),3 );
+		Assert.assertEquals(3, listaPostRecuperado.get(0).getLikes());
 
 	}
 

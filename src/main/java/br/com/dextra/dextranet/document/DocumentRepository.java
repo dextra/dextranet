@@ -1,14 +1,10 @@
 package br.com.dextra.dextranet.document;
 
 import br.com.dextra.dextranet.comment.Comment;
+import br.com.dextra.dextranet.curtida.Curtida;
 import br.com.dextra.dextranet.persistencia.BaseRepository;
 import br.com.dextra.dextranet.persistencia.Entidade;
-import br.com.dextra.dextranet.post.Post;
-import br.com.dextra.dextranet.post.PostFields;
 import br.com.dextra.dextranet.utils.IndexFacade;
-
-import com.google.appengine.api.search.Document;
-import com.google.appengine.api.search.Field;
 
 
 
@@ -22,18 +18,18 @@ public class DocumentRepository extends BaseRepository {
 
 
 
-	public void alteraDocumento(String id, String data) {
+	public void alteraDocumento(Curtida curtida) {
 
-		Document document = Document.newBuilder().setId(
-				id).addField(
-				Field.newBuilder().setName(
-						PostFields.DATA_DE_ATUALIZACAO.getField()).setText(data)).build();
-
-		IndexFacade.getIndex(Post.class.getName()).add(document);
+//		Document document = Document.newBuilder().setId(
+//				id).addField(
+//				Field.newBuilder().setName(
+//						PostFields.DATA_DE_ATUALIZACAO.getField()).setText(curtida.getData())).build();
+//
+//		IndexFacade.getIndex(Post.class.getName()).add(document);
 	}
 
 //	TODO: indexação do conteudo do documento do post pelo novo comment
-	public void alteraDocumento(String id, Comment comment){
+	public void alteraDocumento(Comment comment){
 //
 //		DatastoreService datastore = DatastoreServiceFactory
 //				.getDatastoreService();

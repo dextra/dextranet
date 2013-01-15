@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import br.com.dextra.dextranet.comment.Comment;
+import br.com.dextra.dextranet.curtida.Curtida;
 import br.com.dextra.dextranet.document.DocumentRepository;
 import br.com.dextra.dextranet.persistencia.BaseRepository;
 import br.com.dextra.dextranet.utils.Converters;
@@ -156,6 +157,16 @@ public class PostRepository extends BaseRepository {
 		return query;
 	}
 
+	void alteraDataDaEntity(Comment comment)
+	throws EntityNotFoundException {
+		alteraDataDaEntity(comment.getIdReference(), comment.getDataDeCriacao());
+	}
+
+	void alteraDataDaEntity(Curtida curtida)
+	throws EntityNotFoundException {
+		alteraDataDaEntity(curtida.getIdPost(), curtida.getData());
+	}
+
 	void alteraDataDaEntity(String id, String data)
 			throws EntityNotFoundException {
 
@@ -178,10 +189,10 @@ public class PostRepository extends BaseRepository {
 		persist(valueEntity);
 	}
 
-	public void incrementaNumeroDeLikesDaEntityDoPost(String id)
+	public void incrementaNumeroDeLikesDaEntityDoPost(Curtida curtida)
 			throws EntityNotFoundException {
 
-		Key key = KeyFactory.createKey(Post.class.getName(), id);
+		Key key = KeyFactory.createKey(Post.class.getName(), curtida.getIdPost());
 		Entity valueEntity = datastore.get(key);
 		int likes = Integer.parseInt(valueEntity.getProperty(
 				PostFields.LIKES.getField()).toString());
@@ -200,9 +211,20 @@ public class PostRepository extends BaseRepository {
 		}
 	}
 
-	public void alteraEntity(String id, Comment comment) throws EntityNotFoundException {
-		alteraDataDaEntity(id, comment.getDataDeCriacao());
+	public void alteraEntity(Comment comment) throws EntityNotFoundException {
+		alteraDataDaEntity(comment.getIdReference(), comment.getDataDeCriacao());
 		incrementaNumeroDeComentariosDaEntityDoPost(comment.getIdReference());
+	}
+
+	public void insereUsuarioQueCurtiuNoPost(Curtida curtida, Post post) throws EntityNotFoundException {
+
+		Key key = KeyFactory.createKey(Post.class.getName(), curtida.getIdPost());
+		Entity valueEntity = datastore.get(key);
+		valueEntity
+				.setProperty(PostFields.USER_LIKE.getField()+post.getLikes(), curtida.getUsuarioLogado());
+
+		persist(valueEntity);
+
 	}
 
 
