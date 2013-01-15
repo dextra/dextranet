@@ -36,7 +36,7 @@ public class PostRepository extends BaseRepository {
 	public Post criar(Post post) {
 		this.persist(post.toEntity());
 		DocumentRepository respositoryDocument = new DocumentRepository();
-		respositoryDocument.indexar(post, Post.class);
+		respositoryDocument.indexar(post);
 
 		return post;
 	}
@@ -238,6 +238,7 @@ public class PostRepository extends BaseRepository {
 	public boolean verificaSeOUsuarioJaCurtiuOPost(String id, String user) {
 
 		Query query = new Query(Post.class.getName());
+		//FIXME: metodo deprecado
 		query.addFilter(PostFields.ID.getField(), FilterOperator.EQUAL, id);
 		query.addFilter(PostFields.USER_LIKE.getField(), FilterOperator.IN,
 				user);

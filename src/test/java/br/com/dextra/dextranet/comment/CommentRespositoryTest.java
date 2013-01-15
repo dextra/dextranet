@@ -133,7 +133,7 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 		for (int i = 0; i < qtd; i++) {
 			comment = new Comment("teste de comentário " + i, "usuario.dextra",
 					idDoPostQueVouComentar, false);
-			comment.setSgundoDaDataDeCriação(i);
+			comment.setSgundoDaDataDeCriacao(i);
 			new CommentRepository().criar(comment);
 			post.comentar(comment);
 			retorno.add(comment);
