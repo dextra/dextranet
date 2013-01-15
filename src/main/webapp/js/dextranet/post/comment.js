@@ -55,9 +55,8 @@ dextranet.comment = {
 		$("#form_comment").submit(function() {
 			var idDoPost = $(this).attr("class");
 			var conteudo = CKEDITOR.instances.textarea_comment.getData();
-			alert(idDoPost);
 			var autor = $("#user_login").text();
-
+			console.log(idDoPost);
 			$.ajax( {
 				type : 'POST',
 				url : '/s/comment',
@@ -67,7 +66,7 @@ dextranet.comment = {
 					"idReference" : idDoPost
 					},
 				success : function(comments) {
-						$.holy("../template/dinamico/post/comment.xml", {"jsonArrayComment" : comments});
+						console.log(idDoPost);
 				}
 			});
 		});

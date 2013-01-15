@@ -18,13 +18,6 @@
 						${comment.conteudo}
 					</p>
 				</div>
-				<div class="list_stories_footer clearfix">
-					<div class="list_stories_footer_tags">
-						<a href="#">HTML</a>
-						,
-						<a href="#">CSS</a>
-					</div>
-				</div>
 			</li>
 			{/for}
 		</ul>
