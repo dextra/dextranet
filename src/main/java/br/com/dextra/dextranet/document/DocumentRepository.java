@@ -3,20 +3,14 @@ package br.com.dextra.dextranet.document;
 import br.com.dextra.dextranet.comment.Comment;
 import br.com.dextra.dextranet.curtida.Curtida;
 import br.com.dextra.dextranet.persistencia.BaseRepository;
-import br.com.dextra.dextranet.persistencia.Entidade;
+import br.com.dextra.dextranet.persistencia.ConteudoIndexavel;
 import br.com.dextra.dextranet.utils.IndexFacade;
-
-
-
-
 
 public class DocumentRepository extends BaseRepository {
 
-	public <T extends Entidade> void indexar(Entidade entidade, Class<T> clazz) {
-		IndexFacade.getIndex(clazz.getName()).add(entidade.toDocument());
+	public void indexar(ConteudoIndexavel conteudo) {
+		IndexFacade.getIndex(conteudo.getClass().getName()).add(conteudo.toDocument());
 	}
-
-
 
 	public void alteraDocumento(Curtida curtida) {
 
@@ -48,11 +42,8 @@ public class DocumentRepository extends BaseRepository {
 
 	}
 
-
-
 	public void removeIndex(String indexKey, String id) {
 		IndexFacade.getIndex(indexKey).remove(id);
 	}
-
 
 }

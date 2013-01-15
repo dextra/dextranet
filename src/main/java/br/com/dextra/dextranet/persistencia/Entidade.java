@@ -2,49 +2,54 @@ package br.com.dextra.dextranet.persistencia;
 
 import java.util.UUID;
 
-import br.com.dextra.dextranet.utils.DadosHelper;
-import br.com.dextra.dextranet.utils.Data;
-
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.search.Document;
 import com.google.gson.JsonObject;
 
 public abstract class Entidade {
 
 	protected String id;
-	protected String usuario;
-	protected String conteudo;
-	protected String dataDeCriacao;
-	protected int comentarios;
-	protected int likes;
 
 	public Entidade() {
-	}
-
-	public Entidade(String usuario, String conteudo) {
 		this.id = UUID.randomUUID().toString();
-		this.conteudo = new DadosHelper().removeConteudoJS(conteudo);
-		this.usuario = usuario;
-		this.dataDeCriacao = new Data().pegaData();
-		this.comentarios = 0;
-		this.likes = 0;
 	}
 
 	public String getId() {
 		return this.id;
 	}
 
-	@SuppressWarnings("unchecked")
-	public Key getKey(Class clazz) {
+	public <T extends Entidade> Key getKey(Class<T> clazz) {
 		return KeyFactory.createKey(clazz.getName(), this.getId());
 	}
 
 	public abstract Entity toEntity();
 
-	public abstract Document toDocument();
-
 	public abstract JsonObject toJson();
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Entidade other = (Entidade) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 
 }

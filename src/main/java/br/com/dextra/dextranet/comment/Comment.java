@@ -2,7 +2,8 @@ package br.com.dextra.dextranet.comment;
 
 import java.util.Date;
 
-import br.com.dextra.dextranet.persistencia.Entidade;
+import br.com.dextra.dextranet.persistencia.Conteudo;
+import br.com.dextra.dextranet.persistencia.ConteudoIndexavel;
 import br.com.dextra.dextranet.utils.Converters;
 import br.com.dextra.dextranet.utils.Data;
 import br.com.dextra.dextranet.utils.IndexFacade;
@@ -13,7 +14,7 @@ import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
 import com.google.gson.JsonObject;
 
-public class Comment extends Entidade {
+public class Comment extends Conteudo implements ConteudoIndexavel {
 
 	private String idReference;
 
@@ -59,9 +60,11 @@ public class Comment extends Entidade {
 	@SuppressWarnings("deprecation")
 	public void setSgundoDaDataDeCriacao (int segundo){
 		Date data = new Date();
+		// FIXME: metodo deprecado
 		data.setSeconds(segundo);
 		this.dataDeCriacao = new Data().formataDataDeCriacaoPelaBiblioteca(data);
 	}
+
 	@Override
 	public Entity toEntity() {
 		Entity entidade = new Entity(this.getKey(this.getClass()));
@@ -93,7 +96,6 @@ public class Comment extends Entidade {
 		return json;
 	}
 
-	@Override
 	public Document toDocument() {
 		Document document = Document.newBuilder().setId(id)
 				.addField(Field.newBuilder().setName(CommentFields.CONTEUDO.getField()).setText(this.conteudo))
