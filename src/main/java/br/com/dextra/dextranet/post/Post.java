@@ -98,9 +98,9 @@ public class Post extends Entidade {
 		String data = new Data().pegaDataDeAtualizacao();
 
 
-		postDoDocumentReository.alteraDocumento(id, data);
-		postDoRepository.alteraDataDaEntity(id,data);
-		postDoRepository.incrementaNumeroDeComentariosDaEntityDoPost(id);
+		postDoDocumentReository.alteraDocumento(this.id, data);
+		postDoRepository.alteraDataDaEntity(this.id,data);
+		postDoRepository.incrementaNumeroDeLikesDaEntityDoPost(this.id);
 	}
 
 	@Override

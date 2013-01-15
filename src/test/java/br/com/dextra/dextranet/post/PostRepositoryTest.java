@@ -138,7 +138,6 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		return postsCriados.get(i).getId();
 	}
 
-	@Ignore
 	@Test
 	public void testeCurtirPost() throws NumberFormatException, EntityNotFoundException, InterruptedException,
 			FileNotFoundException, IOException {
