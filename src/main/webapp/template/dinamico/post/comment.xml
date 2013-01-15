@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<template selector=".esteAqui" append="true">
-		<ul class="list_stories" id="relacao_dos_posts">
+		<ul class="list_stories_comment" id="relacao_dos_posts">
 			{for comment in jsonArrayComment}
 			<li class="clearfix ${comment.id}">
 				<div class="list_stories_headline_data">
