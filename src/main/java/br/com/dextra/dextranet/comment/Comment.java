@@ -57,7 +57,7 @@ public class Comment extends Entidade {
 	}
 
 	@SuppressWarnings("deprecation")
-	public void setSgundoDaDataDeCriação (int segundo){
+	public void setSgundoDaDataDeCriacao (int segundo){
 		Date data = new Date();
 		data.setSeconds(segundo);
 		this.dataDeCriacao = new Data().formataDataDeCriacaoPelaBiblioteca(data);
