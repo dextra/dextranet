@@ -5,17 +5,17 @@
 			{for comment in jsonArrayComment}
 			<li class="clearfix ${comment.id}">
 				<div class="list_stories_headline_data">
-					${converteData(comment.date)}
+					${converteData(comment.dataDeCriacao)}
 				</div>
 				<img src="" alt="photo" class="list_stories_avatar" />
 				<div class="list_stories_headline clearfix">
 					<div class="list_stories_headline_author">
-						<a href="#">${comment.autor}</a>
+						<a href="#">${comment.usuario}</a>
 					</div>
 				</div>
 				<div id="${comment.id}_post" class="list_stories_lead">
 					<p id="${comment.id}">
-						${comment.text}
+						${comment.conteudo}
 					</p>
 				</div>
 				<div class="list_stories_footer clearfix">
@@ -23,9 +23,6 @@
 						<a href="#">HTML</a>
 						,
 						<a href="#">CSS</a>
-					</div>
-					<div id="${comment.id}_button" class="list_stories_footer_call">
-						${messages.link_readMore}
 					</div>
 				</div>
 			</li>

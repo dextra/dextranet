@@ -51,7 +51,7 @@ public class CommentRS {
 	@Path("/")
 	@GET
 	@Produces("application/json;charset=UTF-8")
-	public String consultar(@FormParam("id") String idReference)
+	public String consultar(@FormParam("idReference") String idReference)
 			throws EntityNotFoundException {
 
 		List<Comment> listaComments = new ArrayList<Comment>();
