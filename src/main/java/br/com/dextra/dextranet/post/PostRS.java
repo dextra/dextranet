@@ -67,7 +67,7 @@ public class PostRS {
 	@Path("/")
 	@PUT
 	@Produces("application/json;charset=UTF-8")
-	public Response comentar(@FormParam("usuario") String usuario, @FormParam("id") String id) throws EntityNotFoundException {
+	public Response curtir(@FormParam("usuario") String usuario, @FormParam("id") String id) throws EntityNotFoundException {
 		Post post = new PostRepository().obtemPorId(id);
 		post.curtir(usuario);
 

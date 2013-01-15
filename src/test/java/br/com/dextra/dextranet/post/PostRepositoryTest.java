@@ -137,7 +137,6 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		return postsCriados.get(i).getId();
 	}
 
-
 	@Test
 	public void testeCurtirPost() throws NumberFormatException, EntityNotFoundException, InterruptedException,
 			FileNotFoundException, IOException {
@@ -161,7 +160,6 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 		listaPostRecuperado = postRepository.buscarTodosOsPosts(maxResults, offSet);
 
-		System.out.println(listaPostRecuperado.get(0).toJson());
 		Assert.assertEquals(3, listaPostRecuperado.get(0).getLikes());
 
 	}

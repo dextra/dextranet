@@ -100,6 +100,7 @@ public class Post extends Entidade {
 
 		postDoDocumentReository.alteraDocumento(curtida);
 		postDoRepository.alteraDataDaEntity(curtida);
+		postDoRepository.insereUsuarioQueCurtiuNoPost(curtida,this);
 		postDoRepository.incrementaNumeroDeLikesDaEntityDoPost(curtida);
 		this.likes++;
 	}
@@ -147,5 +148,6 @@ public class Post extends Entidade {
 
 		return document;
 	}
+
 
 }

@@ -115,13 +115,13 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 
 		Assert.assertEquals(new Converters()
 				.converterListaDeCommentParaListaDeJson(listaEsperada1)
-				.toString(), new CommentRS().consultar(listaEsperada1.get(0)
-				.getIdReference()));
+				.toString(), new CommentRS().consultar(listaDePosts.get(2)
+				.getId()));
 
 		Assert.assertEquals(new Converters()
 				.converterListaDeCommentParaListaDeJson(listaEsperada2)
-				.toString(), new CommentRS().consultar(listaEsperada2.get(0)
-				.getIdReference()));
+				.toString(), new CommentRS().consultar(listaDePosts.get(4)
+				.getId()));
 
 	}
 
@@ -140,7 +140,6 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 		}
 		return retorno;
 	}
-
 
 	@Test
 	@Ignore
