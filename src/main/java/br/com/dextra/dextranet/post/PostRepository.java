@@ -159,13 +159,11 @@ public class PostRepository extends BaseRepository {
 		return query;
 	}
 
-	void alteraDataDaEntity(Comment comment)
-	throws EntityNotFoundException {
+	void alteraDataDaEntity(Comment comment) throws EntityNotFoundException {
 		alteraDataDaEntity(comment.getIdReference(), comment.getDataDeCriacao());
 	}
 
-	void alteraDataDaEntity(Curtida curtida)
-	throws EntityNotFoundException {
+	void alteraDataDaEntity(Curtida curtida) throws EntityNotFoundException {
 		alteraDataDaEntity(curtida.getIdPost(), curtida.getData());
 	}
 
@@ -194,7 +192,8 @@ public class PostRepository extends BaseRepository {
 	public void incrementaNumeroDeLikesDaEntityDoPost(Curtida curtida)
 			throws EntityNotFoundException {
 
-		Key key = KeyFactory.createKey(Post.class.getName(), curtida.getIdPost());
+		Key key = KeyFactory.createKey(Post.class.getName(), curtida
+				.getIdPost());
 		Entity valueEntity = datastore.get(key);
 		int likes = Integer.parseInt(valueEntity.getProperty(
 				PostFields.LIKES.getField()).toString());
@@ -218,12 +217,18 @@ public class PostRepository extends BaseRepository {
 		incrementaNumeroDeComentariosDaEntityDoPost(comment.getIdReference());
 	}
 
-	public void insereUsuarioQueCurtiuNoPost(Curtida curtida, Post post) throws EntityNotFoundException {
+	@SuppressWarnings("unchecked")
+	public void insereUsuarioQueCurtiuNoPost(Curtida curtida, Post post)
+			throws EntityNotFoundException {
 
-		Key key = KeyFactory.createKey(Post.class.getName(), curtida.getIdPost());
+		Key key = KeyFactory.createKey(Post.class.getName(), curtida
+				.getIdPost());
 		Entity valueEntity = datastore.get(key);
-		valueEntity
-				.setProperty(PostFields.USER_LIKE.getField(), valueEntity.getProperty(PostFields.USER_LIKE.getField())+" "+curtida.getUsuarioLogado());
+		List<String> listaDeUserDoLike = (List<String>) valueEntity
+				.getProperty(PostFields.USER_LIKE.getField());
+		listaDeUserDoLike.add(curtida.getUsuarioLogado());
+		valueEntity.setProperty(PostFields.USER_LIKE.getField(),
+				listaDeUserDoLike);
 
 		persist(valueEntity);
 
@@ -234,7 +239,8 @@ public class PostRepository extends BaseRepository {
 
 		Query query = new Query(Post.class.getName());
 		query.addFilter(PostFields.ID.getField(), FilterOperator.EQUAL, id);
-		query.addFilter(PostFields.USER_LIKE.getField(),FilterOperator.IN, user);
+		query.addFilter(PostFields.USER_LIKE.getField(), FilterOperator.IN,
+				user);
 		query.addSort(CommentFields.DATA_DE_CRIACAO.getField(),
 				SortDirection.ASCENDING);
 
@@ -243,7 +249,5 @@ public class PostRepository extends BaseRepository {
 		return !toListaDePost(prepared.asIterable()).isEmpty();
 
 	}
-
-
 
 }
