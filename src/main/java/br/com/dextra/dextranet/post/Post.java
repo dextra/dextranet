@@ -1,6 +1,7 @@
 package br.com.dextra.dextranet.post;
 
 import br.com.dextra.dextranet.comment.Comment;
+import br.com.dextra.dextranet.curtida.Curtida;
 import br.com.dextra.dextranet.document.DocumentRepository;
 import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.utils.Converters;
@@ -83,24 +84,24 @@ public class Post extends Entidade {
 
 	public void comentar(Comment comment) throws EntityNotFoundException {
 
-		new DocumentRepository().alteraDocumento(this.id, comment);
-		new PostRepository().alteraEntity(this.id, comment);
+		new DocumentRepository().alteraDocumento(comment);
+		new PostRepository().alteraEntity(comment);
 
-		this.comentarios=this.comentarios+1;
+		this.comentarios++;
 
 	}
 
-	public void curtir(String user, String id) throws EntityNotFoundException {
+	public void curtir(String user) throws EntityNotFoundException {
 
 		DocumentRepository postDoDocumentReository = new DocumentRepository();
 		PostRepository postDoRepository = new PostRepository();
 
-		String data = new Data().pegaDataDeAtualizacao();
+		Curtida curtida = new Curtida(user, this.id);
 
-
-		postDoDocumentReository.alteraDocumento(id, data);
-		postDoRepository.alteraDataDaEntity(id,data);
-		postDoRepository.incrementaNumeroDeComentariosDaEntityDoPost(id);
+		postDoDocumentReository.alteraDocumento(curtida);
+		postDoRepository.alteraDataDaEntity(curtida);
+		postDoRepository.incrementaNumeroDeLikesDaEntityDoPost(curtida);
+		this.likes++;
 	}
 
 	@Override

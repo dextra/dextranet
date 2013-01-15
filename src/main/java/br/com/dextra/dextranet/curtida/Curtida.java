@@ -7,31 +7,32 @@ import br.com.dextra.dextranet.utils.Data;
 public class Curtida {
 
 	private String data;
-	private String idPost;
-	private String usuarioLogado;
+	private String id;
+	private String usuario;
 
 	public Curtida(String usuario, String id) {
-
-		this.idPost = id;
-		this.usuarioLogado = usuario;
+		this.id = id;
+		this.usuario = usuario;
+		this.data = new Data().pegaData();
 	}
 
+	public Curtida(String usuario, String id, String data) {
+		this.id = id;
+		this.usuario = usuario;
+		this.data = data;
+	}
 
 	public String getData(){
-		Data data = new Data();
-		this.data = data.pegaData();
 		return this.data;
-
 	}
 
 	public String getIdPost() {
-		return idPost;
+		return this.id;
 	}
 
 
 	public String getUsuarioLogado() {
-	return usuarioLogado;
-
+		return this.usuario;
 	}
 
 
