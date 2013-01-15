@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import br.com.dextra.dextranet.comment.Comment;
+import br.com.dextra.dextranet.comment.CommentFields;
 import br.com.dextra.dextranet.curtida.Curtida;
 import br.com.dextra.dextranet.document.DocumentRepository;
 import br.com.dextra.dextranet.persistencia.BaseRepository;
@@ -21,6 +22,7 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.SortExpression;
@@ -221,11 +223,27 @@ public class PostRepository extends BaseRepository {
 		Key key = KeyFactory.createKey(Post.class.getName(), curtida.getIdPost());
 		Entity valueEntity = datastore.get(key);
 		valueEntity
-				.setProperty(PostFields.USER_LIKE.getField()+post.getLikes(), curtida.getUsuarioLogado());
+				.setProperty(PostFields.USER_LIKE.getField(), valueEntity.getProperty(PostFields.USER_LIKE.getField())+" "+curtida.getUsuarioLogado());
 
 		persist(valueEntity);
 
 	}
+
+	@SuppressWarnings("deprecation")
+	public boolean verificaSeOUsuarioJaCurtiuOPost(String id, String user) {
+
+		Query query = new Query(Post.class.getName());
+		query.addFilter(PostFields.ID.getField(), FilterOperator.EQUAL, id);
+		query.addFilter(PostFields.USER_LIKE.getField(),FilterOperator.IN, user);
+		query.addSort(CommentFields.DATA_DE_CRIACAO.getField(),
+				SortDirection.ASCENDING);
+
+		PreparedQuery prepared = datastore.prepare(query);
+
+		return !toListaDePost(prepared.asIterable()).isEmpty();
+
+	}
+
 
 
 }

@@ -67,11 +67,10 @@ public class PostRS {
 	@Path("/")
 	@PUT
 	@Produces("application/json;charset=UTF-8")
-	public Response curtir(@FormParam("usuario") String usuario, @FormParam("id") String id) throws EntityNotFoundException {
+	public boolean curtir(@FormParam("usuario") String usuario, @FormParam("id") String id) throws EntityNotFoundException {
 		Post post = new PostRepository().obtemPorId(id);
-		post.curtir(usuario);
 
-		return Response.ok().build();
+		return post.curtir(usuario);
 	}
 
 	@Path("/{id}")
