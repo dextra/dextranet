@@ -23,6 +23,8 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 
 	private String dataDeAtualizacao;
 
+	private String userLikes;
+
 	public Post(String titulo, String conteudo, String usuario) {
 		this(titulo, conteudo, usuario, new Data().pegaData());
 	}
@@ -33,6 +35,7 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 		this.dataDeAtualizacao = dataDeAtualizacao;
 		this.comentarios = 0;
 		this.likes = 0;
+		this.userLikes = " ";
 	}
 
 	public Post(Entity postEntity) {
@@ -46,6 +49,7 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 		this.usuario = (String) postEntity.getProperty(PostFields.USUARIO.getField());
 		this.comentarios = ((Long) postEntity.getProperty(PostFields.COMENTARIO.getField())).intValue();
 		this.likes = ((Long) postEntity.getProperty(PostFields.LIKES.getField())).intValue();
+		this.userLikes = (String) postEntity.getProperty(PostFields.USER_LIKE.getField());
 	}
 
 	public String getTitulo() {
@@ -76,12 +80,17 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 		return this.likes;
 	}
 
+	public String getUserLikes() {
+		return this.userLikes;
+	}
+
 	public void comentar(Comment comment) throws EntityNotFoundException, ParseException {
 
 		new DocumentRepository().alteraDocumento(comment);
 		new PostRepository().alteraEntity(comment);
 
 		this.comentarios++;
+		this.dataDeAtualizacao = comment.getDataDeCriacao();
 
 	}
 
@@ -90,7 +99,7 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 		DocumentRepository postDoDocumentReository = new DocumentRepository();
 		PostRepository postDoRepository = new PostRepository();
 
-		//if (this.jaCurtiu(user)) {
+		if (!this.jaCurtiu(user)) {
 
 			Curtida curtida = new Curtida(user, this.id);
 
@@ -99,14 +108,16 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 			postDoRepository.insereUsuarioQueCurtiuNoPost(curtida, this);
 			postDoRepository.incrementaNumeroDeLikesDaEntityDoPost(curtida);
 			this.likes++;
-		//}
+			this.userLikes = this.userLikes + " " + user;
+			this.dataDeAtualizacao = curtida.getData();
+		}
 
 	}
 
-/*	private boolean jaCurtiu(String user) {
+	private boolean jaCurtiu(String user) throws EntityNotFoundException {
 
 		return new PostRepository().verificaSeOUsuarioJaCurtiuOPost(this.id, user);
-	}*/
+	}
 
 	@Override
 	public Entity toEntity() {
@@ -120,7 +131,7 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 		entidade.setProperty(PostFields.LIKES.getField(), this.likes);
 		entidade.setProperty(PostFields.DATA.getField(), this.dataDeCriacao);
 		entidade.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), this.dataDeAtualizacao);
-		System.out.println("post >>>>>>"+entidade.getProperty(PostFields.DATA_DE_ATUALIZACAO.getField()));
+		entidade.setProperty(PostFields.USER_LIKE.getField(), this.userLikes);
 
 		return entidade;
 	}
@@ -136,6 +147,7 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 		json.addProperty(PostFields.LIKES.getField(), this.likes);
 		json.addProperty(PostFields.DATA.getField(), this.dataDeCriacao);
 		json.addProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), this.dataDeAtualizacao);
+		json.addProperty(PostFields.USER_LIKE.getField(), this.userLikes);
 
 		return json;
 	}

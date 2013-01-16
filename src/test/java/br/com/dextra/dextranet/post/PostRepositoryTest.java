@@ -152,9 +152,8 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 		postsCriados.get(2).curtir("gabriel.ferreira");
 		postsCriados.get(2).curtir("marco.bordon");
+		postsCriados.get(2).curtir("marco.bordon");
 		postsCriados.get(2).curtir("kaique.monteiro");
-
-
 
 		List<Post> listaPostRecuperado = null;
 

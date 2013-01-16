@@ -101,7 +101,7 @@ dextranet.post = {
 
 			$.ajax( {
 				type : 'POST',
-				url : '/s/post',
+				url : '/s/curtida',
 				data : {
 					"usuario" : user,
 					"id" : idDoPost
