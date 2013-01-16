@@ -233,7 +233,6 @@ public class PostRepository extends BaseRepository {
 
 		Post post = obtemPorId(id);
 		String userLikes = post.getUserLikes();
-		System.out.println(userLikes);
 
 		if (userLikes.indexOf(user)==-1)
 		    return false;
