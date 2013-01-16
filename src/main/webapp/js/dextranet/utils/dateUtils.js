@@ -3,6 +3,8 @@ function converteData(minhaData) {
 	var dateFormat = "E, dd/MM/yyyy HH:mm";
 	var date;
 
+	var hora = minhaData.substring(11,18).replace(/-/g, ":");
+	minhaData = minhaData.replace(minhaData.substring(11,18), hora);
 	var dateParse = Date.parse(minhaData);
 
 	// feito para não afetar execução enquanto não é feita a mudança na data
