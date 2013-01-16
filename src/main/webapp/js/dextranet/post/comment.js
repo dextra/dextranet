@@ -66,9 +66,12 @@ dextranet.comment = {
 					"idReference" : idDoPost
 					},
 				success : function(comments) {
-						dextranet.home.carregaDados();
+						$("#list_comments_fromPost").empty();
+						dextranet.comment.carregaComentario(idDoPost);
+						CKEDITOR.instances.textarea_comment.setData("");
 				}
 			});
+			return false;
 		});
 	}
 }

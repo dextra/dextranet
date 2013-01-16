@@ -12,6 +12,8 @@
 
 		<div id="container_mensagem" class="clearfix"></div>
 		<div id="container_post" class="clearfix">
+			<ul class="list_stories" id="relacao_dos_posts">
+			</ul>
 		</div>
 
 	</template>
