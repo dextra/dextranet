@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<template selector=".esteAqui" append="true">
-		<ul class="list_stories_comment" id="relacao_dos_posts">
+		<ul class="list_stories_comment" id="relacao_dos_comentarios">
 			{for comment in jsonArrayComment}
 			<li class="clearfix ${comment.id}">
-				<div class="list_stories_headline_data">
+				<div class="list_stories_comment_headline_data">
 					${converteData(comment.dataDeCriacao)}
 				</div>
-				<img src="" alt="photo" class="list_stories_avatar" />
-				<div class="list_stories_headline clearfix">
-					<div class="list_stories_headline_author">
+				<img src="" alt="photo" class="list_stories_commet_avatar" />
+				<div class="list_stories_comment_headline clearfix">
+					<div class="list_stories_comment_headline_author">
 						<a href="#">${comment.usuario}</a>
 					</div>
 				</div>
-				<div id="${comment.id}_post" class="list_stories_lead">
+				<div id="${comment.id}_post" class="list_stories_comment_lead">
 					<p id="${comment.id}">
 						${comment.conteudo}
 					</p>

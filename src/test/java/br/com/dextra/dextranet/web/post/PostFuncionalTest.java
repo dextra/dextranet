@@ -20,6 +20,8 @@ public class PostFuncionalTest extends TesteFuncionalBase{
 
 	private List<String> postsEncontrados = new ArrayList<String>();
 	private List<String> postsInseridos = new ArrayList<String>();
+	private List<String> comentariosEncontrados = new ArrayList<String>();
+	private List<String> comentariosInseridos = new ArrayList<String>();
 
 	private int quantidadePosts = 61;
 	private int vezesQueOScrollDescera = (int) Math.round(((double)quantidadePosts/20)+0.5);
@@ -118,6 +120,53 @@ public class PostFuncionalTest extends TesteFuncionalBase{
 //		//paraVerificarSeAlgumPostNaoFoiEncontrado();
 //		//eParaConfrontarSeARelacaoDePostsInseridosEstaIgualARelacaoDePostsEncontrados();
 //	}
+
+	@Test
+	public void fluxoDeCriacaoEListagemDeComentarios()
+	{
+		dadoQueUsuarioAcessaPaginaPrincipal().criaVariosPosts(1);
+		depoisCrioVariosComentariosParaOsPostsCriados(3);
+		clicoNoBotaoParaExibirOsComentarios();
+		entaoVisualizoOsComentarios().eTodosOsComentariosCriadosForamExibidos();
+	}
+
+	private void clicoNoBotaoParaExibirOsComentarios() {
+		paginaPrincipal.clicaEmNovoComentario();
+	}
+
+	private void eTodosOsComentariosCriadosForamExibidos() {
+		Assert.assertEquals("Todos os comentários inseridos deveriam ter sido visualizados.", comentariosInseridos, comentariosEncontrados);
+	}
+
+	private PostFuncionalTest entaoVisualizoOsComentarios(){
+		List<WebElement> htmlComentariosEncontrados =  driver.findElements(By.cssSelector(".list_stories_comment_lead"));
+		comentariosEncontrados.clear();
+
+		for (WebElement elementoComentario : htmlComentariosEncontrados) {
+			comentariosEncontrados.add(elementoComentario.getText().toString());
+		}
+
+		Collections.sort(comentariosEncontrados);
+		return this;
+	}
+
+	private void depoisCrioVariosComentariosParaOsPostsCriados(int quantidadeDeComentarios) {
+		for(int i = 1; i <= quantidadeDeComentarios ; i++){
+			String conteudo = "Texto do comentário teste numero: " + i;
+
+			PaginaNovoComentario paginaNovoComentario = paginaPrincipal.clicaEmNovoComentario();
+			paginaNovoComentario.criaNovoComentario(conteudo);
+
+			// armazena o conteudo dos comentarios criados para futura comparacão
+			alimentarBaseDosTestesDoComentario(conteudo);
+		}
+	}
+
+	private void alimentarBaseDosTestesDoComentario(String conteudo) {
+		this.comentariosInseridos.add(conteudo);
+
+		Collections.sort(comentariosInseridos);
+	}
 
 }
 

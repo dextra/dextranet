@@ -178,6 +178,23 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 .list_stories_footer_call{color:#4887C6;font-size:12px}
 .list_stories_footer_call:hover{cursor:pointer;color:#D66A00}
 
+
+.list_stories_comment > li{border-radius:5px;background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-bottom:20px;}
+.list_stories_comment_lead > ul{list-style:disc; margin:15px;}
+.list_stories_comment_avatar{float:left;margin-right:10px;border:1px solid #ced1d3;padding:1px;background-color:#eee;width:50px;height:50px;border-radius:5px;}
+.list_stories_comment_headline{margin-bottom:20px;}
+.list_stories_comment_headline > h2{font-weight:bold;font-size:18px;text-transform:uppercase;color:#35679a;margin:4px 0 5px;}
+.list_stories_comment_headline_comments,
+.list_stories_comment_headline_dx,
+.list_stories_comment_headline_author{font-size:13px;font-weight:bold;margin-right:13px;float:left;}
+.list_stories_comment_headline_comments{color:#999;}
+.list_stories_comment_headline_dx{color:#349a94;}
+.list_stories_comment_headline_author{margin-right:0;color:#666;font-weight:normal;}
+.list_stories_comment_headline_author > a{font-weight:bold;}
+.list_stories_comment_headline_data{float:right;clear:both;text-shadow:0 1px 1px #fff;font-size:14px;color:#35679A;font-weight:bold;word-wrap:break-word;}
+.list_stories_comment_lead{clear:both;text-shadow:0 1px 1px #fff;font-size:14px;color:#505153;word-wrap:break-word;}
+.list_stories_comment_lead > blockquote{font-style: italic;	font-family: Georgia, Times, "Times New Roman", serif;	padding: 2px 0;	border-style: solid;	border-color: #ccc;	border-width: 0; background: transparent url(../img/quote.gif) no-repeat; margin: 1em 20px; padding-left: 50px;}
+
 #post_blockquote {font-style: italic; font-family: Georgia, "Times New Roman", serif; margin: 1em 20px; padding-left: 50px;  background: transparent url(../img/quote.gif) no-repeat;}
 
 .wordwrap{white-space: pre; /* CSS2 */white-space: -moz-pre-wrap; /* Mozilla */white-space: -hp-pre-wrap; /* HP printers */white-space: -o-pre-wrap; /* Opera 7 */white-space: -pre-wrap; /* Opera 4-6 */white-space: pre-wrap; /* CSS 2.1 */white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */word-wrap: break-word; /* IE */_white-space: pre; /* IE hack to re-specify in addition to word-wrap */}
