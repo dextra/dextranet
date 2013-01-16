@@ -191,7 +191,7 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 .list_stories_comment_headline_dx{color:#349a94;}
 .list_stories_comment_headline_author{margin-right:0;color:#666;font-weight:normal;}
 .list_stories_comment_headline_author > a{font-weight:bold;}
-.list_stories_comment_headline_data{float:right;clear:both;text-shadow:0 1px 1px #fff;font-size:14px;color:#35679A;font-weight:bold;word-wrap:break-word;}
+.list_stories_comment_headline_data{float:left;clear:both;text-shadow:0 1px 1px #fff;font-size:14px;color:#35679A;font-weight:bold;word-wrap:break-word;}
 .list_stories_comment_lead{clear:both;text-shadow:0 1px 1px #fff;font-size:14px;color:#505153;word-wrap:break-word;}
 .list_stories_comment_lead > blockquote{font-style: italic;	font-family: Georgia, Times, "Times New Roman", serif;	padding: 2px 0;	border-style: solid;	border-color: #ccc;	border-width: 0; background: transparent url(../img/quote.gif) no-repeat; margin: 1em 20px; padding-left: 50px;}
 
