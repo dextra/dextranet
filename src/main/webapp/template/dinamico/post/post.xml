@@ -1,8 +1,6 @@
 <engine>
 
-	<template selector="#container_post" append="true">
-
-		<ul class="list_stories" id="relacao_dos_posts">
+	<template selector="#relacao_dos_posts" append="true">
 			{for post in jsonArrayPost}
 
 			<li class="clearfix ${post.postObjectJson.id}">
@@ -43,7 +41,6 @@
 				</div>
 			</li>
 			{/for}
-		</ul>
 	</template>
 
 	<script>
