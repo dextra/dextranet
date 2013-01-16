@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<template selector=".esteAqui" append="true">
+		<div id="list_comments_fromPost">
+		</div>
 		<div id='list_stories_form_comment'>
 			<form id='form_comment' class="${idDoPost}">
 				<br/><textarea id='textarea_comment' placeholder='${messages.placeholder_comment}' style='resize:none;' />
