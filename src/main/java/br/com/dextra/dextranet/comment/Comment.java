@@ -60,9 +60,9 @@ public class Comment extends Conteudo implements ConteudoIndexavel {
 	@SuppressWarnings("deprecation")
 	public void setSgundoDaDataDeCriacao (int segundo){
 		Date data = new Date();
-		// FIXME: metodo deprecado
+		// FIXME: metodo depreciado
 		data.setSeconds(segundo);
-		this.dataDeCriacao = new Data().formataDataDeCriacaoPelaBiblioteca(data);
+		this.dataDeCriacao = new Data().formataDataPelaBiblioteca(data);
 	}
 
 	@Override
@@ -77,6 +77,8 @@ public class Comment extends Conteudo implements ConteudoIndexavel {
 		entidade.setProperty(CommentFields.LIKES.getField(), this.likes);
 		entidade.setProperty(CommentFields.DATA_DE_CRIACAO.getField(), this.dataDeCriacao);
 		entidade.setProperty(CommentFields.TREE.getField(), this.tree);
+
+
 
 		return entidade;
 	}

@@ -2,6 +2,7 @@ package br.com.dextra.dextranet.comment;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,7 +71,7 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 
 	@Test
 	public void criarComentarioEmUmPost() throws FileNotFoundException,
-			InterruptedException, IOException, EntityNotFoundException {
+			InterruptedException, IOException, EntityNotFoundException, ParseException {
 
 		List<Post> listaDePosts = geraPosts(6);
 
@@ -97,7 +98,7 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 	}
 
 	private List<Post> comentaOPost(int i, List<Post> listaDePosts,
-			Comment novoComment) throws EntityNotFoundException {
+			Comment novoComment) throws EntityNotFoundException, ParseException {
 
 		listaDePosts.get(i).comentar(novoComment);
 		return listaDePosts;
@@ -106,7 +107,7 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 	@Test
 	public void consultarComentarioPeloID() throws FileNotFoundException,
 			InterruptedException, IOException, EntityNotFoundException,
-			PolicyException, ScanException {
+			PolicyException, ScanException, ParseException {
 
 		List<Post> listaDePosts = geraPosts(6);
 
@@ -126,7 +127,7 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 	}
 
 	private List<Comment> comentar(String idDoPostQueVouComentar, int qtd)
-			throws EntityNotFoundException, InterruptedException {
+			throws EntityNotFoundException, InterruptedException, ParseException {
 		Comment comment;
 		Post post = new PostRepository().obtemPorId(idDoPostQueVouComentar);
 		List<Comment> retorno = new ArrayList<Comment>();

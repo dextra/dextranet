@@ -2,6 +2,7 @@ package br.com.dextra.dextranet.comment;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class CommentRS {
 			@FormParam("idReference") String id,
 			@DefaultValue("false") @FormParam("tree") String arvore)
 			throws FileNotFoundException, PolicyException, ScanException,
-			IOException, EntityNotFoundException {
+			IOException, EntityNotFoundException, ParseException {
 
 		Comment comment = new Comment(text, autor, id, new Converters()
 				.toBoolean(arvore));

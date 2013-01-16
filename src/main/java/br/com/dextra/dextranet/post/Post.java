@@ -1,5 +1,7 @@
 package br.com.dextra.dextranet.post;
 
+import java.text.ParseException;
+
 import br.com.dextra.dextranet.comment.Comment;
 import br.com.dextra.dextranet.curtida.Curtida;
 import br.com.dextra.dextranet.document.DocumentRepository;
@@ -22,16 +24,13 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 	private String dataDeAtualizacao;
 
 	public Post(String titulo, String conteudo, String usuario) {
-		this(titulo, conteudo, usuario, "");
+		this(titulo, conteudo, usuario, new Data().pegaData());
 	}
 
-	public Post(String titulo, String conteudo, String usuario, String dataDeAtualizacaoParametro) {
+	public Post(String titulo, String conteudo, String usuario, String dataDeAtualizacao) {
 		super(usuario, conteudo);
 		this.titulo = titulo;
-		if (dataDeAtualizacaoParametro.isEmpty()) {
-			dataDeAtualizacaoParametro = new Data().pegaDataDeAtualizacao();
-		}
-		this.dataDeAtualizacao = dataDeAtualizacaoParametro;
+		this.dataDeAtualizacao = dataDeAtualizacao;
 		this.comentarios = 0;
 		this.likes = 0;
 	}
@@ -77,7 +76,7 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 		return this.likes;
 	}
 
-	public void comentar(Comment comment) throws EntityNotFoundException {
+	public void comentar(Comment comment) throws EntityNotFoundException, ParseException {
 
 		new DocumentRepository().alteraDocumento(comment);
 		new PostRepository().alteraEntity(comment);
@@ -125,6 +124,7 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 		entidade.setProperty(PostFields.LIKES.getField(), this.likes);
 		entidade.setProperty(PostFields.DATA.getField(), this.dataDeCriacao);
 		entidade.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), this.dataDeAtualizacao);
+		System.out.println("post >>>>>>"+entidade.getProperty(PostFields.DATA_DE_ATUALIZACAO.getField()));
 
 		return entidade;
 	}
