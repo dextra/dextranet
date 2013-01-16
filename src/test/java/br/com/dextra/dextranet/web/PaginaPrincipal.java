@@ -3,6 +3,7 @@ package br.com.dextra.dextranet.web;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
+import br.com.dextra.dextranet.web.post.PaginaNovoComentario;
 import br.com.dextra.dextranet.web.post.PaginaNovoPost;
 import br.com.dextra.teste.PaginaBase;
 
@@ -24,6 +25,12 @@ public class PaginaPrincipal extends PaginaBase {
 		return new PaginaNovoPost(driver);
 	}
 
+	public PaginaNovoComentario clicaEmNovoComentario() {
+		this.click("a.link");
+		this.waitingForLoading();
+		return new PaginaNovoComentario(driver);
+	}
+
 	public PaginaPrincipal scrollAteFim() {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 
@@ -35,5 +42,4 @@ public class PaginaPrincipal extends PaginaBase {
 
 		return this;
 	}
-
 }

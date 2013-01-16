@@ -14,8 +14,8 @@ public class PaginaBase extends PageObject {
 		super(driver);
 	}
 
-	public void writeCKEditor(String text) {
-		WebElement iframe = driver.findElement(By.tagName("iframe"));
+	public void writeCKEditor(String text, String form) {
+		WebElement iframe = driver.findElement(By.cssSelector(form)).findElement(By.tagName("iframe"));
 		driver.switchTo().frame(iframe);
 		((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + text + "'");
 		driver.switchTo().defaultContent();
@@ -31,7 +31,7 @@ public class PaginaBase extends PageObject {
 
 		while (tentativas < MAX_ATTEMPT_TO_WAIT) {
 			boolean loadingAtivo = Boolean.valueOf(this.getElementAttribute(loadingCssSeletor, "active"));
-			
+
 			if (! loadingAtivo) {
 				break;
 			}
