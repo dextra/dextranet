@@ -90,5 +90,26 @@ dextranet.post = {
 			});
 		}
 		return false;
+	},
+
+	curtePost:function() {
+		$(".linkCurtir").click(function() {
+			var idDoPost = $(this).attr("id").substring(9);
+			var user = $("#user_login").text();
+
+			console.log(idDoPost);console.log(user);
+
+			$.ajax( {
+				type : 'POST',
+				url : '/s/post',
+				data : {
+					"usuario" : user,
+					"id" : idDoPost
+					},
+				success : function() {
+					dextranet.home.carregaDados();
+				}
+			});
+		});
 	}
 };

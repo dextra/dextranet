@@ -24,8 +24,10 @@
 						</a>
 					</div>
 					<div class="list_stories_headline_dx">
+						<a id="clearfix ${post.postObjectJson.id}" class="linkCurtir">
 						<span class="icon_dx"></span>
 						${post.postObjectJson.likes}
+						</a>
 					</div>
 					<div class="list_stories_headline_author">
 						<a href="#">${post.postObjectJson.usuario}</a>
@@ -47,5 +49,6 @@
 	<script>
 		dextranet.post.adicionaBotaoVerMais(this.jsonArrayPost);
 		dextranet.comment.chamaAbreTelaComentario();
+		dextranet.post.curtePost();
 	</script>
 </engine>
