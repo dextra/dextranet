@@ -10,7 +10,6 @@ import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.owasp.validator.html.PolicyException;
 import org.owasp.validator.html.ScanException;
@@ -140,15 +139,5 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 			retorno.add(comment);
 		}
 		return retorno;
-	}
-
-	@Test
-	@Ignore
-	public void alterarComentarioPorID() {
-	}
-
-	@Test
-	@Ignore
-	public void removerComentarioPorID() {
 	}
 }
