@@ -217,18 +217,15 @@ public class PostRepository extends BaseRepository {
 		incrementaNumeroDeComentariosDaEntityDoPost(comment.getIdReference());
 	}
 
-	@SuppressWarnings("unchecked")
 	public void insereUsuarioQueCurtiuNoPost(Curtida curtida, Post post)
 			throws EntityNotFoundException {
 
 		Key key = KeyFactory.createKey(Post.class.getName(), curtida
 				.getIdPost());
 		Entity valueEntity = datastore.get(key);
-		List<String> listaDeUserDoLike = (List<String>) valueEntity
-				.getProperty(PostFields.USER_LIKE.getField());
-		listaDeUserDoLike.add(curtida.getUsuarioLogado());
+
 		valueEntity.setProperty(PostFields.USER_LIKE.getField(),
-				listaDeUserDoLike);
+				valueEntity.getProperty(PostFields.USER_LIKE.getField())+" "+curtida.getUsuarioLogado());
 
 		persist(valueEntity);
 
@@ -240,8 +237,7 @@ public class PostRepository extends BaseRepository {
 		Query query = new Query(Post.class.getName());
 		//FIXME: metodo deprecado
 		query.addFilter(PostFields.ID.getField(), FilterOperator.EQUAL, id);
-		query.addFilter(PostFields.USER_LIKE.getField(), FilterOperator.IN,
-				user);
+
 		query.addSort(CommentFields.DATA_DE_CRIACAO.getField(),
 				SortDirection.ASCENDING);
 
