@@ -6,10 +6,8 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 import br.com.dextra.dextranet.web.PaginaPrincipal;
@@ -30,7 +28,6 @@ public class PostFuncionalTest extends TesteFuncionalBase{
 //	private String termoQueSeraPesquisado = "60";
 
 	@Test
-	@Ignore
 	public void fluxoDeCriacaoPesquisaEPaginacaoDePosts(){
 		dadoQueUsuarioAcessaPaginaPrincipal().criaVariosPosts(quantidadePosts);
 		quandoUsuarioDesceScrollAteFimDaPagina(vezesQueOScrollDescera);
@@ -58,46 +55,33 @@ public class PostFuncionalTest extends TesteFuncionalBase{
 			PaginaNovoPost paginaNovoPost = paginaPrincipal.clicaEmNovoPost();
 			paginaNovoPost.criaNovoPost(titulo, conteudo);
 
-			// armazena o conteudo do post criado para futura comparacao
-			alimentarBaseDosTestesDoPost(conteudo);
+			// armazena o titulo do post criado para futura comparacao
+			this.postsInseridos.add(titulo.toUpperCase());
 		}
 	}
-
-	private void alimentarBaseDosTestesDoPost(String conteudo) {
-		this.postsInseridos.add(conteudo);
-
-		Collections.sort(postsInseridos);
-	}
-
 
 	private void quandoUsuarioDesceScrollAteFimDaPagina(int quantidadeDeVezesQueDescoOScroll){
 
 		for(int i= 0; i <= quantidadeDeVezesQueDescoOScroll;i++){
-			JavascriptExecutor js = (JavascriptExecutor) driver;
-			js.executeScript("window.scrollTo(" +
-													"0," +
-													"Math.max(" +
-																"document.documentElement.scrollHeight," +
-																"document.body.scrollHeight," +
-																"document.documentElement.clientHeight)" +
-																");" +
-												"");
+			paginaPrincipal.scrollAteFim();
 		}
 	}
 
 	private PostFuncionalTest entaoUsuarioVisualizaOsPosts(){
-		List<WebElement> htmlPostsEncontrados =  driver.findElements(By.cssSelector(".list_stories_lead"));
+		List<WebElement> htmlPostsEncontrados =  driver.findElements(By.cssSelector("div.list_stories_headline h2"));
 		postsEncontrados.clear();
 
 		for (WebElement elementoPost : htmlPostsEncontrados) {
-			postsEncontrados.add(elementoPost.getText().toString());
+			// obtem o titulo do post para futura comparacao
+			postsEncontrados.add(elementoPost.getText().toString().toUpperCase());
 		}
 
-		Collections.sort(postsEncontrados);
 		return this;
 	}
 
 	private void eTodosOsPostsCriadosForamExibidos() {
+		Collections.sort(postsInseridos);
+		Collections.sort(postsEncontrados);
 		Assert.assertEquals("Todos os posts inseridos deveriam ter sido visualizados.", postsInseridos, postsEncontrados);
 	}
 

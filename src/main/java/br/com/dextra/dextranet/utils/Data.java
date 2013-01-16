@@ -7,17 +7,10 @@ import java.util.TimeZone;
 public class Data {
 
 	public String pegaData() {
-		return formataDataDeCriacaoPelaBiblioteca(new Date());
+		return formataDataPelaBiblioteca(new Date());
 	}
 
-	public String formataDataDeCriacaoPelaBiblioteca(Date data) {
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd-HH:mm:ss-EEE");
-		simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT-2"));
-
-		return simpleDateFormat.format(data);
-	}
-
-	public String formataDataDeAtualizacaoPelaBiblioteca(Date data) {
+	public String formataDataPelaBiblioteca(Date data) {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd-HH-mm-ss-EEE");
 		simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT-2"));
 
@@ -36,10 +29,6 @@ public class Data {
 	public String setSegundoDaData(int seg){
 		Date data = new Date();
 		data.setSeconds(seg);
-		return formataDataDeCriacaoPelaBiblioteca(data);
-	}
-
-	public String pegaDataDeAtualizacao() {
-		return formataDataDeAtualizacaoPelaBiblioteca(new Date());
+		return formataDataPelaBiblioteca(data);
 	}
 }
