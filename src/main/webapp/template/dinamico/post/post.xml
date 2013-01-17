@@ -13,7 +13,7 @@
 					<div class="list_stories_headline_comments">
 						<a id="clearfix ${post.postObjectJson.id}" class="link">
 							<span class="icon_comments"></span>
-							<span id="numero_comentario">${post.postObjectJson.comentarios}</span>
+							<span class="numero_comentario">${post.postObjectJson.comentarios}</span>
 							{if post.postObjectJson.comentarios == "1"}
 								comentário
 							{else}
@@ -24,7 +24,7 @@
 					<div class="list_stories_headline_dx">
 						<a id="clearfix ${post.postObjectJson.id}" class="linkCurtir" original-title="${post.postObjectJson.userLike}">
 						<span class="icon_dx"></span>
-						${post.postObjectJson.likes}
+						<span class="numero_curtida">${post.postObjectJson.likes}</span>
 						</a>
 					</div>
 					<div class="list_stories_headline_author">
