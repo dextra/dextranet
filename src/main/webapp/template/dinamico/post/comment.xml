@@ -19,7 +19,9 @@
 <!--						</a>-->
 <!--					</div>-->
 					<div class="list_stories_headline_dx">
+
 						<a id="clearfix ${comment.id}" class="linkCurtir comentario" original-title="${comment.userLikes}">
+
 								<span class="icon_dx"></span>
 								${comment.likes}
 						</a>

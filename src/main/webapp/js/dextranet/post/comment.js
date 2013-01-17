@@ -67,22 +67,35 @@ dextranet.comment = {
 			var idDoPost = $(this).attr("class");
 			var conteudo = CKEDITOR.instances.textarea_comment.getData();
 			var autor = $("#user_login").text();
-			$.ajax( {
-				type : 'POST',
-				url : '/s/comment',
-				data : {
-					"text" : conteudo,
-					"author" : autor,
-					"idReference" : idDoPost
-					},
-				success : function(comments) {
-						$("#list_comments_fromPost").empty();
-						dextranet.comment.carregaComentario(idDoPost);
-						CKEDITOR.instances.textarea_comment.setData("");
-						dextranet.post.atualizaPost(idDoPost);
-					}
-			});
+
+			if (dextranet.strip.allElem(conteudo) == "") {
+				if(!dextranet.home.EhVisivel("#message-warning-comment"))
+					$("#form_comment").before('<ul class="message" id="message-warning-comment"><li class="warning">Preencha</li></ul>');
+			}else {
+				$.ajax( {
+					type : 'POST',
+					url : '/s/comment',
+					data : {
+						"text" : conteudo,
+						"author" : autor,
+						"idReference" : idDoPost
+						},
+					success : function(comments) {
+							dextranet.comment.limpaTelaComentario();
+							dextranet.comment.carregaComentario(idDoPost);
+							dextranet.post.atualizaPost(idDoPost);
+						}
+				});
+			}
 			return false;
 		});
+	},
+
+	limpaTelaComentario : function()
+	{
+		if(dextranet.home.EhVisivel("#message-warning-comment"))
+			$(".message").remove();
+		$("#list_comments_fromPost").empty();
+		CKEDITOR.instances.textarea_comment.setData(null);
 	}
 }
