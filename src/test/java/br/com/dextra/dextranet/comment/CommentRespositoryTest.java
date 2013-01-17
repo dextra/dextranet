@@ -140,4 +140,36 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 		}
 		return retorno;
 	}
+
+
+	public void curtirComentario() throws FileNotFoundException,
+			InterruptedException, IOException, EntityNotFoundException, ParseException {
+
+		List<Post> listaDePosts = geraPosts(6);
+
+		Comment novoComment = new Comment("Teste de Content", "marco.bordon",
+				listaDePosts.get(2).getId(), false);
+		commentRepository.criar(novoComment);
+
+		listaDePosts = comentaOPost(2, listaDePosts, novoComment);
+
+		novoComment.curtir("gabriel.ferreira");
+
+		Post postRecuperado = null;
+		try {
+			postRecuperado = postRepository.obtemPorId(novoComment
+					.getIdReference());
+		} catch (EntityNotFoundException e) {
+			Assert.fail("Post nao encontrado.");
+		}
+
+		Assert.assertEquals(novoComment.getIdReference(), postRecuperado
+				.getId());
+		Assert.assertEquals(postRecuperado.getComentarios(), 1);
+		Assert.assertEquals(novoComment.getDataDeCriacao(), postRecuperado
+				.getDataDeAtualizacao());
+
+	}
+
+
 }

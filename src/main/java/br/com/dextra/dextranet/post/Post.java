@@ -23,8 +23,6 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 
 	private String dataDeAtualizacao;
 
-	private String userLikes;
-
 	public Post(String titulo, String conteudo, String usuario) {
 		this(titulo, conteudo, usuario, new Data().pegaData());
 	}
@@ -36,7 +34,7 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 		this.dataDeAtualizacao = dataDeAtualizacao;
 		this.comentarios = 0;
 		this.likes = 0;
-		this.userLikes = " ";
+
 	}
 
 	public Post(Entity postEntity) {

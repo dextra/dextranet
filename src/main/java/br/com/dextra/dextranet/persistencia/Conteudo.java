@@ -15,6 +15,8 @@ public abstract class Conteudo extends Entidade {
 
 	protected int likes;
 
+	protected String userLikes;
+
 	public Conteudo() {
 		super();
 	}
@@ -26,6 +28,7 @@ public abstract class Conteudo extends Entidade {
 		this.dataDeCriacao = new Data().pegaData();
 		this.comentarios = 0;
 		this.likes = 0;
+		this.userLikes = "";
 	}
 
 }

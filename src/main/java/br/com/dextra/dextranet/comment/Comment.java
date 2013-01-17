@@ -2,6 +2,7 @@ package br.com.dextra.dextranet.comment;
 
 import java.util.Date;
 
+import br.com.dextra.dextranet.curtida.Curtida;
 import br.com.dextra.dextranet.persistencia.Conteudo;
 import br.com.dextra.dextranet.persistencia.ConteudoIndexavel;
 import br.com.dextra.dextranet.utils.Converters;
@@ -9,6 +10,7 @@ import br.com.dextra.dextranet.utils.Data;
 import br.com.dextra.dextranet.utils.IndexFacade;
 
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Text;
 import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
@@ -34,6 +36,7 @@ public class Comment extends Conteudo implements ConteudoIndexavel {
 		this.comentarios=((Long)  commentEntity.getProperty(CommentFields.COMENTARIOS.getField())).intValue();
 		this.likes=((Long)  commentEntity.getProperty(CommentFields.LIKES.getField())).intValue();
 		this.idReference = (String) commentEntity.getProperty(CommentFields.ID_REFERENCE.getField());
+		this.userLikes = (String) commentEntity.getProperty(CommentFields.USER_LIKE.getField());
 		this.tree = new Converters().toBoolean(String.valueOf(commentEntity.getProperty(CommentFields.TREE.getField())));
 	}
 
@@ -57,6 +60,11 @@ public class Comment extends Conteudo implements ConteudoIndexavel {
 		return this.dataDeCriacao;
 	}
 
+	public String getUserLikes() {
+		return this.userLikes;
+	}
+
+
 	@SuppressWarnings("deprecation")
 	public void setSgundoDaDataDeCriacao (int segundo){
 		Date data = new Date();
@@ -77,6 +85,7 @@ public class Comment extends Conteudo implements ConteudoIndexavel {
 		entidade.setProperty(CommentFields.LIKES.getField(), this.likes);
 		entidade.setProperty(CommentFields.DATA_DE_CRIACAO.getField(), this.dataDeCriacao);
 		entidade.setProperty(CommentFields.TREE.getField(), this.tree);
+		entidade.setProperty(CommentFields.USER_LIKE.getField(), this.userLikes);
 
 
 
@@ -94,6 +103,7 @@ public class Comment extends Conteudo implements ConteudoIndexavel {
 		json.addProperty(CommentFields.LIKES.getField(), this.likes);
 		json.addProperty(CommentFields.DATA_DE_CRIACAO.getField(), this.dataDeCriacao);
 		json.addProperty(CommentFields.TREE.getField(), this.tree);
+		json.addProperty(CommentFields.USER_LIKE.getField(), this.userLikes);
 
 		return json;
 	}
@@ -107,6 +117,26 @@ public class Comment extends Conteudo implements ConteudoIndexavel {
 
 		IndexFacade.getIndex(Comment.class.getName()).add(document);
 		return document;
+	}
+
+	public void curtir(String usuario) throws EntityNotFoundException {
+		CommentRepository commentDoRepository = new CommentRepository();
+
+		if (!this.jaCurtiu(usuario)) {
+
+			Curtida curtida = new Curtida(usuario, this.id);
+
+			commentDoRepository.insereUsuarioQueCurtiuNoComment(curtida, this);
+			commentDoRepository.incrementaNumeroDeLikesDaEntityDoComment(curtida);
+			this.likes++;
+			this.userLikes = this.userLikes + " " + usuario;
+		}
+
+	}
+
+	private boolean jaCurtiu(String usuario) {
+
+		return !(this.userLikes == null || this.userLikes.indexOf(usuario) == -1);
 	}
 
 }
