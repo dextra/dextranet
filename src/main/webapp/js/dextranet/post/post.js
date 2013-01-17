@@ -96,13 +96,19 @@ dextranet.post = {
 		$(".linkCurtir").click(function() {
 			var idDoPost = $(this).attr("id").substring(9);
 			var user = $("#user_login").text();
+			var classe = $(this).attr("class").substring(11);
+			var ehPost = true;
+
+			if(classe == "comentario")
+				ehPost = false;
 
 			$.ajax( {
 				type : 'POST',
 				url : '/s/curtida',
 				data : {
 					"usuario" : user,
-					"id" : idDoPost
+					"id" : idDoPost,
+					"ehPost" : ehPost
 					},
 				success : function() {
 					dextranet.post.atualizaPost(idDoPost);
