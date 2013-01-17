@@ -224,7 +224,7 @@ public class PostRepository extends BaseRepository {
 
 		valueEntity.setProperty(PostFields.USER_LIKE.getField(), valueEntity
 				.getProperty(PostFields.USER_LIKE.getField())
-				+ " " + curtida.getUsuarioLogado());
+				+ curtida.getUsuarioLogado() + " ");
 
 		persist(valueEntity);
 
