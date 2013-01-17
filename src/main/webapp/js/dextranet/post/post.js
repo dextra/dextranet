@@ -30,7 +30,6 @@ dextranet.post = {
 					postObjectArray = postObject.getpostObjectArrayFromPostJsonArray(posts);
 					$(postObjectArray).each(function(){
 						this.setHiddenText();
-						console.log(this);
 						this.postObjectJson.userLike = (this.postObjectJson.userLike).replace(/ /,'');
 						this.postObjectJson.userLike = (this.postObjectJson.userLike).replace(/ /g,'&lt;br/&gt;');
 					});
