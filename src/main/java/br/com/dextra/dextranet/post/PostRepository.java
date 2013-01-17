@@ -164,7 +164,7 @@ public class PostRepository extends BaseRepository {
 	}
 
 	void alteraDataDaEntity(Curtida curtida) throws EntityNotFoundException {
-		alteraDataDaEntity(curtida.getIdPost(), curtida.getData());
+		alteraDataDaEntity(curtida.getIdReference(), curtida.getData());
 	}
 
 	void alteraDataDaEntity(String id, String data)
@@ -193,7 +193,7 @@ public class PostRepository extends BaseRepository {
 			throws EntityNotFoundException {
 
 		Key key = KeyFactory.createKey(Post.class.getName(), curtida
-				.getIdPost());
+				.getIdReference());
 		Entity valueEntity = datastore.get(key);
 		int likes = Integer.parseInt(valueEntity.getProperty(
 				PostFields.LIKES.getField()).toString());
@@ -221,7 +221,7 @@ public class PostRepository extends BaseRepository {
 			throws EntityNotFoundException {
 
 		Key key = KeyFactory.createKey(Post.class.getName(), curtida
-				.getIdPost());
+				.getIdReference());
 		Entity valueEntity = datastore.get(key);
 
 		valueEntity.setProperty(PostFields.USER_LIKE.getField(), valueEntity

@@ -3,7 +3,6 @@ package br.com.dextra.dextranet.comment;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -125,49 +124,26 @@ public class CommentRespositoryTest extends TesteIntegracaoBase {
 
 	}
 
-	private List<Comment> comentar(String idDoPostQueVouComentar, int qtd)
-			throws EntityNotFoundException, InterruptedException, ParseException {
-		Comment comment;
-		Post post = new PostRepository().obtemPorId(idDoPostQueVouComentar);
-		List<Comment> retorno = new ArrayList<Comment>();
-		for (int i = 0; i < qtd; i++) {
-			comment = new Comment("teste de comentário " + i, "usuario.dextra",
-					idDoPostQueVouComentar, false);
-			comment.setSgundoDaDataDeCriacao(i);
-			new CommentRepository().criar(comment);
-			post.comentar(comment);
-			retorno.add(comment);
-		}
-		return retorno;
-	}
 
 
+	@Test
 	public void curtirComentario() throws FileNotFoundException,
 			InterruptedException, IOException, EntityNotFoundException, ParseException {
 
-		List<Post> listaDePosts = geraPosts(6);
+		List<Post> postsCriados = geraPosts(4);
 
-		Comment novoComment = new Comment("Teste de Content", "marco.bordon",
-				listaDePosts.get(2).getId(), false);
-		commentRepository.criar(novoComment);
+		List<Comment> listaDeCommentsDoPost2 = comentar(postsCriados.get(2).getId(), 1);
 
-		listaDePosts = comentaOPost(2, listaDePosts, novoComment);
+		listaDeCommentsDoPost2.get(0).curtir("marco.bordon");
+		listaDeCommentsDoPost2.get(0).curtir("marco.bordon");
+		listaDeCommentsDoPost2.get(0).curtir("kaique.monteiro");
 
-		novoComment.curtir("gabriel.ferreira");
+		List<Comment> listaCommentRecuperado = null;
 
-		Post postRecuperado = null;
-		try {
-			postRecuperado = postRepository.obtemPorId(novoComment
-					.getIdReference());
-		} catch (EntityNotFoundException e) {
-			Assert.fail("Post nao encontrado.");
-		}
+		listaCommentRecuperado = commentRepository.listarCommentsDeUmPost(listaDeCommentsDoPost2.get(0).getIdReference());
 
-		Assert.assertEquals(novoComment.getIdReference(), postRecuperado
-				.getId());
-		Assert.assertEquals(postRecuperado.getComentarios(), 1);
-		Assert.assertEquals(novoComment.getDataDeCriacao(), postRecuperado
-				.getDataDeAtualizacao());
+		Assert.assertEquals(2, listaCommentRecuperado.get(0).getLikes());
+
 
 	}
 

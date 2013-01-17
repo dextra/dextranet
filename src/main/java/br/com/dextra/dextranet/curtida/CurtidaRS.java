@@ -11,6 +11,7 @@ import br.com.dextra.dextranet.comment.Comment;
 import br.com.dextra.dextranet.comment.CommentRepository;
 import br.com.dextra.dextranet.post.Post;
 import br.com.dextra.dextranet.post.PostRepository;
+import br.com.dextra.dextranet.utils.Converters;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
 
@@ -22,9 +23,9 @@ public class CurtidaRS {
 	@Path("/")
 	@POST
 	@Produces("application/json;charset=UTF-8")
-	public Response curtir(@FormParam("usuario") String usuario, @FormParam("id") String id,@DefaultValue("true") @FormParam("isPost") boolean isPost) throws EntityNotFoundException {
+	public Response curtir(@FormParam("usuario") String usuario, @FormParam("id") String id,@DefaultValue("true") @FormParam("isPost") String isPost) throws EntityNotFoundException {
 
-		if(isPost){
+		if(new Converters().toBoolean(isPost)){
 		Post post = new PostRepository().obtemPorId(id);
 		post.curtir(usuario);
 		}else{
