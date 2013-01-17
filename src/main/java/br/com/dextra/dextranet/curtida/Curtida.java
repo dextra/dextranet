@@ -26,7 +26,7 @@ public class Curtida {
 		return this.data;
 	}
 
-	public String getIdPost() {
+	public String getIdReference() {
 		return this.id;
 	}
 

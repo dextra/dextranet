@@ -56,6 +56,10 @@ public class Comment extends Conteudo implements ConteudoIndexavel {
 		return this.usuario;
 	}
 
+	public int getLikes() {
+		return this.likes;
+	}
+
 	public String getDataDeCriacao() {
 		return this.dataDeCriacao;
 	}

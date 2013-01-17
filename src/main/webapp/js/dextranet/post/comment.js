@@ -51,6 +51,10 @@ dextranet.comment = {
 				"idReference" : idDoPost
 				},
 			success : function(comments) {
+					$(comments).each(function(){
+						this.userLikes = (this.userLikes).replace(/ /,'');
+						this.userLikes = (this.userLikes).replace(/ /g,'&lt;br/&gt;');
+					});
 					if(comments.length > 0)
 						$.holy("../template/dinamico/post/comment.xml", {"jsonArrayComment" : comments});
 			}

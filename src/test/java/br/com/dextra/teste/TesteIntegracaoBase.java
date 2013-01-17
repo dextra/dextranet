@@ -2,12 +2,17 @@ package br.com.dextra.teste;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
+import com.google.appengine.api.datastore.EntityNotFoundException;
+
+import br.com.dextra.dextranet.comment.Comment;
+import br.com.dextra.dextranet.comment.CommentRepository;
 import br.com.dextra.dextranet.post.Post;
 import br.com.dextra.dextranet.post.PostRepository;
 import br.com.dextra.dextranet.utils.Data;
@@ -32,8 +37,8 @@ public class TesteIntegracaoBase {
 		myContainer.stop();
 	}
 
-	public List<Post> geraPosts(int numeroDePosts)
-			throws InterruptedException, FileNotFoundException, IOException {
+	public List<Post> geraPosts(int numeroDePosts) throws InterruptedException,
+			FileNotFoundException, IOException {
 
 		List<Post> listaDePostsCriados = new ArrayList<Post>();
 		Post novoPost = null;
@@ -45,7 +50,25 @@ public class TesteIntegracaoBase {
 					"conteudo de teste" + (i + 1), "usuario", dataDeAtualizacao);
 			listaDePostsCriados.add(new PostRepository().criar(novoPost));
 		}
+
 		return listaDePostsCriados;
+	}
+
+	public List<Comment> comentar(String idDoPostQueVouComentar, int qtd)
+			throws EntityNotFoundException, InterruptedException,
+			ParseException {
+		Comment comment;
+		Post post = new PostRepository().obtemPorId(idDoPostQueVouComentar);
+		List<Comment> retorno = new ArrayList<Comment>();
+		for (int i = 0; i < qtd; i++) {
+			comment = new Comment("teste de comentário " + i, "usuario.dextra",
+					idDoPostQueVouComentar, false);
+			comment.setSgundoDaDataDeCriacao(i);
+			new CommentRepository().criar(comment);
+			post.comentar(comment);
+			retorno.add(comment);
+		}
+		return retorno;
 	}
 
 }

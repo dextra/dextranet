@@ -28,9 +28,10 @@ dextranet.post = {
 			success : function(posts) {
 				if(posts.length > 0){
 					postObjectArray = postObject.getpostObjectArrayFromPostJsonArray(posts);
-
 					$(postObjectArray).each(function(){
 						this.setHiddenText();
+						this.postObjectJson.userLike = (this.postObjectJson.userLike).replace(/ /,'');
+						this.postObjectJson.userLike = (this.postObjectJson.userLike).replace(/ /g,'&lt;br/&gt;');
 					});
 
 					dextranet.post.carregaTemplatePost(postObjectArray);
@@ -100,10 +101,10 @@ dextranet.post = {
 			var ehPost = true;
 
 			console.log(classe);
-			if(classe == "comentario") {
+			if(classe == "comentario ttip") {
 				ehPost = false;
+				console.log("entrou aqui");
 			}
-			console.log(ehPost);
 
 			$.ajax( {
 				type : 'POST',
