@@ -115,7 +115,7 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 			postDoRepository.insereUsuarioQueCurtiuNoPost(curtida, this);
 			postDoRepository.incrementaNumeroDeLikesDaEntityDoPost(curtida);
 			this.likes++;
-			this.userLikes = this.userLikes + " " + user;
+			this.userLikes = this.userLikes + user + " ";
 			this.dataDeAtualizacao = curtida.getData();
 		}
 

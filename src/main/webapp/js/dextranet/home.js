@@ -128,6 +128,13 @@ dextranet.home = {
 		if ($('#box_user_profile').is(':visible')) {
 			dextranet.home.abrirTelaUsuario();
 		}
+	},
+
+	descerComentario : function() {
+		$("h2.titulo").click(function() {
+			var idDoPost = $(this).attr("class").substring(7);
+			$("div#" + idDoPost + "_post").slideToggle("fast");
+		});
 	}
 
 };

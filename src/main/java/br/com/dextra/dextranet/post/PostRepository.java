@@ -228,6 +228,7 @@ public class PostRepository extends BaseRepository {
 				.getProperty(PostFields.USER_LIKE.getField())
 				+curtida.getUsuarioLogado()+ " ");
 
+
 		persist(valueEntity);
 
 	}
