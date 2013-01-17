@@ -115,7 +115,7 @@ dextranet.post = {
 					if(ehPost) {
 						dextranet.post.atualizaPost(idDoPost);
 					} else {
-						dextranet.comment.atualizaComentario();
+						dextranet.comment.atualizaComentario(idDoPost);
 					}
 				}
 			});

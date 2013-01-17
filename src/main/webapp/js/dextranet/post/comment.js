@@ -101,10 +101,15 @@ dextranet.comment = {
 			type : 'GET',
 			url : '/s/comment',
 			data : {
-				"id" : idComentario
+				"idComment" : idComentario
 				},
 			success : function(comment) {
-					$("span#" + idComentario).text(comment.id);
+
+					commentObjectArray = postObject.getpostObjectArrayFromPostJsonArray(comment);
+					$(commentObjectArray).each(function() {
+						console.log(this.postObjectJson.likes)
+						$("span#" + idComentario).text(this.postObjectJson.likes);
+					});
 				}
 		});
 	},
