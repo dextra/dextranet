@@ -69,7 +69,22 @@ dextranet.comment = {
 						$("#list_comments_fromPost").empty();
 						dextranet.comment.carregaComentario(idDoPost);
 						CKEDITOR.instances.textarea_comment.setData("");
-				}
+						$.ajax( {
+							type : 'GET',
+							url : '/s/post',
+							data: {
+								"max-results" : 1,
+								"page" : 0,
+								"q" : idDoPost
+								},
+							success : function(post) {
+									//post.each(function() {
+										console.log(post.comentarios);
+										//$("li." + idDoPost + " #numero_comentario").($(this).comentarios);
+									//});
+								}
+						});
+					}
 			});
 			return false;
 		});
