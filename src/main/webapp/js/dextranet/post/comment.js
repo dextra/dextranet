@@ -8,13 +8,19 @@ dextranet.comment = {
 			var idDoPost = $(this).attr("id").substring(9);
 			if (!jaTemTextArea) {
 				if (dextranet.comment.abreTelaComentario($(this).attr("id"), idDoPost)) {
+					idUltimo = idDoPost;
 					jaTemTextArea = true;
 				}
 			} else {
 				$("div.esteAqui").empty();
 				$("div.esteAqui").removeClass("esteAqui");
-				if (dextranet.comment.abreTelaComentario($(this).attr("id"), idDoPost)) {
-					jaTemTextArea = true;
+				if(idUltimo != idDoPost) {
+					if (dextranet.comment.abreTelaComentario($(this).attr("id"), idDoPost)) {
+						jaTemTextArea = true;
+						idUltimo = idDoPost;
+					}
+				} else {
+					jaTemTextArea = false;
 				}
 			}
 		});
@@ -69,7 +75,8 @@ dextranet.comment = {
 						$("#list_comments_fromPost").empty();
 						dextranet.comment.carregaComentario(idDoPost);
 						CKEDITOR.instances.textarea_comment.setData("");
-				}
+						dextranet.post.atualizaPost(idDoPost);
+					}
 			});
 			return false;
 		});

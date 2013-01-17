@@ -49,12 +49,12 @@ dextranet.post = {
 		return $.holy(template, {"jsonArrayPost" : postObjectArray});
 	},
 
-	adicionaBotaoVerMais:function(postObjectArray){
+	adicionaBotaoVerMais : function(postObjectArray){
 		dextranet.post.removeParagrafosVazios($(".list_stories_lead"));
 		dextranet.readMoreButton.addButtonEvent($(".list_stories_footer_call"),postObjectArray);
 	},
 
-	removeParagrafosVazios:function(posts){
+	removeParagrafosVazios : function(posts){
 		posts.each(function(){
 			var paragrafos = $(this).children();
 			$(paragrafos[0]).remove();
@@ -63,7 +63,7 @@ dextranet.post = {
 	},
 
 
-	criaNovoPost:function() {
+	criaNovoPost : function() {
 
 		var titulo = dextranet.strip.tagHTML($("#form_input_title").val());
 		var conteudo = CKEDITOR.instances.form_input_content.getData();
@@ -92,7 +92,7 @@ dextranet.post = {
 		return false;
 	},
 
-	curtePost:function() {
+	curtePost : function() {
 		$(".linkCurtir").click(function() {
 			var idDoPost = $(this).attr("id").substring(9);
 			var user = $("#user_login").text();
@@ -105,9 +105,29 @@ dextranet.post = {
 					"id" : idDoPost
 					},
 				success : function() {
-					dextranet.home.carregaDados();
+					dextranet.post.atualizaPost(idDoPost);
 				}
 			});
+		});
+	},
+
+	atualizaPost : function(idDoPost) {
+		$.ajax( {
+			type : 'GET',
+			url : '/s/post',
+			data: {
+				"max-results" : 1,
+				"page" : 0,
+				"q" : idDoPost
+				},
+			success : function(post) {
+
+					postObjectArray = postObject.getpostObjectArrayFromPostJsonArray(post);
+					$(postObjectArray).each(function(){
+						$("li." + idDoPost + " .numero_comentario").text(this.postObjectJson.comentarios);
+						$("li." + idDoPost + " .numero_curtida").text(this.postObjectJson.likes);
+					});
+				}
 		});
 	}
 };

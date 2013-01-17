@@ -2,8 +2,6 @@ dextranet.readMoreButton = {
 
 	addButtonEvent : function(buttons,postObjectArray) {
 
-		console.log($.i18n.messages);
-
 		$(postObjectArray).each(function(){
 			var postJson = this.postObjectJson;
 			if(postJson.conteudo != postJson.visibleText){
