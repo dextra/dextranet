@@ -99,8 +99,11 @@ dextranet.post = {
 			var classe = $(this).attr("class").substring(11);
 			var ehPost = true;
 
-			if(classe == "comentario")
+			console.log(classe);
+			if(classe == "comentario") {
 				ehPost = false;
+			}
+			console.log(ehPost);
 
 			$.ajax( {
 				type : 'POST',
