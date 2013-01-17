@@ -25,15 +25,13 @@ public class CurtidaRS {
 	@Produces("application/json;charset=UTF-8")
 	public Response curtir(@FormParam("usuario") String usuario, @FormParam("id") String id,@DefaultValue("true") @FormParam("isPost") String isPost) throws EntityNotFoundException {
 
-		if(new Converters().toBoolean(isPost)){
+		if (new Converters().toBoolean(isPost)){
 		Post post = new PostRepository().obtemPorId(id);
 		post.curtir(usuario);
 		}else{
 			Comment comment = new CommentRepository().obtemPorId(id);
 			comment.curtir(usuario);
 		}
-
-
 
 		return Response.ok().build();
 	}
