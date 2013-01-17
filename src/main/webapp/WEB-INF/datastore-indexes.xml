@@ -7,5 +7,4 @@
         <property name="dataDeCriacao" direction="asc"/>
     </datastore-index>
 
-
 </datastore-indexes>

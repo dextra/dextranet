@@ -222,24 +222,11 @@ public class PostRepository extends BaseRepository {
 				.getIdPost());
 		Entity valueEntity = datastore.get(key);
 
-		valueEntity.setProperty(PostFields.USER_LIKE.getField(),
-				valueEntity.getProperty(PostFields.USER_LIKE.getField())+" "+curtida.getUsuarioLogado());
+		valueEntity.setProperty(PostFields.USER_LIKE.getField(), valueEntity
+				.getProperty(PostFields.USER_LIKE.getField())
+				+ curtida.getUsuarioLogado() + " ");
 
 		persist(valueEntity);
 
 	}
-
-	public boolean verificaSeOUsuarioJaCurtiuOPost(String id, String user) throws EntityNotFoundException{
-
-		Post post = obtemPorId(id);
-		String userLikes = post.getUserLikes();
-
-		if (userLikes.indexOf(user)==-1)
-		    return false;
-		else
-			return true;
-
-	}
-
-
 }
