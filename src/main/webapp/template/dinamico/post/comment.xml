@@ -24,9 +24,6 @@
 								${comment.likes}
 						</a>
 					</div>
-<!--					<div class="list_stories_comment_headline_data">-->
-<!--						${converteData(comment.dataDeCriacao)}-->
-<!--					</div>-->
 				</div>
 				<div id="${comment.id}_post" class="list_stories_comment_lead">
 					<p id="${comment.id}">
