@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import br.com.dextra.dextranet.comment.Comment;
-import br.com.dextra.dextranet.comment.CommentFields;
 import br.com.dextra.dextranet.curtida.Curtida;
 import br.com.dextra.dextranet.document.DocumentRepository;
 import br.com.dextra.dextranet.persistencia.BaseRepository;
@@ -22,7 +21,6 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.SortExpression;
@@ -231,20 +229,17 @@ public class PostRepository extends BaseRepository {
 
 	}
 
-	@SuppressWarnings("deprecation")
-	public boolean verificaSeOUsuarioJaCurtiuOPost(String id, String user) {
+	public boolean verificaSeOUsuarioJaCurtiuOPost(String id, String user) throws EntityNotFoundException{
 
-		Query query = new Query(Post.class.getName());
-		//FIXME: metodo deprecado
-		query.addFilter(PostFields.ID.getField(), FilterOperator.EQUAL, id);
+		Post post = obtemPorId(id);
+		String userLikes = post.getUserLikes();
 
-		query.addSort(CommentFields.DATA_DE_CRIACAO.getField(),
-				SortDirection.ASCENDING);
-
-		PreparedQuery prepared = datastore.prepare(query);
-
-		return !toListaDePost(prepared.asIterable()).isEmpty();
+		if (userLikes.indexOf(user)==-1)
+		    return false;
+		else
+			return true;
 
 	}
+
 
 }

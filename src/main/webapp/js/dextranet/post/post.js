@@ -97,11 +97,9 @@ dextranet.post = {
 			var idDoPost = $(this).attr("id").substring(9);
 			var user = $("#user_login").text();
 
-			console.log(idDoPost);console.log(user);
-
 			$.ajax( {
 				type : 'POST',
-				url : '/s/post',
+				url : '/s/curtida',
 				data : {
 					"usuario" : user,
 					"id" : idDoPost

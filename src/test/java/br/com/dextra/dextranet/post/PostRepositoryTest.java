@@ -148,13 +148,10 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 		List<Post> postsCriados = geraPosts(qtdOriginalDePosts);
 
-		System.out.println(postsCriados.get(2).getId());
-
 		postsCriados.get(2).curtir("gabriel.ferreira");
 		postsCriados.get(2).curtir("marco.bordon");
+		postsCriados.get(2).curtir("marco.bordon");
 		postsCriados.get(2).curtir("kaique.monteiro");
-
-
 
 		List<Post> listaPostRecuperado = null;
 

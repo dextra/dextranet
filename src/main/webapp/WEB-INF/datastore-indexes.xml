@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<datastore-indexes
+  autoGenerate="true">
+
+ <datastore-index kind="br.com.dextra.dextranet.comment.Comment" ancestor="false" source="manual">
+        <property name="idReference" direction="asc"/>
+        <property name="dataDeCriacao" direction="asc"/>
+    </datastore-index>
+
+
+</datastore-indexes>
