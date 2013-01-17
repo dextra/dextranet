@@ -3,12 +3,15 @@ package br.com.dextra.dextranet.comment;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.dextra.dextranet.curtida.Curtida;
 import br.com.dextra.dextranet.persistencia.BaseRepository;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
@@ -61,5 +64,33 @@ public class CommentRepository extends BaseRepository {
 	public Comment obtemPorId(String id) throws EntityNotFoundException {
 		return new Comment(this.obtemPorId(id, Comment.class));
 	}
+
+	public void insereUsuarioQueCurtiuNoComment(Curtida curtida, Comment comment) throws EntityNotFoundException {
+
+		Key key = KeyFactory.createKey(Comment.class.getName(), curtida
+				.getIdPost());
+		Entity valueEntity = datastore.get(key);
+
+		valueEntity.setProperty(CommentFields.USER_LIKE.getField(), valueEntity
+				.getProperty(CommentFields.USER_LIKE.getField())
+				+ curtida.getUsuarioLogado()+ " ");
+
+		persist(valueEntity);
+
+	}
+
+	public void incrementaNumeroDeLikesDaEntityDoComment(Curtida curtida) throws EntityNotFoundException {
+
+		Key key = KeyFactory.createKey(Comment.class.getName(), curtida
+				.getIdPost());
+		Entity valueEntity = datastore.get(key);
+		int likes = Integer.parseInt(valueEntity.getProperty(
+				CommentFields.LIKES.getField()).toString());
+		valueEntity.setProperty(CommentFields.LIKES.getField(), likes + 1);
+		persist(valueEntity);
+
+	}
+
+
 
 }

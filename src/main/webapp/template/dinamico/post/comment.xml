@@ -11,12 +11,13 @@
 						<a href="#">${comment.usuario}</a> <br />
 						${converteData(comment.dataDeCriacao)}
 					</div>
-					<div class="list_stories_headline_comments">
-						<a id="clearfix" class="link">
-							<span class="icon_comments"></span>
-							0
-						</a>
-					</div>
+					<!-- FUTURO COMENTARIO DO COMENTARIO (TREE) -->
+<!--					<div class="list_stories_headline_comments">-->
+<!--						<a id="clearfix" class="link">-->
+<!--							<span class="icon_comments"></span>-->
+<!--							0-->
+<!--						</a>-->
+<!--					</div>-->
 					<div class="list_stories_headline_dx">
 						<a id="clearfix" class="linkCurtir comentario">
 								<span class="icon_dx"></span>

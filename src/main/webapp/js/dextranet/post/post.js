@@ -108,7 +108,7 @@ dextranet.post = {
 				data : {
 					"usuario" : user,
 					"id" : idDoPost,
-					"ehPost" : ehPost
+					"isPost" : ehPost
 					},
 				success : function() {
 					dextranet.post.atualizaPost(idDoPost);
