@@ -43,6 +43,8 @@ public class PostRepository extends BaseRepository {
 		return new Post(this.obtemPorId(id, Post.class));
 	}
 
+
+
 	public List<Post> buscarTodosOsPosts(int maxResults, int offSet) {
 
 		Query query = new Query(Post.class.getName());
@@ -224,7 +226,7 @@ public class PostRepository extends BaseRepository {
 
 		valueEntity.setProperty(PostFields.USER_LIKE.getField(), valueEntity
 				.getProperty(PostFields.USER_LIKE.getField())
-				+ " " + curtida.getUsuarioLogado());
+				+curtida.getUsuarioLogado()+ " ");
 
 		persist(valueEntity);
 
