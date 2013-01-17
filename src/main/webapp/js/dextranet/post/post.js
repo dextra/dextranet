@@ -99,9 +99,11 @@ dextranet.post = {
 			var user = $("#user_login").text();
 			var classe = $(this).attr("class").substring(11);
 			var ehPost = true;
-
-			if(classe == "comentario")
+			console.log(classe);
+			if(classe == "comentario ttip") {
 				ehPost = false;
+				console.log("entrou aqui");
+			}
 
 			$.ajax( {
 				type : 'POST',
