@@ -45,7 +45,7 @@
 
 	<script>
 		dextranet.post.adicionaBotaoVerMais(this.jsonArrayPost);
-		dextranet.comment.chamaAbreTelaComentario();
+		dextranet.comment.chamaAbreTelaComentario({html:true});
 		dextranet.post.curtePost();
 		$('.linkCurtir').tipsy();
 	</script>
