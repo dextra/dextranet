@@ -2,7 +2,6 @@
 
 	<template selector="#relacao_dos_posts" append="true">
 			{for post in jsonArrayPost}
-
 			<li class="clearfix ${post.postObjectJson.id}">
 				<div class="list_stories_headline_data">
 					${converteData(post.postObjectJson.dataDeCriacao)}
@@ -22,7 +21,7 @@
 						</a>
 					</div>
 					<div class="list_stories_headline_dx">
-						<a id="clearfix ${post.postObjectJson.id}" class="linkCurtir" original-title="${post.postObjectJson.userLike}">
+						<a id="clearfix ${post.postObjectJson.id}" original-title="${post.postObjectJson.userLike}" class="linkCurtir">
 						<span class="icon_dx"></span>
 						<span class="numero_curtida">${post.postObjectJson.likes}</span>
 						</a>
@@ -47,6 +46,6 @@
 		dextranet.post.adicionaBotaoVerMais(this.jsonArrayPost);
 		dextranet.comment.chamaAbreTelaComentario({html:true});
 		dextranet.post.curtePost();
-		$('.linkCurtir').tipsy();
+		$('.linkCurtir').tipsy({html:true});
 	</script>
 </engine>

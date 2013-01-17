@@ -28,9 +28,11 @@ dextranet.post = {
 			success : function(posts) {
 				if(posts.length > 0){
 					postObjectArray = postObject.getpostObjectArrayFromPostJsonArray(posts);
-
 					$(postObjectArray).each(function(){
 						this.setHiddenText();
+						console.log(this);
+						this.postObjectJson.userLike = (this.postObjectJson.userLike).replace(/ /,'');
+						this.postObjectJson.userLike = (this.postObjectJson.userLike).replace(/ /g,'&lt;br/&gt;');
 					});
 
 					dextranet.post.carregaTemplatePost(postObjectArray);
