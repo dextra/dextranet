@@ -15,6 +15,7 @@
 				</a>
 				<ul id="box_new_post" class="sidebar_show_right">
 					<li>
+					<div id="container_message_warning_post"></div>
 						<form action="" id="form_new_post">
 							<input width="98%" type="text" id="form_input_title"
 								placeholder="${messages.placeholder_title_post}" name="title" maxlength="60"></input>

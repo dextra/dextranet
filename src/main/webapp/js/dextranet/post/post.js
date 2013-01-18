@@ -70,10 +70,11 @@ dextranet.post = {
 		var conteudo = CKEDITOR.instances.form_input_content.getData();
 		var autor = $("#user_login").text();
 
+		dextranet.home.limparAvisoPreenchaCampos();
 
 		if (dextranet.strip.allElem(titulo) == "" || dextranet.strip.allElem(conteudo) == "") {
-			if(!dextranet.home.EhVisivel("#message-warning"))
-				$("#form_new_post").before('<ul class="message" id="message-warning"><li class="warning">Preencha</li></ul>');
+			$("#container_message_warning_post").addClass("container_message_warning");
+			$.holy("../template/dinamico/post/mensagem_preencha_campos.xml", {});
 		} else {
 
 			$.ajax( {
@@ -86,7 +87,7 @@ dextranet.post = {
 				},
 				success : function() {
 					dextranet.home.carregaDados();
-					$.holy("../template/dinamico/post/mensagem.xml", {});
+					$.holy("../template/dinamico/post/mensagem_sucesso.xml", {});
 				}
 			});
 		}

@@ -68,9 +68,14 @@ dextranet.comment = {
 			var conteudo = CKEDITOR.instances.textarea_comment.getData();
 			var autor = $("#user_login").text();
 
+			dextranet.home.limparAvisoPreenchaCampos();
+
 			if (dextranet.strip.allElem(conteudo) == "") {
-				if(!dextranet.home.EhVisivel("#message-warning-comment"))
-					$("#form_comment").before('<ul class="message" id="message-warning-comment"><li class="warning">Preencha</li></ul>');
+				if(!dextranet.home.EhVisivel("#message-warning"))
+				{
+					$("#container_message_warning_comment").addClass("container_message_warning");
+					$.holy("../template/dinamico/post/mensagem_preencha_campos.xml", {"seletor":"#container_message_warning_comment"});
+				}
 			}else {
 				$.ajax( {
 					type : 'POST',
@@ -93,7 +98,7 @@ dextranet.comment = {
 
 	limpaTelaComentario : function()
 	{
-		if(dextranet.home.EhVisivel("#message-warning-comment"))
+		if(dextranet.home.EhVisivel("#message-warning"))
 			$(".message").remove();
 		$("#list_comments_fromPost").empty();
 		CKEDITOR.instances.textarea_comment.setData(null);
