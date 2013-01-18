@@ -57,7 +57,7 @@ dextranet.comment = {
 			success : function(comments) {
 					commentObjectArray = postObject.getpostObjectArrayFromPostJsonArray(comments);
 					$(commentObjectArray).each(function(){
-						dextranet.post.replaceDoTipsy(this.postObjectJson.userLikes);
+						this.postObjectJson.userLikes = dextranet.post.replaceDoTipsy(this.postObjectJson.userLikes);
 					});
 					if(commentObjectArray.length > 0)
 						$.holy("../template/dinamico/post/comment.xml", {"jsonArrayComment" : commentObjectArray});
@@ -111,7 +111,7 @@ dextranet.comment = {
 					commentObjectArray = postObject.getpostObjectArrayFromPostJsonArray(comment);
 					$(commentObjectArray).each(function() {
 						$("span#" + idComentario).text(this.postObjectJson.likes);
-						$(".comentario").attr("original-title", dextranet.post.replaceDoTipsy(this.postObjectJson.userLikes));
+						$("li." + idComentario + " .comentario").attr("original-title", dextranet.post.replaceDoTipsy(this.postObjectJson.userLikes));
 					});
 				}
 		});
