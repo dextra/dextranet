@@ -130,6 +130,7 @@ dextranet.post = {
 					$(postObjectArray).each(function(){
 						$("li." + idDoPost + " .numero_comentario").text(this.postObjectJson.comentarios);
 						$("li." + idDoPost + " .numero_curtida").text(this.postObjectJson.likes);
+						console.log(dextranet.post.replaceDoTipsy(this.postObjectJson.userLike));
 						$(".post").attr("original-title", dextranet.post.replaceDoTipsy(this.postObjectJson.userLike));
 					});
 				}
@@ -155,6 +156,6 @@ dextranet.post = {
 	replaceDoTipsy : function(conteudo) {
 		conteudo = conteudo.replace(/ /,'');
 		conteudo = conteudo.replace(/ /g,'&lt;br/&gt;');
-		return conteudo.replace($("#user_login").text(), 'você');
+		return conteudo.replace(dextranet.usuario, 'você');
 	}
 };

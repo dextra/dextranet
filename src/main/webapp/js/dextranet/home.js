@@ -1,5 +1,6 @@
-
 dextranet = {
+	usuario : "",
+
 	configuraLoading : function() {
 		$.loading( {
 			text : 'Carregando...',
@@ -24,7 +25,6 @@ dextranet.home = {
 		dextranet.home.loadMessages();
 		consulta.setText("");
 		dextranet.home.carregueOsTemplates();
-		dextranet.post.listaPost("", 0);
 	},
 
 	loadMessages : function() {
@@ -38,12 +38,14 @@ dextranet.home = {
 			type : "GET",
 			url : "/s/usuario",
 			success : function(usuario) {
+				dextranet.usuario = usuario.nickName;
 				$.holy("../template/estatico/carrega_dados_usuario.xml", usuario);
 			}
 		});
 
 		$.holy("../template/estatico/carrega_menu_principal.xml", {});
 		$.holy("../template/estatico/carrega_menu_lateral.xml", {});
+		dextranet.post.listaPost("", 0);
 	},
 
 	setActiveMenuLateral : function(id) {
