@@ -61,6 +61,7 @@ dextranet.home = {
 			dextranet.home.setActiveMenuLateral("#sidebar_left_home");
 		}
 		else {
+			dextranet.home.limparAvisoPreenchaCampos();
 			$(".sidebar_show_right").css("display","block");
 			dextranet.home.setActiveMenuLateral("#sidebar_left_new_post");
 		}
@@ -135,6 +136,14 @@ dextranet.home = {
 			var idDoPost = $(this).attr("class").substring(7);
 			$("div#" + idDoPost + "_post").slideToggle("fast");
 		});
+	},
+
+	limparAvisoPreenchaCampos : function() {
+		if(dextranet.home.EhVisivel("div.container_message_warning"))
+		{
+			$("div.container_message_warning").empty();
+			$("div.container_message_warning").removeClass("container_message_warning");
+		}
 	}
 
 };

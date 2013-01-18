@@ -4,6 +4,7 @@
 		<div id="list_comments_fromPost">
 		</div>
 		<div id='list_stories_form_comment'>
+		<div id="container_message_warning_comment"></div>
 			<form id='form_comment' class="${idDoPost}">
 				<br/><textarea id='textarea_comment' placeholder='${messages.placeholder_comment}' style='resize:none;' />
 				<br/><p align='center'><input type='submit' value='${messages.button_comment}' id='input_comment_submit' class="submit" /></p>
