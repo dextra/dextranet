@@ -27,6 +27,7 @@ dextranet.comment = {
 	},
 
 	abreTelaComentario : function(idDaDivDoPost, idDoPost) {
+		console.log(idDaDivDoPost);
 		var LIs = $("#relacao_dos_posts").children();
 		var deuCerto = false;
 		LIs.each(function() {
@@ -43,7 +44,11 @@ dextranet.comment = {
 
 	carregaComentario : function(idDoPost) {
 		$("div." + idDoPost).addClass("esteAqui");
+		dextranet.comment.listaComentarios(idDoPost);
+		idUltimo = idDoPost;
+	},
 
+	listaComentarios : function(idDoPost) {
 		$.ajax( {
 			type : 'GET',
 			url : '/s/comment',
@@ -59,7 +64,7 @@ dextranet.comment = {
 						$.holy("../template/dinamico/post/comment.xml", {"jsonArrayComment" : comments});
 			}
 		});
-		idUltimo = idDoPost;
+		return false;
 	},
 
 	comentar : function() {
@@ -71,7 +76,7 @@ dextranet.comment = {
 			if (dextranet.strip.allElem(conteudo) == "") {
 				if(!dextranet.home.EhVisivel("#message-warning-comment"))
 					$("#form_comment").before('<ul class="message" id="message-warning-comment"><li class="warning">Preencha</li></ul>');
-			}else {
+			} else {
 				$.ajax( {
 					type : 'POST',
 					url : '/s/comment',
@@ -91,11 +96,28 @@ dextranet.comment = {
 		});
 	},
 
-	limpaTelaComentario : function()
-	{
+	atualizaComentario : function(idComentario) {
+		$.ajax({
+			type : 'GET',
+			url : '/s/comment',
+			data : {
+				"idComment" : idComentario
+				},
+			success : function(comment) {
+
+					commentObjectArray = postObject.getpostObjectArrayFromPostJsonArray(comment);
+					$(commentObjectArray).each(function() {
+						console.log(this.postObjectJson.likes)
+						$("span#" + idComentario).text(this.postObjectJson.likes);
+					});
+				}
+		});
+	},
+
+	limpaTelaComentario : function() {
 		if(dextranet.home.EhVisivel("#message-warning-comment"))
 			$(".message").remove();
 		$("#list_comments_fromPost").empty();
-		CKEDITOR.instances.textarea_comment.setData(null);
+		CKEDITOR.instances.textarea_comment.setData("");
 	}
 }

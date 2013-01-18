@@ -27,7 +27,7 @@ public class PostFuncionalTest extends TesteFuncionalBase{
 	private int vezesQueOScrollDescera = (int) Math.round(((double)quantidadePosts/20)+0.5);
 //	private String termoQueSeraPesquisado = "60";
 
-	@Test
+
 	public void fluxoDeCriacaoPesquisaEPaginacaoDePosts(){
 		dadoQueUsuarioAcessaPaginaPrincipal().criaVariosPosts(quantidadePosts);
 		quandoUsuarioDesceScrollAteFimDaPagina(vezesQueOScrollDescera);
@@ -125,13 +125,8 @@ public class PostFuncionalTest extends TesteFuncionalBase{
 	public void fluxoDeCriacaoEListagemDeComentarios()
 	{
 		dadoQueUsuarioAcessaPaginaPrincipal().criaVariosPosts(1);
-		depoisCrioVariosComentariosParaOsPostsCriados(3);
-		clicoNoBotaoParaExibirOsComentarios();
+		depoisCrioVariosComentariosParaOsPostsCriados(1);
 		entaoVisualizoOsComentarios().eTodosOsComentariosCriadosForamExibidos();
-	}
-
-	private void clicoNoBotaoParaExibirOsComentarios() {
-		paginaPrincipal.clicaEmNovoComentario();
 	}
 
 	private void eTodosOsComentariosCriadosForamExibidos() {
@@ -151,14 +146,16 @@ public class PostFuncionalTest extends TesteFuncionalBase{
 	}
 
 	private void depoisCrioVariosComentariosParaOsPostsCriados(int quantidadeDeComentarios) {
+		PaginaNovoComentario paginaNovoComentario = paginaPrincipal.clicaEmNovoComentario();
+
 		for(int i = 1; i <= quantidadeDeComentarios ; i++){
 			String conteudo = "Texto do comentário teste numero: " + i;
 
-			PaginaNovoComentario paginaNovoComentario = paginaPrincipal.clicaEmNovoComentario();
 			paginaNovoComentario.criaNovoComentario(conteudo);
 
 			// armazena o conteudo dos comentarios criados para futura comparacão
 			alimentarBaseDosTestesDoComentario(conteudo);
+			paginaNovoComentario.waitingForLoading();
 		}
 	}
 
