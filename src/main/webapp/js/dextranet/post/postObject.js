@@ -1,15 +1,7 @@
 var postObject = function(postJson){
 	this.postObjectJson = postJson;
-	this.postObjectJson.visibleText = this.postObjectJson.conteudo;
 
-	this.setHiddenText = function(){
-		$(this).readmore( {
-			substr_len : 300,
-			substr_lines : 5,
-			split_word : false,
-			ellipses : '...'
-		});
-	}
+
 }
 
 

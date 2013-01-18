@@ -29,7 +29,6 @@ dextranet.post = {
 				if(posts.length > 0){
 					postObjectArray = postObject.getpostObjectArrayFromPostJsonArray(posts);
 					$(postObjectArray).each(function(){
-						this.setHiddenText();
 						this.postObjectJson.userLike = dextranet.post.replaceDoTipsy(this.postObjectJson.userLike);
 					});
 
@@ -49,11 +48,6 @@ dextranet.post = {
 		return $.holy(template, {"jsonArrayPost" : postObjectArray});
 	},
 
-	adicionaBotaoVerMais : function(postObjectArray){
-		dextranet.post.removeParagrafosVazios($(".list_stories_lead"));
-		dextranet.readMoreButton.addButtonEvent($(".list_stories_footer_call"),postObjectArray);
-	},
-
 	removeParagrafosVazios : function(posts){
 		posts.each(function(){
 			var paragrafos = $(this).children();
@@ -61,7 +55,6 @@ dextranet.post = {
 			$(paragrafos[$(paragrafos).size()-1]).remove();
 		});
 	},
-
 
 	criaNovoPost : function() {
 
