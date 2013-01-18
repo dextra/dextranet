@@ -50,16 +50,24 @@ public class CommentRS {
 		return Response.ok().build();
 	}
 
-
 	@Path("/")
 	@GET
 	@Produces("application/json;charset=UTF-8")
-	public String consultar(@DefaultValue("") @QueryParam("idReference") String idReference)
+	public String consultar(
+			@DefaultValue("") @QueryParam("idReference") String idReference,
+			@DefaultValue("") @QueryParam("idComment") String idComment)
 			throws EntityNotFoundException {
-
 		List<Comment> listaComments = new ArrayList<Comment>();
-		listaComments = repositorio.listarCommentsDeUmPost(idReference);
-		return new Converters().converterListaDeCommentParaListaDeJson(listaComments).toString();
+
+		if (idComment.equals(""))
+			listaComments = repositorio.listarCommentsDeUmPost(idReference);
+
+		else
+			listaComments = repositorio.pegaCommentPorId(idComment);
+
+		return new Converters().converterListaDeCommentParaListaDeJson(
+				listaComments).toString();
+
 	}
 
 }

@@ -23,7 +23,7 @@
 						<a id="clearfix ${comment.id}" class="linkCurtir comentario" original-title="${comment.userLikes}">
 
 								<span class="icon_dx"></span>
-								${comment.likes}
+								<span id="${comment.id}">${comment.likes}</span>
 						</a>
 					</div>
 				</div>

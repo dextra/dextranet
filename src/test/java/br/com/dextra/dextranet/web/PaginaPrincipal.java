@@ -25,6 +25,12 @@ public class PaginaPrincipal extends PaginaBase {
 		return new PaginaNovoPost(driver);
 	}
 
+	public PaginaNovoComentario abreNovoComentario()
+	{
+		this.waitingForLoading();
+		return new PaginaNovoComentario(driver);
+	}
+
 	public PaginaNovoComentario clicaEmNovoComentario() {
 		this.click("a.link");
 		this.waitingForLoading();

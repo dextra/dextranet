@@ -113,7 +113,11 @@ dextranet.post = {
 					"isPost" : ehPost
 					},
 				success : function() {
-					dextranet.post.atualizaPost(idDoPost);
+					if(ehPost) {
+						dextranet.post.atualizaPost(idDoPost);
+					} else {
+						dextranet.comment.atualizaComentario(idDoPost);
+					}
 				}
 			});
 		});

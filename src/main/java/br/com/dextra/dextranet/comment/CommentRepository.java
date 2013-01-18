@@ -25,7 +25,6 @@ public class CommentRepository extends BaseRepository {
 	public Comment criar(Comment comment) {
 		this.persist(comment.toEntity());
 
-
 		//TODO: indexação do post que foi comentado com conteudo do comment
 		//FIXME: arrumar o set do document ja existente
 		//DocumentRepository respositoryDocument = new DocumentRepository();
@@ -88,6 +87,19 @@ public class CommentRepository extends BaseRepository {
 				CommentFields.LIKES.getField()).toString());
 		valueEntity.setProperty(CommentFields.LIKES.getField(), likes + 1);
 		persist(valueEntity);
+
+	}
+
+	@SuppressWarnings("deprecation")
+	public List<Comment> pegaCommentPorId(String idComment) {
+
+		Query query = new Query(Comment.class.getName());
+
+		query.addFilter(CommentFields.ID.getField(),FilterOperator.EQUAL, idComment);
+
+		PreparedQuery prepared = datastore.prepare(query);
+
+		return toListaDeComments(prepared.asIterable());
 
 	}
 
