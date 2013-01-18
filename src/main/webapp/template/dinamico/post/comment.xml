@@ -4,7 +4,7 @@
 	<br></br>
 		<ul class="list_stories_comment" id="relacao_dos_comentarios">
 			{for comment in jsonArrayComment}
-			<li class="clearfix ${comment.id}">
+			<li class="clearfix ${comment.postObjectJson.id}">
 				<img src="" alt="photo" class="list_stories_comment_avatar" />
 				<div class="list_stories_comment_headline clearfix">
 					<div class="list_stories_comment_headline_author">
@@ -20,15 +20,15 @@
 <!--					</div>-->
 					<div class="list_stories_headline_dx">
 
-						<a id="clearfix ${comment.id}" class="linkCurtir comentario" original-title="${comment.userLikes}">
+						<a id="clearfix ${comment.postObjectJson.id}" class="linkCurtir comentario" original-title="${comment.postObjectJson.userLikes}">
 
 								<span class="icon_dx"></span>
-								<span id="${comment.id}">${comment.likes}</span>
+								<span id="${comment.postObjectJson.id}">${comment.likes}</span>
 						</a>
 					</div>
 				</div>
-				<div id="${comment.id}_post" class="list_stories_comment_lead">
-					<p id="${comment.id}">
+				<div id="${comment.postObjectJson.id}_post" class="list_stories_comment_lead">
+					<p id="${comment.postObjectJson.id}">
 						${comment.conteudo}
 					</p>
 				</div>

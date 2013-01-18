@@ -56,9 +56,9 @@ dextranet.comment = {
 				"idReference" : idDoPost
 				},
 			success : function(comments) {
-					$(comments).each(function(){
-						this.userLikes = (this.userLikes).replace(/ /,'');
-						this.userLikes = (this.userLikes).replace(/ /g,'&lt;br/&gt;');
+					commentObjectArray = postObject.getpostObjectArrayFromPostJsonArray(comments);
+					$(commentObjectArray).each(function(){
+						dextranet.post.replaceDoTipsy(this.postObjectJson.userLikes);
 					});
 					if(comments.length > 0)
 						$.holy("../template/dinamico/post/comment.xml", {"jsonArrayComment" : comments});
@@ -109,11 +109,10 @@ dextranet.comment = {
 				"idComment" : idComentario
 				},
 			success : function(comment) {
-
 					commentObjectArray = postObject.getpostObjectArrayFromPostJsonArray(comment);
 					$(commentObjectArray).each(function() {
 						$("span#" + idComentario).text(this.postObjectJson.likes);
-						$(".comentario").attr("original-title", this.postObjectJson.userLikes);
+						$(".comentario").attr("original-title", dextranet.post.replaceDoTipsy(this.postObjectJson.userLikes));
 					});
 				}
 		});

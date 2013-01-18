@@ -30,8 +30,7 @@ dextranet.post = {
 					postObjectArray = postObject.getpostObjectArrayFromPostJsonArray(posts);
 					$(postObjectArray).each(function(){
 						this.setHiddenText();
-						this.postObjectJson.userLike = (this.postObjectJson.userLike).replace(/ /,'');
-						this.postObjectJson.userLike = (this.postObjectJson.userLike).replace(/ /g,'&lt;br/&gt;');
+						this.postObjectJson.userLike = dextranet.post.replaceDoTipsy(this.postObjectJson.userLike);
 					});
 
 					dextranet.post.carregaTemplatePost(postObjectArray);
@@ -138,7 +137,7 @@ dextranet.post = {
 					$(postObjectArray).each(function(){
 						$("li." + idDoPost + " .numero_comentario").text(this.postObjectJson.comentarios);
 						$("li." + idDoPost + " .numero_curtida").text(this.postObjectJson.likes);
-						$(".post").attr("original-title", this.postObjectJson.userLike);
+						$(".post").attr("original-title", dextranet.post.replaceDoTipsy(this.postObjectJson.userLike));
 					});
 				}
 		});
@@ -158,5 +157,11 @@ dextranet.post = {
 				alert("Removido");
 			}
 		} );
+	},
+
+	replaceDoTipsy : function(conteudo) {
+		conteudo = conteudo.replace(/ /,'');
+		conteudo = conteudo.replace(/ /g,'&lt;br/&gt;');
+		return conteudo.replace($("#user_login").text(), 'você');
 	}
 };
