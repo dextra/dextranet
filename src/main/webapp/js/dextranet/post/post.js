@@ -141,5 +141,21 @@ dextranet.post = {
 					});
 				}
 		});
+	},
+
+	removeTodosOsPosts:function() {
+		$.ajax( {
+			type : "GET",
+			url : "http://localhost:8080/s/post?max-results=70&page=0&q=",
+			success : function(posts) {
+				for (i=0; i < posts.length; i++) {
+					$.ajax( {
+						type: "DELETE",
+						url : "http://localhost:8080/s/post/" + posts[i].id
+					} );
+				}
+				alert("Removido");
+			}
+		} );
 	}
 };
