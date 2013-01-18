@@ -27,7 +27,6 @@ dextranet.comment = {
 	},
 
 	abreTelaComentario : function(idDaDivDoPost, idDoPost) {
-		console.log(idDaDivDoPost);
 		var LIs = $("#relacao_dos_posts").children();
 		var deuCerto = false;
 		LIs.each(function() {
@@ -60,8 +59,8 @@ dextranet.comment = {
 					$(commentObjectArray).each(function(){
 						dextranet.post.replaceDoTipsy(this.postObjectJson.userLikes);
 					});
-					if(comments.length > 0)
-						$.holy("../template/dinamico/post/comment.xml", {"jsonArrayComment" : comments});
+					if(commentObjectArray.length > 0)
+						$.holy("../template/dinamico/post/comment.xml", {"jsonArrayComment" : commentObjectArray});
 			}
 		});
 		return false;

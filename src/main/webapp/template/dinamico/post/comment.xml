@@ -8,8 +8,8 @@
 				<img src="" alt="photo" class="list_stories_comment_avatar" />
 				<div class="list_stories_comment_headline clearfix">
 					<div class="list_stories_comment_headline_author">
-						<a href="#">${comment.usuario}</a> <br />
-						${converteData(comment.dataDeCriacao)}
+						<a href="#">${comment.postObjectJson.usuario}</a> <br />
+						${converteData(comment.postObjectJson.dataDeCriacao)}
 					</div>
 					<!-- FUTURO COMENTARIO DO COMENTARIO (TREE) -->
 <!--					<div class="list_stories_headline_comments">-->
@@ -23,13 +23,13 @@
 						<a id="clearfix ${comment.postObjectJson.id}" class="linkCurtir comentario" original-title="${comment.postObjectJson.userLikes}">
 
 								<span class="icon_dx"></span>
-								<span id="${comment.postObjectJson.id}">${comment.likes}</span>
+								<span id="${comment.postObjectJson.id}">${comment.postObjectJson.likes}</span>
 						</a>
 					</div>
 				</div>
 				<div id="${comment.postObjectJson.id}_post" class="list_stories_comment_lead">
 					<p id="${comment.postObjectJson.id}">
-						${comment.conteudo}
+						${comment.postObjectJson.conteudo}
 					</p>
 				</div>
 			</li>
