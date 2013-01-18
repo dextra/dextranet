@@ -137,6 +137,7 @@ dextranet.post = {
 					$(postObjectArray).each(function(){
 						$("li." + idDoPost + " .numero_comentario").text(this.postObjectJson.comentarios);
 						$("li." + idDoPost + " .numero_curtida").text(this.postObjectJson.likes);
+						$(".post").attr("original-title", this.postObjectJson.userLike);
 					});
 				}
 		});

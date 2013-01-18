@@ -107,8 +107,8 @@ dextranet.comment = {
 
 					commentObjectArray = postObject.getpostObjectArrayFromPostJsonArray(comment);
 					$(commentObjectArray).each(function() {
-						console.log(this.postObjectJson.likes)
 						$("span#" + idComentario).text(this.postObjectJson.likes);
+						$(".comentario").attr("original-title", this.postObjectJson.userLikes);
 					});
 				}
 		});
