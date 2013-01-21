@@ -154,7 +154,7 @@ dextranet.post = {
 
 	replaceDoTipsy : function(conteudo) {
 		conteudo = conteudo.replace(/ /,'');
-		conteudo = conteudo.replace(/ /g,'&lt;br/&gt;');
+		conteudo = conteudo.replace(/ /g,'<br/>');
 		return conteudo.replace(dextranet.usuario, 'você');
 	}
 };
