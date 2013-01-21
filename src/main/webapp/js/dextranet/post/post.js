@@ -73,7 +73,7 @@ dextranet.post = {
 				type : "POST",
 				url : "/s/post",
 				data : {
-					"title" : titulo.replace(/ /g, "&nbsp;"), //.replace serve pro browser reconhecer os espaços digitados pelo usuario
+					"title" : titulo.replace(/  /g, " &nbsp;"), //.replace serve pro browser reconhecer os espaços digitados pelo usuario
 					"content" : dextranet.strip.lineBreak(conteudo),
 					"author" : autor
 				},
