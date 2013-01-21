@@ -39,7 +39,6 @@ dextranet.post = {
 
 		if (pagina == 0){
 			$.holy("../template/dinamico/carrega_miolo_home_page.xml",{});
-
 		}
 	},
 
@@ -89,7 +88,6 @@ dextranet.post = {
 	curtePost : function() {
 		$(".linkCurtir").click(function() {
 			var idDoPost = $(this).attr("id").substring(9);
-			var user = $("#user_login").text();
 			var classe = $(this).attr("class").substring(11);
 			var ehPost = true;
 			if(classe == "comentario ttip") {
@@ -100,7 +98,7 @@ dextranet.post = {
 				type : 'POST',
 				url : '/s/curtida',
 				data : {
-					"usuario" : user,
+					"usuario" : dextranet.usuario,
 					"id" : idDoPost,
 					"isPost" : ehPost
 					},
@@ -155,6 +153,7 @@ dextranet.post = {
 	replaceDoTipsy : function(conteudo) {
 		conteudo = conteudo.replace(/ /,'');
 		conteudo = conteudo.replace(/ /g,'<br/>');
+		console.log(dextranet.usuario);
 		return conteudo.replace(dextranet.usuario, 'você');
 	}
 };

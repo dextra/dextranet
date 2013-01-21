@@ -40,12 +40,12 @@ dextranet.home = {
 			success : function(usuario) {
 				dextranet.usuario = usuario.nickName;
 				$.holy("../template/estatico/carrega_dados_usuario.xml", usuario);
+				$.holy("../template/estatico/carrega_menu_principal.xml", {});
+				$.holy("../template/estatico/carrega_menu_lateral.xml", {});
+				dextranet.post.listaPost("", 0);
 			}
 		});
 
-		$.holy("../template/estatico/carrega_menu_principal.xml", {});
-		$.holy("../template/estatico/carrega_menu_lateral.xml", {});
-		dextranet.post.listaPost("", 0);
 	},
 
 	setActiveMenuLateral : function(id) {
