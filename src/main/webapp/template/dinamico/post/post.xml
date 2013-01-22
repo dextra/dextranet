@@ -1,6 +1,6 @@
 <engine>
 
-	<template selector="#relacao_dos_posts" append="true">
+	<template selector="#relacao_dos_posts" append="false">
 			{for post in jsonArrayPost}
 			<li class="clearfix ${post.postObjectJson.id}">
 				<div class="list_stories_headline_data">
@@ -43,9 +43,6 @@
 	</template>
 
 	<script>
-		dextranet.home.descerComentario();
-		dextranet.comment.chamaAbreTelaComentario({html:true});
-		dextranet.post.curtePost();
-		$('.linkCurtir').tipsy({html:true});
+		dextranet.post.inicializa();
 	</script>
 </engine>

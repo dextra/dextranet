@@ -1,17 +1,14 @@
 dextranet.post = {
 
-	fazPesquisa : function() {
-		var pagina = 0;
-		consulta.setText($('#form_search_input').val());
-
-		if(consulta.getText() != ""){
-			dextranet.post.listaPost(consulta.getText(), pagina);
-		}
-		return false;
+	inicializa : function() {
+		dextranet.post.verConteudoPost();
+		dextranet.comment.inicializa();
+		dextranet.curtir.curte();
+		$('.linkCurtir').tipsy({html:true});
 	},
 
-	listaPost : function(query, pagina)
-	{
+	listaPost : function(query, pagina) {
+		$("#relacao_dos_posts").empty();
 		var url = "/s/post";
 		var quantidadePostsSolicitados = "20";
 
@@ -36,10 +33,64 @@ dextranet.post = {
 				}
 			}
 		});
+	},
 
-		if (pagina == 0){
-			$.holy("../template/dinamico/carrega_miolo_home_page.xml",{});
+	buscaPost : function() {
+		$("#container_mensagem").empty();
+		var pagina = 0;
+		consulta.setText($('#form_search_input').val());
+
+		if(consulta.getText() != ""){
+			dextranet.post.listaPost(consulta.getText(), pagina);
 		}
+		return false;
+	},
+
+	criaNovoPost : function() {
+
+		var titulo = dextranet.strip.tagHTML($("#form_input_title").val());
+		var conteudo = CKEDITOR.instances.form_input_content.getData();
+		var autor = $("#user_login").text();
+
+		dextranet.home.limparAvisoPreenchaCampos();
+
+		if (dextranet.strip.allElem(titulo) == "" || dextranet.strip.allElem(conteudo) == "") {
+			$("#container_message_warning_post").addClass("container_message_warning");
+			$.holy("../template/dinamico/post/mensagem_preencha_campos.xml", {});
+		} else {
+			$.ajax( {
+				type : "POST",
+				url : "/s/post",
+				data : {
+					"title" : titulo.replace(/  /g, " &nbsp;"), //.replace serve pro browser reconhecer os espaços digitados pelo usuario
+					"content" : dextranet.strip.lineBreak(conteudo),
+					"author" : autor
+				},
+				success : function() {
+					dextranet.post.limpaTelaPost();
+					$("#container_mensagem").empty();
+					$.holy("../template/dinamico/post/mensagem_sucesso.xml", {});
+					dextranet.post.listaPost("", 0);
+				}
+			});
+		}
+		return false;
+	},
+	
+	removeTodosOsPosts:function() {
+		$.ajax( {
+			type : "GET",
+			url : "http://dextranet-desenvolvimento.appspot.com/s/post?max-results=70&page=0&q=",
+			success : function(posts) {
+				for (i=0; i < posts.length; i++) {
+					$.ajax( {
+						type: "DELETE",
+						url : "http://dextranet-desenvolvimento.appspot.com/s/post/" + posts[i].id
+					} );
+				}
+				alert("Removido");
+			}
+		} );
 	},
 
 	carregaTemplatePost : function(postObjectArray){
@@ -55,61 +106,10 @@ dextranet.post = {
 		});
 	},
 
-	criaNovoPost : function() {
-
-		var titulo = dextranet.strip.tagHTML($("#form_input_title").val());
-		var conteudo = CKEDITOR.instances.form_input_content.getData();
-		var autor = $("#user_login").text();
-
-		dextranet.home.limparAvisoPreenchaCampos();
-
-		if (dextranet.strip.allElem(titulo) == "" || dextranet.strip.allElem(conteudo) == "") {
-			$("#container_message_warning_post").addClass("container_message_warning");
-			$.holy("../template/dinamico/post/mensagem_preencha_campos.xml", {});
-		} else {
-
-			$.ajax( {
-				type : "POST",
-				url : "/s/post",
-				data : {
-					"title" : titulo.replace(/  /g, " &nbsp;"), //.replace serve pro browser reconhecer os espaços digitados pelo usuario
-					"content" : dextranet.strip.lineBreak(conteudo),
-					"author" : autor
-				},
-				success : function() {
-					dextranet.home.carregaDados();
-					$.holy("../template/dinamico/post/mensagem_sucesso.xml", {});
-				}
-			});
-		}
-		return false;
-	},
-
-	curtePost : function() {
-		$(".linkCurtir").click(function() {
-			var idDoPost = $(this).attr("id").substring(9);
-			var classe = $(this).attr("class").substring(11);
-			var ehPost = true;
-			if(classe == "comentario ttip") {
-				ehPost = false;
-			}
-
-			$.ajax( {
-				type : 'POST',
-				url : '/s/curtida',
-				data : {
-					"usuario" : dextranet.usuario,
-					"id" : idDoPost,
-					"isPost" : ehPost
-					},
-				success : function() {
-					if(ehPost) {
-						dextranet.post.atualizaPost(idDoPost);
-					} else {
-						dextranet.comment.atualizaComentario(idDoPost);
-					}
-				}
-			});
+	verConteudoPost : function() {
+		$("h2.titulo").click(function() {
+			var idDoPost = $(this).attr("class").substring(7);
+			$("div#" + idDoPost + "_post").slideToggle("fast");
 		});
 	},
 
@@ -134,26 +134,16 @@ dextranet.post = {
 		});
 	},
 
-	removeTodosOsPosts:function() {
-		$.ajax( {
-			type : "GET",
-			url : "http://dextranet-desenvolvimento.appspot.com/s/post?max-results=70&page=0&q=",
-			success : function(posts) {
-				for (i=0; i < posts.length; i++) {
-					$.ajax( {
-						type: "DELETE",
-						url : "http://dextranet-desenvolvimento.appspot.com/s/post/" + posts[i].id
-					} );
-				}
-				alert("Removido");
-			}
-		} );
-	},
-
 	replaceDoTipsy : function(conteudo) {
 		conteudo = conteudo.replace(/ /,'');
 		conteudo = conteudo.replace(/ /g,'<br/>');
-		console.log(dextranet.usuario);
-		return conteudo.replace(dextranet.usuario, 'você');
+		return conteudo.replace(dextranet.usuario.nickName, 'você');
+	},
+
+	limpaTelaPost : function() {
+		dextranet.home.abrePopUpNovoPost();
+		$("#form_input_title").val("");
+		$("#form_search_input").val("");
+		CKEDITOR.instances.form_input_content.setData("");
 	}
 };

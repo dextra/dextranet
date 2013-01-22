@@ -37,7 +37,7 @@
 		</ul>
 	</template>
 	<script>
-		dextranet.post.curtePost();
+		dextranet.curtir.curte();
 		$('.linkCurtir').tipsy({html:true});
 	</script>
 </engine>

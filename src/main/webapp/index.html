@@ -28,23 +28,26 @@
 	<script type="text/javascript" src="js/dextranet/i18n.js"></script>
 
     <!-- Scripts Dextranet -->
+    <script type="text/javascript" src="js/dextranet/settings.js"></script>
+	<script type="text/javascript" src="js/dextranet/interface.js"></script>
 	<script type="text/javascript" src="js/dextranet/home.js"></script>
-	<script type="text/javascript" src="js/dextranet/post/interface.js"></script>
+	<script type="text/javascript" src="js/dextranet/usuario.js"></script>
 	<script type="text/javascript" src="js/dextranet/post/post.js"></script>
 	<script type="text/javascript" src="js/dextranet/post/postObject.js"></script>
+	<script type="text/javascript" src="js/dextranet/post/comment.js"></script>
+	<script type="text/javascript" src="js/dextranet/post/curtir.js"></script>
 	<script type="text/javascript" src="js/dextranet/paginacao/paginacao.js"></script>
 	<script type="text/javascript" src="js/dextranet/paginacao/pagina.js"></script>
 	<script type="text/javascript" src="js/dextranet/paginacao/query.js"></script>
 	<script type="text/javascript" src="js/dextranet/utils/dateUtils.js"></script>
 	<script type="text/javascript" src="js/dextranet/utils/HTMLClean.js"></script>
-	<script type="text/javascript" src="js/dextranet/post/comment.js"></script>
 
 <title>Dextranet</title>
 
 <script>
 		$(document).ready(function() {
-		    dextranet.configuraLoading();
-            dextranet.home.carregaDados();
+			dextranet.settings.inicializa();
+            dextranet.home.inicializa();
         });
 </script>
 

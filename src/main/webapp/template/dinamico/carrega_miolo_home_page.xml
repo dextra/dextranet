@@ -20,6 +20,6 @@
 
 	<script>
 		numeroDaPagina.setPaginaInicial();
-		$('#form_search').submit(dextranet.post.fazPesquisa);
+		$('#form_search').submit(dextranet.post.buscaPost);
 	</script>
 </engine>

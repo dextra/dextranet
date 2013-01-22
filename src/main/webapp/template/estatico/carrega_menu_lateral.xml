@@ -49,7 +49,7 @@
 		</ul>
 	</template>
 	<script>
-		$("#button_sidebar_left_home").click(dextranet.home.carregaDados);
+		$("#button_sidebar_left_home").click(dextranet.home.inicializa);
 		$("#button_sidebar_left_novopost").click(dextranet.home.abrePopUpNovoPost);
 		$("#button_sidebar_left_category").click(dextranet.post.removeTodosOsPosts);
 		$("#button_sidebar_left_profile").click(dextranet.home.abrePaginaPerfil);

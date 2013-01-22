@@ -1,16 +1,17 @@
 
-dextranet.paginacao.query=function(){
+dextranet.paginacao.query = function() {
+
 	var text = "";
 
-	this.setText = function(novoTexto){
-		if(novoTexto == ""){
+	this.setText = function(novoTexto) {
+		if(novoTexto == "") {
 			text = "";
-		}
-		else{
+		} else {
 			text= "\"" + novoTexto + "\"";
 		}
 	}
-	this.getText = function(){
+
+	this.getText = function() {
 		return text;
 	}
 }
