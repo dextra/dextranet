@@ -72,7 +72,7 @@ public class CommentRepository extends BaseRepository {
 
 		valueEntity.setProperty(CommentFields.USER_LIKE.getField(), valueEntity
 				.getProperty(CommentFields.USER_LIKE.getField())
-				+ curtida.getUsuarioLogado()+ " ");
+				+" "+curtida.getUsuarioLogado());
 
 		persist(valueEntity);
 

@@ -1,4 +1,3 @@
-
 dextranet.paginacao.query = function() {
 
 	var text = "";

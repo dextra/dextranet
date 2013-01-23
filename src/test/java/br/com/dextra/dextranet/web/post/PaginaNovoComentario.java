@@ -10,7 +10,7 @@ public class PaginaNovoComentario extends PaginaBase{
 	}
 
 	public PaginaNovoComentario redigeConteudoDoComentario(String conteudo) {
-		this.writeCKEditor(conteudo, "#form_comment");
+		this.writeCKEditor(conteudo, "textarea_comment");
 
 		return this;
 	}

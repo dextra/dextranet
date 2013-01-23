@@ -6,7 +6,7 @@ dextranet.paginacao.paginacaoDosPosts = function() {
 	var scroll = new dextranet.paginacao.scroll();
 
 	$(window).scroll(function (){
-		if (scroll.solicitarNovaPagina()==true) {
+		if (scroll.solicitarNovaPagina() == true) {
 			dextranet.post.listaPost(consulta.getText(),numeroDaPagina.getPagina());
 			numeroDaPagina.next();
 		}

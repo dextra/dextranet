@@ -15,10 +15,7 @@ public class PaginaBase extends PageObject {
 	}
 
 	public void writeCKEditor(String text, String form) {
-		WebElement iframe = driver.findElement(By.cssSelector(form)).findElement(By.tagName("iframe"));
-		driver.switchTo().frame(iframe);
-		((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + text + "'");
-		driver.switchTo().defaultContent();
+		((JavascriptExecutor) driver).executeScript("CKEDITOR.instances." + form + ".setData(\"" + text + "\");");
 	}
 
 	public void waitingForLoading() {

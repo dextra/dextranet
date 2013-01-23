@@ -1,6 +1,6 @@
 <engine>
 
-	<template selector="#relacao_dos_posts" append="false">
+	<template selector="#relacao_dos_posts" append="true">
 			{for post in jsonArrayPost}
 			<li class="clearfix ${post.postObjectJson.id}">
 				<div class="list_stories_headline_data">
