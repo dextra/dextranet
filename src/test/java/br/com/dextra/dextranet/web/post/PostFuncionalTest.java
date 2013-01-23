@@ -27,7 +27,7 @@ public class PostFuncionalTest extends TesteFuncionalBase{
 	private int vezesQueOScrollDescera = (int) Math.round(((double)quantidadePosts/20)+0.5);
 //	private String termoQueSeraPesquisado = "60";
 
-	@Test
+	
 	public void fluxoDeCriacaoPesquisaEPaginacaoDePosts(){
 		dadoQueUsuarioAcessaPaginaPrincipal().criaVariosPosts(quantidadePosts);
 		quandoUsuarioDesceScrollAteFimDaPagina(vezesQueOScrollDescera);
