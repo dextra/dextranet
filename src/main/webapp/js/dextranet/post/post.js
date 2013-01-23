@@ -48,7 +48,7 @@ dextranet.post = {
 
 		if(consulta.getText() != ""){
 			$("#relacao_dos_posts").empty();
-			dextranet.paginacao.resetPaginacao;
+			dextranet.paginacao.resetPaginacao();
 			dextranet.post.listaPost(consulta.getText(), pagina);
 		}
 		return false;
@@ -79,7 +79,7 @@ dextranet.post = {
 					$("#container_mensagem").empty();
 					$.holy("../template/dinamico/post/mensagem_sucesso.xml", {});
 					$("#relacao_dos_posts").empty();
-					dextranet.paginacao.resetPaginacao;
+					dextranet.paginacao.resetPaginacao();
 					dextranet.post.listaPost("", 0);
 				}
 			});
