@@ -1,9 +1,7 @@
 package br.com.dextra.teste;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import br.com.dextra.expertus.page.PageObject;
 import br.com.dextra.expertus.page.TimedOutException;

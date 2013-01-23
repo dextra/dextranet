@@ -2,6 +2,7 @@ dextranet.home = {
 
 	inicializa : function() {
 		consulta.setText("");
+		dextranet.paginacao.resetPaginacao;
 		dextranet.home.carregueOsTemplates();
 		dextranet.usuario.autenticacao();
 	},

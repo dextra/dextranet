@@ -41,10 +41,10 @@ public class PaginaPrincipal extends PaginaBase {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 
 		// desce ate o fim do scroll
-		js.executeScript("window.scrollTo(0, Math.max(document.documentElement.scrollHeight, document.body.scrollHeight, document.documentElement.clientHeight));");
+		js.executeScript("window.scrollTo(0, 100000);");
 		this.waitingForLoading();
 		// volta o scroll para poder descer novamente
-		js.executeScript("window.scrollTo(0, 500);");
+		js.executeScript("window.scrollTo(0, -100000);");
 
 		return this;
 	}

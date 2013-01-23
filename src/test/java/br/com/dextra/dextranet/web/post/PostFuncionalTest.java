@@ -62,7 +62,7 @@ public class PostFuncionalTest extends TesteFuncionalBase{
 
 	private void quandoUsuarioDesceScrollAteFimDaPagina(int quantidadeDeVezesQueDescoOScroll){
 
-		for(int i= 0; i <= quantidadeDeVezesQueDescoOScroll;i++){
+		for(int i= 0; i <= quantidadeDeVezesQueDescoOScroll; i++){
 			paginaPrincipal.scrollAteFim();
 		}
 	}

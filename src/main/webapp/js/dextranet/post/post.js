@@ -7,8 +7,7 @@ dextranet.post = {
 		$('.linkCurtir').tipsy({html:true});
 	},
 
-	listaPost : function(query, pagina) {
-		$("#relacao_dos_posts").empty();
+	listaPost : function(query, pagina, oncomplete) {
 		var url = "/s/post";
 		var quantidadePostsSolicitados = "20";
 
@@ -30,6 +29,13 @@ dextranet.post = {
 					});
 
 					dextranet.post.carregaTemplatePost(postObjectArray);
+					
+					if(posts.length < 20) {
+						dextranet.paginacao.acabouOsPosts = true;
+					}
+				}
+				if (oncomplete) {
+					oncomplete();
 				}
 			}
 		});
@@ -41,6 +47,8 @@ dextranet.post = {
 		consulta.setText($('#form_search_input').val());
 
 		if(consulta.getText() != ""){
+			$("#relacao_dos_posts").empty();
+			dextranet.paginacao.resetPaginacao;
 			dextranet.post.listaPost(consulta.getText(), pagina);
 		}
 		return false;
@@ -70,6 +78,8 @@ dextranet.post = {
 					dextranet.post.limpaTelaPost();
 					$("#container_mensagem").empty();
 					$.holy("../template/dinamico/post/mensagem_sucesso.xml", {});
+					$("#relacao_dos_posts").empty();
+					dextranet.paginacao.resetPaginacao;
 					dextranet.post.listaPost("", 0);
 				}
 			});
