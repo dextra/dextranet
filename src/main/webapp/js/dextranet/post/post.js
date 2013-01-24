@@ -3,7 +3,6 @@ dextranet.post = {
 	inicializa : function() {
 		dextranet.post.verConteudoPost();
 		dextranet.comment.inicializa();
-		dextranet.curtir.curte();
 		$('.linkCurtir').tipsy({html:true});
 	},
 
@@ -25,7 +24,7 @@ dextranet.post = {
 				if(posts.length > 0){
 					postObjectArray = postObject.getpostObjectArrayFromPostJsonArray(posts);
 					$(postObjectArray).each(function(){
-						this.postObjectJson.userLike = dextranet.post.replaceDoTipsy(this.postObjectJson.userLike);
+						this.postObjectJson.userLike = dextranet.curtir.replaceDoTipsy(this.postObjectJson.userLike);
 					});
 
 					dextranet.post.carregaTemplatePost(postObjectArray);
@@ -133,21 +132,14 @@ dextranet.post = {
 				"q" : idDoPost
 				},
 			success : function(post) {
-
-					postObjectArray = postObject.getpostObjectArrayFromPostJsonArray(post);
-					$(postObjectArray).each(function(){
-						$("li." + idDoPost + " .numero_comentario").text(this.postObjectJson.comentarios);
-						$("li." + idDoPost + " .numero_curtida").text(this.postObjectJson.likes);
-						$("li." + idDoPost + " .post").attr("original-title", dextranet.post.replaceDoTipsy(this.postObjectJson.userLike));
-					});
-				}
+				postObjectArray = postObject.getpostObjectArrayFromPostJsonArray(post);
+				$(postObjectArray).each(function(){
+					$("li." + idDoPost + " .numero_comentario").text(this.postObjectJson.comentarios);
+					$("li." + idDoPost + " .numero_curtida").text(this.postObjectJson.likes);
+					$("li." + idDoPost + " .post").attr("original-title", dextranet.curtir.replaceDoTipsy(this.postObjectJson.userLike));
+				});
+			}
 		});
-	},
-
-	replaceDoTipsy : function(conteudo) {
-		conteudo = conteudo.replace(/ /,'');
-		conteudo = conteudo.replace(/ /g,'<br/>');
-		return conteudo.replace(dextranet.usuario.nickName, 'você');
 	},
 
 	limpaTelaPost : function() {

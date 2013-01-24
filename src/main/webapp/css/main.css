@@ -93,7 +93,7 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 #header_main_menu > li#header_main_menu_outros:hover > a{background-color:#e2e8ee;box-shadow:inset 0 35px 35px -35px #d7dde3;}
 #header_main_menu > li#header_main_menu_outros:hover .shape_arrow_down{display:inline-block;}
 #header_main_menu > li#header_main_menu_outros:hover .shape_arrow_right{display:none;}
-#header_main_menu > li > ul{position:absolute;left:-1px;top:37px;min-width:175px;white-space:nowrap;border-top:1px solid #d5d9db;display:none;z-index:10;}
+#header_main_menu > li > ul{position:absolute;left:-1px;top:36px;min-width:175px;white-space:nowrap;border-top:1px solid #d5d9db;display:none;z-index:10;}
 #header_main_menu > li > ul > li{border:1px solid #d5d9db;border-top:0;}
 #header_main_menu > li > ul > li > a{display:block;font-size:12px;background-color:#fcffff;color:#35679a;font-weight:bold;padding:7px 10px;box-shadow:inset 0 -20px 20px -20px #ddd;}
 #header_main_menu > li > ul > li > a:hover{opacity:0.65;}

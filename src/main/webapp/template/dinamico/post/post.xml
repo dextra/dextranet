@@ -21,7 +21,7 @@
 						</a>
 					</div>
 					<div class="list_stories_headline_dx">
-						<a id="clearfix ${post.postObjectJson.id}" class="linkCurtir post" original-title="${post.postObjectJson.userLike}">
+						<a id="clearfix ${post.postObjectJson.id}" class="linkCurtir post" original-title="${post.postObjectJson.userLike}" onClick="dextranet.curtir.curte(this)">
 						<span class="icon_dx"></span>
 						<span class="numero_curtida">${post.postObjectJson.likes}</span>
 						</a>

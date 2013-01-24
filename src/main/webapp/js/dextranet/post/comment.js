@@ -57,7 +57,7 @@ dextranet.comment = {
 			success : function(comments) {
 					commentObjectArray = postObject.getpostObjectArrayFromPostJsonArray(comments);
 					$(commentObjectArray).each(function(){
-						this.postObjectJson.userLikes = dextranet.post.replaceDoTipsy(this.postObjectJson.userLikes);
+						this.postObjectJson.userLikes = dextranet.curtir.replaceDoTipsy(this.postObjectJson.userLikes);
 					});
 					if(commentObjectArray.length > 0)
 						$.holy("../template/dinamico/post/comment.xml", {"jsonArrayComment" : commentObjectArray});
@@ -87,12 +87,12 @@ dextranet.comment = {
 						"text" : conteudo,
 						"author" : autor,
 						"idReference" : idDoPost
-						},
+					},
 					success : function(comments) {
 							dextranet.comment.limpaTelaComentario();
 							dextranet.comment.carregaComentario(idDoPost);
 							dextranet.post.atualizaPost(idDoPost);
-						}
+					}
 				});
 			}
 			return false;
@@ -110,7 +110,7 @@ dextranet.comment = {
 					commentObjectArray = postObject.getpostObjectArrayFromPostJsonArray(comment);
 					$(commentObjectArray).each(function() {
 						$("span#" + idComentario).text(this.postObjectJson.likes);
-						$("li." + idComentario + " .comentario").attr("original-title", dextranet.post.replaceDoTipsy(this.postObjectJson.userLikes));
+						$("li." + idComentario + " .comentario").attr("original-title", dextranet.curtir.replaceDoTipsy(this.postObjectJson.userLikes));
 					});
 				}
 		});

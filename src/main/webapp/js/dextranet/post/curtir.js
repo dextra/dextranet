@@ -1,10 +1,10 @@
 dextranet.curtir = {
 		
-		curte : function() {
-			$(".linkCurtir").click(function() {
-				var id = $(this).attr("id").substring(9);
-				if (dextranet.curtir.voceJaCurtiu(this)) {
-					var classe = $(this).attr("class").substring(11);
+		curte : function(botao) {
+			//$(".linkCurtir").click(function() {
+				var id = $(botao).attr("id").substring(9);
+				if (dextranet.curtir.voceJaCurtiu(botao)) {
+					var classe = $(botao).attr("class").substring(11);
 					var ehPost = true;
 					if(classe == "comentario ttip") {
 						ehPost = false;
@@ -23,11 +23,11 @@ dextranet.curtir = {
 								dextranet.post.atualizaPost(id);
 							} else {
 								dextranet.comment.atualizaComentario(id);
-							}
+							} 
 						}
 					});
 				}
-			});
+			//});
 		},
 		
 		voceJaCurtiu : function(tip) {
@@ -37,5 +37,11 @@ dextranet.curtir = {
 			} else {
 				return false;
 			}
+		},
+		
+		replaceDoTipsy : function(conteudo) {
+			conteudo = conteudo.replace(/ /,'');
+			conteudo = conteudo.replace(/ /g,'<br>');
+			return conteudo.replace(dextranet.usuario.nickName, 'você');
 		}
 }

@@ -123,7 +123,7 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 
 	private boolean jaCurtiu(String user) throws EntityNotFoundException {
 
-		return !(this.userLikes == null || this.userLikes.indexOf(user) == -1);
+		return !(this.userLikes == "" || this.userLikes.indexOf(user) == -1);
 	}
 
 	@Override
