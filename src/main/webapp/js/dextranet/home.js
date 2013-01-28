@@ -10,7 +10,7 @@ dextranet.home = {
 	carregueOsTemplates : function() {
 		$.holy("../template/estatico/carrega_menu_principal.xml", {});
 		$.holy("../template/estatico/carrega_menu_lateral.xml", {});
-		$.holy("../template/dinamico/carrega_miolo_home_page.xml",{});
+		$.holy("../template/dinamico/carrega_miolo_home_page.xml", {});
 	},
 
 	setActiveMenuLateral : function(id) {

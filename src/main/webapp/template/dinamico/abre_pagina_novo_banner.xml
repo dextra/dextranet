@@ -2,8 +2,8 @@
 <engine>
 	<template selector="#container_main">
 		<form id="new_banner" method="post" enctype="multipart/form-data">
-			<input type="text" id="fileTitle" name="fileTitle" />
-			<input type="file" id="file" name="file" />
+			<input type="text" id="bannerTitle" name="bannerTitle" />
+			<input type="file" id="file" name="banner" />
 			<input type="button" value="Upload!" />
 		</form>
 	</template>
