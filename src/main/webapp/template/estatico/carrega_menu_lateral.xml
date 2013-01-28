@@ -53,6 +53,7 @@
 		$("#button_sidebar_left_novopost").click(dextranet.home.abrePopUpNovoPost);
 		//$("#button_sidebar_left_category").click(dextranet.post.removeTodosOsPosts);
 		$("#button_sidebar_left_profile").click(dextranet.home.abrePaginaPerfil);
+		
 		$("#button_sidebar_left_team").click(dextranet.home.abrePaginaEquipe);
 		$("#form_new_post").submit(dextranet.post.criaNovoPost);
 

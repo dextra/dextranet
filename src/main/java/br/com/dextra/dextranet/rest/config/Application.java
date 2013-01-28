@@ -1,9 +1,9 @@
 package br.com.dextra.dextranet.rest.config;
 
 import java.util.HashSet;
-
 import java.util.Set;
 
+import br.com.dextra.dextranet.banner.BannerRS;
 import br.com.dextra.dextranet.comment.CommentRS;
 import br.com.dextra.dextranet.curtida.CurtidaRS;
 import br.com.dextra.dextranet.document.DocumentRS;
@@ -25,6 +25,7 @@ public class Application extends javax.ws.rs.core.Application {
 		classes.add(DocumentRS.class);
 		classes.add(CommentRS.class);
 		classes.add(UsuarioRS.class);
+		classes.add(BannerRS.class);
 		return classes;
 	}
 

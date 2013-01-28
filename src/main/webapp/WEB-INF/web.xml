@@ -7,33 +7,43 @@
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 
-    <!-- Configuracao do RESTEASY -->
-    <context-param>
-        <param-name>resteasy.servlet.mapping.prefix</param-name>
-        <param-value>/s</param-value>
-    </context-param>
+	<!-- Configuracao do RESTEASY -->
+	<context-param>
+		<param-name>resteasy.servlet.mapping.prefix</param-name>
+		<param-value>/s</param-value>
+	</context-param>
 
-    <servlet>
-        <servlet-name>Resteasy</servlet-name>
-        <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
-        <init-param>
-            <param-name>javax.ws.rs.Application</param-name>
-            <param-value>br.com.dextra.dextranet.rest.config.Application</param-value>
-        </init-param>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Resteasy</servlet-name>
-        <url-pattern>/s/*</url-pattern>
-    </servlet-mapping>
+	<servlet>
+		<servlet-name>Resteasy</servlet-name>
+		<servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
+		<init-param>
+			<param-name>javax.ws.rs.Application</param-name>
+			<param-value>br.com.dextra.dextranet.rest.config.Application</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Resteasy</servlet-name>
+		<url-pattern>/s/*</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>BannerServUpload</servlet-name>
+		<servlet-class>br.com.dextra.dextranet.banner.BannerServUpload</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BannerServUpload</servlet-name>
+		<url-pattern>/banner/upload/*</url-pattern>
+	</servlet-mapping>
 
 	<filter>
-        <filter-name>autenticacaoFilter</filter-name>
-        <filter-class>br.com.dextra.dextranet.seguranca.AutenticacaoFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>autenticacaoFilter</filter-name>
-        <url-pattern>*</url-pattern>
-        <url-pattern>http://dextranet-desenvolvimento.appspot.com/</url-pattern>
-    </filter-mapping>
+		<filter-name>autenticacaoFilter</filter-name>
+		<filter-class>br.com.dextra.dextranet.seguranca.AutenticacaoFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>autenticacaoFilter</filter-name>
+		<url-pattern>*</url-pattern>
+		<url-pattern>http://dextranet-desenvolvimento.appspot.com/</url-pattern>
+	</filter-mapping>
 
 </web-app>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<template selector="#container_main">
+		<form id="new_banner" method="post" enctype="multipart/form-data">
+			<input type="text" id="fileTitle" name="fileTitle" />
+			<input type="file" id="file" name="file" />
+			<input type="button" value="Upload!" />
+		</form>
+	</template>
+	<script>
+		$("#new_banner input[type=button]").click(dextranet.banner.novoBanner);
+	</script>
+</engine>
