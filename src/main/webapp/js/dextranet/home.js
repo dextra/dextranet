@@ -39,8 +39,10 @@ dextranet.home = {
 	},
 
 	abrePaginaPerfil : function() {
-		$.holy("../template/dinamico/abre_pagina_novo_banner.xml", {});
-		dextranet.home.setActiveMenuLateral("#sidebar_left_profile");
+		if(dextranet.usuario == "webster.lima") {	
+			$.holy("../template/dinamico/abre_pagina_novo_banner.xml", {});
+			dextranet.home.setActiveMenuLateral("#sidebar_left_profile");
+		}
 	},
 
 	abrePaginaEquipe : function() {
