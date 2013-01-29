@@ -52,18 +52,20 @@
             dextranet.home.inicializa();
             dextranet.paginacao;
 
-            $('#container_banner img').attr('src', '/s/banner/bannerAtual');
-            $("#container_banner .close").click(function() {
-            	var $containerBanner = $("#container_banner");
-				var minimizado = !! $containerBanner.data('minimizado');
-
-				$containerBanner.animate({
-					bottom : (minimizado ? '+' : '-') + '='	+ $containerBanner.height()
-				}, 500, function() {
-					$containerBanner.data('minimizado', !minimizado);
-					$containerBanner.find('.close').text(minimizado ? '\\/' : '/\\');
+            $('#container_banner').hide();
+            $('#container_banner img').attr('src', '/s/banner/bannerAtual').load(function() {
+	            $("#container_banner .close").click(function() {
+	            	var $containerBanner = $("#container_banner");
+					var minimizado = !! $containerBanner.data('minimizado');
+	
+					$containerBanner.animate({
+						bottom : (minimizado ? '+' : '-') + '='	+ $containerBanner.height()
+					}, 500, function() {
+						$containerBanner.data('minimizado', !minimizado);
+						$containerBanner.find('.close').text(minimizado ? '\\/' : '/\\');
+					});
 				});
-			});
+            });
 		});
 </script>
 
