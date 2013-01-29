@@ -24,6 +24,9 @@ public class Banner extends Entidade {
 		}
 	}
 
+	public Banner() {
+	}
+
 	public String getTitulo() {
 		return this.titulo;
 	}
