@@ -1,16 +1,26 @@
 package br.com.dextra.dextranet.banner;
 
+import java.io.IOException;
+import java.util.logging.Logger;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 
+import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.gson.JsonObject;
 
+
 @Path("/banner")
 public class BannerRS {
+
+	private static final Logger log = Logger.getLogger(BannerRS.class.getName());
+
 	
 	private BlobstoreService blobstoreService = BlobstoreServiceFactory
 			.getBlobstoreService();
@@ -25,5 +35,42 @@ public class BannerRS {
 		
 		return json.toString();
 	}
+	
+	@Path("/bannerAtual")
+	@GET
+	public void BannerAtualURL(@Context HttpServletResponse response) {
+		BannerRepository bannerRepository = new BannerRepository();
 
+		log.info("id no banco do banner atual: ");
+		log.info(bannerRepository.getBannerAtual().getId());
+
+		String blobKeyAtual = bannerRepository.getBannerAtual().getBlobKey();
+
+		log.info("Tentara servir blob do banco.");
+
+		BlobKey blobKey = new BlobKey(blobKeyAtual);
+
+		log.info("blobstore key");
+		log.info(blobKey.getKeyString());
+		
+		try {
+			blobstoreService.serve(blobKey, response);
+			return;
+		} catch (IOException e) {
+			log.severe(e.getMessage());
+			e.printStackTrace();
+		}
+
+		log.info("Blob mocado, vai dar errado.");
+
+		blobKey = new BlobKey("abc");
+		log.info("blobstore key mocado");
+		log.info(blobKey.getKeyString());
+		try {
+			blobstoreService.serve(blobKey, response);
+		} catch (IOException e) {
+			log.severe(e.getMessage());
+			e.printStackTrace();
+		}
+	}
 }

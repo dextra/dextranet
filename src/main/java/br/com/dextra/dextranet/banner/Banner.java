@@ -6,16 +6,27 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.gson.JsonObject;
 
 public class Banner extends Entidade {
-	
+
 	private String titulo;
-	
+
 	private String blobKey;
-	
+
 	public Banner(String titulo, String blobKey) {
 		this.titulo = titulo;
 		this.setBlobKey(blobKey);
 	}
-	
+
+	public Banner(Entity bannerEntity) {
+		if (bannerEntity != null) {
+			this.id = (String) bannerEntity.getProperty(BannerFields.ID.getField());
+			this.titulo = (String) bannerEntity.getProperty(BannerFields.TITULO.getField());
+			this.blobKey = (String) bannerEntity.getProperty(BannerFields.BLOBKEY.getField());
+		}
+	}
+
+	public Banner() {
+	}
+
 	public String getTitulo() {
 		return this.titulo;
 	}
@@ -48,7 +59,7 @@ public class Banner extends Entidade {
 		json.addProperty(BannerFields.ID.getField(), this.id);
 		json.addProperty(BannerFields.TITULO.getField(), this.titulo);
 		json.addProperty(BannerFields.BLOBKEY.getField(), this.blobKey);
-		
+
 		return json;
 	}
 }
