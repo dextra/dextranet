@@ -51,7 +51,23 @@
 			dextranet.settings.inicializa();
             dextranet.home.inicializa();
             dextranet.paginacao;
-        });
+
+            $('#container_banner').hide();
+            $('#container_banner img').attr('src', '/s/banner/').load(function() {
+	            $("#container_banner .close").click(function() {
+	            	var $containerBanner = $("#container_banner");
+					var minimizado = !! $containerBanner.data('minimizado');
+	
+					$containerBanner.animate({
+						bottom : (minimizado ? '+' : '-') + '='	+ $containerBanner.height()
+					}, 500, function() {
+						$containerBanner.data('minimizado', !minimizado);
+						$containerBanner.find('.close').text(minimizado ? '\\/' : '/\\');
+					});
+				});
+	            $('#container_banner').show();
+            });
+		});
 </script>
 
 </head>
@@ -70,7 +86,12 @@
 <div id="sidebar_left" rel="section"></div>
 <!-- #sidebar_left --> <!-- Miolo -->
 <div id="container_main" class="clearfix"></div>
-
+</div>
+<div id="container_banner" class="clearfix">
+	<div id="banner">
+		<div class="close">\/</div>
+		<img />	
+	</div>
 </div>
 </body>
 </html>

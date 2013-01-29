@@ -124,8 +124,9 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 #box_user_profile{background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-top:11px;font-size:11px;}
 #box_user_notifications_full{background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-top:20px;font-size:11px;word-wrap:break-word;}
 
+#banner,#sidebar_left,#banner .close{background-color:#ebeef1;box-shadow:inset -15px 15px 15px -15px #fff;}
 /*---------  Barra lateral esquerda  ----------*/
-#sidebar_left{background-color:#ebeef1;position:fixed;left:0;top:0;height:100%;border-right:solid 1px #d9dbdd;box-shadow:inset -15px 15px 15px -15px #fff;list-style-type:none;}
+#sidebar_left{left:0;top:0;height:100%;list-style-type:none;border-right:solid 1px #d9dbdd;position:fixed;}
 #sidebar_left_menu{padding:40px 10px 0;}
 #sidebar_left_menu > li{border-bottom:solid 1px #dfe3e6;border-top:1px solid #fafafb;}
 #sidebar_left_menu > li:first_child{border-top:0;}
@@ -155,6 +156,10 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 /*----------  Estrutura dos blocos centrais de conteúdo  ----------*/
 #container_main{margin-left:110px;clear:both;padding-right:10px;}
 #sidebar_right{width:250px;float:right;}
+#container_banner{bottom:0;left:0;width:100%;text-align:center;position:fixed;}
+#banner{padding:5px 5px 0;position:relative;border:solid 1px #d9dbdd;display:inline-block;border-radius:5px 5px 0 0;} 
+#banner .close{border-radius: 10px 10px 0 0;left: 47%;padding: 7px 7px 0 7px;position: absolute;top: -27px; border:solid 1px #d9dbdd; border-bottom: none;}
+#banner img {max-height: 200px;}
 
 /*----------  Listagem de estórias de usuários  ----------*/
 .list_stories > li{border-radius:5px;background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-bottom:20px;}

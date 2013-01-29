@@ -17,30 +17,21 @@ public class BannerServUpload extends HttpServlet {
 	private static final long serialVersionUID = 6534542020903358150L;
 	private BlobstoreService blobstoreService = BlobstoreServiceFactory
 			.getBlobstoreService();
+	private BannerRepository bannerRepository = new BannerRepository();
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		System.out.println("bla");
-		
-//		@SuppressWarnings("deprecation")
-//		Map<String, BlobKey> blobs = blobstoreService.getUploadedBlobs(req);
-//		BlobKey blobKey = blobs.get("fileInput");
-//		JsonObject json = new JsonObject();
-//
-//		json.addProperty("blobkey", blobKey.getKeyString());
-//		json.addProperty("temp", true);
-//		json.addProperty("_self", "/s/blobstore");
-//		resp.setContentType("text/html");
-//		resp.getWriter().print(json);
 		
 		@SuppressWarnings("deprecation")
 		Map<String, BlobKey> blobs = blobstoreService.getUploadedBlobs(req);
-        BlobKey blobKey = blobs.get("myFile");
+        BlobKey blobKey = blobs.get("banner");
 
         if (blobKey == null) {
             resp.sendRedirect("/");
         } else {
-            blobstoreService.serve(blobKey, resp);
+        	Banner banner = new Banner(req.getParameter("bannerTitle"), blobKey);
+        	bannerRepository.criar(banner);
+        	blobstoreService.serve(blobKey, resp);
         }
 	}
 }
