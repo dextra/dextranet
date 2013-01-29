@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>br.com.dextra</groupId>
-	<artifactId>dextranet</artifactId>
+	<groupId>br.com.dextra.dexbot</groupId>
+	<artifactId>dashboard</artifactId>
 
-	<name>dextranet</name>
+	<name>dexbot</name>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -113,11 +113,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.saucelabs</groupId>
-			<artifactId>saucerest</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-jdk14</artifactId>
 		</dependency>
@@ -129,20 +124,12 @@
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>br.com.dextra</groupId>
-			<artifactId>expertus</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-        <groupId>org.owasp</groupId>
-        <artifactId>antisamy</artifactId>
-      </dependency>
+	 
 
 	</dependencies>
 
 	<build>
-		<finalName>dextranet</finalName>
+		<finalName>dashboard</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -373,11 +360,6 @@
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-java</artifactId>
 				<version>2.25.0</version>
-			</dependency>
-			<dependency>
-				<groupId>com.saucelabs</groupId>
-				<artifactId>saucerest</artifactId>
-				<version>1.0.2</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-lang</groupId>
