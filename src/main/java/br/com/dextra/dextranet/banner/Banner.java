@@ -2,6 +2,7 @@ package br.com.dextra.dextranet.banner;
 
 import br.com.dextra.dextranet.persistencia.Entidade;
 
+import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.datastore.Entity;
 import com.google.gson.JsonObject;
 
@@ -9,9 +10,9 @@ public class Banner extends Entidade {
 
 	private String titulo;
 
-	private String blobKey;
+	private BlobKey blobKey;
 
-	public Banner(String titulo, String blobKey) {
+	public Banner(String titulo, BlobKey blobKey) {
 		this.titulo = titulo;
 		this.setBlobKey(blobKey);
 	}
@@ -20,7 +21,7 @@ public class Banner extends Entidade {
 		if (bannerEntity != null) {
 			this.id = (String) bannerEntity.getProperty(BannerFields.ID.getField());
 			this.titulo = (String) bannerEntity.getProperty(BannerFields.TITULO.getField());
-			this.blobKey = (String) bannerEntity.getProperty(BannerFields.BLOBKEY.getField());
+			this.blobKey = (BlobKey) bannerEntity.getProperty(BannerFields.BLOBKEY.getField());
 		}
 	}
 
@@ -35,11 +36,11 @@ public class Banner extends Entidade {
 		this.titulo = titulo;
 	}
 
-	public String getBlobKey() {
+	public BlobKey getBlobKey() {
 		return blobKey;
 	}
 
-	public void setBlobKey(String blobKey) {
+	public void setBlobKey(BlobKey blobKey) {
 		this.blobKey = blobKey;
 	}
 
@@ -58,7 +59,7 @@ public class Banner extends Entidade {
 		JsonObject json = new JsonObject();
 		json.addProperty(BannerFields.ID.getField(), this.id);
 		json.addProperty(BannerFields.TITULO.getField(), this.titulo);
-		json.addProperty(BannerFields.BLOBKEY.getField(), this.blobKey);
+		json.addProperty(BannerFields.BLOBKEY.getField(), this.blobKey.getKeyString());
 
 		return json;
 	}

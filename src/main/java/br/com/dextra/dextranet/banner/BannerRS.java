@@ -41,20 +41,18 @@ public class BannerRS {
 	public void BannerAtualURL(@Context HttpServletResponse response) {
 		BannerRepository bannerRepository = new BannerRepository();
 
-		log.info("id no banco do banner atual: ");
-		log.info(bannerRepository.getBannerAtual().getId());
+		log.info("id do banner atual: " + bannerRepository.getBannerAtual().getId());
+		log.info("blobkey do banner atual : " + bannerRepository.getBannerAtual().getBlobKey().getKeyString());
 
-		String blobKeyAtual = bannerRepository.getBannerAtual().getBlobKey();
+		BlobKey blobKey = bannerRepository.getBannerAtual().getBlobKey();
 
 		log.info("Tentara servir blob do banco.");
 
-		BlobKey blobKey = new BlobKey(blobKeyAtual);
-
-		log.info("blobstore key");
-		log.info(blobKey.getKeyString());
+		log.info("blobstore key construido: " + blobKey.getKeyString());
 		
 		try {
 			blobstoreService.serve(blobKey, response);
+			log.info("quase sucesso.");
 			return;
 		} catch (IOException e) {
 			log.severe(e.getMessage());

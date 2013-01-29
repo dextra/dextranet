@@ -29,7 +29,7 @@ public class BannerServUpload extends HttpServlet {
         if (blobKey == null) {
             resp.sendRedirect("/");
         } else {
-        	Banner banner = new Banner(req.getParameter("bannerTitle"), blobKey.getKeyString());
+        	Banner banner = new Banner(req.getParameter("bannerTitle"), blobKey);
         	bannerRepository.criar(banner);
         	blobstoreService.serve(blobKey, resp);
         }
