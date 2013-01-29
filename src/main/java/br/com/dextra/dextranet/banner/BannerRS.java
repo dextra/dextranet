@@ -8,6 +8,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
@@ -39,7 +40,7 @@ public class BannerRS {
 	@Path("/bannerAtual")
 	@GET
 	@Produces("image/*")
-	public void BannerAtualURL(@Context HttpServletResponse response) {
+	public Response BannerAtualURL(@Context HttpServletResponse response) {
 		BannerRepository bannerRepository = new BannerRepository();
 
 		log.info("id do banner atual: " + bannerRepository.getBannerAtual().getId());
@@ -55,10 +56,12 @@ public class BannerRS {
 			BlobstoreServiceFactory.getBlobstoreService().serve(blobKey, response);
 			blobstoreService.serve(blobKey, response);
 			log.info("quase sucesso.");
-			return;
 		} catch (IOException e) {
 			log.severe(e.getMessage());
 			e.printStackTrace();
+			return Response.serverError().build();
 		}
+
+		return Response.ok().build();
 	}
 }

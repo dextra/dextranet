@@ -15,7 +15,6 @@ public class Banner extends Entidade {
 	public Banner(String titulo, BlobKey blobKey) {
 		this.titulo = titulo;
 		this.blobKey = blobKey;
-		System.out.println(this.blobKey.getKeyString());
 	}
 
 	public Banner(Entity bannerEntity) {
