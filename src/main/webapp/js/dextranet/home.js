@@ -39,10 +39,8 @@ dextranet.home = {
 	},
 
 	abrePaginaPerfil : function() {
-		if(dextranet.usuario.nickName == "login.google") {	
-			$.holy("../template/dinamico/abre_pagina_novo_banner.xml", {});
-			dextranet.home.setActiveMenuLateral("#sidebar_left_profile");
-		}
+		$.holy("../template/dinamico/abre_pagina_novo_banner.xml", {});
+		dextranet.home.setActiveMenuLateral("#sidebar_left_profile");
 	},
 
 	abrePaginaEquipe : function() {

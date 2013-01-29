@@ -51,7 +51,8 @@
 			dextranet.settings.inicializa();
             dextranet.home.inicializa();
             dextranet.paginacao;
-            
+
+            $('#container_banner img').attr('src', '/s/banner/bannerAtual');
             $("#container_banner .close").click(function() {
             	var $containerBanner = $("#container_banner");
 				var minimizado = !! $containerBanner.data('minimizado');
