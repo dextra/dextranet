@@ -39,7 +39,7 @@ dextranet.home = {
 	},
 
 	abrePaginaPerfil : function() {
-		if(dextranet.usuario.nickName == "login.google") {	
+		if(dextranet.usuario.nickName == "webster.lima") {	
 			$.holy("../template/dinamico/abre_pagina_novo_banner.xml", {});
 			dextranet.home.setActiveMenuLateral("#sidebar_left_profile");
 		}

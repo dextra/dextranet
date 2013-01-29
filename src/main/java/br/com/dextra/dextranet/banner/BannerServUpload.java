@@ -31,6 +31,7 @@ public class BannerServUpload extends HttpServlet {
         } else {
         	Banner banner = new Banner(req.getParameter("bannerTitle"), blobKey.getKeyString());
         	bannerRepository.criar(banner);
+        	blobstoreService.serve(blobKey, resp);
         }
 	}
 }

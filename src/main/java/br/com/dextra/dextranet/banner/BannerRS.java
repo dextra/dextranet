@@ -36,9 +36,17 @@ public class BannerRS {
 	public void BannerAtualURL(@Context HttpServletResponse response) throws IOException {
 		BannerRepository bannerRepository = new BannerRepository();
 		String blobKeyAtual = bannerRepository.getBannerAtual().getBlobKey();
-		BlobKey blobKey = new BlobKey(blobKeyAtual);
-		response.setContentType("image/*");
-		BlobstoreServiceFactory.getBlobstoreService().serve(blobKey, response);
-	    blobstoreService.serve(blobKey, response);
+		if (blobKeyAtual != null) {
+			BlobKey blobKey = new BlobKey(blobKeyAtual);
+			response.setContentType("image/*");
+			try {
+				BlobstoreServiceFactory.getBlobstoreService().serve(blobKey, response);
+				blobstoreService.serve(blobKey, response);
+			} catch (IOException e) {
+				response.sendError(505, e.getMessage());
+			}
+		    response.setContentType("image/*");
+		} else
+			response.sendError(504, "Deu erro");
 	}
 }
