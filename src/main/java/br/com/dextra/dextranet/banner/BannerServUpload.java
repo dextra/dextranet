@@ -17,6 +17,7 @@ public class BannerServUpload extends HttpServlet {
 	private static final long serialVersionUID = 6534542020903358150L;
 	private BlobstoreService blobstoreService = BlobstoreServiceFactory
 			.getBlobstoreService();
+	private BannerRepository bannerRepository = new BannerRepository();
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -28,7 +29,8 @@ public class BannerServUpload extends HttpServlet {
         if (blobKey == null) {
             resp.sendRedirect("/");
         } else {
-            blobstoreService.serve(blobKey, resp);
+        	Banner banner = new Banner(req.getParameter("bannerTitle"), blobKey.getKeyString());
+        	bannerRepository.criar(banner);
         }
 	}
 }

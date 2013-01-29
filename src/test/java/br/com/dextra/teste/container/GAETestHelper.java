@@ -22,14 +22,13 @@ import com.googlecode.mycontainer.web.ContextWebServer;
 import com.googlecode.mycontainer.web.FilterDesc;
 import com.googlecode.mycontainer.web.WebServerDeployer;
 import com.googlecode.mycontainer.web.jetty.JettyServerDeployer;
-//import com.google.appengine.api.search.dev.LocalSearchService;
 
 public class GAETestHelper {
 
 	private static final Logger LOG = LoggerFactory.getLogger(GAETestHelper.class);
 
 	protected LocalServiceTestHelper helper;
-
+	
 	private LocalDatastoreServiceTestConfig ds;
 	private LocalSearchServiceTestConfig fts;
 
