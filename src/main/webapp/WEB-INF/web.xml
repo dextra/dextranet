@@ -27,4 +27,23 @@
 	</servlet-mapping>
 
 
+	<servlet>
+		<servlet-name>BannerServUpload</servlet-name>
+		<servlet-class>br.com.dextra.dextranet.banner.BannerServUpload</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BannerServUpload</servlet-name>
+		<url-pattern>/banner/upload/*</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<filter-name>autenticacaoFilter</filter-name>
+		<filter-class>br.com.dextra.dextranet.seguranca.AutenticacaoFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>autenticacaoFilter</filter-name>
+		<url-pattern>*</url-pattern>
+		<url-pattern>http://dextranet-desenvolvimento.appspot.com/</url-pattern>
+	</filter-mapping>
+
 </web-app>

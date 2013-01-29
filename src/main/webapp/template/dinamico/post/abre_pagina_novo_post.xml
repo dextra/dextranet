@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<template selector="#container_main">
+
+		<div id="div_novo_post">
+			<form action="" id="form_new_post">
+				<input size="90" type="text" id="form_input_title"
+					placeholder="${messages.placeholder_title_post}" name="title" maxlength="80"></input>
+				<br />
+				<textarea cols="50" id="form_input_content" style="resize:none;"
+					placeholder="${messages.placeholder_content_post}" name="content"></textarea>
+				<br />
+					<input type="submit" value="${messages.button_newPost}" id="form_post_submit" class="submit" />
+			</form>
+		</div>
+	</template>
+
+	<script>
+		CKEDITOR.replace('form_input_content',{removePlugins:'elementspath',height:"230", width:"100%"});
+		CKEDITOR.config.contentsCss = 'ckeditor/body.css';
+		$("#form_new_post").submit(dextranet.post.criaNovoPost);
+	</script>
+</engine>

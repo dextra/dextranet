@@ -1,0 +1,186 @@
+/*Copyright 2011/2012 Dextra Sistemas
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.*/
+
+/*///// Component - Form /////*/
+
+.forms { margin:0px 0px 10px 0px; }
+
+.forms * { font-size: 12px; }
+
+.forms fieldset { border: 1px solid #EEE; padding: 10px; }
+
+.forms fieldset legend { font-weight: bold; font-size:16px; padding:0 10px; margin: 0 10px; }
+
+.forms input,
+.forms select,
+.forms textarea { padding:4px; background:#FAFAFA; border:1px solid #DDD; margin: 0; vertical-align: middle; }
+
+.forms input[type=checkbox],
+.forms input[type=radio] { vertical-align: middle; margin:7px 2px 7px 5px; }
+
+.forms select option { padding:0 10px 0 5px; }
+
+.forms ul li { list-style:none; margin: 10px 0; }
+
+.forms ul li label { text-align:right; margin:0 3px; display:inline-block; }
+
+.forms ul li span.required { color:#C00; margin-right:3px; display: inline-block; }
+
+.forms ul li .focus { border: 1px solid #333; background-color: #FFF; }
+
+.forms ul > li.clear { clear:left; margin-bottom: 10px; }
+
+/*///// Component - LiquidForm /////*/
+
+.liquidForm ul li { float: left; margin:  5px 5px 5px 0px; width: auto; }
+
+.liquidForm ul .buttons { float: none; }
+
+/*///// Component - CharCounter /////*/
+
+.charCount { display: block; font-size: 11px; color:#999; padding:3px 0; }
+
+.charCount span { font-weight: bold; }
+
+.countWarning { color:#9F6000; }
+
+.countExceeded { color:#D8000C; }
+
+/*///// Component - MSG BOX's /////*/
+
+.forms ul .box { float:none; clear:left; display:block; margin:5px 0; border-radius:5px; padding:10px; color:#232C2F; }
+
+/*///// Component - Buttons /////*/
+
+.buttons { clear: left; display: block; padding:0; }
+
+.buttons a,
+.buttons input,
+.buttons button { vertical-align:top; display: inline-block; padding: 3px 7px; cursor: pointer; background:#FAFAFA; color: #333; border: 1px solid #DDD; margin: 5px 5px 5px 0px; outline: 0px; }
+
+.buttons a { padding:4px 5px; /* IE9 FIX > */ padding:3px 12px 3px 12px\9; }
+
+.buttons a:hover,
+.buttons input:hover,
+.buttons button:hover { color:#FFF; background-color: #000; }
+
+.buttons a:active,
+.buttons input:active,
+.buttons button:active { margin-top:6px; }
+
+/*///// Component - Picklist /////*/
+
+.picklist select,
+.picklist .pActions { display:inline-block; float:left; height:150px; }
+
+.picklist select { min-width:200px; }
+
+.picklist button { margin:10px 5px; cursor:pointer; display:block; width:25px; height:25px; line-height:25px; text-align:center; font-weight:bold; }
+
+
+/*///// Component - Forms /////*/
+
+.forms input,
+.forms select,
+.forms textarea { border-radius:3px; }
+
+.forms textarea.large { width: 770px; height: 300px; }
+
+.forms ul li .focus { background-color:#FFF; border:1px solid #0092CB; box-shadow: 0 0px 4px #39B7E8; -moz-box-shadow: 0 0px 4px #39B7E8; -webkit-box-shadow: 0 0px 4px #39B7E8; color:#000; }
+
+/* MSG BOX's */
+
+.forms ul .info { border:1px solid #0092CB; background-color:#BDE5F8; }
+
+.forms ul .info .icon { background-color: #39B7E8; }
+
+.forms ul .warning { border:1px solid #9F6000; background-color:#FEEFB3;  }
+
+.forms ul .warning .icon {  background-color: #9F6000; }
+
+/* PICK LIST */
+
+.picklist button { font-size:0px; text-indent:-9999px; background:url('imgs/picklist-arrow.png') 0 0 no-repeat; }
+
+.picklist .pr { background-position:0px -25px; }
+
+.picklist .apr { background-position:0px 0px; }
+
+.picklist .apl { background-position:0px -50px; }
+
+.picklist .pl { background-position:0px -75px; }
+
+.buttons a,
+.buttons input,
+.buttons button { border-radius:0; padding-left: 24px; color:#333; border-bottom:2px solid #DDD; display:inline-block; }
+
+.buttons a:hover,
+.buttons input:hover,
+.buttons button:hover { color:#FFF; background-color: #8EBE26; border:1px solid #8EBE26; border-bottom:2px solid #8EBE26;  }
+
+.buttons .btNone { background:#FAFAFA; padding: 5px 8px; }
+
+.buttons .btSave { background:#FAFAFA url('imgs/buttons/btsave.png') 5px center no-repeat; }
+
+.buttons .btCancel { background:#FAFAFA url('imgs/buttons/btcancel.png') 4px center no-repeat; }
+
+.buttons .btConfirm { background:#FAFAFA url('imgs/buttons/btconfirm.png') 4px center no-repeat; }
+
+.buttons .btAdd { background:#FAFAFA url('imgs/buttons/btadd.png') 5px center no-repeat; }
+
+.buttons .btClear { background:#FAFAFA url('imgs/buttons/btclear.png') 5px center no-repeat; }
+
+.buttons .btView { background:#FAFAFA url('imgs/buttons/btview.png') 5px center no-repeat; }
+
+.buttons .btSearch { background:#FAFAFA url('imgs/buttons/btsearch.png') 5px center no-repeat; }
+
+.buttons .btEdit { background:#FAFAFA url('imgs/buttons/btedit.png') 5px center no-repeat; }
+
+.buttons .btWait { background:#FAFAFA url('imgs/buttons/btwait.png') 5px center no-repeat; }
+
+.buttons .btRemove { background:#FAFAFA url('imgs/buttons/btremove.png') 5px center no-repeat; }
+
+.buttons .btFilter { background:#FAFAFA url('imgs/buttons/btfilter.png') 5px center no-repeat; }
+
+.buttons .btDownload { background:#FAFAFA url('imgs/buttons/btdownload.png') -2px center no-repeat; }
+
+.buttons .btUpload { background:#FAFAFA url('imgs/buttons/btupload.png') -2px center no-repeat; }
+
+.buttons .btExcel { background:#FAFAFA url('imgs/buttons/btexcel.png') 5px center no-repeat; }
+
+.buttons .btPdf { background:#FAFAFA url('imgs/buttons/btpdf.png') 5px center no-repeat; }
+
+.buttons .btMap { background:#FAFAFA url('imgs/buttons/btmap.png') 5px center no-repeat; }
+
+.buttons .btExport { background:#FAFAFA url('imgs/buttons/btexport.png') 5px center no-repeat; }
+
+.buttons .btRename { background:#FAFAFA url('imgs/buttons/btrename.png') 5px center no-repeat; }
+
+.buttons .btNewdoc { background:#FAFAFA url('imgs/buttons/btnewdoc.png') 5px center no-repeat; }
+
+.buttons .btNext { background:#FAFAFA url('imgs/buttons/btnext.png') 5px center no-repeat; }
+
+.buttons .btBack { background:#FAFAFA url('imgs/buttons/btback.png') 5px center no-repeat; }
+
+.buttons .btHelp { background:#FAFAFA url('imgs/buttons/bthelp.png') 5px center no-repeat; }
+
+.buttons .btSend { background:#FAFAFA url('imgs/buttons/btsend.png') 5px center no-repeat; }
+
+.buttons .btUser { background:#FAFAFA url('imgs/buttons/btuser.png') 5px center no-repeat; }
+
+.buttons .btConfig { background:#FAFAFA url('imgs/buttons/btconfig.png') 5px center no-repeat; }
+
+.buttons .btLogout { background:#FAFAFA url('imgs/buttons/btlogout.png') 5px center no-repeat; }
+
+.buttons .btRefresh { background:#FAFAFA url('imgs/buttons/btrefresh.png') 5px center no-repeat; }

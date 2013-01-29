@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<template selector=".container_message_warning" append="true">
+		<ul class="message" id="message-warning">
+			<li class="warning">${messages.warning_message}</li>
+		</ul>
+	</template>
+</engine>
