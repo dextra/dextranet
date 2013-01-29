@@ -38,6 +38,7 @@ public class BannerRS {
 	
 	@Path("/bannerAtual")
 	@GET
+	@Produces("image/*")
 	public void BannerAtualURL(@Context HttpServletResponse response) {
 		BannerRepository bannerRepository = new BannerRepository();
 
@@ -51,21 +52,10 @@ public class BannerRS {
 		log.info("blobstore key construido: " + blobKey.getKeyString());
 		
 		try {
+			BlobstoreServiceFactory.getBlobstoreService().serve(blobKey, response);
 			blobstoreService.serve(blobKey, response);
 			log.info("quase sucesso.");
 			return;
-		} catch (IOException e) {
-			log.severe(e.getMessage());
-			e.printStackTrace();
-		}
-
-		log.info("Blob mocado, vai dar errado.");
-
-		blobKey = new BlobKey("abc");
-		log.info("blobstore key mocado");
-		log.info(blobKey.getKeyString());
-		try {
-			blobstoreService.serve(blobKey, response);
 		} catch (IOException e) {
 			log.severe(e.getMessage());
 			e.printStackTrace();
