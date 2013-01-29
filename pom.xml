@@ -113,11 +113,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.saucelabs</groupId>
-			<artifactId>saucerest</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-jdk14</artifactId>
 		</dependency>
@@ -129,15 +124,7 @@
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>br.com.dextra</groupId>
-			<artifactId>expertus</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-        <groupId>org.owasp</groupId>
-        <artifactId>antisamy</artifactId>
-      </dependency>
+	 
 
 	</dependencies>
 
@@ -373,11 +360,6 @@
 				<groupId>org.seleniumhq.selenium</groupId>
 				<artifactId>selenium-java</artifactId>
 				<version>2.25.0</version>
-			</dependency>
-			<dependency>
-				<groupId>com.saucelabs</groupId>
-				<artifactId>saucerest</artifactId>
-				<version>1.0.2</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-lang</groupId>
