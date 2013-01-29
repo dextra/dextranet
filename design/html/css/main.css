@@ -166,6 +166,7 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 .team-list-stories > li{border-radius:5px;background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-bottom:20px; width:30%; margin-right:20px; float:left}
 .team-list-stories .list-stories-avatar{width:115px;height:115px;}
 .team-list-stories-dados li { font-size:.8em; line-height:1.9em;color:#4e739c}
+.team-list-stories .list-stories-footer{height:16px;}
 
 /* Pagination */
 /* .list-pagination {text-align:center} */
