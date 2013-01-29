@@ -53,7 +53,7 @@
             dextranet.paginacao;
 
             $('#container_banner').hide();
-            $('#container_banner img').attr('src', '/s/banner/bannerAtual').load(function() {
+            $('#container_banner img').attr('src', '/s/banner/').load(function() {
 	            $("#container_banner .close").click(function() {
 	            	var $containerBanner = $("#container_banner");
 					var minimizado = !! $containerBanner.data('minimizado');
@@ -65,6 +65,7 @@
 						$containerBanner.find('.close').text(minimizado ? '\\/' : '/\\');
 					});
 				});
+	            $('#container_banner').show();
             });
 		});
 </script>
@@ -89,7 +90,7 @@
 <div id="container_banner" class="clearfix">
 	<div id="banner">
 		<div class="close">\/</div>
-		<img src="http://www.fmctraining.com/sales/java_banner.jpg" />	
+		<img />	
 	</div>
 </div>
 </body>

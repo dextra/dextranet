@@ -1,7 +1,6 @@
 package br.com.dextra.dextranet.banner;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
@@ -20,9 +19,6 @@ import com.google.gson.JsonObject;
 @Path("/banner")
 public class BannerRS {
 
-	private static final Logger log = Logger.getLogger(BannerRS.class.getName());
-
-	
 	private BlobstoreService blobstoreService = BlobstoreServiceFactory
 			.getBlobstoreService();
 
@@ -37,29 +33,24 @@ public class BannerRS {
 		return json.toString();
 	}
 	
-	@Path("/bannerAtual")
+	@Path("/")
 	@GET
 	@Produces("image/*")
 	public Response BannerAtualURL(@Context HttpServletResponse response) {
 		BannerRepository bannerRepository = new BannerRepository();
+		Banner bannerAtual = bannerRepository.getBannerAtual();
 
-		log.info("id do banner atual: " + bannerRepository.getBannerAtual().getId());
-		log.info("blobkey do banner atual : " + bannerRepository.getBannerAtual().getBlobKey().getKeyString());
+		if (bannerAtual == null || bannerAtual.getBlobKey() == null)
+			return Response.noContent().build();
 
-		BlobKey blobKey = bannerRepository.getBannerAtual().getBlobKey();
+		BlobKey blobKey = bannerAtual.getBlobKey();
 
-		log.info("Tentara servir blob do banco.");
-
-		log.info("blobstore key construido: " + blobKey.getKeyString());
-		
 		try {
 			BlobstoreServiceFactory.getBlobstoreService().serve(blobKey, response);
 			blobstoreService.serve(blobKey, response);
-			log.info("quase sucesso.");
 		} catch (IOException e) {
-			log.severe(e.getMessage());
 			e.printStackTrace();
-			return Response.serverError().build();
+			return Response.status(500).build();
 		}
 
 		return Response.ok().build();

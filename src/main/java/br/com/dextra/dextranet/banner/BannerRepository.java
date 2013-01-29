@@ -27,10 +27,9 @@ public class BannerRepository extends BaseRepository {
 
 		Iterable<Entity> asIterable = prepared.asIterable(opts);
 
-		for (Entity entity : asIterable) {
-			return new Banner(entity);
-		}
+		if (asIterable.iterator().hasNext())
+			return new Banner(asIterable.iterator().next());
 
-		return new Banner();
+		return null;
 	}
 }
