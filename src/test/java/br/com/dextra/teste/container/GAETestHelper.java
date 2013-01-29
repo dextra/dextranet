@@ -22,7 +22,6 @@ import com.googlecode.mycontainer.web.ContextWebServer;
 import com.googlecode.mycontainer.web.FilterDesc;
 import com.googlecode.mycontainer.web.WebServerDeployer;
 import com.googlecode.mycontainer.web.jetty.JettyServerDeployer;
-//import com.google.appengine.api.search.dev.LocalSearchService;
 
 public class GAETestHelper {
 

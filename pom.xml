@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>br.com.dextra</groupId>
-	<artifactId>dextranet</artifactId>
+	<groupId>br.com.dextra.dexbot</groupId>
+	<artifactId>dashboard</artifactId>
 
-	<name>dextranet</name>
+	<name>dexbot</name>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -142,7 +142,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>dextranet</finalName>
+		<finalName>dashboard</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
