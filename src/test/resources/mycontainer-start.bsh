@@ -5,6 +5,7 @@ helper.setPort(8080);
 helper.prepareLocalServiceTestHelper();
 container = helper.bootMycontainer();
 
+
 container.waitFor();
 
 helper.shutdownMycontainer();
