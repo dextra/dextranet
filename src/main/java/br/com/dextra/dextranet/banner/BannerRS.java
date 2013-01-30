@@ -59,15 +59,19 @@ public class BannerRS {
 		return Response.ok().build();
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Path("/")
 	@POST
+	@Produces("application/json;charset=UTF-8")
 	public void retornoDoGAE(@Context HttpServletRequest request, @Context HttpServletResponse response) throws IOException {
-		@SuppressWarnings("deprecation")
 		Map<String, BlobKey> blobs = blobstoreService.getUploadedBlobs(request);
         BlobKey blobKey = blobs.get("banner");
+        
+        String dataInicio = request.getParameter("dataInicio") + "-" + request.getParameter("horaInicio");
+        String dataFim = request.getParameter("dataInicio") + "-" + request.getParameter("horaFim");
 
         if (blobKey != null) {
-            bannerRepository.criar(new Banner(request.getParameter("bannerTitle"), blobKey));
+            bannerRepository.criar(new Banner(request.getParameter("bannerTitulo"), blobKey, dataInicio , dataFim));
         } else 
         	response.setStatus(500);
 

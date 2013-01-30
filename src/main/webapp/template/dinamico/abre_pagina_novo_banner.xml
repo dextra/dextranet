@@ -2,12 +2,25 @@
 <engine>
 	<template selector="#container_main">
 		<form id="new_banner" method="post" enctype="multipart/form-data">
-			<input type="text" id="bannerTitle" name="bannerTitle" />
-			<input type="file" id="file" name="banner" />
+			<input type="text" id="bannerTitulo" name="bannerTitulo" placeholder="Digite o título do banner" /><br/>
+			<input type="file" id="file" name="banner" /><br/>
+			De: <input type="text" id="bannerInicio" name="dataInicio" size="15" /> 
+			<input type="text" id="bannerInicio" name="horaInicio" size="8" alt="time" /><br/>
+			Até: <input type="text" id="bannerFim" name="dataFim" size="15" />
+			<input type="text" id="bannerInicio" name="horaFim" size="8" alt="time" /><br/>
 			<input type="button" value="Upload!" />
 		</form>
 	</template>
 	<script>
+	var data = new Date();
+		$("#bannerInicio").datepicker({ 
+			dateFormat: "yy/mm/dd"
+		});
+		$("#bannerFim").datepicker({ 
+			dateFormat: "yy/mm/dd"
+		});
+        	$('input:text').setMask();
+            $('#new_banner [title]').tipsy({trigger: 'focus', gravity: 'w', fade: true});
 		$("#new_banner input[type=button]").click(dextranet.banner.novoBanner);
 	</script>
 </engine>

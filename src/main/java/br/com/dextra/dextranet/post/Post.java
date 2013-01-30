@@ -132,15 +132,12 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 
 		entidade.setProperty(PostFields.ID.getField(), this.id);
 		entidade.setProperty(PostFields.TITULO.getField(), this.titulo);
-		entidade.setProperty(PostFields.CONTEUDO.getField(), new Text(
-				this.conteudo));
+		entidade.setProperty(PostFields.CONTEUDO.getField(), new Text(this.conteudo));
 		entidade.setProperty(PostFields.USUARIO.getField(), this.usuario);
-		entidade
-				.setProperty(PostFields.COMENTARIO.getField(), this.comentarios);
+		entidade.setProperty(PostFields.COMENTARIO.getField(), this.comentarios);
 		entidade.setProperty(PostFields.LIKES.getField(), this.likes);
 		entidade.setProperty(PostFields.DATA.getField(), this.dataDeCriacao);
-		entidade.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(),
-				this.dataDeAtualizacao);
+		entidade.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(),this.dataDeAtualizacao);
 		entidade.setProperty(PostFields.USER_LIKE.getField(), this.userLikes);
 
 		return entidade;
@@ -156,8 +153,7 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 		json.addProperty(PostFields.COMENTARIO.getField(), this.comentarios);
 		json.addProperty(PostFields.LIKES.getField(), this.likes);
 		json.addProperty(PostFields.DATA.getField(), this.dataDeCriacao);
-		json.addProperty(PostFields.DATA_DE_ATUALIZACAO.getField(),
-				this.dataDeAtualizacao);
+		json.addProperty(PostFields.DATA_DE_ATUALIZACAO.getField(),this.dataDeAtualizacao);
 		json.addProperty(PostFields.USER_LIKE.getField(), this.userLikes);
 
 		return json;
@@ -165,17 +161,11 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 
 	public Document toDocument() {
 		Document document = Document.newBuilder().setId(id).addField(
-				Field.newBuilder().setName(PostFields.TITULO.getField())
-						.setText(titulo)).addField(
-				Field.newBuilder().setName(PostFields.CONTEUDO.getField())
-						.setHTML(conteudo)).addField(
-				Field.newBuilder().setName(PostFields.USUARIO.getField())
-						.setText(usuario)).addField(
-				Field.newBuilder().setName(
-						PostFields.DATA_DE_ATUALIZACAO.getField()).setText(
-						dataDeAtualizacao)).addField(
-				Field.newBuilder().setName(PostFields.ID.getField())
-						.setText(id)).build();
+				Field.newBuilder().setName(PostFields.TITULO.getField()).setText(titulo)).addField(
+				Field.newBuilder().setName(PostFields.CONTEUDO.getField()).setHTML(conteudo)).addField(
+				Field.newBuilder().setName(PostFields.USUARIO.getField()).setText(usuario)).addField(
+				Field.newBuilder().setName(PostFields.DATA_DE_ATUALIZACAO.getField()).setText(dataDeAtualizacao)).addField(
+				Field.newBuilder().setName(PostFields.ID.getField()).setText(id)).build();
 
 		return document;
 	}
