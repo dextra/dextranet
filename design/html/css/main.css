@@ -86,8 +86,8 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 #header-main-menu > li{float:left;height:36px;margin-top:-1px;position:relative;}
 #header-main-menu > li .shape-arrow-down{display:none;}
 #header-main-menu > li > a{display:block;padding:13px 25px 8px;font-weight:bold;font-size:13px;text-shadow:0 1px 1px #fff;color:#35679a;border-right:solid 1px #cfd5d9;border-left:solid 1px #f7f8fc;}
-#header-main-menu > li > a:hover{background-color:#e2e8ee;}
-#header-main-menu > li > a:active{background-color:#e2e8ee;box-shadow:inset 0 35px 35px -35px #d7dde3;}
+#header-main-menu > li > a:hover{background-color:#e9eef3;}
+#header-main-menu > li > a:active{background-color:#ecf1f5;box-shadow:inset 0 45px 45px -45px #c9d4df;}
 #header-main-menu > li#header-main-menu-logo > a{padding:6px 15px 8px;}
 
 #header-main-menu > li#header-main-menu-outros:hover > a{background-color:#e2e8ee;box-shadow:inset 0 35px 35px -35px #d7dde3;}
@@ -96,7 +96,7 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 #header-main-menu > li > ul{position:absolute;left:-1px;top:37px;min-width:175px;white-space:nowrap;border-top:1px solid #d5d9db;display:none;z-index:10;}
 #header-main-menu > li > ul > li{border:1px solid #d5d9db;border-top:0;}
 #header-main-menu > li > ul > li > a{display:block;font-size:12px;background-color:#fcffff;color:#35679a;font-weight:bold;padding:7px 10px;box-shadow:inset 0 -20px 20px -20px #ddd;}
-#header-main-menu > li > ul > li > a:hover{opacity:0.65;}
+#header-main-menu > li > ul > li > a:hover{background-color:#FFF;color:#0b4581;}
 #header-main-menu > li > ul > li:last-child,
 #header-main-menu > li > ul > li:last-child > a{border-radius:0 0 6px 6px;}
 #header-main-menu > li:hover > ul{display:block;}
@@ -157,8 +157,23 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 .list-stories-footer-call{float:right;text-align:right;}
 
 
+/*----------  Listagem de estórias de equipe  ----------*/
+/* Menu abcd */
+.list-menu-abcd { margin-bottom:20px;}
+.list-menu-abcd li { display:inline; padding-left:4px; padding-right:4px;}
+.list-menu-abcd li  a{ font-size: 1.1em;}
 
+.team-list-stories > li{border-radius:5px;background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-bottom:20px; width:30%; margin-right:20px; float:left}
+.team-list-stories .list-stories-avatar{width:115px;height:115px;}
+.team-list-stories-dados li { font-size:.8em; line-height:1.9em;color:#4e739c}
+.team-list-stories .list-stories-footer{height:16px;}
 
+/* Pagination */
+/* .list-pagination {text-align:center} */
+.list-pagination li { display:inline-block; padding-left:4px; padding-right:4px; border:solid 1px #cfd5d9;width:1.5em; height:1.5em; text-align:center;background-color:#d5d9db }
+.list-pagination li a{ display:block;font-size: .9em;  margin-top:4px; font-weight:bold;text-shadow:0 1px 1px #fff;}
+.list-pagination li:hover{background-color:#e9eef3;}
+.list-pagination li:active{background-color:#ecf1f5;box-shadow:inset 0 45px 45px -45px #c9d4df;}
 
 
 
