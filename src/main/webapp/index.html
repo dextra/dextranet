@@ -56,7 +56,8 @@
             dextranet.paginacao;
 
             $('#container_banner').hide();
-            $('#container_banner img').attr('src', '/s/banner/').load(function() {
+            dextranet.banner.listaBannersAtuais;
+            $('#container_banner img').load(function() {
 	            $("#container_banner .close").click(function() {
 	            	var $containerBanner = $("#container_banner");
 					var minimizado = !! $containerBanner.data('minimizado');
@@ -92,8 +93,6 @@
 </div>
 <div id="container_banner" class="clearfix">
 	<div id="banner">
-		<div class="close">\/</div>
-		<img />	
 	</div>
 </div>
 </body>

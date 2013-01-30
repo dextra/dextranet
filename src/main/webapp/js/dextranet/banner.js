@@ -8,5 +8,18 @@ dextranet.banner = {
 				}
 			});
 			return false;
+		},
+
+		listaBannersAtuais : function() {
+			$.ajax({
+				type : "GET",
+				url : "/s/banner",
+				success : function(banners) {
+					if (banners.length > 0) {
+						bannerObjectArray = postObject.getpostObjectArrayFromPostJsonArray(banners);
+						$.holy("../template/dinamico/banner/banner.xml", {"jsonArrayBanner" : bannerObjectArray});						
+					}
+				}
+			});
 		}
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<template selector="#banner">
+		<div class="close">\/</div>
+		{for banner in jsonArrayBanner}
+			<img src="/s/banner/${banner.postObjectJson.id}"/>			
+		{/for}		
+	</template>
+	<script>
+		
+	</script>
+</engine>

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
@@ -37,25 +38,39 @@ public class BannerRS {
 		return json.toString();
 	}
 	
+//	@Path("/")
+//	@GET
+//	@Produces("image/*")
+//	public Response BannerAtualURL(@Context HttpServletResponse response) {
+//		List<Banner> bannerAtual = bannersDisponiveis();
+//		
+//		for (Banner banner : bannerAtual) { //Dar um jeito da blobstore servir varios banners
+//			if (banner == null || banner.getBlobKey() == null)
+//				return Response.noContent().build();
+//			BlobKey blobKey = banner.getBlobKey();
+//			try {
+//				BlobstoreServiceFactory.getBlobstoreService().serve(blobKey, response);
+//				blobstoreService.serve(blobKey, response);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//				return Response.status(500).build();
+//			}
+//		}
+//		
+//		return Response.ok().build();
+//	}
+
 	@Path("/")
 	@GET
-	@Produces("image/*")
-	public Response BannerAtualURL(@Context HttpServletResponse response) {
-		Banner bannerAtual = bannerRepository.getBannerAtual();
+	public String bannersDisponiveis() {
+		return bannerRepository.getBannerDisponiveis().toString();
+	}
 
-		if (bannerAtual == null || bannerAtual.getBlobKey() == null)
-			return Response.noContent().build();
-
-		BlobKey blobKey = bannerAtual.getBlobKey();
-
-		try {
-			BlobstoreServiceFactory.getBlobstoreService().serve(blobKey, response);
-			blobstoreService.serve(blobKey, response);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return Response.status(500).build();
-		}
-
+	@Path("/{id}")
+	@GET
+	public Response getById(@Context HttpServletResponse response, @PathParam("id") String id) throws IOException {
+		blobstoreService.serve(bannerRepository.obterPorID(id).getBlobKey(), response);
+		
 		return Response.ok().build();
 	}
 	
