@@ -8,6 +8,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 
 public class BannerRepository extends BaseRepository {
 
@@ -20,6 +21,7 @@ public class BannerRepository extends BaseRepository {
 	public Banner getBannerAtual() {
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		Query query = new Query(Banner.class.getName());
+		query.addSort(BannerFields.DATA_FIM.getField(), SortDirection.DESCENDING); //pegando banner de acordo com a maior data final
 
 		PreparedQuery prepared = datastore.prepare(query);
 		FetchOptions opts = FetchOptions.Builder.withDefaults();

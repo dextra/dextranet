@@ -4,23 +4,40 @@
 		<form id="new_banner" method="post" enctype="multipart/form-data">
 			<input type="text" id="bannerTitulo" name="bannerTitulo" placeholder="Digite o título do banner" /><br/>
 			<input type="file" id="file" name="banner" /><br/>
-			De: <input type="text" id="bannerInicio" name="dataInicio" size="15" /> 
-			<input type="text" id="bannerInicio" name="horaInicio" size="8" alt="time" /><br/>
-			Até: <input type="text" id="bannerFim" name="dataFim" size="15" />
-			<input type="text" id="bannerInicio" name="horaFim" size="8" alt="time" /><br/>
+			De: <input type="text" id="bannerDataInicio" name="dataInicio" size="15" /> 
+			<input type="text" id="bannerHoraInicio" name="horaInicio" size="8" alt="time" /><br/>
+			Até: <input type="text" id="bannerDataFim" name="dataFim" size="15" />
+			<input type="text" id="bannerHoraFim" name="horaFim" size="8" alt="time" /><br/>
 			<input type="button" value="Upload!" />
 		</form>
 	</template>
 	<script>
-	var data = new Date();
-		$("#bannerInicio").datepicker({ 
-			dateFormat: "yy/mm/dd"
+		var $dataInicio = $('#bannerDataInicio');
+		var $dataFim = $('#bannerDataFim'); 
+		<![CDATA[
+		$("#bannerDataInicio, #bannerDataFim").datepicker({ 
+			dateFormat: "yy/mm/dd",
+			dayNamesMin: [ "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sa" ],
+			monthNames: [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ],
+			onSelect : function(data, input) {
+				var dataFim = $dataFim.datepicker('getDate');
+				var dataInicio = $dataInicio.datepicker('getDate');
+
+				if (dataInicio && dataFim < dataInicio)
+					$dataFim.datepicker('setDate', dataInicio)
+
+				if (this.id == $dataInicio.attr('id'))
+					$('#bannerHoraInicio').focus();
+				else
+					$('#bannerHoraFim').focus();
+			}
 		});
-		$("#bannerFim").datepicker({ 
-			dateFormat: "yy/mm/dd"
-		});
-        	$('input:text').setMask();
-            $('#new_banner [title]').tipsy({trigger: 'focus', gravity: 'w', fade: true});
+		]]>
+
+
+
+		$('input:text').setMask();
+		$('#new_banner [title]').tipsy({trigger: 'focus', gravity: 'w', fade: true});
 		$("#new_banner input[type=button]").click(dextranet.banner.novoBanner);
 	</script>
 </engine>
