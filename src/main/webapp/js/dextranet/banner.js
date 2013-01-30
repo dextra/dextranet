@@ -21,5 +21,6 @@ dextranet.banner = {
 					}
 				}
 			});
+			return false;
 		}
 }

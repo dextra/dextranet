@@ -62,12 +62,14 @@ public class BannerRS {
 
 	@Path("/")
 	@GET
+	@Produces("application/json;charset=UTF-8")
 	public String bannersDisponiveis() {
 		return bannerRepository.getBannerDisponiveis().toString();
 	}
 
 	@Path("/{id}")
 	@GET
+	@Produces("application/json;charset=UTF-8")
 	public Response getById(@Context HttpServletResponse response, @PathParam("id") String id) throws IOException {
 		blobstoreService.serve(bannerRepository.obterPorID(id).getBlobKey(), response);
 		
