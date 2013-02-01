@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>org.datanucleus</groupId>
+  <artifactId>datanucleus-enhancer</artifactId>
+  <version>1.1.4</version>
+  <versioning>
+    <versions>
+      <version>1.0.1</version>
+      <version>1.0.2</version>
+      <version>1.0.3</version>
+      <version>1.0.4</version>
+      <version>1.1.0</version>
+      <version>1.1.1</version>
+      <version>1.1.2</version>
+      <version>1.1.3</version>
+      <version>1.1.4</version>
+      <version>2.0.0.m1</version>
+      <version>2.0.0-m2</version>
+      <version>2.0.0-m3</version>
+      <version>2.0.0-m4</version>
+      <version>2.0.0-release</version>
+      <version>2.0.1</version>
+      <version>2.0.2</version>
+      <version>2.0.3</version>
+      <version>2.1.0-release</version>
+      <version>2.1.1</version>
+      <version>2.1.2</version>
+      <version>2.1.3</version>
+      <version>3.0.0-m1</version>
+      <version>3.0.0-m2</version>
+      <version>3.0.0-m3</version>
+      <version>3.0.0-m4</version>
+      <version>3.0.0-m5</version>
+      <version>3.0.0-m6</version>
+      <version>3.0.0-release</version>
+      <version>3.0.1</version>
+      <version>3.1.0-m1</version>
+      <version>3.1.0-m2</version>
+      <version>3.1.0-release</version>
+      <version>3.1.1</version>
+    </versions>
+    <lastUpdated>20121004091629</lastUpdated>
+  </versioning>
+</metadata>

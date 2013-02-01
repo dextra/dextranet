@@ -1,0 +1,225 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.kindleit</groupId>
+  <artifactId>maven-gae-parent</artifactId>
+  <version>0.9.2</version>
+  <packaging>pom</packaging>
+
+  <name>Maven GAE Parent POM</name>
+  <description>Parent POM for the Maven - Google App Engine Integration artifacts.</description>
+  <inceptionYear>2009</inceptionYear>
+  <url>http://www.kindleit.net/maven_gae_plugin/</url>
+
+  <licenses>
+    <license>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <name>Apache 2.0</name>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>4</version>
+  </parent>
+
+  <distributionManagement>
+    <site>
+      <id>com.kindleit.site</id>
+      <name>Kindled Project Documentation Sites</name>
+      <url>dav:https://sites.kitsd.com/maven-gae-plugin</url>
+    </site>
+  </distributionManagement>
+
+  <organization>
+    <name>KindleIT</name>
+    <url>http://www.kindleit.net</url>
+  </organization>
+
+  <developers>
+    <developer>
+      <id>kryptt</id>
+      <name>Rodolfo Hansen</name>
+      <email>kryptt@gmail.com</email>
+    </developer>
+    <developer>
+      <id>tleese22</id>
+      <name>Taylor Leese</name>
+      <email>tleese22@gmail.com</email>
+    </developer>
+    <developer>
+      <id>mangrar</id>
+      <name>Manuel Grau</name>
+      <email>mangrar@gmail.com</email>
+    </developer>
+    <developer>
+      <id>androns</id>
+      <name>Andris Rauda</name>
+      <email>androns@gmail.com</email>
+    </developer>
+  </developers>
+
+  <mailingLists>
+    <mailingList>
+      <name>maven-gae-plugin</name>
+      <subscribe>maven-gae-plugin-subscribe@googlegroups.com</subscribe>
+      <unsubscribe>maven-gae-plugin+unsubscribe@googlegroups.com</unsubscribe>
+      <post>maven-gae-plugin@googlegroups.com</post>
+      <archive>http://groups.google.com/group/maven-gae-plugin</archive>
+    </mailingList>
+  </mailingLists>
+
+  <issueManagement>
+    <system>Github</system>
+    <url>http://github.com/maven-gae-plugin/maven-gae-plugin/issues</url>
+  </issueManagement>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.plugin.version>2.2.1</maven.plugin.version>
+    <junit.version>3.8.2</junit.version>
+    <gae.version>1.5.3</gae.version>
+    <ant.version>1.7.1</ant.version>
+    <gae.base>
+      ${settings.localRepository}/com/google/appengine/appengine-java-sdk/${gae.version}
+    </gae.base>
+    <gae.home>
+       ${gae.base}/appengine-java-sdk-${gae.version}
+    </gae.home>
+  </properties>
+
+  <profiles>
+    <profile>
+      <id>release-signing</id>
+      <activation>
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>enable-runtime</id>
+      <activation>
+        <property>
+          <name>enable-runtime</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <modules>
+        <module>gae-runtime</module>
+      </modules>
+    </profile>
+    <profile>
+      <id>enable-modules</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+        <property>
+          <name>enable-modules</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <modules>
+        <module>maven-gae-plugin</module>
+        <module>gae-archetype-jsp</module>
+        <module>gae-archetype-jsf</module>
+        <module>gae-archetype-gwt</module>
+        <module>gae-archetype-wicket</module>
+        <module>gae-archetype-objectify-jsp</module>
+      </modules>
+    </profile>
+  </profiles>
+
+  <scm>
+    <connection>scm:git:git@github.com:maven-gae-plugin/maven-gae-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:maven-gae-plugin/maven-gae-plugin.git</developerConnection>
+    <url>http://github.com/maven-gae-plugin/maven-gae-plugin</url>
+  </scm>
+
+  <repositories>
+    <repository>
+      <id>maven2-repository.dev.java.net</id>
+      <name>Java.net Repository for Maven</name>
+      <url>http://download.java.net/maven/2/</url>
+      <releases><enabled>true</enabled></releases>
+      <snapshots><enabled>true</enabled></snapshots>
+    </repository>
+  </repositories>
+
+  <build>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-webdav-jackrabbit</artifactId>
+        <version>1.0-beta-7</version>
+      </extension>
+      <extension>
+        <groupId>org.apache.maven.archetype</groupId>
+        <artifactId>archetype-packaging</artifactId>
+        <version>2.0</version>
+      </extension>
+      <extension>
+        <groupId>org.jvnet.wagon-svn</groupId>
+        <artifactId>wagon-svn</artifactId>
+        <version>1.9</version>
+      </extension>
+    </extensions>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+          <showDeprecation>true</showDeprecation>
+          <showWarnings>true</showWarnings>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.1</version>
+        <configuration>
+          <mavenExecutorId>forked-path</mavenExecutorId>
+          <releaseProfiles>release</releaseProfiles>
+          <goals>deploy</goals>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-archetype-plugin</artifactId>
+        <version>2.0</version>
+        <extensions>true</extensions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-plugin-plugin</artifactId>
+        <version>2.5.1</version>
+      </plugin>
+    </plugins>
+  </reporting>
+
+</project>
