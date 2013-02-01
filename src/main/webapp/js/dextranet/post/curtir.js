@@ -2,7 +2,7 @@ dextranet.curtir = {
 		
 		curte : function(botao) {
 			//$(".linkCurtir").click(function() {
-				var id = $(botao).attr("id").substring(9);
+				var id = $(botao).attr("id");
 				if (dextranet.curtir.voceJaCurtiu(botao)) {
 					var classe = $(botao).attr("class").substring(11);
 					var ehPost = true;

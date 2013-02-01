@@ -60,4 +60,16 @@ public class Data {
 	    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
 	    return (Date)formatter.parse(dataString);  
 	}
+
+	public static Boolean anteriorAHoje(Date data) {
+		return !primeiroSegundoDoDia().before(data);
+	}
+	
+	public static Boolean igualAHoje(Date data) {
+		return primeiroSegundoDoDia().equals(data);
+	}
+	
+	public static Boolean posteriorAHoje(Date data) {
+		return !primeiroSegundoDoDia().after(data);
+	}
 }

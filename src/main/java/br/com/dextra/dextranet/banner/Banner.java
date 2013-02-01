@@ -17,12 +17,19 @@ public class Banner extends Entidade {
 	private Date dataInicio;	
 
 	private Date dataFim;
+	
+	private Boolean jaComecou;
+	
 
-	public Banner(String titulo, BlobKey blobKey, Date dataInicio, Date dataFim) {
+	private Boolean jaTerminou;
+
+	public Banner(String titulo, BlobKey blobKey, Date dataInicio, Date dataFim, Boolean jaComecou, Boolean jaTerminou) {
 		this.titulo = titulo;
 		this.blobKey = blobKey;
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
+		this.jaComecou = jaComecou;
+		this.jaTerminou = jaTerminou;
 	}
 
 	public Banner(Entity bannerEntity) {
@@ -32,6 +39,8 @@ public class Banner extends Entidade {
 			this.blobKey = (BlobKey) bannerEntity.getProperty(BannerFields.BLOBKEY.getField());
 			this.dataInicio = (Date) bannerEntity.getProperty(BannerFields.DATA_INICIO.getField());
 			this.dataFim = (Date) bannerEntity.getProperty(BannerFields.DATA_FIM.getField());
+			this.jaComecou = (Boolean) bannerEntity.getProperty(BannerFields.JA_COMECOU.getField());
+			this.jaTerminou = (Boolean) bannerEntity.getProperty(BannerFields.JA_TERMINOU.getField());
 		}
 	}
 
@@ -54,6 +63,14 @@ public class Banner extends Entidade {
 		return dataFim;
 	}
 
+	public Boolean getJaComecou() {
+		return jaComecou;
+	}
+	
+	public Boolean getJaTerminou() {
+		return jaTerminou;
+	}
+	
 	public Entity toEntity() {
 		Entity entidade = new Entity(this.getKey(this.getClass()));
 
@@ -62,6 +79,8 @@ public class Banner extends Entidade {
 		entidade.setProperty(BannerFields.BLOBKEY.getField(), this.blobKey);
 		entidade.setProperty(BannerFields.DATA_INICIO.getField(), this.dataInicio);
 		entidade.setProperty(BannerFields.DATA_FIM.getField(), this.dataFim);
+		entidade.setProperty(BannerFields.JA_COMECOU.getField(), this.jaComecou);
+		entidade.setProperty(BannerFields.JA_TERMINOU.getField(), this.jaTerminou);
 
 		return entidade;
 	}
@@ -74,7 +93,9 @@ public class Banner extends Entidade {
 		json.addProperty(BannerFields.BLOBKEY.getField(), this.blobKey.getKeyString());
 		json.addProperty(BannerFields.DATA_INICIO.getField(), this.dataInicio.toString());
 		json.addProperty(BannerFields.DATA_FIM.getField(), this.dataFim.toString());
-
+		json.addProperty(BannerFields.JA_COMECOU.getField(), this.jaComecou.toString());
+		json.addProperty(BannerFields.JA_TERMINOU.getField(), this.jaTerminou.toString());
+		
 		return json;
 	}
 }

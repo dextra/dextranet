@@ -4,15 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.dextra.dextranet.persistencia.BaseRepository;
-import br.com.dextra.dextranet.utils.Data;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.CompositeFilter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.SortDirection;
 
 public class BannerRepository extends BaseRepository {
 
@@ -26,19 +25,12 @@ public class BannerRepository extends BaseRepository {
 	}
 
 	public List<Banner> getBannerDisponiveis() {
-		CompositeFilter bannerDisponivel = null;
-		
-		if (!"local".equals(System.getProperty("env")))
-			bannerDisponivel = Query.CompositeFilterOperator.and(
-				FilterOperator.LESS_THAN_OR_EQUAL.of(BannerFields.DATA_INICIO.getField(), Data.ultimoSegundoDoDia()),
-				FilterOperator.GREATER_THAN_OR_EQUAL.of(BannerFields.DATA_FIM.getField(), Data.primeiroSegundoDoDia())
-			);
 		
 		Query query = new Query(Banner.class.getName());
-		query.setFilter(bannerDisponivel);
+		// TODO: adicionar filtro usando flags
+		query.addSort(BannerFields.DATA_INICIO.getField(), SortDirection.DESCENDING);
 
 		PreparedQuery prepared = datastore.prepare(query);
-
 		Iterable<Entity> asIterable = prepared.asIterable();
 
 		List<Banner> listaDeBanners = new ArrayList<Banner>();
@@ -46,7 +38,7 @@ public class BannerRepository extends BaseRepository {
 		for (Entity entity : asIterable) {
 			listaDeBanners.add(new Banner(entity));
 		}
-
+		System.out.println(listaDeBanners.size());
 		return listaDeBanners;
 	}
 

@@ -30,7 +30,7 @@ dextranet.comment = {
 		dextranet.comment.carregaComentario(idDoPost);
 		$.holy("../template/dinamico/post/abre_pagina_novo_comment.xml", {"idDoPost" : idDoPost});
 
-		return deuCerto;
+		return true;
 	},
 
 	carregaComentario : function(idDoPost) {
@@ -92,6 +92,7 @@ dextranet.comment = {
 	},
 
 	atualizaComentario : function(idComentario) {
+		console.log(idComentario);
 		$.ajax({
 			type : 'GET',
 			url : '/s/comment',

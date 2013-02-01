@@ -1,7 +1,7 @@
 package br.com.dextra.dextranet.banner;
 
 public enum BannerFields {
-	ID("id"), TITULO("titulo"), BLOBKEY("blobKey"), DATA_INICIO("dataInicio"), DATA_FIM("dataFim");
+	ID("id"), TITULO("titulo"), BLOBKEY("blobKey"), DATA_INICIO("dataInicio"), DATA_FIM("dataFim"), JA_COMECOU("jaComecou"), JA_TERMINOU("jaTerminou");
 	
 	private String value;
 

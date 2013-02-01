@@ -58,5 +58,35 @@ dextranet.banner = {
         			dextranet.banner.mudarBanner();
         		}
         	}, 15000);
+		},
+		
+		validaEFormataForm : function() {
+			var $dataInicio = $('#bannerDataInicio');
+			var $dataFim = $('#bannerDataFim'); 
+			var dayNamesMin = [ "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab" ];
+			var monthNames = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ];
+
+			$("#bannerDataInicio").datepicker({ 
+				dateFormat: "dd/mm/yy",
+				dayNamesMin: dayNamesMin,
+				monthNames: monthNames,
+				defaultDate: "0",
+				minDate: "0",
+				onClose: function( selectedDate ) {
+					if(selectedDate != "")
+						$( "#bannerDataFim" ).datepicker( "option", "minDate", selectedDate );
+				}
+			});
+			
+			$("#bannerDataFim").datepicker({ 
+				dateFormat: "dd/mm/yy",
+				dayNamesMin: dayNamesMin,
+				monthNames: monthNames,
+				defaultDate: "0",
+				minDate: "0",
+				onClose: function( selectedDate ) {
+					$( "#bannerDataInicio" ).datepicker( "option", "maxDate", selectedDate );
+				}
+			});
 		}
 }
