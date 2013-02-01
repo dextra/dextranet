@@ -2,11 +2,13 @@
 <engine>
 	<template selector="#banner" append="true">
 		<div class="close">\/</div>
-		{for banner in jsonArrayBanner}
-			<img src="/s/banner/${banner.postObjectJson.id}"/>			
-		{/for}		
+			{for banner in jsonArrayBanner}
+				<img src="/s/banner/${banner.postObjectJson.id}"/>
+			{/for}	
 	</template>
 	<script>
-		
+		$('#banner img:first').load(function() {
+            dextranet.banner.mostrarBanners();
+		});
 	</script>
 </engine>

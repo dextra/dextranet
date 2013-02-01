@@ -4,8 +4,8 @@ dextranet.comment = {
 
 	inicializa : function() {
 		var jaTemTextArea = false;
-		$(".link").click(function() {
-			var idDoPost = $(this).attr("id").substring(9);
+		$(".list_stories_headline_comments a.link").click(function() {
+			var idDoPost = $(this).attr("id");
 			if (!jaTemTextArea) {
 				if (dextranet.comment.abreTelaComentario($(this).attr("id"), idDoPost)) {
 					idUltimo = idDoPost;
@@ -27,16 +27,8 @@ dextranet.comment = {
 	},
 
 	abreTelaComentario : function(idDaDivDoPost, idDoPost) {
-		var LIs = $("#relacao_dos_posts").children();
-		var deuCerto = false;
-		LIs.each(function() {
-			if ($(this).attr("class") == idDaDivDoPost) {
-				dextranet.comment.carregaComentario(idDoPost);
-				$.holy("../template/dinamico/post/abre_pagina_novo_comment.xml", {"idDoPost" : idDoPost});
-
-				deuCerto = true;
-			}
-		});
+		dextranet.comment.carregaComentario(idDoPost);
+		$.holy("../template/dinamico/post/abre_pagina_novo_comment.xml", {"idDoPost" : idDoPost});
 
 		return deuCerto;
 	},

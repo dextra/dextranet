@@ -3,14 +3,9 @@
 	<template selector="#relacao_dos_posts" append="true">
 			{for post in jsonArrayPost}
 			<li class="clearfix ${post.postObjectJson.id}">
-				<div class="list_stories_headline_data">
-					${converteData(post.postObjectJson.dataDeCriacao)}
-				</div>
-				<img src="" alt="photo" class="list_stories_avatar" />
-				<div class="list_stories_headline clearfix">
-					<h2 class="titulo ${post.postObjectJson.id}">${post.postObjectJson.titulo}</h2>
+				<div class="box_list_headline_comments_author" >
 					<div class="list_stories_headline_comments">
-						<a id="clearfix ${post.postObjectJson.id}" class="link">
+						<a id="${post.postObjectJson.id}" class="link clearfix">
 							<span class="icon_comments"></span>
 							<span class="numero_comentario">${post.postObjectJson.comentarios}</span>
 							{if post.postObjectJson.comentarios == "1"}
@@ -21,22 +16,34 @@
 						</a>
 					</div>
 					<div class="list_stories_headline_dx">
-						<a id="clearfix ${post.postObjectJson.id}" class="linkCurtir post" original-title="${post.postObjectJson.userLike}" onClick="dextranet.curtir.curte(this)">
-						<span class="icon_dx"></span>
-						<span class="numero_curtida">${post.postObjectJson.likes}</span>
+						<a id="${post.postObjectJson.id}" class="clearfix linkCurtir post" original-title="${post.postObjectJson.userLike}" onClick="dextranet.curtir.curte(this)">
+							<span class="icon_dx"></span>
+							<span class="numero_curtida">${post.postObjectJson.likes}</span>
 						</a>
 					</div>
 					<div class="list_stories_headline_author">
-						<a href="#">${post.postObjectJson.usuario}</a>
+						por <a href="#">${post.postObjectJson.usuario}</a>
 					</div>
 				</div>
-				<div id="${post.postObjectJson.id}_post" class="list_stories_lead" style="display:none;">
-					<p id="${post.postObjectJson.id}">
-						${post.postObjectJson.conteudo}
-					</p>
-				</div>
+				<div class="list_stories_headline clearfix">
+					<img src="temp/img_user.jpg" alt="Bruno Camarini" class="list_stories_avatar" />
+					<h2 class="titulo ${post.postObjectJson.id}">${post.postObjectJson.titulo}</h2>
+					<div id="${post.postObjectJson.id}_post" class="list_stories_lead" style="display:none;">
+						<p id="${post.postObjectJson.id}">
+							${post.postObjectJson.conteudo}
+						</p>
+					</div>
+				</div>	
 				<div class="list_stories_comments ${post.postObjectJson.id}">
 
+				</div>	
+				<div class="list_stories_footer clearfix">
+					<div class="list_stories_footer_tags">
+						<a href="#">HTML</a>, <a href="#">CSS</a>
+					</div>
+					<div class="list_stories_footer_call">
+						<a href="#">+ Ver mais</a>
+					</div> 
 				</div>
 			</li>
 			{/for}

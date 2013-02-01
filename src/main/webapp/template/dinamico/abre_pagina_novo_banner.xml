@@ -4,10 +4,8 @@
 		<form id="new_banner" method="post" enctype="multipart/form-data">
 			<input type="text" id="bannerTitulo" name="bannerTitulo" placeholder="Digite o título do banner" /><br/>
 			<input type="file" id="file" name="banner" /><br/>
-			De: <input type="text" id="bannerDataInicio" name="dataInicio" size="15" /> 
-			<input type="text" id="bannerHoraInicio" name="horaInicio" size="8" alt="time" /><br/>
-			Até: <input type="text" id="bannerDataFim" name="dataFim" size="15" />
-			<input type="text" id="bannerHoraFim" name="horaFim" size="8" alt="time" /><br/>
+			De: <input type="text" id="bannerDataInicio" name="dataInicio" size="15" /><br/>
+			Até: <input type="text" id="bannerDataFim" name="dataFim" size="15" /><br/>
 			<input type="button" value="Upload!" />
 		</form>
 	</template>
@@ -16,7 +14,7 @@
 		var $dataFim = $('#bannerDataFim'); 
 		<![CDATA[
 		$("#bannerDataInicio, #bannerDataFim").datepicker({ 
-			dateFormat: "yy/mm/dd",
+			dateFormat: "dd/mm/yy",
 			dayNamesMin: [ "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sa" ],
 			monthNames: [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ],
 			onSelect : function(data, input) {

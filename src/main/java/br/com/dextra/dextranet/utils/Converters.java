@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
+import br.com.dextra.dextranet.banner.Banner;
 import br.com.dextra.dextranet.comment.Comment;
+import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.post.Post;
 
 import com.google.appengine.api.datastore.Entity;
@@ -22,7 +24,7 @@ public class Converters {
         }
         json.addProperty("key",entity.getKey().toString());
         return json;
-}
+	}
 
 	public List<String> toListaDeIds(Results<ScoredDocument> results) {
 		List<String> idList=new ArrayList<String>();
@@ -52,22 +54,6 @@ public class Converters {
 		return jsonList;
 	}
 
-
-	/*public List<JsonObject> commentsToArrayDeCommentsToJson(int maxResults, int offset, Post post) throws EntityNotFoundException {
-
-		List<JsonObject> listaDeJsonDosComments = new ArrayList<JsonObject>();
-
-		List<Comment> listaDeComments =
-
-		for (Comment comment : listaDeComments) {
-			listaDeJsonDosComments.add(comment.toJson());
-		}
-
-
-		return listaDeJsonDosComments;
-	}
-*/
-
 	public String converterGAETextToString(Entity entity) {
 		String conteudo = ((Text) entity.getProperty("conteudo")).getValue();
 		return conteudo;
@@ -78,5 +64,14 @@ public class Converters {
 			return true;
 		else
 		return false;
+	}
+
+	public static List<JsonObject> toJson(List<Banner> entidades) {
+		List<JsonObject> json = new ArrayList<JsonObject>();
+		for (Entidade entidade : entidades) {
+			json.add(entidade.toJson());
+		}		
+		
+		return json;
 	}
 }

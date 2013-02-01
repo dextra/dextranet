@@ -1,6 +1,8 @@
 package br.com.dextra.dextranet.banner;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+
+import br.com.dextra.dextranet.utils.Converters;
+import br.com.dextra.dextranet.utils.Data;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
@@ -27,44 +32,11 @@ public class BannerRS {
 			.getBlobstoreService();
 	private BannerRepository bannerRepository = new BannerRepository();
 
-	@Path("/uploadURL")
-	@GET
-	@Produces("application/json;charset=UTF-8")
-	public String uploadURL() throws EntityNotFoundException {
-		String url = blobstoreService.createUploadUrl("/s/banner/");
-		JsonObject json = new JsonObject();
-		json.addProperty("url", url);
-		
-		return json.toString();
-	}
-	
-//	@Path("/")
-//	@GET
-//	@Produces("image/*")
-//	public Response BannerAtualURL(@Context HttpServletResponse response) {
-//		List<Banner> bannerAtual = bannersDisponiveis();
-//		
-//		for (Banner banner : bannerAtual) { //Dar um jeito da blobstore servir varios banners
-//			if (banner == null || banner.getBlobKey() == null)
-//				return Response.noContent().build();
-//			BlobKey blobKey = banner.getBlobKey();
-//			try {
-//				BlobstoreServiceFactory.getBlobstoreService().serve(blobKey, response);
-//				blobstoreService.serve(blobKey, response);
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//				return Response.status(500).build();
-//			}
-//		}
-//		
-//		return Response.ok().build();
-//	}
-
 	@Path("/")
 	@GET
 	@Produces("application/json;charset=UTF-8")
 	public String bannersDisponiveis() {
-		return bannerRepository.getBannerDisponiveis().toString();
+		return Converters.toJson(bannerRepository.getBannerDisponiveis()).toString();		
 	}
 
 	@Path("/{id}")
@@ -84,8 +56,17 @@ public class BannerRS {
 		Map<String, BlobKey> blobs = blobstoreService.getUploadedBlobs(request);
         BlobKey blobKey = blobs.get("banner");
         
-        String dataInicio = request.getParameter("dataInicio") + "-" + request.getParameter("horaInicio");
-        String dataFim = request.getParameter("dataInicio") + "-" + request.getParameter("horaFim");
+        
+        //Criar metodo no Data utils para retornar data formatada
+        Date dataInicio = null;
+        Date dataFim = null;
+		try {
+			dataInicio = Data.stringParaData(request.getParameter("dataInicio"));
+			dataFim = Data.stringParaData(request.getParameter("dataInicio"));
+		} catch (ParseException e) {
+			response.setStatus(500);
+			e.printStackTrace();
+		}
 
         if (blobKey != null) {
             bannerRepository.criar(new Banner(request.getParameter("bannerTitulo"), blobKey, dataInicio , dataFim));
@@ -95,4 +76,14 @@ public class BannerRS {
     	response.sendRedirect("/");
 	}
 	
+	@Path("/uploadURL")
+	@GET
+	@Produces("application/json;charset=UTF-8")
+	public String uploadURL() throws EntityNotFoundException {
+		String url = blobstoreService.createUploadUrl("/s/banner/");
+		JsonObject json = new JsonObject();
+		json.addProperty("url", url);
+		
+		return json.toString();
+	}
 }

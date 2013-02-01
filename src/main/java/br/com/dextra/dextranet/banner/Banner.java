@@ -1,5 +1,7 @@
 package br.com.dextra.dextranet.banner;
 
+import java.util.Date;
+
 import br.com.dextra.dextranet.persistencia.Entidade;
 
 import com.google.appengine.api.blobstore.BlobKey;
@@ -12,11 +14,11 @@ public class Banner extends Entidade {
 
 	private BlobKey blobKey;
 
-	private String dataInicio;	
+	private Date dataInicio;	
 
-	private String dataFim;
+	private Date dataFim;
 
-	public Banner(String titulo, BlobKey blobKey, String dataInicio, String dataFim) {
+	public Banner(String titulo, BlobKey blobKey, Date dataInicio, Date dataFim) {
 		this.titulo = titulo;
 		this.blobKey = blobKey;
 		this.dataInicio = dataInicio;
@@ -28,8 +30,8 @@ public class Banner extends Entidade {
 			this.id = (String) bannerEntity.getProperty(BannerFields.ID.getField());
 			this.titulo = (String) bannerEntity.getProperty(BannerFields.TITULO.getField());
 			this.blobKey = (BlobKey) bannerEntity.getProperty(BannerFields.BLOBKEY.getField());
-			this.dataInicio = (String) bannerEntity.getProperty(BannerFields.DATA_INICIO.getField());
-			this.dataFim = (String) bannerEntity.getProperty(BannerFields.DATA_FIM.getField());
+			this.dataInicio = (Date) bannerEntity.getProperty(BannerFields.DATA_INICIO.getField());
+			this.dataFim = (Date) bannerEntity.getProperty(BannerFields.DATA_FIM.getField());
 		}
 	}
 
@@ -44,11 +46,11 @@ public class Banner extends Entidade {
 		return blobKey;
 	}
 	
-	public String getDataInicio() {
+	public Date getDataInicio() {
 		return dataInicio;
 	}
 	
-	public String getDataFim() {
+	public Date getDataFim() {
 		return dataFim;
 	}
 
