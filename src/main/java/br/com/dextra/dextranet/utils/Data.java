@@ -5,7 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
 public class Data {
@@ -36,22 +35,32 @@ public class Data {
 		return formataDataPelaBiblioteca(data);
 	}
 
-	public static Date ultimoSegundoDoDia() {
-		Calendar c = GregorianCalendar.getInstance();
-		c.set(Calendar.MILLISECOND, 999);
-		c.set(Calendar.SECOND, 59);
-		c.set(Calendar.MINUTE, 59);
-		c.set(Calendar.HOUR, 11);
-
-		return c.getTime();
+	public static Date ultimoSegundoDeHoje() {
+		return ultimoSegundo(new Date());
 	}
 
-	public static Date primeiroSegundoDoDia() {
-		Calendar c = GregorianCalendar.getInstance();
+	public static Date primeiroSegundoDeHoje() {
+		return primeiroSegundo(new Date());
+	}
+	
+	public static Date primeiroSegundo(Date data) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(data);
 		c.set(Calendar.MILLISECOND, 0);
 		c.set(Calendar.SECOND, 0);
 		c.set(Calendar.MINUTE, 0);
-		c.set(Calendar.HOUR, -12);
+		c.set(Calendar.HOUR_OF_DAY, 0);
+
+		return c.getTime();
+	}
+	
+	public static Date ultimoSegundo(Date data) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(data);
+		c.set(Calendar.MILLISECOND, 999);
+		c.set(Calendar.SECOND, 59);
+		c.set(Calendar.MINUTE, 59);
+		c.set(Calendar.HOUR_OF_DAY, 23);
 
 		return c.getTime();
 	}
@@ -61,15 +70,22 @@ public class Data {
 	    return (Date)formatter.parse(dataString);  
 	}
 
-	public static Boolean anteriorAHoje(Date data) {
-		return !primeiroSegundoDoDia().before(data);
+	public static Boolean anteriorADataDeHoje(Date data) {
+		Date primeiroSegundoDeHoje = primeiroSegundoDeHoje();
+		System.out.println("hoje             : " + primeiroSegundoDeHoje);
+		System.out.println("data do parametro: " + data);
+		System.out.println("igual a hoje? (true) " + igualADataDeHoje(data));
+		System.out.println("antes de hoje? (false) " + !primeiroSegundoDeHoje.before(primeiroSegundo(data)));
+		System.out.println("true ? false : false");
+
+		return igualADataDeHoje(data) ? false : !primeiroSegundoDeHoje.before(primeiroSegundo(data));
 	}
 	
-	public static Boolean igualAHoje(Date data) {
-		return primeiroSegundoDoDia().equals(data);
+	public static Boolean igualADataDeHoje(Date data) {
+		return primeiroSegundoDeHoje().equals(primeiroSegundo(data));
 	}
 	
 	public static Boolean posteriorAHoje(Date data) {
-		return !primeiroSegundoDoDia().after(data);
+		return igualADataDeHoje(data) ? false : !primeiroSegundoDeHoje().after(primeiroSegundo(data));
 	}
 }

@@ -64,27 +64,32 @@ public class BannerRS {
         Date dataInicio = null;
         Date dataFim = null;
 		try {
-			dataInicio = Data.stringParaData(request.getParameter("dataInicio"));
-			dataFim = Data.stringParaData(request.getParameter("dataInicio"));
+			dataInicio = Data.primeiroSegundo(Data.stringParaData(request.getParameter("dataInicio")));
+			dataFim = Data.ultimoSegundo(Data.stringParaData(request.getParameter("dataFim")));
 		} catch (ParseException e) {
-			response.setStatus(500);
+			response.setStatus(400);
 			e.printStackTrace();
 		}
-
+		System.out.println(dataInicio);
+		System.out.println(dataFim);
+		System.out.println(Data.anteriorADataDeHoje(dataInicio));
+		System.out.println(Data.anteriorADataDeHoje(dataFim));
+		System.out.println(dataFim.before(dataInicio));
         if (blobKey != null) {
         	if (dataBannerNaoEhValida(dataInicio, dataFim)) {
         		blobstoreService.delete(blobKey);
-        		response.setStatus(500);
-        	} else
-        		bannerRepository.criar(new Banner(request.getParameter("bannerTitulo"), blobKey, dataInicio , dataFim, Data.igualAHoje(dataInicio), false));
+        		response.setStatus(400);
+        	} else {
+        		bannerRepository.criar(new Banner(request.getParameter("bannerTitulo"), blobKey, dataInicio , dataFim, Data.igualADataDeHoje(dataInicio), false));
+	        	response.sendRedirect("/");
+        	}
         } else 
         	response.setStatus(500);
 
-    	response.sendRedirect("/");
 	}
 
 	private boolean dataBannerNaoEhValida(Date dataInicio, Date dataFim) {
-		return Data.anteriorAHoje(dataInicio) || Data.anteriorAHoje(dataFim) || dataFim.before(dataInicio);
+		return Data.anteriorADataDeHoje(dataInicio) || Data.anteriorADataDeHoje(dataFim) || dataFim.before(dataInicio);
 	}
 	
 	@Path("/uploadURL")

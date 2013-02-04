@@ -27,7 +27,13 @@ public class BannerRepository extends BaseRepository {
 	public List<Banner> getBannerDisponiveis() {
 		
 		Query query = new Query(Banner.class.getName());
-		// TODO: adicionar filtro usando flags
+
+//		 TODO criar indices para realizar filtro
+		query.setFilter(Query.CompositeFilterOperator.and(
+				FilterOperator.EQUAL.of(BannerFields.JA_COMECOU.getField(), new Boolean(true)),
+				FilterOperator.EQUAL.of(BannerFields.JA_TERMINOU.getField(), new Boolean(false))
+		));
+
 		query.addSort(BannerFields.DATA_INICIO.getField(), SortDirection.DESCENDING);
 
 		PreparedQuery prepared = datastore.prepare(query);
