@@ -28,7 +28,6 @@ public class BannerRepository extends BaseRepository {
 		
 		Query query = new Query(Banner.class.getName());
 
-//		 TODO criar indices para realizar filtro
 		query.setFilter(Query.CompositeFilterOperator.and(
 				FilterOperator.EQUAL.of(BannerFields.JA_COMECOU.getField(), new Boolean(true)),
 				FilterOperator.EQUAL.of(BannerFields.JA_TERMINOU.getField(), new Boolean(false))
@@ -44,7 +43,7 @@ public class BannerRepository extends BaseRepository {
 		for (Entity entity : asIterable) {
 			listaDeBanners.add(new Banner(entity));
 		}
-		System.out.println(listaDeBanners.size());
+
 		return listaDeBanners;
 	}
 

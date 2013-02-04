@@ -72,11 +72,6 @@ public class Data {
 
 	public static Boolean anteriorADataDeHoje(Date data) {
 		Date primeiroSegundoDeHoje = primeiroSegundoDeHoje();
-		System.out.println("hoje             : " + primeiroSegundoDeHoje);
-		System.out.println("data do parametro: " + data);
-		System.out.println("igual a hoje? (true) " + igualADataDeHoje(data));
-		System.out.println("antes de hoje? (false) " + !primeiroSegundoDeHoje.before(primeiroSegundo(data)));
-		System.out.println("true ? false : false");
 
 		return igualADataDeHoje(data) ? false : !primeiroSegundoDeHoje.before(primeiroSegundo(data));
 	}

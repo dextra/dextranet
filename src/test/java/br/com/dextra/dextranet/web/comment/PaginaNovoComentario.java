@@ -1,4 +1,4 @@
-package br.com.dextra.dextranet.web.post;
+package br.com.dextra.dextranet.web.comment;
 
 import org.openqa.selenium.WebDriver;
 

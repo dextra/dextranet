@@ -50,15 +50,13 @@ public class BannerRS {
 		return Response.ok().build();
 	}
 	
-	@SuppressWarnings({ "deprecation", "unused" })
 	@Path("/")
 	@POST
 	@Produces("application/json;charset=UTF-8")
 	public void retornoDoGAE(@Context HttpServletRequest request, @Context HttpServletResponse response) throws IOException {
+		@SuppressWarnings("deprecation")
 		Map<String, BlobKey> blobs = blobstoreService.getUploadedBlobs(request);
         BlobKey blobKey = blobs.get("banner");
-        
-        System.out.println("Aqui a blobKey: " + blobKey.toString());
         
         //Criar metodo no Data utils para retornar data formatada
         Date dataInicio = null;
@@ -70,11 +68,7 @@ public class BannerRS {
 			response.setStatus(400);
 			e.printStackTrace();
 		}
-		System.out.println(dataInicio);
-		System.out.println(dataFim);
-		System.out.println(Data.anteriorADataDeHoje(dataInicio));
-		System.out.println(Data.anteriorADataDeHoje(dataFim));
-		System.out.println(dataFim.before(dataInicio));
+
         if (blobKey != null) {
         	if (dataBannerNaoEhValida(dataInicio, dataFim)) {
         		blobstoreService.delete(blobKey);
@@ -96,12 +90,10 @@ public class BannerRS {
 	@GET
 	@Produces("application/json;charset=UTF-8")
 	public String uploadURL() throws EntityNotFoundException {
-		System.out.println("Entrou no rest");
 		String url = blobstoreService.createUploadUrl("/s/banner/");
 		JsonObject json = new JsonObject();
 		json.addProperty("url", url);
 		
-		System.out.println("Aqui a Json com a URL: " + json);
 		return json.toString();
 	}
 }

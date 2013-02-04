@@ -3,7 +3,7 @@ package br.com.dextra.dextranet.web;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
-import br.com.dextra.dextranet.web.post.PaginaNovoComentario;
+import br.com.dextra.dextranet.web.comment.PaginaNovoComentario;
 import br.com.dextra.dextranet.web.post.PaginaNovoPost;
 import br.com.dextra.teste.PaginaBase;
 
