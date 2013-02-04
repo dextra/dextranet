@@ -1,10 +1,14 @@
 package br.com.dextra.dextranet.banner;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.dextra.dextranet.persistencia.BaseRepository;
+import br.com.dextra.dextranet.utils.Data;
 
+import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -18,10 +22,28 @@ public class BannerRepository extends BaseRepository {
 	private DatastoreService datastore = DatastoreServiceFactory
 			.getDatastoreService();
 
-	public Banner criar(Banner banner) {
+	private Banner criar(Banner banner) {
 		this.persist(banner.toEntity());
-
 		return banner;
+	}
+	
+	public Banner criar(String titulo, BlobKey blobKey, String dataInicioFormatada, String dataFimFormatada) throws ParseException, DataNaoValidaException, NullBlobkeyException {
+
+		Date dataInicio = Data.primeiroSegundo(Data.stringParaData(dataInicioFormatada));
+		Date dataFim = Data.ultimoSegundo(Data.stringParaData(dataFimFormatada));
+
+		if (blobKey == null)
+			throw new NullBlobkeyException();
+
+		if (dataBannerNaoEhValida(dataInicio, dataFim)) {
+			throw new DataNaoValidaException();
+		}
+
+		return criar(new Banner(titulo, blobKey, dataInicio, dataFim, Data.igualADataDeHojeOuAnterior(dataInicio), Data.anteriorADataDeHoje(dataFim)));
+	}
+	
+	private boolean dataBannerNaoEhValida(Date dataInicio, Date dataFim) {
+		return dataFim.before(dataInicio);
 	}
 
 	public List<Banner> getBannerDisponiveis() {

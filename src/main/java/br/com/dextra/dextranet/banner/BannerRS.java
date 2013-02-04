@@ -2,8 +2,6 @@ package br.com.dextra.dextranet.banner;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +15,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
 import br.com.dextra.dextranet.utils.Converters;
-import br.com.dextra.dextranet.utils.Data;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
@@ -37,8 +34,7 @@ public class BannerRS {
 	@GET
 	@Produces("application/json;charset=UTF-8")
 	public String bannersDisponiveis() {
-		List<JsonObject> json = Converters.toJson(bannerRepository.getBannerDisponiveis());
-		return json.toString();		
+		return Converters.toJson(bannerRepository.getBannerDisponiveis()).toString();		
 	}
 
 	@Path("/{id}")
@@ -56,43 +52,34 @@ public class BannerRS {
 	public void retornoDoGAE(@Context HttpServletRequest request, @Context HttpServletResponse response) throws IOException {
 		@SuppressWarnings("deprecation")
 		Map<String, BlobKey> blobs = blobstoreService.getUploadedBlobs(request);
-        BlobKey blobKey = blobs.get("banner");
-        
-        //Criar metodo no Data utils para retornar data formatada
-        Date dataInicio = null;
-        Date dataFim = null;
+		BlobKey blobKey = blobs.get("banner");
+
 		try {
-			dataInicio = Data.primeiroSegundo(Data.stringParaData(request.getParameter("dataInicio")));
-			dataFim = Data.ultimoSegundo(Data.stringParaData(request.getParameter("dataFim")));
+			bannerRepository.criar(request.getParameter("bannerTitulo"), blobKey, request.getParameter("dataInicio"), request.getParameter("dataFim"));
 		} catch (ParseException e) {
-			response.setStatus(400);
-			e.printStackTrace();
+			blobstoreService.delete(blobKey);
+			setReponseStatus(response, 400, "Data mal formatada.");
+		} catch (DataNaoValidaException e) {
+			blobstoreService.delete(blobKey);
+			setReponseStatus(response, 400, "Data invalida.");
+		} catch (NullBlobkeyException e) {
+			setReponseStatus(response, 500, "Falha ao salvar banner.");
 		}
 
-        if (blobKey != null) {
-        	if (dataBannerNaoEhValida(dataInicio, dataFim)) {
-        		blobstoreService.delete(blobKey);
-        		response.setStatus(400);
-        	} else {
-        		bannerRepository.criar(new Banner(request.getParameter("bannerTitulo"), blobKey, dataInicio , dataFim, Data.igualADataDeHoje(dataInicio), false));
-	        	response.sendRedirect("/");
-        	}
-        } else 
-        	response.setStatus(500);
-
+		response.sendRedirect("/");
 	}
 
-	private boolean dataBannerNaoEhValida(Date dataInicio, Date dataFim) {
-		return Data.anteriorADataDeHoje(dataInicio) || Data.anteriorADataDeHoje(dataFim) || dataFim.before(dataInicio);
+	public void setReponseStatus(HttpServletResponse response, int status, String mensagem) throws IOException {
+		response.setStatus(status);
+		response.getWriter().write(mensagem);
 	}
-	
+
 	@Path("/uploadURL")
 	@GET
 	@Produces("application/json;charset=UTF-8")
 	public String uploadURL() throws EntityNotFoundException {
-		String url = blobstoreService.createUploadUrl("/s/banner/");
 		JsonObject json = new JsonObject();
-		json.addProperty("url", url);
+		json.addProperty("url", blobstoreService.createUploadUrl("/s/banner/"));
 		
 		return json.toString();
 	}

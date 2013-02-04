@@ -6,10 +6,15 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalSearchServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 import br.com.dextra.dextranet.comment.Comment;
 import br.com.dextra.dextranet.comment.CommentRepository;
@@ -21,6 +26,8 @@ import br.com.dextra.teste.container.MyContainer;
 public class TesteIntegracaoBase {
 
 	protected static MyContainer myContainer;
+	protected final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+	protected final LocalServiceTestHelper fts = new LocalServiceTestHelper(new LocalSearchServiceTestConfig());
 
 	@BeforeClass
 	public static void setup() {
@@ -37,6 +44,18 @@ public class TesteIntegracaoBase {
 		myContainer.stop();
 	}
 
+
+	@Before
+	public void setUp() {
+		helper.setUp();
+		fts.setUp();
+	}
+	
+	@After
+	public void tearDown() {
+		helper.tearDown();
+	}
+	
 	public List<Post> geraPosts(int numeroDePosts) throws InterruptedException,
 			FileNotFoundException, IOException {
 
@@ -70,5 +89,4 @@ public class TesteIntegracaoBase {
 		}
 		return retorno;
 	}
-
 }

@@ -83,4 +83,9 @@ public class Data {
 	public static Boolean posteriorAHoje(Date data) {
 		return igualADataDeHoje(data) ? false : !primeiroSegundoDeHoje().after(primeiroSegundo(data));
 	}
+
+	public static Boolean igualADataDeHojeOuAnterior(Date data) {
+		Date primeiroSegundoDeHoje = primeiroSegundoDeHoje();
+		return igualADataDeHoje(data) || !primeiroSegundoDeHoje.before(primeiroSegundo(data));
+	}
 }
