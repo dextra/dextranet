@@ -20,16 +20,21 @@ public class Banner extends Entidade {
 	
 	private Boolean jaComecou;
 	
-
 	private Boolean jaTerminou;
+	
+	private String usuario;
+	
+	private Date dataDeAtualizacao;
 
-	public Banner(String titulo, BlobKey blobKey, Date dataInicio, Date dataFim, Boolean jaComecou, Boolean jaTerminou) {
+	public Banner(String titulo, BlobKey blobKey, Date dataInicio, Date dataFim, Boolean jaComecou, Boolean jaTerminou, String usuario, Date dataDeAtualizacao) {
 		this.titulo = titulo;
 		this.blobKey = blobKey;
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
 		this.jaComecou = jaComecou;
 		this.jaTerminou = jaTerminou;
+		this.usuario = usuario;
+		this.dataDeAtualizacao = dataDeAtualizacao;
 	}
 
 	public Banner(Entity bannerEntity) {
@@ -41,6 +46,8 @@ public class Banner extends Entidade {
 			this.dataFim = (Date) bannerEntity.getProperty(BannerFields.DATA_FIM.getField());
 			this.jaComecou = (Boolean) bannerEntity.getProperty(BannerFields.JA_COMECOU.getField());
 			this.jaTerminou = (Boolean) bannerEntity.getProperty(BannerFields.JA_TERMINOU.getField());
+			this.usuario = (String) bannerEntity.getProperty(BannerFields.USUARIO.getField());
+			this.dataDeAtualizacao = (Date) bannerEntity.getProperty(BannerFields.DATA_DE_ATUALIZACAO.getField());
 		}
 	}
 
@@ -71,6 +78,22 @@ public class Banner extends Entidade {
 		return jaTerminou;
 	}
 	
+	public void setJaComecou(Boolean jaComecou) {
+		this.jaComecou = jaComecou;
+	}
+
+	public void setJaTerminou(Boolean jaTerminou) {
+		this.jaTerminou = jaTerminou;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public Date getDataDeAtualizacao() {
+		return dataDeAtualizacao;
+	}
+
 	public Entity toEntity() {
 		Entity entidade = new Entity(this.getKey(this.getClass()));
 
@@ -81,6 +104,8 @@ public class Banner extends Entidade {
 		entidade.setProperty(BannerFields.DATA_FIM.getField(), this.dataFim);
 		entidade.setProperty(BannerFields.JA_COMECOU.getField(), this.jaComecou);
 		entidade.setProperty(BannerFields.JA_TERMINOU.getField(), this.jaTerminou);
+		entidade.setProperty(BannerFields.USUARIO.getField(), this.usuario);
+		entidade.setProperty(BannerFields.DATA_DE_ATUALIZACAO.getField(), this.dataDeAtualizacao);
 
 		return entidade;
 	}
@@ -95,6 +120,8 @@ public class Banner extends Entidade {
 		json.addProperty(BannerFields.DATA_FIM.getField(), this.dataFim.toString());
 		json.addProperty(BannerFields.JA_COMECOU.getField(), this.jaComecou.toString());
 		json.addProperty(BannerFields.JA_TERMINOU.getField(), this.jaTerminou.toString());
+		json.addProperty(BannerFields.USUARIO.getField(), this.usuario);
+		json.addProperty(BannerFields.DATA_DE_ATUALIZACAO.getField(), this.dataDeAtualizacao.toString());
 		
 		return json;
 	}

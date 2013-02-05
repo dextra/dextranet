@@ -14,15 +14,19 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 public class BannerRepository extends BaseRepository {
 
 	private DatastoreService datastore = DatastoreServiceFactory
 			.getDatastoreService();
 
-	private Banner criar(Banner banner) {
+	public Banner criar(Banner banner) {
 		this.persist(banner.toEntity());
 		return banner;
 	}
@@ -38,8 +42,18 @@ public class BannerRepository extends BaseRepository {
 		if (dataBannerNaoEhValida(dataInicio, dataFim)) {
 			throw new DataNaoValidaException();
 		}
+		
+		String usuario;
 
-		return criar(new Banner(titulo, blobKey, dataInicio, dataFim, Data.igualADataDeHojeOuAnterior(dataInicio), Data.anteriorADataDeHoje(dataFim)));
+		try {
+			UserService userService = UserServiceFactory.getUserService();
+			User user = userService.getCurrentUser();
+			usuario = user.getNickname();
+		} catch (Exception e) {
+			usuario = "login.google";
+		}
+
+		return criar(new Banner(titulo, blobKey, dataInicio, dataFim, Data.igualADataDeHojeOuAnterior(dataInicio), Data.anteriorADataDeHoje(dataFim), usuario, new Date()));
 	}
 	
 	private boolean dataBannerNaoEhValida(Date dataInicio, Date dataFim) {
@@ -78,5 +92,50 @@ public class BannerRepository extends BaseRepository {
 		PreparedQuery prepared = datastore.prepare(query);
 
 		return new Banner(prepared.asSingleEntity());
+	}
+	
+	public void atualizaFlags() {
+		atualizaFlagJaComecou();
+		atualizaFlagJaTerminou();
+	}
+
+	public void atualizaFlagJaTerminou() {
+		
+		Query query = criaQuery(BannerFields.JA_TERMINOU.getField(), FilterOperator.LESS_THAN, BannerFields.DATA_FIM.getField());
+		
+		PreparedQuery prepared = datastore.prepare(query);
+		Iterable<Entity> asIterable = prepared.asIterable();
+
+		for (Entity entity : asIterable) {
+			Banner banner = new Banner(entity);
+			banner.setJaTerminou(true);
+			criar(banner);
+		}
+	}
+
+	public void atualizaFlagJaComecou() {
+		
+		Query query = criaQuery(BannerFields.JA_COMECOU.getField(), FilterOperator.LESS_THAN_OR_EQUAL, BannerFields.DATA_INICIO.getField());
+		
+		PreparedQuery prepared = datastore.prepare(query);
+		Iterable<Entity> asIterable = prepared.asIterable();
+
+		for (Entity entity : asIterable) {
+			Banner banner = new Banner(entity);
+			banner.setJaComecou(true);
+			criar(banner);
+		}
+	}
+	
+	public Query criaQuery(String flag, FilterOperator flagOperator, String campoData) {
+		
+		Query query = new Query(Banner.class.getName());
+		
+		query.setFilter(CompositeFilterOperator.and(
+			FilterOperator.EQUAL.of(flag, new Boolean(false)),
+			flagOperator.of(campoData, Data.primeiroSegundoDeHoje())
+		));
+		
+		return query;
 	}
 }

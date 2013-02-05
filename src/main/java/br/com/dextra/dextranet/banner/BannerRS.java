@@ -2,6 +2,7 @@ package br.com.dextra.dextranet.banner;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -82,5 +83,13 @@ public class BannerRS {
 		json.addProperty("url", blobstoreService.createUploadUrl("/s/banner/"));
 		
 		return json.toString();
+	}
+	
+	@Path("/cron")
+	@GET
+	public Response atualizaFlags() {
+		System.out.println("Cron executado as " + new Date());
+		bannerRepository.atualizaFlags();
+		return Response.ok().build();
 	}
 }
