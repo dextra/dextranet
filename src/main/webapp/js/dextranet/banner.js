@@ -17,6 +17,9 @@ dextranet.banner = {
 				success : function(banners) {
 					if (banners.length > 0) {
 						bannerObjectArray = postObject.getpostObjectArrayFromPostJsonArray(banners);
+						$(bannerObjectArray).each(function() {
+							this.postObjectJson.dataDeAtualizacao = converteData(this.postObjectJson.dataDeAtualizacao).substring(5);
+						});
 						$.holy("../template/dinamico/banner/banner.xml", {"jsonArrayBanner" : bannerObjectArray});						
 					}
 				}
