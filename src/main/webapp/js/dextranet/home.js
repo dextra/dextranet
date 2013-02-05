@@ -34,12 +34,12 @@ dextranet.home = {
 	},
 
 	abrePaginaCategoria : function() {
-		$.holy("../template/dinamico/abre_pagina_categoria.xml", {});
+		$.holy("../template/dinamico/abre_pagina_novo_banner.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_category");
 	},
 
 	abrePaginaPerfil : function() {
-		$.holy("../template/dinamico/abre_pagina_novo_banner.xml", {});
+		$.holy("../template/dinamico/abre_pagina_perfil.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_profile");
 	},
 

@@ -60,4 +60,29 @@ public class CommentFuncionalTest extends PostTesteFuncionalUtils {
 
 		Collections.sort(comentariosInseridos);
 	}
+	
+	@Test
+	public void curtirUmComentario() {
+		dadoQueUsuarioAcessaPaginaPrincipal();
+		eCriouPosts(1);
+		depoisCriaVariosComentariosParaOsPostsCriados(1);
+		eleCurteUmComentario();
+		eTentaCurtirNovamente();
+		eOComentarioFoiCurtidoApenasUmaVez();
+	}
+
+	private void eOComentarioFoiCurtidoApenasUmaVez() {
+		System.out.println("sdfsadadfdfsdfadfgfsgbsdhaçdfkghçdfg");
+		WebElement curtidas = driver.findElement(By.cssSelector("#relacao_dos_comentarios .linkCurtir .numero_curtida"));
+		Assert.assertEquals("1", curtidas.getText().toString());
+	}
+
+	private void eTentaCurtirNovamente() {
+		eleCurteUmComentario();
+	}
+
+	private void eleCurteUmComentario() {
+		paginaPrincipal.click("#relacao_dos_comentarios .linkCurtir");
+		paginaPrincipal.waitingForLoading();
+	}
 }

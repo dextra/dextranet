@@ -20,7 +20,7 @@ public class PostFuncionalTest extends PostTesteFuncionalUtils {
 	private int vezesQueOScrollDescera = (int) Math.round(quantidadePosts / 20.0d + 0.5);
 
 	@Test
-	public void fluxoDeCriacaoPesquisaEPaginacaoDePosts(){
+	public void fluxoDeCriacaoPesquisaEPaginacaoDePosts() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
 		eCriouPosts(quantidadePosts);
 		quandoUsuarioDesceScrollAteFimDaPagina(vezesQueOScrollDescera);
@@ -28,13 +28,13 @@ public class PostFuncionalTest extends PostTesteFuncionalUtils {
 		eTodosOsPostsCriadosForamExibidos();
 	}
 
-	private void quandoUsuarioDesceScrollAteFimDaPagina(int quantidadeDeVezesQueDescoOScroll){
+	private void quandoUsuarioDesceScrollAteFimDaPagina(int quantidadeDeVezesQueDescoOScroll) {
 		for (int i = 0; i <= quantidadeDeVezesQueDescoOScroll; i++) {
 			paginaPrincipal.scrollAteFim();
 		}
 	}
 
-	private void entaoUsuarioVisualizaOsPosts(){
+	private void entaoUsuarioVisualizaOsPosts() {
 		List<WebElement> htmlPostsEncontrados = driver.findElements(By.cssSelector("div.list_stories_headline h2"));
 		postsEncontrados.clear();
 
@@ -48,6 +48,29 @@ public class PostFuncionalTest extends PostTesteFuncionalUtils {
 		Collections.sort(postsInseridos);
 		Collections.sort(postsEncontrados);
 		Assert.assertEquals("Todos os posts inseridos deveriam ter sido visualizados.", postsInseridos, postsEncontrados);
+	}
+	
+	@Test
+	public void curtirUmPost() {
+		dadoQueUsuarioAcessaPaginaPrincipal();
+		eCriouPosts(1);
+		eleCurteUmPost();
+		eTentaCurtirNovamente();
+		eOPostFoiCurtidoApenasUmaVez();
+	}
+
+	private void eOPostFoiCurtidoApenasUmaVez() {
+		WebElement curtidas = driver.findElement(By.cssSelector("span.numero_curtida"));
+		Assert.assertEquals("1", curtidas.getText().toString());
+	}
+
+	private void eTentaCurtirNovamente() {
+		eleCurteUmPost();
+	}
+
+	private void eleCurteUmPost() {
+		paginaPrincipal.click(".linkCurtir");
+		paginaPrincipal.waitingForLoading();
 	}
 
 }

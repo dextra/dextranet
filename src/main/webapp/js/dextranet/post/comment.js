@@ -103,7 +103,7 @@ dextranet.comment = {
 					commentObjectArray = postObject.getpostObjectArrayFromPostJsonArray(comment);
 					$(commentObjectArray).each(function() {
 						console.log($("span#" + idComentario));
-						$("li." + idComentario + " .numero_comentario").text(this.postObjectJson.likes);
+						$("li." + idComentario + " .numero_curtida").text(this.postObjectJson.likes);
 						$("li." + idComentario + " .comentario").attr("original-title", dextranet.curtir.replaceDoTipsy(this.postObjectJson.userLikes));
 					});
 				}
