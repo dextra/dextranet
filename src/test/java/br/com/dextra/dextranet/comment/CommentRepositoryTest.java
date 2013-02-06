@@ -7,8 +7,6 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.owasp.validator.html.PolicyException;
 import org.owasp.validator.html.ScanException;
@@ -19,150 +17,109 @@ import br.com.dextra.dextranet.utils.Converters;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
-import com.google.appengine.tools.development.testing.LocalSearchServiceTestConfig;
-import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 public class CommentRepositoryTest extends TesteIntegracaoBase {
-	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(
-			new LocalDatastoreServiceTestConfig());
 
-	private final LocalServiceTestHelper fts = new LocalServiceTestHelper(
-			new LocalSearchServiceTestConfig());
+    private CommentRepository commentRepository = new CommentRepository();
+    private PostRepository postRepository = new PostRepository();
 
-	private CommentRepository commentRepository = new CommentRepository();
-	private PostRepository postRepository = new PostRepository();
+    @Test
+    public void criarUmComentario() {
+        Comment novoComment = new Comment("Teste de Content", "marco.bordon", "123123123", false);
+        commentRepository.criar(novoComment);
 
-	@Before
-	public void setUp() {
-		helper.setUp();
-		fts.setUp();
-	}
+        Comment commentRecuperado = null;
+        try {
+            commentRecuperado = commentRepository.obtemPorId(novoComment.getId());
+        } catch (EntityNotFoundException e) {
+            Assert.fail("Post nao encontrado.");
+        }
 
-	@After
-	public void tearDown() {
-		helper.tearDown();
-	}
+        Assert.assertEquals(novoComment.getAutor(), commentRecuperado.getAutor());
+        Assert.assertEquals(novoComment.getIdReference(), commentRecuperado.getIdReference());
+        Assert.assertEquals(novoComment.getText(), commentRecuperado.getText());
+        Assert.assertEquals(novoComment.getDataDeCriacao(), commentRecuperado.getDataDeCriacao());
+    }
 
-	@Test
-	public void criarUmComentario() {
-		Comment novoComment = new Comment("Teste de Content", "marco.bordon",
-				"123123123", false);
-		commentRepository.criar(novoComment);
+    @Test
+    public void criarComentarioEmUmPost() throws FileNotFoundException, InterruptedException, IOException,
+            EntityNotFoundException, ParseException {
 
-		Comment commentRecuperado = null;
-		try {
-			commentRecuperado = commentRepository.obtemPorId(novoComment
-					.getId());
-		} catch (EntityNotFoundException e) {
-			Assert.fail("Post nao encontrado.");
-		}
+        List<Post> listaDePosts = geraPosts(6);
 
-		Assert.assertEquals(novoComment.getAutor(), commentRecuperado
-				.getAutor());
-		Assert.assertEquals(novoComment.getIdReference(), commentRecuperado
-				.getIdReference());
-		Assert.assertEquals(novoComment.getText(), commentRecuperado.getText());
-		Assert.assertEquals(novoComment.getDataDeCriacao(), commentRecuperado
-				.getDataDeCriacao());
-	}
+        Comment novoComment = new Comment("Teste de Content", "marco.bordon", listaDePosts.get(2).getId(), false);
+        commentRepository.criar(novoComment);
 
-	@Test
-	public void criarComentarioEmUmPost() throws FileNotFoundException,
-			InterruptedException, IOException, EntityNotFoundException, ParseException {
+        listaDePosts = comentaOPost(2, listaDePosts, novoComment);
 
-		List<Post> listaDePosts = geraPosts(6);
+        Post postRecuperado = null;
+        try {
+            postRecuperado = postRepository.obtemPorId(novoComment.getIdReference());
+        } catch (EntityNotFoundException e) {
+            Assert.fail("Post nao encontrado.");
+        }
 
-		Comment novoComment = new Comment("Teste de Content", "marco.bordon",
-				listaDePosts.get(2).getId(), false);
-		commentRepository.criar(novoComment);
+        Assert.assertEquals(novoComment.getIdReference(), postRecuperado.getId());
+        Assert.assertEquals(postRecuperado.getComentarios(), 1);
+        Assert.assertEquals(novoComment.getDataDeCriacao(), postRecuperado.getDataDeAtualizacao());
 
-		listaDePosts = comentaOPost(2, listaDePosts, novoComment);
+    }
 
-		Post postRecuperado = null;
-		try {
-			postRecuperado = postRepository.obtemPorId(novoComment
-					.getIdReference());
-		} catch (EntityNotFoundException e) {
-			Assert.fail("Post nao encontrado.");
-		}
+    private List<Post> comentaOPost(int i, List<Post> listaDePosts, Comment novoComment)
+            throws EntityNotFoundException, ParseException {
 
-		Assert.assertEquals(novoComment.getIdReference(), postRecuperado
-				.getId());
-		Assert.assertEquals(postRecuperado.getComentarios(), 1);
-		Assert.assertEquals(novoComment.getDataDeCriacao(), postRecuperado
-				.getDataDeAtualizacao());
+        listaDePosts.get(i).comentar(novoComment);
+        return listaDePosts;
+    }
 
-	}
+    @Test
+    public void consultarComentarioPeloIDDoPost() throws FileNotFoundException, InterruptedException, IOException,
+            EntityNotFoundException, PolicyException, ScanException, ParseException {
 
-	private List<Post> comentaOPost(int i, List<Post> listaDePosts,
-			Comment novoComment) throws EntityNotFoundException, ParseException {
+        List<Post> listaDePosts = geraPosts(6);
 
-		listaDePosts.get(i).comentar(novoComment);
-		return listaDePosts;
-	}
+        List<Comment> listaEsperada1 = comentar(listaDePosts.get(2).getId(), 2);
+        List<Comment> listaEsperada2 = comentar(listaDePosts.get(4).getId(), 1);
 
-	@Test
-	public void consultarComentarioPeloIDDoPost() throws FileNotFoundException,
-			InterruptedException, IOException, EntityNotFoundException,
-			PolicyException, ScanException, ParseException {
+        Assert.assertEquals(new Converters().converterListaDeCommentParaListaDeJson(listaEsperada1).toString(),
+                new CommentRS().consultar(listaDePosts.get(2).getId(), ""));
 
-		List<Post> listaDePosts = geraPosts(6);
+        Assert.assertEquals(new Converters().converterListaDeCommentParaListaDeJson(listaEsperada2).toString(),
+                new CommentRS().consultar(listaDePosts.get(4).getId(), ""));
 
-		List<Comment> listaEsperada1 = comentar(listaDePosts.get(2).getId(), 2);
-		List<Comment> listaEsperada2 = comentar(listaDePosts.get(4).getId(), 1);
+    }
 
-		Assert.assertEquals(new Converters()
-				.converterListaDeCommentParaListaDeJson(listaEsperada1)
-				.toString(), new CommentRS().consultar(listaDePosts.get(2)
-				.getId(), ""));
+    @Test
+    public void curtirComentario() throws FileNotFoundException, InterruptedException, IOException,
+            EntityNotFoundException, ParseException {
 
+        List<Post> postsCriados = geraPosts(4);
 
-		Assert.assertEquals(new Converters()
-				.converterListaDeCommentParaListaDeJson(listaEsperada2)
-				.toString(), new CommentRS().consultar(listaDePosts.get(4)
-				.getId(), ""));
+        List<Comment> listaDeCommentsDoPost2 = comentar(postsCriados.get(2).getId(), 1);
 
+        listaDeCommentsDoPost2.get(0).curtir("marco.bordon");
+        listaDeCommentsDoPost2.get(0).curtir("marco.bordon");
+        listaDeCommentsDoPost2.get(0).curtir("kaique.monteiro");
 
-	}
+        List<Comment> listaCommentRecuperado = null;
 
+        listaCommentRecuperado = commentRepository.listarCommentsDeUmPost(listaDeCommentsDoPost2.get(0)
+                .getIdReference());
 
+        Assert.assertEquals(2, listaCommentRecuperado.get(0).getLikes());
 
-	@Test
-	public void curtirComentario() throws FileNotFoundException,
-			InterruptedException, IOException, EntityNotFoundException, ParseException {
+    }
 
-		List<Post> postsCriados = geraPosts(4);
+    @Test
+    public void consultarComentarioPeloIDDoComment() throws FileNotFoundException, InterruptedException, IOException,
+            EntityNotFoundException, PolicyException, ScanException, ParseException {
 
-		List<Comment> listaDeCommentsDoPost2 = comentar(postsCriados.get(2).getId(), 1);
+        List<Post> listaDePosts = geraPosts(6);
 
-		listaDeCommentsDoPost2.get(0).curtir("marco.bordon");
-		listaDeCommentsDoPost2.get(0).curtir("marco.bordon");
-		listaDeCommentsDoPost2.get(0).curtir("kaique.monteiro");
+        List<Comment> listaEsperada1 = comentar(listaDePosts.get(2).getId(), 1);
 
-		List<Comment> listaCommentRecuperado = null;
+        Assert.assertEquals(new Converters().converterListaDeCommentParaListaDeJson(listaEsperada1).toString(),
+                new CommentRS().consultar("", listaEsperada1.get(0).getId()));
 
-		listaCommentRecuperado = commentRepository.listarCommentsDeUmPost(listaDeCommentsDoPost2.get(0).getIdReference());
-
-		Assert.assertEquals(2, listaCommentRecuperado.get(0).getLikes());
-
-
-	}
-
-	@Test
-	public void consultarComentarioPeloIDDoComment() throws FileNotFoundException,
-			InterruptedException, IOException, EntityNotFoundException,
-			PolicyException, ScanException, ParseException {
-
-		List<Post> listaDePosts = geraPosts(6);
-
-		List<Comment> listaEsperada1 = comentar(listaDePosts.get(2).getId(), 1);
-
-		Assert.assertEquals(new Converters()
-				.converterListaDeCommentParaListaDeJson(listaEsperada1)
-				.toString(), new CommentRS().consultar("",listaEsperada1.get(0).getId()));
-
-	}
-
-
+    }
 }

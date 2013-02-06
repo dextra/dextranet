@@ -56,45 +56,27 @@
             dextranet.paginacao;
 
             $('#container_banner').hide();
-            $('#container_banner img').attr('src', '/s/banner/').load(function() {
-	            $("#container_banner .close").click(function() {
-	            	var $containerBanner = $("#container_banner");
-					var minimizado = !! $containerBanner.data('minimizado');
-	
-					$containerBanner.animate({
-						bottom : (minimizado ? '+' : '-') + '='	+ $containerBanner.height()
-					}, 500, function() {
-						$containerBanner.data('minimizado', !minimizado);
-						$containerBanner.find('.close').text(minimizado ? '\\/' : '/\\');
-					});
-				});
-	            $('#container_banner').show();
-            });
+           
+            dextranet.banner.listaBannersAtuais();
 		});
 </script>
 
 </head>
 <body>
 
-<!-- Container do site -->
-<div id="container"><!-- Container do topo -->
-<div id="header_placeholder"></div>
-<div id="header_container" rel="section"><!-- Menu principal no topo -->
-<ul id="header_main_menu">
-</ul>
-<!-- #header_main_menu --> <!-- Caixa com dados do usuario -->
-<div id="box_user"></div>
-<!-- #box_user --></div>
-<!-- #header_container --> <!-- Menu lateral esquerdo -->
-<div id="sidebar_left" rel="section"></div>
-<!-- #sidebar_left --> <!-- Miolo -->
-<div id="container_main" class="clearfix"></div>
-</div>
-<div id="container_banner" class="clearfix">
-	<div id="banner">
-		<div class="close">\/</div>
-		<img />	
+	<div id="container">
+		<div id="header_placeholder"></div>
+		<div id="header_container" rel="section">
+			<ul id="header_main_menu">
+			</ul>
+			<div id="box_user"></div>
+		</div>
+		<div id="sidebar_left" rel="section"></div>
+		<div id="container_main" class="clearfix"></div>
 	</div>
-</div>
+	<div id="container_banner" class="clearfix">
+		<div id="banner">
+		</div>
+	</div>
 </body>
 </html>

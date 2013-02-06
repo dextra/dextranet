@@ -98,6 +98,9 @@ public class GAETestHelper {
 
 		LocalServiceTestHelperFilter gae = new LocalServiceTestHelperFilter(helper);
 		web.getFilters().add(new FilterDesc(gae, "/*"));
+
+		System.setProperty("env", "local");
+
 		server.deploy();
 
 		return builder;

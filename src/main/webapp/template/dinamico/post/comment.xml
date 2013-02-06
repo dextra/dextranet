@@ -20,10 +20,10 @@
 <!--					</div>-->
 					<div class="list_stories_headline_dx">
 
-						<a id="clearfix ${comment.postObjectJson.id}" class="linkCurtir comentario" original-title="${comment.postObjectJson.userLikes}" onClick="dextranet.curtir.curte(this)">
+						<a id="${comment.postObjectJson.id}" class="linkCurtir comentario" original-title="${comment.postObjectJson.userLikes}" onClick="dextranet.curtir.curte(this)">
 
 								<span class="icon_dx"></span>
-								<span id="${comment.postObjectJson.id}">${comment.postObjectJson.likes}</span>
+								<span class="numero_curtida">${comment.postObjectJson.likes}</span>
 						</a>
 					</div>
 				</div>

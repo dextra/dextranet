@@ -8,34 +8,15 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
-import com.google.appengine.tools.development.testing.LocalSearchServiceTestConfig;
-import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 public class PostRepositoryTest extends TesteIntegracaoBase {
 
-	private final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
-
-	private final LocalServiceTestHelper fts = new LocalServiceTestHelper(new LocalSearchServiceTestConfig());
 	private PostRepository postRepository = new PostRepository();
-
-	@Before
-	public void setUp() {
-		helper.setUp();
-		fts.setUp();
-	}
-
-	@After
-	public void tearDown() {
-		helper.tearDown();
-	}
 
 	@Test
 	public void criarNovoPost() throws FileNotFoundException, IOException {

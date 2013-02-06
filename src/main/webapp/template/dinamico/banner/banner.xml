@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<template selector="#banner" append="true">
+		<div class="close" >\/</div>
+			{for banner in jsonArrayBanner}
+				<a href="#" class="banner_link" original-title="Publicado por ${banner.postObjectJson.usuario} em ${banner.postObjectJson.dataDeAtualizacao}">
+					<img src="/s/banner/${banner.postObjectJson.id}" />
+				</a>
+			{/for}	
+	</template>
+	<script>
+		$('#banner img:first').load(function() {
+            dextranet.banner.mostrarBanners();
+            $('#banner a.banner_link').tipsy({html:true, gravity:'s'});
+		});
+	</script>
+</engine>

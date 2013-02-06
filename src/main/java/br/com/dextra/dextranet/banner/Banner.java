@@ -1,5 +1,7 @@
 package br.com.dextra.dextranet.banner;
 
+import java.util.Date;
+
 import br.com.dextra.dextranet.persistencia.Entidade;
 
 import com.google.appengine.api.blobstore.BlobKey;
@@ -12,15 +14,27 @@ public class Banner extends Entidade {
 
 	private BlobKey blobKey;
 
-	private String dataInicio;	
+	private Date dataInicio;	
 
-	private String dataFim;
+	private Date dataFim;
+	
+	private Boolean jaComecou;
+	
+	private Boolean jaTerminou;
+	
+	private String usuario;
+	
+	private Date dataDeAtualizacao;
 
-	public Banner(String titulo, BlobKey blobKey, String dataInicio, String dataFim) {
+	public Banner(String titulo, BlobKey blobKey, Date dataInicio, Date dataFim, Boolean jaComecou, Boolean jaTerminou, String usuario, Date dataDeAtualizacao) {
 		this.titulo = titulo;
 		this.blobKey = blobKey;
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
+		this.jaComecou = jaComecou;
+		this.jaTerminou = jaTerminou;
+		this.usuario = usuario;
+		this.dataDeAtualizacao = dataDeAtualizacao;
 	}
 
 	public Banner(Entity bannerEntity) {
@@ -28,8 +42,12 @@ public class Banner extends Entidade {
 			this.id = (String) bannerEntity.getProperty(BannerFields.ID.getField());
 			this.titulo = (String) bannerEntity.getProperty(BannerFields.TITULO.getField());
 			this.blobKey = (BlobKey) bannerEntity.getProperty(BannerFields.BLOBKEY.getField());
-			this.dataInicio = (String) bannerEntity.getProperty(BannerFields.DATA_INICIO.getField());
-			this.dataFim = (String) bannerEntity.getProperty(BannerFields.DATA_FIM.getField());
+			this.dataInicio = (Date) bannerEntity.getProperty(BannerFields.DATA_INICIO.getField());
+			this.dataFim = (Date) bannerEntity.getProperty(BannerFields.DATA_FIM.getField());
+			this.jaComecou = (Boolean) bannerEntity.getProperty(BannerFields.JA_COMECOU.getField());
+			this.jaTerminou = (Boolean) bannerEntity.getProperty(BannerFields.JA_TERMINOU.getField());
+			this.usuario = (String) bannerEntity.getProperty(BannerFields.USUARIO.getField());
+			this.dataDeAtualizacao = (Date) bannerEntity.getProperty(BannerFields.DATA_DE_ATUALIZACAO.getField());
 		}
 	}
 
@@ -44,12 +62,36 @@ public class Banner extends Entidade {
 		return blobKey;
 	}
 	
-	public String getDataInicio() {
+	public Date getDataInicio() {
 		return dataInicio;
 	}
 	
-	public String getDataFim() {
+	public Date getDataFim() {
 		return dataFim;
+	}
+
+	public Boolean getJaComecou() {
+		return jaComecou;
+	}
+	
+	public Boolean getJaTerminou() {
+		return jaTerminou;
+	}
+	
+	public void setJaComecou(Boolean jaComecou) {
+		this.jaComecou = jaComecou;
+	}
+
+	public void setJaTerminou(Boolean jaTerminou) {
+		this.jaTerminou = jaTerminou;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public Date getDataDeAtualizacao() {
+		return dataDeAtualizacao;
 	}
 
 	public Entity toEntity() {
@@ -60,6 +102,10 @@ public class Banner extends Entidade {
 		entidade.setProperty(BannerFields.BLOBKEY.getField(), this.blobKey);
 		entidade.setProperty(BannerFields.DATA_INICIO.getField(), this.dataInicio);
 		entidade.setProperty(BannerFields.DATA_FIM.getField(), this.dataFim);
+		entidade.setProperty(BannerFields.JA_COMECOU.getField(), this.jaComecou);
+		entidade.setProperty(BannerFields.JA_TERMINOU.getField(), this.jaTerminou);
+		entidade.setProperty(BannerFields.USUARIO.getField(), this.usuario);
+		entidade.setProperty(BannerFields.DATA_DE_ATUALIZACAO.getField(), this.dataDeAtualizacao);
 
 		return entidade;
 	}
@@ -72,7 +118,11 @@ public class Banner extends Entidade {
 		json.addProperty(BannerFields.BLOBKEY.getField(), this.blobKey.getKeyString());
 		json.addProperty(BannerFields.DATA_INICIO.getField(), this.dataInicio.toString());
 		json.addProperty(BannerFields.DATA_FIM.getField(), this.dataFim.toString());
-
+		json.addProperty(BannerFields.JA_COMECOU.getField(), this.jaComecou.toString());
+		json.addProperty(BannerFields.JA_TERMINOU.getField(), this.jaTerminou.toString());
+		json.addProperty(BannerFields.USUARIO.getField(), this.usuario);
+		json.addProperty(BannerFields.DATA_DE_ATUALIZACAO.getField(), this.dataDeAtualizacao.toString());
+		
 		return json;
 	}
 }
