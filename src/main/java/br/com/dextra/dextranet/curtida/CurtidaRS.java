@@ -18,21 +18,22 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 @Path("/curtida")
 public class CurtidaRS {
 
-	@Path("/")
-	@POST
-	@Produces("application/json;charset=UTF-8")
-	public Response curtir(@FormParam("usuario") String usuario, @FormParam("id") String id,
-			@DefaultValue("true") @FormParam("isPost") String isPost) throws EntityNotFoundException {
+    @Path("/")
+    @POST
+    @Produces("application/json;charset=UTF-8")
+    public Response curtir(@FormParam("usuario") String usuario, @FormParam("id") String id,
+            @DefaultValue("true") @FormParam("isPost") String isPost) throws EntityNotFoundException {
 
-		if (new Converters().toBoolean(isPost)) {
-			Post post = new PostRepository().obtemPorId(id);
-			post.curtirECriarIndice(usuario);
-		} else {
-			Comment comment = new CommentRepository().obtemPorId(id);
-			comment.curtir(usuario);
-		}
+        // FIXME: Why use this if RestEasy can handle Boolean values?
+        if (new Converters().toBoolean(isPost)) {
+            Post post = new PostRepository().obtemPorId(id);
+            post.curtirECriarIndice(usuario);
+        } else {
+            Comment comment = new CommentRepository().obtemPorId(id);
+            comment.curtir(usuario);
+        }
 
-		return Response.ok().build();
-	}
+        return Response.ok().build();
+    }
 
 }

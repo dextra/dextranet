@@ -19,144 +19,146 @@ import com.google.gson.JsonObject;
 
 public class Post extends Conteudo implements ConteudoIndexavel {
 
-	private String titulo;
+    private String titulo;
 
-	private String dataDeAtualizacao;
+    private String dataDeAtualizacao;
 
-	public Post(String titulo, String conteudo, String usuario) {
-		this(titulo, conteudo, usuario, new Data().pegaData());
-	}
+    public Post(String titulo, String conteudo, String usuario) {
+        this(titulo, conteudo, usuario, new Data().pegaData());
+    }
 
-	public Post(String titulo, String conteudo, String usuario, String dataDeAtualizacao) {
-		super(usuario, conteudo);
-		this.titulo = titulo;
-		this.dataDeAtualizacao = dataDeAtualizacao;
-		this.comentarios = 0;
-		this.likes = 0;
+    public Post(String titulo, String conteudo, String usuario, String dataDeAtualizacao) {
+        super(usuario, conteudo);
+        this.titulo = titulo;
+        this.dataDeAtualizacao = dataDeAtualizacao;
+        this.comentarios = 0;
+        this.likes = 0;
 
-	}
+    }
 
-	public Post(Entity postEntity) {
-		Converters conversores = new Converters();
+    public Post(Entity postEntity) {
+        Converters conversores = new Converters();
 
-		this.id = (String) postEntity.getProperty(PostFields.ID.getField());
-		this.titulo = (String) postEntity.getProperty(PostFields.TITULO.getField());
-		this.conteudo = conversores.converterGAETextToString(postEntity);
-		this.dataDeCriacao = (String) postEntity.getProperty(PostFields.DATA.getField());
-		this.dataDeAtualizacao = (String) postEntity.getProperty(PostFields.DATA_DE_ATUALIZACAO.getField());
-		this.usuario = (String) postEntity.getProperty(PostFields.USUARIO.getField());
-		this.comentarios = ((Long) postEntity.getProperty(PostFields.COMENTARIO.getField())).intValue();
-		this.likes = ((Long) postEntity.getProperty(PostFields.LIKES.getField())).intValue();
-		this.userLikes = (String) postEntity.getProperty(PostFields.USER_LIKE.getField());
-	}
+        this.id = (String) postEntity.getProperty(PostFields.ID.getField());
+        this.titulo = (String) postEntity.getProperty(PostFields.TITULO.getField());
+        this.conteudo = conversores.converterGAETextToString(postEntity);
+        this.dataDeCriacao = (String) postEntity.getProperty(PostFields.DATA.getField());
+        this.dataDeAtualizacao = (String) postEntity.getProperty(PostFields.DATA_DE_ATUALIZACAO.getField());
+        this.usuario = (String) postEntity.getProperty(PostFields.USUARIO.getField());
+        this.comentarios = ((Long) postEntity.getProperty(PostFields.COMENTARIO.getField())).intValue();
+        this.likes = ((Long) postEntity.getProperty(PostFields.LIKES.getField())).intValue();
+        this.userLikes = (String) postEntity.getProperty(PostFields.USER_LIKE.getField());
+    }
 
-	public String getTitulo() {
-		return this.titulo;
-	}
+    public String getTitulo() {
+        return this.titulo;
+    }
 
-	public String getConteudo() {
-		return this.conteudo;
-	}
+    public String getConteudo() {
+        return this.conteudo;
+    }
 
-	public String getDataDeCriacao() {
-		return this.dataDeCriacao;
-	}
+    public String getDataDeCriacao() {
+        return this.dataDeCriacao;
+    }
 
-	public String getDataDeAtualizacao() {
-		return this.dataDeAtualizacao;
-	}
+    public String getDataDeAtualizacao() {
+        return this.dataDeAtualizacao;
+    }
 
-	public String getUsuario() {
-		return this.usuario;
-	}
+    public String getUsuario() {
+        return this.usuario;
+    }
 
-	public int getComentarios() {
-		return this.comentarios;
-	}
+    public int getComentarios() {
+        return this.comentarios;
+    }
 
-	public int getLikes() {
-		return this.likes;
-	}
+    public int getLikes() {
+        return this.likes;
+    }
 
-	public String getUserLikes() {
-		return this.userLikes;
-	}
+    public String getUserLikes() {
+        return this.userLikes;
+    }
 
-	public void comentar(Comment comment) throws EntityNotFoundException, ParseException {
+    public void comentar(Comment comment) throws EntityNotFoundException, ParseException {
 
-		new DocumentRepository().alteraDocumento(comment);
-		new PostRepository().alteraEntity(comment);
+        new DocumentRepository().alteraDocumento(comment);
+        new PostRepository().alteraEntity(comment);
 
-		this.comentarios++;
-		this.dataDeAtualizacao = comment.getDataDeCriacao();
+        this.comentarios++;
+        this.dataDeAtualizacao = comment.getDataDeCriacao();
 
-	}
+    }
 
-	public void curtirECriarIndice(String user) throws EntityNotFoundException {
-		Curtida curtida = curtir(user);
-		criarIndiceCurtida(user, curtida);
-	}
+    public void curtirECriarIndice(String user) throws EntityNotFoundException {
+        Curtida curtida = curtir(user);
+        criarIndiceCurtida(user, curtida);
+    }
 
-	// FIXME conteudo indexavel dah para salvar o refuse bequest
-	private void criarIndiceCurtida(String user, Curtida curtida) {
-		DocumentRepository postDoDocumentReository = new DocumentRepository();
-		postDoDocumentReository.alteraDocumento(curtida);
-	}
+    // FIXME conteudo indexavel dah para salvar o refuse bequest
+    private void criarIndiceCurtida(String user, Curtida curtida) {
+        DocumentRepository postDoDocumentReository = new DocumentRepository();
+        postDoDocumentReository.alteraDocumento(curtida);
+    }
 
-	protected void setaAtributos(Curtida curtida) throws EntityNotFoundException {
-		PostRepository postDoRepository = new PostRepository();
-		postDoRepository.alteraDataDaEntity(curtida);
-		postDoRepository.insereUsuarioQueCurtiuNoPost(curtida, this);
-		postDoRepository.incrementaNumeroDeLikesDaEntityDoPost(curtida);
-		this.dataDeAtualizacao = curtida.getData();
-	}
+    // FIXME Side Effect - not just setting attributes
+    // FIXME Feature Envy - to much knowledge about PostRepository
+    protected void setaAtributos(Curtida curtida) throws EntityNotFoundException {
+        PostRepository postDoRepository = new PostRepository();
+        postDoRepository.alteraDataDaEntity(curtida);
+        postDoRepository.insereUsuarioQueCurtiuNoPost(curtida, this);
+        postDoRepository.incrementaNumeroDeLikesDaEntityDoPost(curtida);
+        this.dataDeAtualizacao = curtida.getData();
+    }
 
-	@Override
-	public Entity toEntity() {
-		Entity entidade = new Entity(this.getKey(this.getClass()));
+    @Override
+    public Entity toEntity() {
+        Entity entidade = new Entity(this.getKey(this.getClass()));
 
-		entidade.setProperty(PostFields.ID.getField(), this.id);
-		entidade.setProperty(PostFields.TITULO.getField(), this.titulo);
-		entidade.setProperty(PostFields.CONTEUDO.getField(), new Text(this.conteudo));
-		entidade.setProperty(PostFields.USUARIO.getField(), this.usuario);
-		entidade.setProperty(PostFields.COMENTARIO.getField(), this.comentarios);
-		entidade.setProperty(PostFields.LIKES.getField(), this.likes);
-		entidade.setProperty(PostFields.DATA.getField(), this.dataDeCriacao);
-		entidade.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), this.dataDeAtualizacao);
-		entidade.setProperty(PostFields.USER_LIKE.getField(), this.userLikes);
+        entidade.setProperty(PostFields.ID.getField(), this.id);
+        entidade.setProperty(PostFields.TITULO.getField(), this.titulo);
+        entidade.setProperty(PostFields.CONTEUDO.getField(), new Text(this.conteudo));
+        entidade.setProperty(PostFields.USUARIO.getField(), this.usuario);
+        entidade.setProperty(PostFields.COMENTARIO.getField(), this.comentarios);
+        entidade.setProperty(PostFields.LIKES.getField(), this.likes);
+        entidade.setProperty(PostFields.DATA.getField(), this.dataDeCriacao);
+        entidade.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), this.dataDeAtualizacao);
+        entidade.setProperty(PostFields.USER_LIKE.getField(), this.userLikes);
 
-		return entidade;
-	}
+        return entidade;
+    }
 
-	@Override
-	public JsonObject toJson() {
-		JsonObject json = new JsonObject();
-		json.addProperty(PostFields.ID.getField(), this.id);
-		json.addProperty(PostFields.TITULO.getField(), this.titulo);
-		json.addProperty(PostFields.CONTEUDO.getField(), this.conteudo);
-		json.addProperty(PostFields.USUARIO.getField(), this.usuario);
-		json.addProperty(PostFields.COMENTARIO.getField(), this.comentarios);
-		json.addProperty(PostFields.LIKES.getField(), this.likes);
-		json.addProperty(PostFields.DATA.getField(), this.dataDeCriacao);
-		json.addProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), this.dataDeAtualizacao);
-		json.addProperty(PostFields.USER_LIKE.getField(), this.userLikes);
+    @Override
+    public JsonObject toJson() {
+        JsonObject json = new JsonObject();
+        json.addProperty(PostFields.ID.getField(), this.id);
+        json.addProperty(PostFields.TITULO.getField(), this.titulo);
+        json.addProperty(PostFields.CONTEUDO.getField(), this.conteudo);
+        json.addProperty(PostFields.USUARIO.getField(), this.usuario);
+        json.addProperty(PostFields.COMENTARIO.getField(), this.comentarios);
+        json.addProperty(PostFields.LIKES.getField(), this.likes);
+        json.addProperty(PostFields.DATA.getField(), this.dataDeCriacao);
+        json.addProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), this.dataDeAtualizacao);
+        json.addProperty(PostFields.USER_LIKE.getField(), this.userLikes);
 
-		return json;
-	}
+        return json;
+    }
 
-	public Document toDocument() {
-		Document document = Document
-				.newBuilder()
-				.setId(id)
-				.addField(Field.newBuilder().setName(PostFields.TITULO.getField()).setText(titulo))
-				.addField(Field.newBuilder().setName(PostFields.CONTEUDO.getField()).setHTML(conteudo))
-				.addField(Field.newBuilder().setName(PostFields.USUARIO.getField()).setText(usuario))
-				.addField(
-						Field.newBuilder().setName(PostFields.DATA_DE_ATUALIZACAO.getField())
-								.setText(dataDeAtualizacao))
-				.addField(Field.newBuilder().setName(PostFields.ID.getField()).setText(id)).build();
+    public Document toDocument() {
+        Document document = Document
+                .newBuilder()
+                .setId(id)
+                .addField(Field.newBuilder().setName(PostFields.TITULO.getField()).setText(titulo))
+                .addField(Field.newBuilder().setName(PostFields.CONTEUDO.getField()).setHTML(conteudo))
+                .addField(Field.newBuilder().setName(PostFields.USUARIO.getField()).setText(usuario))
+                .addField(
+                        Field.newBuilder().setName(PostFields.DATA_DE_ATUALIZACAO.getField())
+                                .setText(dataDeAtualizacao))
+                .addField(Field.newBuilder().setName(PostFields.ID.getField()).setText(id)).build();
 
-		return document;
-	}
+        return document;
+    }
 
 }
