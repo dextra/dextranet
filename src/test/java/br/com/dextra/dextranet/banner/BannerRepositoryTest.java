@@ -47,6 +47,8 @@ public class BannerRepositoryTest extends TesteIntegracaoBase {
 			fail("data invalida");
 		} catch (NullBlobkeyException e) {
 			fail("blobkey invalida");
+		} catch (NullUserException e) {
+			fail("permissão negada");
 		}
 		return null;
 	}
