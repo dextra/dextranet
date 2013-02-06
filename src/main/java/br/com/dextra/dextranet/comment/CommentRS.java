@@ -32,6 +32,7 @@ public class CommentRS {
 	@Path("/")
 	@POST
 	@Produces("application/json;charset=UTF-8")
+	// FIXME: do jeito que esta eu posso criar um comentario para qualquer usuario (mesmo nao sendo o usuario logado).
 	public Response novoComment(@FormParam("text") String text, @FormParam("author") String autor,
 			@FormParam("idReference") String id, @DefaultValue("false") @FormParam("tree") String arvore)
 			throws FileNotFoundException, PolicyException, ScanException, IOException, EntityNotFoundException,
