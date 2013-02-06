@@ -36,9 +36,10 @@ public abstract class Conteudo extends Entidade {
 
 	protected boolean jaCurtiu(String usuario) {
 
-	    return !(this.userLikes == null || this.userLikes.indexOf(usuario) == -1);
+		return !(this.userLikes == null || this.userLikes.indexOf(usuario) == -1);
 	}
-    public Curtida curtir(String usuario) throws EntityNotFoundException {
+
+	public Curtida curtir(String usuario) throws EntityNotFoundException {
 
 		Curtida curtida = null;
 		if (!this.jaCurtiu(usuario)) {
@@ -52,7 +53,7 @@ public abstract class Conteudo extends Entidade {
 		}
 		return curtida;
 
-    }
+	}
 
 	protected abstract void setaAtributos(Curtida curtida) throws EntityNotFoundException;
 

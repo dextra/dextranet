@@ -28,8 +28,7 @@ import com.google.appengine.api.search.SortOptions;
 
 public class PostRepository extends BaseRepository {
 
-	private DatastoreService datastore = DatastoreServiceFactory
-			.getDatastoreService();
+	private DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
 	public Post criar(Post post) {
 		this.persist(post.toEntity());
@@ -47,8 +46,7 @@ public class PostRepository extends BaseRepository {
 
 		Query query = new Query(Post.class.getName());
 
-		query.addSort(PostFields.DATA_DE_ATUALIZACAO.getField(),
-				SortDirection.DESCENDING);
+		query.addSort(PostFields.DATA_DE_ATUALIZACAO.getField(), SortDirection.DESCENDING);
 		PreparedQuery prepared = datastore.prepare(query);
 
 		FetchOptions opts = FetchOptions.Builder.withDefaults();
@@ -70,8 +68,7 @@ public class PostRepository extends BaseRepository {
 
 	}
 
-	public List<Post> buscarPosts(int maxResults, String q, int offset)
-			throws EntityNotFoundException {
+	public List<Post> buscarPosts(int maxResults, String q, int offset) throws EntityNotFoundException {
 
 		List<String> listaDeIds = buscaIdsPostsFTS(maxResults, q, offset);
 
@@ -80,8 +77,7 @@ public class PostRepository extends BaseRepository {
 		return listaResults;
 	}
 
-	private List<Post> buscaEntitiesPost(List<String> listaDeIds)
-			throws EntityNotFoundException {
+	private List<Post> buscaEntitiesPost(List<String> listaDeIds) throws EntityNotFoundException {
 		List<Post> listaResults = new ArrayList<Post>();
 
 		List<Key> listaDeKeys = (geraIterableDeKeys(listaDeIds));
@@ -109,16 +105,14 @@ public class PostRepository extends BaseRepository {
 
 		com.google.appengine.api.search.Query query = preparaQuery(q);
 
-		List<String> listaDeIds = new Converters().toListaDeIds(IndexFacade
-				.getIndex(Post.class.getName()).search(query));
+		List<String> listaDeIds = new Converters().toListaDeIds(IndexFacade.getIndex(Post.class.getName())
+				.search(query));
 
 		// FIXME: Set limit dentro da query nao funciona
-		return listaDeIdsParaMostrarComOffsetForcado(maxResults, offset,
-				listaDeIds);
+		return listaDeIdsParaMostrarComOffsetForcado(maxResults, offset, listaDeIds);
 	}
 
-	private List<String> listaDeIdsParaMostrarComOffsetForcado(int maxResults,
-			int offset, List<String> listaDeIds) {
+	private List<String> listaDeIdsParaMostrarComOffsetForcado(int maxResults, int offset, List<String> listaDeIds) {
 		Collections.reverse(listaDeIds);
 		List<String> arrayTemp = new ArrayList<String>();
 		int f = maxResults + offset;
@@ -139,21 +133,21 @@ public class PostRepository extends BaseRepository {
 
 	private com.google.appengine.api.search.Query preparaQuery(String q) {
 
-		SortOptions sortOptions = SortOptions.newBuilder().addSortExpression(
-				SortExpression.newBuilder().setExpression(
-						PostFields.DATA_DE_ATUALIZACAO.getField())
-						.setDirection(SortExpression.SortDirection.ASCENDING)
-						.setDefaultValue("0")).build();
+		SortOptions sortOptions = SortOptions
+				.newBuilder()
+				.addSortExpression(
+						SortExpression.newBuilder().setExpression(PostFields.DATA_DE_ATUALIZACAO.getField())
+								.setDirection(SortExpression.SortDirection.ASCENDING).setDefaultValue("0")).build();
 
-		QueryOptions queryOptions = QueryOptions.newBuilder().setSortOptions(
-				sortOptions).setFieldsToSnippet(PostFields.USUARIO.getField(),
-				PostFields.TITULO.getField()).setFieldsToReturn(
-				PostFields.ID.getField(),
-				PostFields.DATA_DE_ATUALIZACAO.getField(),
-				PostFields.TITULO.getField()).setLimit(1000).build();
+		QueryOptions queryOptions = QueryOptions
+				.newBuilder()
+				.setSortOptions(sortOptions)
+				.setFieldsToSnippet(PostFields.USUARIO.getField(), PostFields.TITULO.getField())
+				.setFieldsToReturn(PostFields.ID.getField(), PostFields.DATA_DE_ATUALIZACAO.getField(),
+						PostFields.TITULO.getField()).setLimit(1000).build();
 
-		com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query
-				.newBuilder().setOptions(queryOptions).build(q);
+		com.google.appengine.api.search.Query query = com.google.appengine.api.search.Query.newBuilder()
+				.setOptions(queryOptions).build(q);
 		return query;
 	}
 
@@ -165,36 +159,29 @@ public class PostRepository extends BaseRepository {
 		alteraDataDaEntity(curtida.getIdReference(), curtida.getData());
 	}
 
-	void alteraDataDaEntity(String id, String data)
-			throws EntityNotFoundException {
+	void alteraDataDaEntity(String id, String data) throws EntityNotFoundException {
 
 		Key key = KeyFactory.createKey(Post.class.getName(), id);
 		Entity valueEntity = datastore.get(key);
-		valueEntity
-				.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), data);
+		valueEntity.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), data);
 
 		persist(valueEntity);
 	}
 
-	void incrementaNumeroDeComentariosDaEntityDoPost(String id)
-			throws EntityNotFoundException {
+	void incrementaNumeroDeComentariosDaEntityDoPost(String id) throws EntityNotFoundException {
 
 		Key key = KeyFactory.createKey(Post.class.getName(), id);
 		Entity valueEntity = datastore.get(key);
-		int comments = Integer.parseInt(valueEntity.getProperty(
-				PostFields.COMENTARIO.getField()).toString());
+		int comments = Integer.parseInt(valueEntity.getProperty(PostFields.COMENTARIO.getField()).toString());
 		valueEntity.setProperty(PostFields.COMENTARIO.getField(), comments + 1);
 		persist(valueEntity);
 	}
 
-	public void incrementaNumeroDeLikesDaEntityDoPost(Curtida curtida)
-			throws EntityNotFoundException {
+	public void incrementaNumeroDeLikesDaEntityDoPost(Curtida curtida) throws EntityNotFoundException {
 
-		Key key = KeyFactory.createKey(Post.class.getName(), curtida
-				.getIdReference());
+		Key key = KeyFactory.createKey(Post.class.getName(), curtida.getIdReference());
 		Entity valueEntity = datastore.get(key);
-		int likes = Integer.parseInt(valueEntity.getProperty(
-				PostFields.LIKES.getField()).toString());
+		int likes = Integer.parseInt(valueEntity.getProperty(PostFields.LIKES.getField()).toString());
 		valueEntity.setProperty(PostFields.LIKES.getField(), likes + 1);
 		persist(valueEntity);
 	}
@@ -215,15 +202,13 @@ public class PostRepository extends BaseRepository {
 		incrementaNumeroDeComentariosDaEntityDoPost(comment.getIdReference());
 	}
 
-	public void insereUsuarioQueCurtiuNoPost(Curtida curtida, Post post)
-			throws EntityNotFoundException {
+	public void insereUsuarioQueCurtiuNoPost(Curtida curtida, Post post) throws EntityNotFoundException {
 
-		Key key = KeyFactory.createKey(Post.class.getName(), curtida
-				.getIdReference());
+		Key key = KeyFactory.createKey(Post.class.getName(), curtida.getIdReference());
 		Entity valueEntity = datastore.get(key);
 
-		valueEntity.setProperty(PostFields.USER_LIKE.getField(), valueEntity
-				.getProperty(PostFields.USER_LIKE.getField()) + " " + curtida.getUsuarioLogado());
+		valueEntity.setProperty(PostFields.USER_LIKE.getField(),
+				valueEntity.getProperty(PostFields.USER_LIKE.getField()) + " " + curtida.getUsuarioLogado());
 
 		persist(valueEntity);
 

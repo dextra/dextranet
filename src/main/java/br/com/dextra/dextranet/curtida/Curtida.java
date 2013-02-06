@@ -2,8 +2,6 @@ package br.com.dextra.dextranet.curtida;
 
 import br.com.dextra.dextranet.utils.Data;
 
-
-
 public class Curtida {
 
 	private String data;
@@ -22,7 +20,7 @@ public class Curtida {
 		this.data = data;
 	}
 
-	public String getData(){
+	public String getData() {
 		return this.data;
 	}
 
@@ -30,10 +28,8 @@ public class Curtida {
 		return this.id;
 	}
 
-
 	public String getUsuarioLogado() {
 		return this.usuario;
 	}
-
 
 }

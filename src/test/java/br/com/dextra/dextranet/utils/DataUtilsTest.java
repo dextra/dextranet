@@ -9,7 +9,7 @@ import java.util.Calendar;
 import org.junit.Test;
 
 public class DataUtilsTest {
-	
+
 	@Test
 	public void testaPrimeiroSegundoDoDia() {
 		Calendar primeiroSegundoDeHoje = Calendar.getInstance();
@@ -23,7 +23,7 @@ public class DataUtilsTest {
 
 		comparaDiaMesAno(primeiroSegundoDeHoje);
 	}
-	
+
 	@Test
 	public void testaUltimoSegundoDoDia() {
 		Calendar ultimoSegundoDeHoje = Calendar.getInstance();
@@ -40,7 +40,7 @@ public class DataUtilsTest {
 
 	public void comparaDiaMesAno(Calendar data) {
 		Calendar hoje = Calendar.getInstance();
-		
+
 		assertEquals(hoje.get(Calendar.DAY_OF_MONTH), data.get(Calendar.DAY_OF_MONTH));
 		assertEquals(hoje.get(Calendar.MONTH), data.get(Calendar.MONTH));
 		assertEquals(hoje.get(Calendar.YEAR), data.get(Calendar.YEAR));

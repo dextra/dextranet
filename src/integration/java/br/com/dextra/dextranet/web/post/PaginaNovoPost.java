@@ -11,7 +11,7 @@ public class PaginaNovoPost extends PaginaBase {
 	}
 
 	public PaginaNovoPost redigeConteudoDoPost(String titulo, String conteudo) {
-		this.writeInputText("input#form_input_title",titulo);
+		this.writeInputText("input#form_input_title", titulo);
 		this.writeCKEditor(conteudo, "form_input_content");
 
 		return this;

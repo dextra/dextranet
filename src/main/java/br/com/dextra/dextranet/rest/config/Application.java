@@ -10,12 +10,10 @@ import br.com.dextra.dextranet.document.DocumentRS;
 import br.com.dextra.dextranet.post.PostRS;
 import br.com.dextra.dextranet.usuario.UsuarioRS;
 
-
 public class Application extends javax.ws.rs.core.Application {
 
 	/**
-	 * Adicionando todas as classes referentes a servicos REST que irao existir
-	 * nesta aplicacao.
+	 * Adicionando todas as classes referentes a servicos REST que irao existir nesta aplicacao.
 	 */
 	@Override
 	public Set<Class<?>> getClasses() {

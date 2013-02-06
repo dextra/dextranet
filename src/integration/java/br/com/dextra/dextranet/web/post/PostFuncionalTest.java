@@ -47,9 +47,10 @@ public class PostFuncionalTest extends PostTesteFuncionalUtils {
 	private void eTodosOsPostsCriadosForamExibidos() {
 		Collections.sort(postsInseridos);
 		Collections.sort(postsEncontrados);
-		Assert.assertEquals("Todos os posts inseridos deveriam ter sido visualizados.", postsInseridos, postsEncontrados);
+		Assert.assertEquals("Todos os posts inseridos deveriam ter sido visualizados.", postsInseridos,
+				postsEncontrados);
 	}
-	
+
 	@Test
 	public void curtirUmPost() {
 		dadoQueUsuarioAcessaPaginaPrincipal();

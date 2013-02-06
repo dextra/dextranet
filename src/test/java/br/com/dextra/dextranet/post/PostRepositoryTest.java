@@ -142,5 +142,4 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 	}
 
-
 }

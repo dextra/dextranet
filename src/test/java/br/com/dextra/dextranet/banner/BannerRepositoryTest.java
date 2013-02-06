@@ -13,11 +13,10 @@ import br.com.dextra.teste.TesteIntegracaoBase;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.datastore.PreparedQuery.TooManyResultsException;
 
-
 public class BannerRepositoryTest extends TesteIntegracaoBase {
-	
+
 	BannerRepository bannerRepository = new BannerRepository();
-	
+
 	@Test
 	public void criarUmBanner() {
 
@@ -41,7 +40,7 @@ public class BannerRepositoryTest extends TesteIntegracaoBase {
 	public Banner criarBanner(String titulo, BlobKey blobKey, String dataInicioFormatada, String dataFimFormatada) {
 		try {
 			return bannerRepository.criar(titulo, blobKey, dataInicioFormatada, dataFimFormatada);
-		}  catch (ParseException e) {
+		} catch (ParseException e) {
 			fail("data mal formatada.");
 		} catch (DataNaoValidaException e) {
 			fail("data invalida");
@@ -50,7 +49,7 @@ public class BannerRepositoryTest extends TesteIntegracaoBase {
 		}
 		return null;
 	}
-	
+
 	@Test
 	public void getBannerDisponiveisTeste() {
 
@@ -58,23 +57,23 @@ public class BannerRepositoryTest extends TesteIntegracaoBase {
 
 		for (int i = 0; i < quantidadeDeBanners; i++) {
 			// TODO data para string para melhorar o teste
-			criarBanner("banner" + i, new BlobKey("bla" + i), "02/02/2013" , "25/02/2200");
+			criarBanner("banner" + i, new BlobKey("bla" + i), "02/02/2013", "25/02/2200");
 		}
 
 		assertEquals(quantidadeDeBanners, bannerRepository.getBannerDisponiveis().size());
 	}
-	
+
 	@Test
 	public void atualizaFlagJaComecouTeste() {
-		
+
 		criaBanners(5, Calendar.getInstance(), false);
 		bannerRepository.atualizaFlagJaComecou();
 		assertEquals(3, bannerRepository.getBannerDisponiveis().size());
 	}
-	
+
 	@Test
 	public void atualizaFlagJaTerminou() {
-		
+
 		criaBanners(5, Calendar.getInstance(), true);
 		bannerRepository.atualizaFlagJaTerminou();
 		assertEquals(3, bannerRepository.getBannerDisponiveis().size());
@@ -85,9 +84,11 @@ public class BannerRepositoryTest extends TesteIntegracaoBase {
 		Calendar c = Calendar.getInstance();
 
 		for (int i = -2; i < quantidaDeDeBanners - 2; i++) {
-			c.set(dataInicio.get(Calendar.YEAR), dataInicio.get(Calendar.MONTH), dataInicio.get(Calendar.DAY_OF_MONTH) + i, 0, 0, 0);
+			c.set(dataInicio.get(Calendar.YEAR), dataInicio.get(Calendar.MONTH), dataInicio.get(Calendar.DAY_OF_MONTH)
+					+ i, 0, 0, 0);
 			c.set(Calendar.MILLISECOND, 0);
-			bannerRepository.criar(new Banner("baner", new BlobKey(c.toString()), c.getTime(), c.getTime(), statusInicio, false, "login.google", Calendar.getInstance().getTime()));
+			bannerRepository.criar(new Banner("baner", new BlobKey(c.toString()), c.getTime(), c.getTime(),
+					statusInicio, false, "login.google", Calendar.getInstance().getTime()));
 		}
 	}
 }

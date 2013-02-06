@@ -11,35 +11,30 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
 public class AutenticacaoFilter implements Filter {
 
-
-
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain filterChain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException,
+			ServletException {
 
+		UserService userService = UserServiceFactory.getUserService();
+		HttpServletResponse httpResponse = (HttpServletResponse) response;
+		HttpServletRequest httpRequest = (HttpServletRequest) request;
 
-        UserService userService = UserServiceFactory.getUserService();
-        HttpServletResponse httpResponse = (HttpServletResponse) response;
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
+		String thisURI = httpRequest.getRequestURI();
 
-        String thisURI = httpRequest.getRequestURI();
+		if (userService.getCurrentUser() != null) {
 
-        if(userService.getCurrentUser() != null){
+			filterChain.doFilter(request, response);
 
-    		filterChain.doFilter(request, response);
-
-        }else{
-            String loginUrl = userService.createLoginURL(thisURI);
-        	httpResponse.sendRedirect(loginUrl);
-        	return;
-        }
-
+		} else {
+			String loginUrl = userService.createLoginURL(thisURI);
+			httpResponse.sendRedirect(loginUrl);
+			return;
+		}
 
 	}
 

@@ -29,7 +29,7 @@ public class Data {
 	}
 
 	@SuppressWarnings("deprecation")
-	public String setSegundoDaData(int seg){
+	public String setSegundoDaData(int seg) {
 		Date data = new Date();
 		data.setSeconds(seg);
 		return formataDataPelaBiblioteca(data);
@@ -42,7 +42,7 @@ public class Data {
 	public static Date primeiroSegundoDeHoje() {
 		return primeiroSegundo(new Date());
 	}
-	
+
 	public static Date primeiroSegundo(Date data) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(data);
@@ -53,7 +53,7 @@ public class Data {
 
 		return c.getTime();
 	}
-	
+
 	public static Date ultimoSegundo(Date data) {
 		Calendar c = Calendar.getInstance();
 		c.setTime(data);
@@ -64,10 +64,10 @@ public class Data {
 
 		return c.getTime();
 	}
-	
+
 	public static Date stringParaData(String dataString) throws ParseException {
-	    DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
-	    return (Date)formatter.parse(dataString);  
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		return (Date) formatter.parse(dataString);
 	}
 
 	public static Boolean anteriorADataDeHoje(Date data) {
@@ -75,11 +75,11 @@ public class Data {
 
 		return igualADataDeHoje(data) ? false : !primeiroSegundoDeHoje.before(primeiroSegundo(data));
 	}
-	
+
 	public static Boolean igualADataDeHoje(Date data) {
 		return primeiroSegundoDeHoje().equals(primeiroSegundo(data));
 	}
-	
+
 	public static Boolean posteriorAHoje(Date data) {
 		return igualADataDeHoje(data) ? false : !primeiroSegundoDeHoje().after(primeiroSegundo(data));
 	}

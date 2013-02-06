@@ -27,11 +27,12 @@ public class CommentFuncionalTest extends PostTesteFuncionalUtils {
 	}
 
 	private void eTodosOsComentariosCriadosForamExibidos() {
-		Assert.assertEquals("Todos os comentários inseridos deveriam ter sido visualizados.", comentariosInseridos, comentariosEncontrados);
+		Assert.assertEquals("Todos os comentários inseridos deveriam ter sido visualizados.", comentariosInseridos,
+				comentariosEncontrados);
 	}
 
-	private void entaoVisualizaOsComentarios(){
-		List<WebElement> htmlComentariosEncontrados =  driver.findElements(By.cssSelector(".list_stories_comment_lead"));
+	private void entaoVisualizaOsComentarios() {
+		List<WebElement> htmlComentariosEncontrados = driver.findElements(By.cssSelector(".list_stories_comment_lead"));
 		comentariosEncontrados.clear();
 
 		for (WebElement elementoComentario : htmlComentariosEncontrados) {
@@ -44,7 +45,7 @@ public class CommentFuncionalTest extends PostTesteFuncionalUtils {
 	private void depoisCriaVariosComentariosParaOsPostsCriados(int quantidadeDeComentarios) {
 		PaginaNovoComentario paginaNovoComentario = paginaPrincipal.clicaEmNovoComentario();
 
-		for(int i = 1; i <= quantidadeDeComentarios ; i++){
+		for (int i = 1; i <= quantidadeDeComentarios; i++) {
 			String conteudo = "Texto do comentário teste numero: " + i;
 
 			paginaNovoComentario.criaNovoComentario(conteudo);
@@ -60,7 +61,7 @@ public class CommentFuncionalTest extends PostTesteFuncionalUtils {
 
 		Collections.sort(comentariosInseridos);
 	}
-	
+
 	@Test
 	public void curtirUmComentario() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
@@ -73,7 +74,8 @@ public class CommentFuncionalTest extends PostTesteFuncionalUtils {
 
 	private void eOComentarioFoiCurtidoApenasUmaVez() {
 		System.out.println("sdfsadadfdfsdfadfgfsgbsdhaçdfkghçdfg");
-		WebElement curtidas = driver.findElement(By.cssSelector("#relacao_dos_comentarios .linkCurtir .numero_curtida"));
+		WebElement curtidas = driver
+				.findElement(By.cssSelector("#relacao_dos_comentarios .linkCurtir .numero_curtida"));
 		Assert.assertEquals("1", curtidas.getText().toString());
 	}
 

@@ -27,8 +27,7 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 		this(titulo, conteudo, usuario, new Data().pegaData());
 	}
 
-	public Post(String titulo, String conteudo, String usuario,
-			String dataDeAtualizacao) {
+	public Post(String titulo, String conteudo, String usuario, String dataDeAtualizacao) {
 		super(usuario, conteudo);
 		this.titulo = titulo;
 		this.dataDeAtualizacao = dataDeAtualizacao;
@@ -41,21 +40,14 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 		Converters conversores = new Converters();
 
 		this.id = (String) postEntity.getProperty(PostFields.ID.getField());
-		this.titulo = (String) postEntity.getProperty(PostFields.TITULO
-				.getField());
+		this.titulo = (String) postEntity.getProperty(PostFields.TITULO.getField());
 		this.conteudo = conversores.converterGAETextToString(postEntity);
-		this.dataDeCriacao = (String) postEntity.getProperty(PostFields.DATA
-				.getField());
-		this.dataDeAtualizacao = (String) postEntity
-				.getProperty(PostFields.DATA_DE_ATUALIZACAO.getField());
-		this.usuario = (String) postEntity.getProperty(PostFields.USUARIO
-				.getField());
-		this.comentarios = ((Long) postEntity.getProperty(PostFields.COMENTARIO
-				.getField())).intValue();
-		this.likes = ((Long) postEntity
-				.getProperty(PostFields.LIKES.getField())).intValue();
-		this.userLikes = (String) postEntity.getProperty(PostFields.USER_LIKE
-				.getField());
+		this.dataDeCriacao = (String) postEntity.getProperty(PostFields.DATA.getField());
+		this.dataDeAtualizacao = (String) postEntity.getProperty(PostFields.DATA_DE_ATUALIZACAO.getField());
+		this.usuario = (String) postEntity.getProperty(PostFields.USUARIO.getField());
+		this.comentarios = ((Long) postEntity.getProperty(PostFields.COMENTARIO.getField())).intValue();
+		this.likes = ((Long) postEntity.getProperty(PostFields.LIKES.getField())).intValue();
+		this.userLikes = (String) postEntity.getProperty(PostFields.USER_LIKE.getField());
 	}
 
 	public String getTitulo() {
@@ -90,8 +82,7 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 		return this.userLikes;
 	}
 
-	public void comentar(Comment comment) throws EntityNotFoundException,
-			ParseException {
+	public void comentar(Comment comment) throws EntityNotFoundException, ParseException {
 
 		new DocumentRepository().alteraDocumento(comment);
 		new PostRepository().alteraEntity(comment);
@@ -103,17 +94,16 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 
 	public void curtirECriarIndice(String user) throws EntityNotFoundException {
 		Curtida curtida = curtir(user);
-		criarIndiceCurtida(user,curtida);
+		criarIndiceCurtida(user, curtida);
 	}
 
-    //FIXME conteudo indexavel dah para salvar o refuse bequest
+	// FIXME conteudo indexavel dah para salvar o refuse bequest
 	private void criarIndiceCurtida(String user, Curtida curtida) {
-			DocumentRepository postDoDocumentReository = new DocumentRepository();
-			postDoDocumentReository.alteraDocumento(curtida);
+		DocumentRepository postDoDocumentReository = new DocumentRepository();
+		postDoDocumentReository.alteraDocumento(curtida);
 	}
 
-	protected void setaAtributos(Curtida curtida)
-			throws EntityNotFoundException {
+	protected void setaAtributos(Curtida curtida) throws EntityNotFoundException {
 		PostRepository postDoRepository = new PostRepository();
 		postDoRepository.alteraDataDaEntity(curtida);
 		postDoRepository.insereUsuarioQueCurtiuNoPost(curtida, this);
@@ -132,7 +122,7 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 		entidade.setProperty(PostFields.COMENTARIO.getField(), this.comentarios);
 		entidade.setProperty(PostFields.LIKES.getField(), this.likes);
 		entidade.setProperty(PostFields.DATA.getField(), this.dataDeCriacao);
-		entidade.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(),this.dataDeAtualizacao);
+		entidade.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), this.dataDeAtualizacao);
 		entidade.setProperty(PostFields.USER_LIKE.getField(), this.userLikes);
 
 		return entidade;
@@ -148,19 +138,23 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 		json.addProperty(PostFields.COMENTARIO.getField(), this.comentarios);
 		json.addProperty(PostFields.LIKES.getField(), this.likes);
 		json.addProperty(PostFields.DATA.getField(), this.dataDeCriacao);
-		json.addProperty(PostFields.DATA_DE_ATUALIZACAO.getField(),this.dataDeAtualizacao);
+		json.addProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), this.dataDeAtualizacao);
 		json.addProperty(PostFields.USER_LIKE.getField(), this.userLikes);
 
 		return json;
 	}
 
 	public Document toDocument() {
-		Document document = Document.newBuilder().setId(id).addField(
-				Field.newBuilder().setName(PostFields.TITULO.getField()).setText(titulo)).addField(
-				Field.newBuilder().setName(PostFields.CONTEUDO.getField()).setHTML(conteudo)).addField(
-				Field.newBuilder().setName(PostFields.USUARIO.getField()).setText(usuario)).addField(
-				Field.newBuilder().setName(PostFields.DATA_DE_ATUALIZACAO.getField()).setText(dataDeAtualizacao)).addField(
-				Field.newBuilder().setName(PostFields.ID.getField()).setText(id)).build();
+		Document document = Document
+				.newBuilder()
+				.setId(id)
+				.addField(Field.newBuilder().setName(PostFields.TITULO.getField()).setText(titulo))
+				.addField(Field.newBuilder().setName(PostFields.CONTEUDO.getField()).setHTML(conteudo))
+				.addField(Field.newBuilder().setName(PostFields.USUARIO.getField()).setText(usuario))
+				.addField(
+						Field.newBuilder().setName(PostFields.DATA_DE_ATUALIZACAO.getField())
+								.setText(dataDeAtualizacao))
+				.addField(Field.newBuilder().setName(PostFields.ID.getField()).setText(id)).build();
 
 		return document;
 	}

@@ -22,6 +22,7 @@ import com.googlecode.mycontainer.web.ContextWebServer;
 import com.googlecode.mycontainer.web.FilterDesc;
 import com.googlecode.mycontainer.web.WebServerDeployer;
 import com.googlecode.mycontainer.web.jetty.JettyServerDeployer;
+
 //import com.google.appengine.api.search.dev.LocalSearchService;
 
 public class GAETestHelper {
@@ -42,7 +43,7 @@ public class GAETestHelper {
 	public void prepareLocalServiceTestHelper() throws Exception {
 		ds = new LocalDatastoreServiceTestConfig();
 		ds.setDefaultHighRepJobPolicyUnappliedJobPercentage(0);
-		fts=new LocalSearchServiceTestConfig();
+		fts = new LocalSearchServiceTestConfig();
 
 		List<LocalServiceTestConfig> list = new ArrayList<LocalServiceTestConfig>();
 		list.add(ds);
@@ -54,8 +55,8 @@ public class GAETestHelper {
 		helper.setEnvAttributes(envs);
 		helper.setEnvIsLoggedIn(true);
 		helper.setEnvIsAdmin(false);
-	  	helper.setEnvEmail("login.google@example.com");
-	  	helper.setEnvAuthDomain("example.com");
+		helper.setEnvEmail("login.google@example.com");
+		helper.setEnvAuthDomain("example.com");
 	}
 
 	public void prepareSearchServiceTestHelper() throws Exception {

@@ -1,6 +1,5 @@
 package br.com.dextra.dextranet.post;
 
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,7 +31,9 @@ public class PostRS {
 	@Path("/")
 	@POST
 	@Produces("application/json;charset=UTF-8")
-	public Response novoPost(@FormParam("title") String titulo,@FormParam("content") String conteudo, @FormParam("author") String autor) throws PolicyException, ScanException, FileNotFoundException, IOException {
+	public Response novoPost(@FormParam("title") String titulo, @FormParam("content") String conteudo,
+			@FormParam("author") String autor) throws PolicyException, ScanException, FileNotFoundException,
+			IOException {
 		Post post = new Post(titulo, conteudo, autor);
 		postRepository.criar(post);
 
@@ -42,23 +43,22 @@ public class PostRS {
 	@Path("/")
 	@GET
 	@Produces("application/json;charset=UTF-8")
-	public String listarPosts(
-			@DefaultValue("") @QueryParam(value = "max-results") String maxResults,
+	public String listarPosts(@DefaultValue("") @QueryParam(value = "max-results") String maxResults,
 			@DefaultValue("") @QueryParam(value = "q") String q,
-			@DefaultValue("0") @QueryParam(value = "page") String page) throws NumberFormatException, EntityNotFoundException {
+			@DefaultValue("0") @QueryParam(value = "page") String page) throws NumberFormatException,
+			EntityNotFoundException {
 
 		List<Post> listaPosts = new ArrayList<Post>();
 
 		int resultsMax = Integer.parseInt(maxResults);
-		int offSet = Integer.parseInt(page)*resultsMax;
+		int offSet = Integer.parseInt(page) * resultsMax;
 
 		PostRepository novoPost = new PostRepository();
 
 		if (q.equals("")) {
 			listaPosts = novoPost.buscarTodosOsPosts(resultsMax, offSet);
-		}
-		else {
-			listaPosts = novoPost.buscarPosts(resultsMax, q,offSet);
+		} else {
+			listaPosts = novoPost.buscarPosts(resultsMax, q, offSet);
 		}
 		return new Converters().converterListaDePostsParaListaDeJson(listaPosts).toString();
 	}

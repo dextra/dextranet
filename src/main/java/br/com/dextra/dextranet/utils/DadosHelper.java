@@ -12,8 +12,7 @@ public class DadosHelper {
 	public String removeConteudoJS(String conteudoHTML) {
 
 		try {
-			InputStream inputStream = this.getClass().getClassLoader()
-					.getResourceAsStream("antisamy.xml");
+			InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("antisamy.xml");
 
 			AntiSamy as = new AntiSamy();
 			Policy policy = null;
@@ -22,13 +21,11 @@ public class DadosHelper {
 			try {
 				return as.scan(conteudoHTML, policy).getCleanHTML();
 			} catch (ScanException e) {
-				throw new RuntimeException(
-						"Erro ao remover codigo indevido do conteudo (Scan).", e);
+				throw new RuntimeException("Erro ao remover codigo indevido do conteudo (Scan).", e);
 			}
 
 		} catch (PolicyException e) {
-			throw new RuntimeException(
-					"Erro ao remover codigo indevido do conteudo (Policy).", e);
+			throw new RuntimeException("Erro ao remover codigo indevido do conteudo (Policy).", e);
 
 		}
 	}

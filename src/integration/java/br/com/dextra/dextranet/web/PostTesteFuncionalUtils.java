@@ -11,7 +11,7 @@ public class PostTesteFuncionalUtils extends TesteFuncionalBase {
 	protected List<String> postsInseridos = new ArrayList<String>();
 
 	protected void eCriouPosts(int quantidadeDePosts) {
-		for (int i = 1; i <= quantidadeDePosts; i++){
+		for (int i = 1; i <= quantidadeDePosts; i++) {
 			String titulo = "Titulo de Teste Numero: " + i;
 			String conteudo = "Texto do teste numero: " + i;
 
@@ -22,5 +22,5 @@ public class PostTesteFuncionalUtils extends TesteFuncionalBase {
 			postsInseridos.add(titulo.toUpperCase());
 		}
 	}
-	
+
 }
