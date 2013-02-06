@@ -21,6 +21,7 @@ public class CurtidaRS {
     @Path("/")
     @POST
     @Produces("application/json;charset=UTF-8")
+    // FIXME: do jeito que esta eu posso curtir por qualquer usuario (mesmo nao sendo o usuario logado)
     public Response curtir(@FormParam("usuario") String usuario, @FormParam("id") String id,
             @DefaultValue("true") @FormParam("isPost") String isPost) throws EntityNotFoundException {
 
