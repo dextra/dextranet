@@ -14,19 +14,20 @@ public class Banner extends Entidade {
 
 	private BlobKey blobKey;
 
-	private Date dataInicio;	
+	private Date dataInicio;
 
 	private Date dataFim;
-	
+
 	private Boolean jaComecou;
-	
+
 	private Boolean jaTerminou;
-	
+
 	private String usuario;
-	
+
 	private Date dataDeAtualizacao;
 
-	public Banner(String titulo, BlobKey blobKey, Date dataInicio, Date dataFim, Boolean jaComecou, Boolean jaTerminou, String usuario, Date dataDeAtualizacao) {
+	public Banner(String titulo, BlobKey blobKey, Date dataInicio, Date dataFim, Boolean jaComecou, Boolean jaTerminou,
+			String usuario, Date dataDeAtualizacao) {
 		this.titulo = titulo;
 		this.blobKey = blobKey;
 		this.dataInicio = dataInicio;
@@ -61,11 +62,11 @@ public class Banner extends Entidade {
 	public BlobKey getBlobKey() {
 		return blobKey;
 	}
-	
+
 	public Date getDataInicio() {
 		return dataInicio;
 	}
-	
+
 	public Date getDataFim() {
 		return dataFim;
 	}
@@ -73,11 +74,11 @@ public class Banner extends Entidade {
 	public Boolean getJaComecou() {
 		return jaComecou;
 	}
-	
+
 	public Boolean getJaTerminou() {
 		return jaTerminou;
 	}
-	
+
 	public void setJaComecou(Boolean jaComecou) {
 		this.jaComecou = jaComecou;
 	}
@@ -122,7 +123,7 @@ public class Banner extends Entidade {
 		json.addProperty(BannerFields.JA_TERMINOU.getField(), this.jaTerminou.toString());
 		json.addProperty(BannerFields.USUARIO.getField(), this.usuario);
 		json.addProperty(BannerFields.DATA_DE_ATUALIZACAO.getField(), this.dataDeAtualizacao.toString());
-		
+
 		return json;
 	}
 }

@@ -10,8 +10,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 public class BaseRepository {
 
 	protected Key persist(Entity valueEntity) {
-		DatastoreService datastore = DatastoreServiceFactory
-				.getDatastoreService();
+		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
 		return datastore.put(valueEntity);
 	}

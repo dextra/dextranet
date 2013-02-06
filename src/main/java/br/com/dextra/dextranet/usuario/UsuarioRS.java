@@ -11,14 +11,13 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.JsonObject;
 
-
 @Path("/usuario")
 public class UsuarioRS {
 
 	@Path("/")
 	@GET
 	@Produces("application/json;charset=UTF-8")
-	public String getDadosUsuario(@Context HttpServletRequest re){
+	public String getDadosUsuario(@Context HttpServletRequest re) {
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
 

@@ -9,7 +9,7 @@ import br.com.dextra.expertus.EnvironmentFactory;
 import br.com.dextra.expertus.environment.Environment;
 
 public class TesteFuncionalBase extends TesteIntegracaoBase {
-	
+
 	public PaginaPrincipal paginaPrincipal = new PaginaPrincipal(driver);
 
 	private static Environment environment;

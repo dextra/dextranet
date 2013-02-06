@@ -37,16 +37,16 @@ public class CommentToJson {
 			json.addProperty(entry.getKey(), entry.getValue().toString());
 		}
 
-		json.addProperty("key",entity.getKey().toString());
+		json.addProperty("key", entity.getKey().toString());
 
 		return json;
 	}
 
 	public ArrayList<String> toListaDeIds(Results<ScoredDocument> results) {
-		ArrayList<String> idList=new ArrayList<String>();
+		ArrayList<String> idList = new ArrayList<String>();
 
 		for (ScoredDocument scoredDocument : results) {
-				idList.add(scoredDocument.getField("id").iterator().next().getText());
+			idList.add(scoredDocument.getField("id").iterator().next().getText());
 		}
 
 		return idList;

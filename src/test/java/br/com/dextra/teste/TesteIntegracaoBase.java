@@ -44,20 +44,18 @@ public class TesteIntegracaoBase {
 		myContainer.stop();
 	}
 
-
 	@Before
 	public void setUp() {
 		helper.setUp();
 		fts.setUp();
 	}
-	
+
 	@After
 	public void tearDown() {
 		helper.tearDown();
 	}
-	
-	public List<Post> geraPosts(int numeroDePosts) throws InterruptedException,
-			FileNotFoundException, IOException {
+
+	public List<Post> geraPosts(int numeroDePosts) throws InterruptedException, FileNotFoundException, IOException {
 
 		List<Post> listaDePostsCriados = new ArrayList<Post>();
 		Post novoPost = null;
@@ -65,23 +63,21 @@ public class TesteIntegracaoBase {
 		// ESSE FOR NÃO DEVE PASSSAR DE 60 POR CAUSO DO setSegundoDaData(i)
 		for (int i = 0; i <= numeroDePosts - 1; i++) {
 			dataDeAtualizacao = new Data().setSegundoDaData(i);
-			novoPost = new Post("titulo de teste" + (i + 1),
-					"conteudo de teste" + (i + 1), "usuario", dataDeAtualizacao);
+			novoPost = new Post("titulo de teste" + (i + 1), "conteudo de teste" + (i + 1), "usuario",
+					dataDeAtualizacao);
 			listaDePostsCriados.add(new PostRepository().criar(novoPost));
 		}
 
 		return listaDePostsCriados;
 	}
 
-	public List<Comment> comentar(String idDoPostQueVouComentar, int qtd)
-			throws EntityNotFoundException, InterruptedException,
-			ParseException {
+	public List<Comment> comentar(String idDoPostQueVouComentar, int qtd) throws EntityNotFoundException,
+			InterruptedException, ParseException {
 		Comment comment;
 		Post post = new PostRepository().obtemPorId(idDoPostQueVouComentar);
 		List<Comment> retorno = new ArrayList<Comment>();
 		for (int i = 0; i < qtd; i++) {
-			comment = new Comment("teste de comentário " + i, "usuario.dextra",
-					idDoPostQueVouComentar, false);
+			comment = new Comment("teste de comentário " + i, "usuario.dextra", idDoPostQueVouComentar, false);
 			comment.setSgundoDaDataDeCriacao(i);
 			new CommentRepository().criar(comment);
 			post.comentar(comment);

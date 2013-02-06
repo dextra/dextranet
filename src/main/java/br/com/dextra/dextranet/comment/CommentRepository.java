@@ -19,16 +19,15 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 
 public class CommentRepository extends BaseRepository {
 
-	private DatastoreService datastore = DatastoreServiceFactory
-			.getDatastoreService();
+	private DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
 	public Comment criar(Comment comment) {
 		this.persist(comment.toEntity());
 
-		//TODO: indexação do post que foi comentado com conteudo do comment
-		//FIXME: arrumar o set do document ja existente
-		//DocumentRepository respositoryDocument = new DocumentRepository();
-		//respositoryDocument.indexar(comment, Comment.class);
+		// TODO: indexação do post que foi comentado com conteudo do comment
+		// FIXME: arrumar o set do document ja existente
+		// DocumentRepository respositoryDocument = new DocumentRepository();
+		// respositoryDocument.indexar(comment, Comment.class);
 
 		return comment;
 	}
@@ -38,10 +37,9 @@ public class CommentRepository extends BaseRepository {
 
 		Query query = new Query(Comment.class.getName());
 
-		query.addFilter(CommentFields.ID_REFERENCE.getField(),FilterOperator.EQUAL, IdReference);
+		query.addFilter(CommentFields.ID_REFERENCE.getField(), FilterOperator.EQUAL, IdReference);
 
-		query.addSort(CommentFields.DATA_DE_CRIACAO.getField(),
-				SortDirection.ASCENDING);
+		query.addSort(CommentFields.DATA_DE_CRIACAO.getField(), SortDirection.ASCENDING);
 
 		PreparedQuery prepared = datastore.prepare(query);
 
@@ -66,13 +64,11 @@ public class CommentRepository extends BaseRepository {
 
 	public void insereUsuarioQueCurtiuNoComment(Curtida curtida, Comment comment) throws EntityNotFoundException {
 
-		Key key = KeyFactory.createKey(Comment.class.getName(), curtida
-				.getIdReference());
+		Key key = KeyFactory.createKey(Comment.class.getName(), curtida.getIdReference());
 		Entity valueEntity = datastore.get(key);
 
-		valueEntity.setProperty(CommentFields.USER_LIKE.getField(), valueEntity
-				.getProperty(CommentFields.USER_LIKE.getField())
-				+" "+curtida.getUsuarioLogado());
+		valueEntity.setProperty(CommentFields.USER_LIKE.getField(),
+				valueEntity.getProperty(CommentFields.USER_LIKE.getField()) + " " + curtida.getUsuarioLogado());
 
 		persist(valueEntity);
 
@@ -80,11 +76,9 @@ public class CommentRepository extends BaseRepository {
 
 	public void incrementaNumeroDeLikesDaEntityDoComment(Curtida curtida) throws EntityNotFoundException {
 
-		Key key = KeyFactory.createKey(Comment.class.getName(), curtida
-				.getIdReference());
+		Key key = KeyFactory.createKey(Comment.class.getName(), curtida.getIdReference());
 		Entity valueEntity = datastore.get(key);
-		int likes = Integer.parseInt(valueEntity.getProperty(
-				CommentFields.LIKES.getField()).toString());
+		int likes = Integer.parseInt(valueEntity.getProperty(CommentFields.LIKES.getField()).toString());
 		valueEntity.setProperty(CommentFields.LIKES.getField(), likes + 1);
 		persist(valueEntity);
 
@@ -95,14 +89,12 @@ public class CommentRepository extends BaseRepository {
 
 		Query query = new Query(Comment.class.getName());
 
-		query.addFilter(CommentFields.ID.getField(),FilterOperator.EQUAL, idComment);
+		query.addFilter(CommentFields.ID.getField(), FilterOperator.EQUAL, idComment);
 
 		PreparedQuery prepared = datastore.prepare(query);
 
 		return toListaDeComments(prepared.asIterable());
 
 	}
-
-
 
 }

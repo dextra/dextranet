@@ -22,8 +22,8 @@ public class DocumentRS {
 	public static String listarDocuments(
 			@DefaultValue(SMAXRESULTS) @QueryParam(value = "max-results") String maxResults,
 			@DefaultValue("") @QueryParam(value = "q") String q,
-			@DefaultValue("0") @QueryParam(value = "page") String page) throws NumberFormatException, EntityNotFoundException {
-
+			@DefaultValue("0") @QueryParam(value = "page") String page) throws NumberFormatException,
+			EntityNotFoundException {
 
 		return new PostRS().listarPosts(maxResults, q, page).toString();
 	}

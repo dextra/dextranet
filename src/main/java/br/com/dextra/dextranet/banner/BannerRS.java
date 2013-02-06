@@ -25,15 +25,14 @@ import com.google.gson.JsonObject;
 @Path("/banner")
 public class BannerRS {
 
-	private BlobstoreService blobstoreService = BlobstoreServiceFactory
-			.getBlobstoreService();
+	private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 	private BannerRepository bannerRepository = new BannerRepository();
 	
 	@Path("/")
 	@GET
 	@Produces("application/json;charset=UTF-8")
 	public String bannersDisponiveis() {
-		return Converters.toJson(bannerRepository.getBannerDisponiveis()).toString();		
+		return Converters.toJson(bannerRepository.getBannerDisponiveis()).toString();
 	}
 
 	@Path("/{id}")
@@ -41,20 +40,22 @@ public class BannerRS {
 	@Produces("application/json;charset=UTF-8")
 	public Response getById(@Context HttpServletResponse response, @PathParam("id") String id) throws IOException {
 		blobstoreService.serve(bannerRepository.obterPorID(id).getBlobKey(), response);
-		
+
 		return Response.ok().build();
 	}
-	
+
 	@Path("/")
 	@POST
 	@Produces("application/json;charset=UTF-8")
-	public void retornoDoGAE(@Context HttpServletRequest request, @Context HttpServletResponse response) throws IOException {
+	public void retornoDoGAE(@Context HttpServletRequest request, @Context HttpServletResponse response)
+			throws IOException {
 		@SuppressWarnings("deprecation")
 		Map<String, BlobKey> blobs = blobstoreService.getUploadedBlobs(request);
 		BlobKey blobKey = blobs.get("banner");
 
 		try {
-			bannerRepository.criar(request.getParameter("bannerTitulo"), blobKey, request.getParameter("dataInicio"), request.getParameter("dataFim"));
+			bannerRepository.criar(request.getParameter("bannerTitulo"), blobKey, request.getParameter("dataInicio"),
+					request.getParameter("dataFim"));
 		} catch (ParseException e) {
 			blobstoreService.delete(blobKey);
 			setReponseStatus(response, HttpServletResponse.SC_BAD_REQUEST, "Data mal formatada.");
@@ -82,7 +83,7 @@ public class BannerRS {
 	public String uploadURL() throws EntityNotFoundException {
 		JsonObject json = new JsonObject();
 		json.addProperty("url", blobstoreService.createUploadUrl("/s/banner/"));
-		
+
 		return json.toString();
 	}
 }

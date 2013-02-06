@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 import br.com.dextra.teste.PaginaBase;
 
-public class PaginaNovoComentario extends PaginaBase{
+public class PaginaNovoComentario extends PaginaBase {
 	public PaginaNovoComentario(WebDriver driver) {
 		super(driver);
 	}

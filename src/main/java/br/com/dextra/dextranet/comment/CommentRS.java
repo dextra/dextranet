@@ -32,15 +32,13 @@ public class CommentRS {
 	@Path("/")
 	@POST
 	@Produces("application/json;charset=UTF-8")
-	public Response novoComment(@FormParam("text") String text,
-			@FormParam("author") String autor,
-			@FormParam("idReference") String id,
-			@DefaultValue("false") @FormParam("tree") String arvore)
-			throws FileNotFoundException, PolicyException, ScanException,
-			IOException, EntityNotFoundException, ParseException {
+	// FIXME: do jeito que esta eu posso criar um comentario para qualquer usuario (mesmo nao sendo o usuario logado).
+	public Response novoComment(@FormParam("text") String text, @FormParam("author") String autor,
+			@FormParam("idReference") String id, @DefaultValue("false") @FormParam("tree") String arvore)
+			throws FileNotFoundException, PolicyException, ScanException, IOException, EntityNotFoundException,
+			ParseException {
 
-		Comment comment = new Comment(text, autor, id, new Converters()
-				.toBoolean(arvore));
+		Comment comment = new Comment(text, autor, id, new Converters().toBoolean(arvore));
 
 		repositorio.criar(comment);
 
@@ -53,10 +51,8 @@ public class CommentRS {
 	@Path("/")
 	@GET
 	@Produces("application/json;charset=UTF-8")
-	public String consultar(
-			@DefaultValue("") @QueryParam("idReference") String idReference,
-			@DefaultValue("") @QueryParam("idComment") String idComment)
-			throws EntityNotFoundException {
+	public String consultar(@DefaultValue("") @QueryParam("idReference") String idReference,
+			@DefaultValue("") @QueryParam("idComment") String idComment) throws EntityNotFoundException {
 		List<Comment> listaComments = new ArrayList<Comment>();
 
 		if (idComment.equals(""))
@@ -65,8 +61,7 @@ public class CommentRS {
 		else
 			listaComments = repositorio.pegaCommentPorId(idComment);
 
-		return new Converters().converterListaDeCommentParaListaDeJson(
-				listaComments).toString();
+		return new Converters().converterListaDeCommentParaListaDeJson(listaComments).toString();
 
 	}
 

@@ -1,7 +1,5 @@
 package br.com.dextra.teste.container;
 
-
-
 public class MyContainer {
 
 	private int port = 8080;
