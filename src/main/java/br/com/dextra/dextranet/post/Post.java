@@ -101,29 +101,24 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 
 	}
 
-	public void curtir(String user) throws EntityNotFoundException {
-
-		DocumentRepository postDoDocumentReository = new DocumentRepository();
-		PostRepository postDoRepository = new PostRepository();
-
-		if (!this.jaCurtiu(user)) {
-
-			Curtida curtida = new Curtida(user, this.id);
-
-			postDoDocumentReository.alteraDocumento(curtida);
-			postDoRepository.alteraDataDaEntity(curtida);
-			postDoRepository.insereUsuarioQueCurtiuNoPost(curtida, this);
-			postDoRepository.incrementaNumeroDeLikesDaEntityDoPost(curtida);
-			this.likes++;
-			this.userLikes = this.userLikes + " " + user;
-			this.dataDeAtualizacao = curtida.getData();
-		}
-
+	public void curtirECriarIndice(String user) throws EntityNotFoundException {
+		Curtida curtida = curtir(user);
+		criarIndiceCurtida(user,curtida);
 	}
 
-	private boolean jaCurtiu(String user) throws EntityNotFoundException {
+    //FIXME conteudo indexavel dah para salvar o refuse bequest
+	private void criarIndiceCurtida(String user, Curtida curtida) {
+			DocumentRepository postDoDocumentReository = new DocumentRepository();
+			postDoDocumentReository.alteraDocumento(curtida);
+	}
 
-		return !(this.userLikes == "" || this.userLikes.indexOf(user) == -1);
+	protected void setaAtributos(Curtida curtida)
+			throws EntityNotFoundException {
+		PostRepository postDoRepository = new PostRepository();
+		postDoRepository.alteraDataDaEntity(curtida);
+		postDoRepository.insereUsuarioQueCurtiuNoPost(curtida, this);
+		postDoRepository.incrementaNumeroDeLikesDaEntityDoPost(curtida);
+		this.dataDeAtualizacao = curtida.getData();
 	}
 
 	@Override
