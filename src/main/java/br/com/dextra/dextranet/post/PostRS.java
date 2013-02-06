@@ -31,6 +31,7 @@ public class PostRS {
 	@Path("/")
 	@POST
 	@Produces("application/json;charset=UTF-8")
+	// FIXME: do jeito que esta eu posso criar um post para qualquer usuario (mesmo nao sendo o usuario logado).
 	public Response novoPost(@FormParam("title") String titulo, @FormParam("content") String conteudo,
 			@FormParam("author") String autor) throws PolicyException, ScanException, FileNotFoundException,
 			IOException {
