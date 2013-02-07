@@ -30,8 +30,8 @@ public class BannerRepository extends BaseRepository {
 		return banner;
 	}
 
-	public Banner criar(String titulo, BlobKey blobKey, String dataInicioFormatada, String dataFimFormatada)
-			throws ParseException, DataNaoValidaException, NullBlobkeyException {
+	public Banner criar(String titulo, BlobKey blobKey, String dataInicioFormatada, String dataFimFormatada) throws ParseException, DataNaoValidaException, NullBlobkeyException, NullUserException {
+
 
 		Date dataInicio = Data.primeiroSegundo(Data.stringParaData(dataInicioFormatada));
 		Date dataFim = Data.ultimoSegundo(Data.stringParaData(dataFimFormatada));
@@ -42,15 +42,17 @@ public class BannerRepository extends BaseRepository {
 		if (dataBannerNaoEhValida(dataInicio, dataFim)) {
 			throw new DataNaoValidaException();
 		}
+		
+		String usuario = null;
+		if ("local".equals(System.getProperty("env")))
+			usuario = "login.google";
+		else {
 
-		String usuario;
-
-		try {
 			UserService userService = UserServiceFactory.getUserService();
 			User user = userService.getCurrentUser();
+			if (user == null)
+				throw new NullUserException();
 			usuario = user.getNickname();
-		} catch (Exception e) {
-			usuario = "login.google";
 		}
 
 		return criar(new Banner(titulo, blobKey, dataInicio, dataFim, Data.igualADataDeHojeOuAnterior(dataInicio),
@@ -109,6 +111,7 @@ public class BannerRepository extends BaseRepository {
 
 		for (Entity entity : asIterable) {
 			Banner banner = new Banner(entity);
+			System.out.println("Banner " + banner.getTitulo() + " esta indisponivel");
 			banner.setJaTerminou(true);
 			criar(banner);
 		}
@@ -124,6 +127,7 @@ public class BannerRepository extends BaseRepository {
 
 		for (Entity entity : asIterable) {
 			Banner banner = new Banner(entity);
+			System.out.println("Banner " + banner.getTitulo() + " esta disponivel");
 			banner.setJaComecou(true);
 			criar(banner);
 		}

@@ -2,7 +2,6 @@ package br.com.dextra.dextranet.banner;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +27,7 @@ public class BannerRS {
 
 	private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 	private BannerRepository bannerRepository = new BannerRepository();
-
+	
 	@Path("/")
 	@GET
 	@Produces("application/json;charset=UTF-8")
@@ -59,12 +58,15 @@ public class BannerRS {
 					request.getParameter("dataFim"));
 		} catch (ParseException e) {
 			blobstoreService.delete(blobKey);
-			setReponseStatus(response, 400, "Data mal formatada.");
+			setReponseStatus(response, HttpServletResponse.SC_BAD_REQUEST, "Data mal formatada.");
 		} catch (DataNaoValidaException e) {
 			blobstoreService.delete(blobKey);
-			setReponseStatus(response, 400, "Data invalida.");
+			setReponseStatus(response, HttpServletResponse.SC_BAD_REQUEST, "Data invalida.");
+		} catch (NullUserException e) {
+			blobstoreService.delete(blobKey);
+			setReponseStatus(response, HttpServletResponse.SC_FORBIDDEN, "Permissão negada!");
 		} catch (NullBlobkeyException e) {
-			setReponseStatus(response, 500, "Falha ao salvar banner.");
+			setReponseStatus(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Falha ao salvar banner.");
 		}
 
 		response.sendRedirect("/");
@@ -83,13 +85,5 @@ public class BannerRS {
 		json.addProperty("url", blobstoreService.createUploadUrl("/s/banner/"));
 
 		return json.toString();
-	}
-
-	@Path("/cron")
-	@GET
-	public Response atualizaFlags() {
-		System.out.println("Cron executado as " + new Date());
-		bannerRepository.atualizaFlags();
-		return Response.ok().build();
 	}
 }

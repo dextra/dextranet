@@ -27,15 +27,13 @@ public class AutenticacaoFilter implements Filter {
 		String thisURI = httpRequest.getRequestURI();
 
 		if (userService.getCurrentUser() != null) {
-
 			filterChain.doFilter(request, response);
-
 		} else {
 			String loginUrl = userService.createLoginURL(thisURI);
 			httpResponse.sendRedirect(loginUrl);
+			httpResponse.setStatus(HttpServletResponse.SC_OK);
 			return;
 		}
-
 	}
 
 	@Override

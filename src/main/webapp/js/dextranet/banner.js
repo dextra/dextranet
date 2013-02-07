@@ -74,10 +74,10 @@ dextranet.banner = {
 				dayNamesMin: dayNamesMin,
 				monthNames: monthNames,
 				defaultDate: "0",
-				minDate: "0",
+				//minDate: "0",
 				onClose: function( selectedDate ) {
-					if(selectedDate != "")
-						$( "#bannerDataFim" ).datepicker( "option", "minDate", selectedDate );
+//					if(selectedDate != "")
+//						$( "#bannerDataFim" ).datepicker( "option", "minDate", selectedDate );
 				}
 			});
 			
@@ -86,9 +86,9 @@ dextranet.banner = {
 				dayNamesMin: dayNamesMin,
 				monthNames: monthNames,
 				defaultDate: "0",
-				minDate: "0",
+				//minDate: "0",
 				onClose: function( selectedDate ) {
-					$( "#bannerDataInicio" ).datepicker( "option", "maxDate", selectedDate );
+//					$( "#bannerDataInicio" ).datepicker( "option", "maxDate", selectedDate );
 				}
 			});
 		}
