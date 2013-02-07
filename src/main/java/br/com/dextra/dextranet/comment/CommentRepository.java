@@ -64,7 +64,7 @@ public class CommentRepository extends BaseRepository {
 
 	public void insereUsuarioQueCurtiuNoComment(Curtida curtida, Comment comment) throws EntityNotFoundException {
 
-		Key key = KeyFactory.createKey(Comment.class.getName(), curtida.getIdReference());
+		Key key = KeyFactory.createKey(Comment.class.getName(), curtida.getIdConteudo());
 		Entity valueEntity = datastore.get(key);
 
 		valueEntity.setProperty(CommentFields.USER_LIKE.getField(),
@@ -76,7 +76,7 @@ public class CommentRepository extends BaseRepository {
 
 	public void incrementaNumeroDeLikesDaEntityDoComment(Curtida curtida) throws EntityNotFoundException {
 
-		Key key = KeyFactory.createKey(Comment.class.getName(), curtida.getIdReference());
+		Key key = KeyFactory.createKey(Comment.class.getName(), curtida.getIdConteudo());
 		Entity valueEntity = datastore.get(key);
 		int likes = Integer.parseInt(valueEntity.getProperty(CommentFields.LIKES.getField()).toString());
 		valueEntity.setProperty(CommentFields.LIKES.getField(), likes + 1);

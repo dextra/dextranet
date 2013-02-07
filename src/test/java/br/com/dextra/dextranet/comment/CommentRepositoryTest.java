@@ -36,7 +36,7 @@ public class CommentRepositoryTest extends TesteIntegracaoBase {
 		}
 
 		Assert.assertEquals(novoComment.getAutor(), commentRecuperado.getAutor());
-		Assert.assertEquals(novoComment.getIdReference(), commentRecuperado.getIdReference());
+		Assert.assertEquals(novoComment.getIdPost(), commentRecuperado.getIdPost());
 		Assert.assertEquals(novoComment.getText(), commentRecuperado.getText());
 		Assert.assertEquals(novoComment.getDataDeCriacao(), commentRecuperado.getDataDeCriacao());
 	}
@@ -54,12 +54,12 @@ public class CommentRepositoryTest extends TesteIntegracaoBase {
 
 		Post postRecuperado = null;
 		try {
-			postRecuperado = postRepository.obtemPorId(novoComment.getIdReference());
+			postRecuperado = postRepository.obtemPorId(novoComment.getIdPost());
 		} catch (EntityNotFoundException e) {
 			Assert.fail("Post nao encontrado.");
 		}
 
-		Assert.assertEquals(novoComment.getIdReference(), postRecuperado.getId());
+		Assert.assertEquals(novoComment.getIdPost(), postRecuperado.getId());
 		Assert.assertEquals(postRecuperado.getComentarios(), 1);
 		Assert.assertEquals(novoComment.getDataDeCriacao(), postRecuperado.getDataDeAtualizacao());
 
@@ -104,7 +104,7 @@ public class CommentRepositoryTest extends TesteIntegracaoBase {
 		List<Comment> listaCommentRecuperado = null;
 
 		listaCommentRecuperado = commentRepository.listarCommentsDeUmPost(listaDeCommentsDoPost2.get(0)
-				.getIdReference());
+				.getIdPost());
 
 		Assert.assertEquals(2, listaCommentRecuperado.get(0).getLikes());
 

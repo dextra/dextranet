@@ -1,10 +1,10 @@
 package br.com.dextra.dextranet.persistencia;
 
-import com.google.appengine.api.datastore.EntityNotFoundException;
-
 import br.com.dextra.dextranet.curtida.Curtida;
 import br.com.dextra.dextranet.utils.DadosHelper;
 import br.com.dextra.dextranet.utils.Data;
+
+import com.google.appengine.api.datastore.EntityNotFoundException;
 
 public abstract class Conteudo extends Entidade {
 
@@ -47,7 +47,7 @@ public abstract class Conteudo extends Entidade {
 
             curtida = new Curtida(usuario, this.id);
 
-            setaAtributos(curtida);
+            atualizaConteudoDepoisDa(curtida);
 
             this.likes++;
             this.userLikes = this.userLikes + " " + usuario;
@@ -56,6 +56,6 @@ public abstract class Conteudo extends Entidade {
 
     }
 
-    protected abstract void setaAtributos(Curtida curtida) throws EntityNotFoundException;
+    protected abstract void atualizaConteudoDepoisDa(Curtida curtida) throws EntityNotFoundException;
 
 }
