@@ -57,7 +57,6 @@ dextranet.post = {
 
 		var titulo = dextranet.strip.tagHTML($("#form_input_title").val());
 		var conteudo = CKEDITOR.instances.form_input_content.getData();
-		var autor = $("#user_login").text();
 
 		dextranet.home.limparAvisoPreenchaCampos();
 
@@ -71,7 +70,6 @@ dextranet.post = {
 				data : {
 					"title" : titulo.replace(/  /g, " &nbsp;"), //.replace serve pro browser reconhecer os espaços digitados pelo usuario
 					"content" : dextranet.strip.lineBreak(conteudo),
-					"author" : autor
 				},
 				success : function() {
 					dextranet.post.limpaTelaPost();

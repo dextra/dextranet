@@ -62,7 +62,6 @@ dextranet.comment = {
 		$("#form_comment").submit(function() {
 			var idDoPost = $(this).attr("class");
 			var conteudo = CKEDITOR.instances.textarea_comment.getData();
-			var autor = $("#user_login").text();
 
 			dextranet.home.limparAvisoPreenchaCampos();
 
@@ -77,7 +76,6 @@ dextranet.comment = {
 					url : '/s/comment',
 					data : {
 						"text" : conteudo,
-						"author" : autor,
 						"idReference" : idDoPost
 					},
 					success : function(comments) {

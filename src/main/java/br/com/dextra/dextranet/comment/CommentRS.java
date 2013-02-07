@@ -23,6 +23,8 @@ import br.com.dextra.dextranet.post.PostRepository;
 import br.com.dextra.dextranet.utils.Converters;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 @Path("/comment")
 public class CommentRS {
@@ -32,11 +34,12 @@ public class CommentRS {
 	@Path("/")
 	@POST
 	@Produces("application/json;charset=UTF-8")
-	// FIXME: do jeito que esta eu posso criar um comentario para qualquer usuario (mesmo nao sendo o usuario logado).
-	public Response novoComment(@FormParam("text") String text, @FormParam("author") String autor,
-			@FormParam("idReference") String id, @DefaultValue("false") @FormParam("tree") String arvore)
+	public Response novoComment(@FormParam("text") String text, @FormParam("idReference") String id, @DefaultValue("false") @FormParam("tree") String arvore)
 			throws FileNotFoundException, PolicyException, ScanException, IOException, EntityNotFoundException,
 			ParseException {
+
+		UserService userService = UserServiceFactory.getUserService();
+		String autor = userService.getCurrentUser().getNickname();
 
 		Comment comment = new Comment(text, autor, id, new Converters().toBoolean(arvore));
 
