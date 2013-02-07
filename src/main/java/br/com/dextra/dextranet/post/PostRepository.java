@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import br.com.dextra.dextranet.comment.Comment;
-import br.com.dextra.dextranet.curtida.Curtida;
 import br.com.dextra.dextranet.document.DocumentRepository;
 import br.com.dextra.dextranet.persistencia.BaseRepository;
 import br.com.dextra.dextranet.utils.Converters;
@@ -36,6 +35,12 @@ public class PostRepository extends BaseRepository {
         respositoryDocument.indexar(post);
 
         return post;
+    }
+
+    public void registrarCurtida(Post post,  String usuario) throws EntityNotFoundException {
+        alteraDataDoPost(post.getId(), post.getDataDeAtualizacao());
+        insereUsuarioQueCurtiuNoPost(usuario, post);
+        incrementaNumeroDeCurtidasDoPost(post);
     }
 
     public Post obtemPorId(String id) throws EntityNotFoundException {
@@ -151,18 +156,9 @@ public class PostRepository extends BaseRepository {
         return query;
     }
 
-    void alteraDataDaEntity(Comment comment) throws EntityNotFoundException {
-        alteraDataDaEntity(comment.getIdReference(), comment.getDataDeCriacao());
-    }
+    void alteraDataDoPost(String idPost, String data) throws EntityNotFoundException {
 
-    // FIXME: Altera a data de qual entity? Curtida ou Post?
-    void alteraDataDaEntity(Curtida curtida) throws EntityNotFoundException {
-        alteraDataDaEntity(curtida.getIdReference(), curtida.getData());
-    }
-
-    void alteraDataDaEntity(String id, String data) throws EntityNotFoundException {
-
-        Key key = KeyFactory.createKey(Post.class.getName(), id);
+        Key key = KeyFactory.createKey(Post.class.getName(), idPost);
         Entity valueEntity = datastore.get(key);
         valueEntity.setProperty(PostFields.DATA_DE_ATUALIZACAO.getField(), data);
 
@@ -179,9 +175,9 @@ public class PostRepository extends BaseRepository {
     }
 
     // FIXME Por que o metodo que trabalha com o Post recebe como parametro um objeto Curtida?
-    public void incrementaNumeroDeLikesDaEntityDoPost(Curtida curtida) throws EntityNotFoundException {
+    public void incrementaNumeroDeCurtidasDoPost(Post post) throws EntityNotFoundException {
 
-        Key key = KeyFactory.createKey(Post.class.getName(), curtida.getIdReference());
+        Key key = KeyFactory.createKey(Post.class.getName(), post.getId());
         Entity valueEntity = datastore.get(key);
         int likes = Integer.parseInt(valueEntity.getProperty(PostFields.LIKES.getField()).toString());
         valueEntity.setProperty(PostFields.LIKES.getField(), likes + 1);
@@ -200,17 +196,17 @@ public class PostRepository extends BaseRepository {
     }
 
     public void alteraEntity(Comment comment) throws EntityNotFoundException {
-        alteraDataDaEntity(comment.getIdReference(), comment.getDataDeCriacao());
-        incrementaNumeroDeComentariosDaEntityDoPost(comment.getIdReference());
+        alteraDataDoPost(comment.getIdPost(), comment.getDataDeCriacao());
+        incrementaNumeroDeComentariosDaEntityDoPost(comment.getIdPost());
     }
 
-    public void insereUsuarioQueCurtiuNoPost(Curtida curtida, Post post) throws EntityNotFoundException {
+    public void insereUsuarioQueCurtiuNoPost(String usuario, Post post) throws EntityNotFoundException {
 
-        Key key = KeyFactory.createKey(Post.class.getName(), curtida.getIdReference());
+        Key key = KeyFactory.createKey(Post.class.getName(), post.getId());
         Entity valueEntity = datastore.get(key);
 
         valueEntity.setProperty(PostFields.USER_LIKE.getField(),
-                valueEntity.getProperty(PostFields.USER_LIKE.getField()) + " " + curtida.getUsuarioLogado());
+                valueEntity.getProperty(PostFields.USER_LIKE.getField()) + " " + usuario);
 
         persist(valueEntity);
 

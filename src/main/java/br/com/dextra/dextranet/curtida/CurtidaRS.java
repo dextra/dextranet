@@ -14,27 +14,32 @@ import br.com.dextra.dextranet.post.PostRepository;
 import br.com.dextra.dextranet.utils.Converters;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 @Path("/curtida")
 public class CurtidaRS {
 
-    @Path("/")
-    @POST
-    @Produces("application/json;charset=UTF-8")
-    // FIXME: do jeito que esta eu posso curtir por qualquer usuario (mesmo nao sendo o usuario logado)
-    public Response curtir(@FormParam("usuario") String usuario, @FormParam("id") String id,
-            @DefaultValue("true") @FormParam("isPost") String isPost) throws EntityNotFoundException {
+	@Path("/")
+	@POST
+	@Produces("application/json;charset=UTF-8")
+	public Response curtir(@FormParam("id") String id,
+			@DefaultValue("true") @FormParam("isPost") String isPost)
+			throws EntityNotFoundException {
 
-        // FIXME: Why use this if RestEasy can handle Boolean values?
-        if (new Converters().toBoolean(isPost)) {
-            Post post = new PostRepository().obtemPorId(id);
-            post.curtirECriarIndice(usuario);
-        } else {
-            Comment comment = new CommentRepository().obtemPorId(id);
-            comment.curtir(usuario);
-        }
+		UserService userService = UserServiceFactory.getUserService();
+		String usuario = userService.getCurrentUser().getNickname();
 
-        return Response.ok().build();
-    }
+		// FIXME: Why use this if RestEasy can handle Boolean values?
+		if (new Converters().toBoolean(isPost)) {
+			Post post = new PostRepository().obtemPorId(id);
+			post.curtir(usuario);
+		} else {
+			Comment comment = new CommentRepository().obtemPorId(id);
+			comment.curtir(usuario);
+		}
+
+		return Response.ok().build();
+	}
 
 }

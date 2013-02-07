@@ -7,17 +7,17 @@ public class Curtida {
     // FIXME Primitive Obsession or simple a bad name to a variable
     private String data;
 
-    private String id;
+    private String idConteudo;
     private String usuario;
 
-    public Curtida(String usuario, String id) {
-        this.id = id;
+    public Curtida(String usuario, String idConteudo) {
+        this.idConteudo = idConteudo;
         this.usuario = usuario;
         this.data = new Data().pegaData();
     }
 
-    public Curtida(String usuario, String id, String data) {
-        this.id = id;
+    public Curtida(String usuario, String idConteudo, String data) {
+        this.idConteudo = idConteudo;
         this.usuario = usuario;
         this.data = data;
     }
@@ -26,8 +26,8 @@ public class Curtida {
         return this.data;
     }
 
-    public String getIdReference() {
-        return this.id;
+    public String getIdConteudo() {
+        return this.idConteudo;
     }
 
     public String getUsuarioLogado() {

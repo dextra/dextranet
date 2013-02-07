@@ -13,7 +13,6 @@ dextranet.curtir = {
 					type : 'POST',
 					url : '/s/curtida',
 					data : {
-						"usuario" : dextranet.usuario.nickName,
 						"id" : id,
 						"isPost" : ehPost
 						},

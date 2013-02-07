@@ -92,26 +92,20 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 
     }
 
-    public void curtirECriarIndice(String user) throws EntityNotFoundException {
-        Curtida curtida = curtir(user);
-        criarIndiceCurtida(user, curtida);
-    }
-
-    // FIXME conteudo indexavel dah para salvar o refuse bequest
-    private void criarIndiceCurtida(String user, Curtida curtida) {
-        DocumentRepository postDoDocumentReository = new DocumentRepository();
-        postDoDocumentReository.alteraDocumento(curtida);
+    @Override
+    public Curtida curtir(String usuario) throws EntityNotFoundException {
+        Curtida curtida = super.curtir(usuario);
+        new DocumentRepository().alteraDocumento(curtida);
+        return curtida;
     }
 
     // FIXME Side Effect - not just setting attributes
-    // FIXME Feature Envy - to much knowledge about PostRepository
-    protected void setaAtributos(Curtida curtida) throws EntityNotFoundException {
-        PostRepository postDoRepository = new PostRepository();
-        postDoRepository.alteraDataDaEntity(curtida);
-        postDoRepository.insereUsuarioQueCurtiuNoPost(curtida, this);
-        postDoRepository.incrementaNumeroDeLikesDaEntityDoPost(curtida);
+    protected void atualizaConteudoDepoisDa(Curtida curtida) throws EntityNotFoundException {
         this.dataDeAtualizacao = curtida.getData();
+        PostRepository postDoRepository = new PostRepository();
+        postDoRepository.registrarCurtida(this, curtida.getUsuarioLogado());
     }
+
 
     @Override
     public Entity toEntity() {

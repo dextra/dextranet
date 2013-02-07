@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<template selector="#box_user">
-
+		  
 		<li id="box_user_info">
 			<img src="../img/usuario_sem_foto.png" alt="photo"/>
 			<span id="user_login">${nickName}</span>
@@ -12,9 +12,7 @@
 				<li>
 					<h4>${nickName}</h4>
 					<span>${email}</span><br></br>
-					<center>
-						<a id="logout" href= "${logout}">${messages.logout}</a>
-					</center>
+					<a id="logout" href= "${logout}">${messages.logout}</a>
 				</li>
 			</ul>
 		</li>
@@ -23,17 +21,24 @@
 			<span class="highlight" style="float:right;">3</span>
 			<ul id="box_user_notifications_full" class="header_dropdown">
 				<li>
-					Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou
-					não ser, eis a questão"</a>... <br></br>
-					Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou
-					não ser, eis a questão"</a>...
+					Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou não ser, eis a questão"</a>... 
+				</li>
+				<li>
+					Seu nome foi mencionado por <a href="#">marcel.javarini</a> em <a href="#">"Ser ou não ser, eis a questão"</a>...
+				</li>
+				<li>
+					Seu nome foi mencionado por <a href="#">bruno.camarini</a> em <a href="#">"Só sei que nada sei"</a>...
+				</li>
+				<li id="box_user_notifications_full_lead">
+					<a href="#">ver todas as notificações<![CDATA[&nbsp;&nbsp;&raquo;&raquo;]]></a>
 				</li>
 			</ul>
 		</li>
 
 		<script>
-			$(".highlight").click(dextranet.home.abrirOuFecharTelaNotificacoes);
-			$("#box_user_info").click(dextranet.home.abrirOuFecharTelaUsuario);
+			//@fixme
+			//$(".highlight").click(dextranet.home.abrirOuFecharTelaNotificacoes);
+			//$("#box_user_info").click(dextranet.home.abrirOuFecharTelaUsuario);
 		</script>
 	</template>
 </engine>

@@ -16,6 +16,7 @@ import com.google.appengine.api.users.UserServiceFactory;
 
 public class AutenticacaoFilter implements Filter {
 
+
     private String excludePatterns = "";
 
     @Override
@@ -46,5 +47,6 @@ public class AutenticacaoFilter implements Filter {
     @Override
     public void destroy() {
     }
+
 
 }
