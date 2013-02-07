@@ -27,6 +27,7 @@ public class UsuarioRS {
 		json.addProperty("nickName", user.getNickname());
 		json.addProperty("email", user.getEmail());
 		json.addProperty("logout", logout);
+		json.addProperty("id", user.getUserId());
 
 		return json.toString();
 	}

@@ -39,12 +39,14 @@ dextranet.home = {
 	},
 
 	abrePaginaPerfil : function() {
-		$.holy("../template/dinamico/abre_pagina_perfil.xml", {});
+		dextranet.perfil.getId();
+		//$.holy("../template/dinamico/abre_pagina_perfil.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_profile");
 	},
 
 	abrePaginaEquipe : function() {
-		$.holy("../template/dinamico/abre_pagina_equipe.xml", {});
+		dextranet.equipe.get();
+		//$.holy("../template/dinamico/abre_pagina_equipe.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_team");
 	},
 

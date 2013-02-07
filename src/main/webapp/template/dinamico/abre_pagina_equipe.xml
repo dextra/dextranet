@@ -1,6 +1,79 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<template selector="#container_main">
-		<p>Pagina: <b>Equipe</b> </p>
+
+	<!-- Sidebar do lado direito -->
+		<div id="sidebar-right" rel="section">
+
+		</div><!-- #sidebar-right -->
+
+		<form id="form-search">
+			<input type="text" placeholder="${messages.placeholder_pesquisa}" id="form_search_input" />
+			<input type="submit" value="" title="Procurar!" onclick="dextranet.equipe.getNome()" id="form_search_submit" />
+		</form>
+
+		<!-- #menu abcd -->
+		<ul class="list-menu-abcd">
+			<li><a href="#" onclick="dextranet.equipe.getInicial('a');">a</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('b');">b</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('c');">c</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('d');">d</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('e');">e</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('f');">f</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('g');">g</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('h');">h</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('i');">i</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('j');">j</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('k');">k</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('l');">l</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('m');">m</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('n');">n</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('o');">o</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('p');">p</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('q');">q</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('r');">r</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('s');">s</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('t');">t</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('u');">u</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('v');">v</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('w');">w</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('x');">x</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('y');">y</a></li>
+			<li><a href="#" onclick="dextranet.equipe.getInicial('z');">z</a></li>
+		</ul>
+		<ul class="team-list-stories clearfix">
+				{if todos.length >0}
+					{for colaborador in todos}
+						<li class="clearfix">
+							 <img src="${colaborador.image}" alt="Thumb modelo" class="list-stories-avatar" />
+							<div class="list-stories-headline clearfix">
+								<ul class="team-list-stories-dados">
+									<li><strong>Nome: </strong>${colaborador.name}</li>
+									<li><strong>Apelido: </strong>${colaborador.nickName}</li>
+									<li><strong>Área: </strong>${colaborador.area}</li>
+									<li><strong>Unidade: </strong>${colaborador.unit}</li>
+									<li><strong>Celular: </strong>${colaborador.phoneMobile}</li>
+									{if colaborador.branch.length > 0}
+									<li><strong>Ramal: </strong>${colaborador.branch}</li>
+									{/if}
+									{if colaborador.skype.length > 0}
+									<li><strong>Skype:</strong>${colaborador.skype}</li>
+									{/if}
+									{if colaborador.gTalk.length > 0}
+									<li><strong>gTalk:</strong>${colaborador.gTalk}</li>
+									{/if}
+									{if colaborador.phoneResidence.length > 0}
+									<li><strong>Tel. Residencial:</strong>${colaborador.phoneResidence}</li>
+									{/if}
+								</ul>
+							</div>
+							<div class="list-stories-footer clearfix">
+								<div class="list-stories-footer-call">
+									<!-- <a href="#">+ Ver mais</a> -->
+								</div>
+							</div>
+						</li>
+					{/for}
+				{/if}
+			</ul>
 	</template>
 </engine>
