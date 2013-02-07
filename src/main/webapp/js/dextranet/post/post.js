@@ -29,9 +29,9 @@ dextranet.post = {
 
 					dextranet.post.carregaTemplatePost(postObjectArray);
 					
-					if(posts.length < 20) {
-						dextranet.paginacao.acabouOsPosts = true;
-					}
+				}
+				if(posts.length < 20) {
+					dextranet.paginacao.acabouOsPosts = true;
 				}
 				if (oncomplete) {
 					oncomplete();

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<template selector="#container_main">
+		<ul>
+			{for banner in jsonArrayBanner}
+				<li id="${banner.postObjectJson.id}">
+					<div class="img-banner"><img src="/s/banner/${banner.postObjectJson.id}" /></div>
+					<div class="dados-banner">
+						<form class="form-editar-banner ${banner.postObjectJson.id}">
+							Titulo: <input type="text" value="${banner.postObjectJson.titulo}" id="titulo_${banner.postObjectJson.id}" /> <br/>
+							Data de início: <input type="text" value="${banner.postObjectJson.dataInicio}" id="dataInicio_${banner.postObjectJson.id}"/> <br/>
+							Data de fim: <input type="text" value="${banner.postObjectJson.dataFim}" id="dataFim_${banner.postObjectJson.id}"/> <br/>
+							<input type="submit" value="Editar!" />
+						</form>
+					</div>
+				</li>
+			{/for}	
+		</ul>
+	</template>
+	<script>
+		$(".form-editar-banner").submit(function(){
+			var form = $(this);
+			console.info(form); 
+
+			dextranet.banner.editarBanner($(form).attr("class").substring(19));
+			return false;
+		});
+	</script>
+</engine>

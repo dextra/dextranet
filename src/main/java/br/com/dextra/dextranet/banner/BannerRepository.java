@@ -18,7 +18,6 @@ import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.users.User;
-import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
 public class BannerRepository extends BaseRepository {
@@ -48,8 +47,7 @@ public class BannerRepository extends BaseRepository {
 			usuario = "login.google";
 		else {
 
-			UserService userService = UserServiceFactory.getUserService();
-			User user = userService.getCurrentUser();
+			User user = UserServiceFactory.getUserService().getCurrentUser();
 			if (user == null)
 				throw new NullUserException();
 			usuario = user.getNickname();
@@ -63,15 +61,18 @@ public class BannerRepository extends BaseRepository {
 		return dataFim.before(dataInicio);
 	}
 
-	public List<Banner> getBannerDisponiveis() {
+	public List<Banner> getBannerDisponiveis(Boolean atuais) {
 
 		Query query = new Query(Banner.class.getName());
 
-		query.setFilter(Query.CompositeFilterOperator.and(
-				FilterOperator.EQUAL.of(BannerFields.JA_COMECOU.getField(), new Boolean(true)),
-				FilterOperator.EQUAL.of(BannerFields.JA_TERMINOU.getField(), new Boolean(false))));
+		if (atuais) {
+			query.setFilter(Query.CompositeFilterOperator.and(
+					FilterOperator.EQUAL.of(BannerFields.JA_COMECOU.getField(), new Boolean(true)),
+					FilterOperator.EQUAL.of(BannerFields.JA_TERMINOU.getField(), new Boolean(false))));
 
-		query.addSort(BannerFields.DATA_INICIO.getField(), SortDirection.DESCENDING);
+			query.addSort(BannerFields.DATA_INICIO.getField(), SortDirection.DESCENDING);
+		} else
+			query.addSort(BannerFields.DATA_DE_ATUALIZACAO.getField(), SortDirection.DESCENDING);
 
 		PreparedQuery prepared = datastore.prepare(query);
 		Iterable<Entity> asIterable = prepared.asIterable();
@@ -142,4 +143,5 @@ public class BannerRepository extends BaseRepository {
 
 		return query;
 	}
+
 }

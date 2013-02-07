@@ -8,9 +8,13 @@
 			Até: <input type="text" id="bannerDataFim" name="dataFim" size="15" /><br/>
 			<input type="button" value="Upload!" />
 		</form>
+		<br/>
+		<br/>
+		<a href="#" id="link_abre_banners">Exibir todos os Banners</a>		
 	</template>
 	<script>
-	dextranet.banner.validaEFormataForm();
-	$("#new_banner input[type=button]").click(dextranet.banner.novoBanner);
+		dextranet.banner.validaEFormataForm();
+		$("#new_banner input[type=button]").click(dextranet.banner.novoBanner);
+		$("#link_abre_banners").click(dextranet.banner.listaBanners);
 	</script>
 </engine>

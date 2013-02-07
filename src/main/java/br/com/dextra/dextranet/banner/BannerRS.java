@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -15,6 +16,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
 import br.com.dextra.dextranet.utils.Converters;
+import br.com.dextra.dextranet.utils.Data;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
@@ -31,8 +33,9 @@ public class BannerRS {
 	@Path("/")
 	@GET
 	@Produces("application/json;charset=UTF-8")
-	public String bannersDisponiveis() {
-		return Converters.toJson(bannerRepository.getBannerDisponiveis()).toString();
+	public String bannersDisponiveis(@FormParam("atuais") String bannerAtuais) {
+		Boolean pegarBannerAtuais = new Boolean(bannerAtuais);
+		return Converters.toJson(bannerRepository.getBannerDisponiveis(pegarBannerAtuais)).toString();
 	}
 
 	@Path("/{id}")
@@ -71,6 +74,25 @@ public class BannerRS {
 
 		response.sendRedirect("/");
 	}
+	
+	@Path("/editar")
+	@POST
+	@Produces("application/json;charset=UTF-8")
+	public void editarPost(@FormParam("id") String id, @FormParam("titulo") String titulo, @FormParam("dataInicio") String dataInicio, @FormParam("dataFim") String dataFim, @Context HttpServletResponse response)
+			throws IOException {
+		
+		Banner banner = bannerRepository.obterPorID(id);
+		
+		try {
+			banner.setTitulo(titulo);
+			banner.setDataInicio(Data.primeiroSegundo(Data.stringParaData(dataInicio)));
+			banner.setDataFim(Data.ultimoSegundo(Data.stringParaData(dataFim)));
+			bannerRepository.criar(banner);
+		} catch (ParseException e) {
+			setReponseStatus(response, HttpServletResponse.SC_BAD_REQUEST, "Data mal formatada.");
+		}
+	}
+	
 
 	public void setReponseStatus(HttpServletResponse response, int status, String mensagem) throws IOException {
 		response.setStatus(status);

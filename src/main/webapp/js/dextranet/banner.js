@@ -14,6 +14,7 @@ dextranet.banner = {
 			$.ajax({
 				type : "GET",
 				url : "/s/banner",
+				data : {"atuais" : true},
 				success : function(banners) {
 					if (banners.length > 0) {
 						bannerObjectArray = postObject.getpostObjectArrayFromPostJsonArray(banners);
@@ -61,6 +62,48 @@ dextranet.banner = {
         			dextranet.banner.mudarBanner();
         		}
         	}, 15000);
+		},
+		
+		listaBanners : function() {
+			$.ajax({
+				type : "GET",
+				url : "/s/banner",
+				data : {"atuais" : false},
+				success : function(banners) {
+					if (banners.length > 0) {
+						bannerObjectArray = postObject.getpostObjectArrayFromPostJsonArray(banners);
+						$(bannerObjectArray).each(function() {
+							this.postObjectJson.dataInicio = converteData(this.postObjectJson.dataInicio).substring(5,15);
+							this.postObjectJson.dataFim = converteData(this.postObjectJson.dataFim).substring(5,15);
+						});
+						$.holy("../template/dinamico/abre_pagina_edita_banner.xml", {"jsonArrayBanner" : bannerObjectArray});						
+					}
+				}
+			});
+		},
+		
+		editarBanner : function(idDoBanner) {
+			console.log(idDoBanner)
+			var dados = {
+					"id" : idDoBanner,
+					"titulo" : $("#titulo_" + idDoBanner).val(),
+					"dataInicio" : $("#dataInicio_" + idDoBanner).val(),
+					"dataFim" : $("#dataFim_" + idDoBanner).val()
+			};
+			
+			$.ajax({
+				type : "POST",
+				url: "/s/banner/editar",
+				data : dados,
+				success : function() {
+					$.ajax({
+						type : "GET",
+						url : "/_ah/cron"							
+					})
+					//trocar mensagem de sucesso e colocar calendarios na pagina de edição
+					$.holy("../template/dinamico/post/mensagem_sucesso.xml", {});
+				}
+			});
 		},
 		
 		validaEFormataForm : function() {

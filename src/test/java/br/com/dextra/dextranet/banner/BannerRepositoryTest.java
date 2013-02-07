@@ -62,7 +62,7 @@ public class BannerRepositoryTest extends TesteIntegracaoBase {
 			criarBanner("banner" + i, new BlobKey("bla" + i), "02/02/2013", "25/02/2200");
 		}
 
-		assertEquals(quantidadeDeBanners, bannerRepository.getBannerDisponiveis().size());
+		assertEquals(quantidadeDeBanners, bannerRepository.getBannerDisponiveis(true).size());
 	}
 
 	@Test
@@ -70,7 +70,7 @@ public class BannerRepositoryTest extends TesteIntegracaoBase {
 
 		criaBanners(5, Calendar.getInstance(), false);
 		bannerRepository.atualizaFlagJaComecou();
-		assertEquals(3, bannerRepository.getBannerDisponiveis().size());
+		assertEquals(3, bannerRepository.getBannerDisponiveis(true).size());
 	}
 
 	@Test
@@ -78,7 +78,7 @@ public class BannerRepositoryTest extends TesteIntegracaoBase {
 
 		criaBanners(5, Calendar.getInstance(), true);
 		bannerRepository.atualizaFlagJaTerminou();
-		assertEquals(3, bannerRepository.getBannerDisponiveis().size());
+		assertEquals(3, bannerRepository.getBannerDisponiveis(true).size());
 	}
 
 	private void criaBanners(int quantidaDeDeBanners, Calendar dataInicio, Boolean statusInicio) {

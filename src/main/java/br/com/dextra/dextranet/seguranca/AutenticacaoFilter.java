@@ -16,32 +16,35 @@ import com.google.appengine.api.users.UserServiceFactory;
 
 public class AutenticacaoFilter implements Filter {
 
-	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException,
-			ServletException {
+    private String excludePatterns = "";
 
-		UserService userService = UserServiceFactory.getUserService();
-		HttpServletResponse httpResponse = (HttpServletResponse) response;
-		HttpServletRequest httpRequest = (HttpServletRequest) request;
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response,
+                    FilterChain filterChain) throws IOException, ServletException {
 
-		String thisURI = httpRequest.getRequestURI();
+            UserService userService = UserServiceFactory.getUserService();
+            HttpServletResponse httpResponse = (HttpServletResponse) response;
+            HttpServletRequest httpRequest = (HttpServletRequest) request;
 
-		if (userService.getCurrentUser() != null) {
-			filterChain.doFilter(request, response);
-		} else {
-			String loginUrl = userService.createLoginURL(thisURI);
-			httpResponse.sendRedirect(loginUrl);
-			httpResponse.setStatus(HttpServletResponse.SC_OK);
-			return;
-		}
-	}
+            String thisURI = httpRequest.getRequestURI();
 
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-	}
+            if (userService.getCurrentUser() != null) {
+                    filterChain.doFilter(request, response);
+            } else if (thisURI.contains(excludePatterns)) {
+                    filterChain.doFilter(request, response);
+            } else {
+                    String loginUrl = userService.createLoginURL(thisURI);
+                    httpResponse.sendRedirect(loginUrl);
+            }
+    }
 
-	@Override
-	public void destroy() {
-	}
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+            this.excludePatterns = filterConfig.getInitParameter("excludePatterns");
+    }
+
+    @Override
+    public void destroy() {
+    }
 
 }

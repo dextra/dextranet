@@ -75,6 +75,18 @@ public class Banner extends Entidade {
 		return jaComecou;
 	}
 
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
+	}
+
 	public Boolean getJaTerminou() {
 		return jaTerminou;
 	}
