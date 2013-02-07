@@ -5,11 +5,6 @@
 		<div id="sidebar_right" rel="section">
 		</div>
 
-		<form id="form_search">
-			<input type="text" placeholder="${messages.placeholder_pesquisa}" id="form_search_input" />
-			<input type="submit" value="" title="Procurar!" id="form_search_submit" />
-		</form>
-
 		<div id="container_mensagem" class="clearfix"></div>
 		<div id="container_post" class="clearfix">
 			<ul class="list_stories" id="relacao_dos_posts">
