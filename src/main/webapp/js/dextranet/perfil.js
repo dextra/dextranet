@@ -66,8 +66,8 @@ dextranet.perfil = {
 						console.info(retorno.name);
 						$.holy("../template/dinamico/abre_pagina_perfil.xml", retorno);
 					} else if(operacao == "3") {
-						dextranet.paginacao.resetPaginacao();
-						dextranet.home.carregueOsTemplates();
+						dextranet.perfil.getPerfil(retorno.userId);
+						//$.holy("../template/dinamico/abre_pagina_perfil.xml", retorno);
 					} else if(operacao == "4") {
 						if (retorno.name == "" || retorno.phoneMobile == "") {
 								$.holy("../template/dinamico/abre_pagina_perfil.xml",retorno);

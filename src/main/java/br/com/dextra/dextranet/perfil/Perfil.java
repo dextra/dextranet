@@ -34,47 +34,15 @@ public class Perfil {
 
 		this.userId = userId;
 
-		/*if (userId != null) {
-			this.userId = userId;
-		} else {
-			this.userId = UUID.randomUUID().toString();
-		}*/
-
-		if(name != ""){
-			this.name = name;
-		}else{
-			valido = false;
-		}
-
-		if(nickName != ""){
-			this.nickName = nickName;
-		}else{
-			valido = false;
-		}
-
-		if(area != ""){
-			this.area = area;
-		}else{
-			valido = false;
-		}
-
-		if(unit != ""){
-			this.unit = unit;
-		}else{
-			valido = false;
-		}
-
+		this.name = name;
+		this.nickName = nickName;
+		this.area = area;
+		this.unit = unit;
 		this.branch = branch;
 		this.skype = skype;
 		this.gTalk = gTalk;
 		this.phoneResidence = phoneResidence;
-
-		if(phoneMobile != ""){
-			this.phoneMobile = phoneMobile;
-		}else{
-			valido = false;
-		}
-
+		this.phoneMobile = phoneMobile;
 		this.phoneMobile = phoneMobile;
 		this.image = image;
 	}

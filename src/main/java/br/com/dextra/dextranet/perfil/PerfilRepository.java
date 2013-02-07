@@ -78,9 +78,6 @@ public class PerfilRepository {
 				+ "/ufffd"));
 		Filter filter = CompositeFilterOperator.and(filters);
 		query = query.setFilter(filter);
-		// Filter filter = new FilterPredicate("name", FilterOperator.EQUAL,
-		// name);
-		// query.setFilter(filter);
 		PreparedQuery pquery = datastore.prepare(query);
 		Iterable<Entity> asIterable = pquery.asIterable();
 		for (Entity entity : asIterable) {
