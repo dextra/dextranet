@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<template selector="#container_main">
+
+	<fieldset>
+	<legend>Ordenação</legend>
+		<li class="buttons">
+			<input id="ordering-initial-date" class="btNone" type="button" value="Data inicial de exibição"/>
+			<input id="ordering-final-date" class="btNone" type="button" value="Data final de exibição"/>
+			<input id="ordering-creation-date" class="btNone" type="button" value="Data de criação"/>
+		</li>
+	</fieldset>
+
 		<ul>
 			{for banner in jsonArrayBanner}
 				<li id="${banner.postObjectJson.id}">
@@ -10,6 +20,7 @@
 							Titulo: <input type="text" value="${banner.postObjectJson.titulo}" id="titulo_${banner.postObjectJson.id}" /> <br/>
 							Data de início: <input type="text" value="${banner.postObjectJson.dataInicio}" id="dataInicio_${banner.postObjectJson.id}"/> <br/>
 							Data de fim: <input type="text" value="${banner.postObjectJson.dataFim}" id="dataFim_${banner.postObjectJson.id}"/> <br/>
+							Ultima modificação: <input type="text" value="${banner.postObjectJson.dataDeAtualizacao}" id="dataDeAtualizacao_${banner.postObjectJson.id}" disabled="true"/> <br/>
 							Link: <input type="text" id="bannerLink" value="${banner.postObjectJson.link}"/><br/>
 							<input type="submit" value="Editar!" />
 						</form>
@@ -21,10 +32,20 @@
 	<script>
 		$(".form-editar-banner").submit(function(){
 			var form = $(this);
-			console.info(form); 
-
 			dextranet.banner.editarBanner($(form).attr("class").substring(19));
 			return false;
+		});
+
+		$('#ordering-initial-date').click(function() {
+			dextranet.banner.ordenaBanners('dataInicio', $('.dados-banner').parent());
+		});
+
+		$('#ordering-final-date').click(function() {
+			dextranet.banner.ordenaBanners('dataFim', $('.dados-banner').parent());
+		});
+
+		$('#ordering-creation-date').click(function() {
+			dextranet.banner.ordenaBanners('dataDeAtualizacao', $('.dados-banner').parent());
 		});
 	</script>
 </engine>

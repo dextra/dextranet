@@ -75,6 +75,7 @@ dextranet.banner = {
 						$(bannerObjectArray).each(function() {
 							this.postObjectJson.dataInicio = converteData(this.postObjectJson.dataInicio).substring(5,15);
 							this.postObjectJson.dataFim = converteData(this.postObjectJson.dataFim).substring(5,15);
+							this.postObjectJson.dataDeAtualizacao = converteData(this.postObjectJson.dataDeAtualizacao).substring(5,15);
 						});
 						$.holy("../template/dinamico/abre_pagina_edita_banner.xml", {"jsonArrayBanner" : bannerObjectArray});						
 					}
@@ -134,5 +135,22 @@ dextranet.banner = {
 					$( "#bannerDataInicio" ).datepicker( "option", "maxDate", selectedDate );
 				}
 			});
+		},
+
+		ordenaBanners : function(orderBy, banners) {
+			var parentUl = $(banners).parent();
+			var elems = $(parentUl).children('li').remove();
+
+			elems.sort(function(a,b) {
+				var aDatePieces = $(a).find("[id^='" + orderBy + "']").val().split('/')
+				var aCompleteDate = aDatePieces[2] + aDatePieces[1] + aDatePieces[0];
+
+				var bDatePieces = $(b).find("[id^='" + orderBy + "']").val().split('/')
+				var bCompleteDate = bDatePieces[2] + bDatePieces[1] + bDatePieces[0];
+
+				return parseInt(aCompleteDate) < parseInt(bCompleteDate);
+			});
+			$(parentUl).append(elems);
+
 		}
 }
