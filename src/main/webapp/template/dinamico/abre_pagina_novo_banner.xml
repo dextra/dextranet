@@ -2,11 +2,23 @@
 <engine>
 	<template selector="#container_main">
 		<form id="new_banner" method="post" enctype="multipart/form-data">
-			<input type="text" id="bannerTitulo" name="bannerTitulo" placeholder="Digite o título do banner" /><br/>
-			<input type="file" id="file" name="banner" /><br/>
-			De: <input type="text" id="bannerDataInicio" name="dataInicio" size="15" />
-			Até: <input type="text" id="bannerDataFim" name="dataFim" size="15" /><br/>
-			Link: <input type="text" id="bannerLink" name="link"/><br/>
+			<ul>
+				<li>
+					<input type="text" id="bannerTitulo" name="bannerTitulo" placeholder="Digite o título do banner" />
+				</li>
+				<li>
+					<input type="file" id="file" name="banner" />
+				</li>
+				<li>
+					<label for="bannerDataInicio">De</label><input type="text" id="bannerDataInicio" name="dataInicio" size="15" />
+				</li>
+				<li>
+					<label for="bannerDataFim">Até</label><input type="text" id="bannerDataFim" name="dataFim" size="15" />
+				</li>
+				<li>
+					<label>Link:</label><input type="text" id="bannerLink" name="link"/>
+				</li>
+			</ul>
 			<input type="button" value="Upload!" />
 		</form>
 		<br/>
