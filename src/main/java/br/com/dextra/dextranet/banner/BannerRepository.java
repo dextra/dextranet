@@ -54,7 +54,7 @@ public class BannerRepository extends BaseRepository {
 		}
 
 		return criar(new Banner(titulo, blobKey, dataInicio, dataFim, Data.igualADataDeHojeOuAnterior(dataInicio),
-				Data.anteriorADataDeHoje(dataFim), usuario, new Date()));
+				Data.anteriorADataDeHoje(dataFim), usuario, new Date(), true));
 	}
 
 	private boolean dataBannerNaoEhValida(Date dataInicio, Date dataFim) {

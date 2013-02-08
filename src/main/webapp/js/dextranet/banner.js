@@ -14,7 +14,7 @@ dextranet.banner = {
 			$.ajax({
 				type : "GET",
 				url : "/s/banner",
-				data : {"atuais" : true},
+				data : {"atuais" : "true"},
 				success : function(banners) {
 					if (banners.length > 0) {
 						bannerObjectArray = postObject.getpostObjectArrayFromPostJsonArray(banners);
@@ -68,7 +68,7 @@ dextranet.banner = {
 			$.ajax({
 				type : "GET",
 				url : "/s/banner",
-				data : {"atuais" : false},
+				data : {"atuais" : "false"},
 				success : function(banners) {
 					if (banners.length > 0) {
 						bannerObjectArray = postObject.getpostObjectArrayFromPostJsonArray(banners);

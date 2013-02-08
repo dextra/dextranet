@@ -90,7 +90,7 @@ public class BannerRepositoryTest extends TesteIntegracaoBase {
 					+ i, 0, 0, 0);
 			c.set(Calendar.MILLISECOND, 0);
 			bannerRepository.criar(new Banner("baner", new BlobKey(c.toString()), c.getTime(), c.getTime(),
-					statusInicio, false, "login.google", Calendar.getInstance().getTime()));
+					statusInicio, false, "login.google", Calendar.getInstance().getTime(), true));
 		}
 	}
 }
