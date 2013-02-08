@@ -1,5 +1,6 @@
 package br.com.dextra.dextranet.perfil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import com.google.appengine.api.datastore.DatastoreService;
@@ -18,9 +19,27 @@ public class PerfilRepository {
 	private DatastoreService datastore = DatastoreServiceFactory
 			.getDatastoreService();
 
-	public void novo(Perfil Perfil) {
-		if (Perfil.isValido())
-			this.datastore.put(Perfil.toEntity());
+	public String novo(Perfil perfil) {
+
+		try {
+			validarPerfil(perfil);
+			this.datastore.put(perfil.toEntity());
+			return "Perfil inserido com sucesso";
+		} catch (Exception e) {
+			return "Erro ao inserir";
+		}
+	}
+
+	private void validarPerfil(Perfil perfil) throws IOException {
+		if (perfil.getName() == "" || perfil.getName() == null) {
+			throw new IOException();
+		} else if (perfil.getNickName() == "" || perfil.getNickName() == null) {
+			throw new IOException();
+		} else if (perfil.getPhoneMobile() == ""
+				|| perfil.getPhoneMobile() == null) {
+			throw new IOException();
+		}
+		return;
 	}
 
 	public Perfil buscar(String id) {

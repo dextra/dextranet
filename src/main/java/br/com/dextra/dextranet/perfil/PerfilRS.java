@@ -71,7 +71,10 @@ public class PerfilRS {
 		 * Encontrar uma forma de setar o nickName, pois não controlamos a User.
 		 */
 
-		repo.novo(perfil);
+		String situacao = repo.novo(perfil);
+		System.out.println(situacao);
+
+		//Paramos aqui, como o filtro procede daqui em diante?
 		return JsonUtil.stringify(perfil);
 
 	}

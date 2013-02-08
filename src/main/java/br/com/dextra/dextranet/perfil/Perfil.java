@@ -199,4 +199,8 @@ public class Perfil {
 		this.unidadesPossiveis = unidadesPossiveis;
 	}
 
+	public void validacao() {
+		//if(this.name == "" || this.name == null)
+	}
+
 }

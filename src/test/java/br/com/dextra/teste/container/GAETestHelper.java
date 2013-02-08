@@ -10,6 +10,13 @@ import javax.naming.InitialContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.dextra.dextranet.area.Area;
+import br.com.dextra.dextranet.area.AreaRepository;
+import br.com.dextra.dextranet.perfil.Perfil;
+import br.com.dextra.dextranet.perfil.PerfilRepository;
+import br.com.dextra.dextranet.unidade.Unidade;
+import br.com.dextra.dextranet.unidade.UnidadeRepository;
+
 import com.google.appengine.api.search.dev.LocalSearchService;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalSearchServiceTestConfig;
@@ -27,7 +34,8 @@ import com.googlecode.mycontainer.web.jetty.JettyServerDeployer;
 
 public class GAETestHelper {
 
-	private static final Logger LOG = LoggerFactory.getLogger(GAETestHelper.class);
+	private static final Logger LOG = LoggerFactory
+			.getLogger(GAETestHelper.class);
 
 	protected LocalServiceTestHelper helper;
 
@@ -49,7 +57,8 @@ public class GAETestHelper {
 		list.add(ds);
 		list.add(fts);
 
-		helper = new LocalServiceTestHelper(list.toArray(new LocalServiceTestConfig[0]));
+		helper = new LocalServiceTestHelper(
+				list.toArray(new LocalServiceTestConfig[0]));
 		Map<String, Object> envs = new HashMap<String, Object>();
 		envs.put("com.google.appengine.api.users.UserService.user_id_key", "10");
 		helper.setEnvAttributes(envs);
@@ -89,7 +98,8 @@ public class GAETestHelper {
 		ContainerBuilder builder = new ContainerBuilder();
 		builder.deployVMShutdownHook();
 
-		WebServerDeployer server = builder.createDeployer(JettyServerDeployer.class);
+		WebServerDeployer server = builder
+				.createDeployer(JettyServerDeployer.class);
 		server.setName("WebServer");
 		server.bindPort(port);
 
@@ -97,14 +107,55 @@ public class GAETestHelper {
 		web.setContext("/");
 		web.setResources("src/main/webapp");
 
-		LocalServiceTestHelperFilter gae = new LocalServiceTestHelperFilter(helper);
+		LocalServiceTestHelperFilter gae = new LocalServiceTestHelperFilter(
+				helper);
 		web.getFilters().add(new FilterDesc(gae, "/*"));
 
 		System.setProperty("env", "local");
 
 		server.deploy();
 
+		// adicionar data
+		insertData();
+
 		return builder;
+	}
+
+	private void insertData() {
+
+		PerfilRepository perfilRepository = new PerfilRepository();
+		AreaRepository areaRepository = new AreaRepository();
+		UnidadeRepository unidadeRepository = new UnidadeRepository();
+
+		perfilRepository.novo(new Perfil("10", "Guilherme", "guilherme.vicente",
+				"Desenvolvimento", "Campo Grande", "21", "guilhermedextra",
+				"guilherme.vicente@dextra-sw.com", "3366-0718", "8111-4767",
+				"http://www.gpec.ucdb.br/pistori/orientacoes/fotos/guilhermeVicente.jpg"));
+
+		System.out.println();
+		System.out.println("Dados do usuário inseridos com sucesso no banco!");
+		System.out.println();
+
+		areaRepository.inserir(new Area("Diretoria"));
+		areaRepository.inserir(new Area("Administrativo"));
+		areaRepository.inserir(new Area("Financeiro"));
+		areaRepository.inserir(new Area("Marketing"));
+		areaRepository.inserir(new Area("RH"));
+		areaRepository.inserir(new Area("Desenvolvimento"));
+		areaRepository.inserir(new Area("Desenvolvimento de Negócios"));
+		areaRepository.inserir(new Area("Treinamento"));
+
+		System.out.println();
+		System.out.println("Áreas inseridas com sucesso no banco!");
+		System.out.println();
+
+		unidadeRepository.inserir(new Unidade("Campinas"));
+		unidadeRepository.inserir(new Unidade("Campo Grande"));
+
+		System.out.println();
+		System.out.println("Unidades inseridas com sucesso no banco");
+		System.out.println();
+
 	}
 
 	public void shutdownMycontainer() {
