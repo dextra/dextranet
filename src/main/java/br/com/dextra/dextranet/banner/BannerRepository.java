@@ -70,7 +70,7 @@ public class BannerRepository extends BaseRepository {
 					FilterOperator.EQUAL.of(BannerFields.JA_COMECOU.getField(), new Boolean(true)),
 					FilterOperator.EQUAL.of(BannerFields.JA_TERMINOU.getField(), new Boolean(false))));
 
-			query.addSort(BannerFields.DATA_INICIO.getField(), SortDirection.DESCENDING);
+			query.addSort(BannerFields.DATA_DE_ATUALIZACAO.getField(), SortDirection.DESCENDING);
 		} else
 			query.addSort(BannerFields.DATA_DE_ATUALIZACAO.getField(), SortDirection.DESCENDING);
 
