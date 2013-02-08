@@ -18,7 +18,6 @@ import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.users.User;
-import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
 public class BannerRepository extends BaseRepository {
@@ -30,7 +29,7 @@ public class BannerRepository extends BaseRepository {
 		return banner;
 	}
 
-	public Banner criar(String titulo, BlobKey blobKey, String dataInicioFormatada, String dataFimFormatada) throws ParseException, DataNaoValidaException, NullBlobkeyException, NullUserException {
+	public Banner criar(String titulo, BlobKey blobKey, String dataInicioFormatada, String dataFimFormatada, String link) throws ParseException, DataNaoValidaException, NullBlobkeyException, NullUserException {
 
 
 		Date dataInicio = Data.primeiroSegundo(Data.stringParaData(dataInicioFormatada));
@@ -48,30 +47,32 @@ public class BannerRepository extends BaseRepository {
 			usuario = "login.google";
 		else {
 
-			UserService userService = UserServiceFactory.getUserService();
-			User user = userService.getCurrentUser();
+			User user = UserServiceFactory.getUserService().getCurrentUser();
 			if (user == null)
 				throw new NullUserException();
 			usuario = user.getNickname();
 		}
 
 		return criar(new Banner(titulo, blobKey, dataInicio, dataFim, Data.igualADataDeHojeOuAnterior(dataInicio),
-				Data.anteriorADataDeHoje(dataFim), usuario, new Date()));
+				Data.anteriorADataDeHoje(dataFim), usuario, new Date(), true, link));
 	}
 
 	private boolean dataBannerNaoEhValida(Date dataInicio, Date dataFim) {
 		return dataFim.before(dataInicio);
 	}
 
-	public List<Banner> getBannerDisponiveis() {
+	public List<Banner> getBannerDisponiveis(Boolean atuais) {
 
 		Query query = new Query(Banner.class.getName());
 
-		query.setFilter(Query.CompositeFilterOperator.and(
-				FilterOperator.EQUAL.of(BannerFields.JA_COMECOU.getField(), new Boolean(true)),
-				FilterOperator.EQUAL.of(BannerFields.JA_TERMINOU.getField(), new Boolean(false))));
+		if (atuais) {
+			query.setFilter(Query.CompositeFilterOperator.and(
+					FilterOperator.EQUAL.of(BannerFields.JA_COMECOU.getField(), new Boolean(true)),
+					FilterOperator.EQUAL.of(BannerFields.JA_TERMINOU.getField(), new Boolean(false))));
 
-		query.addSort(BannerFields.DATA_INICIO.getField(), SortDirection.DESCENDING);
+			query.addSort(BannerFields.DATA_DE_ATUALIZACAO.getField(), SortDirection.DESCENDING);
+		} else
+			query.addSort(BannerFields.DATA_DE_ATUALIZACAO.getField(), SortDirection.DESCENDING);
 
 		PreparedQuery prepared = datastore.prepare(query);
 		Iterable<Entity> asIterable = prepared.asIterable();
@@ -142,4 +143,5 @@ public class BannerRepository extends BaseRepository {
 
 		return query;
 	}
+
 }

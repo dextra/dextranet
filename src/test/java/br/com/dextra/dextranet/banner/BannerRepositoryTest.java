@@ -20,7 +20,7 @@ public class BannerRepositoryTest extends TesteIntegracaoBase {
 	@Test
 	public void criarUmBanner() {
 
-		Banner banner = criarBanner("banner", new BlobKey("asdf"), "02/02/2013", "25/02/2013");
+		Banner banner = criarBanner("banner", new BlobKey("asdf"), "02/02/2013", "25/02/2013", "http://google.com/");
 
 		Banner bannerEncontrado = null;
 		try {
@@ -37,9 +37,9 @@ public class BannerRepositoryTest extends TesteIntegracaoBase {
 		assertEquals(banner.getJaTerminou(), bannerEncontrado.getJaTerminou());
 	}
 
-	public Banner criarBanner(String titulo, BlobKey blobKey, String dataInicioFormatada, String dataFimFormatada) {
+	public Banner criarBanner(String titulo, BlobKey blobKey, String dataInicioFormatada, String dataFimFormatada, String link) {
 		try {
-			return bannerRepository.criar(titulo, blobKey, dataInicioFormatada, dataFimFormatada);
+			return bannerRepository.criar(titulo, blobKey, dataInicioFormatada, dataFimFormatada, link);
 		} catch (ParseException e) {
 			fail("data mal formatada.");
 		} catch (DataNaoValidaException e) {
@@ -59,10 +59,10 @@ public class BannerRepositoryTest extends TesteIntegracaoBase {
 
 		for (int i = 0; i < quantidadeDeBanners; i++) {
 			// TODO data para string para melhorar o teste
-			criarBanner("banner" + i, new BlobKey("bla" + i), "02/02/2013", "25/02/2200");
+			criarBanner("banner" + i, new BlobKey("bla" + i), "02/02/2013", "25/02/2200", "");
 		}
 
-		assertEquals(quantidadeDeBanners, bannerRepository.getBannerDisponiveis().size());
+		assertEquals(quantidadeDeBanners, bannerRepository.getBannerDisponiveis(true).size());
 	}
 
 	@Test
@@ -70,7 +70,7 @@ public class BannerRepositoryTest extends TesteIntegracaoBase {
 
 		criaBanners(5, Calendar.getInstance(), false);
 		bannerRepository.atualizaFlagJaComecou();
-		assertEquals(3, bannerRepository.getBannerDisponiveis().size());
+		assertEquals(3, bannerRepository.getBannerDisponiveis(true).size());
 	}
 
 	@Test
@@ -78,7 +78,7 @@ public class BannerRepositoryTest extends TesteIntegracaoBase {
 
 		criaBanners(5, Calendar.getInstance(), true);
 		bannerRepository.atualizaFlagJaTerminou();
-		assertEquals(3, bannerRepository.getBannerDisponiveis().size());
+		assertEquals(3, bannerRepository.getBannerDisponiveis(true).size());
 	}
 
 	private void criaBanners(int quantidaDeDeBanners, Calendar dataInicio, Boolean statusInicio) {
@@ -90,7 +90,7 @@ public class BannerRepositoryTest extends TesteIntegracaoBase {
 					+ i, 0, 0, 0);
 			c.set(Calendar.MILLISECOND, 0);
 			bannerRepository.criar(new Banner("baner", new BlobKey(c.toString()), c.getTime(), c.getTime(),
-					statusInicio, false, "login.google", Calendar.getInstance().getTime()));
+					statusInicio, false, "login.google", Calendar.getInstance().getTime(), true, ""));
 		}
 	}
 }

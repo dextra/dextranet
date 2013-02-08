@@ -22,6 +22,8 @@ import org.owasp.validator.html.ScanException;
 import br.com.dextra.dextranet.utils.Converters;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 
 @Path("/post")
 public class PostRS {
@@ -31,10 +33,12 @@ public class PostRS {
 	@Path("/")
 	@POST
 	@Produces("application/json;charset=UTF-8")
-	// FIXME: do jeito que esta eu posso criar um post para qualquer usuario (mesmo nao sendo o usuario logado).
-	public Response novoPost(@FormParam("title") String titulo, @FormParam("content") String conteudo,
-			@FormParam("author") String autor) throws PolicyException, ScanException, FileNotFoundException,
-			IOException {
+	public Response novoPost(@FormParam("title") String titulo, @FormParam("content") String conteudo) throws PolicyException, 
+			ScanException, FileNotFoundException, IOException {
+
+		UserService userService = UserServiceFactory.getUserService();
+		String autor = userService.getCurrentUser().getNickname();
+
 		Post post = new Post(titulo, conteudo, autor);
 		postRepository.criar(post);
 
