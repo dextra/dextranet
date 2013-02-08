@@ -134,5 +134,9 @@ dextranet.banner = {
 //					$( "#bannerDataInicio" ).datepicker( "option", "maxDate", selectedDate );
 				}
 			});
+		},
+
+		ordenaBanners : function(orderBy) {
+			alert("Ordering: " + orderBy);
 		}
 }

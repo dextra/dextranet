@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<template selector="#container_main">
+
+	<fieldset>
+	<legend>Ordenação</legend>
+		<li class="buttons">
+			<input id="ordering-initial-date" class="btNone" type="button" value="Data inicial de exibição"/>
+			<input id="ordering-final-date" class="btNone" type="button" value="Data final de exibição"/>
+			<input id="ordering-creation-date" class="btNone" type="button" value="Data de criação"/>
+		</li>
+	</fieldset>
+
 		<ul>
 			{for banner in jsonArrayBanner}
 				<li id="${banner.postObjectJson.id}">
@@ -20,10 +30,21 @@
 	<script>
 		$(".form-editar-banner").submit(function(){
 			var form = $(this);
-			console.info(form); 
 
 			dextranet.banner.editarBanner($(form).attr("class").substring(19));
 			return false;
+		});
+
+		$('#ordering-initial-date').click(function() {
+			dextranet.banner.ordenaBanners('initialDate');
+		});
+
+		$('#ordering-final-date').click(function() {
+			dextranet.banner.ordenaBanners('finalDate');
+		});
+
+		$('#ordering-creation-date').click(function() {
+			dextranet.banner.ordenaBanners('creationDate');
 		});
 	</script>
 </engine>
