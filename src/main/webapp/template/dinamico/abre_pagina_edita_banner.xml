@@ -20,7 +20,7 @@
 							Titulo: <input type="text" value="${banner.postObjectJson.titulo}" id="titulo_${banner.postObjectJson.id}" /> <br/>
 							Data de início: <input type="text" value="${banner.postObjectJson.dataInicio}" id="dataInicio_${banner.postObjectJson.id}"/> <br/>
 							Data de fim: <input type="text" value="${banner.postObjectJson.dataFim}" id="dataFim_${banner.postObjectJson.id}"/> <br/>
-							Ultima modificação: <input type="text" value="${banner.postObjectJson.dataDeAtualizacao}" id="dataDeAtualizacao_${banner.postObjectJson.id}"/> <br/>
+							Ultima modificação: <input type="text" value="${banner.postObjectJson.dataDeAtualizacao}" id="dataDeAtualizacao_${banner.postObjectJson.id}" disabled="true"/> <br/>
 							Link: <input type="text" id="bannerLink" value="${banner.postObjectJson.link}"/><br/>
 							<input type="submit" value="Editar!" />
 						</form>
