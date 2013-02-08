@@ -27,9 +27,11 @@ public class Banner extends Entidade {
 	private Date dataDeAtualizacao;
 	
 	private Boolean bannerNovo;
+	
+	private String link;
 
 	public Banner(String titulo, BlobKey blobKey, Date dataInicio, Date dataFim, Boolean jaComecou, Boolean jaTerminou,
-			String usuario, Date dataDeAtualizacao, Boolean bannerNovo) {
+			String usuario, Date dataDeAtualizacao, Boolean bannerNovo, String link) {
 		this.titulo = titulo;
 		this.blobKey = blobKey;
 		this.dataInicio = dataInicio;
@@ -39,6 +41,7 @@ public class Banner extends Entidade {
 		this.usuario = usuario;
 		this.dataDeAtualizacao = dataDeAtualizacao;
 		this.bannerNovo = bannerNovo;
+		this.link = link;
 	}
 
 	public Banner(Entity bannerEntity) {
@@ -53,6 +56,7 @@ public class Banner extends Entidade {
 			this.usuario = (String) bannerEntity.getProperty(BannerFields.USUARIO.getField());
 			this.dataDeAtualizacao = (Date) bannerEntity.getProperty(BannerFields.DATA_DE_ATUALIZACAO.getField());
 			this.bannerNovo = (Boolean) bannerEntity.getProperty(BannerFields.BANNER_NOVO.getField());
+			this.link = (String) bannerEntity.getProperty(BannerFields.LINK.getField());
 		}
 	}
 
@@ -127,6 +131,14 @@ public class Banner extends Entidade {
 		this.bannerNovo = bannerNovo;
 	}
 	
+	public String getLink() {
+		return link;
+	}
+	
+	public void setLink(String link) {
+		this.link = link;
+	}
+	
 	public Entity toEntity() {
 		Entity entidade = new Entity(this.getKey(this.getClass()));
 
@@ -140,6 +152,7 @@ public class Banner extends Entidade {
 		entidade.setProperty(BannerFields.USUARIO.getField(), this.usuario);
 		entidade.setProperty(BannerFields.DATA_DE_ATUALIZACAO.getField(), this.dataDeAtualizacao);
 		entidade.setProperty(BannerFields.BANNER_NOVO.getField(), this.bannerNovo);
+		entidade.setProperty(BannerFields.LINK.getField(), this.link);
 
 		return entidade;
 	}
@@ -157,6 +170,7 @@ public class Banner extends Entidade {
 		json.addProperty(BannerFields.USUARIO.getField(), this.usuario);
 		json.addProperty(BannerFields.DATA_DE_ATUALIZACAO.getField(), this.dataDeAtualizacao.toString());
 		json.addProperty(BannerFields.BANNER_NOVO.getField(), this.bannerNovo.toString());
+		json.addProperty(BannerFields.LINK.getField(), this.link);
 
 		return json;
 	}

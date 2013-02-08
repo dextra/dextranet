@@ -29,7 +29,7 @@ public class BannerRepository extends BaseRepository {
 		return banner;
 	}
 
-	public Banner criar(String titulo, BlobKey blobKey, String dataInicioFormatada, String dataFimFormatada) throws ParseException, DataNaoValidaException, NullBlobkeyException, NullUserException {
+	public Banner criar(String titulo, BlobKey blobKey, String dataInicioFormatada, String dataFimFormatada, String link) throws ParseException, DataNaoValidaException, NullBlobkeyException, NullUserException {
 
 
 		Date dataInicio = Data.primeiroSegundo(Data.stringParaData(dataInicioFormatada));
@@ -54,7 +54,7 @@ public class BannerRepository extends BaseRepository {
 		}
 
 		return criar(new Banner(titulo, blobKey, dataInicio, dataFim, Data.igualADataDeHojeOuAnterior(dataInicio),
-				Data.anteriorADataDeHoje(dataFim), usuario, new Date(), true));
+				Data.anteriorADataDeHoje(dataFim), usuario, new Date(), true, link));
 	}
 
 	private boolean dataBannerNaoEhValida(Date dataInicio, Date dataFim) {

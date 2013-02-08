@@ -241,3 +241,10 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 .message .warning { color:#9F6000; }
 .message .warning { border:1px solid #9F6000; background-color:#FEEFB3; background-image:url('../img/warning.png'); }
 .message .success { background-image:url('../img/success.png'); }
+
+/* criar banner */
+#new_banner { color: #555;}
+#new_banner li { margin-bottom:7px;}
+
+#new_banner li label { display:inline-block; margin-right:5px; width:50px;}
+}
