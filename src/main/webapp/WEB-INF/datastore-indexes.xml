@@ -9,7 +9,7 @@
     <datastore-index kind="br.com.dextra.dextranet.banner.Banner" ancestor="false" source="manual">
         <property name="jaComecou" direction="asc"/>
         <property name="jaTerminou" direction="asc"/>
-        <property name="dataInicio" direction="desc"/>
+        <property name="dataDeAtualizacao" direction="desc"/>
     </datastore-index>
     
     <datastore-index kind="br.com.dextra.dextranet.banner.Banner" ancestor="false" source="manual">

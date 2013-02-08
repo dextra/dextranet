@@ -10,6 +10,7 @@
 							Titulo: <input type="text" value="${banner.postObjectJson.titulo}" id="titulo_${banner.postObjectJson.id}" /> <br/>
 							Data de início: <input type="text" value="${banner.postObjectJson.dataInicio}" id="dataInicio_${banner.postObjectJson.id}"/> <br/>
 							Data de fim: <input type="text" value="${banner.postObjectJson.dataFim}" id="dataFim_${banner.postObjectJson.id}"/> <br/>
+							Link: <input type="text" id="bannerLink" value="${banner.postObjectJson.link}"/><br/>
 							<input type="submit" value="Editar!" />
 						</form>
 					</div>

@@ -60,7 +60,7 @@ public class BannerRS {
 
 		try {
 			bannerRepository.criar(request.getParameter("bannerTitulo"), blobKey, request.getParameter("dataInicio"),
-					request.getParameter("dataFim"));
+					request.getParameter("dataFim"), request.getParameter("link"));
 		} catch (ParseException e) {
 			blobstoreService.delete(blobKey);
 			setReponseStatus(response, HttpServletResponse.SC_BAD_REQUEST, "Data mal formatada.");
@@ -80,7 +80,7 @@ public class BannerRS {
 	@Path("/editar")
 	@POST
 	@Produces("application/json;charset=UTF-8")
-	public void editarBanner(@FormParam("id") String id, @FormParam("titulo") String titulo, @FormParam("dataInicio") String dataInicio, @FormParam("dataFim") String dataFim, @Context HttpServletResponse response)
+	public void editarBanner(@FormParam("id") String id, @FormParam("titulo") String titulo, @FormParam("dataInicio") String dataInicio, @FormParam("dataFim") String dataFim, @FormParam("link") String link, @Context HttpServletResponse response)
 			throws IOException {
 		
 		Banner banner = bannerRepository.obterPorID(id);
@@ -92,6 +92,7 @@ public class BannerRS {
 			banner.setUsuario(UserServiceFactory.getUserService().getCurrentUser().getNickname());
 			banner.setDataDeAtualizacao(new Date());
 			banner.setBannerNovo(false);
+			banner.setLink(link);
 			bannerRepository.criar(banner);
 		} catch (ParseException e) {
 			setReponseStatus(response, HttpServletResponse.SC_BAD_REQUEST, "Data mal formatada.");
