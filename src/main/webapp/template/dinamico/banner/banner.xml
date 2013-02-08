@@ -3,10 +3,19 @@
 	<template selector="#banner" append="true">
 		<div class="close" >\/</div>
 			{for banner in jsonArrayBanner}
-				<a href="{if banner.postObjectJson.link == ''}#{else}${banner.postObjectJson.link}{/if}" target="_blank" class="banner_link" 
+				<![CDATA[
+				<a
+					{if banner.postObjectJson.link == ''}
+						href="#"
+					{else}
+						target="_blank"
+						href="${banner.postObjectJson.link}"
+					{/if} 
+				class="banner_link"
 				original-title="{if banner.postObjectJson.bannerNovo == 'true'}Publicado{else}Atualizado{/if} por ${banner.postObjectJson.usuario} em ${banner.postObjectJson.dataDeAtualizacao}">
 					<img src="/s/banner/${banner.postObjectJson.id}" />
 				</a>
+				]]>
 			{/for}	
 	</template>
 	<script>
