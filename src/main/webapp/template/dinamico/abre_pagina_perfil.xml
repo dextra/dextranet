@@ -4,6 +4,7 @@
 
 		<div>
 			<form id="new_photo" method="post" enctype="multipart/form-data">
+				Selecione uma foto caso deseje atualizar<br />
 				<input type="file" id="photo" name="photo" /><br />
 				<input value="Upload!" onclick="" type="button" />
 				<br /><br />
