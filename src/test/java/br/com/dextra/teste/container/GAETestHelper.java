@@ -134,7 +134,6 @@ public class GAETestHelper {
 
 		System.out.println();
 		System.out.println("Dados do usuário inseridos com sucesso no banco!");
-		System.out.println();
 
 		areaRepository.inserir(new Area("Diretoria"));
 		areaRepository.inserir(new Area("Administrativo"));
@@ -147,7 +146,6 @@ public class GAETestHelper {
 
 		System.out.println();
 		System.out.println("Áreas inseridas com sucesso no banco!");
-		System.out.println();
 
 		unidadeRepository.inserir(new Unidade("Campinas"));
 		unidadeRepository.inserir(new Unidade("Campo Grande"));

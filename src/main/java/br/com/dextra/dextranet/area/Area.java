@@ -6,6 +6,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.KeyFactory;
 
 public class Area {
+
 	public String id = UUID.randomUUID().toString();
 	public String name;
 
