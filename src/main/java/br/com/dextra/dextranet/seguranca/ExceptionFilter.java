@@ -13,20 +13,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.JsonElement;
-
-/*import org.jboss.resteasy.plugins.server.servlet.ServletUtil;
-
-import br.com.dextra.dextranet.utils.JsonUtil;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;*/
-
-/*import org.slf4j.Logger;
- import org.slf4j.LoggerFactory;
-
- import com.google.gson.JsonElement;
- import com.google.gson.JsonObject;*/
 
 public class ExceptionFilter implements Filter {
 
@@ -69,46 +55,10 @@ public class ExceptionFilter implements Filter {
 	private void doException(HttpServletRequest request,
 			HttpServletResponse resp, Throwable cause, int code)
 			throws IOException {
-		// TODO Auto-generated method stub
-		if (resp.isCommitted()) {
-			throw new RuntimeException(
-					"OMG: browser response is committed. We can not send http code",
-					cause);
-		}
-
-		resp.setStatus(code);
-		// Código de teste
-
-		JsonElement jsonData = null;
-		while (cause != null /* && !(cause instanceof MarcacaoException) */) {
-			cause = cause.getCause();
-		}
-		if (cause != null /* && cause instanceof MarcacaoException */) {
-			/* jsonData = MarcacaoException.class.cast(cause).getData(); */
-		}
-
-		if (cause != null) {
-			/*
-			 * JsonObject jsonErro = JsonUtil.create("erro", code, "clazz",
-			 * cause .getClass().getName(), "msg", cause.getMessage());
-			 */
-			if (jsonData != null) {
-				/* jsonErro.add("data", jsonData); */
-			} else {
-				/* LOG.error("Error", cause); */
-			}
-
-			/* ServletUtil.write(resp, jsonErro); */
-		}
 	}
 
 	private void doTransaction(FilterChain chain, HttpServletRequest req,
 			HttpServletResponse resp) {
-		// TODO Auto-generated method stub
-		/*
-		 * TransactionFilter transactionFilter = new TransactionFilter(chain,
-		 * req, resp); transactionFilter.execute();
-		 */
 	}
 
 	@Override

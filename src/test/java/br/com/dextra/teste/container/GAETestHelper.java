@@ -118,6 +118,10 @@ public class GAETestHelper {
 		// adicionar data
 		insertData();
 
+		System.out.println();
+		System.out.println("Sistema funcionando!");
+		System.out.println();
+
 		return builder;
 	}
 
@@ -151,7 +155,7 @@ public class GAETestHelper {
 		unidadeRepository.inserir(new Unidade("Campo Grande"));
 
 		System.out.println();
-		System.out.println("Unidades inseridas com sucesso no banco");
+		System.out.println("Unidades inseridas com sucesso no banco!");
 		System.out.println();
 
 	}
