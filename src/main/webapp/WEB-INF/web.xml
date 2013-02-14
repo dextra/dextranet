@@ -43,22 +43,21 @@
 			<param-value>/_ah/cron</param-value>
 		</init-param>
 	</filter>
-	<filter>
+	<!-- <filter>
 		<filter-name>ExceptionFilter</filter-name>
 		<filter-class>br.com.dextra.dextranet.seguranca.ExceptionFilter</filter-class>
 		<init-param>
 			<param-name>eFilter</param-name>
-			<param-value><!-- Duvida!!! --></param-value>
+			<param-value>Duvida!!!</param-value>
 		</init-param>
-	</filter>
+	</filter> -->
 
 	<filter-mapping>
 		<filter-name>AutenticacaoFilter</filter-name>
 		<url-pattern>*</url-pattern>
 	</filter-mapping>
-	<filter-mapping>
+	<!-- <filter-mapping>
 		<filter-name>ExceptionFilter</filter-name>
 		<url-pattern>*</url-pattern>
-	</filter-mapping>
-
+	</filter-mapping> -->
 </web-app>
