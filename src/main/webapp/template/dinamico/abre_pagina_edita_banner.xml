@@ -16,10 +16,10 @@
 				<li id="${banner.postObjectJson.id}">
 					<div class="img-banner"><img src="/s/banner/${banner.postObjectJson.id}" /></div>
 					<div class="dados-banner">
-						<form class="form-editar-banner ${banner.postObjectJson.id}">
+						<form class="form-editar-banner" id="${banner.postObjectJson.id}">
 							Titulo: <input type="text" value="${banner.postObjectJson.titulo}" id="titulo_${banner.postObjectJson.id}" /> <br/>
-							Data de início: <input type="text" value="${banner.postObjectJson.dataInicio}" id="dataInicio_${banner.postObjectJson.id}"/> <br/>
-							Data de fim: <input type="text" value="${banner.postObjectJson.dataFim}" id="dataFim_${banner.postObjectJson.id}"/> <br/>
+							Data de início: <input type="text" value="${banner.postObjectJson.dataInicio}" id="dataInicio_${banner.postObjectJson.id}" class="date-picker inicio"/> <br/>
+							Data de fim: <input type="text" value="${banner.postObjectJson.dataFim}" id="dataFim_${banner.postObjectJson.id}" class="date-picker fim"/> <br/>
 							Ultima modificação: <input type="text" value="${banner.postObjectJson.dataDeAtualizacao}" id="dataDeAtualizacao_${banner.postObjectJson.id}" disabled="true"/> <br/>
 							Link: <input type="text" id="bannerLink" value="${banner.postObjectJson.link}"/><br/>
 							<input type="submit" value="Editar!" />
@@ -30,6 +30,10 @@
 		</ul>
 	</template>
 	<script>
+		$('form-editar-banner').each(function() {
+		    dextranet.banner.inicializaDatepicker(false, $(this));
+		});
+		
 		$(".form-editar-banner").submit(function(){
 			var form = $(this);
 			dextranet.banner.editarBanner($(form).attr("class").substring(19));

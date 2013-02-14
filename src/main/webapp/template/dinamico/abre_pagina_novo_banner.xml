@@ -1,32 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<template selector="#container_main">
-		<li>
-			<form id="new_banner" method="post" enctype="multipart/form-data">
-				<ul>
-					<li>
-						<input type="text" id="bannerTitulo" name="bannerTitulo" placeholder="Digite o título do banner" />
-					</li>
-					<li>
-						<input type="file" id="file" name="banner" />
-					</li>
-					<li>
-						<label for="bannerDataInicio">De</label><input type="text" id="bannerDataInicio" name="dataInicio" size="15" />
-					</li>
-					<li>
-						<label for="bannerDataFim">Até</label><input type="text" id="bannerDataFim" name="dataFim" size="15" />
-					</li>
-					<li>
-						<label>Link</label><input type="text" id="bannerLink" name="link"/>
-					</li>
-				</ul>
-				<input class="margin_top margin_bottom" type="button" value="Upload!" />
-			</form>
-			<a class="margin_top" href="#" id="link_abre_banners">Exibir todos os Banners</a>		
-		</li>
+		<form id="new_banner" method="post" enctype="multipart/form-data">
+			<input type="text" id="bannerTitulo" name="bannerTitulo" placeholder="Digite o título do banner" /><br/>
+			<input type="file" id="file" name="banner" /><br/>
+			<label for="bannerDataInicio">De</label><input type="text" id="bannerDataInicio" name="dataInicio" size="15" class="date-picker inicio"/>
+			<label for="bannerDataFim">Até</label><input type="text" id="bannerDataFim" name="dataFim" size="15" class="date-picker fim"/><br/>
+			<label>Link</label><input type="text" id="bannerLink" name="link"/><br/>
+			<input class="margin_top margin_bottom" type="button" value="Upload!" />
+		</form>
+		<a class="margin_top" href="#" id="link_abre_banners">Exibir todos os Banners</a>		
 	</template>
 	<script>
-		dextranet.banner.validaEFormataForm();
+    	dextranet.banner.inicializaDatepicker(true, $('form#new_banner'));
 		$("#new_banner input[type=button]").click(dextranet.banner.novoBanner);
 		$("#link_abre_banners").click(dextranet.banner.listaBanners);
 	</script>
