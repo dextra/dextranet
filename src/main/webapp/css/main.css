@@ -255,3 +255,9 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 #new_banner li { margin-bottom:7px;}
 
 #new_banner li label { display:inline-block; margin-right:5px; width:50px;}
+
+.img-banner img { max-width: 400px; max-height: 400px }
+
+.buttons{ margin-bottom: 20px; }
+
+.dados-banner { margin-bottom: 60px; margin-top: 10px; }
