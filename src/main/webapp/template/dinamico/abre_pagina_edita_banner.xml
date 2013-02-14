@@ -30,7 +30,7 @@
 		</ul>
 	</template>
 	<script>
-		$('form-editar-banner').each(function() {
+		$('.form-editar-banner').each(function() {
 		    dextranet.banner.inicializaDatepicker(false, $(this));
 		});
 		
