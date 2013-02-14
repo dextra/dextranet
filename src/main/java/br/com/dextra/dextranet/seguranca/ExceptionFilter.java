@@ -77,6 +77,7 @@ public class ExceptionFilter implements Filter {
 		}
 
 		resp.setStatus(code);
+		// Código de teste
 
 		JsonElement jsonData = null;
 		while (cause != null /* && !(cause instanceof MarcacaoException) */) {
