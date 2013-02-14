@@ -37,7 +37,7 @@ public class BannerRS {
 	@GET
 	@Produces("application/json;charset=UTF-8")
 	public String bannersDisponiveis(@QueryParam("atuais") Boolean bannerAtuais) {
-		return Converters.toJson(bannerRepository.getBannerDisponiveis(bannerAtuais)).toString();
+		return Converters.converterListaDeBannerParaListaDeJson(bannerRepository.getBannerDisponiveis(bannerAtuais)).toString();
 	}
 
 	@Path("/{id}")

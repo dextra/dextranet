@@ -49,6 +49,8 @@ html{font-size:100%;}
 
 .margin_right{margin-right:15px;}
 .margin_left{margin-left:15px;}
+.margin_bottom{margin-bottom:15px;}
+.margin_top{margin-top:15px;}
 
 /*----------  Tipografia & Botões  ----------*/
 body{font-family:'Open Sans', arial, sans-serif;background:url('../img/body-pattern.jpg') repeat;}
@@ -166,9 +168,9 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 #sidebar_left_menu > li > a > span{display:block;width:38px;height:38px;margin:0 auto 10px;}
 
 #sidebar_left_menu > li > ul > li > a:hover{opacity:0.65;}
-#sidebar_left_menu > li > ul > li:last-child,
-#sidebar_left_menu > li > ul > li:last-child > a{border-radius:0 0 6px 6px;}
-#sidebar_left_menu > li > ul#box_new_post{position:absolute;left:91px;top:140px;width:500px;background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-bottom:20px;}
+#sidebar_left_menu > li > ul > li:last_child,
+#sidebar_left_menu > li > ul > li:last_child > a{border-radius:0 0 6px 6px;}
+#sidebar_left_menu > li > ul#box_new_post{position:absolute;left:91px;top:140px;width:500px;background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-bottom:20px;z-index: 1;}
 #sidebar_left_menu > li > ul#box_new_post > li{position:relative;}
 #sidebar_left_menu .sidebar_show_right{display:none;}
 
@@ -178,15 +180,13 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 #container_main{margin-left:95px;clear:both;padding-right:10px;position:relative;}
 
 #container_banner{bottom:0;left:0;width:100%;text-align:center;position:fixed;}
-<<<<<<< HEAD
-#banner{padding:5px 5px 0;position:relative;border:solid 1px #d9dbdd;display:inline-block;border-radius:5px 5px 0 0;}
-=======
+
 
 #content_left{margin-right:310px;}
 #content_right{width:280px;position:absolute;top:0;right:10px;}
 
-#banner{padding:5px 5px 0;position:relative;border:solid 1px #d9dbdd;display:inline-block;border-radius:5px 5px 0 0;} 
->>>>>>> fb71b925c76b7ecd3b241fb9b01294ed0d785efc
+#banner{padding:5px 5px 0;position:relative;border:solid 1px #d9dbdd;display:inline-block;border-radius:5px 5px 0 0;}
+
 #banner .close{border-radius: 10px 10px 0 0;left: 50%;padding: 7px 7px 0 7px;position: absolute;top: -27px; border:solid 1px #d9dbdd; border-bottom: none;}
 #banner img {height: 200px;}
 
@@ -296,5 +296,14 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 #new_banner li { margin-bottom:7px;}
 
 #new_banner li label { display:inline-block; margin-right:5px; width:50px;}
+<<<<<<< HEAD
 }
 >>>>>>> 15d9b6d7cd2fdc1f70a26f8134fc2486e6f655a7
+=======
+
+.img-banner img { max-width: 400px; max-height: 400px }
+
+.buttons{ margin-bottom: 20px; }
+
+.dados-banner { margin-bottom: 60px; margin-top: 10px; }
+>>>>>>> 538065347a3f3a7a9b47b888823100742cab4a9b

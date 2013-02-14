@@ -37,11 +37,9 @@ public class Post extends Conteudo implements ConteudoIndexavel {
     }
 
     public Post(Entity postEntity) {
-        Converters conversores = new Converters();
-
         this.id = (String) postEntity.getProperty(PostFields.ID.getField());
         this.titulo = (String) postEntity.getProperty(PostFields.TITULO.getField());
-        this.conteudo = conversores.converterGAETextToString(postEntity);
+        this.conteudo = Converters.converterGAETextToString(postEntity);
         this.dataDeCriacao = (String) postEntity.getProperty(PostFields.DATA.getField());
         this.dataDeAtualizacao = (String) postEntity.getProperty(PostFields.DATA_DE_ATUALIZACAO.getField());
         this.usuario = (String) postEntity.getProperty(PostFields.USUARIO.getField());
