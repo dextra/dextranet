@@ -1,33 +1,39 @@
 package br.com.dextra.dextranet.usuario;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 
 import com.google.appengine.api.users.User;
-import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.gson.JsonObject;
 
 @Path("/usuario")
 public class UsuarioRS {
 
+	UsuarioRepository usuarioRepository = new UsuarioRepository();
+	
 	@Path("/")
 	@GET
 	@Produces("application/json;charset=UTF-8")
-	public String getDadosUsuario(@Context HttpServletRequest re) {
-		UserService userService = UserServiceFactory.getUserService();
-		User user = userService.getCurrentUser();
-
-		String logout = userService.createLogoutURL("");
-
-		JsonObject json = new JsonObject();
-		json.addProperty("nickName", user.getNickname());
-		json.addProperty("email", user.getEmail());
-		json.addProperty("logout", logout);
-
-		return json.toString();
+	public String getDadosUsuario() {
+		User user = UserServiceFactory.getUserService().getCurrentUser();
+		ArrayList<Usuario> listaDeUsuarios = usuarioRepository.getTodosUsuarios();
+		if (listaDeUsuarios != null) {	
+			for (Usuario usuario : listaDeUsuarios) {
+				if (usuario.getEmail().equals(user.getEmail())) {
+					JsonObject usuarioAtual = usuario.toJson();
+					usuarioAtual.addProperty("logout", UserServiceFactory.getUserService().createLogoutURL(""));
+					return usuarioAtual.toString();
+				}
+			}
+		}	
+		
+		JsonObject novoUsuario = usuarioRepository.novoUsuario().toJson();
+		novoUsuario.addProperty("logout", UserServiceFactory.getUserService().createLogoutURL(""));
+		
+		return novoUsuario.toString();
 	}
 }

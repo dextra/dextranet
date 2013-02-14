@@ -81,10 +81,10 @@ public class CommentRepositoryTest extends TesteIntegracaoBase {
 		List<Comment> listaEsperada1 = comentar(listaDePosts.get(2).getId(), 2);
 		List<Comment> listaEsperada2 = comentar(listaDePosts.get(4).getId(), 1);
 
-		Assert.assertEquals(new Converters().converterListaDeCommentParaListaDeJson(listaEsperada1).toString(),
+		Assert.assertEquals(Converters.converterListaDeCommentParaListaDeJson(listaEsperada1).toString(),
 				new CommentRS().consultar(listaDePosts.get(2).getId(), ""));
 
-		Assert.assertEquals(new Converters().converterListaDeCommentParaListaDeJson(listaEsperada2).toString(),
+		Assert.assertEquals(Converters.converterListaDeCommentParaListaDeJson(listaEsperada2).toString(),
 				new CommentRS().consultar(listaDePosts.get(4).getId(), ""));
 
 	}
@@ -118,7 +118,7 @@ public class CommentRepositoryTest extends TesteIntegracaoBase {
 
 		List<Comment> listaEsperada1 = comentar(listaDePosts.get(2).getId(), 1);
 
-		Assert.assertEquals(new Converters().converterListaDeCommentParaListaDeJson(listaEsperada1).toString(),
+		Assert.assertEquals(Converters.converterListaDeCommentParaListaDeJson(listaEsperada1).toString(),
 				new CommentRS().consultar("", listaEsperada1.get(0).getId()));
 
 	}

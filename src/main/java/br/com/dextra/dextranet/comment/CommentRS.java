@@ -64,7 +64,7 @@ public class CommentRS {
 		else
 			listaComments = repositorio.pegaCommentPorId(idComment);
 
-		return new Converters().converterListaDeCommentParaListaDeJson(listaComments).toString();
+		return Converters.converterListaDeCommentParaListaDeJson(listaComments).toString();
 
 	}
 

@@ -30,7 +30,7 @@ public class Comment extends Conteudo implements ConteudoIndexavel {
 
     public Comment(Entity commentEntity) {
         this.usuario = (String) commentEntity.getProperty(CommentFields.USUARIO.getField());
-        this.conteudo = new Converters().converterGAETextToString(commentEntity);
+        this.conteudo = Converters.converterGAETextToString(commentEntity);
         this.id = (String) commentEntity.getProperty(CommentFields.ID.getField());
         this.dataDeCriacao = (String) commentEntity.getProperty(CommentFields.DATA_DE_CRIACAO.getField());
         this.comentarios = ((Long) commentEntity.getProperty(CommentFields.COMENTARIOS.getField())).intValue();

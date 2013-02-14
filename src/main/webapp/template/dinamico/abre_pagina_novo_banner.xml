@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
-	<template selector="#container_main">
-		<form id="new_banner" method="post" enctype="multipart/form-data">
-			<ul>
-				<li>
-					<input type="text" id="bannerTitulo" name="bannerTitulo" placeholder="Digite o título do banner" />
-				</li>
-				<li>
-					<input type="file" id="file" name="banner" />
-				</li>
-				<li>
-					<label for="bannerDataInicio">De</label><input type="text" id="bannerDataInicio" name="dataInicio" size="15" />
-				</li>
-				<li>
-					<label for="bannerDataFim">Até</label><input type="text" id="bannerDataFim" name="dataFim" size="15" />
-				</li>
-				<li>
-					<label>Link:</label><input type="text" id="bannerLink" name="link"/>
-				</li>
-			</ul>
-			<input type="button" value="Upload!" />
-		</form>
-		<br/>
-		<br/>
-		<a href="#" id="link_abre_banners">Exibir todos os Banners</a>		
+	<template selector="#box_new_banner">
+		<li>
+			<form id="new_banner" method="post" enctype="multipart/form-data">
+				<ul>
+					<li>
+						<input type="text" id="bannerTitulo" name="bannerTitulo" placeholder="Digite o título do banner" />
+					</li>
+					<li>
+						<input type="file" id="file" name="banner" />
+					</li>
+					<li>
+						<label for="bannerDataInicio">De</label><input type="text" id="bannerDataInicio" name="dataInicio" size="15" />
+					</li>
+					<li>
+						<label for="bannerDataFim">Até</label><input type="text" id="bannerDataFim" name="dataFim" size="15" />
+					</li>
+					<li>
+						<label>Link</label><input type="text" id="bannerLink" name="link"/>
+					</li>
+				</ul>
+				<input class="margin_top margin_bottom" type="button" value="Upload!" />
+			</form>
+			<a class="margin_top" href="#" id="link_abre_banners">Exibir todos os Banners</a>		
+		</li>
 	</template>
 	<script>
 		dextranet.banner.validaEFormataForm();

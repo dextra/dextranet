@@ -13,27 +13,17 @@
 					<span class="icon_sidebar_left_novopost"></span>
 					${messages.label_newPost}
 				</a>
-				<ul id="box_new_post" class="sidebar_show_right">
-					<li>
-					<div id="container_message_warning_post"></div>
-						<form action="" id="form_new_post">
-							<input width="98%" type="text" id="form_input_title"
-								placeholder="${messages.placeholder_title_post}" name="title" maxlength="60"></input>
-							<br />
-							<textarea cols="50" id="form_input_content" style="resize:none;"
-								placeholder="${messages.placeholder_content_post}" name="content"></textarea>
-							<br />
-								<input type="submit" class="submit" value="${messages.button_newPost}" id="form_post_submit" />
-						</form>
-					</li>
+				<ul id="box_new_post" class="sidebar_show_right post">
+					
 				</ul>
 			</li>
-			<li id="sidebar_left_category">
-				<a href="#" id="button_sidebar_left_category">
+			<li id="sidebar_left_new_banner">
+				<a href="#" id="button_sidebar_left_new_banner">
 					<span class="icon_sidebar_left_categoria"></span>
 					<!-- ${messages.label_category} -->
 					Banner
 				</a>
+				<ul id="box_new_banner" class="sidebar_show_right banner"></ul>
 			</li>
 			<li id="sidebar_left_profile">
 				<a href="#" id="button_sidebar_left_profile">
@@ -51,15 +41,14 @@
 	</template>
 	<script>
 		$("#button_sidebar_left_home").click(dextranet.home.inicializa);
-		$("#button_sidebar_left_novopost").click(dextranet.home.abrePopUpNovoPost);
-		//$("#button_sidebar_left_category").click(dextranet.post.removeTodosOsPosts);
-		$("#button_sidebar_left_category").click(dextranet.home.abrePaginaCategoria);
+		$("#button_sidebar_left_novopost").click(function(){dextranet.home.abrePopUp("post");});
+		$("#button_sidebar_left_new_banner").click(function(){dextranet.home.abrePopUp("banner");});
 		$("#button_sidebar_left_profile").click(dextranet.home.abrePaginaPerfil);
 		
 		$("#button_sidebar_left_team").click(dextranet.home.abrePaginaEquipe);
 		$("#form_new_post").submit(dextranet.post.criaNovoPost);
 
-		CKEDITOR.replace('form_input_content',{removePlugins:'elementspath',height:"230", width:"100%"});
-		CKEDITOR.config.contentsCss = 'ckeditor/body.css';
+		$.holy("../template/dinamico/post/abre_pagina_novo_post.xml", {});
+		$.holy("../template/dinamico/abre_pagina_novo_banner.xml", {});
 	</script>
 </engine>
