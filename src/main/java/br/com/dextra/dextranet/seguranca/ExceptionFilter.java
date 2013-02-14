@@ -3,7 +3,6 @@ package br.com.dextra.dextranet.seguranca;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
-/*import javax.persistence.PersistenceContext;*/
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -16,8 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ExceptionFilter implements Filter {
 
-	// private static final Logger LOG =
-	// LoggerFactory.getLogger(InitialFilter.class);
 	private static final String SERVICE_URL_PATTERN = "";
 
 	@Override
@@ -31,7 +28,6 @@ public class ExceptionFilter implements Filter {
 		HttpServletRequest req = HttpServletRequest.class.cast(request);
 		HttpServletResponse resp = HttpServletResponse.class.cast(response);
 
-		// Executa antes de ir para o servidor
 		try {
 			if (isServiceRequest(req)) {
 				doTransaction(chain, req, resp);
@@ -42,8 +38,6 @@ public class ExceptionFilter implements Filter {
 			doException(req, resp, e,
 					HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 		}
-
-		// Executa na volta do servidor
 	}
 
 	private boolean isServiceRequest(HttpServletRequest req) {
