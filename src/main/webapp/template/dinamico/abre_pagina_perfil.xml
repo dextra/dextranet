@@ -2,6 +2,8 @@
 <engine>
 	<template selector="#container_main">
 
+		<div id="container_mensagem" class="clearfix"></div>
+
 		<div>
 			<form id="new_photo" method="post" enctype="multipart/form-data">
 				Selecione uma foto caso deseje atualizar<br />
@@ -17,7 +19,7 @@
 				<input id="idVal" name="id" value="${userId}" type="hidden" />
 
 				*Nome:
-				<input type="text" id="nameVal" name="name" value="${name}" /><br />
+				<input type="text" id="nameVal" name="name" value="${name}" class="required"/><br />
 				*Apelido:
 				<span id="nickNameVal">${nickName}</span><br />
 				*Área:
@@ -43,9 +45,9 @@
 				Telefone Residencial:
 				<input type="text" id="residencialVal" name="residencial" value="${phoneResidence}" /><br />
 				*Telefone Celular:
-				<input type="text" id="celularVal" name="celular" value="${phoneMobile}" /><br />
+				<input type="text" id="celularVal" name="celular" value="${phoneMobile}" class="required"/><br />
 
-				<input value="Salvar!" onclick="dextranet.perfil.upload()" type="button" />
+				<input value="Salvar!" onclick="dextranet.perfil.inserir()" type="button" />
 
 			</form>
 		</div>

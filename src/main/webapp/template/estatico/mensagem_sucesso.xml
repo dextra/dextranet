@@ -3,7 +3,7 @@
 	<template selector="#container_mensagem">
 		<ul class="message" id="success-message">
 			<li class="success" style="display: list_item;">
-				${messages.success_message_post}
+				${messages.success_message}
 			</li>
 		</ul>
 	</template>
