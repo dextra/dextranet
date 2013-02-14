@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<template selector="#container_main">
-		<p>Pagina: <b>Perfil</b> </p>
+
+		<div>
+			<form id="new_photo" method="post" enctype="multipart/form-data">
+				Selecione uma foto caso deseje atualizar<br />
+				<input type="file" id="photo" name="photo" /><br />
+				<input value="Upload!" onclick="" type="button" />
+				<br /><br />
+			</form>
+		</div>
+
+		<div>
+			<form id="new_perfil" method="post" enctype="multipart/form-data">
+
+				<input id="idVal" name="id" value="${userId}" type="hidden" />
+
+				*Nome:
+				<input type="text" id="nameVal" name="name" value="${name}" /><br />
+				*Apelido:
+				<span id="nickNameVal">${nickName}</span><br />
+				*Área:
+				<select id="areaVal">
+					{for areas in areasPossiveis}
+					<option value="${areas.name}">${areas.name}</option>
+					{/for}
+				</select><br />
+				<span id="teste1">${area}</span><br />
+				*Unidade:
+				<select id="unitVal">
+					{for unidades in unidadesPossiveis}
+					<option value="${unidades.name}">${unidades.name}</option>
+					{/for}
+				</select><br />
+				<span id="teste2">${unit}</span><br />
+				Ramal:
+				<input type="text" id="ramalVal" name="ramal" value="${branch}" /><br />
+				Skype:
+				<input type="text" id="skypeVal" name="skype" value="${skype}" /><br />
+				GTalk:
+				<input type="text" id="gTalkVal" name="gTtalk" value="${gTalk}" /><br />
+				Telefone Residencial:
+				<input type="text" id="residencialVal" name="residencial" value="${phoneResidence}" /><br />
+				*Telefone Celular:
+				<input type="text" id="celularVal" name="celular" value="${phoneMobile}" /><br />
+
+				<input value="Salvar!" onclick="dextranet.perfil.upload()" type="button" />
+
+			</form>
+		</div>
 	</template>
 </engine>
