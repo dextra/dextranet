@@ -107,32 +107,32 @@ dextranet.banner = {
 			});
 		},
 		
-		validaEFormataForm : function() {
-			var $dataInicio = $('#bannerDataInicio');
-			var $dataFim = $('#bannerDataFim'); 
+		inicializaDatepicker : function(novoPost, formulario) {
+			var $dataInicio = formulario ? formulario.children('.date-picker.inicio') : $dataInicio;
+			var $dataFim = formulario ? formulario.children('.date-picker.fim') : $dataFim; 
 			var dayNamesMin = [ "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab" ];
 			var monthNames = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ];
 
-			$("#bannerDataInicio").datepicker({ 
+			$dataInicio.datepicker({ 
 				dateFormat: "dd/mm/yy",
 				dayNamesMin: dayNamesMin,
 				monthNames: monthNames,
 				defaultDate: "0",
-				minDate: "0",
+				minDate: novoPost ? "0" : "",
 				onClose: function( selectedDate ) {
 					if(selectedDate != "")
-						$( "#bannerDataFim" ).datepicker( "option", "minDate", selectedDate );
+						$dataFim.datepicker( "option", "minDate", selectedDate );
 				}
 			});
 			
-			$("#bannerDataFim").datepicker({ 
+			$dataFim.datepicker({ 
 				dateFormat: "dd/mm/yy",
 				dayNamesMin: dayNamesMin,
 				monthNames: monthNames,
 				defaultDate: "0",
-				minDate: "0",
+				minDate: novoPost ? "0" : "",
 				onClose: function( selectedDate ) {
-					$( "#bannerDataInicio" ).datepicker( "option", "maxDate", selectedDate );
+					$dataInicio.datepicker( "option", "maxDate", selectedDate );
 				}
 			});
 		},
