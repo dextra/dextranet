@@ -170,8 +170,8 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 #sidebar_left_menu > li > ul > li > a:hover{opacity:0.65;}
 #sidebar_left_menu > li > ul > li:last_child,
 #sidebar_left_menu > li > ul > li:last_child > a{border-radius:0 0 6px 6px;}
-#sidebar_left_menu > li > ul#box_new_post,#sidebar_left_menu > li > ul#box_new_banner{position:absolute;left:91px;top:140px;width:500px;background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-bottom:20px;}
-#sidebar_left_menu > li > ul#box_new_post > li,#sidebar_left_menu > li > ul#box_new_banner > li{position:relative;}
+#sidebar_left_menu > li > ul#box_new_post{position:absolute;left:91px;top:140px;width:500px;background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-bottom:20px;z-index: 1;}
+#sidebar_left_menu > li > ul#box_new_post > li{position:relative;}
 #sidebar_left_menu .sidebar_show_right{display:none;}
 
 /*----------  Estrutura dos blocos centrais de conteúdo  ----------*/

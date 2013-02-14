@@ -17,18 +17,6 @@ dextranet.home = {
 		$("#sidebar_left_menu > li").removeClass('active');
 		$(id).addClass("active");
 	},
-
-	abrePopUp : function(tipo) {
-		if (dextranet.home.EhVisivel('.sidebar_show_right.' + tipo)){
-			$(".sidebar_show_right." + tipo).hide();
-			dextranet.home.setActiveMenuLateral("#sidebar_left_home");
-		} else {
-			dextranet.home.limparAvisoPreenchaCampos();
-			$('.sidebar_show_right').filter(':not(.' + tipo + ')').hide();
-			$(".sidebar_show_right." + tipo).show();
-			dextranet.home.setActiveMenuLateral("#sidebar_left_new_" + tipo);
-		}
-	},
 	
 	abrePopUpNovoPost : function() {
 		if (dextranet.home.EhVisivel('.sidebar_show_right.post')){
@@ -41,20 +29,14 @@ dextranet.home = {
 		}
 	},
 
-	abrePaginaCategoria : function() {
-		if (dextranet.home.EhVisivel('.sidebar_show_right.banner')){
-			$(".sidebar_show_right.banner").hide();
-			dextranet.home.setActiveMenuLateral("#sidebar_left_home");
-		} else {
-			dextranet.home.limparAvisoPreenchaCampos();
-			$(".sidebar_show_right.banner").show();
-			dextranet.home.setActiveMenuLateral("#sidebar_left_new_banner");
-		}
+	abrePaginaNovoBanner : function() {
+		$.holy("../template/dinamico/abre_pagina_novo_banner.xml", {});
+		dextranet.home.setActiveMenuLateral("#sidebar_left_profile");
 	},
 
 	abrePaginaPerfil : function() {
 		$.holy("../template/dinamico/abre_pagina_perfil.xml", {});
-		dextranet.home.setActiveMenuLateral("#sidebar_left_profile");
+		dextranet.home.setActiveMenuLateral("#sidebar_left_new_banner");
 	},
 
 	abrePaginaEquipe : function() {

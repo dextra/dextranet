@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
-	<template selector="#box_new_banner">
+	<template selector="#container_main">
 		<li>
 			<form id="new_banner" method="post" enctype="multipart/form-data">
 				<ul>

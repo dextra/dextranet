@@ -23,7 +23,6 @@
 					<!-- ${messages.label_category} -->
 					Banner
 				</a>
-				<ul id="box_new_banner" class="sidebar_show_right banner"></ul>
 			</li>
 			<li id="sidebar_left_profile">
 				<a href="#" id="button_sidebar_left_profile">
@@ -41,14 +40,13 @@
 	</template>
 	<script>
 		$("#button_sidebar_left_home").click(dextranet.home.inicializa);
-		$("#button_sidebar_left_novopost").click(function(){dextranet.home.abrePopUp("post");});
-		$("#button_sidebar_left_new_banner").click(function(){dextranet.home.abrePopUp("banner");});
+		$("#button_sidebar_left_novopost").click(dextranet.home.abrePopUpNovoPost);
+		$("#button_sidebar_left_new_banner").click(dextranet.home.abrePaginaNovoBanner);
 		$("#button_sidebar_left_profile").click(dextranet.home.abrePaginaPerfil);
 		
 		$("#button_sidebar_left_team").click(dextranet.home.abrePaginaEquipe);
 		$("#form_new_post").submit(dextranet.post.criaNovoPost);
 
 		$.holy("../template/dinamico/post/abre_pagina_novo_post.xml", {});
-		$.holy("../template/dinamico/abre_pagina_novo_banner.xml", {});
 	</script>
 </engine>
