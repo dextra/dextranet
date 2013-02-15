@@ -107,7 +107,7 @@ dextranet.banner = {
 			});
 		},
 		
-		inicializaDatepicker : function(novoPost, formulario) {
+		inicializaDatepicker : function(novoBanner, formulario) {
 			var $dataInicio = formulario ? formulario.children('.date-picker.inicio') : $dataInicio;
 			var $dataFim = formulario ? formulario.children('.date-picker.fim') : $dataFim; 
 			var dayNamesMin = [ "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab" ];
@@ -118,7 +118,7 @@ dextranet.banner = {
 				dayNamesMin: dayNamesMin,
 				monthNames: monthNames,
 				defaultDate: "0",
-				minDate: novoPost ? "0" : "",
+				minDate: novoBanner ? "0" : "",
 				onClose: function( selectedDate ) {
 					if(selectedDate != "")
 						$dataFim.datepicker( "option", "minDate", selectedDate );
@@ -130,11 +130,14 @@ dextranet.banner = {
 				dayNamesMin: dayNamesMin,
 				monthNames: monthNames,
 				defaultDate: "0",
-				minDate: novoPost ? "0" : "",
+				minDate: novoBanner ? "0" : "",
 				onClose: function( selectedDate ) {
 					$dataInicio.datepicker( "option", "maxDate", selectedDate );
 				}
 			});
+			
+			$dataInicio.datepicker("setDate", novoBanner ? "Now" : "");
+			$dataFim.datepicker("setDate", novoBanner ? "Now" : "");
 		},
 
 		ordenaBanners : function(orderBy, banners) {
