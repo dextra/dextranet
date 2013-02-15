@@ -193,11 +193,11 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 
 /*----------  Listagem de estórias de usuários  ----------*/
 .box_list_headline_comments_author{float:right; }
-.list_stories > li{border-radius:5px;background-color:#fcfcfc;border:1px solid #ced1d3;padding:6px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-bottom:10px;}
+.list_stories > li{border-radius:5px;background-color:#fcfcfc;border:1px solid #ced1d3;padding:6px 6px 0;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-bottom:10px;}
 .list_stories_lead > ul{list-style:disc; margin:15px;}
 .list_stories_avatar{float:left;margin-right:10px;border:1px solid #ced1d3;padding:1px;background-color:#eee;width:45px;height:45px;border-radius:5px;}
 .list_stories_headline{margin-bottom:2px;}
-.list_stories_headline > h2{font-weight:bold;font-size:13px;text-transform:uppercase;color:#35679a;margin:2px 0 2px;}
+.list_stories_headline > h2{font-weight:bold;font-size:13px;text-transform:uppercase;color:#35679a;margin:2px 0 2px;cursor:pointer;}
 .list_stories_headline_comments,
 .list_stories_headline_dx,
 .list_stories_headline_author{font-size:10px;font-weight:bold;margin-right:8px;float:left;}
@@ -208,7 +208,7 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 .list_stories_headline_data{float:right;clear:both;text-shadow:0 1px 1px #fff;font-size:14px;color:#35679A;font-weight:bold;word-wrap:break-word;}
 .list_stories_lead{clear:both;text-shadow:0 1px 1px #fff;font-size:11px;color:#505153;word-wrap:break-word;}
 .list_stories_lead > blockquote{font-style: italic;	font-family: Georgia, Times, "Times New Roman", serif;	padding: 2px 0;	border-style: solid;	border-color: #ccc;	border-width: 0; background: transparent url(../img/quote.gif) no-repeat; margin: 1em 20px; padding-left: 50px;}
-.list_stories_footer{background-color:#d5d9db;margin:0 -6px -6px;height:25px;}
+.list_stories_footer{background-color:#d5d9db;margin:0 -6px -6px;height:25px;border-radius:0 0 5px 5px;}
 .list_stories_footer  a{color:#4e739c;text-shadow:0 1px 1px #fff;font-size:12px; padding:0}
 .list_stories_footer_tags{float:left; margin-left:5px;}
 .list_stories_footer_call{color:#4887C6;font-size:12px}
@@ -289,22 +289,16 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 .list-stories-footer-tags{float:left;}
 .list-stories-footer-call{float:right;text-align:right;}
 
-<<<<<<< HEAD
 
-=======
 /* criar banner */
 #new_banner { color: #555;}
 #new_banner li { margin-bottom:7px;}
 
 #new_banner li label { display:inline-block; margin-right:5px; width:50px;}
-<<<<<<< HEAD
-}
->>>>>>> 15d9b6d7cd2fdc1f70a26f8134fc2486e6f655a7
-=======
+
 
 .img-banner img { max-width: 400px; max-height: 400px }
 
 .buttons{ margin-bottom: 20px; }
 
 .dados-banner { margin-bottom: 60px; margin-top: 10px; }
->>>>>>> 538065347a3f3a7a9b47b888823100742cab4a9b

@@ -116,7 +116,17 @@ dextranet.post = {
 	verConteudoPost : function() {
 		$("h2.titulo").click(function() {
 			var idDoPost = $(this).attr("class").substring(7);
-			$("div#" + idDoPost + "_post").slideToggle("fast");
+			$conteudoInicial = $("li." + idDoPost + " span.conteudo_inicial");
+			$conteudoCompleto = $("div#" + idDoPost + "_post");
+			if ($conteudoInicial.is(":visible")) {
+				$conteudoInicial.fadeOut("fast", function(){
+					$conteudoCompleto.slideToggle("fast");
+				});
+			} else {
+				$conteudoCompleto.slideToggle("fast", function(){
+					$conteudoInicial.fadeIn("fast");
+				});
+			}
 		});
 	},
 
