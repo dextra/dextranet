@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
-	<template selector="#content_left">
+	<template selector="#content_principal">
 		<form id="new_banner" method="post" enctype="multipart/form-data">
 			<input type="text" id="bannerTitulo" name="bannerTitulo" placeholder="Digite o título do banner" /><br/>
 			<input type="file" id="file" name="banner" /><br/>

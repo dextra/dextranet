@@ -32,17 +32,20 @@ dextranet.home = {
 	},
 
 	abrePaginaNovoBanner : function() {
+		dextranet.home.limpaPosts();
 		$.holy("../template/dinamico/abre_pagina_novo_banner.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_new_banner");
 	},
 
 	abrePaginaPerfil : function() {
+		dextranet.home.limpaPosts();
 		dextranet.perfil.obter(dextranet.usuario.id);
 		//$.holy("../template/dinamico/abre_pagina_perfil.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_profile");
 	},
 
 	abrePaginaEquipe : function() {
+		dextranet.home.limpaPosts();
 		dextranet.equipe.get();
 		//$.holy("../template/dinamico/abre_pagina_equipe.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_team");
@@ -100,5 +103,13 @@ dextranet.home = {
 			$("div.container_message_warning").empty();
 			$("div.container_message_warning").removeClass("container_message_warning");
 		}
+	},
+	
+	limpaPosts : function() {
+		$("ul#relacao_dos_posts").empty();
+	},
+	
+	limpaContentPrincipal : function() {
+		$("div#content_principal").empty();
 	}
 };
