@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
-	<template selector="#container_main">
+	<template selector="#content_left">
 		<p>Pagina: <b>Categoria</b> </p>
 	</template>
 </engine>

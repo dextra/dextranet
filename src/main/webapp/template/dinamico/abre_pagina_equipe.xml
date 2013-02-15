@@ -1,5 +1,5 @@
 <engine>
-	<template selector="#container_main">
+	<template selector="#content_left">
 
 	<!-- Sidebar do lado direito -->
 		<div id="sidebar-right" rel="section">

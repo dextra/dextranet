@@ -1,6 +1,10 @@
 <engine>
 
-	<template selector="#relacao_dos_posts" append="true">
+	<template selector="#content_left">
+			<div id="container_mensagem" class="clearfix"></div>
+			<div id="container_post" class="clearfix">
+			<ul class="list_stories" id="relacao_dos_posts">
+				
 			{for post in jsonArrayPost}
 			<li class="clearfix ${post.postObjectJson.id}">
 				<div class="box_list_headline_comments_author" >
@@ -48,6 +52,8 @@
 				</div>
 			</li>
 			{/for}
+			</ul>
+			</div>
 	</template>
 
 	<script>
