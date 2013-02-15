@@ -19,19 +19,21 @@ dextranet.home = {
 	},
 
 	abrePopUpNovoPost : function() {
+		
 		if (dextranet.home.EhVisivel('.sidebar_show_right.post')){
 			$(".sidebar_show_right.post").hide();
-			dextranet.home.setActiveMenuLateral("#sidebar_left_home");
+			dextranet.home.setActiveMenuLateral('#' + $antigo.attr('id'));
 		} else {
 			dextranet.home.limparAvisoPreenchaCampos();
 			$(".sidebar_show_right.post").show();
+			$antigo = $('#sidebar_left_menu li.active');
 			dextranet.home.setActiveMenuLateral("#sidebar_left_new_post");
 		}
 	},
 
 	abrePaginaNovoBanner : function() {
 		$.holy("../template/dinamico/abre_pagina_novo_banner.xml", {});
-		dextranet.home.setActiveMenuLateral("#sidebar_left_profile");
+		dextranet.home.setActiveMenuLateral("#sidebar_left_new_banner");
 	},
 
 	abrePaginaPerfil : function() {
