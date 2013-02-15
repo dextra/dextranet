@@ -73,7 +73,6 @@ public class CommentFuncionalTest extends PostTesteFuncionalUtils {
 	}
 
 	private void eOComentarioFoiCurtidoApenasUmaVez() {
-		System.out.println("sdfsadadfdfsdfadfgfsgbsdhaçdfkghçdfg");
 		WebElement curtidas = driver
 				.findElement(By.cssSelector("#relacao_dos_comentarios .linkCurtir .numero_curtida"));
 		Assert.assertEquals("1", curtidas.getText().toString());

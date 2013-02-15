@@ -72,7 +72,6 @@ public class PerfilRS {
 		 */
 
 		String situacao = repo.novo(perfil);
-		System.out.println(situacao);
 
 		//Paramos aqui, como o filtro procede daqui em diante?
 		return JsonUtil.stringify(perfil);

@@ -2,13 +2,11 @@
 <engine>
 	<template selector="#content_principal">
 
-	<fieldset>
+	<fieldset class="orderingButtons">
 	<legend>Ordenação</legend>
-		<li class="buttons">
 			<input id="ordering-initial-date" class="btNone" type="button" value="Data inicial de exibição"/>
 			<input id="ordering-final-date" class="btNone" type="button" value="Data final de exibição"/>
 			<input id="ordering-creation-date" class="btNone" type="button" value="Data de criação"/>
-		</li>
 	</fieldset>
 
 		<ul>
