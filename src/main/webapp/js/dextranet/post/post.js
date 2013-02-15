@@ -133,12 +133,7 @@ dextranet.post = {
 	atualizaPost : function(idDoPost) {
 		$.ajax( {
 			type : 'GET',
-			url : '/s/post',
-			data: {
-				"max-results" : 1,
-				"page" : 0,
-				"q" : idDoPost
-				},
+			url : '/s/post/' + idDoPost,
 			success : function(post) {
 				postObjectArray = postObject.getpostObjectArrayFromPostJsonArray(post);
 				$(postObjectArray).each(function(){

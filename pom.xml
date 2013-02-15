@@ -31,7 +31,7 @@
             <id>leguimas-repository</id>
             <url>https://github.com/leguimas/maven/raw/master/</url>
         </repository>
-    </repositories>
+      </repositories>
 
     <pluginRepositories>
         <pluginRepository>
