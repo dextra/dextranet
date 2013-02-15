@@ -70,14 +70,13 @@ dextranet.banner = {
 		},
 		
 		editarBanner : function(idDoBanner) {
-			console.log(idDoBanner)
 			var dados = {
 					"id" : idDoBanner,
 					"titulo" : $("#titulo_" + idDoBanner).val(),
 					"dataInicio" : $("#dataInicio_" + idDoBanner).val(),
 					"dataFim" : $("#dataFim_" + idDoBanner).val()
 			};
-			
+
 			$.ajax({
 				type : "POST",
 				url: "/s/banner/editar",

@@ -112,7 +112,6 @@ public class BannerRepository extends BaseRepository {
 
 		for (Entity entity : asIterable) {
 			Banner banner = new Banner(entity);
-			System.out.println("Banner " + banner.getTitulo() + " esta indisponivel");
 			banner.setJaTerminou(true);
 			criar(banner);
 		}
@@ -128,7 +127,6 @@ public class BannerRepository extends BaseRepository {
 
 		for (Entity entity : asIterable) {
 			Banner banner = new Banner(entity);
-			System.out.println("Banner " + banner.getTitulo() + " esta disponivel");
 			banner.setJaComecou(true);
 			criar(banner);
 		}

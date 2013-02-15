@@ -90,7 +90,6 @@ dextranet.comment = {
 	},
 
 	atualizaComentario : function(idComentario) {
-		console.log(idComentario);
 		$.ajax({
 			type : 'GET',
 			url : '/s/comment',
@@ -100,7 +99,6 @@ dextranet.comment = {
 			success : function(comment) {
 					commentObjectArray = postObject.getpostObjectArrayFromPostJsonArray(comment);
 					$(commentObjectArray).each(function() {
-						console.log($("span#" + idComentario));
 						$("li." + idComentario + " .numero_curtida").text(this.postObjectJson.likes);
 						$("li." + idComentario + " .comentario").attr("original-title", dextranet.curtir.replaceDoTipsy(this.postObjectJson.userLikes));
 					});
