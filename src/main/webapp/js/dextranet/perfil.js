@@ -1,33 +1,27 @@
 dextranet.perfil = {
 
-		getId : function() {
-			var tipo = "GET";
-			var path = "/s/perfil";
-			var operacao = "1";
-			//var dados = {};
-			dextranet.perfil.executar(tipo,path,operacao);
+		existeCampoIncompleto : function(dados) {
+			return (dados.name == "" || dados.phoneMobile == "");
 		},
 
-		validar : function(id) {
-			var tipo = "GET";
-			var path = "/s/perfil/obter/" + id;
-			var operacao = "4";
-			dextranet.perfil.executar(tipo,path,operacao);
+		init : function(id) {
+			dextranet.perfil.obter(id, true);
 		},
 
-		getPerfil : function(id) {
-			var tipo = "GET";
-			var path =  "/s/perfil/obter/" + id;
-			var operacao = "2";
-			//var dados = {};
-			console.info(id);
-			dextranet.perfil.executar(tipo,path,operacao);
+		obter : function(id, validar) {
+			$.ajax( {
+				type : "GET",
+				url : "/s/perfil/obter/" + id,
+				success : function(dados) {
+					if (validar !== true || dextranet.perfil.existeCampoIncompleto(dados)) {
+						$.holy("../template/dinamico/abre_pagina_perfil.xml", dados);
+					}
+				}
+			});
 		},
 
-		upload : function() {
-			var tipo = "POST";
-			var path =  "/s/perfil/inserir";
-			var operacao = "3";
+		inserir : function() {
+			//TODO Validar dados preenchidos via JS aqui..
 
 			var nameVal = $("#nameVal").val();
 			var areaVal = $("#areaVal").val();
@@ -48,31 +42,14 @@ dextranet.perfil = {
 					phoneResidence : residencialVal,
 					phoneMobile : celularVal
 			};
-			dextranet.perfil.executar(tipo,path,operacao,dados);
-		},
-
-		executar : function(tipo,path,operacao,dados) {
 
 			$.ajax( {
-				type : tipo,
-				url : path,
+				type : "POST",
+				url : "/s/perfil/inserir",
 				data : dados,
-				success : function(retorno) {
-					if(operacao == "1") {
-						console.info(retorno.id);
-						dextranet.perfil.getPerfil(retorno.id);
-					} else if(operacao == "2") {
-						console.info(retorno.userId);
-						console.info(retorno.name);
-						$.holy("../template/dinamico/abre_pagina_perfil.xml", retorno);
-					} else if(operacao == "3") {
-						dextranet.perfil.getPerfil(retorno.userId);
-						//$.holy("../template/dinamico/abre_pagina_perfil.xml", retorno);
-					} else if(operacao == "4") {
-						if (retorno.name == "" || retorno.phoneMobile == "") {
-								$.holy("../template/dinamico/abre_pagina_perfil.xml",retorno);
-						}
-					}
+				success : function(dados) {
+					$("#container_mensagem").empty();
+					$.holy("../template/estatico/mensagem_sucesso.xml", {});
 				}
 			});
 		}

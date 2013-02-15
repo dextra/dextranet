@@ -15,7 +15,7 @@
 	"link_readLess" : "Recolher",
 	"placeholder_comment" : "Digite seu comentário",
 	"button_comment" : "Comentar",
-	"success_message" : "Seu post foi inserido com sucesso!"
-
+	"success_message_post" : "Seu post foi inserido com sucesso!",
+	"success_message" : "Dados inseridos com sucesso!"
 	}
 }

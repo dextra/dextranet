@@ -118,9 +118,7 @@ public class GAETestHelper {
 		// adicionar data
 		insertData();
 
-		System.out.println();
-		System.out.println("Sistema funcionando!");
-		System.out.println();
+
 
 		return builder;
 	}
@@ -136,8 +134,7 @@ public class GAETestHelper {
 				"guilherme.vicente@dextra-sw.com", "3366-0718", "8111-4767",
 				"http://www.gpec.ucdb.br/pistori/orientacoes/fotos/guilhermeVicente.jpg"));
 
-		System.out.println();
-		System.out.println("Dados do usuário inseridos com sucesso no banco!");
+
 
 		areaRepository.inserir(new Area("Diretoria"));
 		areaRepository.inserir(new Area("Administrativo"));
@@ -148,15 +145,11 @@ public class GAETestHelper {
 		areaRepository.inserir(new Area("Desenvolvimento de Negócios"));
 		areaRepository.inserir(new Area("Treinamento"));
 
-		System.out.println();
-		System.out.println("Áreas inseridas com sucesso no banco!");
 
 		unidadeRepository.inserir(new Unidade("Campinas"));
 		unidadeRepository.inserir(new Unidade("Campo Grande"));
 
-		System.out.println();
-		System.out.println("Unidades inseridas com sucesso no banco!");
-		System.out.println();
+
 
 	}
 
