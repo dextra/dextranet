@@ -291,16 +291,15 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 
 
 /* criar banner */
-#new_banner { color: #555;}
-#new_banner li { margin-bottom:7px;}
+#new_banner{color:#555;}
+#new_banner li{margin-bottom:7px;}
 
-#new_banner li label { display:inline-block; margin-right:5px; width:50px;}
+#new_banner li label {display:inline-block;margin-right:5px;width:50px;}
 
+.listagem-banner .img-container{display:inline-block;height:100%;}
+.listagem-banner .img-container img{height:100%;}
+.listagem-banner .dados-banner{margin-bottom:60px;margin-top:10px;display:inline-block;}
+.listagem-banner > li {height:300px;margin-top:30px;vertical-align:top;}
 
-.img-banner img { max-width: 400px; max-height: 400px }
-
-.buttons{ margin-bottom: 20px; }
-
-.dados-banner { margin-bottom: 60px; margin-top: 10px; }
-
+.buttons{margin-bottom:20px;}
 .orderingButtons { margin-bottom: 20px; }
