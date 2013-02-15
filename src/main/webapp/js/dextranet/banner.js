@@ -11,6 +11,7 @@ dextranet.banner = {
 		},
 
 		listaBannersAtuais : function() {
+			$('#new-banner').hide();
 			$.ajax({
 				type : "GET",
 				url : "/s/banner",
@@ -38,7 +39,6 @@ dextranet.banner = {
 				$("#new-banner a img").eq(i).hide();
 			}
 			dextranet.banner.mudarBanner();
-			$('#new-banner').show();
 		},
 
 		mudarBanner : function() {
