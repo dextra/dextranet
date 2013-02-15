@@ -122,8 +122,10 @@ dextranet.banner = {
 				}
 			});
 			
-			$dataInicio.datepicker("setDate", novoBanner ? "Now" : "");
-			$dataFim.datepicker("setDate", novoBanner ? "Now" : "");
+			if(novoBanner) {
+				$dataInicio.datepicker("setDate", "Now");
+				$dataFim.datepicker("setDate", "Now");
+			}
 		},
 
 		ordenaBanners : function(orderBy, banners) {

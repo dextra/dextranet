@@ -13,6 +13,13 @@ dextranet.home = {
 		$.holy("../template/dinamico/carrega_miolo_home_page.xml", {});
 	},
 
+	carregaHome : function() {
+		dextranet.home.limpaPosts();
+		dextranet.home.limpaContentPrincipal();
+		dextranet.home.setActiveMenuLateral("#sidebar_left_home");
+		dextranet.post.listaPost("", 0);
+	},
+	
 	setActiveMenuLateral : function(id) {
 		$("#sidebar_left_menu > li").removeClass('active');
 		$(id).addClass("active");
