@@ -19,12 +19,14 @@
 	</template>
 	<script>
 		$(document).ready(function() {
+			$('#new-banner').hide();
 			dextranet.banner.resizeBanners();
 		});
 
 		$('#new-banner img:first').load(function() {
             dextranet.banner.mostrarBanners();
             $('#new-banner a.banner_link').tipsy({html:true, gravity:'s'});
+            $('#new-banner').show();
 		});
 	</script>
 </engine>
