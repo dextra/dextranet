@@ -3,11 +3,14 @@ package br.com.dextra.dextranet.rest.config;
 import java.util.HashSet;
 import java.util.Set;
 
+import br.com.dextra.dextranet.area.AreaRS;
 import br.com.dextra.dextranet.banner.BannerRS;
 import br.com.dextra.dextranet.comment.CommentRS;
 import br.com.dextra.dextranet.curtida.CurtidaRS;
 import br.com.dextra.dextranet.document.DocumentRS;
+import br.com.dextra.dextranet.perfil.PerfilRS;
 import br.com.dextra.dextranet.post.PostRS;
+import br.com.dextra.dextranet.unidade.UnidadeRS;
 import br.com.dextra.dextranet.usuario.UsuarioRS;
 
 public class Application extends javax.ws.rs.core.Application {
@@ -24,6 +27,9 @@ public class Application extends javax.ws.rs.core.Application {
 		classes.add(CommentRS.class);
 		classes.add(UsuarioRS.class);
 		classes.add(BannerRS.class);
+		classes.add(PerfilRS.class);
+		classes.add(AreaRS.class);
+		classes.add(UnidadeRS.class);
 		return classes;
 	}
 
