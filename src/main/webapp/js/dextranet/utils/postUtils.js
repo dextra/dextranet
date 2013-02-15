@@ -2,6 +2,6 @@ function conteudoDeExibicao(texto) {
 	
 	texto = dextranet.strip.tagHTML(texto);
 	
-	return texto.length > 150 ? texto.substring(0, 150) + "..." : texto;
+	return texto.length > 200 ? texto.substring(0, 200) + "..." : texto;
 	
 }
