@@ -28,7 +28,7 @@ dextranet.perfil = {
 
 			$('.required').each(function (){
 				if(this.value == ""){
-					alert("A");
+
 					$("#container_mensagem").empty();
 					$.holy("../template/estatico/menssagem_falta_campo_required.xml", {});
 					validar = false;

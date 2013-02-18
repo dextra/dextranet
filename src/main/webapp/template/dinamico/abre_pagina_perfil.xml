@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
-	<template selector="#content_principal">
+	<template selector="#container_main">
 
 		<div id="container_mensagem" class="clearfix"></div>
 
@@ -25,17 +25,26 @@
 				*Área:
 				<select id="areaVal">
 					{for areas in areasPossiveis}
-					<option value="${areas.name}">${areas.name}</option>
+						{if areas.name == area}
+							<option selected="selected">${areas.name}</option>
+						{else}
+					 		<option value="${areas.name}" >${areas.name}</option>
+						{/if}
 					{/for}
-				</select>
-				<span id="teste1">${area}</span><br />
+				</select><br />
+
 				*Unidade:
 				<select id="unitVal">
 					{for unidades in unidadesPossiveis}
-					<option value="${unidades.name}">${unidades.name}</option>
+
+						{if unidades.name == unit}
+							<option selected="selected">${unidades.name}</option>
+						{else}
+					 		<option value="${unidades.name}" >${unidades.name}</option>
+						{/if}
 					{/for}
-				</select>
-				<span id="teste2">${unit}</span><br />
+				</select><br />
+
 				Ramal:
 				<input type="text" id="ramalVal" name="ramal" value="${branch}" /><br />
 				Skype:
