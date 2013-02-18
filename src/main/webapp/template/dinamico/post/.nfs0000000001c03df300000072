@@ -4,7 +4,9 @@
 		<li>
 			<div id="container_message_warning_post"></div>
 			<form action="" id="form_new_post">
-				<input type="text" id="form_input_title" placeholder="${messages.placeholder_title_post}" name="title" maxlength="60"/>
+				<input width="98%" type="text" id="form_input_title"
+					placeholder="${messages.placeholder_title_post}" name="title"
+					maxlength="60"></input>
 				<br />
 				<textarea cols="50" id="form_input_content" style="resize:none;"
 					placeholder="${messages.placeholder_content_post}" name="content"></textarea>

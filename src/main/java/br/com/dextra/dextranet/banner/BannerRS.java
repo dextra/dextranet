@@ -3,6 +3,7 @@ package br.com.dextra.dextranet.banner;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -54,9 +55,11 @@ public class BannerRS {
 	@Produces("application/json;charset=UTF-8")
 	public void retornoDoGAE(@Context HttpServletRequest request, @Context HttpServletResponse response)
 			throws IOException {
-		@SuppressWarnings("deprecation")
-		Map<String, BlobKey> blobs = blobstoreService.getUploadedBlobs(request);
-		BlobKey blobKey = blobs.get("banner");
+		Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
+		List<BlobKey> listBlobs = blobs.get("banner");
+		BlobKey blobKey = null;
+		if (!listBlobs.isEmpty())
+			blobKey = listBlobs.get(0);		
 
 		try {
 			bannerRepository.criar(request.getParameter("bannerTitulo"), blobKey, request.getParameter("dataInicio"),

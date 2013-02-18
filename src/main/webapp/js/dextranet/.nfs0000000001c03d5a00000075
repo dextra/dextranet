@@ -13,39 +13,28 @@ dextranet.home = {
 		$.holy("../template/dinamico/carrega_miolo_home_page.xml", {});
 	},
 
-	carregaHome : function() {
-		dextranet.home.limpaPosts();
-		dextranet.home.limpaContentPrincipal();
-		dextranet.home.setActiveMenuLateral("#sidebar_left_home");
-		dextranet.post.listaPost("", 0);
-	},
-	
 	setActiveMenuLateral : function(id) {
 		$("#sidebar_left_menu > li").removeClass('active');
 		$(id).addClass("active");
 	},
 
 	abrePopUpNovoPost : function() {
-		
 		if (dextranet.home.EhVisivel('.sidebar_show_right.post')){
 			$(".sidebar_show_right.post").hide();
-			dextranet.home.setActiveMenuLateral('#' + $antigo.attr('id'));
+			dextranet.home.setActiveMenuLateral("#sidebar_left_home");
 		} else {
 			dextranet.home.limparAvisoPreenchaCampos();
 			$(".sidebar_show_right.post").show();
-			$antigo = $('#sidebar_left_menu li.active');
 			dextranet.home.setActiveMenuLateral("#sidebar_left_new_post");
 		}
 	},
 
 	abrePaginaNovoBanner : function() {
-		dextranet.home.limpaPosts();
 		$.holy("../template/dinamico/abre_pagina_novo_banner.xml", {});
-		dextranet.home.setActiveMenuLateral("#sidebar_left_new_banner");
+		dextranet.home.setActiveMenuLateral("#sidebar_left_profile");
 	},
 
 	abrePaginaPerfil : function() {
-		dextranet.home.limpaPosts();
 		dextranet.perfil.obter(dextranet.usuario.id);
 //		dextranet.perfil.init(dextranet.usuario.id);
 //		$.holy("../template/dinamico/abre_pagina_perfil.xml", {});
@@ -53,7 +42,6 @@ dextranet.home = {
 	},
 
 	abrePaginaEquipe : function() {
-		dextranet.home.limpaPosts();
 		dextranet.equipe.get();
 		//$.holy("../template/dinamico/abre_pagina_equipe.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_team");
@@ -111,13 +99,5 @@ dextranet.home = {
 			$("div.container_message_warning").empty();
 			$("div.container_message_warning").removeClass("container_message_warning");
 		}
-	},
-	
-	limpaPosts : function() {
-		$("ul#relacao_dos_posts").empty();
-	},
-	
-	limpaContentPrincipal : function() {
-		$("div#content_principal").empty();
 	}
 };

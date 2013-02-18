@@ -69,6 +69,13 @@ public class PostRS {
 	}
 
 	@Path("/{id}")
+	@GET
+	@Produces("application/json;charset=UTF-8")
+	public String buscaPostPorID(@PathParam(value = "id") String id) throws EntityNotFoundException {
+		return new PostRepository().obtemPorId(id).toJson().toString();
+	}
+	
+	@Path("/{id}")
 	@DELETE
 	@Produces("application/json;charset=UTF-8")
 	public Response removePost(@PathParam(value = "id") String id) {

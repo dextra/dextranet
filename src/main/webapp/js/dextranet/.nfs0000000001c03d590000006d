@@ -11,7 +11,6 @@ dextranet.banner = {
 		},
 
 		listaBannersAtuais : function() {
-			$('#new-banner').hide();
 			$.ajax({
 				type : "GET",
 				url : "/s/banner",
@@ -28,26 +27,41 @@ dextranet.banner = {
 			});
 			return false;
 		},
-
-		resizeBanners : function() {
-			var size = $('#content_right').width();
-			$('div#new-banner a img').css('max-width', (size - (size*.2))+ 'px');
-		},
-
+		
 		mostrarBanners : function() {
-			for(var i = 1; i < $("#new-banner a img").length; i++){
-				$("#new-banner a img").eq(i).hide();
+			for(var i = 1; i < $("#banner img").length; i++){
+				$("#banner img").eq(i).hide();
 			}
-			dextranet.banner.mudarBanner();
-		},
+			var $containerBanner = $("#container_banner");
+			var minimizado = !! $containerBanner.data('minimizado');
 
+			!minimizado ? dextranet.banner.mudarBanner() : function(){}; 
+				
+			
+			$("#banner .close").click(function() {
+				minimizado = !! $containerBanner.data('minimizado');
+				$containerBanner.animate({
+					bottom : (minimizado ? '+' : '-') + '='	+ $containerBanner.height()
+				}, 500, function() {
+					$containerBanner.data('minimizado', !minimizado);
+					$containerBanner.find('.close').text(minimizado ? '\\/' : '/\\');
+					if (minimizado)
+						dextranet.banner.mudarBanner();
+				});
+			});
+
+            $('#container_banner').show();
+		},
+		
 		mudarBanner : function() {
-			setTimeout(function() {	
-				var a = $('#new-banner a img').index($('#new-banner a img:visible'));
-				$('#new-banner a img').eq(a).hide();
-				$('#new-banner a img').eq($('#new-banner a img').length > a + 1 ? a + 1 : 0).fadeIn();
-				dextranet.banner.mudarBanner();
-			}, 15000);
+        	setTimeout(function() {	
+				var a = $('#banner img').index($('#banner img:visible'));
+        		$('#banner img').eq(a).hide();
+        		$('#banner img').eq($('#banner img').length > a + 1 ? a + 1 : 0).fadeIn();
+        		if(! $('#container_banner').data('minimizado')){
+        			dextranet.banner.mudarBanner();
+        		}
+        	}, 15000);
 		},
 		
 		listaBanners : function() {
@@ -70,13 +84,14 @@ dextranet.banner = {
 		},
 		
 		editarBanner : function(idDoBanner) {
+			console.log(idDoBanner)
 			var dados = {
 					"id" : idDoBanner,
 					"titulo" : $("#titulo_" + idDoBanner).val(),
 					"dataInicio" : $("#dataInicio_" + idDoBanner).val(),
 					"dataFim" : $("#dataFim_" + idDoBanner).val()
 			};
-
+			
 			$.ajax({
 				type : "POST",
 				url: "/s/banner/editar",
@@ -92,7 +107,7 @@ dextranet.banner = {
 			});
 		},
 		
-		inicializaDatepicker : function(novoBanner, formulario) {
+		inicializaDatepicker : function(novoPost, formulario) {
 			var $dataInicio = formulario ? formulario.children('.date-picker.inicio') : $dataInicio;
 			var $dataFim = formulario ? formulario.children('.date-picker.fim') : $dataFim; 
 			var dayNamesMin = [ "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab" ];
@@ -103,7 +118,7 @@ dextranet.banner = {
 				dayNamesMin: dayNamesMin,
 				monthNames: monthNames,
 				defaultDate: "0",
-				minDate: novoBanner ? "0" : "",
+				minDate: novoPost ? "0" : "",
 				onClose: function( selectedDate ) {
 					if(selectedDate != "")
 						$dataFim.datepicker( "option", "minDate", selectedDate );
@@ -115,16 +130,11 @@ dextranet.banner = {
 				dayNamesMin: dayNamesMin,
 				monthNames: monthNames,
 				defaultDate: "0",
-				minDate: novoBanner ? "0" : "",
+				minDate: novoPost ? "0" : "",
 				onClose: function( selectedDate ) {
 					$dataInicio.datepicker( "option", "maxDate", selectedDate );
 				}
 			});
-			
-			if(novoBanner) {
-				$dataInicio.datepicker("setDate", "Now");
-				$dataFim.datepicker("setDate", "Now");
-			}
 		},
 
 		ordenaBanners : function(orderBy, banners) {

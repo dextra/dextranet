@@ -116,24 +116,19 @@ dextranet.post = {
 	verConteudoPost : function() {
 		$("h2.titulo").click(function() {
 			var idDoPost = $(this).attr("class").substring(7);
-			$conteudoInicial = $("li." + idDoPost + " span.conteudo_inicial");
-			$conteudoCompleto = $("div#" + idDoPost + "_post");
-			if ($conteudoInicial.is(":visible")) {
-				$conteudoInicial.fadeOut("fast", function(){
-					$conteudoCompleto.slideToggle("fast");
-				});
-			} else {
-				$conteudoCompleto.slideToggle("fast", function(){
-					$conteudoInicial.fadeIn("fast");
-				});
-			}
+			$("div#" + idDoPost + "_post").slideToggle("fast");
 		});
 	},
 
 	atualizaPost : function(idDoPost) {
 		$.ajax( {
 			type : 'GET',
-			url : '/s/post/' + idDoPost,
+			url : '/s/post',
+			data: {
+				"max-results" : 1,
+				"page" : 0,
+				"q" : idDoPost
+				},
 			success : function(post) {
 				postObjectArray = postObject.getpostObjectArrayFromPostJsonArray(post);
 				$(postObjectArray).each(function(){

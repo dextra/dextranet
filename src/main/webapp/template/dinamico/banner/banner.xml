@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
-	<template selector="#banner" append="true">
-		<div class="close" >\/</div>
+	<template selector="#new-banner" append="true">
 			{for banner in jsonArrayBanner}
 				<![CDATA[
 				<a
@@ -19,9 +18,15 @@
 			{/for}	
 	</template>
 	<script>
-		$('#banner img:first').load(function() {
+		$(document).ready(function() {
+			$('#new-banner').hide();
+			dextranet.banner.resizeBanners();
+		});
+
+		$('#new-banner img:first').load(function() {
             dextranet.banner.mostrarBanners();
-            $('#banner a.banner_link').tipsy({html:true, gravity:'s'});
+            $('#new-banner a.banner_link').tipsy({html:true, gravity:'s'});
+            $('#new-banner').show();
 		});
 	</script>
 </engine>

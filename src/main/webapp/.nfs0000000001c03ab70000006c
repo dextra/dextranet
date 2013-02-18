@@ -49,7 +49,6 @@
 	<script type="text/javascript" src="js/dextranet/paginacao/query.js"></script>
 	<script type="text/javascript" src="js/dextranet/utils/dateUtils.js"></script>
 	<script type="text/javascript" src="js/dextranet/utils/HTMLClean.js"></script>
-	<script type="text/javascript" src="js/dextranet/utils/postUtils.js"></script>
 
 <title>Dextranet</title>
 
@@ -58,12 +57,16 @@
 			dextranet.settings.inicializa();
             dextranet.home.inicializa();
             dextranet.paginacao;
+
+            $('#container_banner').hide();
+
             dextranet.banner.listaBannersAtuais();
 		});
 </script>
 
 </head>
 <body>
+
 	<div id="container">
 		<div id="header_placeholder"></div>
 		<div id="header_container" rel="section">
@@ -83,7 +86,10 @@
 			</div>
 		</div>
 		<div id="sidebar_left" rel="section"></div>
-		<div id="container_main" rel="section" class="clearfix">
+		<div id="container_main" rel="section" class="clearfix"></div>
+	</div>
+	<div id="container_banner" class="clearfix">
+		<div id="banner">
 		</div>
 	</div>
 </body>

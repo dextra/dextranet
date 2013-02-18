@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
-	<template selector="#content_principal">
+	<template selector="#container_main">
 
 		<div id="container_mensagem" class="clearfix"></div>
 
