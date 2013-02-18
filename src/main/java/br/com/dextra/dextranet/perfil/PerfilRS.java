@@ -74,7 +74,6 @@ public class PerfilRS {
 		} else {
 			return null;
 		}
-
 	}
 
 	@Path("/obter/{id}")
