@@ -20,19 +20,10 @@ public class Data {
 		return simpleDateFormat.format(data);
 	}
 
-	@SuppressWarnings("deprecation")
-	public String randomizaDiaDaData(Date data) {
-		Date dataAtualiza = data;
-		int day = (int) (Math.random() * (30 + 1));
-		dataAtualiza.setDate(day);
-		return null;
-	}
-
-	@SuppressWarnings("deprecation")
 	public String setSegundoDaData(int seg) {
-		Date data = new Date();
-		data.setSeconds(seg);
-		return formataDataPelaBiblioteca(data);
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.SECOND, seg);
+		return formataDataPelaBiblioteca(c.getTime());
 	}
 
 	public static Date ultimoSegundoDeHoje() {

@@ -1,6 +1,6 @@
 package br.com.dextra.dextranet.comment;
 
-import java.util.Date;
+import java.util.Calendar;
 
 import br.com.dextra.dextranet.curtida.Curtida;
 import br.com.dextra.dextranet.persistencia.Conteudo;
@@ -69,12 +69,10 @@ public class Comment extends Conteudo implements ConteudoIndexavel {
         return this.userLikes;
     }
 
-    @SuppressWarnings("deprecation")
     public void setSgundoDaDataDeCriacao(int segundo) {
-        Date data = new Date();
-        // FIXME: metodo depreciado
-        data.setSeconds(segundo);
-        this.dataDeCriacao = new Data().formataDataPelaBiblioteca(data);
+    	Calendar c = Calendar.getInstance();
+    	c.set(Calendar.SECOND, segundo);
+        this.dataDeCriacao = new Data().formataDataPelaBiblioteca(c.getTime());
     }
 
     @Override
