@@ -67,22 +67,13 @@ public class PerfilRS {
 				area, unit, branch, skype, gTalk, phoneResidence, phoneMobile,
 				image);
 
-<<<<<<< HEAD
-		if (name != null && !name.isEmpty() || phoneMobile != null && !phoneMobile.isEmpty()) {
+		if (name != null && !name.isEmpty() || phoneMobile != null
+				&& !phoneMobile.isEmpty()) {
 			repo.novo(perfil);
 			return JsonUtil.stringify(perfil);
 		} else {
 			return null;
 		}
-=======
-		/*
-		 * Encontrar uma forma de setar o nickName, pois não controlamos a User.
-		 */
-
-		//Paramos aqui, como o filtro procede daqui em diante?
-		return JsonUtil.stringify(perfil);
-
->>>>>>> febd2c7fe338279c7409db13f12704a013234607
 	}
 
 	@Path("/obter/{id}")
