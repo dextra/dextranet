@@ -298,8 +298,8 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 
 .listagem-banner .img-container{display:inline-block;height:100%;}
 .listagem-banner .img-container img{height:100%;}
-.listagem-banner .dados-banner{margin-bottom:60px;margin-top:10px;display:inline-block;}
-.listagem-banner > li {height:300px;margin-top:30px;vertical-align:top;}
+.listagem-banner .dados-banner{display:inline-block;vertical-align:top;}
+.listagem-banner > li {height:300px;margin-top:30px;vertical-align:top;margin-bottom:60px;margin-top:10px;}
 
 .buttons{margin-bottom:20px;}
 .orderingButtons { margin-bottom: 20px; }
