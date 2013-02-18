@@ -32,12 +32,11 @@ public class CommentRepository extends BaseRepository {
 		return comment;
 	}
 
-	@SuppressWarnings("deprecation")
 	public List<Comment> listarCommentsDeUmPost(String IdReference) {
 
 		Query query = new Query(Comment.class.getName());
 
-		query.addFilter(CommentFields.ID_REFERENCE.getField(), FilterOperator.EQUAL, IdReference);
+		query.setFilter(FilterOperator.EQUAL.of(CommentFields.ID_REFERENCE.getField(), IdReference));
 
 		query.addSort(CommentFields.DATA_DE_CRIACAO.getField(), SortDirection.ASCENDING);
 
@@ -84,12 +83,11 @@ public class CommentRepository extends BaseRepository {
 
 	}
 
-	@SuppressWarnings("deprecation")
 	public List<Comment> pegaCommentPorId(String idComment) {
 
 		Query query = new Query(Comment.class.getName());
-
-		query.addFilter(CommentFields.ID.getField(), FilterOperator.EQUAL, idComment);
+		
+		query.setFilter(FilterOperator.EQUAL.of(CommentFields.ID.getField(), idComment));
 
 		PreparedQuery prepared = datastore.prepare(query);
 
