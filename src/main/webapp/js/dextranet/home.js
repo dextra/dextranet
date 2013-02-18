@@ -36,7 +36,8 @@ dextranet.home = {
 
 	abrePaginaPerfil : function() {
 		dextranet.perfil.obter(dextranet.usuario.id);
-		//$.holy("../template/dinamico/abre_pagina_perfil.xml", {});
+//		dextranet.perfil.init(dextranet.usuario.id);
+//		$.holy("../template/dinamico/abre_pagina_perfil.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_profile");
 	},
 

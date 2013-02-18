@@ -30,8 +30,6 @@ import com.googlecode.mycontainer.web.FilterDesc;
 import com.googlecode.mycontainer.web.WebServerDeployer;
 import com.googlecode.mycontainer.web.jetty.JettyServerDeployer;
 
-//import com.google.appengine.api.search.dev.LocalSearchService;
-
 public class GAETestHelper {
 
 	private static final Logger LOG = LoggerFactory
@@ -118,8 +116,6 @@ public class GAETestHelper {
 		// adicionar data
 		insertData();
 
-
-
 		return builder;
 	}
 
@@ -129,10 +125,10 @@ public class GAETestHelper {
 		AreaRepository areaRepository = new AreaRepository();
 		UnidadeRepository unidadeRepository = new UnidadeRepository();
 
-		perfilRepository.novo(new Perfil("10", "Guilherme", "guilherme.vicente",
-				"Desenvolvimento", "Campo Grande", "21", "guilhermedextra",
-				"guilherme.vicente@dextra-sw.com", "3366-0718", "8111-4767",
-				"http://www.gpec.ucdb.br/pistori/orientacoes/fotos/guilhermeVicente.jpg"));
+		perfilRepository.novo(new Perfil("10", "testName", "testNickName",
+				"testArea", "testUnit", "00", "testSkype",
+				"testGTalk", "testPhoneResidence", "testPhoneMobile",
+				"http://www.agilebrazil.com/2012/wp-content/uploads/2012/04/logo_dextra_vertical.png"));
 
 
 

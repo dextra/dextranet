@@ -27,14 +27,14 @@
 					{for areas in areasPossiveis}
 					<option value="${areas.name}">${areas.name}</option>
 					{/for}
-				</select><br />
+				</select>
 				<span id="teste1">${area}</span><br />
 				*Unidade:
 				<select id="unitVal">
 					{for unidades in unidadesPossiveis}
 					<option value="${unidades.name}">${unidades.name}</option>
 					{/for}
-				</select><br />
+				</select>
 				<span id="teste2">${unit}</span><br />
 				Ramal:
 				<input type="text" id="ramalVal" name="ramal" value="${branch}" /><br />

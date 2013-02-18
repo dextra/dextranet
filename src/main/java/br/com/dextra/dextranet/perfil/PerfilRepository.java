@@ -19,14 +19,14 @@ public class PerfilRepository {
 	private DatastoreService datastore = DatastoreServiceFactory
 			.getDatastoreService();
 
-	public String novo(Perfil perfil) {
+	public void novo(Perfil perfil) {
 
 		try {
 			validarPerfil(perfil);
 			this.datastore.put(perfil.toEntity());
-			return "Perfil inserido com sucesso";
+//			return "Perfil inserido com sucesso";
 		} catch (Exception e) {
-			return "Erro ao inserir";
+//			return "Erro ao inserir";
 		}
 	}
 
