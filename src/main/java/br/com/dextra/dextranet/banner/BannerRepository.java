@@ -17,6 +17,10 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.images.Image;
+import com.google.appengine.api.images.ImagesService;
+import com.google.appengine.api.images.ImagesServiceFactory;
+import com.google.appengine.api.images.Transform;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
 
@@ -140,6 +144,17 @@ public class BannerRepository extends BaseRepository {
 				flagOperator.of(campoData, Data.primeiroSegundoDeHoje())));
 
 		return query;
+	}
+
+	public Image transformaImagem(String id) {
+		BlobKey blobKey = this.obterPorID(id).getBlobKey();
+		
+		ImagesService imagesService = ImagesServiceFactory.getImagesService();
+
+	    Image oldImage = ImagesServiceFactory.makeImageFromBlob(blobKey);
+	    Transform resize = ImagesServiceFactory.makeResize(300, 70);
+	    
+	    return imagesService.applyTransform(resize, oldImage);
 	}
 
 }

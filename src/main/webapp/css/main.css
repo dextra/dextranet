@@ -183,13 +183,12 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 #container_banner{bottom:0;left:0;width:100%;text-align:center;position:fixed;}
 
 
-#content_left{margin-right:310px;}
-#content_right{width:280px;position:absolute;top:0;right:10px;}
+#content_left{margin-right:350px;}
+#content_right{width:330px;position:absolute;top:0;right:10px;}
 
 #banner{padding:5px 5px 0;position:relative;border:solid 1px #d9dbdd;display:inline-block;border-radius:5px 5px 0 0;}
 
 #banner .close{border-radius: 10px 10px 0 0;left: 50%;padding: 7px 7px 0 7px;position: absolute;top: -27px; border:solid 1px #d9dbdd; border-bottom: none;}
-#banner img {height: 200px;}
 
 /*----------  Listagem de estórias de usuários  ----------*/
 .box_list_headline_comments_author{float:right; }

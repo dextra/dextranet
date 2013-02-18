@@ -28,27 +28,6 @@ dextranet.banner = {
 			});
 			return false;
 		},
-
-		resizeBanners : function() {
-			var size = $('#content_right').width();
-			$('div#new-banner a img').css('max-width', (size - (size*.2))+ 'px');
-		},
-
-		mostrarBanners : function() {
-			for(var i = 1; i < $("#new-banner a img").length; i++){
-				$("#new-banner a img").eq(i).hide();
-			}
-			dextranet.banner.mudarBanner();
-		},
-
-		mudarBanner : function() {
-			setTimeout(function() {	
-				var a = $('#new-banner a img').index($('#new-banner a img:visible'));
-				$('#new-banner a img').eq(a).hide();
-				$('#new-banner a img').eq($('#new-banner a img').length > a + 1 ? a + 1 : 0).fadeIn();
-				dextranet.banner.mudarBanner();
-			}, 15000);
-		},
 		
 		listaBanners : function() {
 			$.ajax({
