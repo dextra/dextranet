@@ -1,7 +1,6 @@
 package br.com.dextra.dextranet.cron;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,7 +27,6 @@ public class BannerCronServlet extends HttpServlet {
 
 	public void atualizaFlags() {
 		BannerRepository bannerRepository = new BannerRepository();
-		System.out.println("Cron executado as " + new Date());
 		bannerRepository.atualizaFlags();
 	}
 }
