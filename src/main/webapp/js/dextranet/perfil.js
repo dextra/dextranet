@@ -22,13 +22,11 @@ dextranet.perfil = {
 
 		inserir : function() {
 
-			//TODO Validar dados preenchidos via JS aqui..
-
 			var validar = true;
 
 			$('.required').each(function (){
-				if(this.value == ""){
-
+				if(this.value.length < 3 || this.value == "" || this.value == " " || this.value == "  "
+					|| this.value == "   " || this.value == null){
 					$("#container_mensagem").empty();
 					$.holy("../template/estatico/menssagem_falta_campo_required.xml", {});
 					validar = false;
@@ -55,7 +53,6 @@ dextranet.perfil = {
 						gTalk : gTalkVal,
 						phoneResidence : residencialVal,
 						phoneMobile : celularVal,
-
 					};
 
 				$.ajax( {
@@ -63,8 +60,6 @@ dextranet.perfil = {
 					url : "/s/perfil/inserir",
 					data : dados,
 					success : function(dados) {
-
-						console.info(dados);
 						$("#container_mensagem").empty();
 						$.holy("../template/estatico/mensagem_sucesso.xml", {});
 					}
