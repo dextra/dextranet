@@ -1,0 +1,26 @@
+<engine>
+
+	<template selector="#container_main">
+
+		<div id="content_left" class="block-white">
+			-- Conteúdo central --
+			<div id="container_mensagem" class="clearfix"></div>
+			<div id="container_post" class="clearfix">
+				<ul class="list_stories" id="relacao_dos_posts">
+				</ul>
+			</div>
+		</div>
+
+		<div id="content_right">
+			<div class="block-white">
+				-- Sidebar --
+			</div>
+		</div>
+
+	</template>
+
+	<script>
+		numeroDaPagina.setPaginaInicial();
+		$('#form_search').submit(dextranet.post.buscaPost);
+	</script>
+</engine>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<template selector="#header_main_menu">
+		<li id="header_main_menu_logo">
+			<a href="#">
+				<span class="icon_header_logo"></span>
+			</a>
+		</li>
+		<li>
+			<a href="https://dextranet.dextra.com.br/pma">
+				PMA
+			</a>
+		</li>
+		<li>
+			<a href="https://dextranet.dextra.com.br/tracker/ti/newticket">
+				Infra
+			</a>
+		</li>
+		<li>
+			<a href="https://dextranet.dextra.com.br/wiki/wiki">
+				Wiki
+			</a>
+		</li>
+		<li>
+			<a href="https://dextranet.dextra.com.br/portal/ramais">
+				Ramais
+			</a>
+		</li>
+		<li id="header_main_menu_outros">
+			<a href="#">
+				${messages.menu_others}
+				<span class="shape_arrow_right"></span>
+				<span class="shape_arrow_down"></span>
+			</a>
+			<ul class="header_dropdown">
+				<li>
+					<a href="http://dextra-dexboard.appspot.com/">Dexboard</a>
+				</li>
+				<li>
+					<a href="https://dextranet.dextra.com.br/dextraminds">Minds</a>
+				</li>
+				<li>
+					<a href="https://redmine.dextra.com.br">Redmine</a>
+				</li>
+			</ul>
+		</li>
+	</template>
+</engine>
