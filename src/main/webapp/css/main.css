@@ -289,6 +289,8 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 .list-stories-footer-call{float:right;text-align:right;}
 
 
+.content-right .tipsy, .content-right .tipsy-arrow {top: +20px;}
+
 /* criar banner */
 #new_banner{color:#555;}
 #new_banner li{margin-bottom:7px;}

@@ -3,21 +3,15 @@ package br.com.dextra.dextranet.banner;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.InputStream;
-import java.net.URL;
 import java.text.ParseException;
 import java.util.Calendar;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
 import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.datastore.PreparedQuery.TooManyResultsException;
-import com.google.appengine.api.images.ImagesServiceFactory;
 
 public class BannerRepositoryTest extends TesteIntegracaoBase {
 

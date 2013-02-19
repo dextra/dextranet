@@ -17,9 +17,12 @@
 				]]>
 			{/for}	
 	</template>
+	<!-- FIXME 
+	Mudar a posição do tipsy do banner
+		 -->
 	<script>
 		$('#new-banner img:first').load(function() {
-            $('#new-banner a.banner_link').tipsy({html:true, gravity:'s'});
+            $('#new-banner a.banner_link').tipsy({html:true, gravity:'n'});
 		});
 	</script>
 </engine>
