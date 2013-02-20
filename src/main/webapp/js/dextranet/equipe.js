@@ -21,7 +21,7 @@ dextranet.equipe = {
 		getNome : function () {
 			var tipo = "POST";
 			var path = "/s/perfil/obterPorNome";
-			var nameVal = $("#form_search_input").val();
+			var nameVal = $("#form_search_input_name").val();
 			var dados = {
 				name : nameVal
 			};
@@ -35,7 +35,7 @@ dextranet.equipe = {
 				type : tipo,
 				url : path,
 				data : dados,
-				//async : false,
+//				async : false,
 				success : function(retorno) {
 					$.holy("../template/dinamico/abre_pagina_equipe.xml",{"todos" : retorno});
 				}

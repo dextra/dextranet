@@ -8,6 +8,7 @@
 	"placeholder_content_post" : "Digite o conteúdo do novo post",
 	"button_newPost" : "Postar",
 	"placeholder_pesquisa" : "Procurar postagens e pessoas...",
+	"placeholder_pesquisa_equipe" : "Procurar por nome...",
 	"warning_message" : "Preencha todos os campos!",
 	"logout" : "Sair",
 	"menu_others" : "Outros",

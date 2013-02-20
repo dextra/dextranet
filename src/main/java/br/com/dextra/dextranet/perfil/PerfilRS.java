@@ -94,6 +94,7 @@ public class PerfilRS {
 	public String getDadosEquipeNome(@FormParam("name") String name)
 			throws EntityNotFoundException {
 		List<Perfil> equipe = repo.obterPorNome(name);
+//		System.out.println(equipe);
 		return JsonUtil.stringify(equipe);
 	}
 

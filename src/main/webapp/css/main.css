@@ -80,6 +80,8 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 
 #form_search{position:relative;z-index:2;}
 #form_search_input{padding-right:25px;width:250px;position:relative;z-index:3;font-size:13px;padding:4px 35px 4px 10px;}
+#form_search_input_name{padding-right:25px;width:250px;position:relative;z-index:3;font-size:13px;padding:4px 35px 4px 10px;}
+#form_search_submit_name{background-color:transparent;box-shadow:0 0 0 transparent;border:0;background:url('../img/main-bundle.png') -46px -115px;position:absolute;z-index:4;cursor:pointer;right:25px;top:4px;width:22px;height:22px;}
 #form_search_submit{background-color:transparent;box-shadow:0 0 0 transparent;border:0;background:url('../img/main-bundle.png') -46px -115px;position:absolute;z-index:4;cursor:pointer;right:25px;top:4px;width:22px;height:22px;}
 #form_search_input:focus + #form_search_submit{background-position:-65px -115px;}
 
