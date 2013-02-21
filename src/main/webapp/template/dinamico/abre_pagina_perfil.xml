@@ -24,10 +24,10 @@
 				*Apelido:
 				<span id="nickNameVal">${nickName}</span><br />
 				*Área:
-				<select id="areaVal">
+				<select id="areaVal" class="required" >
 					{for areas in areasPossiveis}
 						{if areas.name == area}
-							<option selected="selected">${areas.name}</option>
+							<option selected="selected">${areas.name} </option>
 						{else}
 					 		<option value="${areas.name}" >${areas.name}</option>
 						{/if}
@@ -35,7 +35,7 @@
 				</select><br />
 
 				*Unidade:
-				<select id="unitVal">
+				<select id="unitVal" class="required" >
 					{for unidades in unidadesPossiveis}
 
 						{if unidades.name == unit}

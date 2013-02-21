@@ -5,7 +5,7 @@ dextranet.perfil = {
 		},
 
 		existeCampoIncompleto : function(dados) {
-			return (dados.name == "" || dados.phoneMobile == "");
+			return (dados.name == "" || dados.phoneMobile == "" || dados.area == "" || dados.unit == "");
 		},
 
 		init : function(id) {

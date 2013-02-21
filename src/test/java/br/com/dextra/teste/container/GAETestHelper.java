@@ -144,7 +144,7 @@ public class GAETestHelper {
 		areaRepository.inserir(new Area("Treinamento"));
 
 
-		unidadeRepository.inserir(new Unidade(""));
+		unidadeRepository.inserir(new Unidade(" "));
 		unidadeRepository.inserir(new Unidade("Campinas"));
 		unidadeRepository.inserir(new Unidade("Campo Grande"));
 
