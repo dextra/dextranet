@@ -34,7 +34,7 @@
 		
 		$(".form-editar-banner").submit(function(){
 			var form = $(this);
-			dextranet.banner.editarBanner($(form).attr("class").substring(19));
+			dextranet.banner.editarBanner($(form).attr("id"));
 			return false;
 		});
 

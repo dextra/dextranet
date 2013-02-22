@@ -123,9 +123,11 @@ public class BannerRS {
 			@FormParam("dataFim") String dataFim,
 			@FormParam("link") String link,
 			@Context HttpServletResponse response) throws IOException {
-
+		
 		Banner banner = bannerRepository.obterPorID(id);
 
+		System.out.println("BANNER ANTES EDIÇÂO: " + banner.toJson().toString());
+		
 		try {
 			banner.setTitulo(titulo);
 			banner.setDataInicio(Data.primeiroSegundo(Data
@@ -136,7 +138,12 @@ public class BannerRS {
 			banner.setDataDeAtualizacao(new Date());
 			banner.setBannerNovo(false);
 			banner.setLink(link);
+			
+			banner = bannerRepository.atualizaFlagsDepoisDaEdicao(banner);
+			
 			bannerRepository.criar(banner);
+			
+			bannerRepository.atualizaFlags();
 		} catch (ParseException e) {
 			setReponseStatus(response, HttpServletResponse.SC_BAD_REQUEST,
 					"Data mal formatada.");
