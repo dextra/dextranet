@@ -1,7 +1,11 @@
 dextranet.perfil = {
 
+		limpaTela : function (){
+			$("#container_mensagem").html("");
+		},
+
 		existeCampoIncompleto : function(dados) {
-			return (dados.name == "" || dados.phoneMobile == "");
+			return (dados.name == "" || dados.phoneMobile == "" || dados.area == "" || dados.unit == "");
 		},
 
 		init : function(id) {
@@ -27,8 +31,9 @@ dextranet.perfil = {
 			$('.required').each(function (){
 				if(this.value.length < 3 || this.value == "" || this.value == " " || this.value == "  "
 					|| this.value == "   " || this.value == null){
-					$("#container_mensagem").empty();
+					$("#container_mensagem").html("");
 					$.holy("../template/estatico/menssagem_falta_campo_required.xml", {});
+					setTimeout("dextranet.perfil.limpaTela()", 4000);
 					validar = false;
 					return;
 				}
@@ -62,6 +67,7 @@ dextranet.perfil = {
 					success : function(dados) {
 						$("#container_mensagem").empty();
 						$.holy("../template/estatico/mensagem_sucesso.xml", {});
+						setTimeout("dextranet.perfil.limpaTela()", 4000);
 					}
 				});
 			}

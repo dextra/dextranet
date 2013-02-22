@@ -19,14 +19,14 @@ dextranet.home = {
 		dextranet.home.setActiveMenuLateral("#sidebar_left_home");
 		dextranet.post.listaPost("", 0);
 	},
-	
+
 	setActiveMenuLateral : function(id) {
 		$("#sidebar_left_menu > li").removeClass('active');
 		$(id).addClass("active");
 	},
 
 	abrePopUpNovoPost : function() {
-		
+
 		if (dextranet.home.EhVisivel('.sidebar_show_right.post')){
 			$(".sidebar_show_right.post").hide();
 			dextranet.home.setActiveMenuLateral('#' + $antigo.attr('id'));
@@ -112,11 +112,11 @@ dextranet.home = {
 			$("div.container_message_warning").removeClass("container_message_warning");
 		}
 	},
-	
+
 	limpaPosts : function() {
 		$("ul#relacao_dos_posts").empty();
 	},
-	
+
 	limpaContentPrincipal : function() {
 		$("div#content_principal").empty();
 	}

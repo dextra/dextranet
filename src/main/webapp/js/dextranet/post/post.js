@@ -1,6 +1,10 @@
 dextranet.post = {
 
-	inicializa : function() {
+		limpaTela : function (){
+			$("#container_mensagem").html("");
+		},
+
+		inicializa : function() {
 		dextranet.post.verConteudoPost();
 		dextranet.comment.inicializa();
 		$('.linkCurtir').tipsy({html:true});
@@ -21,6 +25,7 @@ dextranet.post = {
 			url : url,
 			data : busca,
 			success : function(posts) {
+				setTimeout("dextranet.post.limpaTela()", 4000);
 				if(posts.length > 0){
 					postObjectArray = postObject.getpostObjectArrayFromPostJsonArray(posts);
 					$(postObjectArray).each(function(){
@@ -28,7 +33,7 @@ dextranet.post = {
 					});
 
 					dextranet.post.carregaTemplatePost(postObjectArray);
-					
+
 				}
 				if(posts.length < 20) {
 					dextranet.paginacao.acabouOsPosts = true;
@@ -75,15 +80,17 @@ dextranet.post = {
 					dextranet.post.limpaTelaPost();
 					$("#container_mensagem").empty();
 					$.holy("../template/dinamico/post/mensagem_sucesso.xml", {});
+					setTimeout("dextranet.post.limpaTela()", 4000);
 					$("#relacao_dos_posts").empty();
-					dextranet.paginacao.resetPaginacao();
-					dextranet.post.listaPost("", 0);
+					dextranet.home.carregaHome();//unica alteracao
+//					dextranet.paginacao.resetPaginacao();
+//					dextranet.post.listaPost("", 0);
 				}
 			});
 		}
 		return false;
 	},
-	
+
 	removeTodosOsPosts:function() {
 		$.ajax( {
 			type : "GET",

@@ -6,10 +6,11 @@
 
 		</div><!-- #sidebar-right -->
 
-		<form id="form-search">
-			<input type="text" placeholder="${messages.placeholder_pesquisa}" id="form_search_input" />
-			<input type="submit" value="" title="Procurar!" onclick="dextranet.equipe.getNome()" id="form_search_submit" />
+		 <form id="form-search">
+			<input type="text" placeholder="${messages.placeholder_pesquisa_equipe}" id="form_search_input_name" />
+			<input type="submit" value="" onclick="dextranet.equipe.getNome()" id="form_search_submit_name" />
 		</form>
+
 
 		<!-- #menu abcd -->
 		<ul class="list-menu-abcd">
