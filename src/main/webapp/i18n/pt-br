@@ -17,6 +17,7 @@
 	"placeholder_comment" : "Digite seu comentário",
 	"button_comment" : "Comentar",
 	"success_message_post" : "Seu post foi inserido com sucesso!",
+	"success_message_banner" : "Seu banner foi inserido com sucesso!",
 	"success_message" : "Dados inseridos com sucesso!",
 	"campo_required" : "Campo(s) obrigatório(s) não preenchido(s)!"
 	}

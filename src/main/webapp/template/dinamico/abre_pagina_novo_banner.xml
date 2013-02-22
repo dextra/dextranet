@@ -12,7 +12,7 @@
 		<a class="margin_top" href="#" id="link_abre_banners">Exibir todos os Banners</a>		
 	</template>
 	<script>
-    	dextranet.banner.inicializaDatepicker(true, $('form#new_banner'));
+    	dextranet.banner.inicializaDatepicker(true, $('form#new_banner').find("#bannerDataInicio"), $('form#new_banner').find("#bannerDataFim"));
 		$("#new_banner input[type=button]").click(dextranet.banner.novoBanner);
 		$("#link_abre_banners").click(dextranet.banner.listaBanners);
 	</script>

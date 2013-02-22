@@ -117,15 +117,17 @@ public class BannerRS {
 	@Path("/editar")
 	@POST
 	@Produces("application/json;charset=UTF-8")
-	public void editarBanner(@FormParam("id") String id,
+	public void editarBanner(
+			@FormParam("id") String id,
 			@FormParam("titulo") String titulo,
 			@FormParam("dataInicio") String dataInicio,
 			@FormParam("dataFim") String dataFim,
 			@FormParam("link") String link,
 			@Context HttpServletResponse response) throws IOException {
-
+		
 		Banner banner = bannerRepository.obterPorID(id);
 
+		
 		try {
 			banner.setTitulo(titulo);
 			banner.setDataInicio(Data.primeiroSegundo(Data
@@ -136,7 +138,12 @@ public class BannerRS {
 			banner.setDataDeAtualizacao(new Date());
 			banner.setBannerNovo(false);
 			banner.setLink(link);
+			
+			banner = bannerRepository.atualizaFlagsDepoisDaEdicao(banner);
+			
 			bannerRepository.criar(banner);
+			
+			bannerRepository.atualizaFlags();
 		} catch (ParseException e) {
 			setReponseStatus(response, HttpServletResponse.SC_BAD_REQUEST,
 					"Data mal formatada.");

@@ -90,11 +90,10 @@ public class BannerRepository extends BaseRepository {
 		return listaDeBanners;
 	}
 
-	@SuppressWarnings("deprecation")
 	public Banner obterPorID(String id) {
 		Query query = new Query(Banner.class.getName());
 
-		query.addFilter(BannerFields.ID.getField(), FilterOperator.EQUAL, id);
+		query.setFilter(FilterOperator.EQUAL.of(BannerFields.ID.getField(), id));
 
 		PreparedQuery prepared = datastore.prepare(query);
 
@@ -102,38 +101,64 @@ public class BannerRepository extends BaseRepository {
 	}
 
 	public void atualizaFlags() {
-		atualizaFlagJaComecou();
-		atualizaFlagJaTerminou();
+		atualizaFlagJaTerminou(BannerFields.JA_TERMINOU.getField(), FilterOperator.LESS_THAN,
+				BannerFields.DATA_FIM.getField(), new Boolean(true));
+		atualizaFlagJaComecou(BannerFields.JA_COMECOU.getField(), FilterOperator.LESS_THAN_OR_EQUAL,
+				BannerFields.DATA_INICIO.getField(), new Boolean(true));
 	}
 
-	public void atualizaFlagJaTerminou() {
-
-		Query query = criaQuery(BannerFields.JA_TERMINOU.getField(), FilterOperator.LESS_THAN,
-				BannerFields.DATA_FIM.getField());
-
-		PreparedQuery prepared = datastore.prepare(query);
-		Iterable<Entity> asIterable = prepared.asIterable();
-
-		for (Entity entity : asIterable) {
-			Banner banner = new Banner(entity);
+	public Banner atualizaFlagsDepoisDaEdicao(Banner banner) {
+		
+		if (banner.getDataFim().after(Data.ultimoSegundoDeHoje())) 
+			banner.setJaTerminou(false);
+		else 
 			banner.setJaTerminou(true);
-			criar(banner);
-		}
+		
+		if (banner.getDataInicio().before(Data.primeiroSegundoDeHoje()))
+			banner.setJaComecou(false);
+		else
+			banner.setJaComecou(true);
+			
+		return banner;
 	}
+	
+	public void atualizaFlagJaTerminou(String flag, FilterOperator flagOperator, String campoData, Boolean bool) {
 
-	public void atualizaFlagJaComecou() {
-
-		Query query = criaQuery(BannerFields.JA_COMECOU.getField(), FilterOperator.LESS_THAN_OR_EQUAL,
-				BannerFields.DATA_INICIO.getField());
+		Query query = criaQuery(flag, flagOperator, campoData);
 
 		PreparedQuery prepared = datastore.prepare(query);
 		Iterable<Entity> asIterable = prepared.asIterable();
 
+		setFlag(asIterable, bool, "terminou");
+	}
+
+	public void atualizaFlagJaComecou(String flag, FilterOperator flagOperator, String campoData, Boolean bool) {
+
+		Query query = criaQuery(flag, flagOperator, campoData);
+
+		PreparedQuery prepared = datastore.prepare(query);
+		Iterable<Entity> asIterable = prepared.asIterable();
+
+		setFlag(asIterable, bool, "comecou");
+	}
+
+	public void setFlag(Iterable<Entity> asIterable, Boolean bool, String flag) {
 		for (Entity entity : asIterable) {
 			Banner banner = new Banner(entity);
-			banner.setJaComecou(true);
+			if (flag.equals("comecou"))
+				setFlagJaComecou(banner, bool);
+			else
+				setFlagJaTerminou(banner, bool);
 			criar(banner);
 		}
+	}
+
+	public void setFlagJaComecou(Banner banner, Boolean op) {
+		banner.setJaComecou(op);
+	}
+
+	public void setFlagJaTerminou(Banner banner, Boolean op) {
+		banner.setJaTerminou(op);
 	}
 
 	public Query criaQuery(String flag, FilterOperator flagOperator, String campoData) {
@@ -156,5 +181,4 @@ public class BannerRepository extends BaseRepository {
 	    
 	    return imagesService.applyTransform(resize, oldImage);
 	}
-
 }

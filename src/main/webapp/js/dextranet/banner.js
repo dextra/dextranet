@@ -53,7 +53,8 @@ dextranet.banner = {
 					"id" : idDoBanner,
 					"titulo" : $("#titulo_" + idDoBanner).val(),
 					"dataInicio" : $("#dataInicio_" + idDoBanner).val(),
-					"dataFim" : $("#dataFim_" + idDoBanner).val()
+					"dataFim" : $("#dataFim_" + idDoBanner).val(),
+					"link" : $("#bannerLink_" + idDoBanner).val()
 			};
 
 			$.ajax({
@@ -66,14 +67,14 @@ dextranet.banner = {
 						url : "/_ah/cron"							
 					})
 					//trocar mensagem de sucesso e colocar calendarios na pagina de edição
-					$.holy("../template/dinamico/post/mensagem_sucesso.xml", {});
+					$.holy("../template/dinamico/banner/mensagem_sucesso.xml", {});
 				}
 			});
 		},
 		
-		inicializaDatepicker : function(novoBanner, formulario) {
-			var $dataInicio = formulario ? formulario.children('.date-picker.inicio') : $dataInicio;
-			var $dataFim = formulario ? formulario.children('.date-picker.fim') : $dataFim; 
+		inicializaDatepicker : function(novoBanner, dataInicio, dataFim) {
+			var $dataInicio = dataInicio;
+			var $dataFim = dataFim;
 			var dayNamesMin = [ "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab" ];
 			var monthNames = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ];
 

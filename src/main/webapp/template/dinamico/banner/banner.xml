@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<template selector="#new-banner" append="true">
+		<ul class="content-banners">
 			{for banner in jsonArrayBanner}
+			<li>
 				<![CDATA[
-				<p><a
+				<a
 					{if banner.postObjectJson.link == ''}
 						href="#"
 					{else}
@@ -13,9 +15,11 @@
 				class="banner_link"
 				original-title="{if banner.postObjectJson.bannerNovo == 'true'}Publicado{else}Atualizado{/if} por ${banner.postObjectJson.usuario} em ${banner.postObjectJson.dataDeAtualizacao}">
 					<img src="/s/banner/${banner.postObjectJson.id}" />
-				</a></p>
+				</a>
 				]]>
+			</li>
 			{/for}	
+		</ul>
 	</template>
 	<!-- FIXME 
 	Mudar a posição do tipsy do banner
