@@ -29,8 +29,6 @@ public class BannerRepository extends BaseRepository {
 	private DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
 	public Banner criar(Banner banner) {
-		System.out.println("Banner: " + banner.toJson().toString());
-		System.out.println(banner.toEntity().toString());
 		this.persist(banner.toEntity());
 		return banner;
 	}

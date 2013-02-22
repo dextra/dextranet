@@ -117,7 +117,8 @@ public class BannerRS {
 	@Path("/editar")
 	@POST
 	@Produces("application/json;charset=UTF-8")
-	public void editarBanner(@FormParam("id") String id,
+	public void editarBanner(
+			@FormParam("id") String id,
 			@FormParam("titulo") String titulo,
 			@FormParam("dataInicio") String dataInicio,
 			@FormParam("dataFim") String dataFim,
@@ -126,7 +127,6 @@ public class BannerRS {
 		
 		Banner banner = bannerRepository.obterPorID(id);
 
-		System.out.println("BANNER ANTES EDIÇÂO: " + banner.toJson().toString());
 		
 		try {
 			banner.setTitulo(titulo);
