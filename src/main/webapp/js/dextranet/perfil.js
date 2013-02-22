@@ -9,6 +9,7 @@ dextranet.perfil = {
 		},
 
 		init : function(id) {
+			console.info(id);
 			dextranet.perfil.obter(id, true);
 		},
 

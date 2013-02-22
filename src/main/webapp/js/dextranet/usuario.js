@@ -12,7 +12,8 @@ dextranet.usuario = {
 
 					$.holy("../template/estatico/carrega_dados_usuario.xml", usuario);
 					dextranet.post.listaPost("", 0);
-					//dextranet.perfil.init(usuario.id);
+					console.info(usuario.id);
+					dextranet.perfil.init(usuario.id);
 				}
 			});
 		}

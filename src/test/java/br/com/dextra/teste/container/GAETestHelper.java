@@ -128,7 +128,7 @@ public class GAETestHelper {
 		perfilRepository.novo(new Perfil("10", "testName", "testNickName",
 				"testArea", "testUnit", "00", "testSkype",
 				"testGTalk", "testPhoneResidence", "testPhoneMobile",
-				"http://www.agilebrazil.com/2012/wp-content/uploads/2012/04/logo_dextra_vertical.png"));
+				"https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-ash4/309981_344485208954613_952944866_n.jpg"));
 
 
 
