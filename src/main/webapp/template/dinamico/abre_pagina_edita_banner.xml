@@ -9,6 +9,32 @@
 			<input id="ordering-creation-date" class="btNone" type="button" value="Data de criação"/>
 	</fieldset>
 
+	<!-- 
+	<table>
+		{for banner in jsonArrayBanner}
+		<tr>
+			<td>Titulo: <input type="text" value="${banner.postObjectJson.titulo}" id="titulo_${banner.postObjectJson.id}" /> </td>
+		</tr>
+		<tr>
+			<td>Data de início: <input type="text" value="${banner.postObjectJson.dataInicio}" id="dataInicio_${banner.postObjectJson.id}" class="date-picker inicio"/> </td>
+		</tr>
+		<tr>
+			<td>Data de fim: <input type="text" value="${banner.postObjectJson.dataFim}" id="dataFim_${banner.postObjectJson.id}" class="date-picker fim"/> </td>
+		</tr>
+		<tr>
+			<td>Ultima modificação: <label id="dataDeAtualizacao_${banner.postObjectJson.id}">${banner.postObjectJson.dataDeAtualizacao}</label> </td>
+		</tr>
+		<tr>
+			<td> Titulo: <input type="text" value="${banner.postObjectJson.titulo}" id="titulo_${banner.postObjectJson.id}" /> </td>
+		</tr>
+		<tr>
+			<td> <a>Imagem</a> </td>
+			<td> <input type="button" value="Editar!" /> </td>
+		</tr>
+		{/for}
+	</table>
+	 -->
+
 		<ul class="listagem-banner">
 			{for banner in jsonArrayBanner}
 				<li id="${banner.postObjectJson.id}">
@@ -26,6 +52,7 @@
 				</li>
 			{/for}	
 		</ul>
+
 	</template>
 	<script>
 		$('.form-editar-banner').each(function() {
