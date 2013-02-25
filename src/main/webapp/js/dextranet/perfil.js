@@ -21,6 +21,9 @@ dextranet.perfil = {
 					if (validar !== true || dextranet.perfil.existeCampoIncompleto(dados)) {
 						$.holy("../template/dinamico/abre_pagina_perfil.xml", dados);
 					}
+				},
+				error: function (dados){
+					// tratar
 				}
 			});
 		},

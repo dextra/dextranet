@@ -82,9 +82,9 @@ dextranet.post = {
 					$.holy("../template/dinamico/post/mensagem_sucesso.xml", {});
 					setTimeout("dextranet.post.limpaTela()", 4000);
 					$("#relacao_dos_posts").empty();
-					dextranet.home.carregaHome();//unica alteracao
-//					dextranet.paginacao.resetPaginacao();
-//					dextranet.post.listaPost("", 0);
+//					dextranet.home.carregaHome();//unica alteracao
+					dextranet.paginacao.resetPaginacao();
+					dextranet.post.listaPost("", 0);
 				}
 			});
 		}
