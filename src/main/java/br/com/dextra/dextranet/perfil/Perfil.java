@@ -76,6 +76,21 @@ public class Perfil extends Entidade {
 		}
 	}
 
+	public Perfil(String id) {
+		super.id = "id";
+		this.name = "Campo Obrigatório";
+		this.nickName = "";
+		this.area = "";
+		this.unit = "";
+		this.branch = "";
+		this.skype = "";
+		this.gTalk = "";
+		this.phoneResidence = "";
+		this.phoneMobile = "";
+		this.phoneMobile = "Campo Obrigatório";
+		this.image = "";
+	}
+
 	@Override
 	public JsonObject toJson() {
 		JsonObject json = new JsonObject();

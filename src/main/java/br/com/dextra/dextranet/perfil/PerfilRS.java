@@ -81,6 +81,7 @@ public class PerfilRS {
 	@Produces("application/json;charset=UTF-8")
 	public String obter(@PathParam("id") String id) {
 		Perfil perfil = repo.buscar(id);
+//		System.out.println(perfil);
 		List<Area> lista = ar.buscarTodos();
 		perfil.setAreasPossiveis(lista);
 		List<Unidade> lista2 = ur.buscarTodos();

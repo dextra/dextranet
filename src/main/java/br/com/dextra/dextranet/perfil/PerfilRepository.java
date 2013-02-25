@@ -3,6 +3,8 @@ package br.com.dextra.dextranet.perfil;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -47,9 +49,18 @@ public class PerfilRepository {
 		try {
 			entity = this.datastore.get(KeyFactory.createKey(
 					Perfil.class.getName(), id));
+//			System.out.println(entity);
+//			System.out.println(id);
+//			System.out.println("try");
+//			System.out.println( );
+
 			return new Perfil(entity);
 		} catch (Exception e) {
-			return null;
+			id = UUID.randomUUID().toString();
+//			System.out.println( );
+//			System.out.println(id);
+//			System.out.println("catch");
+			return new Perfil(id);
 		}
 	}
 
