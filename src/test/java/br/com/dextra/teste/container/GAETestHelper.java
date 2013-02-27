@@ -126,7 +126,7 @@ public class GAETestHelper {
 		UnidadeRepository unidadeRepository = new UnidadeRepository();
 
 		perfilRepository.novo(new Perfil("10", "testName", "testNickName",
-				"testArea", "testUnit", "00", "testSkype",
+				"Desenvolvimento", "Campo Grande", "00", "testSkype",
 				"gTalk", "testPhoneResidence", "testPhoneMobile",
 				"https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-ash4/309981_344485208954613_952944866_n.jpg"));
 
