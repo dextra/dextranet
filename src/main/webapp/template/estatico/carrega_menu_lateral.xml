@@ -17,11 +17,10 @@
 					
 				</ul>
 			</li>
-			<li id="sidebar_left_new_banner">
-				<a href="#" id="button_sidebar_left_new_banner">
-					<span class="icon_sidebar_left_categoria"></span>
-					<!-- ${messages.label_category} -->
-					Banner
+			<li id="sidebar_left_team">
+				<a href="#" id="button_sidebar_left_team">
+					<span class="icon_sidebar_left_equipe"></span>
+					${messages.label_team}
 				</a>
 			</li>
 			<li id="sidebar_left_profile">
@@ -30,10 +29,11 @@
 					${messages.label_profile}
 				</a>
 			</li>
-			<li id="sidebar_left_team">
-				<a href="#" id="button_sidebar_left_team">
-					<span class="icon_sidebar_left_equipe"></span>
-					${messages.label_team}
+			<li id="sidebar_left_new_banner">
+				<a href="#" id="button_sidebar_left_new_banner">
+					<span class="icon_sidebar_left_categoria"></span>
+					<!-- ${messages.label_category} -->
+					Banner
 				</a>
 			</li>
 		</ul>
