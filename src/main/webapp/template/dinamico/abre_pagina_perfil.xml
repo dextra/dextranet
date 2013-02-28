@@ -3,63 +3,131 @@
 	<template selector="#content_principal">
 	 <!--	<template selector="#container_main"> erro, porem css correto -->
 
+		<h1>Meu perfil</h1>
+	 
 		<div id="container_mensagem" class="clearfix"></div>
+		
+		<form id="new_photo" method="post" enctype="multipart/form-data">
+			<div class="avatar-frame">
+				<!-- @fixme se o usuário atual não possuir foto de perfil -->
+					<span class="icon_avatarcommon"></span>
+				<!-- @fixme senão, exibir foto aqui -->
+					<!-- <img src="#" alt="Avatar" /> -->
+				<!-- fim da condição -->
+				<a href="#" id="linkMudarFoto" class="avatar-alterar">Mudar foto</a>
+			</div>
+			<input type="file" id="photo" name="photo" />
+			<button class="btn btn-blue" id="btnAtualizarFoto" type="submit">Atualizar foto</button>
+		</form>
 
-		<div>
-			<form id="new_photo" method="post" enctype="multipart/form-data">
-				Selecione uma foto caso deseje atualizar<br />
-				<input type="file" id="photo" name="photo" /><br />
-				<input value="Upload!" onclick="" type="button" />
-				<br /><br />
-			</form>
-		</div>
+		<form id="new_perfil" method="post" class="form-dark form-horizontal clearfix" enctype="multipart/form-data">
 
-		<div>
-			<form id="new_perfil" method="post" enctype="multipart/form-data">
+			<input id="idVal" name="id" value="${id}" type="hidden" />
+			<dl>
+				<dt>
+					<label for="nameVal"><span class="input-obg"></span>Nome:</label>
+				</dt>
+				<dd>
+					<input type="text" id="nameVal" name="name" value="${name}" class="required"/>
+				</dd>
+				<dt>
+					<label for="nickNameVal"><span class="input-obg"></span>Apelido:</label>
+				</dt>
+				<dd>
+					<input type="text" id="nameVal" name="name" value="${nickName}" class="required"/>
+				</dd>
+				<dt>
+					<label for="areaVal"><span class="input-obg"></span>Área:</label>
+				</dt>
+				<dd>
+					<select id="areaVal" class="required" >
+						{for areas in areasPossiveis}
+							{if areas.name == area}
+								<option selected="selected">${areas.name}</option>
+							{else}
+								<option value="${areas.name}" >${areas.name}</option>
+							{/if}
+						{/for}
+					</select>
+				</dd>
+				<dt>
+					<label for="unitVal"><span class="input-obg"></span>Unidade:</label>
+				</dt>
+				<dd>
+					<select id="unitVal" class="required" >
+						{for unidades in unidadesPossiveis}
+							{if unidades.name == unit}
+								<option selected="selected" >${unidades.name}</option>
+							{else}
+								<option value="${unidades.name}" >${unidades.name}</option>
+							{/if}
+						{/for}
+					</select>
+				</dd>
+			</dl>
+			<dl class="perfil-clear-left">
+				<dt>
+					<label for="ramalVal">Ramal:</label>
+				</dt>
+				<dd>
+					<input type="text" id="ramalVal" name="ramal" value="${branch}" />
+				</dd>
+				<dt>
+					<label for="skypeVal">Skype:</label>
+				</dt>
+				<dd>
+					<input type="text" id="skypeVal" name="skype" value="${skype}" />
+				</dd>
+				<dt>
+					<label for="gTalkVal">GTalk:</label>
+				</dt>
+				<dd>
+					<input type="text" id="gTalkVal" name="gTtalk" value="${gTalk}" />
+				</dd>
+			</dl>
+			<dl class="perfil-clear-right">
+				<dt>
+					<label for="residencialVal">Telefone fixo:</label>
+				</dt>
+				<dd>
+					<input type="text" id="residencialVal" name="residencial" value="${phoneResidence}" />
+				</dd>
+				<dt>
+					<label for="celularVal">Celular:</label>
+				</dt>
+				<dd>
+					<input type="text" id="celularVal" name="celular" value="${phoneMobile}" class="required"/>
+				</dd>
+				<dt></dt>
+				<dd>
+					<button class="btn btn-blue btn-block" type="submit" onclick="dextranet.perfil.inserir()">Salvar alterações</button>	
+				</dd>
+			</dl>			
+		</form>
 
-				<input id="idVal" name="id" value="${id}" type="hidden" />
-
-				*Nome:
-				<input type="text" id="nameVal" name="name" value="${name}" class="required"/><br />
-				*Apelido:
-				<span id="nickNameVal">${nickName}</span><br />
-				*Área:
-				<select id="areaVal" class="required" >
-					{for areas in areasPossiveis}
-						{if areas.name == area}
-							<option selected="selected">${areas.name}</option>
-						{else}
-					 		<option value="${areas.name}" >${areas.name}</option>
-						{/if}
-					{/for}
-				</select><br />
-
-				*Unidade:
-				<select id="unitVal" class="required" >
-					{for unidades in unidadesPossiveis}
-
-						{if unidades.name == unit}
-							<option selected="selected" >${unidades.name}</option>
-						{else}
-					 		<option value="${unidades.name}" >${unidades.name}</option>
-						{/if}
-					{/for}
-				</select><br />
-
-				Ramal:
-				<input type="text" id="ramalVal" name="ramal" value="${branch}" /><br />
-				Skype:
-				<input type="text" id="skypeVal" name="skype" value="${skype}" /><br />
-				GTalk:
-				<input type="text" id="gTalkVal" name="gTtalk" value="${gTalk}" /><br />
-				Telefone Residencial:
-				<input type="text" id="residencialVal" name="residencial" value="${phoneResidence}" /><br />
-				*Telefone Celular:
-				<input type="text" id="celularVal" name="celular" value="${phoneMobile}" class="required"/><br />
-
-				<input value="Salvar!" onclick="dextranet.perfil.inserir()" type="button" />
-
-			</form>
-		</div>
+		<script type="text/javascript">
+			$(function()
+			{
+				$('#nameVal').focus();
+			
+				$('#linkMudarFoto').click(function() {
+					$('#photo').trigger('click');
+				});
+				
+				$('#btnAtualizarFoto').click(function() {
+					if ( $('#photo').val() === '' ) {
+						$('#photo').trigger('click');
+						return;
+					}
+				});
+				
+				$('#new_photo').submit(function(e) {
+					if ( $('#photo').val() === '' ) {
+						e.preventDefault();
+					}
+				});
+				
+			});
+		</script>
 	</template>
 </engine>
