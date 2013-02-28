@@ -4,36 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.dextra.dextranet.area.Area;
+//import br.com.dextra.dextranet.area.AreaRepository;
+import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.unidade.Unidade;
+//import br.com.dextra.dextranet.unidade.UnidadeRepository;
+import br.com.dextra.dextranet.usuario.UsuarioFields;
 
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.KeyFactory;
+import com.google.gson.JsonObject;
 
-public class Perfil {
-	private String userId; // Obrigatorio
-	private String name; // Obrigatorio
-	private String area; // Obrigatorio
-	private String unit; // Obrigatorio
+
+
+
+
+public class Perfil extends Entidade {
+	private String name;		 	// Obrigatorio
+	private String nickName;		// Obrigatorio
+	private String area; 			// Obrigatorio
+	private String unit; 			// Obrigatorio
 	private String branch;
 	private String skype;
 	private String gTalk;
 	private String phoneResidence;
-	private String phoneMobile; // Obrigatorio
+	private String phoneMobile; 	// Obrigatorio
 	private String image;
-	private boolean valido = true; //Flag validação
-
+	private boolean valido = true;  //Flag validação
 	private List<Area> areasPossiveis = new ArrayList<Area>();
 	private List<Unidade> unidadesPossiveis = new ArrayList<Unidade>();
-
-	private String nickName;
 
 	public Perfil(String userId, String name, String nickName, String area,
 			String unit, String branch, String skype, String gTalk,
 			String phoneResidence, String phoneMobile, String image) {
-		super();
 
-		this.userId = userId;
-
+		super(userId);
 		this.name = name;
 		this.nickName = nickName;
 		this.area = area;
@@ -48,42 +51,86 @@ public class Perfil {
 	}
 
 	public Entity toEntity() {
-		Entity entity = new Entity(KeyFactory.createKey(this.getClass()
-				.getName(), this.userId));
-		entity.setProperty("id", this.getId());
-		entity.setProperty("name", this.getName());
-		entity.setProperty("nickName", this.getNickName());
-		entity.setProperty("area", this.getArea());
-		entity.setProperty("unit", this.getUnit());
-		entity.setProperty("branch", this.getBranch());
-		entity.setProperty("skype", this.getSkype());
-		entity.setProperty("gTalk", this.getgTalk());
-		entity.setProperty("phoneResidence", this.getPhoneResidence());
-		entity.setProperty("phoneMobile", this.getPhoneMobile());
-		entity.setProperty("image", this.getImage());
+		Entity entity = new Entity(this.getKey(this.getClass()));
+
+		entity.setProperty(UsuarioFields.ID.getField(), this.id);
+		entity.setProperty(PerfilFields.NAME.getField(), this.name);
+		entity.setProperty(UsuarioFields.NICK_NAME.getField(), this.nickName);
+		entity.setProperty(PerfilFields.AREA.getField(), this.area);
+		entity.setProperty(PerfilFields.UNIT.getField(), this.unit);
+		entity.setProperty(PerfilFields.BRANCH.getField(), this.branch);
+		entity.setProperty(PerfilFields.SKYPE.getField(), this.skype);
+		entity.setProperty(PerfilFields.GTALK.getField(), this.gTalk);
+		entity.setProperty(PerfilFields.PHONERESIDENCE.getField(), this.phoneResidence);
+		entity.setProperty(PerfilFields.PHONEMOBILE.getField(), this.phoneMobile);
+
 		return entity;
 	}
 
 	public Perfil(Entity entity) {
-		this.userId = (String) entity.getProperty("id");
-		this.name = (String) entity.getProperty("name");
-		this.nickName = (String) entity.getProperty("nickName");
-		this.area = (String) entity.getProperty("area");
-		this.unit = (String) entity.getProperty("unit");
-		this.branch = (String) entity.getProperty("branch");
-		this.skype = (String) entity.getProperty("skype");
-		this.gTalk = (String) entity.getProperty("gTalk");
-		this.phoneResidence = (String) entity.getProperty("phoneResidence");
-		this.phoneMobile = (String) entity.getProperty("phoneMobile");
-		this.image = (String) entity.getProperty("image");
+		if (entity != null){
+		super.id = (String) entity.getProperty(UsuarioFields.ID.getField());
+		this.name = (String) entity.getProperty(PerfilFields.NAME.getField());
+		this.nickName = (String) entity.getProperty(UsuarioFields.NICK_NAME.getField());
+		this.area = (String) entity.getProperty(PerfilFields.AREA.getField());
+		this.unit = (String) entity.getProperty(PerfilFields.UNIT.getField());
+		this.branch = (String) entity.getProperty(PerfilFields.BRANCH.getField());
+		this.skype = (String) entity.getProperty(PerfilFields.SKYPE.getField());
+		this.gTalk = (String) entity.getProperty(PerfilFields.GTALK.getField());
+		this.phoneResidence = (String) entity.getProperty(PerfilFields.PHONERESIDENCE.getField());
+		this.phoneMobile = (String) entity.getProperty(PerfilFields.PHONEMOBILE.getField());
+		}
 	}
 
-	public String getId() {
-		return userId;
+	public Perfil(String id) {
+
+		super.id = "id";
+		this.name = "Campo Obrigatório";
+		this.nickName = "nickName";
+
+//		AreaRepository areaRepository = new AreaRepository();
+//		UnidadeRepository unidadeRepository = new UnidadeRepository();
+
+
+//		areaRepository.inserir(new Area(""));
+//		areaRepository.inserir(new Area("Diretoria"));
+//		areaRepository.inserir(new Area("Administrativo"));
+//		areaRepository.inserir(new Area("Financeiro"));
+//		areaRepository.inserir(new Area("Marketing"));
+//		areaRepository.inserir(new Area("RH"));
+//		areaRepository.inserir(new Area("Desenvolvimento"));
+//		areaRepository.inserir(new Area("Desenvolvimento de Negócios"));
+//		areaRepository.inserir(new Area("Treinamento"));
+//
+//		unidadeRepository.inserir(new Unidade(""));
+//		unidadeRepository.inserir(new Unidade("Campinas"));
+//		unidadeRepository.inserir(new Unidade("Campo Grande"));
+
+
+		this.area =  "Campo Obrigatório";
+		this.unit =  "Campo Obrigatório";
+		this.branch = "";
+		this.skype = "";
+		this.gTalk = "";
+		this.phoneResidence = "";
+		this.phoneMobile = "Campo Obrigatório";
+		this.image = "";
 	}
 
-	public void setId(String id) {
-		this.userId = id;
+	@Override
+	public JsonObject toJson() {
+		JsonObject json = new JsonObject();
+		json.addProperty(UsuarioFields.ID.getField(), this.id);
+		json.addProperty(PerfilFields.NAME.getField(), this.name);
+		json.addProperty(UsuarioFields.NICK_NAME.getField(), this.nickName);
+		json.addProperty(PerfilFields.AREA.getField(), this.area);
+		json.addProperty(PerfilFields.UNIT.getField(), this.unit);
+		json.addProperty(PerfilFields.BRANCH.getField(), this.branch);
+		json.addProperty(PerfilFields.SKYPE.getField(), this.skype);
+		json.addProperty(PerfilFields.GTALK.getField(), this.gTalk);
+		json.addProperty(PerfilFields.PHONERESIDENCE.getField(), this.phoneResidence);
+		json.addProperty(PerfilFields.PHONEMOBILE.getField(), this.phoneMobile);
+		return json;
 	}
 
 	public String getName() {
@@ -150,15 +197,6 @@ public class Perfil {
 		this.phoneMobile = phoneMobile;
 	}
 
-		@Override
-	public String toString() {
-		return "Perfil [userId=" + userId + ", name=" + name + ", area=" + area
-				+ ", unit=" + unit + ", branch=" + branch + ", skype=" + skype
-				+ ", gTalk=" + gTalk + ", phoneResidence=" + phoneResidence
-				+ ", phoneMobile=" + phoneMobile + ", image=" + image
-				+ ", valido=" + valido + ", nickName=" + nickName + "]";
-	}
-
 	public boolean isValido() {
 		return valido;
 	}
@@ -198,9 +236,4 @@ public class Perfil {
 	public void setUnidadesPossiveis(List<Unidade> unidadesPossiveis) {
 		this.unidadesPossiveis = unidadesPossiveis;
 	}
-
-	public void validacao() {
-		//if(this.name == "" || this.name == null)
-	}
-
 }

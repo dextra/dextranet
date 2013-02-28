@@ -1,7 +1,4 @@
 dextranet.equipe = {
-//		var var tipo;
-//		var var path;
-//		var dados;
 
 		// obterTodos
 		get : function () {

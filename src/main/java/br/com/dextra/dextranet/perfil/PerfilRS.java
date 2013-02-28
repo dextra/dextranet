@@ -17,6 +17,8 @@ import br.com.dextra.dextranet.unidade.Unidade;
 import br.com.dextra.dextranet.unidade.UnidadeRepository;
 import br.com.dextra.dextranet.utils.JsonUtil;
 
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
@@ -26,6 +28,8 @@ import com.google.gson.JsonObject;
 @Path("/perfil")
 public class PerfilRS {
 
+	private BlobstoreService blobstoreService = BlobstoreServiceFactory
+			.getBlobstoreService();
 	private PerfilRepository repo = new PerfilRepository();
 	private AreaRepository ar = new AreaRepository();
 	private UnidadeRepository ur = new UnidadeRepository();
@@ -81,6 +85,7 @@ public class PerfilRS {
 	@Produces("application/json;charset=UTF-8")
 	public String obter(@PathParam("id") String id) {
 		Perfil perfil = repo.buscar(id);
+//		System.out.println(perfil);
 		List<Area> lista = ar.buscarTodos();
 		perfil.setAreasPossiveis(lista);
 		List<Unidade> lista2 = ur.buscarTodos();
@@ -114,4 +119,17 @@ public class PerfilRS {
 		return JsonUtil.stringify(equipe);
 
 	}
+
+	@Path("/uploadURL")
+	@GET
+	@Produces("application/json;charset=UTF-8")
+
+	public String uploadURL() throws EntityNotFoundException {
+		JsonObject json = new JsonObject();
+		json.addProperty("url", blobstoreService.createUploadUrl("/s/banner/"));
+
+		return json.toString();
+	}
+
+
 }

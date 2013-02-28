@@ -20,8 +20,23 @@ dextranet.perfil = {
 					if (validar !== true || dextranet.perfil.existeCampoIncompleto(dados)) {
 						$.holy("../template/dinamico/abre_pagina_perfil.xml", dados);
 					}
+				},
+				error: function (dados){
+					// tratar
+
 				}
 			});
+		},
+
+		foto : function(){
+			$.ajax({
+				tipe : "GET",
+				url : "/s/perfil/uploadURL",
+				sucess : function(url){
+					$("#new_photo").attr("action",url.url).submit();
+				}
+			});
+
 		},
 
 		inserir : function() {

@@ -1,3 +1,4 @@
+
 /*----------  Reset  -----------*/
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,
 q,s,samp,small,strike,strong,sub,sup, tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,input, table,caption,tbody,tfoot,thead,tr,th,td
@@ -182,6 +183,7 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 
 #container_main{margin-left:95px;clear:both;padding-right:10px;position:relative;}
 
+
 #container_banner{bottom:0;left:0;width:100%;text-align:center;position:fixed;}
 
 
@@ -299,11 +301,29 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 
 #new_banner li label {display:inline-block;margin-right:5px;width:50px;}
 
-.listagem-banner .dados-banner {display:inline-block;vertical-align:top;margin-right:60px;}
-.listagem-banner .dados-banner table {margin-bottom: 15px;width: 300px;}
+.listagem-banner .img-container{display:inline-block;height:100%;}
+.listagem-banner .img-container img{height:100%;}
+.listagem-banner .dados-banner{display:inline-block;vertical-align:top;}
+.listagem-banner > li {height:300px;margin-top:30px;vertical-align:top;margin-bottom:60px;margin-top:10px;}
 
-.dados-banner table {font-weight: bold;}
-.dados-banner div {display: inline-block;font-weight: normal;}
+.buttons{margin-bottom:20px;}
+.orderingButtons { margin-bottom: 20px; }
+
+/* teste Perfil */
+#new_perfil{color:#555;}
+#new_perfil li{margin-bottom:7px;}
+
+#new_perfil li label {display:inline-block;margin-right:5px;width:50px;}
+
+.buttons{margin-bottom:20px;}
+.orderingButtons { margin-bottom: 20px; }
+
+
+/* teste Photo */
+#new_photo{color:#555;}
+#new_photo li{margin-bottom:7px;}
+
+#new_photo li label {display:inline-block;margin-right:5px;width:50px;}
 
 .buttons{margin-bottom:20px;}
 .orderingButtons { margin-bottom: 20px; }

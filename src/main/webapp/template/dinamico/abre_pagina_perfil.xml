@@ -17,7 +17,7 @@
 		<div>
 			<form id="new_perfil" method="post" enctype="multipart/form-data">
 
-				<input id="idVal" name="id" value="${userId}" type="hidden" />
+				<input id="idVal" name="id" value="${id}" type="hidden" />
 
 				*Nome:
 				<input type="text" id="nameVal" name="name" value="${name}" class="required"/><br />
@@ -27,7 +27,7 @@
 				<select id="areaVal" class="required" >
 					{for areas in areasPossiveis}
 						{if areas.name == area}
-							<option selected="selected">${areas.name} </option>
+							<option selected="selected">${areas.name}</option>
 						{else}
 					 		<option value="${areas.name}" >${areas.name}</option>
 						{/if}
@@ -39,7 +39,7 @@
 					{for unidades in unidadesPossiveis}
 
 						{if unidades.name == unit}
-							<option selected="selected">${unidades.name}</option>
+							<option selected="selected" >${unidades.name}</option>
 						{else}
 					 		<option value="${unidades.name}" >${unidades.name}</option>
 						{/if}

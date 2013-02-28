@@ -177,19 +177,17 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 
 
 
+/* teste Perfil */
+#new_perfil{color:#555;}
+#new_perfil li{margin-bottom:7px;}
+#new_perfil li label {display:inline-block;margin-right:5px;width:50px;}
+.buttons{margin-bottom:20px;}
+.orderingButtons { margin-bottom: 20px; }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* teste Photo */
+#new_photo{color:#555;}
+#new_photo li{margin-bottom:7px;}
+#new_photo li label {display:inline-block;margin-right:5px;width:50px;}
+.buttons{margin-bottom:20px;}
+.orderingButtons { margin-bottom: 20px; }
