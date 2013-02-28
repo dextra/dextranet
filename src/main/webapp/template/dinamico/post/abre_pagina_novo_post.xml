@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<template selector="#box_new_post">
-		<li>
-			<div id="container_message_warning_post"></div>
-			<form action="" id="form_new_post">
-				<input type="text" id="form_input_title" placeholder="${messages.placeholder_title_post}" name="title" maxlength="60"/>
-				<br />
-				<textarea cols="50" id="form_input_content" style="resize:none;"
-					placeholder="${messages.placeholder_content_post}" name="content"></textarea>
-				<br />
-				<input type="button" class="submit" value="${messages.button_newPost}"
-					id="form_post_submit" />
-			</form>
-		</li>
+
+		<div id="container_message_warning_post"></div>
+		<form action="" id="form_new_post">
+			<input type="text" id="form_input_title" placeholder="${messages.placeholder_title_post}" name="title" maxlength="60"/>
+			<br />
+			<textarea cols="50" id="form_input_content" style="resize:none;"
+				placeholder="${messages.placeholder_content_post}" name="content"></textarea>
+			<br />
+			<input type="button" class="submit" value="${messages.button_newPost}"
+				id="form_post_submit" />
+		</form>
+			
 	</template>
 
 	<script>
@@ -20,5 +20,6 @@
 		width:"100%"});
 		CKEDITOR.config.contentsCss = 'ckeditor/body.css';
 		$("#form_new_post input[type=button]").click(dextranet.post.criaNovoPost);
+
 	</script>
 </engine>
