@@ -299,12 +299,11 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 
 #new_banner li label {display:inline-block;margin-right:5px;width:50px;}
 
-.listagem-banner .img-container {display:inline-block;height:100%;}
-.listagem-banner .dados-banner {display:inline-block;vertical-align:top;}
-.listagem-banner > li {height:300px;margin-top:30px;vertical-align:top;margin-bottom:100px;}
-.listagem-banner .dados-banner li {margin-bottom: 15px;}
-.listagem-banner .dados-banner li label{display: inline-block; width: 150px;}
-.listagem-banner .dados-banner li.img-container {text-align: center;}
+.listagem-banner .dados-banner {display:inline-block;vertical-align:top;margin-right:60px;}
+.listagem-banner .dados-banner table {margin-bottom: 15px;width: 300px;}
+
+.dados-banner table {font-weight: bold;}
+.dados-banner div {display: inline-block;font-weight: normal;}
 
 .buttons{margin-bottom:20px;}
 .orderingButtons { margin-bottom: 20px; }

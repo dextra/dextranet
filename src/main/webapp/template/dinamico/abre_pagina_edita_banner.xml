@@ -10,49 +10,39 @@
 	</fieldset>
 
 
-		<ul class="listagem-banner">
+		<div class="listagem-banner">
 			{for banner in jsonArrayBanner}
-				<li id="${banner.postObjectJson.id}">
-					
 					<div class="dados-banner">
-						<form class="form-editar-banner" id="${banner.postObjectJson.id}">
-							<ul>
-								<li>
-									<label for="titulo_${banner.postObjectJson.id}">Titulo:</label> 
-									<input type="text" value="${banner.postObjectJson.titulo}" id="titulo_${banner.postObjectJson.id}" />
-								</li>
-								<li>
-									<label for="dataInicio_${banner.postObjectJson.id}">Data de início:</label> 
-									<input type="text" value="${banner.postObjectJson.dataInicio}" id="dataInicio_${banner.postObjectJson.id}" class="date-picker inicio"/>
-								</li>
-								<li>
-									<label for="dataFim_${banner.postObjectJson.id}">Data de fim:</label> 
-									<input type="text" value="${banner.postObjectJson.dataFim}" id="dataFim_${banner.postObjectJson.id}" class="date-picker fim"/>
-								</li>
-								<li>
-									<label for="dataDeAtualizacao_${banner.postObjectJson.id}">Ultima modificação:</label> 
-									<input type="text" value="${banner.postObjectJson.dataDeAtualizacao}" id="dataDeAtualizacao_${banner.postObjectJson.id}" disabled="true"/>
-								</li>
-								<li>
-									<label for="bannerLink_${banner.postObjectJson.id}">Link:</label> 
-									<input type="text" id="bannerLink_${banner.postObjectJson.id}" value="${banner.postObjectJson.link}"/>
-								</li>
-								<li class="img-container">
-									<div class="img-container"><img src="/s/banner/${banner.postObjectJson.id}" /></div>
-								</li>
-								<li>
-									<input type="submit" value="Editar!" />
-								</li>
-							</ul>
-						</form>
+						<table id="${banner.postObjectJson.id}">
+							<tr><td><img src="/s/banner/${banner.postObjectJson.id}" /></td></tr>
+							<tr><td>
+								Titulo: 
+								<div id="titulo_${banner.postObjectJson.id}">${banner.postObjectJson.titulo}</div>
+							</td></tr>
+							<tr><td>
+								Disponível à partir de: 
+								<div id="dataInicio_${banner.postObjectJson.id}">${banner.postObjectJson.dataInicio}</div>
+							</td></tr>	
+							<tr><td>
+								Disponível até: 
+								<div id="dataFim_${banner.postObjectJson.id}">${banner.postObjectJson.dataFim}</div>
+							</td></tr>	
+							<tr><td>
+								Ultima modificação: 
+								<div id="dataDeAtualizacao_${banner.postObjectJson.id}">${banner.postObjectJson.dataDeAtualizacao}</div>
+							</td></tr>
+							<tr><td>
+								Link: 
+								<div id="link_${banner.postObjectJson.id}">${banner.postObjectJson.link}</div>
+							</td></tr>
+						</table>
 					</div>
-				</li>
 			{/for}	
-		</ul>
+		</div>
 
 	</template>
 	<script>
-		$('.form-editar-banner').each(function() {
+		<!-- $('.form-editar-banner').each(function() {
 		    dextranet.banner.inicializaDatepicker(false, $(this).find('ul li .date-picker.inicio'), $(this).find('ul li .date-picker.fim'));
 		});
 		
@@ -60,18 +50,18 @@
 			var form = $(this);
 			dextranet.banner.editarBanner($(form).attr("id"));
 			return false;
-		});
+		}); -->
 
 		$('#ordering-initial-date').click(function() {
-			dextranet.banner.ordenaBanners('dataInicio', $('.dados-banner').parent());
+			dextranet.banner.ordenaBanners('dataInicio', $('.dados-banner'));
 		});
 
 		$('#ordering-final-date').click(function() {
-			dextranet.banner.ordenaBanners('dataFim', $('.dados-banner').parent());
+			dextranet.banner.ordenaBanners('dataFim', $('.dados-banner'));
 		});
 
 		$('#ordering-creation-date').click(function() {
-			dextranet.banner.ordenaBanners('dataDeAtualizacao', $('.dados-banner').parent());
+			dextranet.banner.ordenaBanners('dataDeAtualizacao', $('.dados-banner'));
 		});
 	</script>
 </engine>

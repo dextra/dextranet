@@ -109,13 +109,13 @@ dextranet.banner = {
 
 		ordenaBanners : function(orderBy, banners) {
 			var parentUl = $(banners).parent();
-			var elems = $(parentUl).children('li').remove();
+			var elems = $(parentUl).children('div').remove();
 
 			elems.sort(function(a,b) {
-				var aDatePieces = $(a).find("[id^='" + orderBy + "']").val().split('/')
+				var aDatePieces = $(a).find("[id^='" + orderBy + "']").text().split('/')
 				var aCompleteDate = aDatePieces[2] + aDatePieces[1] + aDatePieces[0];
 
-				var bDatePieces = $(b).find("[id^='" + orderBy + "']").val().split('/')
+				var bDatePieces = $(b).find("[id^='" + orderBy + "']").text().split('/')
 				var bCompleteDate = bDatePieces[2] + bDatePieces[1] + bDatePieces[0];
 
 				return parseInt(aCompleteDate) < parseInt(bCompleteDate);
