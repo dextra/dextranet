@@ -14,11 +14,6 @@ public class Area {
 		this.name = name;
 	}
 
-	/*public Area(String id, String name) {
-		this.id = id;
-		this.name = name;
-	}*/
-
 	public Area(Entity entity) {
 		this.id = (String) entity.getProperty("id");
 		this.name = (String) entity.getProperty("name");

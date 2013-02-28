@@ -9,9 +9,6 @@ dextranet.perfil = {
 		},
 
 		init : function(id) {
-//			console.info(id);
-//			console.info(id);
-//			console.info("11");
 			dextranet.perfil.obter(id, true);
 		},
 
@@ -26,8 +23,20 @@ dextranet.perfil = {
 				},
 				error: function (dados){
 					// tratar
+
 				}
 			});
+		},
+
+		foto : function(){
+			$.ajax({
+				tipe : "GET",
+				url : "/s/perfil/uploadURL",
+				sucess : function(url){
+					$("#new_photo").attr("action",url.url).submit();
+				}
+			});
+
 		},
 
 		inserir : function() {
