@@ -73,7 +73,7 @@ h4,
 h5,
 h6{color:#4e4846;margin-top:0;margin-bottom:20px;font-weight:bold;}
 
-h1{color:#0066a2;font-size:18px;font-weight:bold;margin-bottom:25px;}
+h1{color:#0066a2;font-size:18px;font-weight:bold;margin-bottom:20px;}
 
 small{font-size:70%;}
 
@@ -87,6 +87,8 @@ small{font-size:70%;}
 
 .btn-big{padding:7px 14px;}
 .btn-big:active{padding-top:8px;padding-bottom:6px;}
+.btn-xbig{padding:8px 15px;font-size:16px;}
+.btn-xbig:active{padding-top:9px;padding-bottom:7px;}
 .btn-block{width:100%;}
 
 /*----------  Formulários  ----------*/
@@ -104,11 +106,15 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 #form_search_submit{background-color:transparent;box-shadow:0 0 0 transparent;border:0;background:url('../img/main-bundle.png') -46px -115px;position:absolute;z-index:4;cursor:pointer;right:25px;top:4px;width:22px;height:22px;}
 #form_search_input:focus + #form_search_submit{background-position:-65px -115px;}
 
+#form_new_post > #cke_form_input_content{margin:20px 0;}
+#form_new_post > #postEditorToggle{margin-top:20px;border-radius:10px 10px 0 0;margin-bottom:-1px;}
+#form_new_post .btn{margin-top:20px;}
+
 .input-obg:after{content:"(*)";display:inline-block;margin-right:8px;font-weight:bold;font-size:10px;color:#d91a27;float:left;margin-top:2px;}
 
 .form-dark input,
 .form-dark textarea,
-.form-dark select{background-color:#e6e6e6;text-shadow:0 1px 0 #fff;color:#888;box-shadow:inset 0 1px 0 0 #f5f5f5,inset 0 3px 3px 0 #ccc;}
+.form-dark select{background-color:#e6e6e6;text-shadow:0 1px 0 #fff;color:#777;box-shadow:inset 0 1px 0 0 #f5f5f5,inset 0 3px 3px 0 #ccc;}
 .form-dark input:focus,
 .form-dark textarea:focus,
 .form-dark select:focus{color:#2183d5;background-color:#ecf7ff;box-shadow:inset 0 1px 0 0 #f5f5f5,inset 0 3px 3px 0 #cae7fa;}
@@ -221,9 +227,22 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 #sidebar_left_menu > li > ul > li > a:hover{opacity:0.65;}
 #sidebar_left_menu > li > ul > li:last_child,
 #sidebar_left_menu > li > ul > li:last_child > a{border-radius:0 0 6px 6px;}
-#sidebar_left_menu > li > ul#box_new_post{position:absolute;left:91px;top:140px;width:500px;background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-bottom:20px;z-index: 20;}
-#sidebar_left_menu > li > ul#box_new_post > li{position:relative;}
-#sidebar_left_menu > li > ul#box_new_post > li input[type=text]{width:100%;}
+
+#sidebar_left_menu > li > #box_new_post{
+	position:absolute;
+	left:95px;
+	top:130px;
+	width:500px;
+	background-color:#fcfcfc;
+	border:1px solid #ccc;
+	box-shadow:inset 0 0 0 1px #fff,inset 0 3px 3px #eee,0 1px 1px #bbb;
+	padding:12px;
+	margin-bottom:20px;
+	border-radius:10px;
+	z-index: 20;}
+#sidebar_left_menu > li > #box_new_post .speech-shape{position:absolute;left:-14px;top:50px;border-right:solid 15px #fafafa;border-top:solid 10px transparent;border-bottom:solid 10px transparent;border-radius:3px;}
+#sidebar_left_menu > li > #box_new_post > li{position:relative;}
+#sidebar_left_menu > li > l#box_new_post > li input[type=text]{width:100%;}
 #sidebar_left_menu .sidebar_show_right{display:none;}
 
 /*----------  Estrutura dos blocos centrais de conteúdo  ----------*/

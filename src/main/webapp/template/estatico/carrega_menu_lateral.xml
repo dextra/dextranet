@@ -13,9 +13,9 @@
 					<span class="icon_sidebar_left_novopost"></span>
 					${messages.label_newPost}
 				</a>
-				<ul id="box_new_post" class="sidebar_show_right post">
+				<div id="box_new_post" class="sidebar_show_right post">
 					
-				</ul>
+				</div>
 			</li>
 			<li id="sidebar_left_team">
 				<a href="#" id="button_sidebar_left_team">
@@ -43,7 +43,6 @@
 		$("#button_sidebar_left_novopost").click(dextranet.home.abrePopUpNovoPost);
 		$("#button_sidebar_left_new_banner").click(dextranet.home.abrePaginaNovoBanner);
 		$("#button_sidebar_left_profile").click(dextranet.home.abrePaginaPerfil);
-		
 		$("#button_sidebar_left_team").click(dextranet.home.abrePaginaEquipe);
 		$("#form_new_post").submit(dextranet.post.criaNovoPost);
 

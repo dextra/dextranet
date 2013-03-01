@@ -2,24 +2,52 @@
 <engine>
 	<template selector="#box_new_post">
 
+		<div class="speech-shape"></div>
+		<h1>Novo post</h1>
 		<div id="container_message_warning_post"></div>
-		<form action="" id="form_new_post">
-			<input type="text" id="form_input_title" placeholder="${messages.placeholder_title_post}" name="title" maxlength="60"/>
-			<br />
-			<textarea cols="50" id="form_input_content" style="resize:none;"
-				placeholder="${messages.placeholder_content_post}" name="content"></textarea>
-			<br />
-			<input type="button" class="submit" value="${messages.button_newPost}"
-				id="form_post_submit" />
+		<form action="" id="form_new_post" class="clearfix form-dark form-fields-block">
+			<input type="text" id="form_input_title" placeholder="${messages.placeholder_title_post}" name="title" maxlength="120" tabindex="1"/>
+			<button type="button" class="btn float_right" id="postEditorToggle" tabindex="3">Mostrar/esconder opções</button>
+			<div class="clear">
+				<textarea cols="50" id="form_input_content" style="resize:none;" name="content" tabindex="2"></textarea>
+			</div>
+			<button class="btn btn-blue btn-xbig float_right" id="form_post_submit" type="submit">${messages.button_newPost}</button>
 		</form>
 			
 	</template>
 
 	<script>
-		CKEDITOR.replace('form_input_content',{removePlugins:'elementspath',height:"230",
-		width:"100%"});
+		var editorOpened = true;
+		
+		CKEDITOR.replace('form_input_content',{removePlugins:'elementspath',height:"125", width:"99.5%"});
 		CKEDITOR.config.contentsCss = 'ckeditor/body.css';
+		CKEDITOR.instances.form_input_content.on('instanceReady', function()
+		{
+				$('#postEditorToggle').click();
+				$('.cke_toolbar').hide();
+		});
+		
+		$('#postEditorToggle').click(function()
+		{
+			if ( editorOpened === false )
+			{
+				$('.cke_toolbar').stop(false, true).fadeIn('normal');
+				$('#cke_1_top').stop(false, true).animate({ 'height' : '99px' }, 300, function() 
+				{
+					editorOpened = true;
+				});	
+			}
+			
+			else
+			{
+				$('.cke_toolbar').stop(false, true).fadeOut('fast');
+				$('#cke_1_top').stop(false, true).animate({ 'height' : '0' }, 300, function() 
+				{
+					editorOpened = false;
+				});	
+			}
+		});
+		
 		$("#form_new_post input[type=button]").click(dextranet.post.criaNovoPost);
-
 	</script>
 </engine>

@@ -35,6 +35,8 @@ dextranet.home = {
 			$(".sidebar_show_right.post").show();
 			$antigo = $('#sidebar_left_menu li.active');
 			dextranet.home.setActiveMenuLateral("#sidebar_left_new_post");
+
+			$('#form_input_title').focus();
 		}
 	},
 
