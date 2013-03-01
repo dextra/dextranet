@@ -77,22 +77,22 @@
 										<span class="empty">N.D</span>
 									{/if}
 								</span>
-								<span class="icon_skype-mini"></span>
-								{if colaborador.skype.length > 0}
-									${colaborador.skype}
+								<span class="icon_cellphone-mini" title="Telefone celular"></span>
+								{if colaborador.phoneMobile }
+									${colaborador.phoneMobile}
 								{else}
 									<span class="empty">N.D</span>
 								{/if}
 							</p>
 							<p class="list-team-content-phones">
 								<span class="left">
-									<span class="icon_cellphone-mini" title="Telefone celular"></span>
-									{if colaborador.phoneMobile }
-										${colaborador.phoneMobile}
+									<span class="icon_skype-mini"></span>
+									{if colaborador.skype.length > 0}
+										${colaborador.skype}
 									{else}
 										<span class="empty">N.D</span>
 									{/if}
-								</span>
+								</span>							
 								<span class="icon_phone-mini margin-left" title="Telefone residencial"></span>
 								{if colaborador > 0 }
 									${colaborador.phoneResidence}

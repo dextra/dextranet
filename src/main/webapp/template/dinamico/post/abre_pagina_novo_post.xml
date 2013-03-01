@@ -9,9 +9,9 @@
 			<input type="text" id="form_input_title" placeholder="${messages.placeholder_title_post}" name="title" maxlength="120" tabindex="1"/>
 			<button type="button" class="btn float_right" id="postEditorToggle" tabindex="3">Mostrar/esconder opções</button>
 			<div class="clear">
-				<textarea cols="50" id="form_input_content" style="resize:none;" name="content" tabindex="2"></textarea>
+				<textarea cols="50" id="form_input_content" style="resize:none;" name="content" tabindex="3"></textarea>
 			</div>
-			<button class="btn btn-blue btn-xbig float_right" id="form_post_submit" type="submit">${messages.button_newPost}</button>
+			<button class="btn btn-blue btn-xbig float_right" id="form_post_submit" type="submit" tabindex="4">${messages.button_newPost}</button>
 		</form>
 			
 	</template>

@@ -25,17 +25,27 @@ dextranet.home = {
 		$(id).addClass("active");
 	},
 
-	abrePopUpNovoPost : function() {
-
+	abrePopUpNovoPost : function(e) {		
+	
+		e.stopPropagation();
+	
 		if (dextranet.home.EhVisivel('.sidebar_show_right.post')){
 			$(".sidebar_show_right.post").hide();
 			dextranet.home.setActiveMenuLateral('#' + $antigo.attr('id'));
-		} else {
+		} 
+		
+		else {
 			dextranet.home.limparAvisoPreenchaCampos();
 			$(".sidebar_show_right.post").show();
 			$antigo = $('#sidebar_left_menu li.active');
 			dextranet.home.setActiveMenuLateral("#sidebar_left_new_post");
 
+			$('body').click(function() {
+				$(".sidebar_show_right.post").hide();
+				dextranet.home.setActiveMenuLateral('#' + $antigo.attr('id'));
+				$(this).unbind('click');
+			});
+			
 			$('#form_input_title').focus();
 		}
 	},

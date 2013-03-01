@@ -80,6 +80,7 @@ small{font-size:70%;}
 .btn{background-color:#ccc;border-radius:5px;border:1px solid #aaa;box-shadow:inset 0 30px 30px -30px #fbfbfb;padding:4px 12px;cursor:pointer;color:#555;text-shadow:0 -1px 0 #eee;font-size:13px;font-weight:bold!important;vertical-align:top;}
 .btn:hover{background-color:#c3c3c3;}
 .btn:active{box-shadow:inset 0 30px 30px -30px #bbb;background-color:#ddd;border-color:#aaa;padding-top:5px;padding-bottom:3px;color:#666;}
+.btn:focus{outline:dotted 1px #000;}
 
 .btn-blue{background-color:#0066a2;border-color:#3381af;color:#414141;text-shadow:0 -1px 1px #005e95;box-shadow:inset 0 35px 35px -30px #00deff;color:#fff;}
 .btn-blue:hover{background-color:#005181;}
