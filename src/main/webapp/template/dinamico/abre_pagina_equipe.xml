@@ -6,14 +6,14 @@
 
 		</div><!-- #sidebar-right -->
 
-		 <form id="form-search">
-			<input type="text" placeholder="${messages.placeholder_pesquisa_equipe}" id="form_search_input_name" />
-			<input type="submit" value="" onclick="dextranet.equipe.getNome()" id="form_search_submit_name" />
+		 <form id="form-team" class="form-dark form-big form-fields-block">
+			<input type="text" placeholder="${messages.placeholder_pesquisa_equipe}" id="form-team-input" />
+			<input type="submit" value="" onclick="dextranet.equipe.getNome()" id="form-team-submit" />			
+			<button class="btn btn-big" id="btnVerTodos">Ver todos</button><!-- @toDo -->
 		</form>
 
-
 		<!-- #menu abcd -->
-		<ul class="list-menu-abcd">
+		<ul class="list-menu-abcd clearfix">
 			<li><a href="#" onclick="dextranet.equipe.getInicial('a');">a</a></li>
 			<li><a href="#" onclick="dextranet.equipe.getInicial('b');">b</a></li>
 			<li><a href="#" onclick="dextranet.equipe.getInicial('c');">c</a></li>
@@ -41,40 +41,77 @@
 			<li><a href="#" onclick="dextranet.equipe.getInicial('y');">y</a></li>
 			<li><a href="#" onclick="dextranet.equipe.getInicial('z');">z</a></li>
 		</ul>
-		<ul class="team-list-stories clearfix">
-				{if todos.length >0}
-					{for colaborador in todos}
-						<li class="clearfix">
-							 <img src="${colaborador.image}" alt="Thumb modelo" class="list-stories-avatar" />
-							<div class="list-stories-headline clearfix">
-								<ul class="team-list-stories-dados">
-									<li><strong>Nome: </strong>${colaborador.name}</li>
-									<li><strong>Apelido: </strong>${colaborador.nickName}</li>
-									<li><strong>Área: </strong>${colaborador.area}</li>
-									<li><strong>Unidade: </strong>${colaborador.unit}</li>
-									<li><strong>Celular: </strong>${colaborador.phoneMobile}</li>
-									{if colaborador.branch.length > 0}
-									<li><strong>Ramal: </strong>${colaborador.branch}</li>
-									{/if}
-									{if colaborador.skype.length > 0}
-									<li><strong>Skype:</strong>${colaborador.skype}</li>
-									{/if}
+		
+		<ul class="list-team list-vertical clearfix">
+			{if todos.length >0}
+				{for colaborador in todos}
+					<li class="clearfix">
+						<div class="list-team-avatar">
+							<div class="avatar-frame">
+								{if colaborador.image}
+									<img src="${colaborador.image}" alt="Avatar"/>
+								{else}
+									<span class="icon_avatarcommon"></span>
+								{/if}
+							</div>
+						</div>
+						<div class="list-team-content">
+							<h3>
+								${colaborador.name}
+								{if colaborador.nickName}
+									<span>(${colaborador.nickName})</span>
+								{/if}
+							</h3>
+							<p class="list-team-content-geral">
+								${colaborador.area}/${colaborador.unit} 
+								{if colaborador.branch.length > 0}
+									- Ramal ${colaborador.branch}
+								{/if}
+							</p>
+							<p class="list-team-content-webcontact">
+								<span class="left">
+									<span class="icon_gtalk-mini"></span>
 									{if colaborador.gTalk.length > 0}
-									<li><strong>gTalk:</strong>${colaborador.gTalk}</li>
+										${colaborador.gTalk}
+									{else}
+										<span class="empty">N.D</span>
 									{/if}
-									{if colaborador.phoneResidence.length > 0}
-									<li><strong>Tel. Residencial:</strong>${colaborador.phoneResidence}</li>
+								</span>
+								<span class="icon_skype-mini"></span>
+								{if colaborador.skype.length > 0}
+									${colaborador.skype}
+								{else}
+									<span class="empty">N.D</span>
+								{/if}
+							</p>
+							<p class="list-team-content-phones">
+								<span class="left">
+									<span class="icon_cellphone-mini" title="Telefone celular"></span>
+									{if colaborador.phoneMobile }
+										${colaborador.phoneMobile}
+									{else}
+										<span class="empty">N.D</span>
 									{/if}
-								</ul>
-							</div>
-							<div class="list-stories-footer clearfix">
-								<div class="list-stories-footer-call">
-									<!-- <a href="#">+ Ver mais</a> -->
-								</div>
-							</div>
-						</li>
-					{/for}
-				{/if}
-			</ul>
+								</span>
+								<span class="icon_phone-mini margin-left" title="Telefone residencial"></span>
+								{if colaborador > 0 }
+									${colaborador.phoneResidence}
+								{else}
+									<span class="empty">N.D</span>
+								{/if}
+							</p>
+						</div>
+					</li>
+				{/for}
+			{else}
+				<li class="list-team-empty">
+					<p>
+						<img src="img/smile-sad.gif" alt="" />
+						<span>Nenhum dextrano</span>
+						<span>foi encontrado!</span>
+					</p>
+				</li>
+			{/if}
+		</ul>
 	</template>
 </engine>

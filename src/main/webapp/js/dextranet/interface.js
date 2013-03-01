@@ -1,8 +1,8 @@
 (function($)
 {
-	/**
-	 * Plugin p/ placeholder de inputs de formulário.
-	 */
+/**
+ * Plugin p/ placeholder de inputs de formulário.
+ */
 	jQuery.fn.extend({
 		placeholder: function(value)
 		{
@@ -44,7 +44,8 @@
  * Document.ready
  */
 	$(document).ready(function()
-	{		
+	{
+		// Header -> Abrertura dos menus
 		$('#header_main_menu > li').die().live('click', function()
 		{
 			if ( $(this).hasClass('active') === false )
@@ -55,6 +56,7 @@
 			}
 		});
 		
+		// Header -> abertura da caixa de dados do usuário
 		$('#box_user').die().live('click', function()
 		{
 			if ( $(this).hasClass('active') === false )
@@ -64,11 +66,13 @@
 			}
 		});
 		
+		// Header -> fechamento de caixas dropdown
 		$('#box_user_info,#box_user_notifications').die().live('click', function()
 		{
 			$(this).find('.header_dropdown').show();
 		});
 		
+		// Diálogos -> fechamento no clique
 		$('.message > li').live('click', function()
 		{
 			$(this).animate({ 'height' : 0, 'opacity' : 0, 'paddingTop' : 0, 'paddingBottom' : 0 }, 300, function() {
