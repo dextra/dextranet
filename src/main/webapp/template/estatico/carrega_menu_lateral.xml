@@ -3,13 +3,13 @@
 	<template selector="#sidebar_left">
 		<ul id="sidebar_left_menu">
 			<li id="sidebar_left_home" class="active">
-				<a href="#" id="button_sidebar_left_home">
+				<a href="#" id="button_sidebar_left_home" tabindex="1">
 					<span class="icon_sidebar_left_home"></span>
 					${messages.label_home}
 				</a>
 			</li>
 			<li id="sidebar_left_new_post">
-				<a href="#" id="button_sidebar_left_novopost">
+				<a href="#" id="button_sidebar_left_novopost" tabindex="2">
 					<span class="icon_sidebar_left_novopost"></span>
 					${messages.label_newPost}
 				</a>
@@ -18,19 +18,19 @@
 				</div>
 			</li>
 			<li id="sidebar_left_team">
-				<a href="#" id="button_sidebar_left_team">
+				<a href="#" id="button_sidebar_left_team" tabindex="3">
 					<span class="icon_sidebar_left_equipe"></span>
 					${messages.label_team}
 				</a>
 			</li>
 			<li id="sidebar_left_profile">
-				<a href="#" id="button_sidebar_left_profile">
+				<a href="#" id="button_sidebar_left_profile" tabindex="4">
 					<span class="icon_sidebar_left_perfil"></span>
 					${messages.label_profile}
 				</a>
 			</li>
 			<li id="sidebar_left_new_banner">
-				<a href="#" id="button_sidebar_left_new_banner">
+				<a href="#" id="button_sidebar_left_new_banner" tabindex="5">
 					<span class="icon_sidebar_left_categoria"></span>
 					<!-- ${messages.label_category} -->
 					Banner

@@ -6,12 +6,12 @@
 		<h1>Novo post</h1>
 		<div id="container_message_warning_post"></div>
 		<form action="" id="form_new_post" class="clearfix form-dark form-fields-block">
-			<input type="text" id="form_input_title" placeholder="${messages.placeholder_title_post}" name="title" maxlength="120" tabindex="1"/>
-			<button type="button" class="btn float_right" id="postEditorToggle" tabindex="3">Mostrar/esconder opções</button>
+			<input type="text" id="form_input_title" placeholder="${messages.placeholder_title_post}" name="title" maxlength="120" tabindex="8"/>
+			<button type="button" class="btn float_right" id="postEditorToggle" tabindex="9">Mostrar/esconder opções</button>
 			<div class="clear">
-				<textarea cols="50" id="form_input_content" style="resize:none;" name="content" tabindex="3"></textarea>
+				<textarea cols="50" id="form_input_content" style="resize:none;" name="content" tabindex="10"></textarea>
 			</div>
-			<button class="btn btn-blue btn-xbig float_right" id="form_post_submit" type="submit" tabindex="4">${messages.button_newPost}</button>
+			<button class="btn btn-blue btn-xbig float_right" id="form_post_submit" type="submit" tabindex="11">${messages.button_newPost}</button>
 		</form>
 			
 	</template>

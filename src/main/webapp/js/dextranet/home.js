@@ -25,13 +25,20 @@ dextranet.home = {
 		$(id).addClass("active");
 	},
 
-	abrePopUpNovoPost : function(e) {		
+	abrePopUpNovoPost : function() {		
 	
-		e.stopPropagation();
+		$('#sidebar_left_new_post').click(function(e) {
+			e.stopPropagation();
+		});
 	
-		if (dextranet.home.EhVisivel('.sidebar_show_right.post')){
+		function closePostPopup()
+		{
 			$(".sidebar_show_right.post").hide();
 			dextranet.home.setActiveMenuLateral('#' + $antigo.attr('id'));
+		}
+	
+		if (dextranet.home.EhVisivel('.sidebar_show_right.post')){
+			closePostPopup();
 		} 
 		
 		else {
@@ -40,10 +47,18 @@ dextranet.home = {
 			$antigo = $('#sidebar_left_menu li.active');
 			dextranet.home.setActiveMenuLateral("#sidebar_left_new_post");
 
+			$(document).keydown(function(e)	{
+				if ( e.which === 27 ) {
+					e.preventDefault();
+					closePostPopup();
+					$(this).unbind('keydown');
+					$("#button_sidebar_left_novopost").focus();
+				}
+			});
+			
 			$('body').click(function() {
-				$(".sidebar_show_right.post").hide();
-				dextranet.home.setActiveMenuLateral('#' + $antigo.attr('id'));
 				$(this).unbind('click');
+				closePostPopup();
 			});
 			
 			$('#form_input_title').focus();

@@ -149,6 +149,7 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 #header_main_menu > li{float:left;height:40px;margin-top:-1px;position:relative;}
 #header_main_menu > li .shape_arrow_down{display:none;}
 #header_main_menu > li > a{display:block;padding:13px 25px 9px;font-weight:bold;font-size:13px;text-shadow:0 1px 1px #fff;color:#35679a;border-right:solid 1px #cfd5d9;border-left:solid 1px #f7f8fc;}
+#header_main_menu > li > a:focus,
 #header_main_menu > li > a:hover{background-color:#e9eef3;box-shadow:inset 0 0 2px 1px #f6ffff;color:#3d79b6;}
 #header_main_menu > li.active > a,
 #header_main_menu > li > a:active{background-color:#ecf1f5;box-shadow:inset 0 45px 45px -45px #c9d4df;color:#5f8dbc;}
@@ -161,6 +162,7 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 #header_main_menu > li > ul > li > a{display:block;font-size:13px;background-color:#fcffff;color:#35679a;padding:7px 10px;box-shadow:inset 0 -30px 30px -30px #d9e7f1;}
 #header_main_menu > li > ul > li:last-child,
 #header_main_menu > li > ul > li:last-child > a{border-radius:0 0 5px 5px;overflow:hidden;}
+#header_main_menu > li > ul > li > a:focus,
 #header_main_menu > li > ul > li > a:hover{background-color:#FFF;color:#467db6;}
 #header_main_menu > li > ul > li > a:active{background-color:#fcfcfc;color:#5387bd;box-shadow:inset 0 20px 20px -20px #f6f6f6}
 #header_main_menu > li > ul > li:last-child,
@@ -211,18 +213,27 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 #sidebar_left_menu > li:first-child{border-top:0;}
 #sidebar_left_menu > li:last-child{border-bottom:0;}
 #sidebar_left_menu > li > a{text-transform:uppercase;color:#7d7e7e;text-shadow:0 1px 1px #fff;font-weight:bold;font-size:11px;display:block;width:55px;margin:0 auto;padding:15px 0;text-align:center;}
+
+#sidebar_left_menu > li > a:focus{outline:dotted 1px #aaa !important;}
+
 #sidebar_left_menu > li:hover > a,
 #sidebar_left_menu > li.active > a{color:#4f5858;}
+
 #sidebar_left_menu > li:hover .icon_sidebar_left_home,
 #sidebar_left_menu > li.active .icon_sidebar_left_home{background-position:0 -69px;}
+
 #sidebar_left_menu > li:hover .icon_sidebar_left_novopost,
 #sidebar_left_menu > li.active .icon_sidebar_left_novopost{background-position:-40px -75px;}
+
 #sidebar_left_menu > li:hover .icon_sidebar_left_categoria,
 #sidebar_left_menu > li.active .icon_sidebar_left_categoria{background-position:-80px -70px;}
+
 #sidebar_left_menu > li:hover .icon_sidebar_left_perfil,
 #sidebar_left_menu > li.active .icon_sidebar_left_perfil{background-position:-120px -69px;}
+
 #sidebar_left_menu > li:hover .icon_sidebar_left_equipe,
 #sidebar_left_menu > li.active .icon_sidebar_left_equipe{background-position:-164px -69px;}
+
 #sidebar_left_menu > li > a > span{display:block;width:38px;height:38px;margin:0 auto 10px;}
 
 #sidebar_left_menu > li > ul > li > a:hover{opacity:0.65;}
