@@ -48,6 +48,6 @@
 			}
 		});
 		
-		$("#form_new_post input[type=button]").click(dextranet.post.criaNovoPost);
+		$("#form_new_post").submit(dextranet.post.criaNovoPost);
 	</script>
 </engine>
