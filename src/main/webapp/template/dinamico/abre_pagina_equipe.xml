@@ -94,7 +94,7 @@
 									{/if}
 								</span>
 								<span class="icon_cellphone-mini" title="Telefone residencial"></span>
-								{if colaborador > 0 }
+								{if colaborador.phoneResidence}
 									${colaborador.phoneResidence}
 								{else}
 									<span class="empty">N.D</span>
