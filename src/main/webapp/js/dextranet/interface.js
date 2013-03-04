@@ -75,7 +75,7 @@
 		// Diálogos -> fechamento no clique
 		$('.message > li').live('click', function()
 		{
-			$(this).animate({ 'height' : 0, 'opacity' : 0, 'paddingTop' : 0, 'paddingBottom' : 0 }, 300, function() {
+			$(this).fadeOut('normal', function() {
 				$(this).remove();
 			});
 		});
