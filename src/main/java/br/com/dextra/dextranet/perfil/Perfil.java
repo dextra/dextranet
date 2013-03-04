@@ -46,7 +46,6 @@ public class Perfil extends Entidade {
 		this.gTalk = gTalk;
 		this.phoneResidence = phoneResidence;
 		this.phoneMobile = phoneMobile;
-		this.phoneMobile = phoneMobile;
 		this.image = image;
 	}
 
@@ -88,10 +87,12 @@ public class Perfil extends Entidade {
 		this.name = "Campo Obrigatório";
 		this.nickName = "nickName";
 
+//		this.areasPossiveis = new ArrayList<Area>();
+//		this.unidadesPossiveis = new ArrayList<Unidade>();
+//
 //		AreaRepository areaRepository = new AreaRepository();
 //		UnidadeRepository unidadeRepository = new UnidadeRepository();
-
-
+//
 //		areaRepository.inserir(new Area(""));
 //		areaRepository.inserir(new Area("Diretoria"));
 //		areaRepository.inserir(new Area("Administrativo"));
@@ -106,9 +107,8 @@ public class Perfil extends Entidade {
 //		unidadeRepository.inserir(new Unidade("Campinas"));
 //		unidadeRepository.inserir(new Unidade("Campo Grande"));
 
-
-		this.area =  "Campo Obrigatório";
-		this.unit =  "Campo Obrigatório";
+		this.area = "Campo Obrigatório";
+		this.unit = "Campo Obrigatório";
 		this.branch = "";
 		this.skype = "";
 		this.gTalk = "";

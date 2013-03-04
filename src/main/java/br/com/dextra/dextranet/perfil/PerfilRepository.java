@@ -113,9 +113,7 @@ public class PerfilRepository {
 		for (Entity entity : asIterable) {
 			Perfil novoPerfil = new Perfil(entity);
 			buscados.add(novoPerfil);
-//			System.out.println("a"); nao chega aki
 		}
-//		System.out.println(buscados);
 		return buscados;
 	}
 

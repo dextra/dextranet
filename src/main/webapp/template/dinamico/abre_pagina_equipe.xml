@@ -8,7 +8,7 @@
 
 		 <form id="form-team" class="form-dark form-big form-fields-block">
 			<input type="text" placeholder="${messages.placeholder_pesquisa_equipe}" id="form-team-input" />
-			<input type="submit" value="" onclick="dextranet.equipe.getNome()" id="form-team-submit" />			
+			<input type="submit" value="" onclick="dextranet.equipe.getNome()" id="form-team-submit" />
 			<button class="btn btn-big" id="btnVerTodos">Ver todos</button><!-- @toDo -->
 		</form>
 
@@ -41,7 +41,7 @@
 			<li><a href="#" onclick="dextranet.equipe.getInicial('y');">y</a></li>
 			<li><a href="#" onclick="dextranet.equipe.getInicial('z');">z</a></li>
 		</ul>
-		
+
 		<ul class="list-team list-vertical clearfix">
 			{if todos.length >0}
 				{for colaborador in todos}
@@ -63,7 +63,7 @@
 								{/if}
 							</h3>
 							<p class="list-team-content-geral">
-								${colaborador.area}/${colaborador.unit} 
+								${colaborador.area}/${colaborador.unit}
 								{if colaborador.branch.length > 0}
 									- Ramal ${colaborador.branch}
 								{/if}
@@ -77,7 +77,7 @@
 										<span class="empty">N.D</span>
 									{/if}
 								</span>
-								<span class="icon_cellphone-mini" title="Telefone celular"></span>
+								<span class="icon_phone-mini margin-left" title="Telefone celular"></span>
 								{if colaborador.phoneMobile }
 									${colaborador.phoneMobile}
 								{else}
@@ -92,8 +92,8 @@
 									{else}
 										<span class="empty">N.D</span>
 									{/if}
-								</span>							
-								<span class="icon_phone-mini margin-left" title="Telefone residencial"></span>
+								</span>
+								<span class="icon_cellphone-mini" title="Telefone residencial"></span>
 								{if colaborador > 0 }
 									${colaborador.phoneResidence}
 								{else}

@@ -32,7 +32,6 @@ dextranet.equipe = {
 				type : tipo,
 				url : path,
 				data : dados,
-//				async : false,
 				success : function(retorno) {
 					$.holy("../template/dinamico/abre_pagina_equipe.xml",{"todos" : retorno});
 				}
