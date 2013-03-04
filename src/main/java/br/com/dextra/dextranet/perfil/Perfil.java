@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.dextra.dextranet.area.Area;
-//import br.com.dextra.dextranet.area.AreaRepository;
 import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.unidade.Unidade;
-//import br.com.dextra.dextranet.unidade.UnidadeRepository;
 import br.com.dextra.dextranet.usuario.UsuarioFields;
 
 import com.google.appengine.api.datastore.Entity;
@@ -45,7 +43,6 @@ public class Perfil extends Entidade {
 		this.skype = skype;
 		this.gTalk = gTalk;
 		this.phoneResidence = phoneResidence;
-		this.phoneMobile = phoneMobile;
 		this.phoneMobile = phoneMobile;
 		this.image = image;
 	}
@@ -87,28 +84,10 @@ public class Perfil extends Entidade {
 		super.id = "id";
 		this.name = "Campo Obrigatório";
 		this.nickName = "nickName";
-
-//		AreaRepository areaRepository = new AreaRepository();
-//		UnidadeRepository unidadeRepository = new UnidadeRepository();
-
-
-//		areaRepository.inserir(new Area(""));
-//		areaRepository.inserir(new Area("Diretoria"));
-//		areaRepository.inserir(new Area("Administrativo"));
-//		areaRepository.inserir(new Area("Financeiro"));
-//		areaRepository.inserir(new Area("Marketing"));
-//		areaRepository.inserir(new Area("RH"));
-//		areaRepository.inserir(new Area("Desenvolvimento"));
-//		areaRepository.inserir(new Area("Desenvolvimento de Negócios"));
-//		areaRepository.inserir(new Area("Treinamento"));
-//
-//		unidadeRepository.inserir(new Unidade(""));
-//		unidadeRepository.inserir(new Unidade("Campinas"));
-//		unidadeRepository.inserir(new Unidade("Campo Grande"));
-
-
-		this.area =  "Campo Obrigatório";
-		this.unit =  "Campo Obrigatório";
+		this.areasPossiveis = new ArrayList<Area>();
+		this.unidadesPossiveis = new ArrayList<Unidade>();
+		this.area = "Campo Obrigatório";
+		this.unit = "Campo Obrigatório";
 		this.branch = "";
 		this.skype = "";
 		this.gTalk = "";

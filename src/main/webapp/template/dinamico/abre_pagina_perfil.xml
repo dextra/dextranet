@@ -4,9 +4,9 @@
 	 <!--	<template selector="#container_main"> erro, porem css correto -->
 
 		<h1>Meu perfil</h1>
-	 
+
 		<div id="container_mensagem" class="clearfix"></div>
-		
+
 		<form id="new_photo" method="post" enctype="multipart/form-data">
 			<div class="avatar-frame">
 				<!-- @fixme se o usuário atual não possuir foto de perfil -->
@@ -17,7 +17,7 @@
 				<a href="#" id="linkMudarFoto" class="avatar-alterar">Mudar foto</a>
 			</div>
 			<input type="file" id="photo" name="photo" />
-			<button class="btn btn-blue" id="btnAtualizarFoto" type="submit">Atualizar foto</button>
+			<button class="btn btn-blue" onclick= "dextranet.perfil.fonto()" id="btnAtualizarFoto" type="submit">Atualizar foto</button>
 		</form>
 
 		<form id="new_perfil" method="post" class="form-dark form-horizontal clearfix" enctype="multipart/form-data">
@@ -34,7 +34,7 @@
 					<label for="nickNameVal"><span class="input-obg"></span>Apelido:</label>
 				</dt>
 				<dd>
-					<input type="text" id="nameVal" name="name" value="${nickName}" class="required"/>
+					<input type="text" id="nickNameVal" name="name" value="${nickName}" class="required"/>
 				</dd>
 				<dt>
 					<label for="areaVal"><span class="input-obg"></span>Área:</label>
@@ -100,33 +100,33 @@
 				</dd>
 				<dt></dt>
 				<dd>
-					<button class="btn btn-blue btn-block" type="submit" onclick="dextranet.perfil.inserir()">Salvar alterações</button>	
+					<button class="btn btn-blue btn-block" type="button" onclick="dextranet.perfil.inserir()">Salvar alterações</button>
 				</dd>
-			</dl>			
+			</dl>
 		</form>
 
 		<script type="text/javascript">
 			$(function()
 			{
 				$('#nameVal').focus();
-			
+
 				$('#linkMudarFoto').click(function() {
 					$('#photo').trigger('click');
 				});
-				
+
 				$('#btnAtualizarFoto').click(function() {
 					if ( $('#photo').val() === '' ) {
 						$('#photo').trigger('click');
 						return;
 					}
 				});
-				
+
 				$('#new_photo').submit(function(e) {
 					if ( $('#photo').val() === '' ) {
 						e.preventDefault();
 					}
 				});
-				
+
 			});
 		</script>
 	</template>

@@ -48,4 +48,11 @@ public class AreaRS {
 
 	}
 
+	@Path("/apagar/{id}")
+	@GET
+	public void apagar(@PathParam(value = "id") String id)
+			throws EntityNotFoundException {
+		repo.excluir(id);
+	}
+
 }
