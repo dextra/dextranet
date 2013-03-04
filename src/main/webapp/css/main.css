@@ -42,6 +42,8 @@ html{font-size:100%;}
 .icon_skype-mini{background-position:-91px -117px;}
 .icon_cellphone-mini{background-position:-114px -118px;}
 .icon_phone-mini{background-position:-134px -118px;}
+.icon_icon-trash{background-position:-210px -74px;width:14px;height:14px;margin-right:4px;vertical-align:-2px;}
+.icon_icon-edit{background-position:-210px -93px;width:14px;height:14px;margin-right:4px;vertical-align:-2px;}
 
 /*----------  Características  ----------*/
 .clear{clear:both;}
@@ -91,20 +93,34 @@ h1{color:#0066a2;font-size:18px;font-weight:bold;margin-bottom:20px;}
 
 small{font-size:70%;}
 
-.btn{background-color:#ccc;border-radius:5px;border:1px solid #aaa;box-shadow:inset 0 30px 30px -30px #fbfbfb;padding:4px 12px;cursor:pointer;color:#555;text-shadow:0 -1px 0 #eee;font-size:13px;font-weight:bold!important;vertical-align:top;}
+.btn{background-color:#ccc;border-radius:5px;border:1px solid #aaa;box-shadow:inset 0 30px 30px -30px #fbfbfb;padding:4px 12px;cursor:pointer;color:#555;text-shadow:0 -1px 0 #eee;font-size:13px;font-weight:bold!important;vertical-align:top;position:relative;}
 .btn:hover{background-color:#c3c3c3;}
-.btn:active{box-shadow:inset 0 30px 30px -30px #bbb;background-color:#ddd;border-color:#aaa;padding-top:5px;padding-bottom:3px;color:#666;}
+.btn:active{box-shadow:inset 0 30px 30px -30px #bbb;background-color:#ddd;border-color:#aaa;padding-top:5px;padding-bottom:3px;color:#666;outline:none!important;}
 .btn:focus{outline:dotted 1px #000;}
+.btn .arrowdown{border-left:3px solid transparent;border-right:3px solid transparent;border-top:5px dashed #555;height:0;margin-left:5px;vertical-align:1px;width:0;display:inline-block;}
 
 .btn-blue{background-color:#0066a2;border-color:#3381af;color:#414141;text-shadow:0 -1px 1px #005e95;box-shadow:inset 0 35px 35px -30px #00deff;color:#fff;}
 .btn-blue:hover{background-color:#005181;}
 .btn-blue:active{background-color:#008ebd;box-shadow:inset 0 30px 30px -30px #0066a2;border-color:#196a9b;color:#c8e6f2;}
 
+.btn-small{padding:3px 8px;font-size:12px;}
+.btn-small:active{padding-top:4px;padding-bottom:2px;}
+
 .btn-big{padding:7px 14px;}
 .btn-big:active{padding-top:8px;padding-bottom:6px;}
 .btn-xbig{padding:8px 15px;font-size:16px;}
 .btn-xbig:active{padding-top:9px;padding-bottom:7px;}
+
 .btn-block{width:100%;}
+
+/*----------  Menu padrão  ----------*/
+.menu-light{list-style:none;position:absolute;left:0;top:0;box-shadow:0 10px 10px -6px #aaa;}
+.menu-light > li > a{display:block;padding:4px 6px;background-color:#fafafa;font-size:13px;border:1px solid #d9e3ee;margin-bottom:-1px;width:100px;box-shadow:inset 0 3px 3px -1px #f6f6f6;text-shadow:0 1px 0 #fff;color:#2171c0;}
+.menu-light > li:first-child > a{border-radius:5px 5px 0 0;}
+.menu-light > li:last-child > a{border-radius:0 0 5px 5px;}
+.menu-light > li > a:hover{background-color:#f6f6f6;box-shadow:inset 0 3px 3px -1px #f0f0f0;color:#428bd3;}
+.menu-light > li > a:active{background-color:#fdfdfd;box-shadow:inset 0 8px 8px -3px #f5f5f5;color:#5296d9;}
+.menu-light-thickbottom > a{border-bottom-width:3px!important;}
 
 /*----------  Formulários  ----------*/
 input,
@@ -315,13 +331,17 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 .list_stories_headline > h2:active{background-color:#e9f3ff;padding:5px 8px;margin:-5px -8px;}
 
 .list_stories_comments,
-.list_stories_dx{font-size:12px;float:right;margin-left:10px;}
+.list_stories_actions,
+.list_stories_dx{font-size:12px;float:right;margin-left:10px;position:relative;}
 .list_stories_comments > a{color:#777;display:block;padding:4px 5px;transition:background-color 250ms ease-in-out;border-radius:1px;-webkit-transition:background-color 250ms ease-in-out;}
 .list_stories_comments > a:hover{background-color:#f6f6f6;border:dotted 1px #ccc;padding:3px 4px;color:#555;}
 .list_stories_dx{color:#349a94;}
 .list_stories_dx > a{padding:4px 5px;display:block;color:#007676;border-radius:1px;transition:background-color 250ms ease-in-out;-webkit-transition:background-color 250ms ease-in-out;}
 .list_stories_dx > a:hover{border:dotted 1px #cbe6eb;padding:3px 4px;background-color:#e6ffff;}
 .list_stories_lead{text-shadow:0 1px 1px #fff;font-size:13px;color:#505153;line-height:19px;margin-bottom:5px;}
+
+.list_stories_actions > button{font-weight:bold;}
+.list_stories_actions > .menu-light{top:25px;display:none;}
 
 /*----------  Caixas de diálogo  ----------*/
 .message { margin:10px 0 20px;list-style:none;}

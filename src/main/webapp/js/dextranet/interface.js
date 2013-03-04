@@ -72,6 +72,29 @@
 			$(this).find('.header_dropdown').show();
 		});
 		
+		// Estórias -> menu de ações
+		$('.list_stories_actions > button').die().live('click', function()
+		{
+			$('.list_stories_actions').die().live('click', function(e)
+			{
+				e.stopPropagation();
+			});
+		
+			var menu = $(this).next('ul');
+			
+			if ( menu.is(':visible') === true ) {
+				return;
+			}
+			
+			menu.stop(false, true).slideDown('fast');
+			$('body').click(function()
+			{
+				menu.stop(false, true).slideUp('fast');
+				$(this).unbind('click');
+				$('.list_stories_actions').unbind('click');
+			});
+		});
+		
 		// Diálogos -> fechamento no clique
 		$('.message > li').live('click', function()
 		{

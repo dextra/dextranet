@@ -49,6 +49,28 @@
 				<div class="list_stories_comments ${post.postObjectJson.id}">
 
 				</div>	
+			
+				<!-- Menu de ações -->
+				<div class="list_stories_actions">
+					<button class="btn btn-small">
+						Ações <span class="arrowdown"></span>
+					</button>
+					<ul class="menu-light">
+						<li class="menu-light-thickbottom">
+							<a href="#">
+								<span class="icon_icon-edit"></span>
+								Editar
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<span class="icon_icon-trash"></span>
+								Remover
+							</a>
+						</li>
+					</ul>
+				</div>
+				
 			</li>
 		{/for}
 	</template>
