@@ -237,7 +237,7 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 #banner,#sidebar_left,#banner .close{background-color:#ebeef1;box-shadow:inset -15px 15px 15px -15px #fff;}
 
 /*---------  Barra lateral esquerda  ----------*/
-#sidebar_left{left:0;top:0;height:100%;list-style-type:none;border-right:solid 1px #d9dbdd;position:fixed;}
+#sidebar_left{left:0;top:0;height:100%;list-style-type:none;border-right:solid 1px #d9dbdd;position:fixed;z-index:2;}
 #sidebar_left_menu{padding:50px 8px 0;list-style:none;}
 #sidebar_left_menu > li{border-bottom:solid 1px #dfe3e6;border-top:1px solid #fafafb;}
 #sidebar_left_menu > li:first-child{border-top:0;}
@@ -292,6 +292,8 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 
 #container_main{margin-left:95px;clear:both;padding-right:10px;position:relative;}
 
+#container_main_overlay{position:absolute;left:0;top:0;width:100%;height:100%;background-color:#fff;z-index:1;opacity:0.8;display:none;}
+
 #container_banner{bottom:0;left:0;width:100%;text-align:center;position:fixed;}
 
 #content_left{margin-right:350px;}
@@ -307,8 +309,8 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 .list_stories{list-style:none;margin-top:5px;}
 .list_stories > li{border-radius:5px;background-color:#fefefe;border:1px solid #cfe1f3;padding:8px 12px 2px;margin-bottom:20px;margin-left:75px;position:relative;}
 .list_stories > li > .speech-shape,
-.list_stories > li > .speech-shape:before{position:absolute;left:-15px;top:16px;border-right:dashed 15px #cfe1f3;border-top:solid 10px transparent;border-bottom:solid 10px transparent;border-radius:3px;z-index:5;width:0;height:0;}
-.list_stories > li > .speech-shape:before{display:block;content:"";border-right-color:#000;position:absolute;left:2px;top:-10px;z-index:4;border-right-color:#fefefe;}
+.list_stories > li > .speech-shape:before{position:absolute;left:-15px;top:16px;border-right:dashed 15px #cfe1f3;border-top:solid 10px transparent;border-bottom:solid 10px transparent;border-radius:3px;z-index:1;width:0;height:0;}
+.list_stories > li > .speech-shape:before{display:block;content:"";border-right-color:#000;position:absolute;left:2px;top:-10px;z-index:1;border-right-color:#fefefe;}
 .list_stories > li > .avatar-frame{position:absolute;left:-75px;top:0;}
 
 .list_stories_headline{margin-bottom:6px;text-align:left;}
@@ -341,7 +343,7 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 .list_stories_lead{text-shadow:0 1px 1px #fff;font-size:13px;color:#505153;line-height:19px;margin-bottom:5px;}
 
 .list_stories_actions > button{font-weight:bold;}
-.list_stories_actions > .menu-light{top:25px;display:none;}
+.list_stories_actions > .menu-light{top:25px;display:none;z-index:20;}
 
 /*----------  Caixas de diálogo  ----------*/
 .message { margin:10px 0 20px;list-style:none;}
@@ -391,7 +393,7 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 .list-team-content > h3{color:#436795;font-size:15px;margin-bottom:0;}
 .list-team-content > h3 > span{color:#7d91ab;font-size:13px;}
 .list-team-content p{padding-bottom:3px;font-size:13px;color:#666;}
-.list-team-content span.left{float:left;display:block;min-width:150px;}
+.list-team-content span.left{float:left;display:block;min-width:200px;}
 .list-team-content-geral [class^=icon],
 .list-team-content-ramal [class^=icon],
 .list-team-content-webcontact [class^=icon],

@@ -57,8 +57,8 @@ dextranet.post = {
 		return false;
 	},
 
-	criaNovoPost : function() {
-
+	criaNovoPost : function() {		
+	
 		var titulo = dextranet.strip.tagHTML($("#form_input_title").val());
 		var conteudo = CKEDITOR.instances.form_input_content.getData();
 
