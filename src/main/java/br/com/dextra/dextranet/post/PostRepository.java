@@ -174,9 +174,7 @@ public class PostRepository extends BaseRepository {
         persist(valueEntity);
     }
 
-    // FIXME Por que o metodo que trabalha com o Post recebe como parametro um objeto Curtida?
     public void incrementaNumeroDeCurtidasDoPost(Post post) throws EntityNotFoundException {
-
         Key key = KeyFactory.createKey(Post.class.getName(), post.getId());
         Entity valueEntity = datastore.get(key);
         int likes = Integer.parseInt(valueEntity.getProperty(PostFields.LIKES.getField()).toString());
@@ -210,5 +208,29 @@ public class PostRepository extends BaseRepository {
 
         persist(valueEntity);
 
+    }
+
+    public void registrarDescurtida(Post post, String usuario) throws EntityNotFoundException {
+        removeUsuarioQueDescurtiuPost(usuario, post);
+        decrementaNumeroDeCurtidasDoPost(post);
+    }
+
+    private void decrementaNumeroDeCurtidasDoPost(Post post) throws EntityNotFoundException {
+        Key key = KeyFactory.createKey(Post.class.getName(), post.getId());
+        Entity valueEntity = datastore.get(key);
+        int likes = Integer.parseInt(valueEntity.getProperty(PostFields.LIKES.getField()).toString());
+        valueEntity.setProperty(PostFields.LIKES.getField(), likes - 1);
+        persist(valueEntity);
+    }
+
+    private void removeUsuarioQueDescurtiuPost(String usuario, Post post) throws EntityNotFoundException {
+        Key key = KeyFactory.createKey(Post.class.getName(), post.getId());
+        Entity valueEntity = datastore.get(key);
+
+        String oldUserLikes = (String) valueEntity.getProperty(PostFields.USER_LIKE.getField());
+        valueEntity.setProperty(PostFields.USER_LIKE.getField(),
+                oldUserLikes.replaceAll(" " + usuario, ""));
+
+        persist(valueEntity);
     }
 }

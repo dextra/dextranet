@@ -5,7 +5,7 @@ import br.com.dextra.dextranet.utils.Data;
 public class Curtida {
 
     // FIXME Primitive Obsession or simple a bad name to a variable
-    private String data;
+    private String dataCurtida;
 
     private String idConteudo;
     private String usuario;
@@ -13,17 +13,11 @@ public class Curtida {
     public Curtida(String usuario, String idConteudo) {
         this.idConteudo = idConteudo;
         this.usuario = usuario;
-        this.data = new Data().pegaData();
-    }
-
-    public Curtida(String usuario, String idConteudo, String data) {
-        this.idConteudo = idConteudo;
-        this.usuario = usuario;
-        this.data = data;
+        this.dataCurtida = new Data().pegaData();
     }
 
     public String getData() {
-        return this.data;
+        return this.dataCurtida;
     }
 
     public String getIdConteudo() {

@@ -33,10 +33,10 @@ public class CurtidaRS {
 		// FIXME: Why use this if RestEasy can handle Boolean values?
 		if (new Converters().toBoolean(isPost)) {
 			Post post = new PostRepository().obtemPorId(id);
-			post.curtir(usuario);
+			post.receberCurtida(usuario);
 		} else {
 			Comment comment = new CommentRepository().obtemPorId(id);
-			comment.curtir(usuario);
+			comment.receberCurtida(usuario);
 		}
 
 		return Response.ok().build();

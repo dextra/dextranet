@@ -59,7 +59,7 @@ public class Converters {
 
         return jsonList;
     }
-    
+
     public static List<JsonObject> converterListaDeUsuarioParaListaDeJson(List<Usuario> listaUsuario) {
         List<JsonObject> jsonList = new ArrayList<JsonObject>();
 
@@ -69,7 +69,7 @@ public class Converters {
 
         return jsonList;
     }
-    
+
     public static List<JsonObject> converterListaDeBannerParaListaDeJson(List<Banner> listaBanner) {
         List<JsonObject> jsonList = new ArrayList<JsonObject>();
 
@@ -85,11 +85,7 @@ public class Converters {
         return conteudo;
     }
 
-    // FIXME: That same as Booleand.valueOf()
     public boolean toBoolean(String field) {
-        if (field.equals("true"))
-            return true;
-        else
-            return false;
+        return Boolean.valueOf(field);
     }
 }
