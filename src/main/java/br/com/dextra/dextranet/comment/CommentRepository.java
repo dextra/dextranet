@@ -87,8 +87,7 @@ public class CommentRepository extends BaseRepository {
         Entity valueEntity = datastore.get(key);
 
         String oldUserLikes = (String) valueEntity.getProperty(CommentFields.USER_LIKE.getField());
-        valueEntity.setProperty(CommentFields.USER_LIKE.getField(),
-                oldUserLikes.replaceAll(" " + usuario, ""));
+        valueEntity.setProperty(CommentFields.USER_LIKE.getField(), oldUserLikes.replaceAll(" " + usuario, ""));
 
         persist(valueEntity);
     }
@@ -100,5 +99,4 @@ public class CommentRepository extends BaseRepository {
         valueEntity.setProperty(PostFields.LIKES.getField(), likes - 1);
         persist(valueEntity);
     }
-
 }

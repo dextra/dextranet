@@ -1,51 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
-	<template selector="#container_main">
+	<template selector="#content_principal">
 
-	<fieldset>
+	<fieldset class="orderingButtons">
 	<legend>Ordenação</legend>
-		<li class="buttons">
 			<input id="ordering-initial-date" class="btNone" type="button" value="Data inicial de exibição"/>
 			<input id="ordering-final-date" class="btNone" type="button" value="Data final de exibição"/>
 			<input id="ordering-creation-date" class="btNone" type="button" value="Data de criação"/>
-		</li>
 	</fieldset>
 
-		<ul>
+
+		<div class="listagem-banner">
 			{for banner in jsonArrayBanner}
-				<li id="${banner.postObjectJson.id}">
-					<div class="img-banner"><img src="/s/banner/${banner.postObjectJson.id}" /></div>
 					<div class="dados-banner">
-						<form class="form-editar-banner ${banner.postObjectJson.id}">
-							Titulo: <input type="text" value="${banner.postObjectJson.titulo}" id="titulo_${banner.postObjectJson.id}" /> <br/>
-							Data de início: <input type="text" value="${banner.postObjectJson.dataInicio}" id="dataInicio_${banner.postObjectJson.id}"/> <br/>
-							Data de fim: <input type="text" value="${banner.postObjectJson.dataFim}" id="dataFim_${banner.postObjectJson.id}"/> <br/>
-							Ultima modificação: <input type="text" value="${banner.postObjectJson.dataDeAtualizacao}" id="dataDeAtualizacao_${banner.postObjectJson.id}" disabled="true"/> <br/>
-							Link: <input type="text" id="bannerLink" value="${banner.postObjectJson.link}"/><br/>
-							<input type="submit" value="Editar!" />
-						</form>
+						<table id="${banner.postObjectJson.id}">
+							<tr><td><img src="/s/banner/${banner.postObjectJson.id}" /></td></tr>
+							<tr><td>
+								Titulo: 
+								<div id="titulo_${banner.postObjectJson.id}">${banner.postObjectJson.titulo}</div>
+							</td></tr>
+							<tr><td>
+								Disponível à partir de: 
+								<div id="dataInicio_${banner.postObjectJson.id}">${banner.postObjectJson.dataInicio}</div>
+							</td></tr>	
+							<tr><td>
+								Disponível até: 
+								<div id="dataFim_${banner.postObjectJson.id}">${banner.postObjectJson.dataFim}</div>
+							</td></tr>	
+							<tr><td>
+								Ultima modificação: 
+								<div id="dataDeAtualizacao_${banner.postObjectJson.id}">${banner.postObjectJson.dataDeAtualizacao}</div>
+							</td></tr>
+							<tr><td>
+								Link: 
+								<div id="link_${banner.postObjectJson.id}">${banner.postObjectJson.link}</div>
+							</td></tr>
+						</table>
 					</div>
-				</li>
 			{/for}	
-		</ul>
+		</div>
+
 	</template>
 	<script>
+		<!-- $('.form-editar-banner').each(function() {
+		    dextranet.banner.inicializaDatepicker(false, $(this).find('ul li .date-picker.inicio'), $(this).find('ul li .date-picker.fim'));
+		});
+		
 		$(".form-editar-banner").submit(function(){
 			var form = $(this);
-			dextranet.banner.editarBanner($(form).attr("class").substring(19));
+			dextranet.banner.editarBanner($(form).attr("id"));
 			return false;
-		});
+		}); -->
 
 		$('#ordering-initial-date').click(function() {
-			dextranet.banner.ordenaBanners('dataInicio', $('.dados-banner').parent());
+			dextranet.banner.ordenaBanners('dataInicio', $('.dados-banner'));
 		});
 
 		$('#ordering-final-date').click(function() {
-			dextranet.banner.ordenaBanners('dataFim', $('.dados-banner').parent());
+			dextranet.banner.ordenaBanners('dataFim', $('.dados-banner'));
 		});
 
 		$('#ordering-creation-date').click(function() {
-			dextranet.banner.ordenaBanners('dataDeAtualizacao', $('.dados-banner').parent());
+			dextranet.banner.ordenaBanners('dataDeAtualizacao', $('.dados-banner'));
 		});
 	</script>
 </engine>

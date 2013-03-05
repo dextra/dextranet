@@ -12,6 +12,7 @@ import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.datastore.PreparedQuery.TooManyResultsException;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 
 public class BannerRepositoryTest extends TesteIntegracaoBase {
 
@@ -69,7 +70,8 @@ public class BannerRepositoryTest extends TesteIntegracaoBase {
 	public void atualizaFlagJaComecouTeste() {
 
 		criaBanners(5, Calendar.getInstance(), false);
-		bannerRepository.atualizaFlagJaComecou();
+		bannerRepository.atualizaFlagJaComecou(BannerFields.JA_COMECOU.getField(), FilterOperator.LESS_THAN_OR_EQUAL,
+				BannerFields.DATA_INICIO.getField(), new Boolean(true));
 		assertEquals(3, bannerRepository.getBannerDisponiveis(true).size());
 	}
 
@@ -77,7 +79,8 @@ public class BannerRepositoryTest extends TesteIntegracaoBase {
 	public void atualizaFlagJaTerminou() {
 
 		criaBanners(5, Calendar.getInstance(), true);
-		bannerRepository.atualizaFlagJaTerminou();
+		bannerRepository.atualizaFlagJaTerminou(BannerFields.JA_TERMINOU.getField(), FilterOperator.LESS_THAN,
+				BannerFields.DATA_FIM.getField(), new Boolean(true));
 		assertEquals(3, bannerRepository.getBannerDisponiveis(true).size());
 	}
 

@@ -3,11 +3,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" type="text/css" href="css/main.css" media="all" />
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600' rel='stylesheet' type='text/css'>
 
 	<!-- Biblioteca Holy -->
-	<script type="text/javascript" src="js/lib/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="js/lib/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="js/lib/jquery-ui/jquery-ui-1.10.1.custom.min.js"></script>
 	<script type="text/javascript" src="js/lib/convertDate.js"></script>
 	<script type="text/javascript" src="holy/lib/jquery.js"></script>
 	<script type="text/javascript" src="holy/lib/trimpath.js"></script>
@@ -23,7 +23,7 @@
 	<link rel="stylesheet" type="text/css"	href="holy/loading/jquery.loading.css" media="all" />
 	<link rel="stylesheet" type="text/css"	href="holy/message/jquery.message.css" media="all" />
 	<link rel="stylesheet" type="text/css"	href="holy/tooltip/jquery.tipsy.css" media="all" />
-	<link rel="stylesheet" type="text/css"	href="holy/third/datepicker/jquery-ui-1.10.0.custom.css" media="all" />
+	<link rel="stylesheet" type="text/css"	href="holy/flick/jquery-ui-1.10.1.custom.min.css" media="all" />
 
 	<!-- RichText -->
 	<script type="text/javascript" src="ckeditor/ckeditor.js"></script>
@@ -34,9 +34,10 @@
     <!-- Scripts Dextranet -->
     <script type="text/javascript">var dextranet = {};</script>
     <script type="text/javascript" src="js/dextranet/settings.js"></script>
-	<script type="text/javascript" src="js/dextranet/interface.js"></script>
 	<script type="text/javascript" src="js/dextranet/home.js"></script>
 	<script type="text/javascript" src="js/dextranet/usuario.js"></script>
+	<script type="text/javascript" src="js/dextranet/perfil.js"></script>
+	<script type="text/javascript" src="js/dextranet/equipe.js"></script>
 	<script type="text/javascript" src="js/dextranet/banner.js"></script>
 	<script type="text/javascript" src="js/dextranet/post/post.js"></script>
 	<script type="text/javascript" src="js/dextranet/post/postObject.js"></script>
@@ -47,7 +48,11 @@
 	<script type="text/javascript" src="js/dextranet/paginacao/query.js"></script>
 	<script type="text/javascript" src="js/dextranet/utils/dateUtils.js"></script>
 	<script type="text/javascript" src="js/dextranet/utils/HTMLClean.js"></script>
-
+	<script type="text/javascript" src="js/dextranet/utils/postUtils.js"></script>
+	<script type="text/javascript" src="js/dextranet/interface.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="css/main.css" media="all" />
+	
 <title>Dextranet</title>
 
 <script>
@@ -55,16 +60,12 @@
 			dextranet.settings.inicializa();
             dextranet.home.inicializa();
             dextranet.paginacao;
-
-            $('#container_banner').hide();
-           
             dextranet.banner.listaBannersAtuais();
 		});
 </script>
 
 </head>
 <body>
-
 	<div id="container">
 		<div id="header_placeholder"></div>
 		<div id="header_container" rel="section">
@@ -78,17 +79,13 @@
 			  -->
 			<div id="header_search_box">
 				<form id="form_search">
-					<!--<input type="text" placeholder="${messages.placeholder_pesquisa}" id="form_search_input" />-->
 					<input type="text" placeholder="Procurar postagens e pessoas..." id="form_search_input" />
 					<input type="submit" value="" title="Procurar!" id="form_search_submit" />
 				</form>
 			</div>
 		</div>
 		<div id="sidebar_left" rel="section"></div>
-		<div id="container_main" rel="section" class="clearfix"></div>
-	</div>
-	<div id="container_banner" class="clearfix">
-		<div id="banner">
+		<div id="container_main" rel="section" class="clearfix">
 		</div>
 	</div>
 </body>

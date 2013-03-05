@@ -7,7 +7,8 @@
 	"placeholder_title_post" : "Digite o título do novo post",
 	"placeholder_content_post" : "Digite o conteúdo do novo post",
 	"button_newPost" : "Postar",
-	"placeholder_pesquisa" : "Procurar pessoas e/ou postagens...",
+	"placeholder_pesquisa" : "Procurar postagens e pessoas...",
+	"placeholder_pesquisa_equipe" : "Procurar por nome...",
 	"warning_message" : "Preencha todos os campos!",
 	"logout" : "Sair",
 	"menu_others" : "Outros",
@@ -15,7 +16,9 @@
 	"link_readLess" : "Recolher",
 	"placeholder_comment" : "Digite seu comentário",
 	"button_comment" : "Comentar",
-	"success_message" : "Seu post foi inserido com sucesso!"
-
+	"success_message_post" : "Seu post foi inserido com sucesso!",
+	"success_message_banner" : "Seu banner foi inserido com sucesso!",
+	"success_message" : "Dados inseridos com sucesso!",
+	"campo_required" : "Campo(s) obrigatório(s) não preenchido(s)!"
 	}
 }

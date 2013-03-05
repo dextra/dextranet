@@ -153,7 +153,7 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 .list-stories-headline-author > a{font-weight:bold;}
 .list-stories-lead{text-shadow:0 1px 1px #fff;font-size:11px;color:#505153;}
 .list-stories-footer{background-color:#d5d9db;margin:0 -6px -6px;height:25px;}
-.list-stories-footer  a{color:#4e739c;text-shadow:0 1px 1px #fff;font-size:12px; padding:0} 
+.list-stories-footer  a{color:#4e739c;text-shadow:0 1px 1px #fff;font-size:12px; padding:0}
 .list-stories-footer-tags{float:left; margin-left:5px;}
 .list-stories-footer-call{float:right;text-align:right; margin-right:5px}
 

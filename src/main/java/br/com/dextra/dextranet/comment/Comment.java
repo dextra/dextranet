@@ -125,8 +125,8 @@ public class Comment extends Conteudo implements ConteudoIndexavel {
         IndexFacade.getIndex(Comment.class.getName()).add(document);
         return document;
     }
-    
-    //FIXME: Juntar operacoes
+
+    // FIXME: Juntar operacoes
     protected void atualizaConteudoDepoisDaCurtida(String usuario) throws EntityNotFoundException {
         commentRepository.insereUsuarioQueCurtiuNoComment(this, usuario);
         commentRepository.incrementaNumeroDeLikesDaEntityDoComment(this.getId());

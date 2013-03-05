@@ -1,8 +1,8 @@
 (function($)
 {
-	/**
-	 * Plugin p/ placeholder de inputs de formulário.
-	 */
+/**
+ * Plugin p/ placeholder de inputs de formulário.
+ */
 	jQuery.fn.extend({
 		placeholder: function(value)
 		{
@@ -44,7 +44,8 @@
  * Document.ready
  */
 	$(document).ready(function()
-	{		
+	{
+		// Header -> Abrertura dos menus
 		$('#header_main_menu > li').die().live('click', function()
 		{
 			if ( $(this).hasClass('active') === false )
@@ -55,6 +56,7 @@
 			}
 		});
 		
+		// Header -> abertura da caixa de dados do usuário
 		$('#box_user').die().live('click', function()
 		{
 			if ( $(this).hasClass('active') === false )
@@ -64,17 +66,42 @@
 			}
 		});
 		
+		// Header -> fechamento de caixas dropdown
 		$('#box_user_info,#box_user_notifications').die().live('click', function()
 		{
 			$(this).find('.header_dropdown').show();
 		});
 		
+		// Estórias -> menu de ações
+		$('.list_stories_actions > button').die().live('click', function()
+		{
+			$('.list_stories_actions').die().live('click', function(e)
+			{
+				e.stopPropagation();
+			});
 		
+			var menu = $(this).next('ul');
+			
+			if ( menu.is(':visible') === true ) {
+				return;
+			}
+			
+			menu.stop(false, true).slideDown('fast');
+			$('body').click(function()
+			{
+				menu.stop(false, true).slideUp('fast');
+				$(this).unbind('click');
+				$('.list_stories_actions').unbind('click');
+			});
+		});
 		
-		
-		
-		
-		
+		// Diálogos -> fechamento no clique
+		$('.message > li').live('click', function()
+		{
+			$(this).fadeOut('normal', function() {
+				$(this).remove();
+			});
+		});
 		
 	
 	});

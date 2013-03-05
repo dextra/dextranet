@@ -15,8 +15,17 @@ public abstract class Entidade {
 		this.id = UUID.randomUUID().toString();
 	}
 
+	public Entidade(String id) {
+		this.id = id;
+	}
+
+
 	public String getId() {
 		return this.id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public <T extends Entidade> Key getKey(Class<T> clazz) {

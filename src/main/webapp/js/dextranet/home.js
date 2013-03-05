@@ -13,52 +13,76 @@ dextranet.home = {
 		$.holy("../template/dinamico/carrega_miolo_home_page.xml", {});
 	},
 
+	carregaHome : function() {
+		dextranet.home.limpaPosts();
+		dextranet.home.limpaContentPrincipal();
+		dextranet.home.setActiveMenuLateral("#sidebar_left_home");
+		dextranet.post.listaPost("", 0);
+	},
+
 	setActiveMenuLateral : function(id) {
 		$("#sidebar_left_menu > li").removeClass('active');
 		$(id).addClass("active");
 	},
 
-	abrePopUp : function(tipo) {
-		if (dextranet.home.EhVisivel('.sidebar_show_right.' + tipo)){
-			$(".sidebar_show_right." + tipo).hide();
-			dextranet.home.setActiveMenuLateral("#sidebar_left_home");
-		} else {
-			dextranet.home.limparAvisoPreenchaCampos();
-			$('.sidebar_show_right').filter(':not(.' + tipo + ')').hide();
-			$(".sidebar_show_right." + tipo).show();
-			dextranet.home.setActiveMenuLateral("#sidebar_left_new_" + tipo);
-		}
-	},
+	abrePopUpNovoPost : function() {		
 	
-	abrePopUpNovoPost : function() {
-		if (dextranet.home.EhVisivel('.sidebar_show_right.post')){
+		$('#sidebar_left_new_post').click(function(e) {
+			e.stopPropagation();
+		});
+	
+		function closePostPopup()
+		{
 			$(".sidebar_show_right.post").hide();
-			dextranet.home.setActiveMenuLateral("#sidebar_left_home");
-		} else {
+			dextranet.home.setActiveMenuLateral('#' + $antigo.attr('id'));
+		}
+	
+		if (dextranet.home.EhVisivel('.sidebar_show_right.post')){
+			closePostPopup();
+		} 
+		
+		else {
 			dextranet.home.limparAvisoPreenchaCampos();
 			$(".sidebar_show_right.post").show();
+			$antigo = $('#sidebar_left_menu li.active');
 			dextranet.home.setActiveMenuLateral("#sidebar_left_new_post");
+
+			$(document).keydown(function(e)	{
+				if ( e.which === 27 ) {
+					e.preventDefault();
+					closePostPopup();
+					$(this).unbind('keydown');
+					$("#button_sidebar_left_novopost").focus();
+				}
+			});
+			
+			$('body').click(function() {
+				$(this).unbind('click');
+				closePostPopup();
+			});
+			
+			$('#form_input_title').focus();
 		}
 	},
 
-	abrePaginaCategoria : function() {
-		if (dextranet.home.EhVisivel('.sidebar_show_right.banner')){
-			$(".sidebar_show_right.banner").hide();
-			dextranet.home.setActiveMenuLateral("#sidebar_left_home");
-		} else {
-			dextranet.home.limparAvisoPreenchaCampos();
-			$(".sidebar_show_right.banner").show();
-			dextranet.home.setActiveMenuLateral("#sidebar_left_new_banner");
-		}
+	abrePaginaNovoBanner : function() {
+		dextranet.home.limpaPosts();
+		$.holy("../template/dinamico/abre_pagina_novo_banner.xml", {});
+		dextranet.home.setActiveMenuLateral("#sidebar_left_new_banner");
 	},
 
 	abrePaginaPerfil : function() {
-		$.holy("../template/dinamico/abre_pagina_perfil.xml", {});
+		dextranet.home.limpaPosts();
+		dextranet.perfil.obter(dextranet.usuario.id);
+//		dextranet.perfil.init(dextranet.usuario.id);
+//		$.holy("../template/dinamico/abre_pagina_perfil.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_profile");
 	},
 
 	abrePaginaEquipe : function() {
-		$.holy("../template/dinamico/abre_pagina_equipe.xml", {});
+		dextranet.home.limpaPosts();
+		dextranet.equipe.get();
+		//$.holy("../template/dinamico/abre_pagina_equipe.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_team");
 	},
 
@@ -114,5 +138,13 @@ dextranet.home = {
 			$("div.container_message_warning").empty();
 			$("div.container_message_warning").removeClass("container_message_warning");
 		}
+	},
+
+	limpaPosts : function() {
+		$("ul#relacao_dos_posts").empty();
+	},
+
+	limpaContentPrincipal : function() {
+		$("div#content_principal").empty();
 	}
 };

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
-	<template selector="#banner" append="true">
-		<div class="close" >\/</div>
+	<template selector="#new-banner" append="true">
+		<ul class="content-banners">
 			{for banner in jsonArrayBanner}
+			<li>
 				<![CDATA[
 				<a
 					{if banner.postObjectJson.link == ''}
@@ -16,12 +17,16 @@
 					<img src="/s/banner/${banner.postObjectJson.id}" />
 				</a>
 				]]>
+			</li>
 			{/for}	
+		</ul>
 	</template>
+	<!-- FIXME 
+	Mudar a posição do tipsy do banner
+		 -->
 	<script>
-		$('#banner img:first').load(function() {
-            dextranet.banner.mostrarBanners();
-            $('#banner a.banner_link').tipsy({html:true, gravity:'s'});
+		$('#new-banner img:first').load(function() {
+            $('#new-banner a.banner_link').tipsy({html:true, gravity:'n'});
 		});
 	</script>
 </engine>

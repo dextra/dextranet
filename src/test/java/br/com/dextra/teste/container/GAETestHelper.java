@@ -10,6 +10,13 @@ import javax.naming.InitialContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.dextra.dextranet.area.Area;
+import br.com.dextra.dextranet.area.AreaRepository;
+import br.com.dextra.dextranet.perfil.Perfil;
+import br.com.dextra.dextranet.perfil.PerfilRepository;
+import br.com.dextra.dextranet.unidade.Unidade;
+import br.com.dextra.dextranet.unidade.UnidadeRepository;
+
 import com.google.appengine.api.search.dev.LocalSearchService;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalSearchServiceTestConfig;
@@ -23,11 +30,10 @@ import com.googlecode.mycontainer.web.FilterDesc;
 import com.googlecode.mycontainer.web.WebServerDeployer;
 import com.googlecode.mycontainer.web.jetty.JettyServerDeployer;
 
-//import com.google.appengine.api.search.dev.LocalSearchService;
-
 public class GAETestHelper {
 
-	private static final Logger LOG = LoggerFactory.getLogger(GAETestHelper.class);
+	private static final Logger LOG = LoggerFactory
+			.getLogger(GAETestHelper.class);
 
 	protected LocalServiceTestHelper helper;
 
@@ -49,7 +55,8 @@ public class GAETestHelper {
 		list.add(ds);
 		list.add(fts);
 
-		helper = new LocalServiceTestHelper(list.toArray(new LocalServiceTestConfig[0]));
+		helper = new LocalServiceTestHelper(
+				list.toArray(new LocalServiceTestConfig[0]));
 		Map<String, Object> envs = new HashMap<String, Object>();
 		envs.put("com.google.appengine.api.users.UserService.user_id_key", "10");
 		helper.setEnvAttributes(envs);
@@ -89,7 +96,8 @@ public class GAETestHelper {
 		ContainerBuilder builder = new ContainerBuilder();
 		builder.deployVMShutdownHook();
 
-		WebServerDeployer server = builder.createDeployer(JettyServerDeployer.class);
+		WebServerDeployer server = builder
+				.createDeployer(JettyServerDeployer.class);
 		server.setName("WebServer");
 		server.bindPort(port);
 
@@ -97,14 +105,51 @@ public class GAETestHelper {
 		web.setContext("/");
 		web.setResources("src/main/webapp");
 
-		LocalServiceTestHelperFilter gae = new LocalServiceTestHelperFilter(helper);
+		LocalServiceTestHelperFilter gae = new LocalServiceTestHelperFilter(
+				helper);
 		web.getFilters().add(new FilterDesc(gae, "/*"));
 
 		System.setProperty("env", "local");
 
 		server.deploy();
 
+		// adicionar data
+		insertData();
+
 		return builder;
+	}
+
+	private void insertData() {
+
+		PerfilRepository perfilRepository = new PerfilRepository();
+		AreaRepository areaRepository = new AreaRepository();
+		UnidadeRepository unidadeRepository = new UnidadeRepository();
+
+		perfilRepository.novo(new Perfil("10", "testName", "testNickName",
+				"Desenvolvimento", "Campo Grande", "00", "testSkype",
+				"gTalk", "testPhoneResidence", "testPhoneMobile",
+				"https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-ash4/309981_344485208954613_952944866_n.jpg"));
+
+
+
+
+		areaRepository.inserir(new Area(""));
+		areaRepository.inserir(new Area("Diretoria"));
+		areaRepository.inserir(new Area("Administrativo"));
+		areaRepository.inserir(new Area("Financeiro"));
+		areaRepository.inserir(new Area("Marketing"));
+		areaRepository.inserir(new Area("RH"));
+		areaRepository.inserir(new Area("Desenvolvimento"));
+		areaRepository.inserir(new Area("Desenvolvimento de Negócios"));
+		areaRepository.inserir(new Area("Treinamento"));
+
+
+		unidadeRepository.inserir(new Unidade(""));
+		unidadeRepository.inserir(new Unidade("Campinas"));
+		unidadeRepository.inserir(new Unidade("Campo Grande"));
+
+
+
 	}
 
 	public void shutdownMycontainer() {

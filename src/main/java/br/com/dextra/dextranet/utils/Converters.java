@@ -11,6 +11,7 @@ import br.com.dextra.dextranet.usuario.Usuario;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Text;
+import com.google.appengine.api.search.Field;
 import com.google.appengine.api.search.Results;
 import com.google.appengine.api.search.ScoredDocument;
 import com.google.gson.JsonObject;
@@ -29,7 +30,12 @@ public class Converters {
     public static List<String> toListaDeIds(Results<ScoredDocument> results) {
         List<String> idList = new ArrayList<String>();
         for (ScoredDocument scoredDocument : results) {
-            idList.add(scoredDocument.getField("id").iterator().next().getText());
+            Iterable<Field> fields = scoredDocument.getFields();
+            for(Field f : fields){
+                if(f.getName().equals("id")){
+                    idList.add(f.getText());
+                }
+            }
         }
         return idList;
     }
