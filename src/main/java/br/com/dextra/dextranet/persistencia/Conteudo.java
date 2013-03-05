@@ -34,28 +34,34 @@ public abstract class Conteudo extends Entidade {
         this.userLikes = "";
     }
 
-    protected boolean jaCurtiu(String usuario) {
-
-        return !(this.userLikes == null || this.userLikes.indexOf(usuario) == -1);
+    protected boolean foiCurtidoPor(String usuario) {
+        return this.userLikes != null && this.userLikes.indexOf(usuario) != -1;
     }
 
-    public Curtida curtir(String usuario) throws EntityNotFoundException {
-
-        Curtida curtida = null;
-        // FIXME: Conteudo curtiu usuario ou usuario curtiu o conteudo?
-        if (!this.jaCurtiu(usuario)) {
-
-            curtida = new Curtida(usuario, this.id);
-
-            atualizaConteudoDepoisDa(curtida);
-
-            this.likes++;
-            this.userLikes = this.userLikes + " " + usuario;
+    public void receberCurtida(String usuario) throws EntityNotFoundException {
+        if (!foiCurtidoPor(usuario)) {
+            curtir(usuario);
+        } else {
+            descurtir(usuario);
         }
-        return curtida;
-
     }
 
-    protected abstract void atualizaConteudoDepoisDa(Curtida curtida) throws EntityNotFoundException;
+    private void descurtir(String usuario) throws EntityNotFoundException {
+        atualizaConteudoDepoisDaDescurtida(usuario);
+        this.userLikes = this.userLikes.replaceAll(" " + usuario, "");
+        this.likes--;
+    }
+
+    private void curtir(String usuario) throws EntityNotFoundException {
+        Curtida curtida = new Curtida(usuario, this.id);
+        atualizaConteudoDepoisDaCurtida(curtida.getUsuarioLogado());
+        this.likes++;
+        this.userLikes = this.userLikes + " " + usuario;
+    }
+
+    protected abstract void atualizaConteudoDepoisDaDescurtida(String login) throws EntityNotFoundException;
+
+    //FIXME bad method name
+    protected abstract void atualizaConteudoDepoisDaCurtida(String usuario) throws EntityNotFoundException;
 
 }

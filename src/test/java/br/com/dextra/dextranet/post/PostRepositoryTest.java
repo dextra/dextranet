@@ -129,16 +129,39 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
         List<Post> postsCriados = geraPosts(qtdOriginalDePosts);
 
-        postsCriados.get(2).curtir("gabriel.ferreira");
-        postsCriados.get(2).curtir("marco.bordon");
-        postsCriados.get(2).curtir("marco.bordon");
-        postsCriados.get(2).curtir("kaique.monteiro");
+        postsCriados.get(2).receberCurtida("gabriel.ferreira");
+        postsCriados.get(2).receberCurtida("marco.bordon");
+        postsCriados.get(2).receberCurtida("kaique.monteiro");
 
         List<Post> listaPostRecuperado = null;
 
         listaPostRecuperado = postRepository.buscarTodosOsPosts(maxResults, offSet);
 
         Assert.assertEquals(3, listaPostRecuperado.get(0).getLikes());
+
+    }
+
+    @Test
+    public void testeDescurtirPost() throws NumberFormatException, EntityNotFoundException, InterruptedException,
+            FileNotFoundException, IOException {
+
+        int maxResults = 20;
+        int page = 0;
+        int offSet = page * maxResults;
+        int qtdOriginalDePosts = 4;
+
+        List<Post> postsCriados = geraPosts(qtdOriginalDePosts);
+
+        postsCriados.get(2).receberCurtida("gabriel.ferreira");
+        postsCriados.get(2).receberCurtida("marco.bordon");
+        postsCriados.get(2).receberCurtida("kaique.monteiro");
+        postsCriados.get(2).receberCurtida("kaique.monteiro");
+
+        List<Post> listaPostRecuperado = null;
+
+        listaPostRecuperado = postRepository.buscarTodosOsPosts(maxResults, offSet);
+
+        Assert.assertEquals(2, listaPostRecuperado.get(0).getLikes());
 
     }
 

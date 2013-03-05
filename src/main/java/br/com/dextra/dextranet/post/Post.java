@@ -3,8 +3,6 @@ package br.com.dextra.dextranet.post;
 import java.text.ParseException;
 
 import br.com.dextra.dextranet.comment.Comment;
-import br.com.dextra.dextranet.curtida.Curtida;
-import br.com.dextra.dextranet.document.DocumentRepository;
 import br.com.dextra.dextranet.persistencia.Conteudo;
 import br.com.dextra.dextranet.persistencia.ConteudoIndexavel;
 import br.com.dextra.dextranet.utils.Converters;
@@ -23,6 +21,8 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 
     private String dataDeAtualizacao;
 
+    private PostRepository postRepository;
+
     public Post(String titulo, String conteudo, String usuario) {
         this(titulo, conteudo, usuario, new Data().pegaData());
     }
@@ -33,7 +33,7 @@ public class Post extends Conteudo implements ConteudoIndexavel {
         this.dataDeAtualizacao = dataDeAtualizacao;
         this.comentarios = 0;
         this.likes = 0;
-
+        this.postRepository = new PostRepository();
     }
 
     public Post(Entity postEntity) {
@@ -46,6 +46,7 @@ public class Post extends Conteudo implements ConteudoIndexavel {
         this.comentarios = ((Long) postEntity.getProperty(PostFields.COMENTARIO.getField())).intValue();
         this.likes = ((Long) postEntity.getProperty(PostFields.LIKES.getField())).intValue();
         this.userLikes = (String) postEntity.getProperty(PostFields.USER_LIKE.getField());
+        this.postRepository = new PostRepository();
     }
 
     public String getTitulo() {
@@ -82,28 +83,17 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 
     public void comentar(Comment comment) throws EntityNotFoundException, ParseException {
 
-        new DocumentRepository().alteraDocumento(comment);
-        new PostRepository().alteraEntity(comment);
+        postRepository.alteraEntity(comment);
 
         this.comentarios++;
         this.dataDeAtualizacao = comment.getDataDeCriacao();
 
     }
 
-    @Override
-    public Curtida curtir(String usuario) throws EntityNotFoundException {
-        Curtida curtida = super.curtir(usuario);
-        new DocumentRepository().alteraDocumento(curtida);
-        return curtida;
+    protected void atualizaConteudoDepoisDaCurtida(String usuario) throws EntityNotFoundException {
+        this.dataDeAtualizacao = new Data().pegaData();
+        new PostRepository().registrarCurtida(this, usuario);
     }
-
-    // FIXME Side Effect - not just setting attributes
-    protected void atualizaConteudoDepoisDa(Curtida curtida) throws EntityNotFoundException {
-        this.dataDeAtualizacao = curtida.getData();
-        PostRepository postDoRepository = new PostRepository();
-        postDoRepository.registrarCurtida(this, curtida.getUsuarioLogado());
-    }
-
 
     @Override
     public Entity toEntity() {
@@ -151,6 +141,11 @@ public class Post extends Conteudo implements ConteudoIndexavel {
                 .addField(Field.newBuilder().setName(PostFields.ID.getField()).setText(id)).build();
 
         return document;
+    }
+
+    @Override
+    protected void atualizaConteudoDepoisDaDescurtida(String login) throws EntityNotFoundException {
+        postRepository.registrarDescurtida(this, login);
     }
 
 }
