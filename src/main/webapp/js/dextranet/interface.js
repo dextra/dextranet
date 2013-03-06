@@ -38,7 +38,17 @@
 			$('.header_dropdown').hide();
 			$('body').unbind('click');
 		});
-	}
+	};
+	
+	$.DextranetInterface.showContentMainOverlay = function()
+	{
+		$('#container_main_overlay').stop(false, true).fadeIn('fast');
+	};
+	
+	$.DextranetInterface.hideContentMainOverlay = function()
+	{
+		$('#container_main_overlay').stop(false, true).hide();
+	};
 	
 /**
  * Document.ready

@@ -1,8 +1,8 @@
 package br.com.dextra.dextranet.comment;
 
 import java.util.Calendar;
+import java.util.Date;
 
-import br.com.dextra.dextranet.curtida.Curtida;
 import br.com.dextra.dextranet.persistencia.Conteudo;
 import br.com.dextra.dextranet.persistencia.ConteudoIndexavel;
 import br.com.dextra.dextranet.utils.Converters;
@@ -22,10 +22,13 @@ public class Comment extends Conteudo implements ConteudoIndexavel {
 
     private boolean arvore;
 
+    private CommentRepository commentRepository;
+
     public Comment(String text, String autor, String id, boolean arvore) {
         super(autor, text);
         this.idPost = id;
         this.arvore = arvore;
+        this.commentRepository = new CommentRepository();
     }
 
     public Comment(Entity commentEntity) {
@@ -39,6 +42,7 @@ public class Comment extends Conteudo implements ConteudoIndexavel {
         this.userLikes = (String) commentEntity.getProperty(CommentFields.USER_LIKE.getField());
         this.arvore = new Converters()
                 .toBoolean(String.valueOf(commentEntity.getProperty(CommentFields.TREE.getField())));
+        this.commentRepository = new CommentRepository();
     }
 
     public String getText() {
@@ -69,10 +73,11 @@ public class Comment extends Conteudo implements ConteudoIndexavel {
         return this.userLikes;
     }
 
-    public void setSgundoDaDataDeCriacao(int segundo) {
-    	Calendar c = Calendar.getInstance();
-    	c.set(Calendar.SECOND, segundo);
-        this.dataDeCriacao = new Data().formataDataPelaBiblioteca(c.getTime());
+    public void setSegundoDaDataDeCriacao(int segundo) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.SECOND, segundo);
+        Date data = calendar.getTime();
+        this.dataDeCriacao = new Data().formataDataPelaBiblioteca(data);
     }
 
     @Override
@@ -121,11 +126,16 @@ public class Comment extends Conteudo implements ConteudoIndexavel {
         return document;
     }
 
-    protected void atualizaConteudoDepoisDa(Curtida curtida) throws EntityNotFoundException {
+    // FIXME: Juntar operacoes
+    protected void atualizaConteudoDepoisDaCurtida(String usuario) throws EntityNotFoundException {
+        commentRepository.insereUsuarioQueCurtiuNoComment(this, usuario);
+        commentRepository.incrementaNumeroDeLikesDaEntityDoComment(this.getId());
+    }
 
-        CommentRepository commentDoRepository = new CommentRepository();
-        commentDoRepository.insereUsuarioQueCurtiuNoComment(curtida, this);
-        commentDoRepository.incrementaNumeroDeLikesDaEntityDoComment(curtida);
+    @Override
+    protected void atualizaConteudoDepoisDaDescurtida(String login) throws EntityNotFoundException {
+        commentRepository.removeUsuarioQueCurtiuNoComment(this, login);
+        commentRepository.decrementaNumeroDeLikesDaEntityDoComment(this);
     }
 
 }

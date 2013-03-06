@@ -33,6 +33,7 @@ dextranet.home = {
 	
 		function closePostPopup()
 		{
+			$.DextranetInterface.hideContentMainOverlay();
 			$(".sidebar_show_right.post").hide();
 			dextranet.home.setActiveMenuLateral('#' + $antigo.attr('id'));
 		}
@@ -44,6 +45,7 @@ dextranet.home = {
 		else {
 			dextranet.home.limparAvisoPreenchaCampos();
 			$(".sidebar_show_right.post").show();
+			$.DextranetInterface.showContentMainOverlay();
 			$antigo = $('#sidebar_left_menu li.active');
 			dextranet.home.setActiveMenuLateral("#sidebar_left_new_post");
 
