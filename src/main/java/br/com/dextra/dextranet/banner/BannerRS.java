@@ -47,8 +47,6 @@ public class BannerRS {
 		return Converters.converterListaDeBannerParaListaDeJson(
 				bannerRepository.getBannerDisponiveis(bannerAtuais)).toString();
 	}
-//		GET http://dextranet-desenvolvimento.appspot.com/s/banner
-//		?atuais=true
 
 	@Path("/{id}")
 	@GET
@@ -64,8 +62,8 @@ public class BannerRS {
 		ByteArrayInputStream bais = new ByteArrayInputStream(imgBytes);
 		ServletOutputStream outputStream = response.getOutputStream();
 
-//		blobstoreService.serve(imagem.getBlobKey(), response);
-		// ta comentada essa linha de cima ?????????????????????????????????????????????????????????????????????
+		blobstoreService.serve(imagem.getBlobKey(), response);
+		// ta comentada essa linha de cima ???
 
 		response.setContentType("image/" + formatoDaImagem); // "image/jpg"
 		response.setContentLength(imgBytes.length);

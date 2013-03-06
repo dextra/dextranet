@@ -52,14 +52,11 @@
 
 		$("#new_banner input[type=button]").click(dextranet.banner.novoBanner);
 
-		console.info('passou pelo abrepaginaequipe');
-
+		console.info('passou pelo novoBanner');
 
 		$("#link_abre_banners").click(dextranet.banner.listaBanners);
 
-
 		console.info('passou pelo listabanners');
-
 
 		console.info('agora vem um tal de focus');
 
