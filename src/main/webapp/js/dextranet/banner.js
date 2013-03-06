@@ -1,12 +1,21 @@
 dextranet.banner = {
-		novoBanner : function() {	
+		novoBanner : function() {
+			console.info("NovoBanner");
 			$.ajax({
 				type : "GET",
 				url : "/s/banner/uploadURL",
 				success : function(url) {
+
+					console.info("NovoBannerSuccess");
 					$("#new_banner").attr("action", url.url).submit();
+					console.info("NovoBannerSuccessURl");
+				},
+				error: function(){
+					console.info("NovoBannerError");
+					$.holy("../template/dinamico/abre_pagina_perfil.xml", {});
 				}
 			});
+			console.info("Nem success nem error");
 			return false;
 		},
 
@@ -14,21 +23,27 @@ dextranet.banner = {
 			$('#new-banner').hide();
 			$.ajax({
 				type : "GET",
-				url : "/s/banner",
+				url : "/s/banner/",
 				data : {"atuais" : "true"},
 				success : function(banners) {
+					alert('Sucess');
 					if (banners.length > 0) {
 						bannerObjectArray = postObject.getpostObjectArrayFromPostJsonArray(banners);
 						$(bannerObjectArray).each(function() {
 							this.postObjectJson.dataDeAtualizacao = converteData(this.postObjectJson.dataDeAtualizacao).substring(5);
 						});
-						$.holy("../template/dinamico/banner/banner.xml", {"jsonArrayBanner" : bannerObjectArray});						
+						$.holy("../template/dinamico/banner/banner.xml", {"jsonArrayBanner" : bannerObjectArray});
 					}
+				},
+				error: function(){
+					alert('erro');
 				}
+
 			});
+			console.info("ListaBAnnersAtuais");
 			return false;
 		},
-		
+
 		listaBanners : function() {
 			$.ajax({
 				type : "GET",
@@ -42,12 +57,13 @@ dextranet.banner = {
 							this.postObjectJson.dataFim = converteData(this.postObjectJson.dataFim).substring(5,15);
 							this.postObjectJson.dataDeAtualizacao = converteData(this.postObjectJson.dataDeAtualizacao).substring(5,15);
 						});
-						$.holy("../template/dinamico/abre_pagina_edita_banner.xml", {"jsonArrayBanner" : bannerObjectArray});						
+						$.holy("../template/dinamico/abre_pagina_edita_banner.xml", {"jsonArrayBanner" : bannerObjectArray});
 					}
 				}
 			});
+			console.info("ListaBAnners");
 		},
-		
+
 		editarBanner : function(idDoBanner) {
 			var dados = {
 					"id" : idDoBanner,
@@ -64,21 +80,22 @@ dextranet.banner = {
 				success : function() {
 					$.ajax({
 						type : "GET",
-						url : "/_ah/cron"							
+						url : "/_ah/cron"
 					})
 					//trocar mensagem de sucesso e colocar calendarios na pagina de edição
 					$.holy("../template/dinamico/banner/mensagem_sucesso.xml", {});
 				}
 			});
+			console.info("editarBanner");
 		},
-		
+
 		inicializaDatepicker : function(novoBanner, dataInicio, dataFim) {
 			var $dataInicio = dataInicio;
 			var $dataFim = dataFim;
 			var dayNamesMin = [ "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab" ];
 			var monthNames = [ "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" ];
 
-			$dataInicio.datepicker({ 
+			$dataInicio.datepicker({
 				dateFormat: "dd/mm/yy",
 				dayNamesMin: dayNamesMin,
 				monthNames: monthNames,
@@ -89,8 +106,8 @@ dextranet.banner = {
 						$dataFim.datepicker( "option", "minDate", selectedDate );
 				}
 			});
-			
-			$dataFim.datepicker({ 
+
+			$dataFim.datepicker({
 				dateFormat: "dd/mm/yy",
 				dayNamesMin: dayNamesMin,
 				monthNames: monthNames,
@@ -100,7 +117,7 @@ dextranet.banner = {
 					$dataInicio.datepicker( "option", "maxDate", selectedDate );
 				}
 			});
-			
+
 			if(novoBanner) {
 				$dataInicio.datepicker("setDate", "Now");
 				$dataFim.datepicker("setDate", "Now");

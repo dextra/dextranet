@@ -80,7 +80,7 @@ public class PerfilRepository {
 
 	}
 
-	public List<Perfil> obterPorInicial(char inicial) {
+	public List<Perfil> obterPorInicial(char inicial) {		
 		List<Perfil> buscados = new ArrayList<Perfil>();
 		char Inicial = Character.toUpperCase(inicial);
 		Query query = new Query(Perfil.class.getName());

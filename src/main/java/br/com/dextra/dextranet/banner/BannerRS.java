@@ -47,13 +47,15 @@ public class BannerRS {
 		return Converters.converterListaDeBannerParaListaDeJson(
 				bannerRepository.getBannerDisponiveis(bannerAtuais)).toString();
 	}
+//		GET http://dextranet-desenvolvimento.appspot.com/s/banner
+//		?atuais=true
 
 	@Path("/{id}")
 	@GET
 	@Produces("application/json;charset=UTF-8")
 	public Response getById(@Context HttpServletResponse response,
 			@PathParam("id") String id) throws IOException {
-		
+
 		Image imagem = bannerRepository.transformaImagem(id);
 
 		byte[] imgBytes = imagem.getImageData();
@@ -62,7 +64,8 @@ public class BannerRS {
 		ByteArrayInputStream bais = new ByteArrayInputStream(imgBytes);
 		ServletOutputStream outputStream = response.getOutputStream();
 
-		//blobstoreService.serve(imagem.getBlobKey(), response);	
+//		blobstoreService.serve(imagem.getBlobKey(), response);
+		// ta comentada essa linha de cima ?????????????????????????????????????????????????????????????????????
 
 		response.setContentType("image/" + formatoDaImagem); // "image/jpg"
 		response.setContentLength(imgBytes.length);
@@ -124,10 +127,10 @@ public class BannerRS {
 			@FormParam("dataFim") String dataFim,
 			@FormParam("link") String link,
 			@Context HttpServletResponse response) throws IOException {
-		
+
 		Banner banner = bannerRepository.obterPorID(id);
 
-		
+
 		try {
 			banner.setTitulo(titulo);
 			banner.setDataInicio(Data.primeiroSegundo(Data
@@ -138,11 +141,11 @@ public class BannerRS {
 			banner.setDataDeAtualizacao(new Date());
 			banner.setBannerNovo(false);
 			banner.setLink(link);
-			
+
 			banner = bannerRepository.atualizaFlagsDepoisDaEdicao(banner);
-			
+
 			bannerRepository.criar(banner);
-			
+
 			bannerRepository.atualizaFlags();
 		} catch (ParseException e) {
 			setReponseStatus(response, HttpServletResponse.SC_BAD_REQUEST,
