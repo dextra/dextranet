@@ -44,7 +44,7 @@ dextranet.home = {
 		
 		else {
 			dextranet.home.limparAvisoPreenchaCampos();
-			$(".sidebar_show_right.post").show();
+			$(".sidebar_show_right.post").stop(false, true).fadeIn('fast');
 			$.DextranetInterface.showContentMainOverlay();
 			$antigo = $('#sidebar_left_menu li.active');
 			dextranet.home.setActiveMenuLateral("#sidebar_left_new_post");
