@@ -4,7 +4,7 @@ dextranet.comment = {
 
 	inicializa : function() {
 		var jaTemTextArea = false;
-		$(".list_stories_headline_comments a.link").click(function() {
+		$(".list_stories_comments a").click(function() {
 			var idDoPost = $(this).attr("id");
 			if (!jaTemTextArea) {
 				if (dextranet.comment.abreTelaComentario($(this).attr("id"), idDoPost)) {
