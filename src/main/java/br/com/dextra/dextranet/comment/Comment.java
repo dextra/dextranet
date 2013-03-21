@@ -122,7 +122,7 @@ public class Comment extends Conteudo implements ConteudoIndexavel {
                         Field.newBuilder().setName(CommentFields.TREE.getField()).setText(String.valueOf(this.arvore)))
                 .addField(Field.newBuilder().setName(CommentFields.ID.getField()).setText(this.id)).build();
 
-        IndexFacade.getIndex(Comment.class.getName()).add(document);
+        IndexFacade.getIndex(Comment.class.getName()).put(document);
         return document;
     }
 
