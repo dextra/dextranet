@@ -297,7 +297,7 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 #container_banner{bottom:0;left:0;width:100%;text-align:center;position:fixed;}
 
 #content_left{margin-right:350px;}
-#content_left_stretch{max-width:520px;}
+/* #content_left_stretch{max-width:520px;} */
 
 #content_right{width:330px;position:absolute;top:0;right:10px;}
 
