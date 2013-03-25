@@ -9,7 +9,6 @@ dextranet.banner = {
 
 					console.info("NovoBannerSuccess");
 					$("#new_banner").attr("action", url.url).submit();
-					console.info("NovoBannerSuccessURl");
 				},
 				error: function(){
 					console.info("NovoBannerError");
@@ -40,7 +39,6 @@ dextranet.banner = {
 				}
 
 			});
-			console.info("ListaBannersAtuais");
 			return false;
 		},
 
@@ -61,7 +59,6 @@ dextranet.banner = {
 					}
 				}
 			});
-			console.info("ListaBAnners");
 		},
 
 		editarBanner : function(idDoBanner) {
