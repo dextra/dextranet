@@ -31,7 +31,7 @@ public class PaginaPrincipal extends PaginaBase {
 	}
 
 	public PaginaNovoComentario clicaEmNovoComentario() {
-		this.click(".list_stories_comments a");
+		this.click(".list_stories_comments a ");
 		this.waitingForLoading();
 		return new PaginaNovoComentario(driver);
 	}
