@@ -1,7 +1,7 @@
 dextranet.banner = {
 
 		novoBanner : function() {
-			console.info("NovoBanner");
+			console.info("NovoBanner"); 
 			$.ajax({
 				type : "GET",
 				url : "/s/banner/uploadURL",
