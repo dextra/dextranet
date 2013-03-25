@@ -27,9 +27,7 @@ dextranet.banner = {
 				url : "/s/banner",
 				data : {"atuais" : "true"},
 				success : function(banners) {
-					alert('Sucess');
 					if (banners.length > 0) {
-						alert('Existe Banner');
 						bannerObjectArray = postObject.getpostObjectArrayFromPostJsonArray(banners);
 						$(bannerObjectArray).each(function() {
 							this.postObjectJson.dataDeAtualizacao = converteData(this.postObjectJson.dataDeAtualizacao).substring(5);
@@ -38,7 +36,7 @@ dextranet.banner = {
 					}
 				},
 				error: function(){
-					alert('erro');
+					console.info('banner com erro');
 				}
 
 			});

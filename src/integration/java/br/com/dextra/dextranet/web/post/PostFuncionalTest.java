@@ -16,7 +16,7 @@ public class PostFuncionalTest extends PostTesteFuncionalUtils {
 
 	private List<String> postsEncontrados = new ArrayList<String>();
 
-	private int quantidadePosts = 21;
+	private int quantidadePosts = 5;
 	private int vezesQueOScrollDescera = (int) Math.round(quantidadePosts / 20.0d + 0.5);
 
 	@Test
