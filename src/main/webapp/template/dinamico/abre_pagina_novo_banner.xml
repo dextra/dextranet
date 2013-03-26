@@ -36,7 +36,7 @@
 				</dd>
 				<dt></dt>
 				<dd>
-					<button type="submit" class="btn btn-blue float_right">Upload!</button>
+					<input type="button" class="btn btn-blue float_right">Upload!</input>
 				</dd>
 			</dl>
 		</form>
@@ -44,25 +44,10 @@
 	</template>
 	<script>
 
-		console.info("entrou no script");
-
     	dextranet.banner.inicializaDatepicker(true, $('form#new_banner').find("#bannerDataInicio"), $('form#new_banner').find("#bannerDataFim"));
-
-		console.info('passou pelo data picker');
-
 		$("#new_banner input[type=button]").click(dextranet.banner.novoBanner);
-
-		console.info('passou pelo novoBanner');
-
 		$("#link_abre_banners").click(dextranet.banner.listaBanners);
-
-		console.info('passou pelo listabanners');
-
-		console.info('agora vem um tal de focus');
-
 		$('#bannerTitulo').focus();
-
-		console.info('passou pelo focus');
 
 	</script>
 </engine>
