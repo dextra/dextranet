@@ -7,10 +7,10 @@ import br.com.dextra.dextranet.utils.IndexFacade;
 public class DocumentRepository extends BaseRepository {
 
     public void indexar(ConteudoIndexavel conteudo) {
-        IndexFacade.getIndex(conteudo.getClass().getName()).add(conteudo.toDocument());
+        IndexFacade.getIndex(conteudo.getClass().getName()).put(conteudo.toDocument());
     }
 
     public void removeIndex(String indexKey, String id) {
-        IndexFacade.getIndex(indexKey).remove(id);
+        IndexFacade.getIndex(indexKey).delete(id);
     }
 }

@@ -16,12 +16,12 @@ table{border-collapse:collapse;border-spacing:0;}
 input,textarea,select{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-khtml-box-sizing:border-box;}
 button{margin:0;background-color:transparent;}
 
-/*----------  Preparação para layout elástico  ----------*/
+/*----------  PreparaÃ§Ã£o para layout elÃ¡stico  ----------*/
 body,html{height:100%;}
 body{font-size:1em;position:relative;}
 html{font-size:100%;}
 
-/*----------  Ícones & Formas  ----------*/
+/*----------  Ã�cones & Formas  ----------*/
 [class^="icon_"]{display:inline-block;vertical-align:middle;width:16px;height:16px;background-image:url('../img/main-bundle.png');}
 
 .icon_header_logo{width:135px;height:23px;}
@@ -45,7 +45,7 @@ html{font-size:100%;}
 .icon_icon-trash{background-position:-210px -74px;width:14px;height:14px;margin-right:4px;vertical-align:-2px;}
 .icon_icon-edit{background-position:-210px -93px;width:14px;height:14px;margin-right:4px;vertical-align:-2px;}
 
-/*----------  Características  ----------*/
+/*----------  CaracterÃ­sticas  ----------*/
 .clear{clear:both;}
 .clearfix:after{content:".";clear:both;display:block;height:0;visibility:hidden;}
 .hidden{display:none;}
@@ -74,7 +74,7 @@ html{font-size:100%;}
 
 .hyphenize{-moz-hyphens:auto;-webkit-hyphens:auto;hyphens:auto;-ms-hyphens:auto;-o-hyphens:auto;}
 
-/*----------  Tipografia & Botões  ----------*/
+/*----------  Tipografia & BotÃµes  ----------*/
 body{font-family:'Open Sans', arial, sans-serif;background:url('../img/body-pattern.jpg') repeat;}
 
 a{color:#4887c6;text-decoration:none;}
@@ -113,7 +113,7 @@ small{font-size:70%;}
 
 .btn-block{width:100%;}
 
-/*----------  Menu padrão  ----------*/
+/*----------  Menu padrÃ£o  ----------*/
 .menu-light{list-style:none;position:absolute;left:0;top:0;box-shadow:0 10px 10px -6px #aaa;}
 .menu-light > li > a{display:block;padding:4px 6px;background-color:#fafafa;font-size:13px;border:1px solid #d9e3ee;margin-bottom:-1px;width:100px;box-shadow:inset 0 3px 3px -1px #f6f6f6;text-shadow:0 1px 0 #fff;color:#2171c0;}
 .menu-light > li:first-child > a{border-radius:5px 5px 0 0;}
@@ -122,7 +122,7 @@ small{font-size:70%;}
 .menu-light > li > a:active{background-color:#fdfdfd;box-shadow:inset 0 8px 8px -3px #f5f5f5;color:#5296d9;}
 .menu-light-thickbottom > a{border-bottom-width:3px!important;}
 
-/*----------  Formulários  ----------*/
+/*----------  FormulÃ¡rios  ----------*/
 input,
 select,
 textarea{background-color:#fdfdfd;border-radius:5px;border:1px solid #d5d5d5;padding:5px 10px;box-shadow:0 0 3px #ddd,inset 0 4px 4px #fafafa,inset 0 0 0 1px #fff;color:#bbb;font-size:14px;}
@@ -201,7 +201,7 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 
 #header_search_box{float:right;height:32px;width:269px;margin-top:6px;}
 
-/*----------  Informações do usuário  ----------*/
+/*----------  InformaÃ§Ãµes do usuÃ¡rio  ----------*/
 #box_user{position:relative;float:right;margin-right:10px;height:40px;border-left:solid 1px #cfd5d9;border-right:1px solid #cfd5d9;top:-1px;background-color:#f0f3f4;cursor:pointer;list-style-type:none;}
 #box_user:hover{box-shadow:inset 0 0 2px 1px #fff;}
 #box_user.active,
@@ -287,7 +287,7 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 #sidebar_left_menu > li > l#box_new_post > li input[type=text]{width:100%;}
 #sidebar_left_menu .sidebar_show_right{display:none;}
 
-/*----------  Estrutura dos blocos centrais de conteúdo  ----------*/
+/*----------  Estrutura dos blocos centrais de conteÃºdo  ----------*/
 .block-white{background-color:#fdfdfd;padding:10px 15px;border-radius:5px;box-shadow:inset 0 0 0 1px #fff,0 0 0 1px #eaeaea,0 0 4px #e9e9e9;color:#999;text-shadow:0 1px 1px #fff;}
 
 #container_main{margin-left:95px;clear:both;padding-right:10px;position:relative;}
@@ -297,7 +297,7 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 #container_banner{bottom:0;left:0;width:100%;text-align:center;position:fixed;}
 
 #content_left{margin-right:350px;}
-#content_left_stretch{max-width:520px;}
+/* #content_left_stretch{max-width:520px;} */
 
 #content_right{width:330px;position:absolute;top:0;right:10px;}
 
@@ -305,7 +305,7 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 
 #banner .close{border-radius: 10px 10px 0 0;left: 50%;padding: 7px 7px 0 7px;position: absolute;top: -27px; border:solid 1px #d9dbdd; border-bottom: none;}
 
-/*----------  Listagem de estórias de usuários  ----------*/
+/*----------  Listagem de estÃ³rias de usuÃ¡rios  ----------*/
 .list_stories{list-style:none;margin-top:5px;}
 .list_stories > li{border-radius:5px;background-color:#fefefe;border:1px solid #cfe1f3;padding:8px 12px 2px;margin-bottom:20px;margin-left:75px;position:relative;}
 .list_stories > li > .speech-shape,
@@ -345,7 +345,7 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 .list_stories_actions > button{font-weight:bold;}
 .list_stories_actions > .menu-light{top:25px;display:none;z-index:20;}
 
-/*----------  Caixas de diálogo  ----------*/
+/*----------  Caixas de diÃ¡logo  ----------*/
 .message { margin:10px 0 20px;list-style:none;}
 .message li {cursor:pointer;color:#000;padding:5px 10px 5px 30px;margin:0;font-size:12px;background:#FFF;border:1px solid #EEE;list-style:none;border-radius:5px;background-position:5px center; background-repeat: no-repeat;font-weight:bold;}
 .message li a,
@@ -401,7 +401,7 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 .list-team-content-geral{margin-bottom:10px;}
 .list-team-content-ramal{float:right;}
 
-/*----------  Paginação  ----------*/
+/*----------  PaginaÃ§Ã£o  ----------*/
 .list-pagination {text-align:center}
 .list-pagination li { display:inline-block; padding-left:4px; padding-right:4px; border:solid 1px #cfd5d9;width:1.5em; height:1.5em; text-align:center;background-color:#d5d9db }
 .list-pagination li a{ display:block;font-size: .9em;  margin-top:4px; font-weight:bold;text-shadow:0 1px 1px #fff;}
