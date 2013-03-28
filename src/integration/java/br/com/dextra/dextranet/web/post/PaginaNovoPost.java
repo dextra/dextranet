@@ -18,7 +18,7 @@ public class PaginaNovoPost extends PaginaBase {
 	}
 
 	public void submetePost() {
-		this.click("input#form_post_submit");
+		this.click("button#form_post_submit");
 		this.waitingForLoading();
 	}
 

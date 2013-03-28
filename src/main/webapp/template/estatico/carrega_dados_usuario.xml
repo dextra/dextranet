@@ -17,7 +17,7 @@
 			</ul>
 		</li>
 
-		<li id="box_user_notifications">
+	<!-- 	<li id="box_user_notifications">
 			<span class="highlight" style="float:right;">3</span>
 			<ul id="box_user_notifications_full" class="header_dropdown">
 				<li>
@@ -33,7 +33,7 @@
 					<a href="#">ver todas as notificações<![CDATA[&nbsp;&nbsp;&raquo;&raquo;]]></a>
 				</li>
 			</ul>
-		</li>
+		</li> -->
 
 		<script>
 			//@fixme

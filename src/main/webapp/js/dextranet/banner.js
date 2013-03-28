@@ -1,7 +1,7 @@
 dextranet.banner = {
 
 		novoBanner : function() {
-			console.info("NovoBanner");
+			console.info("NovoBanner"); 
 			$.ajax({
 				type : "GET",
 				url : "/s/banner/uploadURL",
@@ -9,7 +9,6 @@ dextranet.banner = {
 
 					console.info("NovoBannerSuccess");
 					$("#new_banner").attr("action", url.url).submit();
-					console.info("NovoBannerSuccessURl");
 				},
 				error: function(){
 					console.info("NovoBannerError");
@@ -27,9 +26,7 @@ dextranet.banner = {
 				url : "/s/banner",
 				data : {"atuais" : "true"},
 				success : function(banners) {
-					alert('Sucess');
 					if (banners.length > 0) {
-						alert('Existe Banner');
 						bannerObjectArray = postObject.getpostObjectArrayFromPostJsonArray(banners);
 						$(bannerObjectArray).each(function() {
 							this.postObjectJson.dataDeAtualizacao = converteData(this.postObjectJson.dataDeAtualizacao).substring(5);
@@ -38,11 +35,10 @@ dextranet.banner = {
 					}
 				},
 				error: function(){
-					alert('erro');
+					console.info('banner com erro');
 				}
 
 			});
-			console.info("ListaBannersAtuais");
 			return false;
 		},
 
@@ -63,7 +59,6 @@ dextranet.banner = {
 					}
 				}
 			});
-			console.info("ListaBAnners");
 		},
 
 		editarBanner : function(idDoBanner) {

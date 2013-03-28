@@ -46,7 +46,7 @@ public class CommentToJson {
 		ArrayList<String> idList = new ArrayList<String>();
 
 		for (ScoredDocument scoredDocument : results) {
-			idList.add(scoredDocument.getField("id").iterator().next().getText());
+			idList.add(scoredDocument.getOnlyField("id").getText());
 		}
 
 		return idList;
