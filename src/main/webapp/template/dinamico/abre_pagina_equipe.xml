@@ -6,12 +6,6 @@
 
 		</div><!-- #sidebar-right -->
 
-		 <form id="form-team" class="form-dark form-big form-fields-block">
-			<input type="text" placeholder="${messages.placeholder_pesquisa_equipe}" id="form-team-input" />
-			<input type="submit" value="" onclick="dextranet.equipe.getNome()" id="form-team-submit" />
-			<button class="btn btn-big" id="btnVerTodos">Ver todos</button><!-- @toDo -->
-		</form>
-
 		<!-- #menu abcd -->
 		<ul class="list-menu-abcd clearfix">
 			<li><a href="#" onclick="dextranet.equipe.getInicial('a');">a</a></li>
