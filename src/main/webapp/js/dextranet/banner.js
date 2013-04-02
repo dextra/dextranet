@@ -1,21 +1,25 @@
 dextranet.banner = {
 
 		novoBanner : function() {
-			console.info("NovoBanner"); 
+
+			var error = false;
+
+			if (!$("#bannerTitulo").val() || !$("#bannerDataInicio").val() || !$("#bannerDataFim").val() || !$("#file").val()) {
+				$.holy("../template/dinamico/banner/mensagem_preencha_campos.xml", {});
+				return;
+			}
+
 			$.ajax({
 				type : "GET",
 				url : "/s/banner/uploadURL",
 				success : function(url) {
-
-					console.info("NovoBannerSuccess");
 					$("#new_banner").attr("action", url.url).submit();
 				},
 				error: function(){
-					console.info("NovoBannerError");
 					$.holy("../template/dinamico/abre_pagina_perfil.xml", {});
 				}
 			});
-			console.info("Nem success nem error");
+
 			return false;
 		},
 

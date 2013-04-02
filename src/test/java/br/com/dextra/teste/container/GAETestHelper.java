@@ -18,6 +18,7 @@ import br.com.dextra.dextranet.unidade.Unidade;
 import br.com.dextra.dextranet.unidade.UnidadeRepository;
 
 import com.google.appengine.api.search.dev.LocalSearchService;
+import com.google.appengine.tools.development.testing.LocalBlobstoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalSearchServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestConfig;
@@ -54,6 +55,7 @@ public class GAETestHelper {
 		List<LocalServiceTestConfig> list = new ArrayList<LocalServiceTestConfig>();
 		list.add(ds);
 		list.add(fts);
+		list.add(new LocalBlobstoreServiceTestConfig());
 
 		helper = new LocalServiceTestHelper(
 				list.toArray(new LocalServiceTestConfig[0]));

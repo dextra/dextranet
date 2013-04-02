@@ -3,6 +3,7 @@
 	<template selector="#content_principal">
 		<h1>Adicionar novo banner</h1>
 		<form id="new_banner" method="post" enctype="multipart/form-data" class="form-horizontal form-fields-large form-dark">
+			<div id="#container_message"></div>
 			<dl class="clearfix">
 				<dt>
 					<label for="bannerTitulo">Título:</label>
@@ -36,7 +37,7 @@
 				</dd>
 				<dt></dt>
 				<dd>
-					<input type="button" class="btn btn-blue float_right">Upload!</input>
+					<input type="button" class="btn btn-blue float_right" value="Upload!"></input>
 				</dd>
 			</dl>
 		</form>
