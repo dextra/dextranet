@@ -349,7 +349,7 @@
 			<dependency>
 				<groupId>br.com.dextra</groupId>
 				<artifactId>expertus</artifactId>
-				<version>1.0.12</version>
+				<version>1.0.14</version>
 			</dependency>
 			<dependency>
 				<groupId>org.owasp</groupId>
