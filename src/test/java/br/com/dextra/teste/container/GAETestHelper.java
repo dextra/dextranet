@@ -58,7 +58,9 @@ public class GAETestHelper {
 		List<LocalServiceTestConfig> list = new ArrayList<LocalServiceTestConfig>();
 		list.add(ds);
 		list.add(fts);
-		list.add(new LocalBlobstoreServiceTestConfig());
+		LocalBlobstoreServiceTestConfig localBlobstoreServiceTestConfig = new LocalBlobstoreServiceTestConfig();
+		localBlobstoreServiceTestConfig.setNoStorage(true);
+		list.add(localBlobstoreServiceTestConfig);
 
 		helper = new LocalServiceTestHelper(list.toArray(new LocalServiceTestConfig[0]));
 		Map<String, Object> envs = new HashMap<String, Object>();
