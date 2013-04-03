@@ -47,7 +47,7 @@ dextranet.perfil = {
 				if(this.value.length < 3 || this.value == "" || this.value == " " || this.value == "  "
 					|| this.value == "   " || this.value == null){
 					$("#container_mensagem").html("");
-					$.holy("../template/estatico/menssagem_falta_campo_required.xml", {});
+					$.holy("../template/estatico/mensagem_falta_campo_required.xml", {});
 					setTimeout("dextranet.perfil.limpaTela()", 4000);
 					validar = false;
 					return;
