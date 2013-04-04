@@ -17,7 +17,7 @@
 				<a href="#" id="linkMudarFoto" class="avatar-alterar">Mudar foto</a>
 			</div>
 			<input type="file" id="photo" name="photo" />
-			<button class="btn btn-blue" onclick= "dextranet.perfil.fonto()" id="btnAtualizarFoto" type="submit">Atualizar foto</button>
+			<button class="btn btn-blue" onclick= "dextranet.perfil.foto()" id="btnAtualizarFoto" type="submit">Atualizar foto</button>
 		</form>
 
 		<form id="new_perfil" method="post" class="form-dark form-horizontal clearfix" enctype="multipart/form-data">
