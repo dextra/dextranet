@@ -135,7 +135,7 @@ public class GAETestHelper {
 
 		perfilRepository.novo(new Perfil("10", "testName", "testNickName", "Desenvolvimento", "Campo Grande", "00",
 				"testSkype", "gTalk", "testPhoneResidence", "testPhoneMobile",
-				"https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-ash4/309981_344485208954613_952944866_n.jpg"));
+				"https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-ash4/309981_344485208954613_952944866_n.jpg", "githubUserFake"));
 
 		areaRepository.inserir(new Area(""));
 		areaRepository.inserir(new Area("Diretoria"));

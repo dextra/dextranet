@@ -22,27 +22,27 @@
 
 		<form id="new_perfil" method="post" class="form-dark form-horizontal clearfix" enctype="multipart/form-data">
 
-			<input id="idVal" name="id" value="${id}" type="hidden" />
+			<input id="idVal" name="id" value="${perfil.id}" type="hidden" />
 			<dl>
 				<dt>
 					<label for="nameVal"><span class="input-obg"></span>Nome:</label>
 				</dt>
 				<dd>
-					<input type="text" id="nameVal" name="name" value="${name}" class="required"/>
+					<input type="text" id="nameVal" name="name" value="${perfil.name}" class="required"/>
 				</dd>
 				<dt>
 					<label for="nickNameVal"><span class="input-obg"></span>Apelido:</label>
 				</dt>
 				<dd>
-					<input type="text" id="nickNameVal" name="name" value="${nickName}" class="required"/>
+					<input type="text" id="nickNameVal" name="name" value="${perfil.nickName}" class="required"/>
 				</dd>
 				<dt>
 					<label for="areaVal"><span class="input-obg"></span>Área:</label>
 				</dt>
 				<dd>
 					<select id="areaVal" class="required" >
-						{for areas in areasPossiveis}
-							{if areas.name == area}
+						{for areas in perfil.areasPossiveis}
+							{if areas.name == perfil.area}
 								<option selected="selected">${areas.name}</option>
 							{else}
 								<option value="${areas.name}" >${areas.name}</option>
@@ -55,8 +55,8 @@
 				</dt>
 				<dd>
 					<select id="unitVal" class="required" >
-						{for unidades in unidadesPossiveis}
-							{if unidades.name == unit}
+						{for unidades in perfil.unidadesPossiveis}
+							{if unidades.name == perfil.unit}
 								<option selected="selected" >${unidades.name}</option>
 							{else}
 								<option value="${unidades.name}" >${unidades.name}</option>
@@ -70,19 +70,19 @@
 					<label for="ramalVal">Ramal:</label>
 				</dt>
 				<dd>
-					<input type="text" id="ramalVal" name="ramal" value="${branch}" />
+					<input type="text" id="ramalVal" name="ramal" value="${perfil.branch}" />
 				</dd>
 				<dt>
 					<label for="skypeVal">Skype:</label>
 				</dt>
 				<dd>
-					<input type="text" id="skypeVal" name="skype" value="${skype}" />
+					<input type="text" id="skypeVal" name="skype" value="${perfil.skype}" />
 				</dd>
 				<dt>
 					<label for="gTalkVal">GTalk:</label>
 				</dt>
 				<dd>
-					<input type="text" id="gTalkVal" name="gTtalk" value="${gTalk}" />
+					<input type="text" id="gTalkVal" name="gTtalk" value="${perfil.gTalk}" />
 				</dd>
 			</dl>
 			<dl class="perfil-clear-right">
@@ -90,13 +90,19 @@
 					<label for="residencialVal">Telefone fixo:</label>
 				</dt>
 				<dd>
-					<input type="text" id="residencialVal" name="residencial" value="${phoneResidence}" />
+					<input type="text" id="residencialVal" name="residencial" value="${perfil.phoneResidence}" />
 				</dd>
 				<dt>
 					<label for="celularVal">Celular:</label>
 				</dt>
 				<dd>
-					<input type="text" id="celularVal" name="celular" value="${phoneMobile}" class="required"/>
+					<input type="text" id="celularVal" name="celular" value="${perfil.phoneMobile}" class="required"/>
+				</dd>
+				<dt>
+					<label for="githubUser">Usuário GitHub:</label>
+				</dt>
+				<dd>
+					<input type="text" id="githubUser" name="githubUser" value="${perfil.githubUser}"/>
 				</dd>
 				<dt></dt>
 				<dd>
