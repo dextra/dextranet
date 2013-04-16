@@ -6,9 +6,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 
 import br.com.dextra.dextranet.comment.Comment;
@@ -16,43 +14,25 @@ import br.com.dextra.dextranet.comment.CommentRepository;
 import br.com.dextra.dextranet.post.Post;
 import br.com.dextra.dextranet.post.PostRepository;
 import br.com.dextra.dextranet.utils.Data;
-import br.com.dextra.teste.container.MyContainer;
+import br.com.dextra.teste.container.GAETestServer;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
-import com.google.appengine.tools.development.testing.LocalSearchServiceTestConfig;
-import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 public class TesteIntegracaoBase {
 
-    protected static MyContainer myContainer;
-    protected final LocalServiceTestHelper helper = new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
-    protected final LocalServiceTestHelper fts = new LocalServiceTestHelper(new LocalSearchServiceTestConfig());
+    protected static GAETestServer server = new GAETestServer();
+
+    private static final boolean noStorage = true;
 
     @BeforeClass
     public static void setup() {
-        myContainer = new MyContainer();
-        try {
-            myContainer.start();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+		server.enableDatastore(noStorage);
+    	server.start();
     }
 
     @AfterClass
     public static void shutdown() {
-        myContainer.stop();
-    }
-
-    @Before
-    public void setUp() {
-        helper.setUp();
-        fts.setUp();
-    }
-
-    @After
-    public void tearDown() {
-        helper.tearDown();
+    	server.stop();
     }
 
     public List<Post> geraPosts(int numeroDePosts) throws InterruptedException, FileNotFoundException, IOException {

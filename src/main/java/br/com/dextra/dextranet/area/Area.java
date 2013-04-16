@@ -1,13 +1,12 @@
 package br.com.dextra.dextranet.area;
 
-import java.util.UUID;
+import br.com.dextra.dextranet.persistencia.Entidade;
 
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.KeyFactory;
+import com.google.gson.JsonObject;
 
-public class Area {
+public class Area extends Entidade {
 
-	public String id = UUID.randomUUID().toString();
 	public String name;
 
 	public Area(String name) {
@@ -23,16 +22,8 @@ public class Area {
 		return id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	@Override
@@ -41,10 +32,17 @@ public class Area {
 	}
 
 	public Entity toEntity() {
-		Entity entity = new Entity(KeyFactory.createKey(this.getClass()
-				.getName(), this.id));
-		entity.setProperty("id", this.getId());
-		entity.setProperty("name", this.getName());
-		return entity;
+		Entity entidade = new Entity(this.getKey(this.getClass()));
+		entidade.setProperty("id", this.getId());
+		entidade.setProperty("name", this.getName());
+		return entidade;
+	}
+
+	@Override
+	public JsonObject toJson() {
+        JsonObject json = new JsonObject();
+        json.addProperty("id", this.id);
+        json.addProperty("name", this.name);
+        return json;
 	}
 }

@@ -1,7 +1,7 @@
 package br.com.dextra.dextranet.persistencia;
 
 import br.com.dextra.dextranet.curtida.Curtida;
-import br.com.dextra.dextranet.utils.DadosHelper;
+import br.com.dextra.dextranet.utils.ConteudoHTML;
 import br.com.dextra.dextranet.utils.Data;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -26,7 +26,7 @@ public abstract class Conteudo extends Entidade {
 
     public Conteudo(String usuario, String conteudo) {
         super();
-        this.conteudo = new DadosHelper().removeConteudoJS(conteudo);
+        this.conteudo = new ConteudoHTML(conteudo).removeJavaScript();
         this.usuario = usuario;
         this.dataDeCriacao = new Data().pegaData();
         this.comentarios = 0;

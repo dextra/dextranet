@@ -4,13 +4,12 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-public class DadosHelperTest {
+public class ConteudoHTMLTest {
 
 	@Test
 	public void removeCodigoIndevidoTest() {
 		String conteudo = "<script>alert('Hello!');</script>teste";
-
-		Assert.assertEquals("teste", new DadosHelper().removeConteudoJS(conteudo));
+		Assert.assertEquals("teste", new ConteudoHTML(conteudo).removeJavaScript());
 	}
 
 }

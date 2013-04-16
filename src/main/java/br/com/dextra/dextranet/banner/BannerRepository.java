@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import br.com.dextra.dextranet.persistencia.BaseRepository;
+import br.com.dextra.dextranet.persistencia.EntidadeRepository;
 import br.com.dextra.dextranet.utils.Data;
 
 import com.google.appengine.api.blobstore.BlobKey;
@@ -24,12 +24,12 @@ import com.google.appengine.api.images.Transform;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
 
-public class BannerRepository extends BaseRepository {
+public class BannerRepository extends EntidadeRepository {
 
 	private DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
 	public Banner criar(Banner banner) {
-		this.persist(banner.toEntity());
+		this.persiste(banner);
 		return banner;
 	}
 

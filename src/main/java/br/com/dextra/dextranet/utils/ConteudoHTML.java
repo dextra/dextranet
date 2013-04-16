@@ -7,9 +7,15 @@ import org.owasp.validator.html.Policy;
 import org.owasp.validator.html.PolicyException;
 import org.owasp.validator.html.ScanException;
 
-public class DadosHelper {
+public class ConteudoHTML {
 
-	public String removeConteudoJS(String conteudoHTML) {
+	private String conteudo;
+
+	public ConteudoHTML(String conteudo) {
+		this.conteudo = conteudo;
+	}
+
+	public String removeJavaScript() {
 
 		try {
 			InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("antisamy.xml");
@@ -19,7 +25,7 @@ public class DadosHelper {
 			policy = Policy.getInstance(inputStream);
 
 			try {
-				return as.scan(conteudoHTML, policy).getCleanHTML();
+				return as.scan(this.conteudo, policy).getCleanHTML();
 			} catch (ScanException e) {
 				throw new RuntimeException("Erro ao remover codigo indevido do conteudo (Scan).", e);
 			}

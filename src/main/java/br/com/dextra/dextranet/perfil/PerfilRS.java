@@ -82,7 +82,7 @@ public class PerfilRS {
 	public String obter(@PathParam("id") String id) {
 		Perfil perfil = repo.buscar(id);
 
-		List<Area> lista = ar.buscarTodos();
+		List<Area> lista = ar.lista();
 		perfil.setAreasPossiveis(lista);
 		List<Unidade> lista2 = ur.buscarTodos();
 		perfil.setUnidadesPossiveis(lista2);

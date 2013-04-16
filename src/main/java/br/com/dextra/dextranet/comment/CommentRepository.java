@@ -3,7 +3,7 @@ package br.com.dextra.dextranet.comment;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.dextra.dextranet.persistencia.BaseRepository;
+import br.com.dextra.dextranet.persistencia.EntidadeRepository;
 import br.com.dextra.dextranet.post.PostFields;
 
 import com.google.appengine.api.datastore.DatastoreService;
@@ -17,86 +17,92 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
-public class CommentRepository extends BaseRepository {
+public class CommentRepository extends EntidadeRepository {
 
-    private DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+	private DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-    public Comment criar(Comment comment) {
-        this.persist(comment.toEntity());
+	public Comment criar(Comment comment) {
+		this.persiste(comment);
 
-        // TODO: indexacao do post que foi comentado com conteudo do comment
+		// TODO: indexacao do post que foi comentado com conteudo do comment
 
-        return comment;
-    }
+		return comment;
+	}
 
-    public List<Comment> listarCommentsDeUmPost(String idReference) {
+	public List<Comment> listarCommentsDeUmPost(String idReference) {
 
-        Query query = new Query(Comment.class.getName());
-        query.setFilter(FilterOperator.EQUAL.of(CommentFields.ID_REFERENCE.getField(), idReference));
-        query.addSort(CommentFields.DATA_DE_CRIACAO.getField(), SortDirection.ASCENDING);
+		Query query = new Query(Comment.class.getName());
+		query.setFilter(FilterOperator.EQUAL.of(CommentFields.ID_REFERENCE.getField(), idReference));
+		query.addSort(CommentFields.DATA_DE_CRIACAO.getField(), SortDirection.ASCENDING);
 
-        PreparedQuery prepared = datastore.prepare(query);
-        return toListaDeComments(prepared.asIterable());
-    }
+		PreparedQuery prepared = datastore.prepare(query);
+		return toListaDeComments(prepared.asIterable());
+	}
 
-    private List<Comment> toListaDeComments(Iterable<Entity> asIterable) {
-        List<Comment> listaDeComments = new ArrayList<Comment>();
+	private List<Comment> toListaDeComments(Iterable<Entity> asIterable) {
+		List<Comment> listaDeComments = new ArrayList<Comment>();
 
-        for (Entity entity : asIterable) {
-            listaDeComments.add(new Comment(entity));
-        }
+		for (Entity entity : asIterable) {
+			listaDeComments.add(new Comment(entity));
+		}
 
-        return listaDeComments;
+		return listaDeComments;
 
-    }
+	}
 
-    public Comment obtemPorId(String id) throws EntityNotFoundException {
-        return new Comment(this.obtemPorId(id, Comment.class));
-    }
+	public Comment obtemPorId(String id) throws EntityNotFoundException {
+		return new Comment(this.obtemPorId(id, Comment.class));
+	}
 
-    public void insereUsuarioQueCurtiuNoComment(Comment comment, String usuario) throws EntityNotFoundException {
+	public void insereUsuarioQueCurtiuNoComment(Comment comment, String usuario) throws EntityNotFoundException {
 
-        Key key = KeyFactory.createKey(Comment.class.getName(), comment.getId());
-        Entity valueEntity = datastore.get(key);
+		Key key = KeyFactory.createKey(Comment.class.getName(), comment.getId());
+		Entity valueEntity = datastore.get(key);
 
-        valueEntity.setProperty(CommentFields.USER_LIKE.getField(),
-                valueEntity.getProperty(CommentFields.USER_LIKE.getField()) + " " + usuario);
+		valueEntity.setProperty(CommentFields.USER_LIKE.getField(),
+				valueEntity.getProperty(CommentFields.USER_LIKE.getField()) + " " + usuario);
 
-        persist(valueEntity);
+		// TODO: Persistir a entidade
+		// persiste(valueEntity);
 
-    }
+	}
 
-    public void incrementaNumeroDeLikesDaEntityDoComment(String idConteudo) throws EntityNotFoundException {
-        Key key = KeyFactory.createKey(Comment.class.getName(), idConteudo);
-        Entity valueEntity = datastore.get(key);
-        int likes = Integer.parseInt(valueEntity.getProperty(CommentFields.LIKES.getField()).toString());
-        valueEntity.setProperty(CommentFields.LIKES.getField(), likes + 1);
-        persist(valueEntity);
-    }
+	public void incrementaNumeroDeLikesDaEntityDoComment(String idConteudo) throws EntityNotFoundException {
+		Key key = KeyFactory.createKey(Comment.class.getName(), idConteudo);
+		Entity valueEntity = datastore.get(key);
+		int likes = Integer.parseInt(valueEntity.getProperty(CommentFields.LIKES.getField()).toString());
+		valueEntity.setProperty(CommentFields.LIKES.getField(), likes + 1);
 
-    public List<Comment> pegaCommentPorId(String idComment) {
-        Query query = new Query(Comment.class.getName());
-        query.setFilter(FilterOperator.EQUAL.of(CommentFields.ID.getField(), idComment));
+		// TODO: Persistir a entidade
+		// persiste(valueEntity);
+	}
 
-        PreparedQuery prepared = datastore.prepare(query);
-        return toListaDeComments(prepared.asIterable());
-    }
+	public List<Comment> pegaCommentPorId(String idComment) {
+		Query query = new Query(Comment.class.getName());
+		query.setFilter(FilterOperator.EQUAL.of(CommentFields.ID.getField(), idComment));
 
-    public void removeUsuarioQueCurtiuNoComment(Comment comment, String usuario) throws EntityNotFoundException {
-        Key key = KeyFactory.createKey(Comment.class.getName(), comment.getId());
-        Entity valueEntity = datastore.get(key);
+		PreparedQuery prepared = datastore.prepare(query);
+		return toListaDeComments(prepared.asIterable());
+	}
 
-        String oldUserLikes = (String) valueEntity.getProperty(CommentFields.USER_LIKE.getField());
-        valueEntity.setProperty(CommentFields.USER_LIKE.getField(), oldUserLikes.replaceAll(" " + usuario, ""));
+	public void removeUsuarioQueCurtiuNoComment(Comment comment, String usuario) throws EntityNotFoundException {
+		Key key = KeyFactory.createKey(Comment.class.getName(), comment.getId());
+		Entity valueEntity = datastore.get(key);
 
-        persist(valueEntity);
-    }
+		String oldUserLikes = (String) valueEntity.getProperty(CommentFields.USER_LIKE.getField());
+		valueEntity.setProperty(CommentFields.USER_LIKE.getField(), oldUserLikes.replaceAll(" " + usuario, ""));
 
-    public void decrementaNumeroDeLikesDaEntityDoComment(Comment comment) throws EntityNotFoundException {
-        Key key = KeyFactory.createKey(Comment.class.getName(), comment.getId());
-        Entity valueEntity = datastore.get(key);
-        int likes = Integer.parseInt(valueEntity.getProperty(PostFields.LIKES.getField()).toString());
-        valueEntity.setProperty(PostFields.LIKES.getField(), likes - 1);
-        persist(valueEntity);
-    }
+		// TODO: Persistir a entidade
+		// persiste(valueEntity);
+	}
+
+	public void decrementaNumeroDeLikesDaEntityDoComment(Comment comment) throws EntityNotFoundException {
+		Key key = KeyFactory.createKey(Comment.class.getName(), comment.getId());
+		Entity valueEntity = datastore.get(key);
+		int likes = Integer.parseInt(valueEntity.getProperty(PostFields.LIKES.getField()).toString());
+		valueEntity.setProperty(PostFields.LIKES.getField(), likes - 1);
+
+		// TODO: Persistir a entidade
+		// persiste(valueEntity);
+	}
 }
