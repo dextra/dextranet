@@ -26,6 +26,19 @@
 		<url-pattern>/s/*</url-pattern>
 	</servlet-mapping>
 
+    <filter>
+        <filter-name>AutenticacaoFilter</filter-name>
+        <filter-class>br.com.dextra.dextranet.seguranca.AutenticacaoFilter</filter-class>
+        <init-param>
+            <param-name>excludePatterns</param-name>
+            <param-value>/_ah</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>AutenticacaoFilter</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
+
 	<servlet>
 		<servlet-name>BannerCronServlet</servlet-name>
 		<servlet-class>br.com.dextra.dextranet.cron.BannerCronServlet</servlet-class>
@@ -35,16 +48,4 @@
 		<url-pattern>/_ah/cron</url-pattern>
 	</servlet-mapping>
 
-	<filter>
-		<filter-name>AutenticacaoFilter</filter-name>
-		<filter-class>br.com.dextra.dextranet.seguranca.AutenticacaoFilter</filter-class>
-		<init-param>
-			<param-name>excludePatterns</param-name>
-			<param-value>/_ah/cron</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>AutenticacaoFilter</filter-name>
-		<url-pattern>*</url-pattern>
-	</filter-mapping>
 </web-app>

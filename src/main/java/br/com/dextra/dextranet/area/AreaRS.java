@@ -3,6 +3,7 @@ package br.com.dextra.dextranet.area;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -10,8 +11,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
 
-import br.com.dextra.dextranet.utils.JsonUtil;
+import br.com.dextra.dextranet.rest.config.Application;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
 
@@ -20,39 +22,38 @@ public class AreaRS {
 
 	private AreaRepository repo = new AreaRepository();
 
-	@Path("/inserir")
+	@Path("/")
 	@POST
-	@Produces("application/json;charset=UTF-8")
-	public String inserir(@FormParam("name") String name) throws EntityNotFoundException {
+	@Produces(Application.JSON_UTF8)
+	public Response inserir(@FormParam("name") String name) throws EntityNotFoundException {
+		Area area = new Area(name);
+		repo.persiste(area);
 
-		Area Area = new Area(name);
-
-		repo.persiste(Area);
-		return JsonUtil.stringify(Area);
-
+		return Response.ok().entity(area).build();
 	}
 
-	@Path("/obter/{id}")
+	@Path("/{id}")
 	@GET
-	@Produces("application/json;charset=UTF-8")
-	public String obter(@PathParam("id") String id) throws EntityNotFoundException {
-		Area Area = repo.obtemPorId(id);
-		return JsonUtil.stringify(Area);
+	@Produces(Application.JSON_UTF8)
+	public Response obter(@PathParam("id") String id) throws EntityNotFoundException {
+		Area area = repo.obtemPorId(id);
+		return Response.ok().entity(area).build();
 	}
 
-	@Path("/obterTodos")
+	@Path("/")
 	@GET
-	@Produces("application/json;charset=UTF-8")
-	public String getDadosEquipe(@Context HttpServletRequest re) {
-		List<Area> equipe = repo.lista();
-		return JsonUtil.stringify(equipe);
-
+	@Produces(Application.JSON_UTF8)
+	public Response listar(@Context HttpServletRequest re) {
+		List<Area> areas = repo.lista();
+		return Response.ok().entity(areas).build();
 	}
 
-	@Path("/apagar/{id}")
-	@GET
-	public void apagar(@PathParam(value = "id") String id) {
+	@Path("/{id}")
+	@DELETE
+	@Produces(Application.JSON_UTF8)
+	public Response apagar(@PathParam(value = "id") String id) {
 		repo.remove(id);
+		return Response.ok().build();
 	}
 
 }
