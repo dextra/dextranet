@@ -28,7 +28,8 @@ import com.google.gson.JsonObject;
 @Path("/perfil")
 public class PerfilRS {
 
-//	private BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+	// private BlobstoreService blobstoreService =
+	// BlobstoreServiceFactory.getBlobstoreService();
 	private PerfilRepository repo = new PerfilRepository();
 	private AreaRepository ar = new AreaRepository();
 	private UnidadeRepository ur = new UnidadeRepository();
@@ -54,22 +55,18 @@ public class PerfilRS {
 	@Path("/inserir")
 	@POST
 	@Produces("application/json;charset=UTF-8")
-	public String inserir(@FormParam("name") String name,
-			@FormParam("nickName") String nickName,
-			@FormParam("area") String area, @FormParam("unit") String unit,
-			@FormParam("branch") String branch,
+	public String inserir(@FormParam("name") String name, @FormParam("nickName") String nickName,
+			@FormParam("area") String area, @FormParam("unit") String unit, @FormParam("branch") String branch,
 			@FormParam("skype") String skype, @FormParam("gTalk") String gTalk,
-			@FormParam("phoneResidence") String phoneResidence,
-			@FormParam("phoneMobile") String phoneMobile,
-			@FormParam("image") String image) throws EntityNotFoundException {
+			@FormParam("phoneResidence") String phoneResidence, @FormParam("phoneMobile") String phoneMobile,
+			@FormParam("image") String image, @FormParam("githubUser") String githubUser)
+			throws EntityNotFoundException {
 
 		UserService userService = UserServiceFactory.getUserService();
 		User user = userService.getCurrentUser();
 
-		Perfil perfil = new Perfil(user.getUserId(), name, user.getNickname(),
-				area, unit, branch, skype, gTalk, phoneResidence, phoneMobile,
-				image);
-
+		Perfil perfil = new Perfil(user.getUserId(), name, user.getNickname(), area, unit, branch, skype, gTalk,
+				phoneResidence, phoneMobile, image, githubUser);
 
 		if (name != null && !name.isEmpty() || phoneMobile != null && !phoneMobile.isEmpty()) {
 			repo.novo(perfil);
@@ -84,7 +81,7 @@ public class PerfilRS {
 	@Produces("application/json;charset=UTF-8")
 	public String obter(@PathParam("id") String id) {
 		Perfil perfil = repo.buscar(id);
-//		System.out.println(perfil);
+
 		List<Area> lista = ar.buscarTodos();
 		perfil.setAreasPossiveis(lista);
 		List<Unidade> lista2 = ur.buscarTodos();
@@ -95,8 +92,7 @@ public class PerfilRS {
 	@Path("/obterPorNome")
 	@POST
 	@Produces("application/json;charset=UTF-8")
-	public String getDadosEquipeNome(@FormParam("name") String name)
-			throws EntityNotFoundException {
+	public String getDadosEquipeNome(@FormParam("name") String name) throws EntityNotFoundException {
 		List<Perfil> equipe = repo.obterPorNome(name);
 		return JsonUtil.stringify(equipe);
 	}
@@ -119,16 +115,15 @@ public class PerfilRS {
 
 	}
 
-//	@Path("/uploadURL")
-//	@GET
-//	@Produces("application/json;charset=UTF-8")
-//
-//	public String uploadURL() throws EntityNotFoundException {
-//		JsonObject json = new JsonObject();
-//		json.addProperty("url", blobstoreService.createUploadUrl("/s/banner/"));
-//
-//		return json.toString();
-//	}
-
+	// @Path("/uploadURL")
+	// @GET
+	// @Produces("application/json;charset=UTF-8")
+	//
+	// public String uploadURL() throws EntityNotFoundException {
+	// JsonObject json = new JsonObject();
+	// json.addProperty("url", blobstoreService.createUploadUrl("/s/banner/"));
+	//
+	// return json.toString();
+	// }
 
 }

@@ -18,7 +18,7 @@ dextranet.perfil = {
 				url : "/s/perfil/obter/" + id,
 				success : function(dados) {
 					if (validar !== true || dextranet.perfil.existeCampoIncompleto(dados)) {
-						$.holy("../template/dinamico/abre_pagina_perfil.xml", dados);
+						$.holy("../template/dinamico/abre_pagina_perfil.xml", {perfil: dados});
 					}
 				},
 				error: function (dados){
@@ -47,7 +47,7 @@ dextranet.perfil = {
 				if(this.value.length < 3 || this.value == "" || this.value == " " || this.value == "  "
 					|| this.value == "   " || this.value == null){
 					$("#container_mensagem").html("");
-					$.holy("../template/estatico/menssagem_falta_campo_required.xml", {});
+					$.holy("../template/estatico/mensagem_falta_campo_required.xml", {});
 					setTimeout("dextranet.perfil.limpaTela()", 4000);
 					validar = false;
 					return;
@@ -63,6 +63,7 @@ dextranet.perfil = {
 					var gTalkVal = $("#gTalkVal").val();
 					var residencialVal = $("#residencialVal").val();
 					var celularVal = $("#celularVal").val();
+					var githubUser = $("#githubUser").val();
 
 					var dados = {
 						name : nameVal,
@@ -73,6 +74,7 @@ dextranet.perfil = {
 						gTalk : gTalkVal,
 						phoneResidence : residencialVal,
 						phoneMobile : celularVal,
+						githubUser: githubUser
 					};
 
 				$.ajax( {

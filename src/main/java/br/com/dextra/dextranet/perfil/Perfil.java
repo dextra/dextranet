@@ -27,12 +27,14 @@ public class Perfil extends Entidade {
 	private String phoneMobile; 	// Obrigatorio
 	private String image;
 	private boolean valido = true;  //Flag validação
+	private String githubUser;
+
 	private List<Area> areasPossiveis = new ArrayList<Area>();
 	private List<Unidade> unidadesPossiveis = new ArrayList<Unidade>();
 
 	public Perfil(String userId, String name, String nickName, String area,
 			String unit, String branch, String skype, String gTalk,
-			String phoneResidence, String phoneMobile, String image) {
+			String phoneResidence, String phoneMobile, String image, String githubUser) {
 
 		super(userId);
 		this.name = name;
@@ -45,6 +47,7 @@ public class Perfil extends Entidade {
 		this.phoneResidence = phoneResidence;
 		this.phoneMobile = phoneMobile;
 		this.image = image;
+		this.githubUser = githubUser;
 	}
 
 	public Entity toEntity() {
@@ -60,25 +63,28 @@ public class Perfil extends Entidade {
 		entity.setProperty(PerfilFields.GTALK.getField(), this.gTalk);
 		entity.setProperty(PerfilFields.PHONERESIDENCE.getField(), this.phoneResidence);
 		entity.setProperty(PerfilFields.PHONEMOBILE.getField(), this.phoneMobile);
+		entity.setProperty(PerfilFields.GITHUBUSER.getField(), this.githubUser);
 
 		return entity;
 	}
 
 	public Perfil(Entity entity) {
 		if (entity != null){
-		super.id = (String) entity.getProperty(UsuarioFields.ID.getField());
-		this.name = (String) entity.getProperty(PerfilFields.NAME.getField());
-		this.nickName = (String) entity.getProperty(UsuarioFields.NICK_NAME.getField());
-		this.area = (String) entity.getProperty(PerfilFields.AREA.getField());
-		this.unit = (String) entity.getProperty(PerfilFields.UNIT.getField());
-		this.branch = (String) entity.getProperty(PerfilFields.BRANCH.getField());
-		this.skype = (String) entity.getProperty(PerfilFields.SKYPE.getField());
-		this.gTalk = (String) entity.getProperty(PerfilFields.GTALK.getField());
-		this.phoneResidence = (String) entity.getProperty(PerfilFields.PHONERESIDENCE.getField());
-		this.phoneMobile = (String) entity.getProperty(PerfilFields.PHONEMOBILE.getField());
+			super.id = (String) entity.getProperty(UsuarioFields.ID.getField());
+			this.name = (String) entity.getProperty(PerfilFields.NAME.getField());
+			this.nickName = (String) entity.getProperty(UsuarioFields.NICK_NAME.getField());
+			this.area = (String) entity.getProperty(PerfilFields.AREA.getField());
+			this.unit = (String) entity.getProperty(PerfilFields.UNIT.getField());
+			this.branch = (String) entity.getProperty(PerfilFields.BRANCH.getField());
+			this.skype = (String) entity.getProperty(PerfilFields.SKYPE.getField());
+			this.gTalk = (String) entity.getProperty(PerfilFields.GTALK.getField());
+			this.phoneResidence = (String) entity.getProperty(PerfilFields.PHONERESIDENCE.getField());
+			this.phoneMobile = (String) entity.getProperty(PerfilFields.PHONEMOBILE.getField());
+			this.githubUser = (String) entity.getProperty(PerfilFields.GITHUBUSER.getField());
 		}
 	}
 
+	// FIXME: Precisa mesmo disso aqui
 	public Perfil(String id) {
 
 		super.id = "id";

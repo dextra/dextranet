@@ -45,21 +45,16 @@ public class PerfilRepository {
 	}
 
 	public Perfil buscar(String id) {
+		// FIXME: O metodo buscar deveria fazer o codigo dentro do catch esta fazendo?
+		// isto nao deveria ser cargo de uma metodo de novo perfil ou algo do genero?
+
 		Entity entity;
 		try {
 			entity = this.datastore.get(KeyFactory.createKey(
 					Perfil.class.getName(), id));
-//			System.out.println(entity);
-//			System.out.println(id);
-//			System.out.println("try");
-//			System.out.println( );
-
 			return new Perfil(entity);
 		} catch (Exception e) {
 			id = UUID.randomUUID().toString();
-//			System.out.println( );
-//			System.out.println(id);
-//			System.out.println("catch");
 			return new Perfil(id);
 		}
 	}

@@ -54,6 +54,15 @@ public class BannerRS {
 	public Response getById(@Context HttpServletResponse response,
 			@PathParam("id") String id) throws IOException {
 
+		/* FIXME
+		  Da forma que esta implementado hoje acabamos consumindo muita CPU da aplicao
+		  pois a cada requisicao do banner, a imagem e buscada no blobstore, redimensionada
+		  e copiada para o outputstream do response.
+		  
+		  O Google App Engine possui recursos para fazer este tipo de operacao automaticamente,
+		  sem gastar CPU e realizando cache automatico, ver o link abaixo na secao "Using getServingUrl()"
+		 https://developers.google.com/appengine/docs/java/images/overview
+		 */
 		Image imagem = bannerRepository.transformaImagem(id);
 
 		byte[] imgBytes = imagem.getImageData();
@@ -61,9 +70,6 @@ public class BannerRS {
 
 		ByteArrayInputStream bais = new ByteArrayInputStream(imgBytes);
 		ServletOutputStream outputStream = response.getOutputStream();
-
-		blobstoreService.serve(imagem.getBlobKey(), response);
-		// ta comentada essa linha de cima ???
 
 		response.setContentType("image/" + formatoDaImagem); // "image/jpg"
 		response.setContentLength(imgBytes.length);

@@ -17,7 +17,11 @@ import br.com.dextra.dextranet.perfil.PerfilRepository;
 import br.com.dextra.dextranet.unidade.Unidade;
 import br.com.dextra.dextranet.unidade.UnidadeRepository;
 
+import com.google.appengine.api.blobstore.dev.ServeBlobFilter;
+import com.google.appengine.api.blobstore.dev.UploadBlobServlet;
+import com.google.appengine.api.images.dev.LocalBlobImageServlet;
 import com.google.appengine.api.search.dev.LocalSearchService;
+import com.google.appengine.tools.development.testing.LocalBlobstoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalSearchServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestConfig;
@@ -27,13 +31,13 @@ import com.googlecode.mycontainer.kernel.ShutdownCommand;
 import com.googlecode.mycontainer.kernel.boot.ContainerBuilder;
 import com.googlecode.mycontainer.web.ContextWebServer;
 import com.googlecode.mycontainer.web.FilterDesc;
+import com.googlecode.mycontainer.web.ServletDesc;
 import com.googlecode.mycontainer.web.WebServerDeployer;
 import com.googlecode.mycontainer.web.jetty.JettyServerDeployer;
 
 public class GAETestHelper {
 
-	private static final Logger LOG = LoggerFactory
-			.getLogger(GAETestHelper.class);
+	private static final Logger LOG = LoggerFactory.getLogger(GAETestHelper.class);
 
 	protected LocalServiceTestHelper helper;
 
@@ -54,9 +58,11 @@ public class GAETestHelper {
 		List<LocalServiceTestConfig> list = new ArrayList<LocalServiceTestConfig>();
 		list.add(ds);
 		list.add(fts);
+		LocalBlobstoreServiceTestConfig localBlobstoreServiceTestConfig = new LocalBlobstoreServiceTestConfig();
+		localBlobstoreServiceTestConfig.setNoStorage(true);
+		list.add(localBlobstoreServiceTestConfig);
 
-		helper = new LocalServiceTestHelper(
-				list.toArray(new LocalServiceTestConfig[0]));
+		helper = new LocalServiceTestHelper(list.toArray(new LocalServiceTestConfig[0]));
 		Map<String, Object> envs = new HashMap<String, Object>();
 		envs.put("com.google.appengine.api.users.UserService.user_id_key", "10");
 		helper.setEnvAttributes(envs);
@@ -96,8 +102,7 @@ public class GAETestHelper {
 		ContainerBuilder builder = new ContainerBuilder();
 		builder.deployVMShutdownHook();
 
-		WebServerDeployer server = builder
-				.createDeployer(JettyServerDeployer.class);
+		WebServerDeployer server = builder.createDeployer(JettyServerDeployer.class);
 		server.setName("WebServer");
 		server.bindPort(port);
 
@@ -105,9 +110,12 @@ public class GAETestHelper {
 		web.setContext("/");
 		web.setResources("src/main/webapp");
 
-		LocalServiceTestHelperFilter gae = new LocalServiceTestHelperFilter(
-				helper);
+		LocalServiceTestHelperFilter gae = new LocalServiceTestHelperFilter(helper);
 		web.getFilters().add(new FilterDesc(gae, "/*"));
+
+		web.getFilters().add(new FilterDesc(ServeBlobFilter.class, "/*"));
+		web.getServlets().add(new ServletDesc(UploadBlobServlet.class, "/_ah/upload/*"));
+		web.getServlets().add(new ServletDesc(LocalBlobImageServlet.class, "/_ah/img/*"));
 
 		System.setProperty("env", "local");
 
@@ -125,13 +133,9 @@ public class GAETestHelper {
 		AreaRepository areaRepository = new AreaRepository();
 		UnidadeRepository unidadeRepository = new UnidadeRepository();
 
-		perfilRepository.novo(new Perfil("10", "testName", "testNickName",
-				"Desenvolvimento", "Campo Grande", "00", "testSkype",
-				"gTalk", "testPhoneResidence", "testPhoneMobile",
-				"https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-ash4/309981_344485208954613_952944866_n.jpg"));
-
-
-
+		perfilRepository.novo(new Perfil("10", "testName", "testNickName", "Desenvolvimento", "Campo Grande", "00",
+				"testSkype", "gTalk", "testPhoneResidence", "testPhoneMobile",
+				"https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-ash4/309981_344485208954613_952944866_n.jpg", "githubUserFake"));
 
 		areaRepository.inserir(new Area(""));
 		areaRepository.inserir(new Area("Diretoria"));
@@ -143,12 +147,9 @@ public class GAETestHelper {
 		areaRepository.inserir(new Area("Desenvolvimento de Negócios"));
 		areaRepository.inserir(new Area("Treinamento"));
 
-
 		unidadeRepository.inserir(new Unidade(""));
 		unidadeRepository.inserir(new Unidade("Campinas"));
 		unidadeRepository.inserir(new Unidade("Campo Grande"));
-
-
 
 	}
 
