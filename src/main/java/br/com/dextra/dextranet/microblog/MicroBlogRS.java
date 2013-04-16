@@ -8,21 +8,27 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
-import br.com.dextra.dextranet.banner.BannerFields;
-
 import com.google.gson.JsonObject;
 
 @Path("/microblog")
 public class MicroBlogRS {
 
-    private static List<JsonObject> posts = new ArrayList<JsonObject>();
+    private List<JsonObject> posts = new ArrayList<JsonObject>();
 
     @Path("/post")
     @POST
     public void post(@FormParam("text") String text){
-        JsonObject json = new JsonObject();
-        json.addProperty("text", text);
-        posts.add(json);
+//        JsonObject json = new JsonObject();
+//        json.addProperty("text", text);
+//        posts.add(json);
+
+        MicroPost micropost = new MicroPost(text);
+        MicroBlogRepository repository = getMicroBlogRepository();
+        repository.salvar(micropost);
+    }
+
+    protected MicroBlogRepository getMicroBlogRepository() {
+        return new MicroBlogRepository();
     }
 
     @Path("/post")

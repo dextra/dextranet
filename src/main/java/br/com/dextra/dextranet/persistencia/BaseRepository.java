@@ -7,22 +7,23 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 
-public class BaseRepository {
+public abstract class BaseRepository {
 
-	protected Key persist(Entity valueEntity) {
-		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-		return datastore.put(valueEntity);
-	}
+    protected Key persist(Entity valueEntity) {
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-	protected <T extends Entidade> Entity obtemPorId(String id, Class<T> clazz) throws EntityNotFoundException {
-		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-		Key key = KeyFactory.createKey(clazz.getName(), id);
-		return datastore.get(key);
-	}
+        return datastore.put(valueEntity);
+    }
 
-	public BaseRepository() {
-		super();
-	}
+    protected <T extends Entidade> Entity obtemPorId(String id, Class<T> clazz) throws EntityNotFoundException {
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        Key key = KeyFactory.createKey(clazz.getName(), id);
+        return datastore.get(key);
+    }
+
+    public BaseRepository() {
+        super();
+    }
 
 }
