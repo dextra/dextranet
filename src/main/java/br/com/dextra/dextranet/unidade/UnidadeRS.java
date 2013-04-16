@@ -1,15 +1,18 @@
 package br.com.dextra.dextranet.unidade;
 
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
+
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import br.com.dextra.dextranet.utils.JsonUtil;
+import javax.ws.rs.core.Response;
+
+import br.com.dextra.dextranet.rest.config.Application;
+
 import com.google.appengine.api.datastore.EntityNotFoundException;
 
 @Path("/unidade")
@@ -17,35 +20,39 @@ public class UnidadeRS {
 
 	private UnidadeRepository repo = new UnidadeRepository();
 
-	@Path("/inserir")
+	@Path("/")
 	@POST
-	@Produces("application/json;charset=UTF-8")
-	public String inserir(@FormParam("name") String name)
-			throws EntityNotFoundException {
+	@Produces(Application.JSON_UTF8)
+	public Response inserir(@FormParam("nome") String nome) {
+		Unidade unidade = new Unidade(nome);
+		repo.persiste(unidade);
 
-		Unidade unidade = new Unidade(name);
-
-
-		repo.inserir(unidade);
-		return JsonUtil.stringify(unidade);
+		return Response.ok().entity(unidade).build();
 
 	}
 
-	@Path("/obter/{id}")
+	@Path("/{id}")
 	@GET
-	@Produces("application/json;charset=UTF-8")
-	public String obter(@PathParam("id") String id) {
-		Unidade unidade = repo.buscar(id);
-		return JsonUtil.stringify(unidade);
+	@Produces(Application.JSON_UTF8)
+	public Response obter(@PathParam("id") String id) throws EntityNotFoundException {
+		Unidade unidade = repo.obtemPorId(id);
+		return Response.ok().entity(unidade).build();
 	}
 
-	@Path("/obterTodos")
+	@Path("/")
 	@GET
-	@Produces("application/json;charset=UTF-8")
-	public String getDadosEquipe(@Context HttpServletRequest re) {
-		List<Unidade> equipe = repo.buscarTodos();
-		return JsonUtil.stringify(equipe);
+	@Produces(Application.JSON_UTF8)
+	public Response listar() {
+		List<Unidade> unidades = repo.lista();
+		return Response.ok().entity(unidades).build();
+	}
 
+	@Path("/{id}")
+	@DELETE
+	@Produces(Application.JSON_UTF8)
+	public Response apagar(@PathParam(value = "id") String id) {
+		repo.remove(id);
+		return Response.ok().build();
 	}
 
 }

@@ -22,7 +22,7 @@ public class AreaRepository extends EntidadeRepository {
 	}
 
 	public List<Area> lista() {
-		EntidadeOrdenacao ordenacaoPorNome = new EntidadeOrdenacao("name", SortDirection.ASCENDING);
+		EntidadeOrdenacao ordenacaoPorNome = new EntidadeOrdenacao(AreaFields.nome.toString(), SortDirection.ASCENDING);
 		List<Area> areas = new ArrayList<Area>();
 
 		Iterable<Entity> entidades = super.lista(Area.class, ordenacaoPorNome);
@@ -32,7 +32,5 @@ public class AreaRepository extends EntidadeRepository {
 
 		return areas;
 	}
-
-	
 
 }

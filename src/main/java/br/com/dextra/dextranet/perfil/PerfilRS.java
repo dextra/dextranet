@@ -84,7 +84,7 @@ public class PerfilRS {
 
 		List<Area> lista = ar.lista();
 		perfil.setAreasPossiveis(lista);
-		List<Unidade> lista2 = ur.buscarTodos();
+		List<Unidade> lista2 = ur.lista();
 		perfil.setUnidadesPossiveis(lista2);
 		return JsonUtil.stringify(perfil);
 	}

@@ -2,45 +2,35 @@ package br.com.dextra.dextranet.unidade;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.google.appengine.api.datastore.DatastoreService;
-import com.google.appengine.api.datastore.DatastoreServiceFactory;
+
+import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
+import br.com.dextra.dextranet.persistencia.EntidadeRepository;
+
 import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.KeyFactory;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
-public class UnidadeRepository {
-	private DatastoreService datastore = DatastoreServiceFactory
-			.getDatastoreService();
+public class UnidadeRepository extends EntidadeRepository {
 
-	public void inserir(Unidade Unidade) {
-		this.datastore.put(Unidade.toEntity());
+	public void remove(String id) {
+		super.remove(id, Unidade.class);
 	}
 
-	public Unidade buscar(String id) {
-		Entity entity;
-		try {
-			entity = this.datastore.get(KeyFactory.createKey(
-					Unidade.class.getName(), id));
-			return new Unidade(entity);
-		} catch (Exception e) {
-			return null;
+	public Unidade obtemPorId(String id) throws EntityNotFoundException {
+		Entity unidade = super.obtemPorId(id, Unidade.class);
+		return new Unidade(unidade);
+	}
+
+	public List<Unidade> lista() {
+		EntidadeOrdenacao ordenacaoPorNome = new EntidadeOrdenacao(UnidadeFields.nome.toString(), SortDirection.ASCENDING);
+		List<Unidade> unidades = new ArrayList<Unidade>();
+
+		Iterable<Entity> entidades = super.lista(Unidade.class, ordenacaoPorNome);
+		for (Entity entidade : entidades) {
+			unidades.add(new Unidade(entidade));
 		}
+
+		return unidades;
 	}
 
-	public List<Unidade> buscarTodos() {
-		List<Unidade> lista = new ArrayList<Unidade>();
-		Query query = new Query(Unidade.class.getName());
-
-		query.addSort("name", SortDirection.ASCENDING);
-
-		PreparedQuery pquery = datastore.prepare(query);
-		Iterable<Entity> asIterable = pquery.asIterable();
-		for (Entity entity : asIterable) {
-			Unidade novaUnidade = new Unidade(entity);
-			lista.add(novaUnidade);
-		}
-		return lista;
-	}
 }

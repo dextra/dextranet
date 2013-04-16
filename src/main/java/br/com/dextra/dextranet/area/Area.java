@@ -7,42 +7,40 @@ import com.google.gson.JsonObject;
 
 public class Area extends Entidade {
 
-	public String name;
+	public String nome;
 
-	public Area(String name) {
-		this.name = name;
+	public Area(String nome) {
+		this.nome = nome;
 	}
 
 	public Area(Entity entity) {
-		this.id = (String) entity.getProperty("id");
-		this.name = (String) entity.getProperty("name");
+		this.id = (String) entity.getProperty(AreaFields.id.toString());
+		this.nome = (String) entity.getProperty(AreaFields.nome.toString());
 	}
 
 	public String getId() {
 		return id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNome() {
+		return nome;
 	}
 
 	@Override
 	public String toString() {
-		return "Area [id=" + id + ", name=" + name + "]";
+		return "Area [id=" + id + ", name=" + nome + "]";
 	}
 
 	public Entity toEntity() {
 		Entity entidade = new Entity(this.getKey(this.getClass()));
-		entidade.setProperty("id", this.getId());
-		entidade.setProperty("name", this.getName());
+		entidade.setProperty(AreaFields.id.toString(), this.id);
+		entidade.setProperty(AreaFields.nome.toString(), this.nome);
 		return entidade;
 	}
 
 	@Override
 	public JsonObject toJson() {
-        JsonObject json = new JsonObject();
-        json.addProperty("id", this.id);
-        json.addProperty("name", this.name);
-        return json;
+		throw new UnsupportedOperationException();
 	}
+
 }

@@ -1,49 +1,49 @@
 package br.com.dextra.dextranet.unidade;
 
-import java.util.UUID;
+import br.com.dextra.dextranet.persistencia.Entidade;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.gson.JsonObject;
 
-public class Unidade {
-	public String id = UUID.randomUUID().toString();
-	public String name;
+public class Unidade extends Entidade {
 
-	public Unidade(String name) {
-		this.name = name;
+	public String nome;
+
+	public Unidade(String nome) {
+		this.nome = nome;
 	}
 
 	public Unidade(Entity entity) {
-		this.id = (String) entity.getProperty("id");
-		this.name = (String) entity.getProperty("name");
+		this.id = (String) entity.getProperty(UnidadeFields.id.toString());
+		this.nome = (String) entity.getProperty(UnidadeFields.nome.toString());
 	}
 
 	public String getId() {
 		return id;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public String getNome() {
+		return nome;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	@Override
 	public String toString() {
-		return "Unidade [id=" + id + ", name=" + name + "]";
+		return "Unidade [id=" + id + ", name=" + nome + "]";
 	}
 
 	public Entity toEntity() {
 		Entity entity = new Entity(KeyFactory.createKey(this.getClass()
 				.getName(), this.id));
-		entity.setProperty("id", this.getId());
-		entity.setProperty("name", this.getName());
+		entity.setProperty(UnidadeFields.id.toString(), this.id);
+		entity.setProperty(UnidadeFields.nome.toString(), this.nome);
 		return entity;
 	}
+
+	@Override
+	public JsonObject toJson() {
+		throw new UnsupportedOperationException();
+	}
+
 }
