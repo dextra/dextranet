@@ -10,7 +10,12 @@ import br.com.dextra.dextranet.rest.config.Application;
 
 public class TimeMachine {
 
-	private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Application.BRASIL);
+	private static final String DATA_HORA = "dd/MM/yyyy HH:mm";
+	private static final String DATA = "dd/MM/yyyy";
+
+	private SimpleDateFormat formatoDataHora = new SimpleDateFormat(DATA_HORA, Application.BRASIL);
+
+	private SimpleDateFormat formatoData = new SimpleDateFormat(DATA, Application.BRASIL);
 
 	public Date dataAtual() {
 		Calendar calendar = new GregorianCalendar(Application.BRASIL);
@@ -40,12 +45,17 @@ public class TimeMachine {
 	}
 
 	public String formataData(Date data) {
-		return dateFormat.format(data);
+		return formatoDataHora.format(data);
 	}
 
 	public Date tranformaEmData(String data) {
 		try {
-			return dateFormat.parse(data);
+			SimpleDateFormat formatter = this.formatoData;
+			if (data.length() > DATA.length()) {
+				formatter = this.formatoDataHora;
+			}
+
+			return formatter.parse(data);
 		} catch (ParseException e) {
 			throw new RuntimeException("Erro ao realizar parse da data: " + data);
 		}

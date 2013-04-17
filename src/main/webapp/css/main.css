@@ -346,7 +346,7 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 .list_stories_actions > .menu-light{top:25px;display:none;z-index:20;}
 
 /*----------  Caixas de diÃ¡logo  ----------*/
-.message { margin:10px 0 20px;list-style:none;}
+.message { margin:10px 96px 20px; list-style:none; }
 .message li {cursor:pointer;color:#000;padding:5px 10px 5px 30px;margin:0;font-size:12px;background:#FFF;border:1px solid #EEE;list-style:none;border-radius:5px;background-position:5px center; background-repeat: no-repeat;font-weight:bold;}
 .message li a,
 .message li .time { float:right; padding:0 5px; }

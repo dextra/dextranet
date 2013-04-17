@@ -158,7 +158,7 @@ limitations under the License.*/
 
 	$.holy = function(url, context) {
 		return $.ajax({
-			url : url,
+			url : url + "?t=" + new Date().getTime(),
 			dataType : 'holy',
 			context : context
 		});

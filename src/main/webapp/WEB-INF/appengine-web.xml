@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://appengine.google.com/ns/1.0 http://googleappengine.googlecode.com/svn/branches/1.2.1/java/docs/appengine-web.xsd">
 
 	<application>dextranet-desenvolvimento</application>
-	<version>dev</version>
+	<version>lulao</version>
 
 	<static-files>
 		<include path="/**" />

@@ -56,7 +56,7 @@ public class BannerRS {
 		JsonObject json = new JsonObject();
 		json.addProperty("url", blobstoreService.createUploadUrl("/s/banner/"));
 
-		return Response.ok().entity(json).build();
+		return Response.ok().entity(json.toString()).build();
 	}
 
 	@Path("/{id}")
@@ -103,7 +103,7 @@ public class BannerRS {
 
 	private BlobKey obtemBlobKeyDaImagem(HttpServletRequest request) {
 		Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
-		List<BlobKey> listBlobs = blobs.get("banner");
+		List<BlobKey> listBlobs = blobs.get("imagem");
 		
 		BlobKey blobKey = null;
 		if (!listBlobs.isEmpty()) {

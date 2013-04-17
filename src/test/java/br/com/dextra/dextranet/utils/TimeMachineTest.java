@@ -20,7 +20,14 @@ public class TimeMachineTest {
 	}
 
 	@Test
-	public void testaTransformaEmData() {
+	public void testaTransformaEmDataSimples() {
+		// no gregorian calendar o mes eh de 0 a 11
+		Calendar calendar = new GregorianCalendar(2013, 3, 10);
+		Assert.assertEquals(calendar.getTime(), timeMachine.tranformaEmData("10/04/2013"));
+	}
+
+	@Test
+	public void testaTransformaEmDataCompleta() {
 		// no gregorian calendar o mes eh de 0 a 11
 		Calendar calendar = new GregorianCalendar(2013, 3, 10, 10, 12);
 		Assert.assertEquals(calendar.getTime(), timeMachine.tranformaEmData("10/04/2013 10:12"));
