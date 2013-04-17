@@ -12,12 +12,16 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     
     <repositories>
         <repository>
-            <id>mirror-central</id>
-            <url>https://dextranet.dextra.com.br/nexus/content/repositories/mirror-central/</url>
+            <id>dextra-thirdy</id>
+            <url>https://dextranet.dextra.com.br/nexus/content/repositories/dextra-thirdy/</url>
         </repository>
         <repository>
             <id>dextra-public-release</id>
             <url>https://dextranet.dextra.com.br/nexus/content/repositories/dextra-public-release/</url>
+        </repository>
+        <repository>
+            <id>mirror-central</id>
+            <url>https://dextranet.dextra.com.br/nexus/content/repositories/mirror-central/</url>
         </repository>
     </repositories>
 
