@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
-	<template selector="#container_main">
+	<template selector="#content_left">
 		<form id="frmNovoBanner" method="post" enctype="multipart/form-data" class="form-horizontal form-fields-large form-dark">
 		    <fieldset>
 		        <legend>${messages.banner_novo_titulo}</legend>

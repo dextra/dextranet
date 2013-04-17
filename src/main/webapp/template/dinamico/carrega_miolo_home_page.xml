@@ -1,22 +1,19 @@
 <engine>
 
-	<template selector="#container_main">
-	
-		<div id="content_left" class="block-white">
-			<div id="content_left_stretch">
-				<div id="container_mensagem" class="clearfix"></div>
-				<div id="container_post" class="clearfix">
-					<ul class="list_stories" id="relacao_dos_posts">
-					</ul>
-				</div>
-				<div id="content_principal"></div>
+	<template selector="#content_left">
+		<div id="content_left_stretch">
+			<div id="container_mensagem" class="clearfix"></div>
+			<div id="container_post" class="clearfix">
+				<ul class="list_stories" id="relacao_dos_posts">
+				</ul>
 			</div>
+			<div id="content_principal"></div>
 		</div>
+    </template>
 
-		<div id="content_right">
-			<div class="block-white">
-				<div id="new-banner"></div>
-			</div>
+    <template selector="#content_right">
+		<div class="block-white">
+			<div id="new-banner"></div>
 		</div>
 	</template>
 
