@@ -5,39 +5,40 @@
 		    <fieldset>
 		        <legend>${messages.banner_novo_titulo}</legend>
 		        <ul>
-		            <li>
+		            <li class="required">
 		                <label for="txtTitulo">${messages.banner_titulo}</label>
-		                <input type="text" id="txtTitulo" name="txtTitulo" />
+		                <input type="text" id="txtTitulo" name="titulo" />
 		            </li>
-                    <li>
+                    <li class="required">
                         <label for="txtDataInicio">${messages.banner_dataInicio}</label>
-                        <input type="text" id="txtDataInicio" name="txtDataInicio" />
+                        <input type="text" id="txtDataInicio" name="dataInicio" class="data" />
                     </li>
-                    <li>
+                    <li class="required">
                         <label for="txtDataFim">${messages.banner_dataFim}</label>
-                        <input type="text" id="txtDataFim" name="txtDataFim" />
+                        <input type="text" id="txtDataFim" name="dataFim" class="data" />
                     </li>
                     <li>
                         <label for="txtLink">${messages.banner_link}</label>
-                        <input type="text" id="txtLink" name="txtLink" />
+                        <input type="text" id="txtLink" name="link" />
                     </li>
-                    <li>
+                    <li class="required">
                         <label for="fileImagem">${messages.banner_imagem}</label>
-                        <input type="file" id="fileImagem" name="fileImagem" />
+                        <input type="file" id="fileImagem" name="imagem" />
                     </li>
                     <li class="buttons">
-                        <input type="button" class="btn btn-blue float_right" value="${messages.botao_salvar}" />
+                        <input type="button" id="btnSalvarNovoBanner" class="btn btn-blue float_right" value="${messages.botao_salvar}" />
                     </li>
 		        </ul>
 		    </fieldset>
 		</form>
-		<a class="margin_top" href="#" id="link_abre_banners">Exibir todos os Banners</a>
+		<a class="margin_top" href="#" id="link_abre_banners">${messages.banner_link_todos}</a>
 	</template>
 
 	<script>
         $('#txtDataInicio').datepicker();
         $('#txtDataFim').datepicker();
         $('#txtTitulo').focus();
+        $('#btnSalvarNovoBanner').click(dextranet.banner.salvar);
 	</script>
 	
 </engine>

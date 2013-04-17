@@ -24,7 +24,9 @@
 	"banner_novo_titulo" : "Novo Banner",
 	"banner_titulo" : "Título",
 	"banner_dataInicio" : "Visível a partir de",
+    "banner_dataFim" : "Visível até",
 	"banner_link" : "Link de destino",
-	"banner_imagem" : "Imagem"
+	"banner_imagem" : "Imagem",
+	"banner_link_todos" : "Listar os banners cadastrados"
 	}
 }

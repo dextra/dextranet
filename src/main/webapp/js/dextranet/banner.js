@@ -4,6 +4,10 @@ dextranet.banner = {
 			$.holy("../template/dinamico/banner/novo_banner.xml", {});
 		},
 
+		salvar : function() {
+			
+		}
+
         novoBanner : function() {
             console.info("NovoBanner");
             $.ajax({
