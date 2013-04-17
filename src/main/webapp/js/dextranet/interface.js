@@ -1,7 +1,7 @@
 (function($)
 {
 /**
- * Plugin p/ placeholder de inputs de formulário.
+ * Plugin p/ placeholder de inputs de formulario.
  */
 	jQuery.fn.extend({
 		placeholder: function(value)

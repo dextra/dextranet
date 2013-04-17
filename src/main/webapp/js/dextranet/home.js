@@ -68,8 +68,7 @@ dextranet.home = {
 	},
 
 	abrePaginaNovoBanner : function() {
-		dextranet.home.limpaPosts();
-		$.holy("../template/dinamico/abre_pagina_novo_banner.xml", {});
+		$.holy("../template/dinamico/banner/novo_banner.xml", {});
 		dextranet.home.setActiveMenuLateral("#sidebar_left_new_banner");
 	},
 

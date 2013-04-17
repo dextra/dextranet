@@ -1,14 +1,11 @@
 package br.com.dextra.dextranet.banner;
 
 import java.util.Date;
-import java.util.List;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
 
-import br.com.dextra.dextranet.area.Area;
-import br.com.dextra.dextranet.area.AreaFields;
 import br.com.dextra.dextranet.utils.TimeMachine;
 import br.com.dextra.teste.TesteIntegracaoBase;
 

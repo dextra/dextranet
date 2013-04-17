@@ -25,6 +25,7 @@ dextranet.settings = {
 			}
 		},
 
+		// FIXME: a paginacao deveria estar relacionada ao post e nao ao settings
 		carregaPaginacao : function() {
 			numeroDaPagina = new dextranet.paginacao.pagina();
 			consulta = new dextranet.paginacao.query();

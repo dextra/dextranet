@@ -32,8 +32,7 @@
 			<li id="sidebar_left_new_banner">
 				<a href="#" id="button_sidebar_left_new_banner" tabindex="5">
 					<span class="icon_sidebar_left_categoria"></span>
-					<!-- ${messages.label_category} -->
-					Banner
+					${messages.label_banner}
 				</a>
 			</li>
 		</ul>
@@ -41,7 +40,7 @@
 	<script>
 		$("#button_sidebar_left_home").click(dextranet.home.carregaHome);
 		$("#button_sidebar_left_novopost").click(dextranet.home.abrePopUpNovoPost);
-		$("#button_sidebar_left_new_banner").click(dextranet.home.abrePaginaNovoBanner);
+		$("#button_sidebar_left_new_banner").click(dextranet.banner.novo);
 		$("#button_sidebar_left_profile").click(dextranet.home.abrePaginaPerfil);
 		$("#button_sidebar_left_team").click(dextranet.home.abrePaginaEquipe);
 		$("#form_new_post").submit(dextranet.post.criaNovoPost);

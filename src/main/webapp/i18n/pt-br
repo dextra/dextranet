@@ -1,7 +1,7 @@
 { "messages" : {
 	"label_newPost" : "Postar",
 	"label_home" : "Home",
-	"label_category" : "Categoria",
+	"label_banner" : "Banner",
 	"label_profile" : "Perfil",
 	"label_team" : "Equipe",
 	"placeholder_title_post" : "Digite o título do novo post",
@@ -16,9 +16,15 @@
 	"link_readLess" : "Recolher",
 	"placeholder_comment" : "Digite seu comentário",
 	"button_comment" : "Comentar",
+	"botao_salvar" : "Salvar",
 	"success_message_post" : "Seu post foi inserido com sucesso!",
 	"success_message_banner" : "Seu banner foi inserido com sucesso!",
 	"success_message" : "Dados inseridos com sucesso!",
-	"campo_required" : "Campo(s) obrigatório(s) não preenchido(s)!"
+	"campo_required" : "Campo(s) obrigatório(s) não preenchido(s)!",
+	"banner_novo_titulo" : "Novo Banner",
+	"banner_titulo" : "Título",
+	"banner_dataInicio" : "Visível a partir de",
+	"banner_link" : "Link de destino",
+	"banner_imagem" : "Imagem"
 	}
 }
