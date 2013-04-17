@@ -1,99 +1,68 @@
 package br.com.dextra.dextranet.banner;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import java.util.Date;
+import java.util.List;
 
-import java.text.ParseException;
-import java.util.Calendar;
+import junit.framework.Assert;
 
 import org.junit.Test;
 
+import br.com.dextra.dextranet.area.Area;
+import br.com.dextra.dextranet.area.AreaFields;
+import br.com.dextra.dextranet.utils.TimeMachine;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
-import com.google.appengine.api.blobstore.BlobKey;
-import com.google.appengine.api.datastore.PreparedQuery.TooManyResultsException;
-import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 
 public class BannerRepositoryTest extends TesteIntegracaoBase {
 
-	BannerRepository bannerRepository = new BannerRepository();
+	private BannerRepository repositorio = new BannerRepository();
+
+	private Date dataAtual = new TimeMachine().dataAtual();
 
 	@Test
-	public void criarUmBanner() {
+	public void testeConstrutor() {
+		Entity bannerEntity = new Banner("titulo", "link", dataAtual, dataAtual, "usuario").toEntity();
+		Banner banner = new Banner(bannerEntity);
 
-		Banner banner = criarBanner("banner", new BlobKey("asdf"), "02/02/2013", "25/02/2013", "http://google.com/");
+		Assert.assertEquals(bannerEntity.getProperty(BannerFields.id.toString()), banner.getId());
+		Assert.assertEquals(bannerEntity.getProperty(BannerFields.titulo.toString()), banner.getTitulo());
+		Assert.assertEquals(bannerEntity.getProperty(BannerFields.link.toString()), banner.getLink());
+		Assert.assertEquals(bannerEntity.getProperty(BannerFields.dataInicio.toString()), banner.getDataInicio());
+		Assert.assertEquals(bannerEntity.getProperty(BannerFields.dataFim.toString()), banner.getDataFim());
+		Assert.assertEquals(bannerEntity.getProperty(BannerFields.usuario.toString()), banner.getUsuario());
+		Assert.assertEquals(bannerEntity.getProperty(BannerFields.dataAtualizacao.toString()), banner.getDataDeAtualizacao());
+	}
 
-		Banner bannerEncontrado = null;
+	@Test
+	public void testeToEntity() {
+		Banner banner = new Banner("titulo", "link", dataAtual, dataAtual, "usuario");
+		Entity bannerEntity = banner.toEntity();
+
+		Assert.assertEquals(banner.getId(), bannerEntity.getProperty(BannerFields.id.toString()));
+		Assert.assertEquals(banner.getTitulo(), bannerEntity.getProperty(BannerFields.titulo.toString()));
+		Assert.assertEquals(banner.getLink(), bannerEntity.getProperty(BannerFields.link.toString()));
+		Assert.assertEquals(banner.getDataInicio(), bannerEntity.getProperty(BannerFields.dataInicio.toString()));
+		Assert.assertEquals(banner.getDataFim(), bannerEntity.getProperty(BannerFields.dataFim.toString()));
+		Assert.assertEquals(banner.getUsuario(), bannerEntity.getProperty(BannerFields.usuario.toString()));
+		Assert.assertEquals(banner.getDataDeAtualizacao(), bannerEntity.getProperty(BannerFields.dataAtualizacao.toString()));
+	}
+
+	@Test
+	public void testaRemocao() {
+		Banner novaBanner = new Banner("titulo", "link", dataAtual, dataAtual, "usuario");
+		Banner bannerCriado = repositorio.persiste(novaBanner);
+
+		String idDoBannerCriado = bannerCriado.getId();
+		repositorio.remove(idDoBannerCriado);
+
 		try {
-			bannerEncontrado = bannerRepository.obterPorID(banner.getId());
-		} catch (TooManyResultsException e) {
-			fail("Mais de um banner com o mesmo ID");
-		}
-
-		assertEquals(banner.getTitulo(), bannerEncontrado.getTitulo());
-		assertEquals(banner.getBlobKey(), bannerEncontrado.getBlobKey());
-		assertEquals(banner.getDataInicio(), bannerEncontrado.getDataInicio());
-		assertEquals(banner.getDataFim(), bannerEncontrado.getDataFim());
-		assertEquals(banner.getJaComecou(), bannerEncontrado.getJaComecou());
-		assertEquals(banner.getJaTerminou(), bannerEncontrado.getJaTerminou());
-	}
-
-	public Banner criarBanner(String titulo, BlobKey blobKey, String dataInicioFormatada, String dataFimFormatada, String link) {
-		try {
-			return bannerRepository.criar(titulo, blobKey, dataInicioFormatada, dataFimFormatada, link);
-		} catch (ParseException e) {
-			fail("data mal formatada.");
-		} catch (DataNaoValidaException e) {
-			fail("data invalida");
-		} catch (NullBlobkeyException e) {
-			fail("blobkey invalida");
-		} catch (NullUserException e) {
-			fail("permissão negada");
-		}
-		return null;
-	}
-
-	@Test
-	public void getBannerDisponiveisTeste() {
-
-		int quantidadeDeBanners = 10;
-
-		for (int i = 0; i < quantidadeDeBanners; i++) {
-			// TODO data para string para melhorar o teste
-			criarBanner("banner" + i, new BlobKey("bla" + i), "02/02/2013", "25/02/2200", "");
-		}
-
-		assertEquals(quantidadeDeBanners, bannerRepository.getBannerDisponiveis(true).size());
-	}
-
-	@Test
-	public void atualizaFlagJaComecouTeste() {
-
-		criaBanners(5, Calendar.getInstance(), false);
-		bannerRepository.atualizaFlagJaComecou(BannerFields.JA_COMECOU.getField(), FilterOperator.LESS_THAN_OR_EQUAL,
-				BannerFields.DATA_INICIO.getField(), new Boolean(true));
-		assertEquals(3, bannerRepository.getBannerDisponiveis(true).size());
-	}
-
-	@Test
-	public void atualizaFlagJaTerminou() {
-
-		criaBanners(5, Calendar.getInstance(), true);
-		bannerRepository.atualizaFlagJaTerminou(BannerFields.JA_TERMINOU.getField(), FilterOperator.LESS_THAN,
-				BannerFields.DATA_FIM.getField(), new Boolean(true));
-		assertEquals(3, bannerRepository.getBannerDisponiveis(true).size());
-	}
-
-	private void criaBanners(int quantidaDeDeBanners, Calendar dataInicio, Boolean statusInicio) {
-
-		Calendar c = Calendar.getInstance();
-
-		for (int i = -2; i < quantidaDeDeBanners - 2; i++) {
-			c.set(dataInicio.get(Calendar.YEAR), dataInicio.get(Calendar.MONTH), dataInicio.get(Calendar.DAY_OF_MONTH)
-					+ i, 0, 0, 0);
-			c.set(Calendar.MILLISECOND, 0);
-			bannerRepository.criar(new Banner("baner", new BlobKey(c.toString()), c.getTime(), c.getTime(),
-					statusInicio, false, "login.google", Calendar.getInstance().getTime(), true, ""));
+			repositorio.obtemPorId(idDoBannerCriado);
+			Assert.fail();
+		} catch (EntityNotFoundException e) {
+			Assert.assertTrue(true);
 		}
 	}
+
 }

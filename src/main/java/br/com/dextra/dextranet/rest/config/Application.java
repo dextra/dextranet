@@ -1,6 +1,7 @@
 package br.com.dextra.dextranet.rest.config;
 
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import br.com.dextra.dextranet.area.AreaRS;
@@ -17,6 +18,8 @@ import br.com.dextra.dextranet.usuario.UsuarioRS;
 public class Application extends javax.ws.rs.core.Application {
 
 	public static final String JSON_UTF8 = "application/json;charset=UTF-8";
+
+	public static final Locale BRASIL = new Locale("pt", "BR");
 
 	/**
 	 * Adicionando todas as classes referentes a servicos REST que irao existir nesta aplicacao.
