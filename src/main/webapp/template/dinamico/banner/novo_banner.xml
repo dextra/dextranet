@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<template selector="#container_main">
+		<form id="frmNovoBanner" method="post" enctype="multipart/form-data" class="form-horizontal form-fields-large form-dark">
+		    <fieldset>
+		        <legend>${messages.banner_novo_titulo}</legend>
+		        <ul>
+		            <li>
+		                <label for="txtTitulo">${messages.banner_titulo}</label>
+		                <input type="text" id="txtTitulo" name="txtTitulo" />
+		            </li>
+                    <li>
+                        <label for="txtDataInicio">${messages.banner_dataInicio}</label>
+                        <input type="text" id="txtDataInicio" name="txtDataInicio" />
+                    </li>
+                    <li>
+                        <label for="txtDataFim">${messages.banner_dataFim}</label>
+                        <input type="text" id="txtDataFim" name="txtDataFim" />
+                    </li>
+                    <li>
+                        <label for="txtLink">${messages.banner_link}</label>
+                        <input type="text" id="txtLink" name="txtLink" />
+                    </li>
+                    <li>
+                        <label for="fileImagem">${messages.banner_imagem}</label>
+                        <input type="file" id="fileImagem" name="fileImagem" />
+                    </li>
+                    <li class="buttons">
+                        <input type="button" class="btn btn-blue float_right" value="${messages.botao_salvar}" />
+                    </li>
+		        </ul>
+		    </fieldset>
+		</form>
+		<a class="margin_top" href="#" id="link_abre_banners">Exibir todos os Banners</a>
+	</template>
+
+	<script>
+        $('#txtDataInicio').datepicker();
+        $('#txtDataFim').datepicker();
+        $('#txtTitulo').focus();
+	</script>
+	
+</engine>

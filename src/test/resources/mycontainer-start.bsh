@@ -1,7 +1,7 @@
 
 import br.com.dextra.teste.container.*;
 
-helper = new GAETestHelper();
+helper = new MyContainerGAEHelper();
 helper.setPort(8080);
 helper.prepareLocalServiceTestHelper();
 container = helper.bootMycontainer();

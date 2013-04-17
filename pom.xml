@@ -23,12 +23,20 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             <id>mirror-central</id>
             <url>https://dextranet.dextra.com.br/nexus/content/repositories/mirror-central/</url>
         </repository>
+        <repository>
+            <id>mirror-mycontainer</id>
+            <url>https://dextranet.dextra.com.br/nexus/content/repositories/mirror-mycontainer/</url>
+        </repository>
     </repositories>
 
     <pluginRepositories>
         <pluginRepository>
             <id>mirror-central</id>
             <url>https://dextranet.dextra.com.br/nexus/content/repositories/mirror-central/</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>mirror-mycontainer</id>
+            <url>https://dextranet.dextra.com.br/nexus/content/repositories/mirror-mycontainer/</url>
         </pluginRepository>
     </pluginRepositories>
 
@@ -39,6 +47,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <appengine.target.version>1.7.5</appengine.target.version>
         <appengine.target.plugin.version>1.7.5</appengine.target.plugin.version>
         <resteasy.target.version>2.3.6.Final</resteasy.target.version>
+        <mycontainer.version>1.4.1</mycontainer.version>
     </properties>
 
     <dependencies>
@@ -112,6 +121,17 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <dependency>
             <groupId>org.owasp</groupId>
             <artifactId>antisamy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.mycontainer</groupId>
+            <artifactId>mycontainer-gae-web</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
@@ -204,6 +224,16 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>com.googlecode.mycontainer</groupId>
+                <artifactId>maven-mycontainer-plugin</artifactId>
+                <version>${mycontainer.version}</version>
+                <configuration>
+                    <script>src/test/resources/mycontainer-start.bsh</script>
+                    <includeTests>true</includeTests>
+                </configuration>
+                <dependencies></dependencies>
+            </plugin>
         </plugins>
     </build>
 
@@ -283,6 +313,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                 <groupId>org.owasp</groupId>
                 <artifactId>antisamy</artifactId>
                 <version>1.4</version>
+            </dependency>
+            <dependency>
+                <groupId>com.googlecode.mycontainer</groupId>
+                <artifactId>mycontainer-gae-web</artifactId>
+                <version>${mycontainer.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
