@@ -9,13 +9,14 @@
 	                <th scope="col" class="sortable">${messages.banner_dataInicio}</th>
 	                <th scope="col" class="sortable">${messages.banner_dataFim}</th>
 	                <th scope="col">${messages.banner_link}</th>
+	                <th scope="col" class="sortable">${messages.banner_criadoPor}</th>
 	                <th scope="col">${messages.label_acoes}</th>
 	            </tr>
             </thead>
             <tbody>
                 {if banners.length == 0}
                     <tr>
-                        <td colspan="5">${messages.mensagem_nenhum_registro}</td>
+                        <td colspan="6">${messages.mensagem_nenhum_registro}</td>
                     </tr>
                 {/if}
                 {for banner in banners}
@@ -24,6 +25,7 @@
                         <td>${banner.dataInicio}</td>
                         <td>${banner.dataFim}</td>
                         <td>${banner.link}</td>
+                        <td>${banner.usuario}</td>
                         <td class="action"><a href="#!" class="btdownload" title="${messages.banner_imagem_acao}">${messages.botao_visualizar}</a></td>
                     </tr>
                 {/for}

@@ -36,6 +36,7 @@
     "banner_link_tip" : "Coloque a URL completa para a qual o banner deverá apontar. Ex: http://www.dextra.com.br",
 	"banner_imagem" : "Imagem",
 	"banner_imagem_acao" : "Clique para visualizar a imagem.",
+	"banner_criadoPor" : "Criado por",
 	"banner_botao_todos" : "Listar Banners Cadastrados",
 	"banner_mensagem_sucesso" : "O banner foi salvo e estará disponível para visualização durante sua vigência."
 	}
