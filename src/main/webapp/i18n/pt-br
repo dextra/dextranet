@@ -22,13 +22,17 @@
 	"success_message_banner" : "Seu banner foi inserido com sucesso!",
 	"success_message" : "Dados inseridos com sucesso!",
 	"erro_campos_obrigatorios" : "Campo(s) obrigatório(s) não preenchido(s)!",
+	"mensagem_nenhum registro" : "Nenhum registro foi encontrado!",
+    "banner_lista_titulo" : "Banners cadastrados",
 	"banner_novo_titulo" : "Novo Banner",
 	"banner_titulo" : "Título",
+    "banner_titulo_tip" : "Informação utilizada apenas para identificação do banner.",
 	"banner_dataInicio" : "Visível a partir de",
     "banner_dataFim" : "Visível até",
 	"banner_link" : "Link de destino",
+    "banner_link_tip" : "Coloque a URL completa para a qual o banner deverá apontar. Ex: http://www.dextra.com.br",
 	"banner_imagem" : "Imagem",
-	"banner_link_todos" : "Listar os banners cadastrados",
+	"banner_botao_todos" : "Listar Banners Cadastrados",
 	"banner_mensagem_sucesso" : "O banner foi salvo e estará disponível para visualização durante sua vigência."
 	}
 }

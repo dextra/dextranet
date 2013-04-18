@@ -81,7 +81,7 @@ public class BannerRS {
 	@GET
 	@Produces(Application.JSON_UTF8)
 	public Response listar() {
-		List<Banner> banners = repositorio.lista();
+		List<Banner> banners = this.listarBannersOrdenados();
 		return Response.ok().entity(banners).build();
 	}
 

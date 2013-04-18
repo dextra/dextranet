@@ -15,7 +15,7 @@ dextranet.banner = {
 	    			error: function(jqXHR, textStatus, errorThrown) {
 	    				dextranet.processaErroNaRequisicao(jqXHR);
 	    			}
-	            });	
+	            });
 			} else {
 				$('.message').message($.i18n.messages.erro_campos_obrigatorios, 'error', true);
 			}
@@ -35,5 +35,23 @@ dextranet.banner = {
     				dextranet.processaErroNaRequisicao(jqXHR);
     			}
             });
+		},
+
+		listarVigentes : function() {
+			
+		},
+
+		listar : function() {
+			$.ajax({
+                type : "GET",
+                url : "/s/banner",
+                success : function(bannersCadastrados) {
+                	$.holy("../template/dinamico/banner/banners_cadastrados.xml", { banners : bannersCadastrados});
+                },
+    			error: function(jqXHR, textStatus, errorThrown) {
+    				dextranet.processaErroNaRequisicao(jqXHR);
+    			}
+            });
 		}
+
 }

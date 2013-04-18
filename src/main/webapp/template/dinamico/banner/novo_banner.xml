@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<template selector="#content_left">
-		<form id="frmNovoBanner" method="post" enctype="multipart/form-data" class="form-horizontal form-fields-large form-dark">
+		<form id="frmNovoBanner" method="post" enctype="multipart/form-data" class="">
 		    <fieldset>
 		        <legend>${messages.banner_novo_titulo}</legend>
 		        <ul>
 		            <li class="required">
 		                <label for="txtTitulo">${messages.banner_titulo}</label>
-		                <input type="text" id="txtTitulo" name="titulo" class="not-empty" />
+		                <input type="text" id="txtTitulo" name="titulo" class="not-empty titulo" />
 		            </li>
                     <li class="required">
                         <label for="txtDataInicio">${messages.banner_dataInicio}</label>
@@ -19,14 +19,15 @@
                     </li>
                     <li>
                         <label for="txtLink">${messages.banner_link}</label>
-                        <input type="text" id="txtLink" name="link" />
+                        <input type="text" id="txtLink" name="link" title="${messages.banner_link_tip}" class="link" />
                     </li>
                     <li class="required">
                         <label for="fileImagem">${messages.banner_imagem}</label>
                         <input type="file" id="fileImagem" name="imagem" class="not-empty" />
                     </li>
                     <li class="buttons">
-                        <input type="button" id="btnSalvarNovoBanner" class="btn btn-blue float_right" value="${messages.botao_upload}" />
+                        <input type="button" id="btnSalvarNovoBanner" class="btUpload" value="${messages.botao_upload}" />
+                        <input type="button" id="btnListarBanners" class="btView" value="${messages.banner_botao_todos}" />
                     </li>
 		        </ul>
 		    </fieldset>
@@ -35,10 +36,13 @@
 	</template>
 
 	<script>
+	    $('#frmNovoBanner').form();
+
         $('.data').datepicker();
         $('#txtDataInicio').datepicker("setDate", "+0");
         $('#txtDataFim').datepicker("setDate", "+30");
         $('#txtTitulo').focus();
+
         $('#btnSalvarNovoBanner').click(dextranet.banner.upload);
 	</script>
 	
