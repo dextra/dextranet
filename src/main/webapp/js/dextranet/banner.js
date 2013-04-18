@@ -27,7 +27,8 @@ dextranet.banner = {
                 url : url.url,
                 form : $('#frmNovoBanner'),
                 frame : true,
-                success : function() {
+                complete : function() {
+                	console.info("Passou por aqui!");
                     $('.message').message($.i18n.messages.banner_mensagem_sucesso, 'success', true);
                     dextranet.banner.novo();
                 },
