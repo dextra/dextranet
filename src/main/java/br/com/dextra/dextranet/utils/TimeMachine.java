@@ -10,8 +10,9 @@ import br.com.dextra.dextranet.rest.config.Application;
 
 public class TimeMachine {
 
-	private static final String DATA_HORA = "dd/MM/yyyy HH:mm";
-	private static final String DATA = "dd/MM/yyyy";
+	public static final String DATA_HORA = "dd/MM/yyyy HH:mm";
+
+	public static final String DATA = "dd/MM/yyyy";
 
 	private SimpleDateFormat formatoDataHora = new SimpleDateFormat(DATA_HORA, Application.BRASIL);
 

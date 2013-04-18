@@ -37,6 +37,7 @@ public class Application extends javax.ws.rs.core.Application {
 		classes.add(AreaRS.class);
 		classes.add(UnidadeRS.class);
 		classes.add(MicroBlogRS.class);
+		classes.add(JacksonConfig.class);
 		return classes;
 	}
 

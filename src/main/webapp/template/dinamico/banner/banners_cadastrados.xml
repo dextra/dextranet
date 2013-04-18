@@ -5,11 +5,11 @@
 	    <table class="datatable" border="0" cellspacing="0" cellpadding="0">
 	        <thead>
 	            <tr>
-	                <th class="sortable">${messages.banner_titulo}</th>
-	                <th class="sortable">${messages.banner_dataInicio}</th>
-	                <th class="sortable">${messages.banner_dataFim}</th>
-	                <th>${messages.banner_link}</th>
-	                <th>${messages.label_acoes}</th>
+	                <th scope="col" class="sortable">${messages.banner_titulo}</th>
+	                <th scope="col" class="sortable">${messages.banner_dataInicio}</th>
+	                <th scope="col" class="sortable">${messages.banner_dataFim}</th>
+	                <th scope="col">${messages.banner_link}</th>
+	                <th scope="col">${messages.label_acoes}</th>
 	            </tr>
             </thead>
             <tbody>
@@ -35,6 +35,8 @@
         if ( this.banners.length == 0 ) {
             $('.message').message($.i18n.messages.mensagem_nenhum_registro, 'info', true);
         }
+
+        $(".datatable").datatable();
 	</script>
 	
 </engine>

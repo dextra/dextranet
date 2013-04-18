@@ -40,7 +40,8 @@ public class BannerRS {
 	@POST
 	@Produces(Application.JSON_UTF8)
 	public Response inserir(@FormParam("titulo") String titulo, @FormParam("dataInicio") String dataInicio,
-			@FormParam("dataFim") String dataFim, @FormParam("link") String link, @FormParam("imagem") String imagem, @Context HttpServletRequest request) {
+			@FormParam("dataFim") String dataFim, @FormParam("link") String link, @FormParam("imagem") String imagem,
+			@Context HttpServletRequest request) {
 
 		Banner banner = new Banner(titulo, link, timeMachine.tranformaEmData(dataInicio),
 				timeMachine.tranformaEmData(dataFim), AutenticacaoService.identificacaoDoUsuarioLogado());
@@ -104,18 +105,20 @@ public class BannerRS {
 	private BlobKey obtemBlobKeyDaImagem(HttpServletRequest request) {
 		Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
 		List<BlobKey> listBlobs = blobs.get("imagem");
-		
+
 		BlobKey blobKey = null;
 		if (!listBlobs.isEmpty()) {
 			blobKey = listBlobs.get(0);
 		}
-		
+
 		return blobKey;
 	}
 
 	protected List<Banner> listarBannersVigentesOrdenados() {
-		EntidadeOrdenacao dataInicioCrescente = new EntidadeOrdenacao(BannerFields.dataInicio.toString(), SortDirection.ASCENDING);
-		EntidadeOrdenacao dataFimCrescente = new EntidadeOrdenacao(BannerFields.dataFim.toString(), SortDirection.ASCENDING);
+		EntidadeOrdenacao dataInicioCrescente = new EntidadeOrdenacao(BannerFields.dataInicio.toString(),
+				SortDirection.ASCENDING);
+		EntidadeOrdenacao dataFimCrescente = new EntidadeOrdenacao(BannerFields.dataFim.toString(),
+				SortDirection.ASCENDING);
 
 		List<Banner> banners = repositorio.lista(dataInicioCrescente, dataFimCrescente);
 		return filtraBannersVigentes(banners);
@@ -123,7 +126,7 @@ public class BannerRS {
 
 	private List<Banner> filtraBannersVigentes(List<Banner> banners) {
 		List<Banner> bannersVigentes = new ArrayList<Banner>();
-		
+
 		for (Banner banner : banners) {
 			if (banner.estaVigente()) {
 				bannersVigentes.add(banner);
@@ -133,8 +136,10 @@ public class BannerRS {
 	}
 
 	protected List<Banner> listarBannersOrdenados() {
-		EntidadeOrdenacao dataInicioDecrescente = new EntidadeOrdenacao(BannerFields.dataInicio.toString(), SortDirection.DESCENDING);
-		EntidadeOrdenacao dataFimDecrescente = new EntidadeOrdenacao(BannerFields.dataFim.toString(), SortDirection.DESCENDING);
+		EntidadeOrdenacao dataInicioDecrescente = new EntidadeOrdenacao(BannerFields.dataInicio.toString(),
+				SortDirection.DESCENDING);
+		EntidadeOrdenacao dataFimDecrescente = new EntidadeOrdenacao(BannerFields.dataFim.toString(),
+				SortDirection.DESCENDING);
 
 		List<Banner> banners = repositorio.lista(dataInicioDecrescente, dataFimDecrescente);
 		return banners;
