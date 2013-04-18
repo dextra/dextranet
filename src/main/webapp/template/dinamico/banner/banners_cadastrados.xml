@@ -36,7 +36,7 @@
             $('.message').message($.i18n.messages.mensagem_nenhum_registro, 'info', true);
         }
 
-        $(".datatable").datatable();
+        $(".datatable").datatableSortable();
 	</script>
 	
 </engine>
