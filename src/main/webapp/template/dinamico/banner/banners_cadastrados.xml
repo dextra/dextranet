@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<template selector="#content_left">
+	    <h1>${messages.banner_lista_titulo}</h1>
+	    <table class="datatable" border="0" cellspacing="0" cellpadding="0">
+	        <thead>
+	            <tr>
+	                <th class="sortable">${messages.banner_titulo}</th>
+	                <th class="sortable">${messages.banner_dataInicio}</th>
+	                <th class="sortable">${messages.banner_dataFim}</th>
+	                <th>${messages.banner_link}</th>
+	                <th>${messages.label_acoes}</th>
+	            </tr>
+            </thead>
+            <tbody>
+                {if banners.length == 0}
+                    <tr>
+                        <td colspan="5">${messages.mensagem_nenhum_registro}</td>
+                    </tr>
+                {/if}
+                {for banner in banners}
+                    <tr>
+                        <td>${banner.titulo}</td>
+                        <td>${banner.dataInicio}</td>
+                        <td>${banner.dataFim}</td>
+                        <td>${banner.link}</td>
+                        <td class="action"><a href="#!" class="btdownload" title="${messages.banner_imagem_acao}">${messages.botao_visualizar}</a></td>
+                    </tr>
+                {/for}
+            </tbody>
+	    </table>
+	</template>
+
+	<script>
+        if ( this.banners.length == 0 ) {
+            $('.message').message($.i18n.messages.mensagem_nenhum_registro, 'info', true);
+        }
+	</script>
+	
+</engine>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<template selector="#content_left">
+	    <h1>${messages.banner_cadastro_titulo}</h1>
 		<form id="frmNovoBanner" method="post" enctype="multipart/form-data" class="">
 		    <fieldset>
 		        <legend>${messages.banner_novo_titulo}</legend>
@@ -44,6 +45,7 @@
         $('#txtTitulo').focus();
 
         $('#btnSalvarNovoBanner').click(dextranet.banner.upload);
+        $('#btnListarBanners').click(dextranet.banner.listar);
 	</script>
 	
 </engine>

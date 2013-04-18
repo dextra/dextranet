@@ -78,6 +78,8 @@ limitations under the License.*/
 
 .datatable tr td .btdisable { background: url('imgs/buttons/btdisable.png') center center no-repeat; }
 
+.datatable tr td .btdownload { background: url('imgs/buttons/btdownload.png') center center no-repeat; }
+
 /*///// Component - Pagination /////*/
 
 .paging { text-align: center; margin: 10px auto; }
