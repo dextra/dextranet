@@ -15,6 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
+import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.rest.config.Application;
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 import br.com.dextra.dextranet.utils.TimeMachine;
@@ -23,6 +24,7 @@ import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.JsonObject;
 
 @Path("/banner")
@@ -87,9 +89,7 @@ public class BannerRS {
 	@GET
 	@Produces(Application.JSON_UTF8)
 	public Response listarVigentes() {
-		List<Banner> banners = repositorio.lista();
-		List<Banner> bannersVigentes = filtraBannersVigentes(banners);
-
+		List<Banner> bannersVigentes = this.listarBannersVigentesOrdenados();
 		return Response.ok().entity(bannersVigentes).build();
 	}
 
@@ -113,7 +113,15 @@ public class BannerRS {
 		return blobKey;
 	}
 
-	protected List<Banner> filtraBannersVigentes(List<Banner> banners) {
+	protected List<Banner> listarBannersVigentesOrdenados() {
+		EntidadeOrdenacao dataInicioCrescente = new EntidadeOrdenacao(BannerFields.dataInicio.toString(), SortDirection.ASCENDING);
+		EntidadeOrdenacao dataFimCrescente = new EntidadeOrdenacao(BannerFields.dataFim.toString(), SortDirection.ASCENDING);
+
+		List<Banner> banners = repositorio.lista(dataInicioCrescente, dataFimCrescente);
+		return filtraBannersVigentes(banners);
+	}
+
+	private List<Banner> filtraBannersVigentes(List<Banner> banners) {
 		List<Banner> bannersVigentes = new ArrayList<Banner>();
 		
 		for (Banner banner : banners) {
@@ -122,6 +130,14 @@ public class BannerRS {
 			}
 		}
 		return bannersVigentes;
+	}
+
+	protected List<Banner> listarBannersOrdenados() {
+		EntidadeOrdenacao dataInicioDecrescente = new EntidadeOrdenacao(BannerFields.dataInicio.toString(), SortDirection.DESCENDING);
+		EntidadeOrdenacao dataFimDecrescente = new EntidadeOrdenacao(BannerFields.dataFim.toString(), SortDirection.DESCENDING);
+
+		List<Banner> banners = repositorio.lista(dataInicioDecrescente, dataFimDecrescente);
+		return banners;
 	}
 
 }

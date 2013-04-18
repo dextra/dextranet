@@ -61,11 +61,11 @@ public class TimeMachine {
 		}
 	}
 
-	public Date diasPraFrente(int dias) {
-		return this.diasPraFrente(this.dataAtual(), dias);
+	public Date diasParaFrente(int dias) {
+		return this.diasParaFrente(this.dataAtual(), dias);
 	}
 
-	public Date diasPraFrente(Date data, int dias) {
+	public Date diasParaFrente(Date data, int dias) {
 		Calendar diasPraFrente = new GregorianCalendar();
 		diasPraFrente.setTime(data);
 		diasPraFrente.add(Calendar.DAY_OF_MONTH, dias);
@@ -73,11 +73,11 @@ public class TimeMachine {
 		return diasPraFrente.getTime();
 	}
 
-	public Date diasPraTras(int dias) {
-		return this.diasPraTras(this.dataAtual(), dias);
+	public Date diasParaAtras(int dias) {
+		return this.diasParaAtras(this.dataAtual(), dias);
 	}
 
-	public Date diasPraTras(Date data, int dias) {
+	public Date diasParaAtras(Date data, int dias) {
 		Calendar diasPraFrente = new GregorianCalendar();
 		diasPraFrente.setTime(data);
 		diasPraFrente.add(Calendar.DAY_OF_MONTH, dias * -1);

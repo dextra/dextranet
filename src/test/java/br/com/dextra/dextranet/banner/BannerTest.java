@@ -22,8 +22,8 @@ public class BannerTest {
 
 	@Test
 	public void testaEstaVigente() {
-		Date cincoDiasPraTras = timeMachine.diasPraTras(5);
-		Date dezDiasPraFrente = timeMachine.diasPraFrente(10);
+		Date cincoDiasPraTras = timeMachine.diasParaAtras(5);
+		Date dezDiasPraFrente = timeMachine.diasParaFrente(10);
 		Banner banner = new Banner("titulo", "link", cincoDiasPraTras, dezDiasPraFrente, "usuario");
 
 		Assert.assertTrue(banner.estaVigente());
@@ -31,8 +31,8 @@ public class BannerTest {
 
 	@Test
 	public void testaEstaVigenteComInicioTerminoFuturo() {
-		Date cincoDiasPraFrente = timeMachine.diasPraFrente(5);
-		Date dezDiasPraFrente = timeMachine.diasPraFrente(10);
+		Date cincoDiasPraFrente = timeMachine.diasParaFrente(5);
+		Date dezDiasPraFrente = timeMachine.diasParaFrente(10);
 		Banner banner = new Banner("titulo", "link", cincoDiasPraFrente, dezDiasPraFrente, "usuario");
 
 		Assert.assertFalse(banner.estaVigente());
@@ -40,8 +40,8 @@ public class BannerTest {
 
 	@Test
 	public void testaEstaVigenteComInicioTerminoPassado() {
-		Date cincoDiasPraTras = timeMachine.diasPraTras(5);
-		Date dezDiasPraTras = timeMachine.diasPraTras(10);
+		Date cincoDiasPraTras = timeMachine.diasParaAtras(5);
+		Date dezDiasPraTras = timeMachine.diasParaAtras(10);
 		Banner banner = new Banner("titulo", "link", cincoDiasPraTras, dezDiasPraTras, "usuario");
 
 		Assert.assertFalse(banner.estaVigente());
@@ -50,7 +50,7 @@ public class BannerTest {
 	@Test
 	public void testaEstaVigenteComInicioHojeTerminoFuturo() {
 		Date hoje = timeMachine.dataAtual();
-		Date dezDiasPraFrente = timeMachine.diasPraFrente(10);
+		Date dezDiasPraFrente = timeMachine.diasParaFrente(10);
 		Banner banner = new Banner("titulo", "link", hoje, dezDiasPraFrente, "usuario");
 
 		Assert.assertTrue(banner.estaVigente());
@@ -59,7 +59,7 @@ public class BannerTest {
 	@Test
 	public void testaEstaVigenteComInicioPassadoTerminoHoje() {
 		Date hoje = timeMachine.dataAtual();
-		Date dezDiasPraTras = timeMachine.diasPraTras(10);
+		Date dezDiasPraTras = timeMachine.diasParaAtras(10);
 		Banner banner = new Banner("titulo", "link", dezDiasPraTras, hoje, "usuario");
 
 		Assert.assertTrue(banner.estaVigente());

@@ -50,7 +50,7 @@ public class TimeMachineTest {
 	@Test
 	public void testaDiasPraFrente() {
 		Date dataBase = timeMachine.tranformaEmData("10/04/2013 00:00");
-		Date diasPraFrente = timeMachine.diasPraFrente(dataBase, 5);
+		Date diasPraFrente = timeMachine.diasParaFrente(dataBase, 5);
 
 		Assert.assertEquals("15/04/2013 00:00", timeMachine.formataData(diasPraFrente));
 	}
@@ -58,7 +58,7 @@ public class TimeMachineTest {
 	@Test
 	public void testaDiasPraTras() {
 		Date dataBase = timeMachine.tranformaEmData("10/04/2013 00:00");
-		Date diasPraTras = timeMachine.diasPraTras(dataBase, 5);
+		Date diasPraTras = timeMachine.diasParaAtras(dataBase, 5);
 
 		Assert.assertEquals("05/04/2013 00:00", timeMachine.formataData(diasPraTras));
 	}
