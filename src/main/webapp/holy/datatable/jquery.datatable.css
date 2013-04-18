@@ -75,10 +75,9 @@ limitations under the License.*/
 /*/ Table - Actions /*/
 
 .datatable tr td .btenable { background: url('imgs/buttons/btenable.png') center center no-repeat; }
-
 .datatable tr td .btdisable { background: url('imgs/buttons/btdisable.png') center center no-repeat; }
-
 .datatable tr td .btdownload { background: url('imgs/buttons/btdownload.png') center center no-repeat; }
+.datatable tr td .btremove { background: url('imgs/buttons/btremove.png') center center no-repeat; }
 
 /*///// Component - Pagination /////*/
 

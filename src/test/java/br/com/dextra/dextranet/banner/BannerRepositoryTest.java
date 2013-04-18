@@ -73,6 +73,7 @@ public class BannerRepositoryTest extends TesteIntegracaoBase {
 	@Test
 	public void testaRemocao() {
 		Banner novaBanner = new Banner("titulo", "link", dataAtual, dataAtual, "usuario");
+
 		Banner bannerCriado = repositorio.persiste(novaBanner);
 
 		String idDoBannerCriado = bannerCriado.getId();

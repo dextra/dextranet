@@ -22,6 +22,7 @@
 	"botao_salvar" : "Salvar",
     "botao_upload" : "Upload",
     "botao_visualizar" : "Visualizar",
+    "botao_excluir" : "Excluir",
 	"label_acoes" : "Ações",
 	"erro_campos_obrigatorios" : "Campo(s) obrigatório(s) não preenchido(s)!",
 	"mensagem_nenhum_registro" : "Nenhum registro foi encontrado!",
@@ -36,8 +37,10 @@
     "banner_link_tip" : "Coloque a URL completa para a qual o banner deverá apontar. Ex: http://www.dextra.com.br",
 	"banner_imagem" : "Imagem",
 	"banner_imagem_acao" : "Clique para visualizar a imagem.",
+    "banner_imagem_tip" : "Coloque arquivos de dimensão 70 x 300 ( A x L ).",
 	"banner_criadoPor" : "Criado por",
 	"banner_botao_todos" : "Listar Banners Cadastrados",
-	"banner_mensagem_sucesso" : "O banner foi salvo e estará disponível para visualização durante sua vigência."
+	"banner_mensagem_inclusao_sucesso" : "O banner foi salvo e estará disponível para visualização durante sua vigência.",
+	"banner_mensagem_exclusao_sucesso" : "Banner removido com sucesso!"
 	}
 }

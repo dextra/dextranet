@@ -70,14 +70,6 @@ public class BannerRS {
 		return Response.ok().entity(banner).build();
 	}
 
-	@Path("/{id}/imagem")
-	@GET
-	public Response obterImagem(@PathParam("id") String id) throws EntityNotFoundException {
-		Banner banner = repositorio.obtemPorId(id);
-		// TODO: implementar
-		return Response.ok().entity(banner).build();
-	}
-
 	@Path("/")
 	@GET
 	@Produces(Application.JSON_UTF8)

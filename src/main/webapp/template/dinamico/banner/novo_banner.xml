@@ -8,7 +8,7 @@
 		        <ul>
 		            <li class="required">
 		                <label for="txtTitulo">${messages.banner_titulo}</label>
-		                <input type="text" id="txtTitulo" name="titulo" class="not-empty titulo" />
+		                <input type="text" id="txtTitulo" name="titulo" class="not-empty titulo" title="${messages.banner_titulo_tip}" />
 		            </li>
                     <li class="required">
                         <label for="txtDataInicio">${messages.banner_dataInicio}</label>
@@ -24,7 +24,7 @@
                     </li>
                     <li class="required">
                         <label for="fileImagem">${messages.banner_imagem}</label>
-                        <input type="file" id="fileImagem" name="imagem" class="not-empty" />
+                        <input type="file" id="fileImagem" name="imagem" class="not-empty" title="${messages.banner_imagem_tip}" />
                     </li>
                     <li class="buttons">
                         <input type="button" id="btnSalvarNovoBanner" class="btUpload" value="${messages.botao_upload}" />

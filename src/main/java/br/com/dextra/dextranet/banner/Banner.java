@@ -7,11 +7,16 @@ import br.com.dextra.dextranet.utils.TimeMachine;
 
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.images.ImagesService;
+import com.google.appengine.api.images.ImagesServiceFactory;
+import com.google.appengine.api.images.ServingUrlOptions;
 import com.google.gson.JsonObject;
 
 public class Banner extends Entidade {
 
 	private BlobKey imagem;
+
+	private String imagemUrl;
 
 	private String titulo;
 
@@ -45,10 +50,14 @@ public class Banner extends Entidade {
 		this.usuario = (String) bannerEntity.getProperty(BannerFields.usuario.toString());
 		this.dataDeAtualizacao = (Date) bannerEntity.getProperty(BannerFields.dataAtualizacao.toString());
 		this.imagem = (BlobKey) bannerEntity.getProperty(BannerFields.imagem.toString());
+		this.imagemUrl = (String) bannerEntity.getProperty(BannerFields.imagemUrl.toString());
 	}
 
 	public void adicionaImagem(BlobKey imagem) {
 		this.imagem = imagem;
+
+		ImagesService imageService = ImagesServiceFactory.getImagesService();
+		this.imagemUrl = imageService.getServingUrl(ServingUrlOptions.Builder.withBlobKey(this.imagem));
 	}
 
 	public boolean estaVigente() {
@@ -58,6 +67,10 @@ public class Banner extends Entidade {
 
 	public BlobKey getImagem() {
 		return imagem;
+	}
+
+	public String getImagemUrl() {
+		return imagemUrl;
 	}
 
 	public String getTitulo() {
@@ -96,6 +109,7 @@ public class Banner extends Entidade {
 		entidade.setProperty(BannerFields.usuario.toString(), this.usuario);
 		entidade.setProperty(BannerFields.dataAtualizacao.toString(), this.dataDeAtualizacao);
 		entidade.setProperty(BannerFields.imagem.toString(), this.imagem);
+		entidade.setProperty(BannerFields.imagemUrl.toString(), this.imagemUrl);
 
 		return entidade;
 	}

@@ -28,8 +28,22 @@ dextranet.banner = {
                 form : $('#frmNovoBanner'),
                 frame : true,
                 complete : function() {
-                    $('.message').message($.i18n.messages.banner_mensagem_sucesso, 'success', true);
+                    $('.message').message($.i18n.messages.banner_mensagem_inclusao_sucesso, 'success', true);
                     dextranet.banner.novo();
+                },
+    			error: function(jqXHR, textStatus, errorThrown) {
+    				dextranet.processaErroNaRequisicao(jqXHR);
+    			}
+            });
+		},
+
+		remover : function(id) {
+            $.ajax({
+                type : "DELETE",
+                url : "/s/banner/" + id,
+                success : function() {
+                    $('.message').message($.i18n.messages.banner_mensagem_exclusao_sucesso, 'success', true);
+                    dextranet.banner.listar();
                 },
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
