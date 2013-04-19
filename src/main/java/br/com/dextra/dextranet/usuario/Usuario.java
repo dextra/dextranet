@@ -1,84 +1,86 @@
 package br.com.dextra.dextranet.usuario;
 
 import br.com.dextra.dextranet.persistencia.Entidade;
+import br.com.dextra.dextranet.utils.MD5;
 
-import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.datastore.Entity;
 import com.google.gson.JsonObject;
 
-public class Usuario extends Entidade{
-	
-	private String id;
-	
-	private String nickName;
-	
-	private String email;
-	
-	private BlobKey blobKeyFoto;
+public class Usuario extends Entidade {
 
-	public Usuario(String id, String nickName, String email, BlobKey blobKeyFoto) {
-		this.id = id;
-		this.nickName = nickName;
-		this.email = email;
-		this.blobKeyFoto = blobKeyFoto;
-	}
+	private static final String DEFAULT_DOMAIN = "@dextra-sw.com";
 
-	public Usuario(Entity usuarioEntity) {
-		if (usuarioEntity != null) {
-			this.id = (String) usuarioEntity.getProperty(UsuarioFields.ID.getField());
-			this.nickName = (String) usuarioEntity.getProperty(UsuarioFields.NICK_NAME.getField());
-			this.email = (String) usuarioEntity.getProperty(UsuarioFields.EMAIL.getField());
-			this.blobKeyFoto = (BlobKey) usuarioEntity.getProperty(UsuarioFields.BLOBKEY_FOTO.getField());
-		}
-	}
-	
-	public String getId() {
-		return id;
-	}
-	
-	public String getNickName() {
-		return nickName;
-	}
+	private String username;
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	private String md5;
+
+	private String nome;
+
+	private String apelido;
+
+	private String area;
+
+	private String unidade;
+
+	private String ramal;
+
+	private String telefoneResidencial;
+
+	private String telefoneCelular;
+
+	public Usuario(String username) {
+		this.username = username.trim();
+		this.md5 = MD5.hash(this.getEmail());
 	}
 
 	public String getEmail() {
-		return email;
+		return this.username + DEFAULT_DOMAIN;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public String getUsername() {
+		return username;
 	}
-	
-	public BlobKey getBlobKeyFoto() {
-		return blobKeyFoto;
+
+	public String getMD5() {
+		return md5;
 	}
-	
-	public void setBlobKeyFoto(BlobKey blobKeyFoto) {
-		this.blobKeyFoto = blobKeyFoto;
+
+	public String getNome() {
+		return nome;
 	}
-	
+
+	public String getApelido() {
+		return apelido;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public String getUnidade() {
+		return unidade;
+	}
+
+	public String getRamal() {
+		return ramal;
+	}
+
+	public String getTelefoneResidencial() {
+		return telefoneResidencial;
+	}
+
+	public String getTelefoneCelular() {
+		return telefoneCelular;
+	}
+
+	@Override
 	public Entity toEntity() {
-		Entity entidade = new Entity(this.getKey(this.getClass()));
-		
-		entidade.setProperty(UsuarioFields.ID.getField(), this.id);
-		entidade.setProperty(UsuarioFields.NICK_NAME.getField(), this.getNickName());
-		entidade.setProperty(UsuarioFields.EMAIL.getField(), this.getEmail());
-		entidade.setProperty(UsuarioFields.BLOBKEY_FOTO.getField(), this.getBlobKeyFoto());
-		
-		return entidade;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public JsonObject toJson() {
-		JsonObject json = new JsonObject();
-		json.addProperty(UsuarioFields.ID.getField(), this.id);
-		json.addProperty(UsuarioFields.NICK_NAME.getField(), this.nickName);
-		json.addProperty(UsuarioFields.EMAIL.getField(), this.email);
-		json.addProperty(UsuarioFields.BLOBKEY_FOTO.getField(), this.getBlobKeyFoto().toString());
-		
-		return json;
+		throw new UnsupportedOperationException();
 	}
+
 }
