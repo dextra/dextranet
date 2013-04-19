@@ -20,7 +20,7 @@ public class UsuarioTest extends TesteIntegracaoBase {
 	@Test
 	public void testeConstrutor() {
 		Entity usuarioEntity = new Usuario("dextranet").preenchePerfil("Dextranet Reload", "DxNet", "DEV", "CPS",
-				"229", "(19) 3256-6722", "(19) 9784-4510", "dxnet").toEntity();
+				"229", "(19) 3256-6722", "(19) 9784-4510", "dxnet", "skypeDxNet").toEntity();
 		Usuario usuario = new Usuario(usuarioEntity);
 
 		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.id.toString()), usuario.getId());
@@ -34,12 +34,13 @@ public class UsuarioTest extends TesteIntegracaoBase {
 		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.telefoneResidencial.toString()), usuario.getTelefoneResidencial());
 		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.telefoneCelular.toString()), usuario.getTelefoneCelular());
 		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.gitHub.toString()), usuario.getGitHub());
+		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.skype.toString()), usuario.getSkype());
 	}
 
 	@Test
 	public void testeToEntity() {
 		Usuario usuario = new Usuario("dextranet").preenchePerfil("Dextranet Reload", "DxNet", "DEV", "CPS",
-				"229", "(19) 3256-6722", "(19) 9784-4510", "dxnet");
+				"229", "(19) 3256-6722", "(19) 9784-4510", "dxnet", "skypeDxNet");
 		Entity usuarioEntity = usuario.toEntity();
 
 		Assert.assertEquals(usuario.getId(), usuarioEntity.getProperty(UsuarioFields.id.toString()));
@@ -53,6 +54,7 @@ public class UsuarioTest extends TesteIntegracaoBase {
 		Assert.assertEquals(usuario.getTelefoneResidencial(), usuarioEntity.getProperty(UsuarioFields.telefoneResidencial.toString()));
 		Assert.assertEquals(usuario.getTelefoneCelular(), usuarioEntity.getProperty(UsuarioFields.telefoneCelular.toString()));
 		Assert.assertEquals(usuario.getGitHub(), usuarioEntity.getProperty(UsuarioFields.gitHub.toString()));
+		Assert.assertEquals(usuario.getSkype(), usuarioEntity.getProperty(UsuarioFields.skype.toString()));
 	}
 
 }

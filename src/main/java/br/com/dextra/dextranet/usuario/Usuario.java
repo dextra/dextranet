@@ -30,6 +30,8 @@ public class Usuario extends Entidade {
 
 	private String gitHub;
 
+	private String skype;
+
 	public Usuario(String username) {
 		this.username = username.trim();
 		this.md5 = MD5.hash(this.getEmail());
@@ -47,6 +49,7 @@ public class Usuario extends Entidade {
 		this.telefoneResidencial = (String) entidade.getProperty(UsuarioFields.telefoneResidencial.toString());
 		this.telefoneCelular = (String) entidade.getProperty(UsuarioFields.telefoneCelular.toString());
 		this.gitHub = (String) entidade.getProperty(UsuarioFields.gitHub.toString());
+		this.skype = (String) entidade.getProperty(UsuarioFields.skype.toString());
 	}
 
 	public String getEmail() {
@@ -93,8 +96,12 @@ public class Usuario extends Entidade {
 		return gitHub;
 	}
 
+	public String getSkype() {
+		return skype;
+	}
+
 	public Usuario preenchePerfil(String nome, String apelido, String area, String unidade, String ramal,
-			String telefoneResidencial, String telefoneCelular, String gitHub) {
+			String telefoneResidencial, String telefoneCelular, String gitHub, String skype) {
 		this.nome = nome;
 		this.apelido = apelido;
 		this.area = area;
@@ -103,6 +110,7 @@ public class Usuario extends Entidade {
 		this.telefoneResidencial = telefoneResidencial;
 		this.telefoneCelular = telefoneCelular;
 		this.gitHub = gitHub;
+		this.skype = skype;
 
 		return this;
 	}
@@ -122,6 +130,7 @@ public class Usuario extends Entidade {
 		entidade.setProperty(UsuarioFields.telefoneResidencial.toString(), this.telefoneResidencial);
 		entidade.setProperty(UsuarioFields.telefoneCelular.toString(), this.telefoneCelular);
 		entidade.setProperty(UsuarioFields.gitHub.toString(), this.gitHub);
+		entidade.setProperty(UsuarioFields.skype.toString(), this.skype);
 
 		return entidade;
 	}
