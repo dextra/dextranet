@@ -24,6 +24,8 @@
     "botao_visualizar" : "Visualizar",
     "botao_excluir" : "Excluir",
 	"label_acoes" : "Ações",
+	"label_publicado_por" : "Publicado por",
+	"label_publicado_em" : "em",
 	"erro_campos_obrigatorios" : "Campo(s) obrigatório(s) não preenchido(s)!",
 	"mensagem_nenhum_registro" : "Nenhum registro foi encontrado!",
     "banner_lista_titulo" : "Banners cadastrados",

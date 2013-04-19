@@ -4,15 +4,19 @@
 		<ul class="content-banners">
 			{for banner in banners}
     			<li>
-    			    <a href="${banner.link}" target="_blank" class="banner_link" original-title="Publicado por ${banner.usuario} em ${banner.dataDeAtualizacao}">
-    					<img src="${banner.imagemUrl}" />
-    				</a>
+    			    {if banner.link }
+                        <a href="${banner.link}" target="_blank">
+                            <img src="${banner.imagemUrl}" class="banner" original-title="${messages.label_publicado_por} ${banner.usuario} ${messages.label_publicado_em} ${banner.dataDeAtualizacao}" />
+                        </a>
+    			    {else}
+                        <img src="${banner.imagemUrl}" class="banner" original-title="${messages.label_publicado_por} ${banner.usuario} ${messages.label_publicado_em} ${banner.dataDeAtualizacao}" />
+    			    {/if}
     			</li>
 			{/for}	
 		</ul>
 	</template>
 
-	<script>
-        $('a.banner_link').tipsy({html:true, gravity:'n'});
+	<script>          
+        $('img.banner').tipsy({html:true, gravity:'n'});
 	</script>
 </engine>
