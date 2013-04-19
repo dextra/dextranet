@@ -1,0 +1,32 @@
+package br.com.dextra.dextranet.unidade;
+
+import junit.framework.Assert;
+
+import org.junit.Test;
+
+import com.google.appengine.api.datastore.Entity;
+
+import br.com.dextra.teste.TesteIntegracaoBase;
+
+//a heranca eh para poder testar os objetos envolvendo entity
+public class UnidadeTest extends TesteIntegracaoBase {
+
+	@Test
+	public void testeConstrutor() {
+		Entity unidadeEntity = new Unidade("campinas").toEntity();
+		Unidade unidade = new Unidade(unidadeEntity);
+
+		Assert.assertEquals(unidadeEntity.getProperty(UnidadeFields.id.toString()), unidade.getId());
+		Assert.assertEquals(unidadeEntity.getProperty(UnidadeFields.nome.toString()), unidade.getNome());
+	}
+
+	@Test
+	public void testeToEntity() {
+		Unidade unidade = new Unidade("campinas");
+		Entity unidadeEntity = unidade.toEntity();
+
+		Assert.assertEquals(unidade.getId(), unidadeEntity.getProperty(UnidadeFields.id.toString()));
+		Assert.assertEquals(unidade.getNome(), unidadeEntity.getProperty(UnidadeFields.nome.toString()));
+	}
+
+}

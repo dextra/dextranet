@@ -8,30 +8,11 @@ import org.junit.Test;
 
 import br.com.dextra.teste.TesteIntegracaoBase;
 
-import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 
 public class AreaRepositoryTest extends TesteIntegracaoBase {
 
 	private AreaRepository repositorio = new AreaRepository();
-
-	@Test
-	public void testeConstrutor() {
-		Entity areaEntity = new Area("desenvolvimento").toEntity();
-		Area area = new Area(areaEntity);
-
-		Assert.assertEquals(areaEntity.getProperty(AreaFields.id.toString()), area.getId());
-		Assert.assertEquals(areaEntity.getProperty(AreaFields.nome.toString()), area.getNome());
-	}
-
-	@Test
-	public void testeToEntity() {
-		Area area = new Area("desenvolvimento");
-		Entity areaEntity = area.toEntity();
-
-		Assert.assertEquals(area.getId(), areaEntity.getProperty(AreaFields.id.toString()));
-		Assert.assertEquals(area.getNome(), areaEntity.getProperty(AreaFields.nome.toString()));
-	}
 
 	@Test
 	public void testaRemocao() {
