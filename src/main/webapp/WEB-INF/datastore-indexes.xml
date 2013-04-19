@@ -6,4 +6,9 @@
         <property name="dataDeCriacao" direction="asc"/>
     </datastore-index>
 
+    <datastore-index kind="br.com.dextra.dextranet.banner.Banner" ancestor="false" source="manual">
+        <property name="dataInicio" direction="asc"/>
+        <property name="dataFim" direction="asc"/>
+    </datastore-index>
+
 </datastore-indexes>

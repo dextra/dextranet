@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<template selector="#banners-vigentes">
+		<ul class="content-banners">
+			{for banner in banners}
+    			<li>
+    			    <a href="${banner.link}" target="_blank" class="banner_link" original-title="Publicado por ${banner.usuario} em ${banner.dataDeAtualizacao}">
+    					<img src="${banner.imagemUrl}" />
+    				</a>
+    			</li>
+			{/for}	
+		</ul>
+	</template>
+
+	<script>
+        $('a.banner_link').tipsy({html:true, gravity:'n'});
+	</script>
+</engine>

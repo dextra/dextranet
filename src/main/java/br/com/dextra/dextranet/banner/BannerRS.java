@@ -6,12 +6,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
@@ -81,8 +83,8 @@ public class BannerRS {
 	@Path("/vigentes")
 	@GET
 	@Produces(Application.JSON_UTF8)
-	public Response listarVigentes() {
-		List<Banner> bannersVigentes = this.listarBannersVigentesOrdenados();
+	public Response listarVigentes(@DefaultValue("2") @QueryParam("max") int quantidadeMaxima) {
+		List<Banner> bannersVigentes = this.listarBannersVigentesOrdenados(quantidadeMaxima);
 		return Response.ok().entity(bannersVigentes).build();
 	}
 
@@ -106,14 +108,20 @@ public class BannerRS {
 		return blobKey;
 	}
 
-	protected List<Banner> listarBannersVigentesOrdenados() {
+	protected List<Banner> listarBannersVigentesOrdenados(int quantidadeMaxima) {
 		EntidadeOrdenacao dataInicioCrescente = new EntidadeOrdenacao(BannerFields.dataInicio.toString(),
 				SortDirection.ASCENDING);
 		EntidadeOrdenacao dataFimCrescente = new EntidadeOrdenacao(BannerFields.dataFim.toString(),
 				SortDirection.ASCENDING);
 
 		List<Banner> banners = repositorio.lista(dataInicioCrescente, dataFimCrescente);
-		return filtraBannersVigentes(banners);
+
+		List<Banner> bannersVigentes = filtraBannersVigentes(banners);
+		if (quantidadeMaxima > 0 && bannersVigentes.size() > quantidadeMaxima) {
+			bannersVigentes = bannersVigentes.subList(0, quantidadeMaxima);
+		}
+
+		return bannersVigentes;
 	}
 
 	private List<Banner> filtraBannersVigentes(List<Banner> banners) {

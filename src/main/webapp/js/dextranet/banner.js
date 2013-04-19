@@ -8,6 +8,7 @@ dextranet.banner = {
 			if ($('#frmNovoBanner').validate()) {
 	            $.ajax({
 	                type : "GET",
+	                contentType : dextranet.application_json,
 	                url : "/s/banner/url-upload",
 	                success : function(url) {
 	                	dextranet.banner.salvar(url);
@@ -30,6 +31,7 @@ dextranet.banner = {
                 complete : function() {
                     $('.message').message($.i18n.messages.banner_mensagem_inclusao_sucesso, 'success', true);
                     dextranet.banner.novo();
+                    dextranet.banner.listarVigentes();
                 },
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
@@ -44,6 +46,7 @@ dextranet.banner = {
                 success : function() {
                     $('.message').message($.i18n.messages.banner_mensagem_exclusao_sucesso, 'success', true);
                     dextranet.banner.listar();
+                    dextranet.banner.listarVigentes();
                 },
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
@@ -52,12 +55,23 @@ dextranet.banner = {
 		},
 
 		listarVigentes : function() {
-			
+			$.ajax({
+                type : "GET",
+                url : "/s/banner/vigentes?max=2",
+                contentType : dextranet.application_json,
+                success : function(bannersVigentes) {
+                	$.holy("../template/dinamico/banner/banners_vigentes.xml", { banners : bannersVigentes});
+                },
+    			error: function(jqXHR, textStatus, errorThrown) {
+    				dextranet.processaErroNaRequisicao(jqXHR);
+    			}
+            });
 		},
 
 		listar : function() {
 			$.ajax({
                 type : "GET",
+                contentType : dextranet.application_json,
                 url : "/s/banner",
                 success : function(bannersCadastrados) {
                 	$.holy("../template/dinamico/banner/banners_cadastrados.xml", { banners : bannersCadastrados});

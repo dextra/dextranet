@@ -67,12 +67,11 @@ public class BannerRSTest extends TesteIntegracaoBase {
 		repositorio.persiste(banner02);
 		repositorio.persiste(banner01);
 
-		List<Banner> bannersVigentes = new BannerRS().listarBannersVigentesOrdenados();
+		List<Banner> bannersVigentes = new BannerRS().listarBannersVigentesOrdenados(2);
 
-		Assert.assertEquals(3, bannersVigentes.size());
+		Assert.assertEquals(2, bannersVigentes.size());
 		Assert.assertEquals(banner02, bannersVigentes.get(0));
 		Assert.assertEquals(banner03, bannersVigentes.get(1));
-		Assert.assertEquals(banner04, bannersVigentes.get(2));
 	}
 
 }

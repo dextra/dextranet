@@ -4,7 +4,7 @@ dextranet.strip = {
 
 		texto = texto.replace(/<.*?>/g, '');
 		texto = texto.replace(/\n/g, '');
-		texto = texto.replace(/ /g, ''); //replace espaço
+		texto = texto.replace(/ /g, ''); //replace espaco
 		texto = texto.replace(/	/g, ''); //replace tab
 		texto = texto.replace(/&nbsp;/g, '');
 

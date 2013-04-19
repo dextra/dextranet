@@ -13,7 +13,7 @@
 
     <template selector="#content_right">
 		<div class="block-white">
-			<div id="new-banner"></div>
+			<div id="banners-vigentes"></div>
 		</div>
 	</template>
 
