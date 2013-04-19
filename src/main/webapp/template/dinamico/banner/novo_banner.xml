@@ -8,7 +8,7 @@
 		        <ul>
 		            <li class="required">
 		                <label for="txtTitulo">${messages.banner_titulo}</label>
-		                <input type="text" id="txtTitulo" name="titulo" class="not-empty titulo" title="${messages.banner_titulo_tip}" />
+		                <input type="text" id="txtTitulo" name="titulo" class="not-empty titulo" original-title="${messages.banner_titulo_tip}" />
 		            </li>
                     <li class="required">
                         <label for="txtDataInicio">${messages.banner_dataInicio}</label>
@@ -20,11 +20,11 @@
                     </li>
                     <li>
                         <label for="txtLink">${messages.banner_link}</label>
-                        <input type="text" id="txtLink" name="link" title="${messages.banner_link_tip}" class="link" />
+                        <input type="text" id="txtLink" name="link" original-title="${messages.banner_link_tip}" class="link" />
                     </li>
                     <li class="required">
                         <label for="fileImagem">${messages.banner_imagem}</label>
-                        <input type="file" id="fileImagem" name="imagem" class="not-empty" title="${messages.banner_imagem_tip}" />
+                        <input type="file" id="fileImagem" name="imagem" class="not-empty" original-title="${messages.banner_imagem_tip}" size="42" />
                     </li>
                     <li class="buttons">
                         <input type="button" id="btnSalvarNovoBanner" class="btUpload" value="${messages.botao_upload}" />
@@ -38,6 +38,7 @@
 
 	<script>
 	    $('#frmNovoBanner').form();
+	    $('#frmNovoBanner input').tipsy({gravity: 'w', trigger: 'focus'});
 
         $('.data').datepicker();
         $('#txtDataInicio').datepicker("setDate", "+0");

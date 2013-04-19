@@ -16,7 +16,7 @@ limitations under the License.*/
 
 .forms { margin:0px 0px 10px 0px; }
 
-.forms * { font-size: 12px; }
+.forms * { font-size: 15px; }
 
 .forms fieldset { border: 1px solid #EEE; padding: 10px; }
 
@@ -29,7 +29,7 @@ limitations under the License.*/
 .forms input[type=checkbox],
 .forms input[type=radio] { vertical-align: middle; margin:7px 2px 7px 5px; }
 
-.forms input.data { width: 77px;}
+.forms input.data { width: 100px;}
 .forms input.titulo,
 .forms input.link { width: 476px;}
 
@@ -37,7 +37,7 @@ limitations under the License.*/
 
 .forms ul li { list-style:none; margin: 10px 0; }
 
-.forms ul li label { text-align:right; margin:0 3px; display:inline-block; }
+.forms ul li label { text-align:left; margin:2px 0; display:block; }
 
 .forms ul li span.required { color:#C00; margin-right:3px; display: inline-block; }
 
@@ -67,7 +67,7 @@ limitations under the License.*/
 
 /*///// Component - Buttons /////*/
 
-.buttons { clear: left; display: block; padding:0; }
+.buttons { clear: left; display: block; padding:0; text-align: right; }
 
 .buttons a,
 .buttons input,

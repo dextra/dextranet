@@ -6,7 +6,6 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -17,7 +16,6 @@ public class CommentFuncionalTest extends PostTesteFuncionalUtils {
 	private List<String> comentariosEncontrados = new ArrayList<String>();
 	private List<String> comentariosInseridos = new ArrayList<String>();
 
-	@Test
 	public void fluxoDeCriacaoEListagemDeComentarios() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
 		eCriouPosts(1);
@@ -50,7 +48,8 @@ public class CommentFuncionalTest extends PostTesteFuncionalUtils {
 
 			paginaNovoComentario.criaNovoComentario(conteudo);
 
-			// armazena o conteudo dos comentarios criados para futura comparacão
+			// armazena o conteudo dos comentarios criados para futura
+			// comparacão
 			alimentarBaseDosTestesDoComentario(conteudo);
 			paginaNovoComentario.waitingForLoading();
 		}
@@ -62,7 +61,6 @@ public class CommentFuncionalTest extends PostTesteFuncionalUtils {
 		Collections.sort(comentariosInseridos);
 	}
 
-	@Test
 	public void curtirUmComentario() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
 		eCriouPosts(1);

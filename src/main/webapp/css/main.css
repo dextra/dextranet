@@ -234,8 +234,6 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 #box_user_profile{right:-49px!important;width:250px!important;}
 #box_user_notifications_full{width:350px;}
 
-#banner,#sidebar_left,#banner .close{background-color:#ebeef1;box-shadow:inset -15px 15px 15px -15px #fff;}
-
 /*---------  Barra lateral esquerda  ----------*/
 #sidebar_left{left:0;top:0;height:100%;list-style-type:none;border-right:solid 1px #d9dbdd;position:fixed;z-index:2;}
 #sidebar_left_menu{padding:50px 8px 0;list-style:none;}
@@ -294,16 +292,10 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 
 #container_main_overlay{position:absolute;left:0;top:0;width:100%;height:100%;background-color:#fff;z-index:1;opacity:0.8;display:none;}
 
-#container_banner{bottom:0;left:0;width:100%;text-align:center;position:fixed;}
-
 #content_left{margin-right:350px;}
 /* #content_left_stretch{max-width:520px;} */
 
 #content_right{width:330px;position:absolute;top:0;right:10px;}
-
-#banner{padding:5px 5px 0;position:relative;border:solid 1px #d9dbdd;display:inline-block;border-radius:5px 5px 0 0;}
-
-#banner .close{border-radius: 10px 10px 0 0;left: 50%;padding: 7px 7px 0 7px;position: absolute;top: -27px; border:solid 1px #d9dbdd; border-bottom: none;}
 
 /*----------  Listagem de estÃ³rias de usuÃ¡rios  ----------*/
 .list_stories{list-style:none;margin-top:5px;}
@@ -453,17 +445,3 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 /* Tipsy */
 .content-right .tipsy,
 .content-right .tipsy-arrow {top: +20px;}
-
-/* criar banner */
-#new_banner{color:#555;}
-#new_banner li{margin-bottom:7px;}
-
-#new_banner li label {display:inline-block;margin-right:5px;width:50px;}
-
-.listagem-banner .img-container{display:inline-block;height:100%;}
-.listagem-banner .img-container img{height:100%;}
-.listagem-banner .dados-banner{display:inline-block;vertical-align:top;}
-.listagem-banner > li {height:300px;margin-top:30px;vertical-align:top;margin-bottom:60px;margin-top:10px;}
-
-.buttons{margin-bottom:20px;}
-.orderingButtons { margin-bottom: 20px; }

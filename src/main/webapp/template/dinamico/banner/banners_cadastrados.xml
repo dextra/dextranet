@@ -27,8 +27,8 @@
                         <td>${banner.link}</td>
                         <td>${banner.usuario}</td>
                         <td class="action">
-                            <a href="${banner.imagemUrl}" target="_blank" class="btdownload" title="${messages.banner_imagem_acao}">${messages.botao_visualizar}</a>
-                            <a href="#!" id="${banner.id}" class="btremove" title="${messages.botao_excluir}">${messages.botao_excluir}</a>
+                            <a href="${banner.imagemUrl}" target="_blank" class="btdownload" original-title="${messages.banner_imagem_acao}">${messages.botao_visualizar}</a>
+                            <a href="#!" id="${banner.id}" class="btremove" original-title="${messages.botao_excluir}">${messages.botao_excluir}</a>
                         </td>
                     </tr>
                 {/for}
@@ -43,6 +43,7 @@
 
         $(".datatable").datatableSortable();
         $(".datatable").delegate("a.btremove", "click", function() { dextranet.banner.remover($(this).attr("id")); } );
+        $('.action a').tipsy();
 	</script>
 	
 </engine>
