@@ -1,4 +1,4 @@
-package br.com.dextra.dextranet.curtida;
+package br.com.dextra.dextranet.post.curtida;
 
 import br.com.dextra.dextranet.utils.Data;
 

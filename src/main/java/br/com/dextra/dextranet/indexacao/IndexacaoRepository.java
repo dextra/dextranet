@@ -1,10 +1,10 @@
-package br.com.dextra.dextranet.document;
+package br.com.dextra.dextranet.indexacao;
 
 import br.com.dextra.dextranet.persistencia.EntidadeRepository;
 import br.com.dextra.dextranet.persistencia.ConteudoIndexavel;
 import br.com.dextra.dextranet.utils.IndexFacade;
 
-public class DocumentRepository extends EntidadeRepository {
+public class IndexacaoRepository extends EntidadeRepository {
 
     public void indexar(ConteudoIndexavel conteudo) {
         IndexFacade.getIndex(conteudo.getClass().getName()).put(conteudo.toDocument());

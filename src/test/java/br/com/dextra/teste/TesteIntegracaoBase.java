@@ -9,10 +9,10 @@ import java.util.List;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
-import br.com.dextra.dextranet.comment.Comment;
-import br.com.dextra.dextranet.comment.CommentRepository;
 import br.com.dextra.dextranet.post.Post;
 import br.com.dextra.dextranet.post.PostRepository;
+import br.com.dextra.dextranet.post.comment.Comment;
+import br.com.dextra.dextranet.post.comment.CommentRepository;
 import br.com.dextra.dextranet.utils.Data;
 import br.com.dextra.teste.container.GAETestServer;
 

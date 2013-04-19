@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import br.com.dextra.dextranet.banner.Banner;
-import br.com.dextra.dextranet.comment.Comment;
 import br.com.dextra.dextranet.post.Post;
+import br.com.dextra.dextranet.post.comment.Comment;
 import br.com.dextra.dextranet.usuario.Usuario;
 
 import com.google.appengine.api.datastore.Entity;

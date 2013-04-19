@@ -1,4 +1,4 @@
-package br.com.dextra.dextranet.comment;
+package br.com.dextra.dextranet.post.comment;
 
 import java.util.ArrayList;
 import java.util.List;

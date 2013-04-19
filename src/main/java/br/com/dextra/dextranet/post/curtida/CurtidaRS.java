@@ -1,4 +1,4 @@
-package br.com.dextra.dextranet.curtida;
+package br.com.dextra.dextranet.post.curtida;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
@@ -7,10 +7,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import br.com.dextra.dextranet.comment.Comment;
-import br.com.dextra.dextranet.comment.CommentRepository;
 import br.com.dextra.dextranet.post.Post;
 import br.com.dextra.dextranet.post.PostRepository;
+import br.com.dextra.dextranet.post.comment.Comment;
+import br.com.dextra.dextranet.post.comment.CommentRepository;
 import br.com.dextra.dextranet.utils.Converters;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;

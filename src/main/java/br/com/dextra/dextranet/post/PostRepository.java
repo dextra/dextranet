@@ -5,9 +5,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import br.com.dextra.dextranet.comment.Comment;
-import br.com.dextra.dextranet.document.DocumentRepository;
+import br.com.dextra.dextranet.indexacao.IndexacaoRepository;
 import br.com.dextra.dextranet.persistencia.EntidadeRepository;
+import br.com.dextra.dextranet.post.comment.Comment;
 import br.com.dextra.dextranet.utils.Converters;
 import br.com.dextra.dextranet.utils.IndexFacade;
 
@@ -31,7 +31,7 @@ public class PostRepository extends EntidadeRepository {
 
 	public Post criar(Post post) {
 		this.persiste(post);
-		DocumentRepository respositoryDocument = new DocumentRepository();
+		IndexacaoRepository respositoryDocument = new IndexacaoRepository();
 		respositoryDocument.indexar(post);
 
 		return post;
@@ -192,7 +192,7 @@ public class PostRepository extends EntidadeRepository {
 		try {
 			datastore.delete(key);
 		} finally {
-			DocumentRepository indexacao = new DocumentRepository();
+			IndexacaoRepository indexacao = new IndexacaoRepository();
 			indexacao.removeIndex(Post.class.getName(), id);
 		}
 	}

@@ -1,4 +1,4 @@
-package br.com.dextra.dextranet.document;
+package br.com.dextra.dextranet.indexacao;
 
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
@@ -11,7 +11,7 @@ import br.com.dextra.dextranet.post.PostRS;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 
 @Path("/document")
-public class DocumentRS {
+public class IndexacaoRS {
 
 	static final String SMAXRESULTS = "20";
 	final int MAXRESULTS = Integer.parseInt(SMAXRESULTS);

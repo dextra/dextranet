@@ -2,9 +2,9 @@ package br.com.dextra.dextranet.post;
 
 import java.text.ParseException;
 
-import br.com.dextra.dextranet.comment.Comment;
 import br.com.dextra.dextranet.persistencia.Conteudo;
 import br.com.dextra.dextranet.persistencia.ConteudoIndexavel;
+import br.com.dextra.dextranet.post.comment.Comment;
 import br.com.dextra.dextranet.utils.Converters;
 import br.com.dextra.dextranet.utils.Data;
 

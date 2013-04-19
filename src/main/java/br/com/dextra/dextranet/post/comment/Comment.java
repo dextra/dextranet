@@ -1,4 +1,4 @@
-package br.com.dextra.dextranet.comment;
+package br.com.dextra.dextranet.post.comment;
 
 import java.util.Calendar;
 import java.util.Date;

@@ -6,12 +6,12 @@ import java.util.Set;
 
 import br.com.dextra.dextranet.area.AreaRS;
 import br.com.dextra.dextranet.banner.BannerRS;
-import br.com.dextra.dextranet.comment.CommentRS;
-import br.com.dextra.dextranet.curtida.CurtidaRS;
-import br.com.dextra.dextranet.document.DocumentRS;
+import br.com.dextra.dextranet.indexacao.IndexacaoRS;
 import br.com.dextra.dextranet.microblog.MicroBlogRS;
 import br.com.dextra.dextranet.perfil.PerfilRS;
 import br.com.dextra.dextranet.post.PostRS;
+import br.com.dextra.dextranet.post.comment.CommentRS;
+import br.com.dextra.dextranet.post.curtida.CurtidaRS;
 import br.com.dextra.dextranet.unidade.UnidadeRS;
 import br.com.dextra.dextranet.usuario.UsuarioRS;
 
@@ -29,7 +29,7 @@ public class Application extends javax.ws.rs.core.Application {
 		Set<Class<?>> classes = new HashSet<Class<?>>();
 		classes.add(PostRS.class);
 		classes.add(CurtidaRS.class);
-		classes.add(DocumentRS.class);
+		classes.add(IndexacaoRS.class);
 		classes.add(CommentRS.class);
 		classes.add(UsuarioRS.class);
 		classes.add(BannerRS.class);

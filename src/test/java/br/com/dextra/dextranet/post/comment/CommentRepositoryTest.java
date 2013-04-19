@@ -1,4 +1,4 @@
-package br.com.dextra.dextranet.comment;
+package br.com.dextra.dextranet.post.comment;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,6 +13,9 @@ import org.owasp.validator.html.ScanException;
 
 import br.com.dextra.dextranet.post.Post;
 import br.com.dextra.dextranet.post.PostRepository;
+import br.com.dextra.dextranet.post.comment.Comment;
+import br.com.dextra.dextranet.post.comment.CommentRS;
+import br.com.dextra.dextranet.post.comment.CommentRepository;
 import br.com.dextra.dextranet.utils.Converters;
 import br.com.dextra.teste.TesteIntegracaoBase;
 

@@ -1,6 +1,6 @@
 package br.com.dextra.dextranet.persistencia;
 
-import br.com.dextra.dextranet.curtida.Curtida;
+import br.com.dextra.dextranet.post.curtida.Curtida;
 import br.com.dextra.dextranet.utils.ConteudoHTML;
 import br.com.dextra.dextranet.utils.Data;
 
