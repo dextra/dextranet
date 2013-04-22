@@ -20,7 +20,7 @@
 					<label for="txtApelido">${messages.usuario_apelido}:</label>
 				</dt>
 				<dd>
-					<input type="text" id="txtApelido" name="apelido" value="${usuario.apelido}" />
+					<input type="text" id="txtApelido" name="apelido" value="${usuario.apelido}" original-title="${messages.usuario_apelido_tip}" />
 				</dd>
 				<dt>
 					<label for="txtArea"><span class="input-obg"></span>${messages.usuario_area}:</label>
@@ -62,7 +62,7 @@
                     <label for="txtGitHub">${messages.usuario_github}:</label>
                 </dt>
                 <dd>
-                    <input type="text" id="txtGitHub" name="gitHub" value="${usuario.gitHub}"/>
+                    <input type="text" id="txtGitHub" name="gitHub" value="${usuario.gitHub}" original-title="${messages.usuario_github_tip}" />
                 </dd>
 			</dl>
 			<dl class="perfil-clear-right">
@@ -93,6 +93,7 @@
         $('.message').message($.i18n.messages.usuario_mensagem_foto, 'info', true);
         $('#btnSalvar').click(dextranet.usuario.salvar);
 
+        $('#frmPerfil input').tipsy({gravity: 'w', trigger: 'focus'});
         $('#txtNome').focus();
     </script>
 </engine>

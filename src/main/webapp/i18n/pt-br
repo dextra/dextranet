@@ -48,13 +48,15 @@
 	"usuario_edicao_titulo" : "Meu Perfil",
 	"usuario_nome" : "Nome",
 	"usuario_apelido" : "Apelido",
+	"usuario_apelido_tip" : "Coloque aqui como as pessoas costumam te chamar para que elas possam lhe identificar se não souberem seu nome.",
 	"usuario_area" : "Área",
     "usuario_unidade" : "Unidade",
     "usuario_ramal" : "Ramal",
     "usuario_skype" : "Skype",
     "usuario_github" : "GitHub",
-    "usuario_telefone_residencial" : "Telefone Residencial",
-    "usuario_telefone_celular" : "Telefone Celular",
+    "usuario_github_tip" : "Informe o identificador de seu usuário no GitHub.",
+    "usuario_telefone_residencial" : "Telefone",
+    "usuario_telefone_celular" : "Celular",
 	"usuario_mensagem_foto" : "Sua foto está sendo exibida de acordo com o Gravatar configurado para seu e-mail da Dextra.",
 	"usuario_mensagem_edicao_sucesso" : "Seus dados foram salvos com sucesso!"
 	}
