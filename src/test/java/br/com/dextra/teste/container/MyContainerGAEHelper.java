@@ -10,6 +10,11 @@ import javax.naming.InitialContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.dextra.dextranet.area.Area;
+import br.com.dextra.dextranet.area.AreaRepository;
+import br.com.dextra.dextranet.unidade.Unidade;
+import br.com.dextra.dextranet.unidade.UnidadeRepository;
+
 import com.google.appengine.api.search.dev.LocalSearchService;
 import com.google.appengine.tools.development.testing.LocalBlobstoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
@@ -59,6 +64,23 @@ public class MyContainerGAEHelper {
 		helper.setEnvIsAdmin(false);
 		helper.setEnvEmail("login.google@example.com");
 		helper.setEnvAuthDomain("example.com");
+	}
+
+	public void criaMassaDeDados() {
+		UnidadeRepository repositorioUnidades = new UnidadeRepository();
+		repositorioUnidades.persiste(new Unidade("Campo Grande"));
+		repositorioUnidades.persiste(new Unidade("Campinas"));
+
+		AreaRepository repositorioAreas = new AreaRepository();
+		repositorioAreas.persiste(new Area("Diretoria"));
+		repositorioAreas.persiste(new Area("Administrativo"));
+		repositorioAreas.persiste(new Area("Financeiro"));
+		repositorioAreas.persiste(new Area("Marketing"));
+		repositorioAreas.persiste(new Area("RH"));
+		repositorioAreas.persiste(new Area("Desenvolvimento"));
+		repositorioAreas.persiste(new Area("Desenvolvimento de Negócios"));
+		repositorioAreas.persiste(new Area("Diretoria"));
+		repositorioAreas.persiste(new Area("Treinamento"));
 	}
 
 	public void prepareSearchServiceTestHelper() throws Exception {

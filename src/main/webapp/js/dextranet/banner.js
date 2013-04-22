@@ -8,7 +8,7 @@ dextranet.banner = {
 			if ($('#frmNovoBanner').validate()) {
 	            $.ajax({
 	                type : "GET",
-	                contentType : dextranet.application_json,
+	                dataType : "json",
 	                url : "/s/banner/url-upload",
 	                success : function(url) {
 	                	dextranet.banner.salvar(url);
@@ -58,7 +58,7 @@ dextranet.banner = {
 			$.ajax({
                 type : "GET",
                 url : "/s/banner/vigentes?max=2",
-                contentType : dextranet.application_json,
+                dataType : "json",
                 success : function(bannersVigentes) {
                 	$.holy("../template/dinamico/banner/banners_vigentes.xml", { banners : bannersVigentes});
                 },
@@ -71,7 +71,7 @@ dextranet.banner = {
 		listar : function() {
 			$.ajax({
                 type : "GET",
-                contentType : dextranet.application_json,
+                dataType : "json",
                 url : "/s/banner",
                 success : function(bannersCadastrados) {
                 	$.holy("../template/dinamico/banner/banners_cadastrados.xml", { banners : bannersCadastrados});

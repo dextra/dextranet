@@ -6,7 +6,7 @@ dextranet.usuario = {
 			$.ajax( {
 				type : "GET",
 				url : "/s/usuario/logado",
-				contentType : dextranet.application_json,
+				dataType : "json",
 				success : function(usuario) {
 					dextranet.usuario.logado = usuario;
 					$.holy("../template/dinamico/usuario/usuario_logado.xml", { usuario : dextranet.usuario.logado, gravatar : dextranet.gravatarUrl });
@@ -18,17 +18,32 @@ dextranet.usuario = {
 		},
 
 		editar : function() {
-			$.ajax( {
-				type : "GET",
-				url : "/s/usuario/logado",
-				contentType : dextranet.application_json,
-				success : function(usuario) {
-					dextranet.usuario.logado = usuario;
-					$.holy("../template/dinamico/usuario/perfil_usuario.xml", { usuario : dextranet.usuario.logado, gravatar : dextranet.gravatarUrl });
-				},
-    			error: function(jqXHR, textStatus, errorThrown) {
-    				dextranet.processaErroNaRequisicao(jqXHR);
-    			}
+			var carregaAreas = $.ajax({
+										type : "GET",
+										url: '/s/area',
+										dataType: 'json' });
+
+			var carregaUnidades = $.ajax({
+										type : "GET",
+										url: '/s/unidade',
+										dataType: 'json' });
+
+			$.when(carregaAreas, carregaUnidades).then( function(areas, unidades) {
+				$.ajax( {
+					type : "GET",
+					url : "/s/usuario/logado",
+					contentType : dextranet.application_json,
+					success : function(usuario) {
+						dextranet.usuario.logado = usuario;
+						$.holy("../template/dinamico/usuario/perfil_usuario.xml", { usuario : dextranet.usuario.logado,
+																					gravatar : dextranet.gravatarUrl,
+																					areas : areas[0],
+																					unidades : unidades[0] });
+					},
+	    			error: function(jqXHR, textStatus, errorThrown) {
+	    				dextranet.processaErroNaRequisicao(jqXHR);
+	    			}
+				});
 			});
 		},
 

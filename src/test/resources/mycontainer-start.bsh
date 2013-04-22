@@ -4,7 +4,9 @@ import br.com.dextra.teste.container.*;
 helper = new MyContainerGAEHelper();
 helper.setPort(8080);
 helper.prepareLocalServiceTestHelper();
+
 container = helper.bootMycontainer();
+helper.criaMassaDeDados();
 
 container.waitFor();
 

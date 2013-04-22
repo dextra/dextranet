@@ -28,6 +28,9 @@
 				<dd>
 					<select id="txtArea" name="area" class="not-empty">
 					    <option></option>
+                        {for area in areas}
+                            <option value="${area.nome}">${area.nome}</option>
+                        {/for}
 					</select>
 				</dd>
 				<dt>
@@ -36,6 +39,9 @@
 				<dd>
 					<select id="txtUnidade" name="unidade" class="not-empty">
                         <option></option>
+                        {for unidade in unidades}
+                            <option value="${unidade.nome}">${unidade.nome}</option>
+                        {/for}
 					</select>
 				</dd>
 			</dl>
@@ -78,11 +84,15 @@
 				</dd>
 			</dl>
 		</form>
-
-		<script>
-		    $('.message').message($.i18n.messages.usuario_mensagem_foto, 'info', true);
-		    $('#btnSalvar').click(dextranet.usuario.salvar);
-		    $('#txtNome').focus();
-		</script>
 	</template>
+
+    <script>
+        $('#txtArea').val(this.usuario.area);
+        $('#txtUnidade').val(this.usuario.unidade);
+
+        $('.message').message($.i18n.messages.usuario_mensagem_foto, 'info', true);
+        $('#btnSalvar').click(dextranet.usuario.salvar);
+
+        $('#txtNome').focus();
+    </script>
 </engine>
