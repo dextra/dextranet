@@ -16,11 +16,11 @@ table{border-collapse:collapse;border-spacing:0;}
 input,textarea,select{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-khtml-box-sizing:border-box;}
 button{background-color:transparent;border:0;}
 
-/*----------  Preparação para layout elástico  ----------*/
+/*----------  PreparaÃ§Ã£o para layout elÃ¡stico  ----------*/
 body{font-size:1em;}
 html{font-size:100%;}
 
-/*----------  Ícones & Formas  ----------*/
+/*----------  Ã�cones & Formas  ----------*/
 [class^="icon-"]{display:inline-block;vertical-align:middle;width:16px;height:16px;background-image:url('../img/main-bundle.png');}
 
 .icon-header-logo{width:135px;height:23px;}
@@ -35,7 +35,7 @@ html{font-size:100%;}
 .shape-arrow-down{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:5px solid #35679a;display:inline-block;margin-left:6px;transform:rotate(180deg);}
 .shape-arrow-right{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:5px solid #35679a;display:inline-block;margin-left:6px;transform:rotate(90deg);}
 
-/*----------  Características  ----------*/
+/*----------  CaracterÃ­sticas  ----------*/
 .clear{clear:both;}
 .clearfix:after{content:".";clear:both;display:block;height:0;visibility:hidden;}
 .hidden{display:none;}
@@ -49,7 +49,7 @@ html{font-size:100%;}
 .margin-right{margin-right:15px;}
 .margin-left{margin-left:15px;}
 
-/*----------  Tipografia & Botões  ----------*/
+/*----------  Tipografia & BotÃµes  ----------*/
 body{font-family:arial, sans-serif;background:url('../img/body-pattern.jpg') repeat;}
 
 a{color:#4887c6;text-decoration:none;}
@@ -66,7 +66,7 @@ h6{color:#4e4846;margin-top:0;margin-bottom:20px;}
 
 small{font-size:70%;}
 
-/*----------  Formulários  ----------*/
+/*----------  FormulÃ¡rios  ----------*/
 input,
 selected,
 textarea{background-color:#fdfdfd;border-radius:5px;border:1px solid #ddd;padding:5px 10px;box-shadow:0 0 3px #ddd,inset 0 6px 6px #fafafa,inset 0 0 0 1px #fff;color:#bbb;font-size:14px;}
@@ -133,12 +133,12 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 #sidebar-left-menu > li.active .icon-sidebar-left-equipe{background-position:-164px -69px;}
 #sidebar-left-menu > li > a > span{display:block;width:38px;height:38px;margin:0 auto 10px;}
 
-/*----------  Estrutura dos blocos centrais de conteúdo  ----------*/
+/*----------  Estrutura dos blocos centrais de conteÃºdo  ----------*/
 #container-main{margin-left:110px;clear:both;padding-right:10px;}
 
 #sidebar-right{width:250px;float:right;}
 
-/*----------  Listagem de estórias de usuários  ----------*/
+/*----------  Listagem de estÃ³rias de usuÃ¡rios  ----------*/
 .list-stories > li{border-radius:5px;background-color:#fcfcfc;border:1px solid #ced1d3;padding:12px;box-shadow:0 0 5px #ced1d3,inset 0 20px 20px -20px #d8dadb;margin-bottom:20px;}
 .list-stories-avatar{float:left;margin-right:10px;border:1px solid #ced1d3;padding:1px;background-color:#eee;width:50px;height:50px;border-radius:5px;}
 .list-stories-headline{margin-bottom:20px;}
@@ -157,7 +157,7 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 .list-stories-footer-call{float:right;text-align:right;}
 
 
-/*----------  Listagem de estórias de equipe  ----------*/
+/*----------  Listagem de estÃ³rias de equipe  ----------*/
 /* Menu abcd */
 .list-menu-abcd { margin-bottom:20px;}
 .list-menu-abcd li { display:inline; padding-left:4px; padding-right:4px;}
@@ -178,9 +178,6 @@ textarea:focus{color:#999;border-color:#ccc;box-shadow:0 0 3px #ccc,inset 0 6px 
 
 
 /* teste Perfil */
-#new_perfil{color:#555;}
-#new_perfil li{margin-bottom:7px;}
-#new_perfil li label {display:inline-block;margin-right:5px;width:50px;}
 .buttons{margin-bottom:20px;}
 .orderingButtons { margin-bottom: 20px; }
 

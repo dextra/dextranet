@@ -1,139 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
-	<template selector="#content_principal">
-	 <!--	<template selector="#container_main"> erro, porem css correto -->
+	<template selector="#content_left">
 
-		<h1>Meu perfil</h1>
+		<h1>${messages.usuario_edicao_titulo}</h1>
 
-		<div id="container_mensagem" class="clearfix"></div>
+		<div class="avatar-frame">
+			<img src="${gravatar}${usuario.hash}" alt="Avatar" />
+		</div>
 
-		<form id="new_photo" method="post" enctype="multipart/form-data">
-			<div class="avatar-frame">
-				<!-- @fixme se o usuário atual não possuir foto de perfil -->
-					<span class="icon_avatarcommon"></span>
-				<!-- @fixme senão, exibir foto aqui -->
-					<!-- <img src="#" alt="Avatar" /> -->
-				<!-- fim da condição -->
-				<a href="#" id="linkMudarFoto" class="avatar-alterar">Mudar foto</a>
-			</div>
-			<input type="file" id="photo" name="photo" />
-			<button class="btn btn-blue" onclick= "dextranet.perfil.foto()" id="btnAtualizarFoto" type="submit">Atualizar foto</button>
-		</form>
-
-		<form id="new_perfil" method="post" class="form-dark form-horizontal clearfix" enctype="multipart/form-data">
-
-			<input id="idVal" name="id" value="${perfil.id}" type="hidden" />
+		<form id="frmPerfil" class="form-dark form-horizontal clearfix">
 			<dl>
 				<dt>
-					<label for="nameVal"><span class="input-obg"></span>Nome:</label>
+					<label for="txtNome"><span class="input-obg"></span>${messages.usuario_nome}:</label>
 				</dt>
 				<dd>
-					<input type="text" id="nameVal" name="name" value="${perfil.name}" class="required"/>
+					<input type="text" id="txtNome" name="nome" value="${usuario.nome}" />
 				</dd>
 				<dt>
-					<label for="nickNameVal"><span class="input-obg"></span>Apelido:</label>
+					<label for="txtApelido"><span class="input-obg"></span>${messages.usuario_apelido}:</label>
 				</dt>
 				<dd>
-					<input type="text" id="nickNameVal" name="name" value="${perfil.nickName}" class="required"/>
+					<input type="text" id="txtApelido" name="apelido" value="${usuario.apelido}" />
 				</dd>
 				<dt>
-					<label for="areaVal"><span class="input-obg"></span>Área:</label>
+					<label for="txtArea"><span class="input-obg"></span>${messages.usuario_area}:</label>
 				</dt>
 				<dd>
-					<select id="areaVal" class="required" >
-						{for areas in perfil.areasPossiveis}
-							{if areas.name == perfil.area}
-								<option selected="selected">${areas.name}</option>
-							{else}
-								<option value="${areas.name}" >${areas.name}</option>
-							{/if}
-						{/for}
+					<select id="txtArea" name="area">
+					    <option>...</option>
 					</select>
 				</dd>
 				<dt>
-					<label for="unitVal"><span class="input-obg"></span>Unidade:</label>
+					<label for="txtUnidade"><span class="input-obg"></span>${messages.usuario_unidade}:</label>
 				</dt>
 				<dd>
-					<select id="unitVal" class="required" >
-						{for unidades in perfil.unidadesPossiveis}
-							{if unidades.name == perfil.unit}
-								<option selected="selected" >${unidades.name}</option>
-							{else}
-								<option value="${unidades.name}" >${unidades.name}</option>
-							{/if}
-						{/for}
+					<select id="txtUnidade" name="unidade">
+                        <option>...</option>
 					</select>
 				</dd>
 			</dl>
 			<dl class="perfil-clear-left">
 				<dt>
-					<label for="ramalVal">Ramal:</label>
+					<label for="txtRamal">${messages.usuario_ramal}:</label>
 				</dt>
 				<dd>
-					<input type="text" id="ramalVal" name="ramal" value="${perfil.branch}" />
+					<input type="text" id="txtRamal" name="ramal" value="${usuario.ramal}" />
 				</dd>
 				<dt>
-					<label for="skypeVal">Skype:</label>
+					<label for="txtSkype">${messages.usuario_skype}:</label>
 				</dt>
 				<dd>
-					<input type="text" id="skypeVal" name="skype" value="${perfil.skype}" />
+					<input type="text" id="txtSkype" name="skype" value="${usuario.skype}" />
 				</dd>
-				<dt>
-					<label for="gTalkVal">GTalk:</label>
-				</dt>
-				<dd>
-					<input type="text" id="gTalkVal" name="gTtalk" value="${perfil.gTalk}" />
-				</dd>
+                <dt>
+                    <label for="txtGitHub">${messages.usuario_github}:</label>
+                </dt>
+                <dd>
+                    <input type="text" id="txtGitHub" name="gitHub" value="${usuario.gitHub}"/>
+                </dd>
 			</dl>
 			<dl class="perfil-clear-right">
 				<dt>
-					<label for="residencialVal">Telefone fixo:</label>
+					<label for="txtTelefoneResidencial">${messages.usuario_telefone_residencial}:</label>
 				</dt>
 				<dd>
-					<input type="text" id="residencialVal" name="residencial" value="${perfil.phoneResidence}" />
+					<input type="text" id="txtTelefoneResidencial" name="telefoneResidencial" value="${usuario.telefoneResidencial}" />
 				</dd>
 				<dt>
-					<label for="celularVal">Celular:</label>
+					<label for="txtCelular">${messages.usuario_telefone_celular}:</label>
 				</dt>
 				<dd>
-					<input type="text" id="celularVal" name="celular" value="${perfil.phoneMobile}" class="required"/>
-				</dd>
-				<dt>
-					<label for="githubUser">Usuário GitHub:</label>
-				</dt>
-				<dd>
-					<input type="text" id="githubUser" name="githubUser" value="${perfil.githubUser}"/>
+					<input type="text" id="txtCelular" name="telefoneCelular" value="${usuario.telefoneCelular}" />
 				</dd>
 				<dt></dt>
 				<dd>
-					<button class="btn btn-blue btn-block" type="button" onclick="dextranet.perfil.inserir()">Salvar alterações</button>
+					<button id="btnSalvar" class="btn btn-blue btn-block" type="button" >${messages.botao_salvar}</button>
 				</dd>
 			</dl>
 		</form>
 
-		<script type="text/javascript">
-			$(function()
-			{
-				$('#nameVal').focus();
-
-				$('#linkMudarFoto').click(function() {
-					$('#photo').trigger('click');
-				});
-
-				$('#btnAtualizarFoto').click(function() {
-					if ( $('#photo').val() === '' ) {
-						$('#photo').trigger('click');
-						return;
-					}
-				});
-
-				$('#new_photo').submit(function(e) {
-					if ( $('#photo').val() === '' ) {
-						e.preventDefault();
-					}
-				});
-
-			});
+		<script>
+		    $('.message').message($.i18n.messages.usuario_mensagem_foto, 'info', true);
+		    $('#btnSalvar').click(dextranet.usuario.salvar);
 		</script>
 	</template>
 </engine>

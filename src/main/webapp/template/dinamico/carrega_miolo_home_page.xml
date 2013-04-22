@@ -7,7 +7,6 @@
 				<ul class="list_stories" id="relacao_dos_posts">
 				</ul>
 			</div>
-			<div id="content_principal"></div>
 		</div>
     </template>
 

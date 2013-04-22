@@ -26,6 +26,7 @@
 	"label_acoes" : "Ações",
 	"label_publicado_por" : "Publicado por",
 	"label_publicado_em" : "em",
+	"label_gravatar" : "Gravatar",
 	"erro_campos_obrigatorios" : "Campo(s) obrigatório(s) não preenchido(s)!",
 	"mensagem_nenhum_registro" : "Nenhum registro foi encontrado!",
     "banner_lista_titulo" : "Banners cadastrados",
@@ -43,6 +44,18 @@
 	"banner_criadoPor" : "Criado por",
 	"banner_botao_todos" : "Listar Banners Cadastrados",
 	"banner_mensagem_inclusao_sucesso" : "O banner foi salvo e estará disponível para visualização durante sua vigência.",
-	"banner_mensagem_exclusao_sucesso" : "Banner removido com sucesso!"
+	"banner_mensagem_exclusao_sucesso" : "Banner removido com sucesso!",
+	"usuario_edicao_titulo" : "Meu Perfil",
+	"usuario_nome" : "Nome",
+	"usuario_apelido" : "Apelido",
+	"usuario_area" : "Área",
+    "usuario_unidade" : "Unidade",
+    "usuario_ramal" : "Ramal",
+    "usuario_skype" : "Skype",
+    "usuario_github" : "GitHub",
+    "usuario_telefone_residencial" : "Telefone Residencial",
+    "usuario_telefone_celular" : "Telefone Celular",
+	"usuario_mensagem_foto" : "Sua foto está sendo exibida de acordo com o Gravatar configurado para seu e-mail da Dextra.",
+	"usuario_mensagem_edicao_sucesso" : "Seus dados foram salvos com sucesso!"
 	}
 }

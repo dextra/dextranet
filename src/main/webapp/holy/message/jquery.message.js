@@ -37,7 +37,7 @@
 
 	$.fn.messageMonitor = function(time, warning) {
 		if(!time) {
-			time = 20000;
+			time = 10000;
 		}
 		if(!warning) {
 			warning = Math.min(5000, time);
