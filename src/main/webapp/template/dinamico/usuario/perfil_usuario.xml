@@ -14,10 +14,10 @@
 					<label for="txtNome"><span class="input-obg"></span>${messages.usuario_nome}:</label>
 				</dt>
 				<dd>
-					<input type="text" id="txtNome" name="nome" value="${usuario.nome}" />
+					<input type="text" id="txtNome" name="nome" value="${usuario.nome}" class="not-empty" />
 				</dd>
 				<dt>
-					<label for="txtApelido"><span class="input-obg"></span>${messages.usuario_apelido}:</label>
+					<label for="txtApelido">${messages.usuario_apelido}:</label>
 				</dt>
 				<dd>
 					<input type="text" id="txtApelido" name="apelido" value="${usuario.apelido}" />
@@ -26,16 +26,16 @@
 					<label for="txtArea"><span class="input-obg"></span>${messages.usuario_area}:</label>
 				</dt>
 				<dd>
-					<select id="txtArea" name="area">
-					    <option>...</option>
+					<select id="txtArea" name="area" class="not-empty">
+					    <option></option>
 					</select>
 				</dd>
 				<dt>
 					<label for="txtUnidade"><span class="input-obg"></span>${messages.usuario_unidade}:</label>
 				</dt>
 				<dd>
-					<select id="txtUnidade" name="unidade">
-                        <option>...</option>
+					<select id="txtUnidade" name="unidade" class="not-empty">
+                        <option></option>
 					</select>
 				</dd>
 			</dl>
@@ -67,10 +67,10 @@
 					<input type="text" id="txtTelefoneResidencial" name="telefoneResidencial" value="${usuario.telefoneResidencial}" />
 				</dd>
 				<dt>
-					<label for="txtCelular">${messages.usuario_telefone_celular}:</label>
+					<label for="txtCelular"><span class="input-obg"></span>${messages.usuario_telefone_celular}:</label>
 				</dt>
 				<dd>
-					<input type="text" id="txtCelular" name="telefoneCelular" value="${usuario.telefoneCelular}" />
+					<input type="text" id="txtCelular" name="telefoneCelular" value="${usuario.telefoneCelular}" class="not-empty" />
 				</dd>
 				<dt></dt>
 				<dd>
@@ -82,6 +82,7 @@
 		<script>
 		    $('.message').message($.i18n.messages.usuario_mensagem_foto, 'info', true);
 		    $('#btnSalvar').click(dextranet.usuario.salvar);
+		    $('#txtNome').focus();
 		</script>
 	</template>
 </engine>

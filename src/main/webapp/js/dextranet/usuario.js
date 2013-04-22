@@ -33,18 +33,22 @@ dextranet.usuario = {
 		},
 
 		salvar : function() {
-			$.ajax( {
-				type : "PUT",
-				url : "/s/usuario/" + dextranet.usuario.logado.id,
-				data : form2js("frmPerfil"),
-				success : function() {
-					$('.message').message($.i18n.messages.usuario_mensagem_edicao_sucesso, 'success', true);
-					dextranet.usuario.editar();
-				},
-    			error: function(jqXHR, textStatus, errorThrown) {
-    				dextranet.processaErroNaRequisicao(jqXHR);
-    			}
-			});
+			if ($('#frmPerfil').validate()) {
+				$.ajax( {
+					type : "PUT",
+					url : "/s/usuario/" + dextranet.usuario.logado.id,
+					data : form2js("frmPerfil"),
+					success : function() {
+						$('.message').message($.i18n.messages.usuario_mensagem_edicao_sucesso, 'success', true);
+						dextranet.usuario.editar();
+					},
+	    			error: function(jqXHR, textStatus, errorThrown) {
+	    				dextranet.processaErroNaRequisicao(jqXHR);
+	    			}
+				});
+			} else {
+				$('.message').message($.i18n.messages.erro_campos_obrigatorios, 'error', true);
+			}
 		}
 		
 }
