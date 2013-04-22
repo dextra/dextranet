@@ -42,7 +42,7 @@
 		$("#button_sidebar_left_novopost").click(dextranet.home.abrePopUpNovoPost);
 		$("#button_sidebar_left_new_banner").click(dextranet.banner.novo);
 		$("#button_sidebar_left_profile").click(dextranet.usuario.editar);
-		$("#button_sidebar_left_team").click(dextranet.home.abrePaginaEquipe);
+		$("#button_sidebar_left_team").click(dextranet.equipe.listar);
 		$("#form_new_post").submit(dextranet.post.criaNovoPost);
 
 		$.holy("../template/dinamico/post/abre_pagina_novo_post.xml", {});

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+    <template selector="#content_left">
+
+        <div id="sidebar-right" rel="section">
+        </div>
+
+        <!-- #menu abcd -->
+        <ul class="list-menu-abcd clearfix">
+            <li><a href="#" onclick="dextranet.equipe.getInicial('a');">a</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('b');">b</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('c');">c</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('d');">d</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('e');">e</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('f');">f</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('g');">g</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('h');">h</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('i');">i</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('j');">j</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('k');">k</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('l');">l</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('m');">m</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('n');">n</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('o');">o</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('p');">p</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('q');">q</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('r');">r</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('s');">s</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('t');">t</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('u');">u</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('v');">v</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('w');">w</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('x');">x</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('y');">y</a></li>
+            <li><a href="#" onclick="dextranet.equipe.getInicial('z');">z</a></li>
+        </ul>
+
+        <ul class="list-team list-vertical clearfix">
+            {if usuarios.length >0}
+                {for colaborador in usuarios}
+                    <li class="clearfix">
+                        <div class="list-team-avatar">
+                            <div class="avatar-frame">
+                                <img src="${gravatar}${colaborador.md5}" />
+                            </div>
+                        </div>
+                        <div class="list-team-content">
+                            <h3>
+                                ${colaborador.nome}
+                                {if colaborador.apelido}
+                                    <span>(${colaborador.apelido})</span>
+                                {/if}
+                            </h3>
+                            <p class="list-team-content-geral">
+                                ${colaborador.area}/${colaborador.unidade}
+                                {if colaborador.ramal }
+                                    - Ramal ${colaborador.branch}
+                                {/if}
+                            </p>
+                            <p class="list-team-content-webcontact">
+                                <span class="icon_phone-mini margin-left" title="Telefone celular"></span>
+                                {if colaborador.telefoneCelular }
+                                    ${colaborador.telefoneCelular}
+                                {else}
+                                    <span class="empty">N.D</span>
+                                {/if}
+                            </p>
+                            <p class="list-team-content-phones">
+                                <span class="left">
+                                    <span class="icon_skype-mini"></span>
+                                    {if colaborador.skype }
+                                        ${colaborador.skype}
+                                    {else}
+                                        <span class="empty">N.D</span>
+                                    {/if}
+                                </span>
+                                <span class="icon_cellphone-mini" title="Telefone residencial"></span>
+                                {if colaborador.telefoneResidencial}
+                                    ${colaborador.telefoneResidencial}
+                                {else}
+                                    <span class="empty">N.D</span>
+                                {/if}
+                            </p>
+                        </div>
+                    </li>
+                {/for}
+            {else}
+                <li class="list-team-empty">
+                    <p>
+                        <img src="img/smile-sad.gif" alt="" />
+                        <span>Nenhum dextrano</span>
+                        <span>foi encontrado!</span>
+                    </p>
+                </li>
+            {/if}
+        </ul>
+    </template>
+</engine>
