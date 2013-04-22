@@ -4,8 +4,10 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+import org.junit.After;
 import org.junit.Test;
 
+import br.com.dextra.dextranet.persistencia.EntidadeNaoEncontradaException;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -13,6 +15,14 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 public class UsuarioRepositoryTest extends TesteIntegracaoBase {
 
 	private UsuarioRepository repositorio = new UsuarioRepository();
+
+	@After
+	public void after() {
+		List<Usuario> usuarios = repositorio.lista();
+		for (Usuario usuario : usuarios) {
+			repositorio.remove(usuario.getId());
+		}
+	}
 
 	@Test
 	public void testaRemocao() {
@@ -35,7 +45,7 @@ public class UsuarioRepositoryTest extends TesteIntegracaoBase {
 		Usuario usuario01 = new Usuario("reloadDextranet");
 		Usuario usuario02 = new Usuario("dextranet");
 		Usuario usuario03 = new Usuario("novaDextranet");
-		
+
 		repositorio.persiste(usuario01);
 		repositorio.persiste(usuario02);
 		repositorio.persiste(usuario03);
@@ -47,6 +57,30 @@ public class UsuarioRepositoryTest extends TesteIntegracaoBase {
 		Assert.assertEquals(usuario02, usuariosEncontrados.get(0));
 		Assert.assertEquals(usuario03, usuariosEncontrados.get(1));
 		Assert.assertEquals(usuario01, usuariosEncontrados.get(2));
+	}
+
+
+	@Test
+	public void testaObtemPorUsernameInexistente() {
+		try {
+			repositorio.obtemPorUsername("dextranet");
+			Assert.fail();
+		} catch (EntidadeNaoEncontradaException e) {
+			Assert.assertTrue(true);
+		}
+	}
+	
+	@Test
+	public void testaObtemPorUsername() {
+		Usuario usuario01 = new Usuario("reloadDextranet");
+		Usuario usuario02 = new Usuario("dextranet");
+		Usuario usuario03 = new Usuario("novaDextranet");
+
+		repositorio.persiste(usuario01);
+		repositorio.persiste(usuario02);
+		repositorio.persiste(usuario03);
+
+		Assert.assertEquals(usuario02, repositorio.obtemPorUsername(usuario02.getUsername()));
 	}
 
 }

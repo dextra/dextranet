@@ -3,11 +3,16 @@ package br.com.dextra.dextranet.usuario;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.dextra.dextranet.persistencia.EntidadeNaoEncontradaException;
 import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.persistencia.EntidadeRepository;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
 public class UsuarioRepository extends EntidadeRepository {
@@ -32,6 +37,20 @@ public class UsuarioRepository extends EntidadeRepository {
 		}
 
 		return usuarios;
+	}
+
+	public Usuario obtemPorUsername(String username) {
+		Query query = new Query(Usuario.class.getName());
+		query.setFilter(new FilterPredicate(UsuarioFields.username.toString(), FilterOperator.EQUAL, username));
+
+		PreparedQuery pquery = this.datastore.prepare(query);
+
+		Entity entityEncontrada = pquery.asSingleEntity();
+		if (entityEncontrada == null) {
+			throw new EntidadeNaoEncontradaException(Usuario.class.getName(), "username", username);
+		}
+
+		return new Usuario(entityEncontrada);
 	}
 
 }

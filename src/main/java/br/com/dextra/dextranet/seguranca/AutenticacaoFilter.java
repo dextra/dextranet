@@ -11,41 +11,67 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.dextra.dextranet.persistencia.EntidadeNaoEncontradaException;
+import br.com.dextra.dextranet.usuario.Usuario;
+import br.com.dextra.dextranet.usuario.UsuarioRepository;
+
+import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
 public class AutenticacaoFilter implements Filter {
 
-    private String excludePatterns = "";
+	private String excludePatterns = "";
 
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response,
-                    FilterChain filterChain) throws IOException, ServletException {
+	@Override
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException,
+			ServletException {
 
-            UserService userService = UserServiceFactory.getUserService();
-            HttpServletResponse httpResponse = (HttpServletResponse) response;
-            HttpServletRequest httpRequest = (HttpServletRequest) request;
+		UserService userService = UserServiceFactory.getUserService();
+		HttpServletResponse httpResponse = (HttpServletResponse) response;
+		HttpServletRequest httpRequest = (HttpServletRequest) request;
 
-            String thisURI = httpRequest.getRequestURI();
+		String thisURI = httpRequest.getRequestURI();
 
-            if (userService.getCurrentUser() != null) {
-                    filterChain.doFilter(request, response);
-            } else if (thisURI.contains(excludePatterns)) {
-                    filterChain.doFilter(request, response);
-            } else {
-                    String loginUrl = userService.createLoginURL(thisURI);
-                    httpResponse.sendRedirect(loginUrl);
-            }
-    }
+		User usuarioLogado = userService.getCurrentUser();
+		if (usuarioLogado != null) {
 
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-            this.excludePatterns = filterConfig.getInitParameter("excludePatterns");
-    }
+			if (acessoNaPaginaPrincipal(thisURI)) {
+				this.verificaExistenciaDoUsuarioLogado(usuarioLogado);
+			}
 
-    @Override
-    public void destroy() {
-    }
+			filterChain.doFilter(request, response);
+		} else if (thisURI.contains(excludePatterns)) {
+			filterChain.doFilter(request, response);
+		} else {
+			String loginUrl = userService.createLoginURL(thisURI);
+			httpResponse.sendRedirect(loginUrl);
+		}
+	}
 
+	private boolean acessoNaPaginaPrincipal(String thisURI) {
+		return "/index.html".equals(thisURI) || "/".equals(thisURI);
+	}
+
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
+		this.excludePatterns = filterConfig.getInitParameter("excludePatterns");
+	}
+
+	@Override
+	public void destroy() {
+	}
+
+	private void verificaExistenciaDoUsuarioLogado(User usuarioLogado) {
+		UsuarioRepository usuarioRepositorio = new UsuarioRepository();
+		String username = usuarioLogado.getNickname();
+
+		try {
+			usuarioRepositorio.obtemPorUsername(username);
+		} catch (EntidadeNaoEncontradaException e) {
+			usuarioRepositorio.persiste(new Usuario(username));
+		}
+
+	}
 
 }
