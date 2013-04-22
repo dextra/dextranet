@@ -1,7 +1,10 @@
 package br.com.dextra.dextranet.usuario;
 
+import java.util.Date;
+
 import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.utils.MD5;
+import br.com.dextra.dextranet.utils.TimeMachine;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.gson.JsonObject;
@@ -32,6 +35,8 @@ public class Usuario extends Entidade {
 
 	private String skype;
 
+	private Date ultimaAtualizacao;
+
 	public Usuario(String username) {
 		this.username = username.trim();
 		this.md5 = MD5.hash(this.getEmail());
@@ -50,6 +55,7 @@ public class Usuario extends Entidade {
 		this.telefoneCelular = (String) entidade.getProperty(UsuarioFields.telefoneCelular.toString());
 		this.gitHub = (String) entidade.getProperty(UsuarioFields.gitHub.toString());
 		this.skype = (String) entidade.getProperty(UsuarioFields.skype.toString());
+		this.ultimaAtualizacao = (Date) entidade.getProperty(UsuarioFields.ultimaAtualizacao.toString());
 	}
 
 	public String getEmail() {
@@ -100,6 +106,10 @@ public class Usuario extends Entidade {
 		return skype;
 	}
 
+	public Date getUltimaAtualizacao() {
+		return ultimaAtualizacao;
+	}
+
 	public Usuario preenchePerfil(String nome, String apelido, String area, String unidade, String ramal,
 			String telefoneResidencial, String telefoneCelular, String gitHub, String skype) {
 		this.nome = nome;
@@ -111,6 +121,7 @@ public class Usuario extends Entidade {
 		this.telefoneCelular = telefoneCelular;
 		this.gitHub = gitHub;
 		this.skype = skype;
+		this.ultimaAtualizacao = new TimeMachine().dataAtual();
 
 		return this;
 	}
@@ -131,6 +142,7 @@ public class Usuario extends Entidade {
 		entidade.setProperty(UsuarioFields.telefoneCelular.toString(), this.telefoneCelular);
 		entidade.setProperty(UsuarioFields.gitHub.toString(), this.gitHub);
 		entidade.setProperty(UsuarioFields.skype.toString(), this.skype);
+		entidade.setProperty(UsuarioFields.ultimaAtualizacao.toString(), this.ultimaAtualizacao);
 
 		return entidade;
 	}
