@@ -12,6 +12,7 @@ import br.com.dextra.dextranet.post.PostRS;
 import br.com.dextra.dextranet.post.comment.CommentRS;
 import br.com.dextra.dextranet.post.curtida.CurtidaRS;
 import br.com.dextra.dextranet.unidade.UnidadeRS;
+import br.com.dextra.dextranet.usuario.UsuarioRS;
 
 public class Application extends javax.ws.rs.core.Application {
 
@@ -34,6 +35,7 @@ public class Application extends javax.ws.rs.core.Application {
 		classes.add(BannerRS.class);
 		classes.add(AreaRS.class);
 		classes.add(UnidadeRS.class);
+		classes.add(UsuarioRS.class);
 		classes.add(JacksonConfig.class);
 
 		classes.add(MicroBlogRS.class);

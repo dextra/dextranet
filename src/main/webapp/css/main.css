@@ -202,7 +202,7 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 #header_search_box{float:right;height:32px;width:269px;margin-top:6px;}
 
 /*----------  InformaÃ§Ãµes do usuÃ¡rio  ----------*/
-#box_user{position:relative;float:right;margin-right:10px;height:40px;border-left:solid 1px #cfd5d9;border-right:1px solid #cfd5d9;top:-1px;background-color:#f0f3f4;cursor:pointer;list-style-type:none;}
+#box_user{position:relative;float:right;margin-right:10px;height:40px;border-left:solid 1px #cfd5d9;border-right:1px solid #cfd5d9;top:-1px;background-color:#f0f3f4;list-style-type:none;}
 #box_user:hover{box-shadow:inset 0 0 2px 1px #fff;}
 #box_user.active,
 #box_user:active{background-color:#ecf1f5;box-shadow:inset 0 45px 45px -45px #c9d4df;}

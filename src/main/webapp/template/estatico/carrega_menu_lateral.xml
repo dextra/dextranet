@@ -41,7 +41,7 @@
 		$("#button_sidebar_left_home").click(dextranet.home.carregaHome);
 		$("#button_sidebar_left_novopost").click(dextranet.home.abrePopUpNovoPost);
 		$("#button_sidebar_left_new_banner").click(dextranet.banner.novo);
-		$("#button_sidebar_left_profile").click(dextranet.home.abrePaginaPerfil);
+		$("#button_sidebar_left_profile").click(dextranet.usuario.editarPerfil);
 		$("#button_sidebar_left_team").click(dextranet.home.abrePaginaEquipe);
 		$("#form_new_post").submit(dextranet.post.criaNovoPost);
 

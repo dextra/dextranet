@@ -4,7 +4,6 @@ dextranet.home = {
 		consulta.setText("");
 		dextranet.paginacao.resetPaginacao();
 		dextranet.home.carregueOsTemplates();
-		dextranet.usuario.autenticacao();
 	},
 
 	carregueOsTemplates : function() {
@@ -87,14 +86,6 @@ dextranet.home = {
 		dextranet.home.setActiveMenuLateral("#sidebar_left_team");
 	},
 
-	abrirOuFecharTelaUsuario : function() {
-		if (dextranet.home.EhVisivel('#box_user_profile')){
-			dextranet.home.abrirTelaUsuario();
-		} else {
-			dextranet.home.fecharTelaUsuario();
-		}
-	},
-
 	abrirTelaUsuario : function() {
 		$("#box_user_profile").css("display", "none");
 		$("#box_user_info .shape_arrow_down").css("display", "none");
@@ -108,14 +99,6 @@ dextranet.home = {
 
 		if ($('#box_user_notifications_full').is(':visible'))
 			$("#box_user_notifications_full").css("display", "none");
-	},
-
-	abrirOuFecharTelaNotificacoes : function() {
-		if (dextranet.home.EhVisivel('#box_user_notifications_full')) {
-			dextranet.home.someODisplayDeNotificacao();
-		} else {
-			dextranet.home.apareceODisplayDeNotificacao();
-		}
 	},
 
 	EhVisivel : function(element){

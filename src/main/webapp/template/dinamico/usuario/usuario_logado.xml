@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+    <template selector="#box_user">
+        <li id="box_user_info">
+            <img src="${gravatar}${usuario.hash}" alt="photo"/>
+            <span id="user_login">${usuario.username}</span>
+        </li>
+    </template>
+</engine>
