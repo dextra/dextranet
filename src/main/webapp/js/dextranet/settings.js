@@ -6,6 +6,7 @@ dextranet.settings = {
 			dextranet.settings.inicializaMensagens();
 			dextranet.settings.carregaPaginacao();
 			dextranet.settings.configuraDatePicker();
+			dextranet.settings.configuraMascaras();
 		},
 
 		configuraLoading : function() {
@@ -42,6 +43,14 @@ dextranet.settings = {
 			    nextText: 'Pr�ximo',
 			    prevText: 'Anterior'
 			});
+		},
+
+		configuraMascaras : function() {
+			$.mask.masks = {
+                'telefone'  : { mask : '(99) 9999-99999' },
+                'data'      : { mask : '39/19/9999' },
+                'ramal'     : { mask : '9999' }
+			};
 		},
 
 		// FIXME: a paginacao deveria estar relacionada ao post e nao ao settings

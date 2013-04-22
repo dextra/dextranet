@@ -50,7 +50,7 @@
 					<label for="txtRamal">${messages.usuario_ramal}:</label>
 				</dt>
 				<dd>
-					<input type="text" id="txtRamal" name="ramal" value="${usuario.ramal}" />
+					<input type="text" id="txtRamal" name="ramal" value="${usuario.ramal}" alt="ramal" />
 				</dd>
 				<dt>
 					<label for="txtSkype">${messages.usuario_skype}:</label>
@@ -70,13 +70,13 @@
 					<label for="txtTelefoneResidencial">${messages.usuario_telefone_residencial}:</label>
 				</dt>
 				<dd>
-					<input type="text" id="txtTelefoneResidencial" name="telefoneResidencial" value="${usuario.telefoneResidencial}" />
+					<input type="text" id="txtTelefoneResidencial" name="telefoneResidencial" value="${usuario.telefoneResidencial}" alt="telefone" />
 				</dd>
 				<dt>
 					<label for="txtCelular"><span class="input-obg"></span>${messages.usuario_telefone_celular}:</label>
 				</dt>
 				<dd>
-					<input type="text" id="txtCelular" name="telefoneCelular" value="${usuario.telefoneCelular}" class="not-empty" />
+					<input type="text" id="txtCelular" name="telefoneCelular" value="${usuario.telefoneCelular}" class="not-empty" alt="telefone" />
 				</dd>
 				<dt></dt>
 				<dd>
@@ -94,6 +94,7 @@
         $('#btnSalvar').click(dextranet.usuario.salvar);
 
         $('#frmPerfil input').tipsy({gravity: 'w', trigger: 'focus'});
+        $('#frmPerfil input').setMask();
         $('#txtNome').focus();
     </script>
 </engine>
