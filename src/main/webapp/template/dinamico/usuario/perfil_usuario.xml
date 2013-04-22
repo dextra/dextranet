@@ -5,7 +5,7 @@
 		<h1>${messages.usuario_edicao_titulo}</h1>
 
 		<div class="avatar-frame">
-			<img src="${gravatar}${usuario.hash}" alt="Avatar" />
+			<img src="${gravatar}${usuario.md5}?s=100" alt="Avatar" />
 		</div>
 
 		<form id="frmPerfil" class="form-dark form-horizontal clearfix">

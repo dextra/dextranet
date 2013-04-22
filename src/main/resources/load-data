@@ -1,0 +1,17 @@
+--
+-- Unidades
+--
+$.ajax( { type : "POST", url : "/s/unidade", data : { nome : "Campinas" } });
+$.ajax( { type : "POST", url : "/s/unidade", data : { nome : "Campo Grande" } });
+
+--
+-- Áreas
+--
+$.ajax( { type : "POST", url : "/s/area", data : { nome : "Diretoria" } });
+$.ajax( { type : "POST", url : "/s/area", data : { nome : "Administrativo" } });
+$.ajax( { type : "POST", url : "/s/area", data : { nome : "Financeiro" } });
+$.ajax( { type : "POST", url : "/s/area", data : { nome : "Marketing" } });
+$.ajax( { type : "POST", url : "/s/area", data : { nome : "RH" } });
+$.ajax( { type : "POST", url : "/s/area", data : { nome : "Desenvolvimento" } });
+$.ajax( { type : "POST", url : "/s/area", data : { nome : "Desenvolvimento de Negócios" } });
+$.ajax( { type : "POST", url : "/s/area", data : { nome : "Treinamento" } });

@@ -2,7 +2,7 @@
 <engine>
     <template selector="#box_user">
         <li id="box_user_info">
-            <img src="${gravatar}${usuario.hash}" alt="photo"/>
+            <img src="${gravatar}${usuario.md5}" alt="photo"/>
             <span id="user_login">${usuario.username}</span>
         </li>
     </template>
