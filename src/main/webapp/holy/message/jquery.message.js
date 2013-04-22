@@ -37,10 +37,10 @@
 
 	$.fn.messageMonitor = function(time, warning) {
 		if(!time) {
-			time = 10000;
+			time = 5000;
 		}
 		if(!warning) {
-			warning = Math.min(5000, time);
+			warning = Math.min(3000, time);
 		}
 		var me = $(this);
 		if(me.data('messageMonitor')) {
