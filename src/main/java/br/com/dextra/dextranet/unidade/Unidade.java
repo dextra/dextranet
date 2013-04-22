@@ -27,15 +27,13 @@ public class Unidade extends Entidade {
 		return nome;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Unidade [id=" + id + ", name=" + nome + "]";
 	}
 
 	public Entity toEntity() {
-		Entity entity = new Entity(KeyFactory.createKey(this.getClass()
-				.getName(), this.id));
+		Entity entity = new Entity(KeyFactory.createKey(this.getClass().getName(), this.id));
 		entity.setProperty(UnidadeFields.id.toString(), this.id);
 		entity.setProperty(UnidadeFields.nome.toString(), this.nome);
 		return entity;

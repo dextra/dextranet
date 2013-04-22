@@ -59,7 +59,6 @@ public class UsuarioRepositoryTest extends TesteIntegracaoBase {
 		Assert.assertEquals(usuario01, usuariosEncontrados.get(2));
 	}
 
-
 	@Test
 	public void testaObtemPorUsernameInexistente() {
 		try {
@@ -69,7 +68,7 @@ public class UsuarioRepositoryTest extends TesteIntegracaoBase {
 			Assert.assertTrue(true);
 		}
 	}
-	
+
 	@Test
 	public void testaObtemPorUsername() {
 		Usuario usuario01 = new Usuario("reloadDextranet");

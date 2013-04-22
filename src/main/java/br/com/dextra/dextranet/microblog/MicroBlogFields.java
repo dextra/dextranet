@@ -2,15 +2,15 @@ package br.com.dextra.dextranet.microblog;
 
 public enum MicroBlogFields {
 
-    TEXTO("texto");
+	TEXTO("texto");
 
-    private String value;
+	private String value;
 
-    MicroBlogFields(String value) {
-        this.value = value;
-    }
+	MicroBlogFields(String value) {
+		this.value = value;
+	}
 
-    public String getField() {
-        return value;
-    }
+	public String getField() {
+		return value;
+	}
 }

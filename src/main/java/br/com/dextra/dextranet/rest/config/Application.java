@@ -20,7 +20,8 @@ public class Application extends javax.ws.rs.core.Application {
 	public static final Locale BRASIL = new Locale("pt", "BR");
 
 	/**
-	 * Adicionando todas as classes referentes a servicos REST que irao existir nesta aplicacao.
+	 * Adicionando todas as classes referentes a servicos REST que irao existir
+	 * nesta aplicacao.
 	 */
 	@Override
 	public Set<Class<?>> getClasses() {
@@ -39,9 +40,9 @@ public class Application extends javax.ws.rs.core.Application {
 		return classes;
 	}
 
-    @Override
-    public Set<Object> getSingletons() {
-        Set<Object> singletons = new HashSet<Object>();
-        return singletons;
-    }
+	@Override
+	public Set<Object> getSingletons() {
+		Set<Object> singletons = new HashSet<Object>();
+		return singletons;
+	}
 }

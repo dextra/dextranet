@@ -20,49 +20,49 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 
 public class TesteIntegracaoBase {
 
-    protected static GAETestServer server = new GAETestServer();
+	protected static GAETestServer server = new GAETestServer();
 
-    private static final boolean noStorage = true;
+	private static final boolean noStorage = true;
 
-    @BeforeClass
-    public static void setup() {
+	@BeforeClass
+	public static void setup() {
 		server.enableDatastore(noStorage);
-    	server.start();
-    }
+		server.start();
+	}
 
-    @AfterClass
-    public static void shutdown() {
-    	server.stop();
-    }
+	@AfterClass
+	public static void shutdown() {
+		server.stop();
+	}
 
-    public List<Post> geraPosts(int numeroDePosts) throws InterruptedException, FileNotFoundException, IOException {
+	public List<Post> geraPosts(int numeroDePosts) throws InterruptedException, FileNotFoundException, IOException {
 
-        List<Post> listaDePostsCriados = new ArrayList<Post>();
-        Post novoPost = null;
-        String dataDeAtualizacao;
-        // ESSE FOR NAO DEVE PASSSAR DE 60 POR CAUSO DO setSegundoDaData(i)
-        for (int i = 0; i <= numeroDePosts - 1; i++) {
-            dataDeAtualizacao = new Data().setSegundoDaData(i);
-            novoPost = new Post("titulo de teste" + (i + 1), "conteudo de teste" + (i + 1), "usuario",
-                    dataDeAtualizacao);
-            listaDePostsCriados.add(new PostRepository().criar(novoPost));
-        }
+		List<Post> listaDePostsCriados = new ArrayList<Post>();
+		Post novoPost = null;
+		String dataDeAtualizacao;
+		// ESSE FOR NAO DEVE PASSSAR DE 60 POR CAUSO DO setSegundoDaData(i)
+		for (int i = 0; i <= numeroDePosts - 1; i++) {
+			dataDeAtualizacao = new Data().setSegundoDaData(i);
+			novoPost = new Post("titulo de teste" + (i + 1), "conteudo de teste" + (i + 1), "usuario",
+					dataDeAtualizacao);
+			listaDePostsCriados.add(new PostRepository().criar(novoPost));
+		}
 
-        return listaDePostsCriados;
-    }
+		return listaDePostsCriados;
+	}
 
-    public List<Comment> comentar(String idDoPostQueVouComentar, int qtd) throws EntityNotFoundException,
-            InterruptedException, ParseException {
-        Comment comment;
-        Post post = new PostRepository().obtemPorId(idDoPostQueVouComentar);
-        List<Comment> retorno = new ArrayList<Comment>();
-        for (int i = 0; i < qtd; i++) {
-            comment = new Comment("teste de comentario " + i, "usuario.dextra", idDoPostQueVouComentar, false);
-            comment.setSegundoDaDataDeCriacao(i);
-            new CommentRepository().criar(comment);
-            post.comentar(comment);
-            retorno.add(comment);
-        }
-        return retorno;
-    }
+	public List<Comment> comentar(String idDoPostQueVouComentar, int qtd) throws EntityNotFoundException,
+			InterruptedException, ParseException {
+		Comment comment;
+		Post post = new PostRepository().obtemPorId(idDoPostQueVouComentar);
+		List<Comment> retorno = new ArrayList<Comment>();
+		for (int i = 0; i < qtd; i++) {
+			comment = new Comment("teste de comentario " + i, "usuario.dextra", idDoPostQueVouComentar, false);
+			comment.setSegundoDaDataDeCriacao(i);
+			new CommentRepository().criar(comment);
+			post.comentar(comment);
+			retorno.add(comment);
+		}
+		return retorno;
+	}
 }

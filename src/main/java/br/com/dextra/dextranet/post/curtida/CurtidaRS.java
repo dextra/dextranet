@@ -23,8 +23,7 @@ public class CurtidaRS {
 	@Path("/")
 	@POST
 	@Produces("application/json;charset=UTF-8")
-	public Response curtir(@FormParam("id") String id,
-			@DefaultValue("true") @FormParam("isPost") String isPost)
+	public Response curtir(@FormParam("id") String id, @DefaultValue("true") @FormParam("isPost") String isPost)
 			throws EntityNotFoundException {
 
 		UserService userService = UserServiceFactory.getUserService();

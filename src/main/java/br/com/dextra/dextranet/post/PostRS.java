@@ -33,8 +33,8 @@ public class PostRS {
 	@Path("/")
 	@POST
 	@Produces("application/json;charset=UTF-8")
-	public Response novoPost(@FormParam("title") String titulo, @FormParam("content") String conteudo) throws PolicyException, 
-			ScanException, FileNotFoundException, IOException {
+	public Response novoPost(@FormParam("title") String titulo, @FormParam("content") String conteudo)
+			throws PolicyException, ScanException, FileNotFoundException, IOException {
 
 		UserService userService = UserServiceFactory.getUserService();
 		String autor = userService.getCurrentUser().getNickname();
@@ -74,7 +74,7 @@ public class PostRS {
 	public String buscaPostPorID(@PathParam(value = "id") String id) throws EntityNotFoundException {
 		return new PostRepository().obtemPorId(id).toJson().toString();
 	}
-	
+
 	@Path("/{id}")
 	@DELETE
 	@Produces("application/json;charset=UTF-8")

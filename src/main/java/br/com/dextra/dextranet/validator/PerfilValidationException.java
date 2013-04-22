@@ -34,8 +34,7 @@ public class PerfilValidationException extends PerfilException {
 	}
 
 	public void add(Class<?> clazz, String msg, String... args) {
-		this.add(create("entidade", clazz.getSimpleName(), "msg", msg, "args",
-				args));
+		this.add(create("entidade", clazz.getSimpleName(), "msg", msg, "args", args));
 	}
 
 	public void add(Class<?> clazz, String msg) {

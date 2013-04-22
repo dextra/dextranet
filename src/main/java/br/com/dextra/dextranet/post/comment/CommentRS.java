@@ -34,9 +34,9 @@ public class CommentRS {
 	@Path("/")
 	@POST
 	@Produces("application/json;charset=UTF-8")
-	public Response novoComment(@FormParam("text") String text, @FormParam("idReference") String id, @DefaultValue("false") @FormParam("tree") String arvore)
-			throws FileNotFoundException, PolicyException, ScanException, IOException, EntityNotFoundException,
-			ParseException {
+	public Response novoComment(@FormParam("text") String text, @FormParam("idReference") String id,
+			@DefaultValue("false") @FormParam("tree") String arvore) throws FileNotFoundException, PolicyException,
+			ScanException, IOException, EntityNotFoundException, ParseException {
 
 		UserService userService = UserServiceFactory.getUserService();
 		String autor = userService.getCurrentUser().getNickname();
