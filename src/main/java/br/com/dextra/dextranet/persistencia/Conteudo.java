@@ -2,7 +2,6 @@ package br.com.dextra.dextranet.persistencia;
 
 import java.util.Date;
 
-import br.com.dextra.dextranet.utils.ConteudoHTML;
 import br.com.dextra.dextranet.utils.TimeMachine;
 
 public abstract class Conteudo extends Entidade {
@@ -13,7 +12,7 @@ public abstract class Conteudo extends Entidade {
 
 	protected Date dataDeCriacao;
 
-	protected int quantidadeDeCurtidas;
+	protected long quantidadeDeCurtidas;
 
 	protected Conteudo(String usuario) {
 		super();
@@ -34,13 +33,8 @@ public abstract class Conteudo extends Entidade {
 		return dataDeCriacao;
 	}
 
-	public int getQuantidadeDeCurtidas() {
+	public long getQuantidadeDeCurtidas() {
 		return quantidadeDeCurtidas;
-	}
-
-	public Conteudo preenche(String conteudo) {
-		this.conteudo = new ConteudoHTML(conteudo).removeJavaScript();
-		return this;
 	}
 
 }

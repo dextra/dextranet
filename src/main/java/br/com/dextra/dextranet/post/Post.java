@@ -13,7 +13,7 @@ public class Post extends Conteudo {
 
 	private String titulo;
 
-	protected int quantidadeDeComentarios;
+	protected long quantidadeDeComentarios;
 
 	private Date dataDeAtualizacao;
 
@@ -28,8 +28,8 @@ public class Post extends Conteudo {
 		this.id = (String) postEntity.getProperty(PostFields.id.toString());
 		this.titulo = (String) postEntity.getProperty(PostFields.titulo.toString());
 		this.conteudo = (String) postEntity.getProperty(PostFields.conteudo.toString());
-		this.quantidadeDeCurtidas = (Integer) postEntity.getProperty(PostFields.quantidadeDeCurtidas.toString());
-		this.quantidadeDeComentarios = (Integer) postEntity.getProperty(PostFields.quantidadeDeComentarios.toString());
+		this.quantidadeDeCurtidas = (Long) postEntity.getProperty(PostFields.quantidadeDeCurtidas.toString());
+		this.quantidadeDeComentarios = (Long) postEntity.getProperty(PostFields.quantidadeDeComentarios.toString());
 		this.dataDeCriacao = (Date) postEntity.getProperty(PostFields.dataDeCriacao.toString());
 		this.dataDeAtualizacao = (Date) postEntity.getProperty(PostFields.dataDeAtualizacao.toString());
 	}
@@ -49,7 +49,7 @@ public class Post extends Conteudo {
 		return dataDeAtualizacao;
 	}
 
-	public int getQuantidadeDeComentarios() {
+	public long getQuantidadeDeComentarios() {
 		return quantidadeDeComentarios;
 	}
 

@@ -9,6 +9,7 @@ import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.appengine.api.datastore.Entity;
 
+//a heranca eh para poder testar os objetos envolvendo entity
 public class PostTest extends TesteIntegracaoBase {
 
 	private TimeMachine timeMachine = new TimeMachine();

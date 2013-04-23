@@ -19,6 +19,7 @@ public class BannerRSTest extends TesteIntegracaoBase {
 	private Date cincoDiasAtras = timeMachine.diasParaAtras(5);
 	private Date cincoDiasPraFrente = timeMachine.diasParaFrente(5);
 
+	private BannerRS rest = new BannerRS();
 	private BannerRepository repositorio = new BannerRepository();
 
 	@After
@@ -43,7 +44,7 @@ public class BannerRSTest extends TesteIntegracaoBase {
 		repositorio.persiste(banner05);
 		repositorio.persiste(banner02);
 
-		List<Banner> bannersVigentes = new BannerRS().listarBannersOrdenados();
+		List<Banner> bannersVigentes = rest.listarBannersOrdenados();
 
 		Assert.assertEquals(5, bannersVigentes.size());
 		Assert.assertEquals(banner05, bannersVigentes.get(0));
@@ -67,7 +68,7 @@ public class BannerRSTest extends TesteIntegracaoBase {
 		repositorio.persiste(banner02);
 		repositorio.persiste(banner01);
 
-		List<Banner> bannersVigentes = new BannerRS().listarBannersVigentesOrdenados(2);
+		List<Banner> bannersVigentes = rest.listarBannersVigentesOrdenados(2);
 
 		Assert.assertEquals(2, bannersVigentes.size());
 		Assert.assertEquals(banner02, bannersVigentes.get(0));
