@@ -12,6 +12,20 @@ dextranet.equipe = {
     				dextranet.processaErroNaRequisicao(jqXHR);
     			}
 			});
+		},
+
+		listarPelaInicial : function (inicial) {
+			var colaboradores = $('.list-team span.nome');
+			$(colaboradores).each( function () {
+				var nomeDoColaborador = $(this).text();
+				var inicialDoNomeDoColaborador = nomeDoColaborador.substring(0, 1);
+				if (inicialDoNomeDoColaborador.toLowerCase() == inicial.toLowerCase()) {
+					$(this).closest('.colaborador').show();
+				} else {
+					$(this).closest('.colaborador').hide();
+				}
+			});
 		}
+
 
 }
