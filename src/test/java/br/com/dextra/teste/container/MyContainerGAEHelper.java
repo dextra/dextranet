@@ -78,7 +78,7 @@ public class MyContainerGAEHelper {
 		repositorioAreas.persiste(new Area("Marketing"));
 		repositorioAreas.persiste(new Area("RH"));
 		repositorioAreas.persiste(new Area("Desenvolvimento"));
-		repositorioAreas.persiste(new Area("Desenvolvimento de Negócios"));
+		repositorioAreas.persiste(new Area("Desenvolvimento de NegÃ³cios"));
 		repositorioAreas.persiste(new Area("Treinamento"));
 	}
 
