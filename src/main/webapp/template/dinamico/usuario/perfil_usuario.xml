@@ -14,13 +14,13 @@
 					<label for="txtNome"><span class="input-obg"></span>${messages.usuario_nome}:</label>
 				</dt>
 				<dd>
-					<input type="text" id="txtNome" name="nome" value="${usuario.nome}" class="not-empty" />
+					<input type="text" id="txtNome" name="nome" value="${usuario.nome}" class="not-empty" maxlength="50" />
 				</dd>
 				<dt>
 					<label for="txtApelido">${messages.usuario_apelido}:</label>
 				</dt>
 				<dd>
-					<input type="text" id="txtApelido" name="apelido" value="${usuario.apelido}" original-title="${messages.usuario_apelido_tip}" />
+					<input type="text" id="txtApelido" name="apelido" value="${usuario.apelido}" original-title="${messages.usuario_apelido_tip}" maxlength="20" />
 				</dd>
 				<dt>
 					<label for="txtArea"><span class="input-obg"></span>${messages.usuario_area}:</label>
@@ -56,13 +56,13 @@
 					<label for="txtSkype">${messages.usuario_skype}:</label>
 				</dt>
 				<dd>
-					<input type="text" id="txtSkype" name="skype" value="${usuario.skype}" />
+					<input type="text" id="txtSkype" name="skype" value="${usuario.skype}" maxlength="30" />
 				</dd>
                 <dt>
                     <label for="txtGitHub">${messages.usuario_github}:</label>
                 </dt>
                 <dd>
-                    <input type="text" id="txtGitHub" name="gitHub" value="${usuario.gitHub}" original-title="${messages.usuario_github_tip}" />
+                    <input type="text" id="txtGitHub" name="gitHub" value="${usuario.gitHub}" original-title="${messages.usuario_github_tip}" maxlength="30" />
                 </dd>
 			</dl>
 			<dl class="perfil-clear-right">

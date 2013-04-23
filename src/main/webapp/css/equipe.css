@@ -1,0 +1,36 @@
+.list-menu-abcd{margin-bottom:25px;list-style:none;background-color:#f9f9f9;padding-left:4px;border-radius:5px;border:1px solid #eaeaea;box-shadow:inset 0 0 0 1px #fff,inset 0 3px 3px #eee;}
+.list-menu-abcd > li {float:left;margin-right:2px;}
+.list-menu-abcd > li > a{display:block;padding:6px 4px;font-weight:bold;font-size:15px;text-transform:uppercase;}
+.list-menu-abcd > li > a:hover{background-color:rgba(0,0,0,0.05);}
+
+#form-team{position:relative;margin:5px 0 15px;}
+#form-team-input{width:412px;margin-right:15px;}
+#form-team-submit{background-color:transparent;box-shadow:0 0 0 transparent;border:0;background:url('../img/main-bundle.png') -46px -115px;position:absolute;z-index:4;cursor:pointer;right:115px;top:7px;width:22px;height:22px;}
+#form-team-input:focus + #form-team-submit{background-position:-65px -115px;}
+
+.list-team{list-style:none;}
+.list-team > li{border-bottom:dotted 1px #ddd;padding-bottom:15px;margin-bottom:20px;}
+.list-team > li:last-child{padding-bottom:0;border-bottom:0;margin-bottom:0;}
+
+.list-team-empty{text-align:center;border-radius:15px;padding-bottom:10px!important;}
+.list-team-empty > p{padding-bottom:0;color:#887d52;line-height:20px;}
+.list-team-empty > p > img{margin-bottom:10px;}
+.list-team-empty > p > span{display:block;clear:both;}
+.list-team > li .empty{color:#777;font-style:italic;}
+
+.list-team-avatar{float:left;margin-right:20px;width:87px;}
+.list-team-avatar > .avatar-frame{width:85px;height:85px;margin:1px;}
+.list-team-avatar > .avatar-frame > span{margin-top:11px;}
+.list-team-avatar > .avatar-frame > img{width:85px;max-height:85px;}
+
+.list-team-content{float:left;width:387px;}
+.list-team-content > h3{color:#436795;font-size:15px;margin-bottom:0;}
+.list-team-content > h3 > span{color:#7d91ab;font-size:13px;}
+.list-team-content p{padding-bottom:3px;font-size:13px;color:#666;}
+.list-team-content span.left{float:left;display:block;min-width:200px;}
+.list-team-content-geral [class^=icon],
+.list-team-content-ramal [class^=icon],
+.list-team-content-webcontact [class^=icon],
+.list-team-content-phones [class^=icon]{margin-right:3px;}
+.list-team-content-geral{margin-bottom:10px;}
+.list-team-content-ramal{float:right;}

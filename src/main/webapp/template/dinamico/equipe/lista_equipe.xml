@@ -2,10 +2,6 @@
 <engine>
     <template selector="#content_left">
 
-        <div id="sidebar-right" rel="section">
-        </div>
-
-        <!-- #menu abcd -->
         <ul class="list-menu-abcd clearfix">
             <li><a href="#" onclick="dextranet.equipe.getInicial('a');">a</a></li>
             <li><a href="#" onclick="dextranet.equipe.getInicial('b');">b</a></li>
@@ -36,63 +32,70 @@
         </ul>
 
         <ul class="list-team list-vertical clearfix">
-            {if usuarios.length >0}
-                {for colaborador in usuarios}
-                    <li class="clearfix">
-                        <div class="list-team-avatar">
-                            <div class="avatar-frame">
-                                <img src="${gravatar}${colaborador.md5}" />
-                            </div>
+            {for colaborador in usuarios}
+                <li class="clearfix">
+                    <div class="list-team-avatar">
+                        <div class="avatar-frame">
+                            <img src="${gravatar}${colaborador.md5}" />
                         </div>
-                        <div class="list-team-content">
-                            <h3>
-                                ${colaborador.nome}
-                                {if colaborador.apelido}
-                                    <span>(${colaborador.apelido})</span>
-                                {/if}
-                            </h3>
-                            <p class="list-team-content-geral">
-                                ${colaborador.area}/${colaborador.unidade}
-                                {if colaborador.ramal }
-                                    - Ramal ${colaborador.branch}
-                                {/if}
-                            </p>
-                            <p class="list-team-content-webcontact">
-                                <span class="icon_phone-mini margin-left" title="Telefone celular"></span>
+                    </div>
+                    <div class="list-team-content">
+                        <h3>
+                            ${colaborador.nome}
+                            {if colaborador.apelido}
+                                <span>(${colaborador.apelido})</span>
+                            {/if}
+                        </h3>
+                        <p class="list-team-content-geral">
+                            ${colaborador.unidade} / ${colaborador.area}
+                            {if colaborador.ramal }
+                                - ${messages.usuario_ramal} ${colaborador.ramal}
+                            {/if}
+                        </p>
+                        <p class="list-team-content-webcontact">
+                            <span class="left">
+                                <span class="icon_gtalk-mini icon" original-title="${messages.usuario_email}"></span>
+                                ${colaborador.username}@${messages.label_dominio_dextra}
+                            </span>
+
+                            <span class="icon_skype-mini icon" original-title="${messages.usuario_skype}"></span>
+                            {if colaborador.skype }
+                                ${colaborador.skype}
+                            {else}
+                                <span class="empty">${messages.label_campo_nao_informado}</span>
+                            {/if}
+
+                            <span class="icon_github-mini icon" original-title="${messages.usuario_github}"></span>
+                            {if colaborador.gitHub }
+                                ${colaborador.gitHub}
+                            {else}
+                                <span class="empty">${messages.label_campo_nao_informado}</span>
+                            {/if}
+                        </p>
+                        <p class="list-team-content-phones">
+                            <span class="left">
+                                <span class="icon_cellphone-mini icon" original-title="${messages.usuario_telefone_celular}"></span>
                                 {if colaborador.telefoneCelular }
                                     ${colaborador.telefoneCelular}
                                 {else}
-                                    <span class="empty">N.D</span>
+                                    <span class="empty">${messages.label_campo_nao_informado}</span>
                                 {/if}
-                            </p>
-                            <p class="list-team-content-phones">
-                                <span class="left">
-                                    <span class="icon_skype-mini"></span>
-                                    {if colaborador.skype }
-                                        ${colaborador.skype}
-                                    {else}
-                                        <span class="empty">N.D</span>
-                                    {/if}
-                                </span>
-                                <span class="icon_cellphone-mini" title="Telefone residencial"></span>
-                                {if colaborador.telefoneResidencial}
-                                    ${colaborador.telefoneResidencial}
-                                {else}
-                                    <span class="empty">N.D</span>
-                                {/if}
-                            </p>
-                        </div>
-                    </li>
-                {/for}
-            {else}
-                <li class="list-team-empty">
-                    <p>
-                        <img src="img/smile-sad.gif" alt="" />
-                        <span>Nenhum dextrano</span>
-                        <span>foi encontrado!</span>
-                    </p>
+                            </span>
+
+                            <span class="icon_phone-mini icon" original-title="${messages.usuario_telefone_residencial}"></span>
+                            {if colaborador.telefoneResidencial }
+                                ${colaborador.telefoneResidencial}
+                            {else}
+                                <span class="empty">${messages.label_campo_nao_informado}</span>
+                            {/if}
+                        </p>
+                    </div>
                 </li>
-            {/if}
+            {/for}
         </ul>
     </template>
+
+    <script>
+        $('.icon').tipsy();
+    </script>
 </engine>

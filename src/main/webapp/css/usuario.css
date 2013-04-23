@@ -1,3 +1,18 @@
 #frmPerfil{color:#555;}
 #frmPerfil li{margin-bottom:7px;}
 #frmPerfil li label {display:inline-block;margin-right:5px;width:50px;}
+
+.avatar-frame{background-color:#edf2fa;width:110px;height:100px;padding:1px;margin:-1px -1px 20px;border:1px solid #a9bad8;border-radius:5px;box-shadow:inset 0 0 0 1px #fff,inset 0 3px 25px #c4d5f5;position:relative;text-align:center;}
+
+#frmPerfil > dl{display:inline-block;padding-top:2px;}
+#frmPerfil > dl > dt,
+#frmPerfil > dl > dd{margin-bottom:15px;}
+#frmPerfil > dl > dt{width:105px;font-size:15px;}
+#frmPerfil > dl > dd{width:235px;margin-top:-5px;}
+    
+#frmPerfil .perfil-clear-left{clear:both;float:left;margin-right:20px;margin-top:15px;}
+#frmPerfil .perfil-clear-left > dt{width:60px;}
+#frmPerfil .perfil-clear-left > dd{width:135px;}
+#frmPerfil .perfil-clear-right{float:left;margin-top:15px;}
+#frmPerfil .perfil-clear-right > dt{width:100px;}
+#frmPerfil .perfil-clear-right > dd{width:167px;}
