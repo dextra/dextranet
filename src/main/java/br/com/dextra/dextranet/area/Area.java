@@ -1,6 +1,7 @@
 package br.com.dextra.dextranet.area;
 
 import br.com.dextra.dextranet.persistencia.Entidade;
+import br.com.dextra.dextranet.utils.ConteudoHTML;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.gson.JsonObject;
@@ -10,7 +11,7 @@ public class Area extends Entidade {
 	public String nome;
 
 	public Area(String nome) {
-		this.nome = nome;
+		this.nome = new ConteudoHTML(nome).removeJavaScript();
 	}
 
 	public Area(Entity entity) {

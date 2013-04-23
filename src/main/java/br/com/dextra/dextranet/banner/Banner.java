@@ -3,6 +3,7 @@ package br.com.dextra.dextranet.banner;
 import java.util.Date;
 
 import br.com.dextra.dextranet.persistencia.Entidade;
+import br.com.dextra.dextranet.utils.ConteudoHTML;
 import br.com.dextra.dextranet.utils.TimeMachine;
 
 import com.google.appengine.api.blobstore.BlobKey;
@@ -31,8 +32,8 @@ public class Banner extends Entidade {
 	private Date dataDeAtualizacao;
 
 	public Banner(String titulo, String link, Date dataInicio, Date dataFim, String usuario) {
-		this.titulo = titulo;
-		this.link = link;
+		this.titulo = new ConteudoHTML(titulo).removeJavaScript();
+		this.link = new ConteudoHTML(link).removeJavaScript();
 		this.usuario = usuario;
 
 		TimeMachine timeMachine = new TimeMachine();

@@ -3,6 +3,7 @@ package br.com.dextra.dextranet.usuario;
 import java.util.Date;
 
 import br.com.dextra.dextranet.persistencia.Entidade;
+import br.com.dextra.dextranet.utils.ConteudoHTML;
 import br.com.dextra.dextranet.utils.MD5;
 import br.com.dextra.dextranet.utils.TimeMachine;
 
@@ -112,15 +113,15 @@ public class Usuario extends Entidade {
 
 	public Usuario preenchePerfil(String nome, String apelido, String area, String unidade, String ramal,
 			String telefoneResidencial, String telefoneCelular, String gitHub, String skype) {
-		this.nome = nome;
-		this.apelido = apelido;
-		this.area = area;
-		this.unidade = unidade;
-		this.ramal = ramal;
-		this.telefoneResidencial = telefoneResidencial;
-		this.telefoneCelular = telefoneCelular;
-		this.gitHub = gitHub;
-		this.skype = skype;
+		this.nome = new ConteudoHTML(nome).removeJavaScript();
+		this.apelido = new ConteudoHTML(apelido).removeJavaScript();;
+		this.area = new ConteudoHTML(area).removeJavaScript();;;
+		this.unidade = new ConteudoHTML(unidade).removeJavaScript();;;
+		this.ramal = new ConteudoHTML(ramal).removeJavaScript();;;
+		this.telefoneResidencial = new ConteudoHTML(telefoneResidencial).removeJavaScript();;;
+		this.telefoneCelular = new ConteudoHTML(telefoneCelular).removeJavaScript();;;
+		this.gitHub = new ConteudoHTML(gitHub).removeJavaScript();;;
+		this.skype = new ConteudoHTML(skype).removeJavaScript();;;
 		this.ultimaAtualizacao = new TimeMachine().dataAtual();
 
 		return this;

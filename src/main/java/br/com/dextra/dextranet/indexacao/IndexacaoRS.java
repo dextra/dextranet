@@ -6,7 +6,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
-import br.com.dextra.dextranet.post.PostRS;
+import br.com.dextra.dextranet.old.post.PostRS;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
 
@@ -25,6 +25,7 @@ public class IndexacaoRS {
 			@DefaultValue("0") @QueryParam(value = "page") String page) throws NumberFormatException,
 			EntityNotFoundException {
 
-		return new PostRS().listarPosts(maxResults, q, page).toString();
+		//return new PostRS().listarPosts(maxResults, q, page).toString();
+		return null;
 	}
 }

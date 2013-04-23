@@ -2,6 +2,7 @@ package br.com.dextra.dextranet.utils;
 
 import java.io.InputStream;
 
+import org.apache.commons.lang3.StringUtils;
 import org.owasp.validator.html.AntiSamy;
 import org.owasp.validator.html.Policy;
 import org.owasp.validator.html.PolicyException;
@@ -17,23 +18,27 @@ public class ConteudoHTML {
 
 	public String removeJavaScript() {
 
-		try {
-			InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("antisamy.xml");
-
-			AntiSamy as = new AntiSamy();
-			Policy policy = null;
-			policy = Policy.getInstance(inputStream);
-
+		if (StringUtils.isNotEmpty(this.conteudo)) {
 			try {
-				return as.scan(this.conteudo, policy).getCleanHTML();
-			} catch (ScanException e) {
-				throw new RuntimeException("Erro ao remover codigo indevido do conteudo (Scan).", e);
+				InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("antisamy.xml");
+
+				AntiSamy as = new AntiSamy();
+				Policy policy = null;
+				policy = Policy.getInstance(inputStream);
+
+				try {
+					return as.scan(this.conteudo, policy).getCleanHTML();
+				} catch (ScanException e) {
+					throw new RuntimeException("Erro ao remover codigo indevido do conteudo (Scan).", e);
+				}
+
+			} catch (PolicyException e) {
+				throw new RuntimeException("Erro ao remover codigo indevido do conteudo (Policy).", e);
+
 			}
-
-		} catch (PolicyException e) {
-			throw new RuntimeException("Erro ao remover codigo indevido do conteudo (Policy).", e);
-
 		}
+
+		return this.conteudo;
 	}
 
 }

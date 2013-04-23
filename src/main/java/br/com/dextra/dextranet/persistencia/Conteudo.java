@@ -1,10 +1,9 @@
 package br.com.dextra.dextranet.persistencia;
 
-import br.com.dextra.dextranet.post.curtida.Curtida;
-import br.com.dextra.dextranet.utils.ConteudoHTML;
-import br.com.dextra.dextranet.utils.Data;
+import java.util.Date;
 
-import com.google.appengine.api.datastore.EntityNotFoundException;
+import br.com.dextra.dextranet.utils.ConteudoHTML;
+import br.com.dextra.dextranet.utils.TimeMachine;
 
 public abstract class Conteudo extends Entidade {
 
@@ -12,56 +11,36 @@ public abstract class Conteudo extends Entidade {
 
 	protected String conteudo;
 
-	protected String dataDeCriacao;
+	protected Date dataDeCriacao;
 
-	protected int comentarios;
+	protected int quantidadeDeCurtidas;
 
-	protected int likes;
-
-	protected String userLikes;
-
-	public Conteudo() {
+	protected Conteudo(String usuario) {
 		super();
-	}
-
-	public Conteudo(String usuario, String conteudo) {
-		super();
-		this.conteudo = new ConteudoHTML(conteudo).removeJavaScript();
 		this.usuario = usuario;
-		this.dataDeCriacao = new Data().pegaData();
-		this.comentarios = 0;
-		this.likes = 0;
-		this.userLikes = "";
+		this.dataDeCriacao = new TimeMachine().dataAtual();
+		this.quantidadeDeCurtidas = 0;
 	}
 
-	protected boolean foiCurtidoPor(String usuario) {
-		return this.userLikes != null && this.userLikes.indexOf(usuario) != -1;
+	public String getUsuario() {
+		return usuario;
 	}
 
-	public void receberCurtida(String usuario) throws EntityNotFoundException {
-		if (!foiCurtidoPor(usuario)) {
-			curtir(usuario);
-		} else {
-			descurtir(usuario);
-		}
+	public String getConteudo() {
+		return conteudo;
 	}
 
-	private void descurtir(String usuario) throws EntityNotFoundException {
-		atualizaConteudoDepoisDaDescurtida(usuario);
-		this.userLikes = this.userLikes.replaceAll(" " + usuario, "");
-		this.likes--;
+	public Date getDataDeCriacao() {
+		return dataDeCriacao;
 	}
 
-	private void curtir(String usuario) throws EntityNotFoundException {
-		Curtida curtida = new Curtida(usuario, this.id);
-		atualizaConteudoDepoisDaCurtida(curtida.getUsuarioLogado());
-		this.likes++;
-		this.userLikes = this.userLikes + " " + usuario;
+	public int getQuantidadeDeCurtidas() {
+		return quantidadeDeCurtidas;
 	}
 
-	protected abstract void atualizaConteudoDepoisDaDescurtida(String login) throws EntityNotFoundException;
-
-	// FIXME bad method name
-	protected abstract void atualizaConteudoDepoisDaCurtida(String usuario) throws EntityNotFoundException;
+	public Conteudo preenche(String conteudo) {
+		this.conteudo = new ConteudoHTML(conteudo).removeJavaScript();
+		return this;
+	}
 
 }

@@ -1,6 +1,7 @@
 package br.com.dextra.dextranet.unidade;
 
 import br.com.dextra.dextranet.persistencia.Entidade;
+import br.com.dextra.dextranet.utils.ConteudoHTML;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.KeyFactory;
@@ -11,7 +12,7 @@ public class Unidade extends Entidade {
 	public String nome;
 
 	public Unidade(String nome) {
-		this.nome = nome;
+		this.nome = new ConteudoHTML(nome).removeJavaScript();
 	}
 
 	public Unidade(Entity entity) {

@@ -7,8 +7,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import br.com.dextra.dextranet.utils.JsonUtil;
-
 import com.google.gson.JsonArray;
 
 public class MicroBlogRSTest {
@@ -19,7 +17,9 @@ public class MicroBlogRSTest {
 	public void testSimplePost() {
 		MicroBlogRS rs = getMicroBlogRS();
 		rs.post("micromessage");
-		JsonArray json = JsonUtil.parseArray(rs.get());
+		// FIXME
+		// JsonArray json = JsonUtil.parseArray(rs.get());
+		JsonArray json = new JsonArray();
 		assertEquals(1, json.size());
 		assertEquals("micromessage", json.get(0).getAsJsonObject().get("text").getAsString());
 	}
@@ -46,7 +46,9 @@ public class MicroBlogRSTest {
 		MicroBlogRS rs = getMicroBlogRS();
 		rs.post("micromessage1");
 		rs.post("micromessage2");
-		JsonArray json = JsonUtil.parseArray(rs.get());
+		// FIXME
+		// JsonArray json = JsonUtil.parseArray(rs.get());
+		JsonArray json = new JsonArray();
 		assertEquals(2, json.size());
 		assertEquals("micromessage1", json.get(0).getAsJsonObject().get("text").getAsString());
 		assertEquals("micromessage2", json.get(1).getAsJsonObject().get("text").getAsString());
