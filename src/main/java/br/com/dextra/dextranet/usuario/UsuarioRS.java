@@ -15,6 +15,9 @@ import br.com.dextra.dextranet.rest.config.Application;
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+import com.google.gson.JsonObject;
 
 @Path("/usuario")
 public class UsuarioRS {
@@ -65,6 +68,18 @@ public class UsuarioRS {
 	public Response listar() {
 		List<Usuario> usuarios = repositorio.lista();
 		return Response.ok().entity(usuarios).build();
+	}
+
+	@Path("/url-logout")
+	@GET
+	@Produces(Application.JSON_UTF8)
+	public Response urlDeLogout() {
+		UserService userService = UserServiceFactory.getUserService();
+		
+		JsonObject json = new JsonObject();
+		json.addProperty("url", userService.createLogoutURL("/index.html"));
+
+		return Response.ok().entity(json.toString()).build();
 	}
 
 	protected String obtemUsernameDoUsuarioLogado() {

@@ -83,6 +83,7 @@
                 dextranet.home.inicializa();
                 dextranet.paginacao;
                 dextranet.usuario.exibirUsuarioLogado();
+                dextranet.usuario.carregaLogout();
                 dextranet.banner.listarVigentes();
             });
     </script>
@@ -92,8 +93,8 @@
         <div id="container">
             <div id="header_placeholder"></div>
             <div id="header_container" rel="section">
-                <ul id="header_main_menu">
-                </ul>
+                <ul id="header_main_menu"></ul>
+                <div id="box_user_actions"></div>
                 <div id="box_user"></div>
                 <!--
                   -- @fixme

@@ -7,25 +7,17 @@
 			</a>
 		</li>
 		<li>
-			<a href="https://dextranet.dextra.com.br/pma" target="_blank">
-				PMA
-			</a>
+			<a href="https://dextranet.dextra.com.br/pma" target="_blank">PMA</a>
 		</li>
 		<li>
-			<a href="https://dextranet.dextra.com.br/tracker/ti/newticket" target="_blank">
-				Infra
-			</a>
+			<a href="https://redmine.dextra.com.br/projects/suporte/issues/new" target="_blank">Infra</a>
 		</li>
 		<li>
-			<a href="https://dextranet.dextra.com.br/wiki/wiki" target="_blank">
-				Wiki
-			</a>
+			<a href="https://dextranet.dextra.com.br/wiki/wiki" target="_blank">Wiki</a>
 		</li>
-		<li>
-			<a href="https://dextranet.dextra.com.br/portal/ramais" target="_blank">
-				Ramais
-			</a>
-		</li>
+        <li>
+            <a href="http://dexboard-reload.appspot.com/" target="_blank">Dexboard</a>
+        </li>
 		<li id="header_main_menu_outros">
 			<a href="#">
 				${messages.menu_others}
@@ -33,9 +25,6 @@
 				<span class="shape_arrow_down"></span>
 			</a>
 			<ul class="header_dropdown">
-				<li>
-					<a href="http://dextra-dexboard.appspot.com/" target="_blank">Dexboard</a>
-				</li>
 				<li>
 					<a href="https://dextranet.dextra.com.br/dextraminds" target="_blank">Minds</a>
 				</li>

@@ -2,6 +2,20 @@ dextranet.usuario = {
 
 		logado : null,
 
+		carregaLogout : function() {
+			$.ajax( {
+				type : "GET",
+				url : "/s/usuario/url-logout",
+				dataType : "json",
+				success : function(url) {
+					$.holy("../template/dinamico/acoes_usuario.xml", { url : url.url });
+				},
+    			error: function(jqXHR, textStatus, errorThrown) {
+    				dextranet.processaErroNaRequisicao(jqXHR);
+    			}
+			});
+		},
+
 		exibirUsuarioLogado : function() {
 			$.ajax( {
 				type : "GET",

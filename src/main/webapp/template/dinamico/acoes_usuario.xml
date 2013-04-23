@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+    <template selector="#box_user_actions">
+        <a href="${url}">
+            <img src="../../img/logout.png" class="logout" original-title="Logout" />
+        </a>
+    </template>
+
+    <script>
+        $('img.logout').tipsy();
+    </script>
+</engine>
