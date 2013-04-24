@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<template selector="#content_left">
+		<div id="box_new_post" class="sidebar_show_right post">
+			<h1>${messages.post_novo_titulo}</h1>
+	
+			<form id="form_new_post" class="clearfix form-dark form-fields-block">
+				<input type="text" id="form_input_title" placeholder="${messages.post_titulo_tip}" name="titulo" maxlength="120" tabindex="8" class="not-empty" />
+				<textarea cols="50" id="form_input_content" class="not-empty" style="resize:none;" placeholder="${messages.post_conteudo_tip}" name="conteudo" tabindex="10" ></textarea>
+				<button class="btn btn-blue btn-xbig float_right" id="form_post_submit" type="button" tabindex="11">${messages.botao_postar}</button>
+			</form>
+		</div>
+	</template>
+
+	<script>
+		CKEDITOR.replace('conteudo');
+		$('#form_input_title').focus();
+		$("#form_post_submit").click(dextranet.post.postar);
+	</script>
+</engine>

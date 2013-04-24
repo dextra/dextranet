@@ -13,9 +13,6 @@
 					<span class="icon_sidebar_left_novopost"></span>
 					${messages.label_newPost}
 				</a>
-				<div id="box_new_post" class="sidebar_show_right post">
-					
-				</div>
 			</li>
 			<li id="sidebar_left_team">
 				<a href="#" id="button_sidebar_left_team" tabindex="3">
@@ -38,13 +35,11 @@
 		</ul>
 	</template>
 	<script>
-		$("#button_sidebar_left_home").click(dextranet.home.carregaHome);
-		$("#button_sidebar_left_novopost").click(dextranet.home.abrePopUpNovoPost);
+		$("#button_sidebar_left_home").click(dextranet.post.listar);
+		$("#button_sidebar_left_novopost").click(dextranet.post.novo);
 		$("#button_sidebar_left_new_banner").click(dextranet.banner.novo);
 		$("#button_sidebar_left_profile").click(dextranet.usuario.editar);
 		$("#button_sidebar_left_team").click(dextranet.equipe.listar);
 		$("#form_new_post").submit(dextranet.post.criaNovoPost);
-
-		$.holy("../template/dinamico/post/abre_pagina_novo_post.xml", {});
 	</script>
 </engine>

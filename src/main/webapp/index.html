@@ -12,7 +12,6 @@
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600' rel='stylesheet' type='text/css'>
     
         <!-- Biblioteca Holy -->
-        <script type="text/javascript" src="js/lib/convertDate.js"></script>
         <script type="text/javascript" src="holy/lib/jquery.min.js"></script>
         <script type="text/javascript" src="holy/lib/trimpath.min.js"></script>
         <script type="text/javascript" src="holy/lib/jquery.holyavenger.min.js"></script>
@@ -41,16 +40,17 @@
         <script type="text/javascript" src="holy/third/jquery.meio.mask.min.js"></script>
         <script type="text/javascript" src="holy/sendformbyframe/jquery.sendformbyframe.min.js"></script>
     
-        <!-- RichText -->
-        <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+        <!-- Demais Bibliotecas -->
+        <script type="text/javascript" src="js/lib/ckeditor/ckeditor.js"></script>
         <script type="text/javascript" src="js/lib/i18n.js"></script>
         <script type="text/javascript" src="js/lib/form-validator.js"></script>
         <script type="text/javascript" src="js/lib/form2js.js"></script>
+        <script type="text/javascript" src="js/lib/placehoder.js"></script>
+        <script type="text/javascript" src="js/lib/string-utils.js"></script>
     
         <!-- Scripts Dextranet -->
         <script type="text/javascript" src="js/dextranet/index.js"></script>
         <script type="text/javascript" src="js/dextranet/settings.js"></script>
-        <script type="text/javascript" src="js/dextranet/home.js"></script>
 
         <script type="text/javascript" src="js/dextranet/usuario.js"></script>
         <link rel="stylesheet" type="text/css"  href="css/usuario.css" media="all" />
@@ -62,16 +62,11 @@
         <link rel="stylesheet" type="text/css"  href="css/equipe.css" media="all" />
         
         <script type="text/javascript" src="js/dextranet/post/post.js"></script>
-        <script type="text/javascript" src="js/dextranet/post/postObject.js"></script>
         <script type="text/javascript" src="js/dextranet/post/comment.js"></script>
         <script type="text/javascript" src="js/dextranet/post/curtir.js"></script>
         <script type="text/javascript" src="js/dextranet/paginacao/paginacao.js"></script>
         <script type="text/javascript" src="js/dextranet/paginacao/pagina.js"></script>
         <script type="text/javascript" src="js/dextranet/paginacao/query.js"></script>
-        <script type="text/javascript" src="js/dextranet/utils/dateUtils.js"></script>
-        <script type="text/javascript" src="js/dextranet/utils/HTMLClean.js"></script>
-        <script type="text/javascript" src="js/dextranet/utils/postUtils.js"></script>
-        <script type="text/javascript" src="js/dextranet/interface.js"></script>
     
         <link rel="stylesheet" type="text/css" href="css/main.css" media="all" />
         <link rel="stylesheet" type="text/css" href="css/microblog.css" media="all" />
@@ -80,8 +75,7 @@
     <script>
             $(document).ready(function() {
                 dextranet.settings.inicializa();
-                dextranet.home.inicializa();
-                dextranet.paginacao;
+                dextranet.carregaMenus();
                 dextranet.usuario.exibirUsuarioLogado();
                 dextranet.usuario.carregaLogout();
                 dextranet.banner.listarVigentes();

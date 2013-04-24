@@ -18,20 +18,11 @@
         <li>
             <a href="http://dexboard-reload.appspot.com/" target="_blank">Dexboard</a>
         </li>
-		<li id="header_main_menu_outros">
-			<a href="#">
-				${messages.menu_others}
-				<span class="shape_arrow_right"></span>
-				<span class="shape_arrow_down"></span>
-			</a>
-			<ul class="header_dropdown">
-				<li>
-					<a href="https://dextranet.dextra.com.br/dextraminds" target="_blank">Minds</a>
-				</li>
-				<li>
-					<a href="https://redmine.dextra.com.br" target="_blank">Redmine</a>
-				</li>
-			</ul>
+		<li>
+			<a href="https://dextranet.dextra.com.br/dextraminds" target="_blank">Minds</a>
+		</li>
+		<li>
+			<a href="https://redmine.dextra.com.br" target="_blank">Redmine</a>
 		</li>
 	</template>
 </engine>
