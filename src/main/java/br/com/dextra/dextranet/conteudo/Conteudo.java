@@ -1,7 +1,8 @@
-package br.com.dextra.dextranet.persistencia;
+package br.com.dextra.dextranet.conteudo;
 
 import java.util.Date;
 
+import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.dextranet.utils.TimeMachine;
 

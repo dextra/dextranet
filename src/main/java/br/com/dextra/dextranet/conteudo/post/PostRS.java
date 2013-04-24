@@ -1,4 +1,4 @@
-package br.com.dextra.dextranet.post;
+package br.com.dextra.dextranet.conteudo.post;
 
 import java.util.List;
 

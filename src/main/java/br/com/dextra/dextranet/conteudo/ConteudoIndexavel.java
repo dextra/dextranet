@@ -1,4 +1,4 @@
-package br.com.dextra.dextranet.persistencia;
+package br.com.dextra.dextranet.conteudo;
 
 import com.google.appengine.api.search.Document;
 

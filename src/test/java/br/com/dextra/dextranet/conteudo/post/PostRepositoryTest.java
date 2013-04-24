@@ -1,9 +1,11 @@
-package br.com.dextra.dextranet.post;
+package br.com.dextra.dextranet.conteudo.post;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
 
+import br.com.dextra.dextranet.conteudo.post.Post;
+import br.com.dextra.dextranet.conteudo.post.PostRepository;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;

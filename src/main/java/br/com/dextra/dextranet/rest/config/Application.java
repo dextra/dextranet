@@ -6,9 +6,9 @@ import java.util.Set;
 
 import br.com.dextra.dextranet.area.AreaRS;
 import br.com.dextra.dextranet.banner.BannerRS;
+import br.com.dextra.dextranet.conteudo.post.PostRS;
 import br.com.dextra.dextranet.indexacao.IndexacaoRS;
 import br.com.dextra.dextranet.microblog.MicroBlogRS;
-import br.com.dextra.dextranet.post.PostRS;
 import br.com.dextra.dextranet.unidade.UnidadeRS;
 import br.com.dextra.dextranet.usuario.UsuarioRS;
 

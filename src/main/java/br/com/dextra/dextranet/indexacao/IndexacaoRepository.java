@@ -1,7 +1,7 @@
 package br.com.dextra.dextranet.indexacao;
 
+import br.com.dextra.dextranet.conteudo.ConteudoIndexavel;
 import br.com.dextra.dextranet.persistencia.EntidadeRepository;
-import br.com.dextra.dextranet.persistencia.ConteudoIndexavel;
 import br.com.dextra.dextranet.utils.IndexFacade;
 
 public class IndexacaoRepository extends EntidadeRepository {

@@ -1,7 +1,7 @@
 package br.com.dextra.dextranet.old.post.comment;
 
-import br.com.dextra.dextranet.persistencia.Conteudo;
-import br.com.dextra.dextranet.persistencia.ConteudoIndexavel;
+import br.com.dextra.dextranet.conteudo.Conteudo;
+import br.com.dextra.dextranet.conteudo.ConteudoIndexavel;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.search.Document;

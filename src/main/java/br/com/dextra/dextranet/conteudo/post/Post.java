@@ -1,8 +1,8 @@
-package br.com.dextra.dextranet.post;
+package br.com.dextra.dextranet.conteudo.post;
 
 import java.util.Date;
 
-import br.com.dextra.dextranet.persistencia.Conteudo;
+import br.com.dextra.dextranet.conteudo.Conteudo;
 import br.com.dextra.dextranet.utils.ConteudoHTML;
 import br.com.dextra.dextranet.utils.TimeMachine;
 

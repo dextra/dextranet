@@ -1,11 +1,11 @@
 package br.com.dextra.dextranet.old.post;
 
+import br.com.dextra.dextranet.conteudo.Conteudo;
+import br.com.dextra.dextranet.conteudo.ConteudoIndexavel;
+
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.search.Document;
 import com.google.gson.JsonObject;
-
-import br.com.dextra.dextranet.persistencia.Conteudo;
-import br.com.dextra.dextranet.persistencia.ConteudoIndexavel;
 
 public class Post extends Conteudo implements ConteudoIndexavel {
 
