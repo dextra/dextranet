@@ -54,6 +54,7 @@
 	"post_titulo_tip" : "Digite o título do novo post...",
 	"post_conteudo" : "Conteúdo...",
 	"post_conteudo_tip" : "Digite o conteúdo do novo post...",
+	"post_comentario" : "comentário(s)",
 	"post_erro_campos_obrigatorios" : "Para publicar algo é necessário informar o título e o conteúdo!",
 	"post_mensagem_postagem_sucesso" : "Seu novo post foi postado com sucesso!"
 	}

@@ -18,6 +18,7 @@ dextranet.post = {
 					data : { 'titulo' : titulo, 'conteudo' : conteudo },
 					success : function() {
 						$('.message').message($.i18n.messages.post_mensagem_postagem_sucesso, 'success', true);
+						dextranet.post.listar();
 					},
 	    			error: function(jqXHR, textStatus, errorThrown) {
 	    				dextranet.processaErroNaRequisicao(jqXHR);
@@ -26,6 +27,31 @@ dextranet.post = {
 			} else {
 				$('.message').message($.i18n.messages.post_erro_campos_obrigatorios, 'error', true);
 			}
+		},
+
+		listar : function() {
+			$.ajax( {
+				type : "GET",
+				url : "/s/post",
+				contentType : dextranet.application_json,
+				success : function(posts) {
+					$.holy("../template/dinamico/post/lista_posts.xml", { posts : posts,
+																		  gravatar : dextranet.gravatarUrl });
+				},
+    			error: function(jqXHR, textStatus, errorThrown) {
+    				dextranet.processaErroNaRequisicao(jqXHR);
+    			}
+			});
+		},
+
+		conteudoParaExibicao : function(conteudo) {
+			var conteudoLimpo = stringUtils.removeTagHTML(conteudo);
+
+			if (conteudoLimpo.length > 200) {
+				conteudoLimpo = conteudoLimpo.substring(0, 199) + " (...)"
+			}
+			
+			return conteudoLimpo;
 		}
 
 };

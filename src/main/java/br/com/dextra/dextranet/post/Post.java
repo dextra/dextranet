@@ -7,6 +7,7 @@ import br.com.dextra.dextranet.utils.ConteudoHTML;
 import br.com.dextra.dextranet.utils.TimeMachine;
 
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Text;
 import com.google.gson.JsonObject;
 
 public class Post extends Conteudo {
@@ -27,7 +28,7 @@ public class Post extends Conteudo {
 		super((String) postEntity.getProperty(PostFields.usuario.toString()));
 		this.id = (String) postEntity.getProperty(PostFields.id.toString());
 		this.titulo = (String) postEntity.getProperty(PostFields.titulo.toString());
-		this.conteudo = (String) postEntity.getProperty(PostFields.conteudo.toString());
+		this.conteudo = ( (Text) postEntity.getProperty(PostFields.conteudo.toString()) ).getValue();
 		this.quantidadeDeCurtidas = (Long) postEntity.getProperty(PostFields.quantidadeDeCurtidas.toString());
 		this.quantidadeDeComentarios = (Long) postEntity.getProperty(PostFields.quantidadeDeComentarios.toString());
 		this.dataDeCriacao = (Date) postEntity.getProperty(PostFields.dataDeCriacao.toString());
@@ -59,7 +60,7 @@ public class Post extends Conteudo {
 
 		entidade.setProperty(PostFields.id.toString(), this.id);
 		entidade.setProperty(PostFields.titulo.toString(), this.titulo);
-		entidade.setProperty(PostFields.conteudo.toString(), this.conteudo);
+		entidade.setProperty(PostFields.conteudo.toString(), new Text(this.conteudo));
 		entidade.setProperty(PostFields.quantidadeDeCurtidas.toString(), this.quantidadeDeCurtidas);
 		entidade.setProperty(PostFields.quantidadeDeComentarios.toString(), this.quantidadeDeComentarios);
 		entidade.setProperty(PostFields.usuario.toString(), this.usuario);

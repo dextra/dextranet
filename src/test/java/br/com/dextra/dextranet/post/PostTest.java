@@ -8,6 +8,7 @@ import br.com.dextra.dextranet.utils.TimeMachine;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Text;
 
 //a heranca eh para poder testar os objetos envolvendo entity
 public class PostTest extends TesteIntegracaoBase {
@@ -40,7 +41,7 @@ public class PostTest extends TesteIntegracaoBase {
 
 		Assert.assertEquals(postEntity.getProperty(PostFields.id.toString()), post.getId());
 		Assert.assertEquals(postEntity.getProperty(PostFields.titulo.toString()), post.getTitulo());
-		Assert.assertEquals(postEntity.getProperty(PostFields.conteudo.toString()), post.getConteudo());
+		Assert.assertEquals(((Text) postEntity.getProperty(PostFields.conteudo.toString())).getValue(), post.getConteudo());
 		Assert.assertEquals(postEntity.getProperty(PostFields.quantidadeDeCurtidas.toString()), post.getQuantidadeDeCurtidas());
 		Assert.assertEquals(postEntity.getProperty(PostFields.quantidadeDeComentarios.toString()), post.getQuantidadeDeComentarios());
 		Assert.assertEquals(postEntity.getProperty(PostFields.usuario.toString()), post.getUsuario());
@@ -57,7 +58,7 @@ public class PostTest extends TesteIntegracaoBase {
 
 		Assert.assertEquals(post.getId(), postEntity.getProperty(PostFields.id.toString()));
 		Assert.assertEquals(post.getTitulo(), postEntity.getProperty(PostFields.titulo.toString()));
-		Assert.assertEquals(post.getConteudo(), postEntity.getProperty(PostFields.conteudo.toString()));
+		Assert.assertEquals(post.getConteudo(), ((Text) postEntity.getProperty(PostFields.conteudo.toString())).getValue());
 		Assert.assertEquals(post.getQuantidadeDeCurtidas(), postEntity.getProperty(PostFields.quantidadeDeCurtidas.toString()));
 		Assert.assertEquals(post.getQuantidadeDeComentarios(), postEntity.getProperty(PostFields.quantidadeDeComentarios.toString()));
 		Assert.assertEquals(post.getUsuario(), postEntity.getProperty(PostFields.usuario.toString()));
