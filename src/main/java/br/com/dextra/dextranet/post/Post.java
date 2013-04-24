@@ -64,6 +64,7 @@ public class Post extends Conteudo {
 		entidade.setProperty(PostFields.quantidadeDeCurtidas.toString(), this.quantidadeDeCurtidas);
 		entidade.setProperty(PostFields.quantidadeDeComentarios.toString(), this.quantidadeDeComentarios);
 		entidade.setProperty(PostFields.usuario.toString(), this.usuario);
+		entidade.setProperty(PostFields.usuarioMD5.toString(), this.usuarioMD5);
 		entidade.setProperty(PostFields.dataDeCriacao.toString(), this.dataDeCriacao);
 		entidade.setProperty(PostFields.dataDeAtualizacao.toString(), this.dataDeAtualizacao);
 

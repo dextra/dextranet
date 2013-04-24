@@ -2,11 +2,14 @@ package br.com.dextra.dextranet.persistencia;
 
 import java.util.Date;
 
+import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.dextranet.utils.TimeMachine;
 
 public abstract class Conteudo extends Entidade {
 
 	protected String usuario;
+
+	protected String usuarioMD5;
 
 	protected String conteudo;
 
@@ -17,6 +20,7 @@ public abstract class Conteudo extends Entidade {
 	protected Conteudo(String usuario) {
 		super();
 		this.usuario = usuario;
+		this.usuarioMD5 = Usuario.geraMD5(this.usuario);
 		this.dataDeCriacao = new TimeMachine().dataAtual();
 		this.quantidadeDeCurtidas = 0;
 	}
@@ -35,6 +39,10 @@ public abstract class Conteudo extends Entidade {
 
 	public long getQuantidadeDeCurtidas() {
 		return quantidadeDeCurtidas;
+	}
+
+	public String getUsuarioMD5() {
+		return usuarioMD5;
 	}
 
 }

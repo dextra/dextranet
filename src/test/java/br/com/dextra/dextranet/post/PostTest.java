@@ -17,7 +17,8 @@ public class PostTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testaConstrutor() {
-		Post novoPost = new Post("usuario");
+		Post novoPost = new Post("dextranet");
+		Assert.assertEquals("39566cf6ac41da40deb7c6452a9ed94b", novoPost.getUsuarioMD5());
 		Assert.assertEquals(0, novoPost.getQuantidadeDeComentarios());
 		Assert.assertEquals(0, novoPost.getQuantidadeDeCurtidas());
 		Assert.assertEquals(timeMachine.formataData(timeMachine.dataAtual()), timeMachine.formataData(novoPost.getDataDeCriacao()));
@@ -45,6 +46,7 @@ public class PostTest extends TesteIntegracaoBase {
 		Assert.assertEquals(postEntity.getProperty(PostFields.quantidadeDeCurtidas.toString()), post.getQuantidadeDeCurtidas());
 		Assert.assertEquals(postEntity.getProperty(PostFields.quantidadeDeComentarios.toString()), post.getQuantidadeDeComentarios());
 		Assert.assertEquals(postEntity.getProperty(PostFields.usuario.toString()), post.getUsuario());
+		Assert.assertEquals(postEntity.getProperty(PostFields.usuarioMD5.toString()), post.getUsuarioMD5());
 		Assert.assertEquals(postEntity.getProperty(PostFields.dataDeCriacao.toString()), post.getDataDeCriacao());
 		Assert.assertEquals(postEntity.getProperty(PostFields.dataDeAtualizacao.toString()), post.getDataDeAtualizacao());
 	}
@@ -62,6 +64,7 @@ public class PostTest extends TesteIntegracaoBase {
 		Assert.assertEquals(post.getQuantidadeDeCurtidas(), postEntity.getProperty(PostFields.quantidadeDeCurtidas.toString()));
 		Assert.assertEquals(post.getQuantidadeDeComentarios(), postEntity.getProperty(PostFields.quantidadeDeComentarios.toString()));
 		Assert.assertEquals(post.getUsuario(), postEntity.getProperty(PostFields.usuario.toString()));
+		Assert.assertEquals(post.getUsuarioMD5(), postEntity.getProperty(PostFields.usuarioMD5.toString()));
 		Assert.assertEquals(post.getDataDeCriacao(), postEntity.getProperty(PostFields.dataDeCriacao.toString()));
 		Assert.assertEquals(post.getDataDeAtualizacao(), postEntity.getProperty(PostFields.dataDeAtualizacao.toString()));
 	}

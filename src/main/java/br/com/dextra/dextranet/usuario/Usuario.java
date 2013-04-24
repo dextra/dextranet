@@ -40,7 +40,7 @@ public class Usuario extends Entidade {
 
 	public Usuario(String username) {
 		this.username = username.trim();
-		this.md5 = MD5.hash(this.getEmail());
+		this.md5 = geraMD5(this.username);
 	}
 
 	public Usuario(Entity entidade) {
@@ -57,10 +57,6 @@ public class Usuario extends Entidade {
 		this.gitHub = (String) entidade.getProperty(UsuarioFields.gitHub.toString());
 		this.skype = (String) entidade.getProperty(UsuarioFields.skype.toString());
 		this.ultimaAtualizacao = (Date) entidade.getProperty(UsuarioFields.ultimaAtualizacao.toString());
-	}
-
-	public String getEmail() {
-		return this.username + DEFAULT_DOMAIN;
 	}
 
 	public String getUsername() {
@@ -151,6 +147,10 @@ public class Usuario extends Entidade {
 	@Override
 	public JsonObject toJson() {
 		throw new UnsupportedOperationException();
+	}
+
+	public static String geraMD5(String username) {
+		return MD5.hash(username + DEFAULT_DOMAIN);
 	}
 
 }
