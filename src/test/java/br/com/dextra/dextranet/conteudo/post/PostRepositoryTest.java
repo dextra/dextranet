@@ -19,6 +19,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		Post novoPost = new Post("usuario").preenche("titulo", "conteudo");
 
 		Post postCriado = repositorio.persiste(novoPost);
+		postCriado.curtir("dextranet");
 
 		String idDoPostCriado = postCriado.getId();
 		repositorio.remove(idDoPostCriado);

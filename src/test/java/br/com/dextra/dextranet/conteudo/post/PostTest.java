@@ -4,8 +4,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import br.com.dextra.dextranet.conteudo.post.Post;
-import br.com.dextra.dextranet.conteudo.post.PostFields;
+import br.com.dextra.dextranet.conteudo.post.curtida.Curtida;
 import br.com.dextra.dextranet.utils.TimeMachine;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
@@ -38,6 +37,7 @@ public class PostTest extends TesteIntegracaoBase {
 	public void testaConstrutorComEntity() {
 		Post postTemporario = new Post("usuario");
 		postTemporario.preenche("titulo", "Conteudo de teste.");
+		postTemporario.curtir("dextranet");
 
 		Entity postEntity = postTemporario.toEntity();
 		Post post = new Post(postEntity);
@@ -48,6 +48,7 @@ public class PostTest extends TesteIntegracaoBase {
 		Assert.assertEquals(postEntity.getProperty(PostFields.quantidadeDeCurtidas.toString()), post.getQuantidadeDeCurtidas());
 		Assert.assertEquals(postEntity.getProperty(PostFields.quantidadeDeComentarios.toString()), post.getQuantidadeDeComentarios());
 		Assert.assertEquals(postEntity.getProperty(PostFields.usuario.toString()), post.getUsuario());
+		Assert.assertEquals(postEntity.getProperty(PostFields.usuariosQueCurtiram.toString()), post.getUsuariosQueCurtiram());
 		Assert.assertEquals(postEntity.getProperty(PostFields.usuarioMD5.toString()), post.getUsuarioMD5());
 		Assert.assertEquals(postEntity.getProperty(PostFields.dataDeCriacao.toString()), post.getDataDeCriacao());
 		Assert.assertEquals(postEntity.getProperty(PostFields.dataDeAtualizacao.toString()), post.getDataDeAtualizacao());
@@ -57,6 +58,7 @@ public class PostTest extends TesteIntegracaoBase {
 	public void testeToEntity() {
 		Post post = new Post("usuario");
 		post.preenche("titulo", "Conteudo de teste.");
+		post.curtir("dextranet");
 
 		Entity postEntity = post.toEntity();
 
@@ -66,8 +68,56 @@ public class PostTest extends TesteIntegracaoBase {
 		Assert.assertEquals(post.getQuantidadeDeCurtidas(), postEntity.getProperty(PostFields.quantidadeDeCurtidas.toString()));
 		Assert.assertEquals(post.getQuantidadeDeComentarios(), postEntity.getProperty(PostFields.quantidadeDeComentarios.toString()));
 		Assert.assertEquals(post.getUsuario(), postEntity.getProperty(PostFields.usuario.toString()));
+		Assert.assertEquals(post.getUsuariosQueCurtiram(), postEntity.getProperty(PostFields.usuariosQueCurtiram.toString()));
 		Assert.assertEquals(post.getUsuarioMD5(), postEntity.getProperty(PostFields.usuarioMD5.toString()));
 		Assert.assertEquals(post.getDataDeCriacao(), postEntity.getProperty(PostFields.dataDeCriacao.toString()));
 		Assert.assertEquals(post.getDataDeAtualizacao(), postEntity.getProperty(PostFields.dataDeAtualizacao.toString()));
 	}
+
+	@Test
+	public void testeCurtida() {
+		Post post = new Post("usuario");
+		post.preenche("titulo", "Conteudo de teste");
+
+		Curtida curtida = post.curtir("dextranet");
+		Assert.assertEquals(1, post.getQuantidadeDeCurtidas());
+		Assert.assertTrue(post.usuarioJaCurtiu("dextranet"));
+		Assert.assertTrue(post.getUsuariosQueCurtiram().contains("dextranet"));
+		Assert.assertEquals(post.getId(), curtida.getPostId());
+
+		post.curtir("outro-usuario");
+		Assert.assertEquals(2, post.getQuantidadeDeCurtidas());
+		Assert.assertTrue(post.usuarioJaCurtiu("outro-usuario"));
+		Assert.assertTrue(post.getUsuariosQueCurtiram().contains("outro-usuario"));
+	}
+
+	@Test
+	public void testeCurtidaDuplicada() {
+		Post post = new Post("usuario");
+		post.preenche("titulo", "Conteudo de teste");
+
+		post.curtir("dextranet");
+		Assert.assertEquals(1, post.getQuantidadeDeCurtidas());
+
+		post.curtir("dextranet");
+		Assert.assertEquals(1, post.getQuantidadeDeCurtidas());
+	}
+
+	@Test
+	public void testeDescurtida() {
+		Post post = new Post("usuario");
+		post.preenche("titulo", "Conteudo de teste");
+
+		post.curtir("dextranet");
+		post.curtir("outro-usuario");
+		Assert.assertEquals(2, post.getQuantidadeDeCurtidas());
+
+		post.descurtir("dextranet");
+		Assert.assertEquals(1, post.getQuantidadeDeCurtidas());
+		Assert.assertFalse(post.getUsuariosQueCurtiram().contains("dextranet"));
+
+		post.descurtir("dextranet");
+		Assert.assertEquals(1, post.getQuantidadeDeCurtidas());
+	}	
+
 }

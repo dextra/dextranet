@@ -5,7 +5,6 @@ import br.com.dextra.dextranet.conteudo.ConteudoIndexavel;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.search.Document;
-import com.google.gson.JsonObject;
 
 public class Post extends Conteudo implements ConteudoIndexavel {
 
@@ -22,12 +21,6 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 
 	@Override
 	public Entity toEntity() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public JsonObject toJson() {
 		// TODO Auto-generated method stub
 		return null;
 	}

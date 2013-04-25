@@ -4,7 +4,6 @@ import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.utils.ConteudoHTML;
 
 import com.google.appengine.api.datastore.Entity;
-import com.google.gson.JsonObject;
 
 public class Area extends Entidade {
 
@@ -37,11 +36,6 @@ public class Area extends Entidade {
 		entidade.setProperty(AreaFields.id.toString(), this.id);
 		entidade.setProperty(AreaFields.nome.toString(), this.nome);
 		return entidade;
-	}
-
-	@Override
-	public JsonObject toJson() {
-		throw new UnsupportedOperationException();
 	}
 
 }

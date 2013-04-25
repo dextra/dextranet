@@ -3,7 +3,6 @@ package br.com.dextra.dextranet.microblog;
 import br.com.dextra.dextranet.persistencia.Entidade;
 
 import com.google.appengine.api.datastore.Entity;
-import com.google.gson.JsonObject;
 
 public class MicroPost extends Entidade {
 
@@ -25,12 +24,6 @@ public class MicroPost extends Entidade {
 		Entity entidade = new Entity(getKey(getClass()));
 		entidade.setProperty(MicroBlogFields.TEXTO.getField(), getTexto());
 		return entidade;
-	}
-
-	@Override
-	public JsonObject toJson() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

@@ -5,7 +5,7 @@ import javax.ws.rs.core.Response.Status;
 
 import junit.framework.Assert;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
 import br.com.dextra.teste.TesteIntegracaoBase;

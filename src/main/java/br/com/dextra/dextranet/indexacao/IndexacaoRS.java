@@ -6,8 +6,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
-import br.com.dextra.dextranet.old.post.PostRS;
-
 import com.google.appengine.api.datastore.EntityNotFoundException;
 
 @Path("/document")

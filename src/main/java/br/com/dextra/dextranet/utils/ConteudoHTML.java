@@ -2,17 +2,20 @@ package br.com.dextra.dextranet.utils;
 
 import java.io.InputStream;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.owasp.validator.html.AntiSamy;
 import org.owasp.validator.html.Policy;
 import org.owasp.validator.html.PolicyException;
 import org.owasp.validator.html.ScanException;
-
 public class ConteudoHTML {
 
 	private String conteudo;
 
 	public ConteudoHTML(String conteudo) {
+		this.conteudo = conteudo;
+	}
+
+	public void setConteudo(String conteudo) {
 		this.conteudo = conteudo;
 	}
 

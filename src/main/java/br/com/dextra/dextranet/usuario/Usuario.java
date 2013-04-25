@@ -8,7 +8,6 @@ import br.com.dextra.dextranet.utils.MD5;
 import br.com.dextra.dextranet.utils.TimeMachine;
 
 import com.google.appengine.api.datastore.Entity;
-import com.google.gson.JsonObject;
 
 public class Usuario extends Entidade {
 
@@ -109,15 +108,32 @@ public class Usuario extends Entidade {
 
 	public Usuario preenchePerfil(String nome, String apelido, String area, String unidade, String ramal,
 			String telefoneResidencial, String telefoneCelular, String gitHub, String skype) {
-		this.nome = new ConteudoHTML(nome).removeJavaScript();
-		this.apelido = new ConteudoHTML(apelido).removeJavaScript();;
-		this.area = new ConteudoHTML(area).removeJavaScript();;;
-		this.unidade = new ConteudoHTML(unidade).removeJavaScript();;;
-		this.ramal = new ConteudoHTML(ramal).removeJavaScript();;;
-		this.telefoneResidencial = new ConteudoHTML(telefoneResidencial).removeJavaScript();;;
-		this.telefoneCelular = new ConteudoHTML(telefoneCelular).removeJavaScript();;;
-		this.gitHub = new ConteudoHTML(gitHub).removeJavaScript();;;
-		this.skype = new ConteudoHTML(skype).removeJavaScript();;;
+		ConteudoHTML conteudoHTML = new ConteudoHTML(nome);
+		this.nome = conteudoHTML.removeJavaScript();
+
+		conteudoHTML.setConteudo(apelido);
+		this.apelido = conteudoHTML.removeJavaScript();
+
+		conteudoHTML.setConteudo(area);
+		this.area = conteudoHTML.removeJavaScript();
+		
+		conteudoHTML.setConteudo(unidade);
+		this.unidade = conteudoHTML.removeJavaScript();
+		
+		conteudoHTML.setConteudo(ramal);
+		this.ramal = conteudoHTML.removeJavaScript();
+		
+		conteudoHTML.setConteudo(telefoneResidencial);
+		this.telefoneResidencial = conteudoHTML.removeJavaScript();
+		
+		conteudoHTML.setConteudo(telefoneCelular);
+		this.telefoneCelular = conteudoHTML.removeJavaScript();
+
+		conteudoHTML.setConteudo(gitHub);
+		this.gitHub = conteudoHTML.removeJavaScript();
+
+		conteudoHTML.setConteudo(skype);
+		this.skype = conteudoHTML.removeJavaScript();
 		this.ultimaAtualizacao = new TimeMachine().dataAtual();
 
 		return this;
@@ -142,11 +158,6 @@ public class Usuario extends Entidade {
 		entidade.setProperty(UsuarioFields.ultimaAtualizacao.toString(), this.ultimaAtualizacao);
 
 		return entidade;
-	}
-
-	@Override
-	public JsonObject toJson() {
-		throw new UnsupportedOperationException();
 	}
 
 	public static String geraMD5(String username) {

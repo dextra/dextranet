@@ -5,7 +5,6 @@ import br.com.dextra.dextranet.utils.ConteudoHTML;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.KeyFactory;
-import com.google.gson.JsonObject;
 
 public class Unidade extends Entidade {
 
@@ -38,11 +37,6 @@ public class Unidade extends Entidade {
 		entity.setProperty(UnidadeFields.id.toString(), this.id);
 		entity.setProperty(UnidadeFields.nome.toString(), this.nome);
 		return entity;
-	}
-
-	@Override
-	public JsonObject toJson() {
-		throw new UnsupportedOperationException();
 	}
 
 }

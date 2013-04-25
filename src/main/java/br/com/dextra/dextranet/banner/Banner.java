@@ -11,7 +11,6 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
 import com.google.appengine.api.images.ServingUrlOptions;
-import com.google.gson.JsonObject;
 
 public class Banner extends Entidade {
 
@@ -32,8 +31,11 @@ public class Banner extends Entidade {
 	private Date dataDeAtualizacao;
 
 	public Banner(String titulo, String link, Date dataInicio, Date dataFim, String usuario) {
-		this.titulo = new ConteudoHTML(titulo).removeJavaScript();
-		this.link = new ConteudoHTML(link).removeJavaScript();
+		ConteudoHTML conteudoHTML = new ConteudoHTML(titulo);
+		this.titulo = conteudoHTML.removeJavaScript();
+
+		conteudoHTML.setConteudo(link);
+		this.link = conteudoHTML.removeJavaScript();
 		this.usuario = usuario;
 
 		TimeMachine timeMachine = new TimeMachine();
@@ -115,8 +117,4 @@ public class Banner extends Entidade {
 		return entidade;
 	}
 
-	@Override
-	public JsonObject toJson() {
-		throw new UnsupportedOperationException();
-	}
 }

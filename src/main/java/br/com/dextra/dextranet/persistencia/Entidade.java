@@ -5,7 +5,6 @@ import java.util.UUID;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
-import com.google.gson.JsonObject;
 
 public abstract class Entidade {
 
@@ -32,8 +31,6 @@ public abstract class Entidade {
 	}
 
 	public abstract Entity toEntity();
-
-	public abstract JsonObject toJson();
 
 	@Override
 	public int hashCode() {
