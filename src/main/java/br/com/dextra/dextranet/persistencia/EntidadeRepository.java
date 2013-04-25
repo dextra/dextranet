@@ -4,6 +4,7 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
@@ -29,6 +30,11 @@ public class EntidadeRepository {
 	}
 
 	protected <T extends Entidade> Iterable<Entity> lista(Class<T> clazz, EntidadeOrdenacao... ordenacao) {
+		return this.lista(clazz, null, null, ordenacao);
+	}
+
+	protected <T extends Entidade> Iterable<Entity> lista(Class<T> clazz, Integer registrosPorPagina,
+			Integer numeroDaPagina, EntidadeOrdenacao... ordenacao) {
 		Query query = new Query(clazz.getName());
 
 		for (EntidadeOrdenacao o : ordenacao) {
@@ -36,6 +42,14 @@ public class EntidadeRepository {
 		}
 
 		PreparedQuery pquery = this.datastore.prepare(query);
+
+		if (registrosPorPagina != null && numeroDaPagina != null) {
+			FetchOptions opcoesFetch = FetchOptions.Builder.withDefaults();
+			opcoesFetch.limit(registrosPorPagina);
+			opcoesFetch.offset(registrosPorPagina * (numeroDaPagina - 1));
+			return pquery.asIterable(opcoesFetch);
+		}
+
 		return pquery.asIterable();
 	}
 

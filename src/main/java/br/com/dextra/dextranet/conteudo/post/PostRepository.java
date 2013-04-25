@@ -21,9 +21,13 @@ public class PostRepository extends EntidadeRepository {
 	}
 
 	public List<Post> lista(EntidadeOrdenacao... criterioOrdenacao) {
+		return this.lista(null, null, criterioOrdenacao);
+	}
+
+	public List<Post> lista(Integer registrosPorPagina, Integer numeroDaPagina, EntidadeOrdenacao... criterioOrdenacao) {
 		List<Post> posts = new ArrayList<Post>();
 
-		Iterable<Entity> entidades = super.lista(Post.class, criterioOrdenacao);
+		Iterable<Entity> entidades = super.lista(Post.class, registrosPorPagina, numeroDaPagina, criterioOrdenacao);
 		for (Entity entidade : entidades) {
 			posts.add(new Post(entidade));
 		}

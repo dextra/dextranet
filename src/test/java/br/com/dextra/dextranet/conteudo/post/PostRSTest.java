@@ -25,7 +25,7 @@ public class PostRSTest extends TesteIntegracaoBase {
 		repositorio.persiste(post01);
 		repositorio.persiste(post02);
 
-		List<Post> postsOrdenados = rest.listarPostsOrdenados();
+		List<Post> postsOrdenados = rest.listarPostsOrdenados(2, 1);
 		Assert.assertEquals(2, postsOrdenados.size());
 		Assert.assertEquals(post02, postsOrdenados.get(0));
 	}
