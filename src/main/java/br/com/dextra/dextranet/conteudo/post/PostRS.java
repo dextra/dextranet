@@ -24,8 +24,6 @@ public class PostRS {
 
 	private PostRepository repositorio = new PostRepository();
 
-	private static final String REGISTROS_POR_PAGINA = "20";
-
 	@Path("/")
 	@POST
 	@Produces(Application.JSON_UTF8)
@@ -49,7 +47,7 @@ public class PostRS {
 	@Path("/")
 	@GET
 	@Produces(Application.JSON_UTF8)
-	public Response listar(@QueryParam("r") @DefaultValue(REGISTROS_POR_PAGINA) Integer registrosPorPagina,
+	public Response listar(@QueryParam("r") @DefaultValue(Application.REGISTROS_POR_PAGINA) Integer registrosPorPagina,
 			@QueryParam("p") @DefaultValue("1") Integer pagina) {
 		List<Post> posts = this.listarPostsOrdenados(registrosPorPagina, pagina);
 		return Response.ok().entity(posts).build();

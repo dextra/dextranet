@@ -18,6 +18,8 @@ public class Application extends javax.ws.rs.core.Application {
 
 	public static final Locale BRASIL = new Locale("pt", "BR");
 
+	public static final String REGISTROS_POR_PAGINA = "20";
+
 	/**
 	 * Adicionando todas as classes referentes a servicos REST que irao existir
 	 * nesta aplicacao.
