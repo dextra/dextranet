@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.dextra.dextranet.conteudo.Conteudo;
+import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
 import br.com.dextra.dextranet.utils.ConteudoHTML;
 import br.com.dextra.dextranet.utils.TimeMachine;
 
@@ -57,6 +58,11 @@ public class Post extends Conteudo {
 
 	public long getQuantidadeDeComentarios() {
 		return quantidadeDeComentarios;
+	}
+
+	public Comentario comentar(String username, String conteudo) {
+		this.quantidadeDeComentarios++;
+		return new Comentario(this.id, username, new ConteudoHTML(conteudo).removeJavaScript());
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
 import br.com.dextra.dextranet.conteudo.post.curtida.Curtida;
 import br.com.dextra.dextranet.utils.TimeMachine;
 import br.com.dextra.teste.TesteIntegracaoBase;
@@ -118,6 +119,20 @@ public class PostTest extends TesteIntegracaoBase {
 
 		post.descurtir("dextranet");
 		Assert.assertEquals(1, post.getQuantidadeDeCurtidas());
-	}	
+	}
+
+	@Test
+	public void testeComentario() {
+		Post post = new Post("usuario");
+		post.preenche("titulo", "Conteudo de teste");
+
+		Comentario comentario = post.comentar("dextranet", "<script>alert('Hello!');</script>meu comentario");
+		Assert.assertEquals(1, post.getQuantidadeDeComentarios());
+		Assert.assertEquals(post.getId(), comentario.getPostId());
+		Assert.assertEquals("meu comentario", comentario.getConteudo());
+
+		post.comentar("outro-usuario", "mais um comentario");
+		Assert.assertEquals(2, post.getQuantidadeDeComentarios());
+	}
 
 }
