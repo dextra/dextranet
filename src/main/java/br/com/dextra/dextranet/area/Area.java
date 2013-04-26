@@ -14,8 +14,8 @@ public class Area extends Entidade {
 	}
 
 	public Area(Entity entity) {
-		this.id = (String) entity.getProperty(AreaFields.id.toString());
-		this.nome = (String) entity.getProperty(AreaFields.nome.toString());
+		this.id = (String) entity.getProperty(AreaFields.id.name());
+		this.nome = (String) entity.getProperty(AreaFields.nome.name());
 	}
 
 	public String getId() {
@@ -33,8 +33,8 @@ public class Area extends Entidade {
 
 	public Entity toEntity() {
 		Entity entidade = new Entity(this.getKey(this.getClass()));
-		entidade.setProperty(AreaFields.id.toString(), this.id);
-		entidade.setProperty(AreaFields.nome.toString(), this.nome);
+		entidade.setProperty(AreaFields.id.name(), this.id);
+		entidade.setProperty(AreaFields.nome.name(), this.nome);
 		return entidade;
 	}
 

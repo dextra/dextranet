@@ -10,7 +10,7 @@ import com.google.appengine.api.datastore.Entity;
 
 public class Curtida extends Entidade {
 
-	private String postId;
+	private String conteudoId;
 
 	private String usuario;
 
@@ -18,24 +18,24 @@ public class Curtida extends Entidade {
 
 	private Date data;
 
-	public Curtida(String postId, String username) {
+	public Curtida(String conteudoId, String username) {
 		super();
-		this.postId = postId;
+		this.conteudoId = conteudoId;
 		this.usuario = username;
 		this.usuarioMD5 = Usuario.geraMD5(username);
 		this.data = new TimeMachine().dataAtual();
 	}
 
 	public Curtida(Entity entity) {
-		this.id = (String) entity.getProperty(CurtidaFields.id.toString());
-		this.usuario = (String) entity.getProperty(CurtidaFields.usuario.toString());
-		this.usuarioMD5 = (String) entity.getProperty(CurtidaFields.usuarioMD5.toString());
-		this.postId = (String) entity.getProperty(CurtidaFields.postId.toString());
-		this.data = (Date) entity.getProperty(CurtidaFields.data.toString());
+		this.id = (String) entity.getProperty(CurtidaFields.id.name());
+		this.usuario = (String) entity.getProperty(CurtidaFields.usuario.name());
+		this.usuarioMD5 = (String) entity.getProperty(CurtidaFields.usuarioMD5.name());
+		this.conteudoId = (String) entity.getProperty(CurtidaFields.conteudoId.name());
+		this.data = (Date) entity.getProperty(CurtidaFields.data.name());
 	}
 
-	public String getPostId() {
-		return postId;
+	public String getConteudoId() {
+		return conteudoId;
 	}
 
 	public String getUsuario() {
@@ -54,11 +54,11 @@ public class Curtida extends Entidade {
 	public Entity toEntity() {
 		Entity entity = new Entity(this.getKey(this.getClass()));
 
-		entity.setProperty(CurtidaFields.id.toString(), this.id);
-		entity.setProperty(CurtidaFields.usuario.toString(), this.usuario);
-		entity.setProperty(CurtidaFields.usuarioMD5.toString(), this.usuarioMD5);
-		entity.setProperty(CurtidaFields.postId.toString(), this.postId);
-		entity.setProperty(CurtidaFields.data.toString(), this.data);
+		entity.setProperty(CurtidaFields.id.name(), this.id);
+		entity.setProperty(CurtidaFields.usuario.name(), this.usuario);
+		entity.setProperty(CurtidaFields.usuarioMD5.name(), this.usuarioMD5);
+		entity.setProperty(CurtidaFields.conteudoId.name(), this.conteudoId);
+		entity.setProperty(CurtidaFields.data.name(), this.data);
 
 		return entity;
 	}

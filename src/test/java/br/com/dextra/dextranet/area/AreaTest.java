@@ -16,8 +16,8 @@ public class AreaTest extends TesteIntegracaoBase {
 		Entity areaEntity = new Area("desenvolvimento").toEntity();
 		Area area = new Area(areaEntity);
 
-		Assert.assertEquals(areaEntity.getProperty(AreaFields.id.toString()), area.getId());
-		Assert.assertEquals(areaEntity.getProperty(AreaFields.nome.toString()), area.getNome());
+		Assert.assertEquals(areaEntity.getProperty(AreaFields.id.name()), area.getId());
+		Assert.assertEquals(areaEntity.getProperty(AreaFields.nome.name()), area.getNome());
 	}
 
 	@Test
@@ -25,8 +25,8 @@ public class AreaTest extends TesteIntegracaoBase {
 		Area area = new Area("desenvolvimento");
 		Entity areaEntity = area.toEntity();
 
-		Assert.assertEquals(area.getId(), areaEntity.getProperty(AreaFields.id.toString()));
-		Assert.assertEquals(area.getNome(), areaEntity.getProperty(AreaFields.nome.toString()));
+		Assert.assertEquals(area.getId(), areaEntity.getProperty(AreaFields.id.name()));
+		Assert.assertEquals(area.getNome(), areaEntity.getProperty(AreaFields.nome.name()));
 	}
 
 }

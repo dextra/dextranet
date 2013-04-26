@@ -43,19 +43,19 @@ public class Usuario extends Entidade {
 	}
 
 	public Usuario(Entity entidade) {
-		this.id = (String) entidade.getProperty(UsuarioFields.id.toString());
-		this.username = (String) entidade.getProperty(UsuarioFields.username.toString());
-		this.md5 = (String) entidade.getProperty(UsuarioFields.md5.toString());
-		this.nome = (String) entidade.getProperty(UsuarioFields.nome.toString());
-		this.apelido = (String) entidade.getProperty(UsuarioFields.apelido.toString());
-		this.area = (String) entidade.getProperty(UsuarioFields.area.toString());
-		this.unidade = (String) entidade.getProperty(UsuarioFields.unidade.toString());
-		this.ramal = (String) entidade.getProperty(UsuarioFields.ramal.toString());
-		this.telefoneResidencial = (String) entidade.getProperty(UsuarioFields.telefoneResidencial.toString());
-		this.telefoneCelular = (String) entidade.getProperty(UsuarioFields.telefoneCelular.toString());
-		this.gitHub = (String) entidade.getProperty(UsuarioFields.gitHub.toString());
-		this.skype = (String) entidade.getProperty(UsuarioFields.skype.toString());
-		this.ultimaAtualizacao = (Date) entidade.getProperty(UsuarioFields.ultimaAtualizacao.toString());
+		this.id = (String) entidade.getProperty(UsuarioFields.id.name());
+		this.username = (String) entidade.getProperty(UsuarioFields.username.name());
+		this.md5 = (String) entidade.getProperty(UsuarioFields.md5.name());
+		this.nome = (String) entidade.getProperty(UsuarioFields.nome.name());
+		this.apelido = (String) entidade.getProperty(UsuarioFields.apelido.name());
+		this.area = (String) entidade.getProperty(UsuarioFields.area.name());
+		this.unidade = (String) entidade.getProperty(UsuarioFields.unidade.name());
+		this.ramal = (String) entidade.getProperty(UsuarioFields.ramal.name());
+		this.telefoneResidencial = (String) entidade.getProperty(UsuarioFields.telefoneResidencial.name());
+		this.telefoneCelular = (String) entidade.getProperty(UsuarioFields.telefoneCelular.name());
+		this.gitHub = (String) entidade.getProperty(UsuarioFields.gitHub.name());
+		this.skype = (String) entidade.getProperty(UsuarioFields.skype.name());
+		this.ultimaAtualizacao = (Date) entidade.getProperty(UsuarioFields.ultimaAtualizacao.name());
 	}
 
 	public String getUsername() {
@@ -143,19 +143,19 @@ public class Usuario extends Entidade {
 	public Entity toEntity() {
 		Entity entidade = new Entity(this.getKey(this.getClass()));
 
-		entidade.setProperty(UsuarioFields.id.toString(), this.id);
-		entidade.setProperty(UsuarioFields.username.toString(), this.username);
-		entidade.setProperty(UsuarioFields.md5.toString(), this.md5);
-		entidade.setProperty(UsuarioFields.nome.toString(), this.nome);
-		entidade.setProperty(UsuarioFields.apelido.toString(), this.apelido);
-		entidade.setProperty(UsuarioFields.area.toString(), this.area);
-		entidade.setProperty(UsuarioFields.unidade.toString(), this.unidade);
-		entidade.setProperty(UsuarioFields.ramal.toString(), this.ramal);
-		entidade.setProperty(UsuarioFields.telefoneResidencial.toString(), this.telefoneResidencial);
-		entidade.setProperty(UsuarioFields.telefoneCelular.toString(), this.telefoneCelular);
-		entidade.setProperty(UsuarioFields.gitHub.toString(), this.gitHub);
-		entidade.setProperty(UsuarioFields.skype.toString(), this.skype);
-		entidade.setProperty(UsuarioFields.ultimaAtualizacao.toString(), this.ultimaAtualizacao);
+		entidade.setProperty(UsuarioFields.id.name(), this.id);
+		entidade.setProperty(UsuarioFields.username.name(), this.username);
+		entidade.setProperty(UsuarioFields.md5.name(), this.md5);
+		entidade.setProperty(UsuarioFields.nome.name(), this.nome);
+		entidade.setProperty(UsuarioFields.apelido.name(), this.apelido);
+		entidade.setProperty(UsuarioFields.area.name(), this.area);
+		entidade.setProperty(UsuarioFields.unidade.name(), this.unidade);
+		entidade.setProperty(UsuarioFields.ramal.name(), this.ramal);
+		entidade.setProperty(UsuarioFields.telefoneResidencial.name(), this.telefoneResidencial);
+		entidade.setProperty(UsuarioFields.telefoneCelular.name(), this.telefoneCelular);
+		entidade.setProperty(UsuarioFields.gitHub.name(), this.gitHub);
+		entidade.setProperty(UsuarioFields.skype.name(), this.skype);
+		entidade.setProperty(UsuarioFields.ultimaAtualizacao.name(), this.ultimaAtualizacao);
 
 		return entidade;
 	}

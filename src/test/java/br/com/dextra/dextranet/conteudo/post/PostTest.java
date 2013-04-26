@@ -43,16 +43,16 @@ public class PostTest extends TesteIntegracaoBase {
 		Entity postEntity = postTemporario.toEntity();
 		Post post = new Post(postEntity);
 
-		Assert.assertEquals(postEntity.getProperty(PostFields.id.toString()), post.getId());
-		Assert.assertEquals(postEntity.getProperty(PostFields.titulo.toString()), post.getTitulo());
-		Assert.assertEquals(((Text) postEntity.getProperty(PostFields.conteudo.toString())).getValue(), post.getConteudo());
-		Assert.assertEquals(postEntity.getProperty(PostFields.quantidadeDeCurtidas.toString()), post.getQuantidadeDeCurtidas());
-		Assert.assertEquals(postEntity.getProperty(PostFields.quantidadeDeComentarios.toString()), post.getQuantidadeDeComentarios());
-		Assert.assertEquals(postEntity.getProperty(PostFields.usuario.toString()), post.getUsuario());
-		Assert.assertEquals(postEntity.getProperty(PostFields.usuariosQueCurtiram.toString()), post.getUsuariosQueCurtiram());
-		Assert.assertEquals(postEntity.getProperty(PostFields.usuarioMD5.toString()), post.getUsuarioMD5());
-		Assert.assertEquals(postEntity.getProperty(PostFields.dataDeCriacao.toString()), post.getDataDeCriacao());
-		Assert.assertEquals(postEntity.getProperty(PostFields.dataDeAtualizacao.toString()), post.getDataDeAtualizacao());
+		Assert.assertEquals(postEntity.getProperty(PostFields.id.name()), post.getId());
+		Assert.assertEquals(postEntity.getProperty(PostFields.titulo.name()), post.getTitulo());
+		Assert.assertEquals(((Text) postEntity.getProperty(PostFields.conteudo.name())).getValue(), post.getConteudo());
+		Assert.assertEquals(postEntity.getProperty(PostFields.quantidadeDeCurtidas.name()), post.getQuantidadeDeCurtidas());
+		Assert.assertEquals(postEntity.getProperty(PostFields.quantidadeDeComentarios.name()), post.getQuantidadeDeComentarios());
+		Assert.assertEquals(postEntity.getProperty(PostFields.usuario.name()), post.getUsuario());
+		Assert.assertEquals(postEntity.getProperty(PostFields.usuariosQueCurtiram.name()), post.getUsuariosQueCurtiram());
+		Assert.assertEquals(postEntity.getProperty(PostFields.usuarioMD5.name()), post.getUsuarioMD5());
+		Assert.assertEquals(postEntity.getProperty(PostFields.dataDeCriacao.name()), post.getDataDeCriacao());
+		Assert.assertEquals(postEntity.getProperty(PostFields.dataDeAtualizacao.name()), post.getDataDeAtualizacao());
 	}
 
 	@Test
@@ -63,16 +63,16 @@ public class PostTest extends TesteIntegracaoBase {
 
 		Entity postEntity = post.toEntity();
 
-		Assert.assertEquals(post.getId(), postEntity.getProperty(PostFields.id.toString()));
-		Assert.assertEquals(post.getTitulo(), postEntity.getProperty(PostFields.titulo.toString()));
-		Assert.assertEquals(post.getConteudo(), ((Text) postEntity.getProperty(PostFields.conteudo.toString())).getValue());
-		Assert.assertEquals(post.getQuantidadeDeCurtidas(), postEntity.getProperty(PostFields.quantidadeDeCurtidas.toString()));
-		Assert.assertEquals(post.getQuantidadeDeComentarios(), postEntity.getProperty(PostFields.quantidadeDeComentarios.toString()));
-		Assert.assertEquals(post.getUsuario(), postEntity.getProperty(PostFields.usuario.toString()));
-		Assert.assertEquals(post.getUsuariosQueCurtiram(), postEntity.getProperty(PostFields.usuariosQueCurtiram.toString()));
-		Assert.assertEquals(post.getUsuarioMD5(), postEntity.getProperty(PostFields.usuarioMD5.toString()));
-		Assert.assertEquals(post.getDataDeCriacao(), postEntity.getProperty(PostFields.dataDeCriacao.toString()));
-		Assert.assertEquals(post.getDataDeAtualizacao(), postEntity.getProperty(PostFields.dataDeAtualizacao.toString()));
+		Assert.assertEquals(post.getId(), postEntity.getProperty(PostFields.id.name()));
+		Assert.assertEquals(post.getTitulo(), postEntity.getProperty(PostFields.titulo.name()));
+		Assert.assertEquals(post.getConteudo(), ((Text) postEntity.getProperty(PostFields.conteudo.name())).getValue());
+		Assert.assertEquals(post.getQuantidadeDeCurtidas(), postEntity.getProperty(PostFields.quantidadeDeCurtidas.name()));
+		Assert.assertEquals(post.getQuantidadeDeComentarios(), postEntity.getProperty(PostFields.quantidadeDeComentarios.name()));
+		Assert.assertEquals(post.getUsuario(), postEntity.getProperty(PostFields.usuario.name()));
+		Assert.assertEquals(post.getUsuariosQueCurtiram(), postEntity.getProperty(PostFields.usuariosQueCurtiram.name()));
+		Assert.assertEquals(post.getUsuarioMD5(), postEntity.getProperty(PostFields.usuarioMD5.name()));
+		Assert.assertEquals(post.getDataDeCriacao(), postEntity.getProperty(PostFields.dataDeCriacao.name()));
+		Assert.assertEquals(post.getDataDeAtualizacao(), postEntity.getProperty(PostFields.dataDeAtualizacao.name()));
 	}
 
 	@Test
@@ -84,7 +84,7 @@ public class PostTest extends TesteIntegracaoBase {
 		Assert.assertEquals(1, post.getQuantidadeDeCurtidas());
 		Assert.assertTrue(post.usuarioJaCurtiu("dextranet"));
 		Assert.assertTrue(post.getUsuariosQueCurtiram().contains("dextranet"));
-		Assert.assertEquals(post.getId(), curtida.getPostId());
+		Assert.assertEquals(post.getId(), curtida.getConteudoId());
 
 		post.curtir("outro-usuario");
 		Assert.assertEquals(2, post.getQuantidadeDeCurtidas());

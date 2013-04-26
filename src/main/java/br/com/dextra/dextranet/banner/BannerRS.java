@@ -109,9 +109,9 @@ public class BannerRS {
 	}
 
 	protected List<Banner> listarBannersVigentesOrdenados(int quantidadeMaxima) {
-		EntidadeOrdenacao dataInicioCrescente = new EntidadeOrdenacao(BannerFields.dataInicio.toString(),
+		EntidadeOrdenacao dataInicioCrescente = new EntidadeOrdenacao(BannerFields.dataInicio.name(),
 				SortDirection.ASCENDING);
-		EntidadeOrdenacao dataFimCrescente = new EntidadeOrdenacao(BannerFields.dataFim.toString(),
+		EntidadeOrdenacao dataFimCrescente = new EntidadeOrdenacao(BannerFields.dataFim.name(),
 				SortDirection.ASCENDING);
 
 		List<Banner> banners = repositorio.lista(dataInicioCrescente, dataFimCrescente);
@@ -136,9 +136,9 @@ public class BannerRS {
 	}
 
 	protected List<Banner> listarBannersOrdenados() {
-		EntidadeOrdenacao dataInicioDecrescente = new EntidadeOrdenacao(BannerFields.dataInicio.toString(),
+		EntidadeOrdenacao dataInicioDecrescente = new EntidadeOrdenacao(BannerFields.dataInicio.name(),
 				SortDirection.DESCENDING);
-		EntidadeOrdenacao dataFimDecrescente = new EntidadeOrdenacao(BannerFields.dataFim.toString(),
+		EntidadeOrdenacao dataFimDecrescente = new EntidadeOrdenacao(BannerFields.dataFim.name(),
 				SortDirection.DESCENDING);
 
 		List<Banner> banners = repositorio.lista(dataInicioDecrescente, dataFimDecrescente);

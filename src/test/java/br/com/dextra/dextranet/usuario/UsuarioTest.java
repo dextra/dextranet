@@ -22,21 +22,21 @@ public class UsuarioTest extends TesteIntegracaoBase {
 				"229", "(19) 3256-6722", "(19) 9784-4510", "dxnet", "skypeDxNet").toEntity();
 		Usuario usuario = new Usuario(usuarioEntity);
 
-		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.id.toString()), usuario.getId());
-		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.username.toString()), usuario.getUsername());
-		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.md5.toString()), usuario.getMD5());
-		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.nome.toString()), usuario.getNome());
-		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.apelido.toString()), usuario.getApelido());
-		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.area.toString()), usuario.getArea());
-		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.unidade.toString()), usuario.getUnidade());
-		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.ramal.toString()), usuario.getRamal());
-		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.telefoneResidencial.toString()),
+		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.id.name()), usuario.getId());
+		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.username.name()), usuario.getUsername());
+		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.md5.name()), usuario.getMD5());
+		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.nome.name()), usuario.getNome());
+		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.apelido.name()), usuario.getApelido());
+		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.area.name()), usuario.getArea());
+		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.unidade.name()), usuario.getUnidade());
+		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.ramal.name()), usuario.getRamal());
+		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.telefoneResidencial.name()),
 				usuario.getTelefoneResidencial());
-		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.telefoneCelular.toString()),
+		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.telefoneCelular.name()),
 				usuario.getTelefoneCelular());
-		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.gitHub.toString()), usuario.getGitHub());
-		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.skype.toString()), usuario.getSkype());
-		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.ultimaAtualizacao.toString()),
+		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.gitHub.name()), usuario.getGitHub());
+		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.skype.name()), usuario.getSkype());
+		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.ultimaAtualizacao.name()),
 				usuario.getUltimaAtualizacao());
 	}
 
@@ -46,23 +46,23 @@ public class UsuarioTest extends TesteIntegracaoBase {
 				"(19) 3256-6722", "(19) 9784-4510", "dxnet", "skypeDxNet");
 		Entity usuarioEntity = usuario.toEntity();
 
-		Assert.assertEquals(usuario.getId(), usuarioEntity.getProperty(UsuarioFields.id.toString()));
-		Assert.assertEquals(usuario.getUsername(), usuarioEntity.getProperty(UsuarioFields.username.toString()));
-		Assert.assertEquals(usuario.getMD5(), usuarioEntity.getProperty(UsuarioFields.md5.toString()));
-		Assert.assertEquals(usuario.getNome(), usuarioEntity.getProperty(UsuarioFields.nome.toString()));
-		Assert.assertEquals(usuario.getApelido(), usuarioEntity.getProperty(UsuarioFields.apelido.toString()));
-		Assert.assertEquals(usuario.getArea(), usuarioEntity.getProperty(UsuarioFields.area.toString()));
-		Assert.assertEquals(usuario.getUnidade(), usuarioEntity.getProperty(UsuarioFields.unidade.toString()));
-		Assert.assertEquals(usuario.getRamal(), usuarioEntity.getProperty(UsuarioFields.ramal.toString()));
+		Assert.assertEquals(usuario.getId(), usuarioEntity.getProperty(UsuarioFields.id.name()));
+		Assert.assertEquals(usuario.getUsername(), usuarioEntity.getProperty(UsuarioFields.username.name()));
+		Assert.assertEquals(usuario.getMD5(), usuarioEntity.getProperty(UsuarioFields.md5.name()));
+		Assert.assertEquals(usuario.getNome(), usuarioEntity.getProperty(UsuarioFields.nome.name()));
+		Assert.assertEquals(usuario.getApelido(), usuarioEntity.getProperty(UsuarioFields.apelido.name()));
+		Assert.assertEquals(usuario.getArea(), usuarioEntity.getProperty(UsuarioFields.area.name()));
+		Assert.assertEquals(usuario.getUnidade(), usuarioEntity.getProperty(UsuarioFields.unidade.name()));
+		Assert.assertEquals(usuario.getRamal(), usuarioEntity.getProperty(UsuarioFields.ramal.name()));
 		Assert.assertEquals(usuario.getTelefoneResidencial(),
-				usuarioEntity.getProperty(UsuarioFields.telefoneResidencial.toString()));
+				usuarioEntity.getProperty(UsuarioFields.telefoneResidencial.name()));
 		Assert.assertEquals(usuario.getTelefoneCelular(),
-				usuarioEntity.getProperty(UsuarioFields.telefoneCelular.toString()));
-		Assert.assertEquals(usuario.getGitHub(), usuarioEntity.getProperty(UsuarioFields.gitHub.toString()));
-		Assert.assertEquals(usuario.getSkype(), usuarioEntity.getProperty(UsuarioFields.skype.toString()));
+				usuarioEntity.getProperty(UsuarioFields.telefoneCelular.name()));
+		Assert.assertEquals(usuario.getGitHub(), usuarioEntity.getProperty(UsuarioFields.gitHub.name()));
+		Assert.assertEquals(usuario.getSkype(), usuarioEntity.getProperty(UsuarioFields.skype.name()));
 		Assert.assertNotNull(usuario.getUltimaAtualizacao());
 		Assert.assertEquals(usuario.getUltimaAtualizacao(),
-				usuarioEntity.getProperty(UsuarioFields.ultimaAtualizacao.toString()));
+				usuarioEntity.getProperty(UsuarioFields.ultimaAtualizacao.name()));
 	}
 
 }

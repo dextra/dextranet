@@ -40,7 +40,7 @@ public class CommentRS {
 //		else
 //			listaComments = repositorio.pegaCommentPorId(idComment);
 //
-//		return Converters.converterListaDeCommentParaListaDeJson(listaComments).toString();
+//		return Converters.converterListaDeCommentParaListaDeJson(listaComments).name();
 //
 //	}
 

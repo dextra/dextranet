@@ -21,13 +21,13 @@ public class Comentario extends Conteudo {
 
 	@SuppressWarnings("unchecked")
 	public Comentario(Entity entity) {
-		super((String) entity.getProperty(ComentarioFields.usuario.toString()));
-		this.id = (String) entity.getProperty(ComentarioFields.id.toString());
-		this.conteudo = ( (Text) entity.getProperty(ComentarioFields.conteudo.toString()) ).getValue();
-		this.quantidadeDeCurtidas = (Long) entity.getProperty(ComentarioFields.quantidadeDeCurtidas.toString());
-		this.usuariosQueCurtiram = (List<String>) entity.getProperty(ComentarioFields.usuariosQueCurtiram.toString());
-		this.dataDeCriacao = (Date) entity.getProperty(ComentarioFields.dataDeCriacao.toString());
-		this.postId = (String) entity.getProperty(ComentarioFields.postId.toString());
+		super((String) entity.getProperty(ComentarioFields.usuario.name()));
+		this.id = (String) entity.getProperty(ComentarioFields.id.name());
+		this.conteudo = ( (Text) entity.getProperty(ComentarioFields.conteudo.name()) ).getValue();
+		this.quantidadeDeCurtidas = (Long) entity.getProperty(ComentarioFields.quantidadeDeCurtidas.name());
+		this.usuariosQueCurtiram = (List<String>) entity.getProperty(ComentarioFields.usuariosQueCurtiram.name());
+		this.dataDeCriacao = (Date) entity.getProperty(ComentarioFields.dataDeCriacao.name());
+		this.postId = (String) entity.getProperty(ComentarioFields.postId.name());
 	}
 
 	public String getPostId() {
@@ -38,14 +38,14 @@ public class Comentario extends Conteudo {
 	public Entity toEntity() {
 		Entity entidade = new Entity(this.getKey(this.getClass()));
 
-		entidade.setProperty(ComentarioFields.id.toString(), this.id);
-		entidade.setProperty(ComentarioFields.conteudo.toString(), new Text(this.conteudo));
-		entidade.setProperty(ComentarioFields.quantidadeDeCurtidas.toString(), this.quantidadeDeCurtidas);
-		entidade.setProperty(ComentarioFields.usuariosQueCurtiram.toString(), this.usuariosQueCurtiram);
-		entidade.setProperty(ComentarioFields.usuario.toString(), this.usuario);
-		entidade.setProperty(ComentarioFields.usuarioMD5.toString(), this.usuarioMD5);
-		entidade.setProperty(ComentarioFields.dataDeCriacao.toString(), this.dataDeCriacao);
-		entidade.setProperty(ComentarioFields.postId.toString(), this.postId);
+		entidade.setProperty(ComentarioFields.id.name(), this.id);
+		entidade.setProperty(ComentarioFields.conteudo.name(), new Text(this.conteudo));
+		entidade.setProperty(ComentarioFields.quantidadeDeCurtidas.name(), this.quantidadeDeCurtidas);
+		entidade.setProperty(ComentarioFields.usuariosQueCurtiram.name(), this.usuariosQueCurtiram);
+		entidade.setProperty(ComentarioFields.usuario.name(), this.usuario);
+		entidade.setProperty(ComentarioFields.usuarioMD5.name(), this.usuarioMD5);
+		entidade.setProperty(ComentarioFields.dataDeCriacao.name(), this.dataDeCriacao);
+		entidade.setProperty(ComentarioFields.postId.name(), this.postId);
 
 		return entidade;
 	}

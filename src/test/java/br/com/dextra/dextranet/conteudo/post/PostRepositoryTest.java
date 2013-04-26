@@ -49,7 +49,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		int pagina1 = 1;
 		int pagina2 = 2;
 
-		EntidadeOrdenacao dataAtualizacaoDescentente = new EntidadeOrdenacao(PostFields.dataDeAtualizacao.toString(),
+		EntidadeOrdenacao dataAtualizacaoDescentente = new EntidadeOrdenacao(PostFields.dataDeAtualizacao.name(),
 				SortDirection.DESCENDING);
 
 		Post post01 = new Post("dextranet");

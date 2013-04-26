@@ -26,7 +26,7 @@ public class BannerRepositoryTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testaListaTodosComOrdenacao() {
-		EntidadeOrdenacao dataInicioCrescente = new EntidadeOrdenacao(BannerFields.dataInicio.toString(),
+		EntidadeOrdenacao dataInicioCrescente = new EntidadeOrdenacao(BannerFields.dataInicio.name(),
 				SortDirection.ASCENDING);
 
 		Banner banner01 = new Banner("titulo 01", "link", cincoDiasParaFrente, dezDiasParaFrente, "usuario");

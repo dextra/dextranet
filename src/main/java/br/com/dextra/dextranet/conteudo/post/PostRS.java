@@ -2,6 +2,7 @@ package br.com.dextra.dextranet.conteudo.post;
 
 import java.util.List;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -12,6 +13,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import br.com.dextra.dextranet.conteudo.post.comentario.ComentarioRepository;
+import br.com.dextra.dextranet.conteudo.post.curtida.Curtida;
+import br.com.dextra.dextranet.conteudo.post.curtida.CurtidaRepository;
 import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.rest.config.Application;
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
@@ -22,7 +26,11 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 @Path("/post")
 public class PostRS {
 
-	private PostRepository repositorio = new PostRepository();
+	private PostRepository repositorioDePosts = new PostRepository();
+
+	private ComentarioRepository repositorioDeComentarios = new ComentarioRepository();
+
+	private CurtidaRepository repositorioDeCurtidas = new CurtidaRepository();
 
 	@Path("/")
 	@POST
@@ -31,7 +39,7 @@ public class PostRS {
 		Post post = new Post(AutenticacaoService.identificacaoDoUsuarioLogado());
 		post.preenche(titulo, conteudo);
 
-		repositorio.persiste(post);
+		repositorioDePosts.persiste(post);
 
 		return Response.ok().entity(post).build();
 	}
@@ -40,7 +48,7 @@ public class PostRS {
 	@GET
 	@Produces(Application.JSON_UTF8)
 	public Response obter(@PathParam("id") String id) throws EntityNotFoundException {
-		Post post = repositorio.obtemPorId(id);
+		Post post = repositorioDePosts.obtemPorId(id);
 		return Response.ok().entity(post).build();
 	}
 
@@ -53,11 +61,47 @@ public class PostRS {
 		return Response.ok().entity(posts).build();
 	}
 
+	@Path("/{postId}/curtida")
+	@POST
+	@Produces(Application.JSON_UTF8)
+	public Response curtir(@PathParam("postId") String postId) throws EntityNotFoundException {
+		Post post = repositorioDePosts.obtemPorId(postId);
+		String usuarioLogado = AutenticacaoService.identificacaoDoUsuarioLogado();
+		Curtida curtida = post.curtir(usuarioLogado);
+
+		if (curtida != null) {
+			repositorioDeCurtidas.persiste(curtida);
+		}
+
+		return Response.ok().entity(post).build();
+	}
+
+	@Path("/{postId}/curtida")
+	@DELETE
+	@Produces(Application.JSON_UTF8)
+	public Response descurtir(@PathParam("postId") String postId) throws EntityNotFoundException {
+		Post post = repositorioDePosts.obtemPorId(postId);
+		String usuarioLogado = AutenticacaoService.identificacaoDoUsuarioLogado();
+
+		post.descurtir(usuarioLogado);
+		// TODO: remover
+
+		return Response.ok().entity(post).build();
+	}
+
+	@Path("/{postId}/curtida")
+	@GET
+	@Produces(Application.JSON_UTF8)
+	public Response listarCurtidas(@PathParam("postId") String postId) throws EntityNotFoundException {
+		// TODO
+		throw new UnsupportedOperationException();
+	}
+
 	protected List<Post> listarPostsOrdenados(Integer registrosPorPagina, Integer pagina) {
-		EntidadeOrdenacao dataDeAtualizacaoDecrescente = new EntidadeOrdenacao(PostFields.dataDeAtualizacao.toString(),
+		EntidadeOrdenacao dataDeAtualizacaoDecrescente = new EntidadeOrdenacao(PostFields.dataDeAtualizacao.name(),
 				SortDirection.DESCENDING);
 
-		List<Post> posts = repositorio.lista(registrosPorPagina, pagina, dataDeAtualizacaoDecrescente);
+		List<Post> posts = repositorioDePosts.lista(registrosPorPagina, pagina, dataDeAtualizacaoDecrescente);
 		return posts;
 	}
 

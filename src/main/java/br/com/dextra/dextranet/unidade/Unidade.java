@@ -15,8 +15,8 @@ public class Unidade extends Entidade {
 	}
 
 	public Unidade(Entity entity) {
-		this.id = (String) entity.getProperty(UnidadeFields.id.toString());
-		this.nome = (String) entity.getProperty(UnidadeFields.nome.toString());
+		this.id = (String) entity.getProperty(UnidadeFields.id.name());
+		this.nome = (String) entity.getProperty(UnidadeFields.nome.name());
 	}
 
 	public String getId() {
@@ -34,8 +34,8 @@ public class Unidade extends Entidade {
 
 	public Entity toEntity() {
 		Entity entity = new Entity(KeyFactory.createKey(this.getClass().getName(), this.id));
-		entity.setProperty(UnidadeFields.id.toString(), this.id);
-		entity.setProperty(UnidadeFields.nome.toString(), this.nome);
+		entity.setProperty(UnidadeFields.id.name(), this.id);
+		entity.setProperty(UnidadeFields.nome.name(), this.nome);
 		return entity;
 	}
 

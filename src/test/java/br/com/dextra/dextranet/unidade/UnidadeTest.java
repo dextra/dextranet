@@ -16,8 +16,8 @@ public class UnidadeTest extends TesteIntegracaoBase {
 		Entity unidadeEntity = new Unidade("campinas").toEntity();
 		Unidade unidade = new Unidade(unidadeEntity);
 
-		Assert.assertEquals(unidadeEntity.getProperty(UnidadeFields.id.toString()), unidade.getId());
-		Assert.assertEquals(unidadeEntity.getProperty(UnidadeFields.nome.toString()), unidade.getNome());
+		Assert.assertEquals(unidadeEntity.getProperty(UnidadeFields.id.name()), unidade.getId());
+		Assert.assertEquals(unidadeEntity.getProperty(UnidadeFields.nome.name()), unidade.getNome());
 	}
 
 	@Test
@@ -25,8 +25,8 @@ public class UnidadeTest extends TesteIntegracaoBase {
 		Unidade unidade = new Unidade("campinas");
 		Entity unidadeEntity = unidade.toEntity();
 
-		Assert.assertEquals(unidade.getId(), unidadeEntity.getProperty(UnidadeFields.id.toString()));
-		Assert.assertEquals(unidade.getNome(), unidadeEntity.getProperty(UnidadeFields.nome.toString()));
+		Assert.assertEquals(unidade.getId(), unidadeEntity.getProperty(UnidadeFields.id.name()));
+		Assert.assertEquals(unidade.getNome(), unidadeEntity.getProperty(UnidadeFields.nome.name()));
 	}
 
 }

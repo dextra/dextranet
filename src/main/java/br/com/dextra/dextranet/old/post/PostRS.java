@@ -42,14 +42,14 @@ public class PostRS {
 //		} else {
 //			listaPosts = novoPost.buscarPosts(resultsMax, q, offSet);
 //		}
-//		return Converters.converterListaDePostsParaListaDeJson(listaPosts).toString();
+//		return Converters.converterListaDePostsParaListaDeJson(listaPosts).name();
 //	}
 //
 //	@Path("/{id}")
 //	@GET
 //	@Produces("application/json;charset=UTF-8")
 //	public String buscaPostPorID(@PathParam(value = "id") String id) throws EntityNotFoundException {
-//		return new PostRepository().obtemPorId(id).toJson().toString();
+//		return new PostRepository().obtemPorId(id).toJson().name();
 //	}
 //
 //	@Path("/{id}")

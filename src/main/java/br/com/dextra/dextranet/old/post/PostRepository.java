@@ -146,7 +146,7 @@ public class PostRepository extends EntidadeRepository {
 //
 //		Key key = KeyFactory.createKey(Post.class.getName(), id);
 //		Entity valueEntity = datastore.get(key);
-//		int comments = Integer.parseInt(valueEntity.getProperty(PostFields.COMENTARIO.getField()).toString());
+//		int comments = Integer.parseInt(valueEntity.getProperty(PostFields.COMENTARIO.getField()).name());
 //		valueEntity.setProperty(PostFields.COMENTARIO.getField(), comments + 1);
 //
 //		// TODO: Persistir a entidade
@@ -156,7 +156,7 @@ public class PostRepository extends EntidadeRepository {
 //	public void incrementaNumeroDeCurtidasDoPost(Post post) throws EntityNotFoundException {
 //		Key key = KeyFactory.createKey(Post.class.getName(), post.getId());
 //		Entity valueEntity = datastore.get(key);
-//		int likes = Integer.parseInt(valueEntity.getProperty(PostFields.LIKES.getField()).toString());
+//		int likes = Integer.parseInt(valueEntity.getProperty(PostFields.LIKES.getField()).name());
 //		valueEntity.setProperty(PostFields.LIKES.getField(), likes + 1);
 //
 //		// TODO: Persistir a entidade
@@ -200,7 +200,7 @@ public class PostRepository extends EntidadeRepository {
 //	private void decrementaNumeroDeCurtidasDoPost(Post post) throws EntityNotFoundException {
 //		Key key = KeyFactory.createKey(Post.class.getName(), post.getId());
 //		Entity valueEntity = datastore.get(key);
-//		int likes = Integer.parseInt(valueEntity.getProperty(PostFields.LIKES.getField()).toString());
+//		int likes = Integer.parseInt(valueEntity.getProperty(PostFields.LIKES.getField()).name());
 //		valueEntity.setProperty(PostFields.LIKES.getField(), likes - 1);
 //
 //		// TODO: Persistir a entidade

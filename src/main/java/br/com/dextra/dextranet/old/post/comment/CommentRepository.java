@@ -55,7 +55,7 @@ public class CommentRepository extends EntidadeRepository {
 //	public void incrementaNumeroDeLikesDaEntityDoComment(String idConteudo) throws EntityNotFoundException {
 //		Key key = KeyFactory.createKey(Comment.class.getName(), idConteudo);
 //		Entity valueEntity = datastore.get(key);
-//		int likes = Integer.parseInt(valueEntity.getProperty(CommentFields.LIKES.getField()).toString());
+//		int likes = Integer.parseInt(valueEntity.getProperty(CommentFields.LIKES.getField()).name());
 //		valueEntity.setProperty(CommentFields.LIKES.getField(), likes + 1);
 //
 //		// TODO: Persistir a entidade
@@ -84,7 +84,7 @@ public class CommentRepository extends EntidadeRepository {
 //	public void decrementaNumeroDeLikesDaEntityDoComment(Comment comment) throws EntityNotFoundException {
 //		Key key = KeyFactory.createKey(Comment.class.getName(), comment.getId());
 //		Entity valueEntity = datastore.get(key);
-//		int likes = Integer.parseInt(valueEntity.getProperty(PostFields.LIKES.getField()).toString());
+//		int likes = Integer.parseInt(valueEntity.getProperty(PostFields.LIKES.getField()).name());
 //		valueEntity.setProperty(PostFields.LIKES.getField(), likes - 1);
 //
 //		// TODO: Persistir a entidade

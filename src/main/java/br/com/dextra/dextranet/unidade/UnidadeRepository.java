@@ -22,7 +22,7 @@ public class UnidadeRepository extends EntidadeRepository {
 	}
 
 	public List<Unidade> lista() {
-		EntidadeOrdenacao ordenacaoPorNome = new EntidadeOrdenacao(UnidadeFields.nome.toString(),
+		EntidadeOrdenacao ordenacaoPorNome = new EntidadeOrdenacao(UnidadeFields.nome.name(),
 				SortDirection.ASCENDING);
 		List<Unidade> unidades = new ArrayList<Unidade>();
 

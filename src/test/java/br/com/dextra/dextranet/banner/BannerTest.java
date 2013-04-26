@@ -23,13 +23,13 @@ public class BannerTest extends TesteIntegracaoBase {
 		Entity bannerEntity = new Banner("titulo", "link", dataAtual, dataAtual, "usuario").toEntity();
 		Banner banner = new Banner(bannerEntity);
 
-		Assert.assertEquals(bannerEntity.getProperty(BannerFields.id.toString()), banner.getId());
-		Assert.assertEquals(bannerEntity.getProperty(BannerFields.titulo.toString()), banner.getTitulo());
-		Assert.assertEquals(bannerEntity.getProperty(BannerFields.link.toString()), banner.getLink());
-		Assert.assertEquals(bannerEntity.getProperty(BannerFields.dataInicio.toString()), banner.getDataInicio());
-		Assert.assertEquals(bannerEntity.getProperty(BannerFields.dataFim.toString()), banner.getDataFim());
-		Assert.assertEquals(bannerEntity.getProperty(BannerFields.usuario.toString()), banner.getUsuario());
-		Assert.assertEquals(bannerEntity.getProperty(BannerFields.dataAtualizacao.toString()),
+		Assert.assertEquals(bannerEntity.getProperty(BannerFields.id.name()), banner.getId());
+		Assert.assertEquals(bannerEntity.getProperty(BannerFields.titulo.name()), banner.getTitulo());
+		Assert.assertEquals(bannerEntity.getProperty(BannerFields.link.name()), banner.getLink());
+		Assert.assertEquals(bannerEntity.getProperty(BannerFields.dataInicio.name()), banner.getDataInicio());
+		Assert.assertEquals(bannerEntity.getProperty(BannerFields.dataFim.name()), banner.getDataFim());
+		Assert.assertEquals(bannerEntity.getProperty(BannerFields.usuario.name()), banner.getUsuario());
+		Assert.assertEquals(bannerEntity.getProperty(BannerFields.dataAtualizacao.name()),
 				banner.getDataDeAtualizacao());
 	}
 
@@ -38,14 +38,14 @@ public class BannerTest extends TesteIntegracaoBase {
 		Banner banner = new Banner("titulo", "link", dataAtual, dataAtual, "usuario");
 		Entity bannerEntity = banner.toEntity();
 
-		Assert.assertEquals(banner.getId(), bannerEntity.getProperty(BannerFields.id.toString()));
-		Assert.assertEquals(banner.getTitulo(), bannerEntity.getProperty(BannerFields.titulo.toString()));
-		Assert.assertEquals(banner.getLink(), bannerEntity.getProperty(BannerFields.link.toString()));
-		Assert.assertEquals(banner.getDataInicio(), bannerEntity.getProperty(BannerFields.dataInicio.toString()));
-		Assert.assertEquals(banner.getDataFim(), bannerEntity.getProperty(BannerFields.dataFim.toString()));
-		Assert.assertEquals(banner.getUsuario(), bannerEntity.getProperty(BannerFields.usuario.toString()));
+		Assert.assertEquals(banner.getId(), bannerEntity.getProperty(BannerFields.id.name()));
+		Assert.assertEquals(banner.getTitulo(), bannerEntity.getProperty(BannerFields.titulo.name()));
+		Assert.assertEquals(banner.getLink(), bannerEntity.getProperty(BannerFields.link.name()));
+		Assert.assertEquals(banner.getDataInicio(), bannerEntity.getProperty(BannerFields.dataInicio.name()));
+		Assert.assertEquals(banner.getDataFim(), bannerEntity.getProperty(BannerFields.dataFim.name()));
+		Assert.assertEquals(banner.getUsuario(), bannerEntity.getProperty(BannerFields.usuario.name()));
 		Assert.assertEquals(banner.getDataDeAtualizacao(),
-				bannerEntity.getProperty(BannerFields.dataAtualizacao.toString()));
+				bannerEntity.getProperty(BannerFields.dataAtualizacao.name()));
 	}
 
 	@Test

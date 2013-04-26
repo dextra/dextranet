@@ -27,7 +27,7 @@ public class UsuarioRepository extends EntidadeRepository {
 	}
 
 	public List<Usuario> lista() {
-		EntidadeOrdenacao ordenacaoPorUsername = new EntidadeOrdenacao(UsuarioFields.username.toString(),
+		EntidadeOrdenacao ordenacaoPorUsername = new EntidadeOrdenacao(UsuarioFields.username.name(),
 				SortDirection.ASCENDING);
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 
@@ -41,7 +41,7 @@ public class UsuarioRepository extends EntidadeRepository {
 
 	public Usuario obtemPorUsername(String username) {
 		Query query = new Query(Usuario.class.getName());
-		query.setFilter(new FilterPredicate(UsuarioFields.username.toString(), FilterOperator.EQUAL, username));
+		query.setFilter(new FilterPredicate(UsuarioFields.username.name(), FilterOperator.EQUAL, username));
 
 		PreparedQuery pquery = this.datastore.prepare(query);
 

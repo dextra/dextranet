@@ -45,15 +45,15 @@ public class Banner extends Entidade {
 	}
 
 	public Banner(Entity bannerEntity) {
-		this.id = (String) bannerEntity.getProperty(BannerFields.id.toString());
-		this.titulo = (String) bannerEntity.getProperty(BannerFields.titulo.toString());
-		this.link = (String) bannerEntity.getProperty(BannerFields.link.toString());
-		this.dataInicio = (Date) bannerEntity.getProperty(BannerFields.dataInicio.toString());
-		this.dataFim = (Date) bannerEntity.getProperty(BannerFields.dataFim.toString());
-		this.usuario = (String) bannerEntity.getProperty(BannerFields.usuario.toString());
-		this.dataDeAtualizacao = (Date) bannerEntity.getProperty(BannerFields.dataAtualizacao.toString());
-		this.imagem = (BlobKey) bannerEntity.getProperty(BannerFields.imagem.toString());
-		this.imagemUrl = (String) bannerEntity.getProperty(BannerFields.imagemUrl.toString());
+		this.id = (String) bannerEntity.getProperty(BannerFields.id.name());
+		this.titulo = (String) bannerEntity.getProperty(BannerFields.titulo.name());
+		this.link = (String) bannerEntity.getProperty(BannerFields.link.name());
+		this.dataInicio = (Date) bannerEntity.getProperty(BannerFields.dataInicio.name());
+		this.dataFim = (Date) bannerEntity.getProperty(BannerFields.dataFim.name());
+		this.usuario = (String) bannerEntity.getProperty(BannerFields.usuario.name());
+		this.dataDeAtualizacao = (Date) bannerEntity.getProperty(BannerFields.dataAtualizacao.name());
+		this.imagem = (BlobKey) bannerEntity.getProperty(BannerFields.imagem.name());
+		this.imagemUrl = (String) bannerEntity.getProperty(BannerFields.imagemUrl.name());
 	}
 
 	public void adicionaImagem(BlobKey imagem) {
@@ -104,15 +104,15 @@ public class Banner extends Entidade {
 	public Entity toEntity() {
 		Entity entidade = new Entity(this.getKey(this.getClass()));
 
-		entidade.setProperty(BannerFields.id.toString(), this.id);
-		entidade.setProperty(BannerFields.titulo.toString(), this.titulo);
-		entidade.setProperty(BannerFields.link.toString(), this.link);
-		entidade.setProperty(BannerFields.dataInicio.toString(), this.dataInicio);
-		entidade.setProperty(BannerFields.dataFim.toString(), this.dataFim);
-		entidade.setProperty(BannerFields.usuario.toString(), this.usuario);
-		entidade.setProperty(BannerFields.dataAtualizacao.toString(), this.dataDeAtualizacao);
-		entidade.setProperty(BannerFields.imagem.toString(), this.imagem);
-		entidade.setProperty(BannerFields.imagemUrl.toString(), this.imagemUrl);
+		entidade.setProperty(BannerFields.id.name(), this.id);
+		entidade.setProperty(BannerFields.titulo.name(), this.titulo);
+		entidade.setProperty(BannerFields.link.name(), this.link);
+		entidade.setProperty(BannerFields.dataInicio.name(), this.dataInicio);
+		entidade.setProperty(BannerFields.dataFim.name(), this.dataFim);
+		entidade.setProperty(BannerFields.usuario.name(), this.usuario);
+		entidade.setProperty(BannerFields.dataAtualizacao.name(), this.dataDeAtualizacao);
+		entidade.setProperty(BannerFields.imagem.name(), this.imagem);
+		entidade.setProperty(BannerFields.imagemUrl.name(), this.imagemUrl);
 
 		return entidade;
 	}

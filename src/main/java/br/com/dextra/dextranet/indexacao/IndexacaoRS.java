@@ -23,7 +23,7 @@ public class IndexacaoRS {
 			@DefaultValue("0") @QueryParam(value = "page") String page) throws NumberFormatException,
 			EntityNotFoundException {
 
-		//return new PostRS().listarPosts(maxResults, q, page).toString();
+		//return new PostRS().listarPosts(maxResults, q, page).name();
 		return null;
 	}
 }

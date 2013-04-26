@@ -27,15 +27,15 @@ public class Post extends Conteudo {
 
 	@SuppressWarnings("unchecked")
 	public Post(Entity postEntity) {
-		super((String) postEntity.getProperty(PostFields.usuario.toString()));
-		this.id = (String) postEntity.getProperty(PostFields.id.toString());
-		this.titulo = (String) postEntity.getProperty(PostFields.titulo.toString());
-		this.conteudo = ( (Text) postEntity.getProperty(PostFields.conteudo.toString()) ).getValue();
-		this.quantidadeDeCurtidas = (Long) postEntity.getProperty(PostFields.quantidadeDeCurtidas.toString());
-		this.usuariosQueCurtiram = (List<String>) postEntity.getProperty(PostFields.usuariosQueCurtiram.toString());
-		this.quantidadeDeComentarios = (Long) postEntity.getProperty(PostFields.quantidadeDeComentarios.toString());
-		this.dataDeCriacao = (Date) postEntity.getProperty(PostFields.dataDeCriacao.toString());
-		this.dataDeAtualizacao = (Date) postEntity.getProperty(PostFields.dataDeAtualizacao.toString());
+		super((String) postEntity.getProperty(PostFields.usuario.name()));
+		this.id = (String) postEntity.getProperty(PostFields.id.name());
+		this.titulo = (String) postEntity.getProperty(PostFields.titulo.name());
+		this.conteudo = ( (Text) postEntity.getProperty(PostFields.conteudo.name()) ).getValue();
+		this.quantidadeDeCurtidas = (Long) postEntity.getProperty(PostFields.quantidadeDeCurtidas.name());
+		this.usuariosQueCurtiram = (List<String>) postEntity.getProperty(PostFields.usuariosQueCurtiram.name());
+		this.quantidadeDeComentarios = (Long) postEntity.getProperty(PostFields.quantidadeDeComentarios.name());
+		this.dataDeCriacao = (Date) postEntity.getProperty(PostFields.dataDeCriacao.name());
+		this.dataDeAtualizacao = (Date) postEntity.getProperty(PostFields.dataDeAtualizacao.name());
 	}
 
 	public Post preenche(String titulo, String conteudo) {
@@ -69,16 +69,16 @@ public class Post extends Conteudo {
 	public Entity toEntity() {
 		Entity entidade = new Entity(this.getKey(this.getClass()));
 
-		entidade.setProperty(PostFields.id.toString(), this.id);
-		entidade.setProperty(PostFields.titulo.toString(), this.titulo);
-		entidade.setProperty(PostFields.conteudo.toString(), new Text(this.conteudo));
-		entidade.setProperty(PostFields.quantidadeDeCurtidas.toString(), this.quantidadeDeCurtidas);
-		entidade.setProperty(PostFields.usuariosQueCurtiram.toString(), this.usuariosQueCurtiram);
-		entidade.setProperty(PostFields.quantidadeDeComentarios.toString(), this.quantidadeDeComentarios);
-		entidade.setProperty(PostFields.usuario.toString(), this.usuario);
-		entidade.setProperty(PostFields.usuarioMD5.toString(), this.usuarioMD5);
-		entidade.setProperty(PostFields.dataDeCriacao.toString(), this.dataDeCriacao);
-		entidade.setProperty(PostFields.dataDeAtualizacao.toString(), this.dataDeAtualizacao);
+		entidade.setProperty(PostFields.id.name(), this.id);
+		entidade.setProperty(PostFields.titulo.name(), this.titulo);
+		entidade.setProperty(PostFields.conteudo.name(), new Text(this.conteudo));
+		entidade.setProperty(PostFields.quantidadeDeCurtidas.name(), this.quantidadeDeCurtidas);
+		entidade.setProperty(PostFields.usuariosQueCurtiram.name(), this.usuariosQueCurtiram);
+		entidade.setProperty(PostFields.quantidadeDeComentarios.name(), this.quantidadeDeComentarios);
+		entidade.setProperty(PostFields.usuario.name(), this.usuario);
+		entidade.setProperty(PostFields.usuarioMD5.name(), this.usuarioMD5);
+		entidade.setProperty(PostFields.dataDeCriacao.name(), this.dataDeCriacao);
+		entidade.setProperty(PostFields.dataDeAtualizacao.name(), this.dataDeAtualizacao);
 
 		return entidade;
 	}
