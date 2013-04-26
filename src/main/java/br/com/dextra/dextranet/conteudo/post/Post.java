@@ -32,7 +32,7 @@ public class Post extends Conteudo {
 		super((String) postEntity.getProperty(PostFields.usuario.name()));
 		this.id = (String) postEntity.getProperty(PostFields.id.name());
 		this.titulo = (String) postEntity.getProperty(PostFields.titulo.name());
-		this.conteudo = ( (Text) postEntity.getProperty(PostFields.conteudo.name()) ).getValue();
+		this.conteudo = ((Text) postEntity.getProperty(PostFields.conteudo.name())).getValue();
 		this.quantidadeDeCurtidas = (Long) postEntity.getProperty(PostFields.quantidadeDeCurtidas.name());
 		this.usuariosQueCurtiram = (List<String>) postEntity.getProperty(PostFields.usuariosQueCurtiram.name());
 		this.quantidadeDeComentarios = (Long) postEntity.getProperty(PostFields.quantidadeDeComentarios.name());

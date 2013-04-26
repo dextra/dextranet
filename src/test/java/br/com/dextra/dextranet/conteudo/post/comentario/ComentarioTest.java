@@ -19,10 +19,12 @@ public class ComentarioTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testaConstrutor() {
-		Comentario novoComentario = new Comentario("post-id", "dextranet", "<script>alert('Hello!');</script><h1>conteudo</h1>");
+		Comentario novoComentario = new Comentario("post-id", "dextranet",
+				"<script>alert('Hello!');</script><h1>conteudo</h1>");
 		Assert.assertEquals("39566cf6ac41da40deb7c6452a9ed94b", novoComentario.getUsuarioMD5());
 		Assert.assertEquals(0, novoComentario.getQuantidadeDeCurtidas());
-		Assert.assertEquals(timeMachine.formataData(timeMachine.dataAtual()), timeMachine.formataData(novoComentario.getDataDeCriacao()));
+		Assert.assertEquals(timeMachine.formataData(timeMachine.dataAtual()),
+				timeMachine.formataData(novoComentario.getDataDeCriacao()));
 		Assert.assertEquals("post-id", novoComentario.getPostId());
 		Assert.assertEquals("<h1>conteudo</h1>", novoComentario.getConteudo());
 	}
@@ -35,12 +37,17 @@ public class ComentarioTest extends TesteIntegracaoBase {
 		Comentario comentario = new Comentario(comentarioEntity);
 
 		Assert.assertEquals(comentarioEntity.getProperty(ComentarioFields.id.name()), comentario.getId());
-		Assert.assertEquals(((Text) comentarioEntity.getProperty(ComentarioFields.conteudo.name())).getValue(), comentario.getConteudo());
-		Assert.assertEquals(comentarioEntity.getProperty(ComentarioFields.quantidadeDeCurtidas.name()), comentario.getQuantidadeDeCurtidas());
+		Assert.assertEquals(((Text) comentarioEntity.getProperty(ComentarioFields.conteudo.name())).getValue(),
+				comentario.getConteudo());
+		Assert.assertEquals(comentarioEntity.getProperty(ComentarioFields.quantidadeDeCurtidas.name()),
+				comentario.getQuantidadeDeCurtidas());
 		Assert.assertEquals(comentarioEntity.getProperty(ComentarioFields.usuario.name()), comentario.getUsuario());
-		Assert.assertEquals(comentarioEntity.getProperty(ComentarioFields.usuariosQueCurtiram.name()), comentario.getUsuariosQueCurtiram());
-		Assert.assertEquals(comentarioEntity.getProperty(ComentarioFields.usuarioMD5.name()), comentario.getUsuarioMD5());
-		Assert.assertEquals(comentarioEntity.getProperty(ComentarioFields.dataDeCriacao.name()), comentario.getDataDeCriacao());
+		Assert.assertEquals(comentarioEntity.getProperty(ComentarioFields.usuariosQueCurtiram.name()),
+				comentario.getUsuariosQueCurtiram());
+		Assert.assertEquals(comentarioEntity.getProperty(ComentarioFields.usuarioMD5.name()),
+				comentario.getUsuarioMD5());
+		Assert.assertEquals(comentarioEntity.getProperty(ComentarioFields.dataDeCriacao.name()),
+				comentario.getDataDeCriacao());
 		Assert.assertEquals(comentarioEntity.getProperty(ComentarioFields.postId.name()), comentario.getPostId());
 	}
 
@@ -51,12 +58,17 @@ public class ComentarioTest extends TesteIntegracaoBase {
 		Entity comentarioEntity = comentario.toEntity();
 
 		Assert.assertEquals(comentario.getId(), comentarioEntity.getProperty(ComentarioFields.id.name()));
-		Assert.assertEquals(comentario.getConteudo(), ((Text) comentarioEntity.getProperty(ComentarioFields.conteudo.name())).getValue());
-		Assert.assertEquals(comentario.getQuantidadeDeCurtidas(), comentarioEntity.getProperty(ComentarioFields.quantidadeDeCurtidas.name()));
+		Assert.assertEquals(comentario.getConteudo(),
+				((Text) comentarioEntity.getProperty(ComentarioFields.conteudo.name())).getValue());
+		Assert.assertEquals(comentario.getQuantidadeDeCurtidas(),
+				comentarioEntity.getProperty(ComentarioFields.quantidadeDeCurtidas.name()));
 		Assert.assertEquals(comentario.getUsuario(), comentarioEntity.getProperty(ComentarioFields.usuario.name()));
-		Assert.assertEquals(comentario.getUsuariosQueCurtiram(), comentarioEntity.getProperty(ComentarioFields.usuariosQueCurtiram.name()));
-		Assert.assertEquals(comentario.getUsuarioMD5(), comentarioEntity.getProperty(ComentarioFields.usuarioMD5.name()));
-		Assert.assertEquals(comentario.getDataDeCriacao(), comentarioEntity.getProperty(ComentarioFields.dataDeCriacao.name()));
+		Assert.assertEquals(comentario.getUsuariosQueCurtiram(),
+				comentarioEntity.getProperty(ComentarioFields.usuariosQueCurtiram.name()));
+		Assert.assertEquals(comentario.getUsuarioMD5(),
+				comentarioEntity.getProperty(ComentarioFields.usuarioMD5.name()));
+		Assert.assertEquals(comentario.getDataDeCriacao(),
+				comentarioEntity.getProperty(ComentarioFields.dataDeCriacao.name()));
 		Assert.assertEquals(comentario.getPostId(), comentarioEntity.getProperty(ComentarioFields.postId.name()));
 	}
 

@@ -7,6 +7,7 @@ import org.owasp.validator.html.AntiSamy;
 import org.owasp.validator.html.Policy;
 import org.owasp.validator.html.PolicyException;
 import org.owasp.validator.html.ScanException;
+
 public class ConteudoHTML {
 
 	private String conteudo;

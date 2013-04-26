@@ -116,16 +116,16 @@ public class Usuario extends Entidade {
 
 		conteudoHTML.setConteudo(area);
 		this.area = conteudoHTML.removeJavaScript();
-		
+
 		conteudoHTML.setConteudo(unidade);
 		this.unidade = conteudoHTML.removeJavaScript();
-		
+
 		conteudoHTML.setConteudo(ramal);
 		this.ramal = conteudoHTML.removeJavaScript();
-		
+
 		conteudoHTML.setConteudo(telefoneResidencial);
 		this.telefoneResidencial = conteudoHTML.removeJavaScript();
-		
+
 		conteudoHTML.setConteudo(telefoneCelular);
 		this.telefoneCelular = conteudoHTML.removeJavaScript();
 

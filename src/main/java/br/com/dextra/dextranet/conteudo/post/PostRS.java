@@ -61,8 +61,7 @@ public class PostRS {
 	@Produces(Application.JSON_UTF8)
 	public Response curtir(@PathParam("postId") String postId) throws EntityNotFoundException {
 		Post post = repositorioDePosts.obtemPorId(postId);
-		String usuarioLogado = obtemUsuarioLogado();
-		Curtida curtida = post.curtir(usuarioLogado);
+		Curtida curtida = post.curtir(this.obtemUsuarioLogado());
 
 		if (curtida != null) {
 			repositorioDeCurtidas.persiste(curtida);

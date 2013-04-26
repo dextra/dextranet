@@ -47,16 +47,8 @@ public class ComentarioRS {
 	@GET
 	@Produces(Application.JSON_UTF8)
 	public Response listarComentarios(@PathParam("postId") String postId) throws EntityNotFoundException {
-		// TODO
-		throw new UnsupportedOperationException();
-	}
-
-	@Path("/{postId}/comentario")
-	@DELETE
-	@Produces(Application.JSON_UTF8)
-	public Response descomentar(@PathParam("postId") String postId) throws EntityNotFoundException {
-		// TODO
-		throw new UnsupportedOperationException();
+		List<Comentario> comentarios = repositorioDeComentarios.listaPorPost(postId);
+		return Response.ok().entity(comentarios).build();
 	}
 
 	@Path("/{postId}/comentario/{comentarioId}/curtida")
@@ -64,8 +56,16 @@ public class ComentarioRS {
 	@Produces(Application.JSON_UTF8)
 	public Response curtir(@PathParam("postId") String postId, @PathParam("comentarioId") String comentarioId)
 			throws EntityNotFoundException {
-		// TODO
-		throw new UnsupportedOperationException();
+		Comentario comentario = repositorioDeComentarios.obtemPorId(comentarioId);
+		Curtida curtida = comentario.curtir(this.obtemUsuarioLogado());
+
+		if (curtida != null) {
+			repositorioDeCurtidas.persiste(curtida);
+		}
+
+		repositorioDeComentarios.persiste(comentario);
+
+		return Response.ok().entity(comentario).build();
 	}
 
 	@Path("/{postId}/comentario/{comentarioId}/curtida")
@@ -73,8 +73,13 @@ public class ComentarioRS {
 	@Produces(Application.JSON_UTF8)
 	public Response descurtir(@PathParam("postId") String postId, @PathParam("comentarioId") String comentarioId)
 			throws EntityNotFoundException {
-		// TODO
-		throw new UnsupportedOperationException();
+		Comentario comentario = repositorioDeComentarios.obtemPorId(comentarioId);
+		comentario.descurtir(this.obtemUsuarioLogado());
+
+		repositorioDeCurtidas.remove(comentarioId, obtemUsuarioLogado());
+		repositorioDeComentarios.persiste(comentario);
+
+		return Response.ok().entity(comentario).build();
 	}
 
 	@Path("/{postId}/comentario/{comentarioId}/curtida")

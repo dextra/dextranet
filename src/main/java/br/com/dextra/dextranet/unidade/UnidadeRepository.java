@@ -22,8 +22,7 @@ public class UnidadeRepository extends EntidadeRepository {
 	}
 
 	public List<Unidade> lista() {
-		EntidadeOrdenacao ordenacaoPorNome = new EntidadeOrdenacao(UnidadeFields.nome.name(),
-				SortDirection.ASCENDING);
+		EntidadeOrdenacao ordenacaoPorNome = new EntidadeOrdenacao(UnidadeFields.nome.name(), SortDirection.ASCENDING);
 		List<Unidade> unidades = new ArrayList<Unidade>();
 
 		Iterable<Entity> entidades = super.lista(Unidade.class, ordenacaoPorNome);

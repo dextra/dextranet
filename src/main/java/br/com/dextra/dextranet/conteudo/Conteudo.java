@@ -59,7 +59,7 @@ public abstract class Conteudo extends Entidade {
 	public Curtida curtir(String username) {
 		Curtida curtida = null;
 
-		if (! this.usuarioJaCurtiu(username)) {
+		if (!this.usuarioJaCurtiu(username)) {
 			this.quantidadeDeCurtidas++;
 			this.usuariosQueCurtiram.add(username);
 			curtida = new Curtida(this.getId(), username);

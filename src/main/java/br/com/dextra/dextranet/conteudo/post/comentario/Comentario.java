@@ -24,7 +24,7 @@ public class Comentario extends Conteudo {
 	public Comentario(Entity entity) {
 		super((String) entity.getProperty(ComentarioFields.usuario.name()));
 		this.id = (String) entity.getProperty(ComentarioFields.id.name());
-		this.conteudo = ( (Text) entity.getProperty(ComentarioFields.conteudo.name()) ).getValue();
+		this.conteudo = ((Text) entity.getProperty(ComentarioFields.conteudo.name())).getValue();
 		this.quantidadeDeCurtidas = (Long) entity.getProperty(ComentarioFields.quantidadeDeCurtidas.name());
 		this.usuariosQueCurtiram = (List<String>) entity.getProperty(ComentarioFields.usuariosQueCurtiram.name());
 		this.dataDeCriacao = (Date) entity.getProperty(ComentarioFields.dataDeCriacao.name());

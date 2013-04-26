@@ -21,8 +21,9 @@ public class CurtidaTest extends TesteIntegracaoBase {
 		Assert.assertEquals("post", curtida.getConteudoId());
 		Assert.assertEquals("dextranet", curtida.getUsuario());
 		Assert.assertEquals("39566cf6ac41da40deb7c6452a9ed94b", curtida.getUsuarioMD5());
-		Assert.assertEquals(timeMachine.formataData(timeMachine.dataAtual()), timeMachine.formataData(curtida.getData()));
-		
+		Assert.assertEquals(timeMachine.formataData(timeMachine.dataAtual()),
+				timeMachine.formataData(curtida.getData()));
+
 	}
 
 	@Test

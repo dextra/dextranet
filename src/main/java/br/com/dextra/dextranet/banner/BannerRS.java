@@ -111,8 +111,7 @@ public class BannerRS {
 	protected List<Banner> listarBannersVigentesOrdenados(int quantidadeMaxima) {
 		EntidadeOrdenacao dataInicioCrescente = new EntidadeOrdenacao(BannerFields.dataInicio.name(),
 				SortDirection.ASCENDING);
-		EntidadeOrdenacao dataFimCrescente = new EntidadeOrdenacao(BannerFields.dataFim.name(),
-				SortDirection.ASCENDING);
+		EntidadeOrdenacao dataFimCrescente = new EntidadeOrdenacao(BannerFields.dataFim.name(), SortDirection.ASCENDING);
 
 		List<Banner> banners = repositorio.lista(dataInicioCrescente, dataFimCrescente);
 

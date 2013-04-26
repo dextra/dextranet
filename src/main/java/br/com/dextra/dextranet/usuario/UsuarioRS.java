@@ -75,7 +75,7 @@ public class UsuarioRS {
 	@Produces(Application.JSON_UTF8)
 	public Response urlDeLogout() {
 		UserService userService = UserServiceFactory.getUserService();
-		
+
 		JsonObject json = new JsonObject();
 		json.addProperty("url", userService.createLogoutURL("/index.html"));
 
