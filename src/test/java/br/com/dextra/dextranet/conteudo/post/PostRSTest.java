@@ -54,19 +54,30 @@ public class PostRSTest extends TesteIntegracaoBase {
 	public void testaCurtir() throws EntityNotFoundException {
 		Post post = new Post("usuario", "titulo 01", "conteudo 01");
 		repositorioDePosts.persiste(post);
+		Assert.assertEquals(0, post.getQuantidadeDeCurtidas());
 
 		rest.curtir(post.getId());
 
 		List<Curtida> curtidas = repositorioDeCurtidas.listaPorConteudo(post.getId());
 		Assert.assertEquals(1, curtidas.size());
 		Assert.assertEquals(usuarioLogado, curtidas.get(0).getUsuario());
+
+		post = repositorioDePosts.obtemPorId(post.getId());
+		Assert.assertEquals(1, post.getQuantidadeDeCurtidas());
+		Assert.assertTrue(post.getUsuariosQueCurtiram().contains(usuarioLogado));
 	}
 
 	@Test
 	public void testaDescurtir() throws EntityNotFoundException {
 		Post post = new Post("usuario", "titulo 01", "conteudo 01");
-		post.curtir(usuarioLogado);
 		repositorioDePosts.persiste(post);
+
+		rest.curtir(post.getId());
+
+		rest.descurtir(post.getId());
+		post = repositorioDePosts.obtemPorId(post.getId());
+		Assert.assertEquals(0, post.getQuantidadeDeCurtidas());
+		Assert.assertFalse(post.getUsuariosQueCurtiram().contains(usuarioLogado));
 
 		try {
 			rest.descurtir(post.getId());

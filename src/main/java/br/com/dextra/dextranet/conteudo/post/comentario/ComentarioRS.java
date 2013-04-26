@@ -11,6 +11,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
+import br.com.dextra.dextranet.conteudo.post.Post;
 import br.com.dextra.dextranet.conteudo.post.PostRepository;
 import br.com.dextra.dextranet.conteudo.post.curtida.Curtida;
 import br.com.dextra.dextranet.conteudo.post.curtida.CurtidaRepository;
@@ -24,6 +25,8 @@ public class ComentarioRS {
 
 	private PostRepository repositorioDePosts = new PostRepository();
 
+	private ComentarioRepository repositorioDeComentarios = new ComentarioRepository();
+
 	private CurtidaRepository repositorioDeCurtidas = new CurtidaRepository();
 
 	@Path("/{postId}/comentario")
@@ -31,8 +34,13 @@ public class ComentarioRS {
 	@Produces(Application.JSON_UTF8)
 	public Response comentar(@PathParam("postId") String postId, @FormParam("conteudo") String conteudo)
 			throws EntityNotFoundException {
-		repositorioDePosts.obtemPorId(postId);
-		return null;
+		Post post = repositorioDePosts.obtemPorId(postId);
+		Comentario comentario = post.comentar(this.obtemUsuarioLogado(), conteudo);
+
+		repositorioDePosts.persiste(post);
+		repositorioDeCurtidas.persiste(comentario);
+
+		return Response.ok().entity(post).build();
 	}
 
 	@Path("/{postId}/comentario")

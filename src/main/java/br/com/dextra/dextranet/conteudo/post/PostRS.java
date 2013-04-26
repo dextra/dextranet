@@ -68,6 +68,8 @@ public class PostRS {
 			repositorioDeCurtidas.persiste(curtida);
 		}
 
+		repositorioDePosts.persiste(post);
+
 		return Response.ok().entity(post).build();
 	}
 
@@ -80,6 +82,7 @@ public class PostRS {
 
 		post.descurtir(usuarioLogado);
 		repositorioDeCurtidas.remove(post.getId(), usuarioLogado);
+		repositorioDePosts.persiste(post);
 
 		return Response.ok().entity(post).build();
 	}
