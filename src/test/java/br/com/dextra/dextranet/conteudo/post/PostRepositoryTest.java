@@ -27,7 +27,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testaRemocao() {
-		Post novoPost = new Post("usuario").preenche("titulo", "conteudo");
+		Post novoPost = new Post("usuario", "titulo", "conteudo");
 
 		Post postCriado = repositorio.persiste(novoPost);
 		postCriado.curtir("dextranet");
@@ -52,28 +52,22 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		EntidadeOrdenacao dataAtualizacaoDescentente = new EntidadeOrdenacao(PostFields.dataDeAtualizacao.name(),
 				SortDirection.DESCENDING);
 
-		Post post01 = new Post("dextranet");
-		post01.preenche("titulo 01", "conteudo 01");
+		Post post01 = new Post("dextranet", "titulo 01", "conteudo 01");
 		repositorio.persiste(post01);
 
-		Post post02 = new Post("usuario");
-		post02.preenche("titulo 02", "conteudo 02");
+		Post post02 = new Post("usuario", "titulo 02", "conteudo 02");
 		repositorio.persiste(post02);
 
-		Post post03 = new Post("dextranet");
-		post03.preenche("titulo 03", "conteudo 03");
+		Post post03 = new Post("dextranet", "titulo 03", "conteudo 03");
 		repositorio.persiste(post03);
 
-		Post post04 = new Post("outro-usuario");
-		post04.preenche("titulo 04", "conteudo 04");
+		Post post04 = new Post("outro-usuario", "titulo 04", "conteudo 04");
 		repositorio.persiste(post04);
 
-		Post post05 = new Post("usuario");
-		post05.preenche("titulo 05", "conteudo 05");
+		Post post05 = new Post("usuario", "titulo 05", "conteudo 05");
 		repositorio.persiste(post05);
 
-		Post post06 = new Post("usuario");
-		post06.preenche("titulo 06", "conteudo 06");
+		Post post06 = new Post("usuario", "titulo 06", "conteudo 06");
 		repositorio.persiste(post06);
 
 		List<Post> postsPagina01 = repositorio.lista(registrosPorPagina, pagina1, dataAtualizacaoDescentente);

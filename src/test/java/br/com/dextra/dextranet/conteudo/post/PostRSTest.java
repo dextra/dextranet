@@ -39,11 +39,8 @@ public class PostRSTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testaListarTodosOrdenados() {
-		Post post01 = new Post("usuario");
-		post01.preenche("titulo 01", "conteudo 01");
-
-		Post post02 = new Post("usuario");
-		post02.preenche("titulo 02", "conteudo 02");
+		Post post01 = new Post("usuario", "titulo 01", "conteudo 01");
+		Post post02 = new Post("usuario", "titulo 02", "conteudo 02");
 
 		repositorioDePosts.persiste(post01);
 		repositorioDePosts.persiste(post02);
@@ -55,8 +52,7 @@ public class PostRSTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testaCurtir() throws EntityNotFoundException {
-		Post post = new Post("usuario");
-		post.preenche("titulo 01", "conteudo 01");
+		Post post = new Post("usuario", "titulo 01", "conteudo 01");
 		repositorioDePosts.persiste(post);
 
 		rest.curtir(post.getId());
@@ -68,8 +64,7 @@ public class PostRSTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testaDescurtir() throws EntityNotFoundException {
-		Post post = new Post("usuario");
-		post.preenche("titulo 01", "conteudo 01");
+		Post post = new Post("usuario", "titulo 01", "conteudo 01");
 		post.curtir(usuarioLogado);
 		repositorioDePosts.persiste(post);
 

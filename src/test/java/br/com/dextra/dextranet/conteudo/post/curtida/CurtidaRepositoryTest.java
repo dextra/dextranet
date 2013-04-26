@@ -21,7 +21,7 @@ public class CurtidaRepositoryTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testaRemocao() {
-		Post novoPost = new Post("usuario").preenche("titulo", "conteudo");
+		Post novoPost = new Post("usuario", "titulo", "conteudo");
 		Curtida curtida = novoPost.curtir("dextranet");
 
 		Curtida curtidaCriada = repositorioDeCurtidas.persiste(curtida);
@@ -39,7 +39,7 @@ public class CurtidaRepositoryTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testaRemocaoPorConteudoId() {
-		Post novoPost = new Post("usuario").preenche("titulo", "conteudo");
+		Post novoPost = new Post("usuario", "titulo", "conteudo");
 		Curtida curtida = novoPost.curtir("dextranet");
 
 		Curtida curtidaCriada = repositorioDeCurtidas.persiste(curtida);
@@ -67,11 +67,11 @@ public class CurtidaRepositoryTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testaListaPorConteudo() {
-		Post post01 = new Post("usuario").preenche("titulo 01", "conteudo 01");
+		Post post01 = new Post("usuario", "titulo 01", "conteudo 01");
 		Curtida curtida01 = post01.curtir("dextranet");
 		Curtida curtida02 = post01.curtir("outro-usuario");
 
-		Post post02 = new Post("dextranet").preenche("titulo 02", "conteudo 02");
+		Post post02 = new Post("dextranet", "titulo 02", "conteudo 02");
 		Curtida curtida03 = post02.curtir("usuario");
 		Curtida curtida04 = post02.curtir("outro-usuario");
 

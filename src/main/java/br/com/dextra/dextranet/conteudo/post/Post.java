@@ -20,10 +20,11 @@ public class Post extends Conteudo {
 
 	private Date dataDeAtualizacao;
 
-	public Post(String usuario) {
+	public Post(String usuario, String titulo, String conteudo) {
 		super(usuario);
 		this.dataDeAtualizacao = new TimeMachine().dataAtual();
 		this.quantidadeDeComentarios = 0;
+		this.preenche(titulo, conteudo);
 	}
 
 	@SuppressWarnings("unchecked")
