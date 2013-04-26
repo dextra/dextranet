@@ -84,7 +84,7 @@ public class PostRS {
 		String usuarioLogado = AutenticacaoService.identificacaoDoUsuarioLogado();
 
 		post.descurtir(usuarioLogado);
-		// TODO: remover
+		repositorioDeCurtidas.remove(post.getId(), usuarioLogado);
 
 		return Response.ok().entity(post).build();
 	}
@@ -93,8 +93,8 @@ public class PostRS {
 	@GET
 	@Produces(Application.JSON_UTF8)
 	public Response listarCurtidas(@PathParam("postId") String postId) throws EntityNotFoundException {
-		// TODO
-		throw new UnsupportedOperationException();
+		List<Curtida> curtidas = repositorioDeCurtidas.listaPorConteudo(postId);
+		return Response.ok().entity(curtidas).build();
 	}
 
 	protected List<Post> listarPostsOrdenados(Integer registrosPorPagina, Integer pagina) {
