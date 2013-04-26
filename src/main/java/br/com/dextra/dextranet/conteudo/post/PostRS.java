@@ -13,7 +13,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-import br.com.dextra.dextranet.conteudo.post.comentario.ComentarioRepository;
 import br.com.dextra.dextranet.conteudo.post.curtida.Curtida;
 import br.com.dextra.dextranet.conteudo.post.curtida.CurtidaRepository;
 import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
@@ -28,15 +27,13 @@ public class PostRS {
 
 	private PostRepository repositorioDePosts = new PostRepository();
 
-	private ComentarioRepository repositorioDeComentarios = new ComentarioRepository();
-
 	private CurtidaRepository repositorioDeCurtidas = new CurtidaRepository();
 
 	@Path("/")
 	@POST
 	@Produces(Application.JSON_UTF8)
 	public Response inserir(@FormParam("titulo") String titulo, @FormParam("conteudo") String conteudo) {
-		Post post = new Post(AutenticacaoService.identificacaoDoUsuarioLogado());
+		Post post = new Post(obtemUsuarioLogado());
 		post.preenche(titulo, conteudo);
 
 		repositorioDePosts.persiste(post);
@@ -66,7 +63,7 @@ public class PostRS {
 	@Produces(Application.JSON_UTF8)
 	public Response curtir(@PathParam("postId") String postId) throws EntityNotFoundException {
 		Post post = repositorioDePosts.obtemPorId(postId);
-		String usuarioLogado = AutenticacaoService.identificacaoDoUsuarioLogado();
+		String usuarioLogado = obtemUsuarioLogado();
 		Curtida curtida = post.curtir(usuarioLogado);
 
 		if (curtida != null) {
@@ -81,7 +78,7 @@ public class PostRS {
 	@Produces(Application.JSON_UTF8)
 	public Response descurtir(@PathParam("postId") String postId) throws EntityNotFoundException {
 		Post post = repositorioDePosts.obtemPorId(postId);
-		String usuarioLogado = AutenticacaoService.identificacaoDoUsuarioLogado();
+		String usuarioLogado = obtemUsuarioLogado();
 
 		post.descurtir(usuarioLogado);
 		repositorioDeCurtidas.remove(post.getId(), usuarioLogado);
@@ -103,6 +100,10 @@ public class PostRS {
 
 		List<Post> posts = repositorioDePosts.lista(registrosPorPagina, pagina, dataDeAtualizacaoDecrescente);
 		return posts;
+	}
+
+	protected String obtemUsuarioLogado() {
+		return AutenticacaoService.identificacaoDoUsuarioLogado();
 	}
 
 }

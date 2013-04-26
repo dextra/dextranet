@@ -1,5 +1,6 @@
 package br.com.dextra.dextranet.conteudo.post.comentario;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +29,10 @@ public class Comentario extends Conteudo {
 		this.usuariosQueCurtiram = (List<String>) entity.getProperty(ComentarioFields.usuariosQueCurtiram.name());
 		this.dataDeCriacao = (Date) entity.getProperty(ComentarioFields.dataDeCriacao.name());
 		this.postId = (String) entity.getProperty(ComentarioFields.postId.name());
+
+		if (this.usuariosQueCurtiram == null) {
+			this.usuariosQueCurtiram = new ArrayList<String>();
+		}
 	}
 
 	public String getPostId() {

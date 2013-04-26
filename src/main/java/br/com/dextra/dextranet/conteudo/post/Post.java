@@ -1,5 +1,6 @@
 package br.com.dextra.dextranet.conteudo.post;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,6 +37,10 @@ public class Post extends Conteudo {
 		this.quantidadeDeComentarios = (Long) postEntity.getProperty(PostFields.quantidadeDeComentarios.name());
 		this.dataDeCriacao = (Date) postEntity.getProperty(PostFields.dataDeCriacao.name());
 		this.dataDeAtualizacao = (Date) postEntity.getProperty(PostFields.dataDeAtualizacao.name());
+
+		if (this.usuariosQueCurtiram == null) {
+			this.usuariosQueCurtiram = new ArrayList<String>();
+		}
 	}
 
 	public Post preenche(String titulo, String conteudo) {
