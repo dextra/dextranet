@@ -4,86 +4,87 @@
 
 		<h1>${messages.usuario_edicao_titulo}</h1>
 
-		<div class="avatar-frame">
-			<img src="${gravatar}${usuario.md5}?s=100" alt="Avatar" />
-		</div>
+		<div class="clearfix">
+		
+			<div class="avatar-frame avatar-frame-float">
+				<img src="${gravatar}${usuario.md5}?s=100" alt="Avatar" />
+			</div>
 
-		<form id="frmPerfil" class="form-dark form-horizontal clearfix">
-			<dl>
-				<dt>
-					<label for="txtNome"><span class="input-obg"></span>${messages.usuario_nome}:</label>
-				</dt>
-				<dd>
-					<input type="text" id="txtNome" name="nome" value="${usuario.nome}" class="not-empty" maxlength="50" />
-				</dd>
-				<dt>
-					<label for="txtApelido">${messages.usuario_apelido}:</label>
-				</dt>
-				<dd>
-					<input type="text" id="txtApelido" name="apelido" value="${usuario.apelido}" original-title="${messages.usuario_apelido_tip}" maxlength="20" />
-				</dd>
-				<dt>
-					<label for="txtArea"><span class="input-obg"></span>${messages.usuario_area}:</label>
-				</dt>
-				<dd>
-					<select id="txtArea" name="area" class="not-empty">
-					    <option></option>
-                        {for area in areas}
-                            <option value="${area.nome}">${area.nome}</option>
-                        {/for}
-					</select>
-				</dd>
-				<dt>
-					<label for="txtUnidade"><span class="input-obg"></span>${messages.usuario_unidade}:</label>
-				</dt>
-				<dd>
-					<select id="txtUnidade" name="unidade" class="not-empty">
-                        <option></option>
-                        {for unidade in unidades}
-                            <option value="${unidade.nome}">${unidade.nome}</option>
-                        {/for}
-					</select>
-				</dd>
-			</dl>
-			<dl class="perfil-clear-left">
-				<dt>
-					<label for="txtRamal">${messages.usuario_ramal}:</label>
-				</dt>
-				<dd>
-					<input type="text" id="txtRamal" name="ramal" value="${usuario.ramal}" alt="ramal" />
-				</dd>
-				<dt>
-					<label for="txtSkype">${messages.usuario_skype}:</label>
-				</dt>
-				<dd>
-					<input type="text" id="txtSkype" name="skype" value="${usuario.skype}" maxlength="30" />
-				</dd>
-                <dt>
-                    <label for="txtGitHub">${messages.usuario_github}:</label>
-                </dt>
-                <dd>
-                    <input type="text" id="txtGitHub" name="gitHub" value="${usuario.gitHub}" original-title="${messages.usuario_github_tip}" maxlength="30" />
-                </dd>
-			</dl>
-			<dl class="perfil-clear-right">
-				<dt>
-					<label for="txtTelefoneResidencial">${messages.usuario_telefone_residencial}:</label>
-				</dt>
-				<dd>
-					<input type="text" id="txtTelefoneResidencial" name="telefoneResidencial" value="${usuario.telefoneResidencial}" alt="telefone" />
-				</dd>
-				<dt>
-					<label for="txtCelular"><span class="input-obg"></span>${messages.usuario_telefone_celular}:</label>
-				</dt>
-				<dd>
-					<input type="text" id="txtCelular" name="telefoneCelular" value="${usuario.telefoneCelular}" class="not-empty" alt="telefone" />
-				</dd>
-				<dt></dt>
-				<dd>
-					<button id="btnSalvar" class="btn btn-blue btn-block" type="button" >${messages.botao_salvar}</button>
-				</dd>
-			</dl>
-		</form>
+			<form id="frmPerfil" class="form-dark form-horizontal clearfix">
+				<dl>
+					<dt>
+						<label for="txtNome"><span class="input-obg"></span>${messages.usuario_nome}:</label>
+					</dt>
+					<dd>
+						<input type="text" id="txtNome" name="nome" value="${usuario.nome}" class="not-empty" maxlength="50" />
+					</dd>
+					<dt>
+						<label for="txtApelido">${messages.usuario_apelido}:</label>
+					</dt>
+					<dd>
+						<input type="text" id="txtApelido" name="apelido" value="${usuario.apelido}" original-title="${messages.usuario_apelido_tip}" maxlength="20" />
+					</dd>
+					<dt>
+						<label for="txtArea"><span class="input-obg"></span>${messages.usuario_area}:</label>
+					</dt>
+					<dd>
+						<select id="txtArea" name="area" class="not-empty">
+							<option></option>
+							{for area in areas}
+								<option value="${area.nome}">${area.nome}</option>
+							{/for}
+						</select>
+					</dd>
+					<dt>
+						<label for="txtUnidade"><span class="input-obg"></span>${messages.usuario_unidade}:</label>
+					</dt>
+					<dd>
+						<select id="txtUnidade" name="unidade" class="not-empty">
+							<option></option>
+							{for unidade in unidades}
+								<option value="${unidade.nome}">${unidade.nome}</option>
+							{/for}
+						</select>
+					</dd>
+					<dt>
+						<label for="txtRamal">${messages.usuario_ramal}:</label>
+					</dt>
+					<dd>
+						<input type="text" id="txtRamal" name="ramal" value="${usuario.ramal}" alt="ramal" />
+					</dd>
+					<dt>
+						<label for="txtSkype">${messages.usuario_skype}:</label>
+					</dt>
+					<dd>
+						<input type="text" id="txtSkype" name="skype" value="${usuario.skype}" maxlength="30" />
+					</dd>
+					<dt>
+						<label for="txtGitHub">${messages.usuario_github}:</label>
+					</dt>
+					<dd>
+						<input type="text" id="txtGitHub" name="gitHub" value="${usuario.gitHub}" original-title="${messages.usuario_github_tip}" maxlength="30" />
+					</dd>
+					<dt>
+						<label for="txtTelefoneResidencial">${messages.usuario_telefone_residencial}:</label>
+					</dt>
+					<dd>
+						<input type="text" id="txtTelefoneResidencial" name="telefoneResidencial" value="${usuario.telefoneResidencial}" alt="telefone" />
+					</dd>
+					<dt>
+						<label for="txtCelular"><span class="input-obg"></span>${messages.usuario_telefone_celular}:</label>
+					</dt>
+					<dd>
+						<input type="text" id="txtCelular" name="telefoneCelular" value="${usuario.telefoneCelular}" class="not-empty" alt="telefone" />
+					</dd>
+					<dt></dt>
+					<dd>
+						<button id="btnSalvar" class="btn btn-blue btn-block" type="button" >${messages.botao_salvar}</button>
+					</dd>
+				</dl>
+			</form>
+		
+		</div>
+		
 	</template>
 
     <script>

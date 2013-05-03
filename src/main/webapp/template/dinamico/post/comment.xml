@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<template selector="#list_comments_fromPost" append="true">
-	<br></br>
+	<br></br>aaaaa
 		<ul class="list_stories_comment" id="relacao_dos_comentarios">
 			{for comment in jsonArrayComment}
 			<li class="clearfix ${comment.postObjectJson.id}">

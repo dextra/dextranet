@@ -16,12 +16,12 @@ table{border-collapse:collapse;border-spacing:0;}
 input,textarea,select{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-khtml-box-sizing:border-box;}
 button{margin:0;background-color:transparent;}
 
-/*----------  PreparaÃ§Ã£o para layout elÃ¡stico  ----------*/
+/*----------  Elastic  ----------*/
 body,html{height:100%;}
 body{font-size:1em;position:relative;}
 html{font-size:100%;}
 
-/*----------  Ã�cones & Formas  ----------*/
+/*----------  Icons / Shapes  ----------*/
 [class^="icon_"]{display:inline-block;vertical-align:middle;width:16px;height:16px;background-image:url('../img/main-bundle.png');}
 
 .icon_header_logo{width:135px;height:23px;}
@@ -45,7 +45,7 @@ html{font-size:100%;}
 .icon_icon-trash{background-position:-210px -74px;width:14px;height:14px;margin-right:4px;vertical-align:-2px;}
 .icon_icon-edit{background-position:-210px -93px;width:14px;height:14px;margin-right:4px;vertical-align:-2px;}
 
-/*----------  CaracterÃ­sticas  ----------*/
+/*----------  Misc  ----------*/
 .clear{clear:both;}
 .clearfix:after{content:".";clear:both;display:block;height:0;visibility:hidden;}
 .hidden{display:none;}
@@ -74,7 +74,7 @@ html{font-size:100%;}
 
 .hyphenize{-moz-hyphens:auto;-webkit-hyphens:auto;hyphens:auto;-ms-hyphens:auto;-o-hyphens:auto;}
 
-/*----------  Tipografia & BotÃµes  ----------*/
+/*----------  Typhography  ----------*/
 body{font-family:'Open Sans', arial, sans-serif;background:url('../img/body-pattern.jpg') repeat;}
 
 a{color:#4887c6;text-decoration:none;}
@@ -113,7 +113,7 @@ small{font-size:70%;}
 
 .btn-block{width:100%;}
 
-/*----------  Menu padrÃ£o  ----------*/
+/*----------  Light menu  ----------*/
 .menu-light{list-style:none;position:absolute;left:0;top:0;box-shadow:0 10px 10px -6px #aaa;}
 .menu-light > li > a{display:block;padding:4px 6px;background-color:#fafafa;font-size:13px;border:1px solid #d9e3ee;margin-bottom:-1px;width:100px;box-shadow:inset 0 3px 3px -1px #f6f6f6;text-shadow:0 1px 0 #fff;color:#2171c0;}
 .menu-light > li:first-child > a{border-radius:5px 5px 0 0;}
@@ -122,10 +122,10 @@ small{font-size:70%;}
 .menu-light > li > a:active{background-color:#fdfdfd;box-shadow:inset 0 8px 8px -3px #f5f5f5;color:#5296d9;}
 .menu-light-thickbottom > a{border-bottom-width:3px!important;}
 
-/*----------  FormulÃ¡rios  ----------*/
+/*----------  Forms  ----------*/
 input,
 select,
-textarea{background-color:#fdfdfd;border-radius:5px;border:1px solid #d5d5d5;padding:5px 10px;box-shadow:0 0 3px #ddd,inset 0 4px 4px #fafafa,inset 0 0 0 1px #fff;color:#bbb;font-size:14px;}
+textarea{background-color:#fdfdfd;border-radius:5px;border:1px solid #d5d5d5;padding:5px 10px;box-shadow:0 0 3px #ddd,inset 0 4px 4px #fafafa,inset 0 0 0 1px #fff;color:#bbb;font-size:14px;transition:all 150ms ease-in-out;}
 input.submit{background-color:#ebeef1;color:#7d7e7e;text-shadow:0 1px 1px #fff;font-weight:bold;font-size:11px;}
 input:focus,
 select:focus,
