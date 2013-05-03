@@ -1,49 +1,46 @@
 <engine>
-
 	<template selector="#content_left">
-		<ul class="list_stories" id="relacao_dos_posts">
-		</ul>
+		<div id="content_left_stretch">
+			<ul class="list_stories" id="relacao_dos_posts">
+			{for post in posts}
+				<li class="clearfix ${post.id}">
+					<div class="avatar-frame avatar-frame-small" title="Por ${post.usuario}">
+						<img src="${gravatar}${post.usuarioMD5}" alt="Avatar" />
+					</div>
+					<div class="speech-shape"></div>
+					<div class="list_stories_headline clearfix">
+						<h2 class="titulo ${post.id}">${post.titulo}</h2>
+					</div>	
+					
+					<!-- Lead -->
+					<div class="conteudo_inicial list_stories_lead hyphenize">${dextranet.post.conteudoParaExibicao(post.conteudo)}</div>
+					
+					<!-- Conteudo completo do post -->
+					<div id="${post.id}_post" class="list_stories_lead" style="display:none;">
+						<p id="${post.id}">
+							${post.conteudo}
+						</p>
+					</div>
+					
+					<!-- Comentarios -->
+					<div class="list_stories_comments">
+						<a id="${post.id}">
+							<span class="icon_comments"></span>
+							<span class="numero_comentario">${post.quantidadeDeComentarios}</span>
+							${messages.post_comentario}
+						</a>
+					</div>
+					
+					<!-- Curtidas -->
+					<div class="list_stories_dx">
+						<a id="${post.id}" class="clearfix linkCurtir post">
+							<span class="icon_dx"></span>
+							<span class="numero_curtida">${post.quantidadeDeCurtidas}</span>
+						</a>
+					</div>
+				</li>
+			{/for}
+			</ul>
+		</div>
 	</template>
-
-	<template selector="#relacao_dos_posts" append="true">
-		{for post in posts}
-			<li class="clearfix ${post.id}">
-				<div class="avatar-frame avatar-frame-small" title="Por ${post.usuario}">
-					<img src="${gravatar}${post.usuarioMD5}" alt="Avatar" />
-				</div>
-				<div class="speech-shape"></div>
-				<div class="list_stories_headline clearfix">
-					<h2 class="titulo ${post.id}">${post.titulo}</h2>
-				</div>	
-				
-				<!-- Lead -->
-				<div class="conteudo_inicial list_stories_lead hyphenize">${dextranet.post.conteudoParaExibicao(post.conteudo)}</div>
-				
-				<!-- Conteudo completo do post -->
-				<div id="${post.id}_post" class="list_stories_lead" style="display:none;">
-					<p id="${post.id}">
-						${post.conteudo}
-					</p>
-				</div>
-				
-				<!-- Comentarios -->
-				<div class="list_stories_comments">
-					<a id="${post.id}">
-						<span class="icon_comments"></span>
-						<span class="numero_comentario">${post.quantidadeDeComentarios}</span>
-						${messages.post_comentario}
-					</a>
-				</div>
-				
-				<!-- Curtidas -->
-				<div class="list_stories_dx">
-					<a id="${post.id}" class="clearfix linkCurtir post">
-						<span class="icon_dx"></span>
-						<span class="numero_curtida">${post.quantidadeDeCurtidas}</span>
-					</a>
-				</div>
-			</li>
-		{/for}
-	</template>
-
 </engine>

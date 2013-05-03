@@ -261,7 +261,7 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 3px #aac7e8,ins
 #container_main_overlay{position:absolute;left:0;top:0;width:100%;height:100%;background-color:#fff;z-index:1;opacity:0.8;display:none;}
 
 #content_left{margin-right:350px;}
-/* #content_left_stretch{max-width:520px;} */
+#content_left_stretch{max-width:620px;}
 
 #content_right{width:330px;position:absolute;top:0;right:10px;}
 
@@ -273,12 +273,13 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 3px #aac7e8,ins
 #container_mensagem > .error{background-color:#ffe3e1;border-color:#cfb1af;color:#572c29;}
 
 /*----------  Listagem de estÃ³rias de usuÃ¡rios  ----------*/
-.list_stories{list-style:none;margin-top:5px;}
-.list_stories > li{border-radius:5px;background-color:#fefefe;border:1px solid #cfe1f3;padding:8px 12px 2px;margin-bottom:20px;margin-left:75px;position:relative;}
+.list_stories{list-style:none;margin:10px 5px 0;}
+.list_stories > li{border-radius:5px;background-color:#fefefe;border:1px solid #cfe1f3;padding:8px 12px 2px;margin-bottom:25px;margin-left:80px;position:relative;}
 .list_stories > li > .speech-shape,
 .list_stories > li > .speech-shape:before{position:absolute;left:-15px;top:16px;border-right:dashed 15px #cfe1f3;border-top:solid 10px transparent;border-bottom:solid 10px transparent;border-radius:3px;z-index:1;width:0;height:0;}
 .list_stories > li > .speech-shape:before{display:block;content:"";border-right-color:#000;position:absolute;left:2px;top:-10px;z-index:1;border-right-color:#fefefe;}
-.list_stories > li > .avatar-frame{position:absolute;left:-75px;top:0;}
+.list_stories > li > .avatar-frame{position:absolute;left:-80px;top:0;width:50px;height:50px;}
+.list_stories > li > .avatar-frame > img{width:50px;height:50px;}
 
 .list_stories_headline{margin-bottom:6px;text-align:left;}
 .list_stories_headline > h2{
