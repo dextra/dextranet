@@ -30,20 +30,9 @@ public class ComentarioRSTest extends TesteIntegracaoBase {
 
 	@After
 	public void removeDadosInseridos() {
-		List<Post> postsCadastrados = repositorioDePosts.lista();
-		for (Post post : postsCadastrados) {
-			repositorioDePosts.remove(post.getId());
-		}
-
-		List<Comentario> comentariosCadastrados = repositorioDeComentarios.lista();
-		for (Comentario comentario : comentariosCadastrados) {
-			repositorioDeComentarios.remove(comentario.getId());
-		}
-
-		List<Curtida> curtidasCadastradas = repositorioDeCurtidas.lista();
-		for (Curtida curtida : curtidasCadastradas) {
-			repositorioDeCurtidas.remove(curtida.getId());
-		}
+		this.limpaPostsInseridos(repositorioDePosts);
+		this.limpaComentariosInseridos(repositorioDeComentarios);
+		this.limpaCurtidasInseridas(repositorioDeCurtidas);
 	}
 
 	@Test

@@ -4,6 +4,7 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+import org.junit.After;
 import org.junit.Test;
 
 import br.com.dextra.dextranet.conteudo.post.Post;
@@ -18,6 +19,12 @@ public class CurtidaRepositoryTest extends TesteIntegracaoBase {
 	private PostRepository repositorioDePosts = new PostRepository();
 
 	private CurtidaRepository repositorioDeCurtidas = new CurtidaRepository();
+
+	@After
+	public void removeDadosInseridos() {
+		this.limpaPostsInseridos(repositorioDePosts);
+		this.limpaCurtidasInseridas(repositorioDeCurtidas);
+	}
 
 	@Test
 	public void testaRemocao() {
