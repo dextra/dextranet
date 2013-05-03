@@ -1,5 +1,7 @@
 package br.com.dextra.dextranet.conteudo.post;
 
+import java.util.Date;
+
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -134,6 +136,17 @@ public class PostTest extends TesteIntegracaoBase {
 
 		post.comentar("outro-usuario", "mais um comentario");
 		Assert.assertEquals(2, post.getQuantidadeDeComentarios());
+	}
+
+
+	@Test
+	public void testaRegistraDataMigracao() {
+		Date cincoDiasAtras = timeMachine.diasParaAtras(5);
+
+		Post post = new Post("usuario", "titulo", "Conteudo de teste");
+		post.registraDataDeMigracao(cincoDiasAtras);
+
+		Assert.assertEquals(cincoDiasAtras, post.getDataDeCriacao());
 	}
 
 }
