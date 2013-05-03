@@ -26,15 +26,8 @@ public class PostRSTest extends TesteIntegracaoBase {
 
 	@After
 	public void removeDadosInseridos() {
-		List<Post> postsCadastrados = repositorioDePosts.lista();
-		for (Post post : postsCadastrados) {
-			repositorioDePosts.remove(post.getId());
-		}
-
-		List<Curtida> curtidasCadastrados = repositorioDeCurtidas.lista();
-		for (Curtida curtida : curtidasCadastrados) {
-			repositorioDeCurtidas.remove(curtida.getId());
-		}
+		this.limpaPostsInseridos(repositorioDePosts);
+		this.limpaCurtidasInseridas(repositorioDeCurtidas);
 	}
 
 	@Test

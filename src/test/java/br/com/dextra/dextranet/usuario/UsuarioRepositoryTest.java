@@ -18,10 +18,7 @@ public class UsuarioRepositoryTest extends TesteIntegracaoBase {
 
 	@After
 	public void after() {
-		List<Usuario> usuarios = repositorio.lista();
-		for (Usuario usuario : usuarios) {
-			repositorio.remove(usuario.getId());
-		}
+		this.limpaUsuariosInseridos(repositorio);
 	}
 
 	@Test

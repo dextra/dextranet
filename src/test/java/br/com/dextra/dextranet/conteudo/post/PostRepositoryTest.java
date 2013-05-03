@@ -19,10 +19,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 
 	@After
 	public void removePostsInseridos() {
-		List<Post> postsCadastrados = repositorio.lista();
-		for (Post post : postsCadastrados) {
-			repositorio.remove(post.getId());
-		}
+		this.limpaPostsInseridos(repositorio);
 	}
 
 	@Test

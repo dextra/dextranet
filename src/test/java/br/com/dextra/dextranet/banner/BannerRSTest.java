@@ -24,10 +24,7 @@ public class BannerRSTest extends TesteIntegracaoBase {
 
 	@After
 	public void removeBannersInseridos() {
-		List<Banner> bannersCadastrados = repositorio.lista();
-		for (Banner banner : bannersCadastrados) {
-			repositorio.remove(banner.getId());
-		}
+		this.limpaBannersInseridos(repositorio);
 	}
 
 	@Test
