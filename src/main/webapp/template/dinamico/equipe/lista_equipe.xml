@@ -33,6 +33,14 @@
         </ul>
 
         <ul class="list-team list-vertical clearfix">
+			<!-- @fixme exibir quando nenhum usuario for encontrado
+			<li class="list-team-empty">
+				<p>
+					<img src="img/smile-sad.gif"/>
+					<span>Nenhum dextrano</span>
+					<span>foi encontrado!</span>
+				</p>
+			</li>-->
             {for colaborador in usuarios}
                 <li class="clearfix colaborador">
                     <div class="list-team-avatar">
@@ -50,53 +58,56 @@
                         <p class="list-team-content-geral">
                             ${colaborador.unidade} / ${colaborador.area}
                             {if colaborador.ramal }
-                                - ${messages.usuario_ramal} ${colaborador.ramal}
+                                - ${messages.usuario_ramal} <strong>${colaborador.ramal}</strong>
                             {/if}
                         </p>
-                        <p class="list-team-content-webcontact">
-                            <span class="left">
-                                <span class="icon_gtalk-mini icon" original-title="${messages.usuario_email}"></span>
+                        
+						<ul class="list-team-content-data clearfix">
+							<li>
+								<span class="icon_gtalk-mini icon" original-title="${messages.usuario_email}"></span>
                                 ${colaborador.username}@${messages.label_dominio_dextra}
-                            </span>
-
-                            <span class="icon_skype-mini icon" original-title="${messages.usuario_skype}"></span>
-                            {if colaborador.skype }
-                                ${colaborador.skype}
-                            {else}
-                                <span class="empty">${messages.label_campo_nao_informado}</span>
-                            {/if}
-
-                            <span class="icon_github-mini icon" original-title="${messages.usuario_github}"></span>
-                            {if colaborador.gitHub }
-                                ${colaborador.gitHub}
-                            {else}
-                                <span class="empty">${messages.label_campo_nao_informado}</span>
-                            {/if}
-                        </p>
-                        <p class="list-team-content-phones">
-                            <span class="left">
+							</li>
+							<li class="list-team-content-phone">
                                 <span class="icon_cellphone-mini icon" original-title="${messages.usuario_telefone_celular}"></span>
                                 {if colaborador.telefoneCelular }
                                     ${colaborador.telefoneCelular}
                                 {else}
                                     <span class="empty">${messages.label_campo_nao_informado}</span>
                                 {/if}
-                            </span>
-
-                            <span class="icon_phone-mini icon" original-title="${messages.usuario_telefone_residencial}"></span>
-                            {if colaborador.telefoneResidencial }
-                                ${colaborador.telefoneResidencial}
-                            {else}
-                                <span class="empty">${messages.label_campo_nao_informado}</span>
-                            {/if}
-                        </p>
+							</li>
+							<li>
+								<span class="icon_skype-mini icon" original-title="${messages.usuario_skype}"></span>
+								{if colaborador.skype }
+									<a href="callto:${colaborador.skype}">${colaborador.skype}</a>
+								{else}
+									<span class="empty">${messages.label_campo_nao_informado}</span>
+								{/if}
+							</li>
+							<li>
+								<span class="icon_github-mini icon" original-title="${messages.usuario_github}"></span>
+								{if colaborador.gitHub }
+									<a href="http://www.github.com/${colaborador.gitHub}">${colaborador.gitHub}</a>
+								{else}
+									<span class="empty">${messages.label_campo_nao_informado}</span>
+								{/if}
+							</li>
+							<li class="list-team-content-phone">
+								<span class="icon_phone-mini icon" original-title="${messages.usuario_telefone_residencial}"></span>
+								{if colaborador.telefoneResidencial }
+									${colaborador.telefoneResidencial}
+								{else}
+									<span class="empty">${messages.label_campo_nao_informado}</span>
+								{/if}
+							</li>
+						</ul>
                     </div>
                 </li>
             {/for}
         </ul>
     </template>
 
-    <script>
+    <script type="text/javascript">
+	
         $('.icon').tipsy();
     </script>
 </engine>

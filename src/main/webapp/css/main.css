@@ -40,6 +40,7 @@ html{font-size:100%;}
 .icon_avatarcommon_small{width:31px;height:31px;background-position:-288px -3px;}
 .icon_gtalk-mini{background-position:-155px -118px;}
 .icon_skype-mini{background-position:-91px -117px;}
+.icon_github-mini{background-position:-180px -118px;}
 .icon_cellphone-mini{background-position:-114px -118px;}
 .icon_phone-mini{background-position:-134px -118px;}
 .icon_icon-trash{background-position:-210px -74px;width:14px;height:14px;margin-right:4px;vertical-align:-2px;}
@@ -265,7 +266,8 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 #content_right{width:330px;position:absolute;top:0;right:10px;}
 
 #container_mensagem{margin-right:350px;}
-#container_mensagem > li{margin:0 0 20px;padding:7px 10px 7px 30px;border-radius:3px;box-shadow:inset 0 2px 2px rgba(0,0,0,.075);border:1px solid #ccc;font-size:11px;cursor:pointer;position:relative;}
+#container_mensagem > li{margin:0 0 10px;padding:7px 10px 7px 30px;border-radius:3px;box-shadow:inset 0 2px 2px rgba(0,0,0,.075);border:1px solid #ccc;font-size:11px;cursor:pointer;position:relative;}
+#container_mensagem > li:last-child{margin-bottom:20px;}
 #container_mensagem > .info{background-color:#e0effa;border-color:#94afc2;color:#39444b;}
 #container_mensagem > .success{background-color:#c7f5b8;border-color:#8bc776;color:#314f27;}
 #container_mensagem > .error{background-color:#ffe3e1;border-color:#cfb1af;color:#572c29;}
