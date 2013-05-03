@@ -8,15 +8,15 @@
 						<img src="${gravatar}${post.usuarioMD5}" alt="Avatar" />
 					</div>
 					<div class="speech-shape"></div>
-					<div class="list_stories_headline clearfix">
+					<a class="list_stories_headline clearfix" href="#">
 						<h2 class="titulo ${post.id}">${post.titulo}</h2>
-					</div>	
+					</a>	
 					
 					<!-- Lead -->
 					<div class="conteudo_inicial list_stories_lead hyphenize">${dextranet.post.conteudoParaExibicao(post.conteudo)}</div>
 					
 					<!-- Conteudo completo do post -->
-					<div id="${post.id}_post" class="list_stories_lead" style="display:none;">
+					<div id="${post.id}_post" class="list_stories_contents hidden">
 						<p id="${post.id}">
 							${post.conteudo}
 						</p>
@@ -42,5 +42,34 @@
 			{/for}
 			</ul>
 		</div>
+		<script type="text/javascript">			
+		$('.list_stories_headline').click(function(e)
+		{
+			e.preventDefault();
+			var item = $(this).parent('li');
+			if ( item.hasClass('expanded') === true ) 
+			{
+				item.removeClass('expanded');
+				item.find('.list_stories_lead').show();
+				item.find('.list_stories_contents').hide();
+			}
+			else 
+			{
+				item.addClass('expanded');
+				item.find('.list_stories_lead').hide();
+				item.find('.list_stories_contents').show();
+			}
+		});
+		</script>
 	</template>
 </engine>
+
+
+
+
+
+
+
+
+
+

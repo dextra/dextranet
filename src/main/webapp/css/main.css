@@ -281,7 +281,7 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 3px #aac7e8,ins
 .list_stories > li > .avatar-frame{position:absolute;left:-80px;top:0;width:50px;height:50px;}
 .list_stories > li > .avatar-frame > img{width:50px;height:50px;}
 
-.list_stories_headline{margin-bottom:6px;text-align:left;}
+.list_stories_headline{margin:2px 0 12px;text-align:left;display:block;}
 .list_stories_headline > h2{
 	font-weight:bold;
 	font-size:14px;
@@ -308,7 +308,8 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 3px #aac7e8,ins
 .list_stories_dx{color:#349a94;}
 .list_stories_dx > a{padding:4px 5px;display:block;color:#007676;border-radius:1px;transition:background-color 250ms ease-in-out;-webkit-transition:background-color 250ms ease-in-out;}
 .list_stories_dx > a:hover{border:dotted 1px #cbe6eb;padding:3px 4px;background-color:#e6ffff;}
-.list_stories_lead{text-shadow:0 1px 1px #fff;font-size:13px;color:#505153;line-height:19px;margin-bottom:5px;}
+.list_stories_lead,
+.list_stories_contents{text-shadow:0 1px 1px #fff;font-size:13px;color:#505153;line-height:19px;}
 
 .list_stories_actions > button{font-weight:bold;}
 .list_stories_actions > .menu-light{top:25px;display:none;z-index:20;}
