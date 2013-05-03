@@ -3,7 +3,7 @@
 #frmPerfil li label {display:inline-block;margin-right:5px;width:50px;}
 
 .avatar-frame{background-color:#edf2fa;width:100px;height:100px;padding:1px;margin:-1px -1px 20px;border:1px solid #a9bad8;border-radius:5px;position:relative;text-align:center;box-shadow:0 2px 2px rgba(0,0,0,.1);}
-.avatar-frame-float{float:left;margin-right:20px;}
+.avatar-frame-float{float:left;margin-right:30px;}
 .avatar-frame > img{border-radius:5px;}
 
 #frmPerfil > dl{display:inline-block;padding-top:2px;}

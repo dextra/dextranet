@@ -264,6 +264,12 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 
 #content_right{width:330px;position:absolute;top:0;right:10px;}
 
+#container_mensagem{margin-right:350px;}
+#container_mensagem > li{margin:0 0 20px;padding:7px 10px 7px 30px;border-radius:3px;box-shadow:inset 0 2px 2px rgba(0,0,0,.075);border:1px solid #ccc;font-size:11px;cursor:pointer;position:relative;}
+#container_mensagem > .info{background-color:#e0effa;border-color:#94afc2;color:#39444b;}
+#container_mensagem > .success{background-color:#c7f5b8;border-color:#8bc776;color:#314f27;}
+#container_mensagem > .error{background-color:#ffe3e1;border-color:#cfb1af;color:#572c29;}
+
 /*----------  Listagem de estÃ³rias de usuÃ¡rios  ----------*/
 .list_stories{list-style:none;margin-top:5px;}
 .list_stories > li{border-radius:5px;background-color:#fefefe;border:1px solid #cfe1f3;padding:8px 12px 2px;margin-bottom:20px;margin-left:75px;position:relative;}
