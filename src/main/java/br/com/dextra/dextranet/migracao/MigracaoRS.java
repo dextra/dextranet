@@ -36,7 +36,7 @@ public class MigracaoRS {
 		return Response.ok().entity(post).build();
 	}
 
-	@Path("/post/${postId}")
+	@Path("/post/{postId}")
 	@GET
 	@Produces(Application.JSON_UTF8)
 	public Response obterPost(@PathParam("postId") String postId) throws EntityNotFoundException {
@@ -44,7 +44,7 @@ public class MigracaoRS {
 		return postRest.obter(postId);
 	}
 
-	@Path("/post/${postId}/comentario")
+	@Path("/post/{postId}/comentario")
 	@POST
 	@Produces(Application.JSON_UTF8)
 	public Response inserirComentario(@PathParam("postId") String postId, @FormParam("data") Date data,
@@ -54,7 +54,7 @@ public class MigracaoRS {
 		return Response.ok().entity(comentario).build();
 	}
 
-	@Path("/post/${postId}/comentario")
+	@Path("/post/{postId}/comentario")
 	@GET
 	@Produces(Application.JSON_UTF8)
 	public Response inserirComentario(@PathParam("postId") String postId) throws EntityNotFoundException {
