@@ -205,7 +205,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                             <directory>src/main/webapp</directory>
                             <filtering>true</filtering>
                             <includes>
-                                <include>index.html</include>
+                                <include>**/*</include>
                             </includes>
                         </resource>
                     </webResources>
@@ -269,16 +269,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                 </configuration>
             </plugin>
         </plugins>
-
-        <resources>
-            <resource>
-                <directory>src/main/webapp</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>index.html</include>
-                </includes>
-            </resource>
-        </resources>
 
         <finalName>dextranet</finalName>
     </build>
