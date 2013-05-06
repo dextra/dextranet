@@ -29,6 +29,7 @@ public class TesteIntegracaoBase {
 	@BeforeClass
 	public static void setup() {
 		server.enableDatastore(noStorage);
+		server.enableSearch();
 		server.start();
 	}
 
