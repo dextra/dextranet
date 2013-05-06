@@ -16,7 +16,7 @@
 .list-team-empty > p{padding-bottom:0;color:#887d52;line-height:20px;}
 .list-team-empty > p > img{margin-bottom:10px;}
 .list-team-empty > p > span{display:block;clear:both;}
-.list-team > li .empty{color:#777;font-style:italic;}
+.list-team > li .empty{color:#999;font-style:italic;}
 
 .list-team-avatar{float:left;margin-right:20px;width:87px;}
 .list-team-avatar > .avatar-frame{width:85px;height:85px;margin:1px;}
