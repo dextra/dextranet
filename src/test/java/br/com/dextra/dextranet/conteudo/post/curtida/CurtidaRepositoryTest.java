@@ -75,19 +75,21 @@ public class CurtidaRepositoryTest extends TesteIntegracaoBase {
 	@Test
 	public void testaListaPorConteudo() {
 		Post post01 = new Post("usuario", "titulo 01", "conteudo 01");
-		Curtida curtida01 = post01.curtir("dextranet");
-		Curtida curtida02 = post01.curtir("outro-usuario");
-
-		Post post02 = new Post("dextranet", "titulo 02", "conteudo 02");
-		Curtida curtida03 = post02.curtir("usuario");
-		Curtida curtida04 = post02.curtir("outro-usuario");
-
 		repositorioDePosts.persiste(post01);
+
+		Curtida curtida01 = post01.curtir("dextranet");
 		repositorioDeCurtidas.persiste(curtida01);
+
+		Curtida curtida02 = post01.curtir("outro-usuario");
 		repositorioDeCurtidas.persiste(curtida02);
 
+		Post post02 = new Post("dextranet", "titulo 02", "conteudo 02");
 		repositorioDePosts.persiste(post02);
+
+		Curtida curtida03 = post02.curtir("usuario");
 		repositorioDeCurtidas.persiste(curtida03);
+
+		Curtida curtida04 = post02.curtir("outro-usuario");
 		repositorioDeCurtidas.persiste(curtida04);
 
 		List<Curtida> curtidasDoPost = repositorioDeCurtidas.listaPorConteudo(post01.getId());
