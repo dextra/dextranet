@@ -3,6 +3,7 @@ package br.com.dextra.dextranet.conteudo.post;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.dextra.dextranet.indexacao.IndexacaoRepository;
 import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.persistencia.EntidadeRepository;
 
@@ -11,8 +12,18 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 
 public class PostRepository extends EntidadeRepository {
 
+	private IndexacaoRepository indexacao = new IndexacaoRepository();
+
+	public Post persiste(Post post) {
+		Post postPersistido = super.persiste(post);
+		indexacao.indexar(postPersistido);
+
+		return postPersistido;
+	}
+
 	public void remove(String id) {
 		super.remove(id, Post.class);
+		indexacao.removeIndexacao(Post.class.getName(), id);
 	}
 
 	public Post obtemPorId(String id) throws EntityNotFoundException {

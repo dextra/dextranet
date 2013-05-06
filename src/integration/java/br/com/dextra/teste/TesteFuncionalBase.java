@@ -1,5 +1,7 @@
 package br.com.dextra.teste;
 
+import java.io.IOException;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
@@ -25,7 +27,7 @@ public class TesteFuncionalBase extends TesteIntegracaoBase {
 	}
 
 	@AfterClass
-	public static void shutdown() {
+	public static void shutdown() throws IOException {
 		driver.quit();
 
 		TesteIntegracaoBase.shutdown();

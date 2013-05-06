@@ -5,14 +5,17 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.dextra.dextranet.conteudo.Conteudo;
+import br.com.dextra.dextranet.conteudo.ConteudoIndexavel;
 import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
 import br.com.dextra.dextranet.utils.ConteudoHTML;
 import br.com.dextra.dextranet.utils.TimeMachine;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Text;
+import com.google.appengine.api.search.Document;
+import com.google.appengine.api.search.Field;
 
-public class Post extends Conteudo {
+public class Post extends Conteudo implements ConteudoIndexavel {
 
 	private String titulo;
 
@@ -94,6 +97,15 @@ public class Post extends Conteudo {
 		return "Post [titulo=" + titulo + ", quantidadeDeComentarios=" + quantidadeDeComentarios
 				+ ", dataDeAtualizacao=" + dataDeAtualizacao + ", usuario=" + usuario + ", dataDeCriacao="
 				+ dataDeCriacao + ", quantidadeDeCurtidas=" + quantidadeDeCurtidas + ", id=" + id + "]";
+	}
+
+	@Override
+	public Document toDocument() {
+		Document document = Document.newBuilder().setId(id)
+				.addField(Field.newBuilder().setName(PostFields.titulo.name()).setText(titulo))
+				.addField(Field.newBuilder().setName(PostFields.conteudo.name()).setHTML(conteudo))
+				.addField(Field.newBuilder().setName(PostFields.usuario.name()).setText(usuario)).build();
+		return document;
 	}
 
 }

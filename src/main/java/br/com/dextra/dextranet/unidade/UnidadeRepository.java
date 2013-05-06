@@ -12,6 +12,10 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 
 public class UnidadeRepository extends EntidadeRepository {
 
+	public Unidade persiste(Unidade unidade) {
+		return super.persiste(unidade);
+	}
+
 	public void remove(String id) {
 		super.remove(id, Unidade.class);
 	}

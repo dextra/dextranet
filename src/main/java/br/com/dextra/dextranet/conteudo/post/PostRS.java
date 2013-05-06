@@ -47,6 +47,14 @@ public class PostRS {
 		return Response.ok().entity(post).build();
 	}
 
+	@Path("/{id}")
+	@DELETE
+	@Produces(Application.JSON_UTF8)
+	public Response deletar(@PathParam("id") String id) throws EntityNotFoundException {
+		repositorioDePosts.remove(id);
+		return Response.ok().build();
+	}
+
 	@Path("/")
 	@GET
 	@Produces(Application.JSON_UTF8)

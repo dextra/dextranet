@@ -11,6 +11,10 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 
 public class BannerRepository extends EntidadeRepository {
 
+	public Banner persiste(Banner banner) {
+		return super.persiste(banner);
+	}
+
 	public void remove(String id) {
 		super.remove(id, Banner.class);
 	}
