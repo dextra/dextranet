@@ -63,4 +63,9 @@ public class Curtida extends Entidade {
 		return entity;
 	}
 
+	@Override
+	public String toString() {
+		return "Curtida [conteudoId=" + conteudoId + ", usuario=" + usuario + ", data=" + data + ", id=" + id + "]";
+	}
+
 }

@@ -55,4 +55,10 @@ public class Comentario extends Conteudo {
 		return entidade;
 	}
 
+	@Override
+	public String toString() {
+		return "Comentario [postId=" + postId + ", usuario=" + usuario + ", dataDeCriacao=" + dataDeCriacao
+				+ ", quantidadeDeCurtidas=" + quantidadeDeCurtidas + ", id=" + id + "]";
+	}
+
 }
