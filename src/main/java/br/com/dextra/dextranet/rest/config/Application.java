@@ -9,6 +9,7 @@ import br.com.dextra.dextranet.banner.BannerRS;
 import br.com.dextra.dextranet.conteudo.post.PostRS;
 import br.com.dextra.dextranet.indexacao.IndexacaoRS;
 import br.com.dextra.dextranet.microblog.MicroBlogRS;
+import br.com.dextra.dextranet.migracao.MigracaoRS;
 import br.com.dextra.dextranet.unidade.UnidadeRS;
 import br.com.dextra.dextranet.usuario.UsuarioRS;
 
@@ -27,14 +28,16 @@ public class Application extends javax.ws.rs.core.Application {
 	@Override
 	public Set<Class<?>> getClasses() {
 		Set<Class<?>> classes = new HashSet<Class<?>>();
+		classes.add(JacksonConfig.class);
+
+		classes.add(UnidadeRS.class);
+		classes.add(AreaRS.class);
+		classes.add(UsuarioRS.class);
+		classes.add(BannerRS.class);
+
 		classes.add(PostRS.class);
 		classes.add(IndexacaoRS.class);
-
-		classes.add(BannerRS.class);
-		classes.add(AreaRS.class);
-		classes.add(UnidadeRS.class);
-		classes.add(UsuarioRS.class);
-		classes.add(JacksonConfig.class);
+		classes.add(MigracaoRS.class);
 
 		classes.add(MicroBlogRS.class);
 		return classes;

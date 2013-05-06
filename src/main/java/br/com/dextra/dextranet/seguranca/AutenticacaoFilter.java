@@ -21,7 +21,7 @@ import com.google.appengine.api.users.UserServiceFactory;
 
 public class AutenticacaoFilter implements Filter {
 
-	private String excludePatterns = "";
+	protected String excludePatterns = "";
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException,
@@ -41,12 +41,23 @@ public class AutenticacaoFilter implements Filter {
 			}
 
 			filterChain.doFilter(request, response);
-		} else if (thisURI.contains(excludePatterns)) {
+		} else if (urlDeveSerIgnorada(thisURI)) {
 			filterChain.doFilter(request, response);
 		} else {
 			String loginUrl = userService.createLoginURL(thisURI);
 			httpResponse.sendRedirect(loginUrl);
 		}
+	}
+
+	protected boolean urlDeveSerIgnorada(String thisURI) {
+		String[] urlsIgnorar = excludePatterns.split(";");
+		for (String url : urlsIgnorar) {
+			if (thisURI.contains(url)) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	private boolean acessoNaPaginaPrincipal(String thisURI) {

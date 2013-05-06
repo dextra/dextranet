@@ -89,4 +89,11 @@ public class Post extends Conteudo {
 		return entidade;
 	}
 
+	@Override
+	public String toString() {
+		return "Post [titulo=" + titulo + ", quantidadeDeComentarios=" + quantidadeDeComentarios
+				+ ", dataDeAtualizacao=" + dataDeAtualizacao + ", usuario=" + usuario + ", dataDeCriacao="
+				+ dataDeCriacao + ", quantidadeDeCurtidas=" + quantidadeDeCurtidas + ", id=" + id + "]";
+	}
+
 }

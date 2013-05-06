@@ -117,4 +117,11 @@ public class Banner extends Entidade {
 		return entidade;
 	}
 
+	@Override
+	public String toString() {
+		return "Banner [imagem=" + imagem + ", imagemUrl=" + imagemUrl + ", titulo=" + titulo + ", link=" + link
+				+ ", dataInicio=" + dataInicio + ", dataFim=" + dataFim + ", usuario=" + usuario
+				+ ", dataDeAtualizacao=" + dataDeAtualizacao + "]";
+	}
+
 }

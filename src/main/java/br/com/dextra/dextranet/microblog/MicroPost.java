@@ -20,10 +20,16 @@ public class MicroPost extends Entidade {
 		return texto;
 	}
 
+	@Override
 	public Entity toEntity() {
 		Entity entidade = new Entity(getKey(getClass()));
 		entidade.setProperty(MicroBlogFields.TEXTO.getField(), getTexto());
 		return entidade;
+	}
+
+	@Override
+	public String toString() {
+		return "MicroPost [texto=" + texto + ", id=" + id + "]";
 	}
 
 }
