@@ -24,5 +24,20 @@
 		<li>
 			<a href="https://redmine.dextra.com.br">Redmine</a>
 		</li>
+		<li id="header-main-menu-outros">
+			<a href="#">
+				Outros
+				<span class="shape_arrow_right"></span>
+				<span class="shape_arrow_down"></span>
+			</a>
+			<ul class="header-dropdown">
+				<li>
+					<a href="#">Outra opção</a>
+				</li>
+				<li>
+					<a href="#">Mais outra opção</a>
+				</li>
+			</ul>
+		</li>
 	</template>
 </engine>
