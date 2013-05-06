@@ -134,12 +134,12 @@ textarea{background-color:#fdfdfd;border-radius:5px;border:1px solid #d5d5d5;pad
 input.submit{background-color:#ebeef1;color:#6d6e6e;text-shadow:0 1px 1px #fff;font-weight:bold;font-size:11px;}
 input:focus,
 select:focus,
-textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 3px #aac7e8,inset 0 4px 4px #f7f7f7,inset 0 0 0 1px #fff;}
+textarea:focus{color:#5c95d5;border-color:#b7cce2;box-shadow:0 0 3px #b8c9dc,inset 0 4px 4px #f7f7f7,inset 0 0 0 1px #fff;}
 
 #form_search{position:relative;z-index:2;margin-top:-3px;}
-#form_search_input{padding-right:25px;width:275px;position:relative;z-index:3;font-size:14px;padding:6px 35px 6px 10px;}
+#form_search_input{padding-right:25px;width:210px;position:relative;z-index:3;font-size:13px;padding:6px 35px 6px 10px;}
 #form_search_submit_name{background-color:transparent;box-shadow:0 0 0 transparent;border:0;background:url('../img/main-bundle.png') -46px -115px;position:absolute;z-index:4;cursor:pointer;right:25px;top:4px;width:22px;height:22px;}
-#form_search_submit{background-color:transparent;box-shadow:0 0 0 transparent;border:0;background:url('../img/main-bundle.png') -46px -115px;position:absolute;z-index:4;cursor:pointer;right:20px;top:7px;width:22px;height:22px;transition:none;}
+#form_search_submit{background-color:transparent;box-shadow:0 0 0 transparent;border:0;background:url('../img/main-bundle.png') -46px -115px;position:absolute;z-index:4;cursor:pointer;right:8px;top:7px;width:22px;height:22px;transition:none;}
 #form_search_input:focus + #form_search_submit{background-position:-67px -115px;}
 
 #form_new_post > #cke_form_input_content{margin:20px 0;}
@@ -204,7 +204,7 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 3px #aac7e8,ins
 #header_main_menu > li > ul > li:last-child > a{border-radius:0 0 6px 6px;}
 #header_main_menu > li.active > ul{display:block;}
 
-#header_search_box{float:right;height:32px;width:289px;margin-top:6px;}
+#header_search_box{float:right;height:32px;width:210px;margin-top:6px;margin-right:15px;}
 
 /*---------  Barra lateral esquerda  ----------*/
 #sidebar_left{left:0;top:0;height:100%;list-style-type:none;border-right:solid 1px #d9dbdd;position:fixed;z-index:2;background-color: #EBEEF1; box-shadow:-15px 15px 15px -15px #FFFFFF inset;}

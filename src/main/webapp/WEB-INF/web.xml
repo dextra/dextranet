@@ -31,7 +31,7 @@
         <filter-class>br.com.dextra.dextranet.seguranca.AutenticacaoFilter</filter-class>
         <init-param>
             <param-name>excludePatterns</param-name>
-            <param-value>/_ah</param-value>
+            <param-value>/_ah;/s/migracao</param-value>
         </init-param>
     </filter>
     <filter-mapping>
