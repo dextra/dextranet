@@ -282,7 +282,7 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 3px #aac7e8,ins
 .list_stories > li > .speech-shape,
 .list_stories > li > .speech-shape:before{position:absolute;left:-15px;top:16px;border-right:dashed 15px #cfe1f3;border-top:solid 10px transparent;border-bottom:solid 10px transparent;border-radius:3px;z-index:1;width:0;height:0;}
 .list_stories > li > .speech-shape:before{display:block;content:"";border-right-color:#000;position:absolute;left:2px;top:-10px;z-index:1;border-right-color:#fefefe;}
-.list_stories > li > .avatar-frame{position:absolute;left:-80px;top:0;width:50px;height:50px;}
+.list_stories > li > .avatar-frame{position:absolute;left:-80px;top:0;width:50px;height:50px;padding:0;}
 .list_stories > li > .avatar-frame > img{width:50px;height:50px;}
 
 .list_stories_headline{margin:2px 0 12px;text-align:left;display:block;}
@@ -322,8 +322,8 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 3px #aac7e8,ins
 .list_stories_comments > ul > li{margin-bottom:20px;position:relative;}
 .list_stories_comments > ul > li > .avatar-frame{width:32px;height:32px;padding:0;border-color:#668;float:left;margin:0 22px 0 2px;}
 .list_stories_comments > ul > li > .avatar-frame > img{width:32px;height:32px;border-radius:3px;}
-.list_stories_comments > ul > li > .content{float:left;width:460px;font-size:12px;font-family:arial;color:#555;border:1px solid #ddf;border-radius:5px;padding:8px 12px;background-color:#fcfcff;}
-.list_stories_comments > ul > li > .content p:last-child{padding-bottom:0;}
+.list_stories_comments > ul > li > .content{float:left;width:460px;font-size:12px;font-family:arial;color:#555;border:1px solid #ddf;border-radius:5px;padding:10px 12px;background-color:#fcfcff;}
+.list_stories_comments > ul > li > .content > p{padding-bottom:0;}
 .list_stories_comments .speech-shape-small,
 .list_stories_comments .speech-shape-small:before{position:absolute;left:46px;top:11px;border-right:dashed 12px #cfe1f3;border-top:solid 8px transparent;border-bottom:solid 8px transparent;border-radius:2px;z-index:1;width:0;height:0;}
 .list_stories_comments .speech-shape-small:before{display:block;content:"";border-right-color:#000;position:absolute;left:2px;top:-8px;z-index:1;border-right-color:#fcfcff;}
@@ -331,6 +331,10 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 3px #aac7e8,ins
 .list_stories_newcomment{margin-bottom:15px;clear:both;}
 .list_stories_newcomment #cke_27{display:none;} /* @fixme - desabilitar botões através da chamada pra o ckeditor */
 .list_stories_newcomment #cke_1_contents{height:85px !important;} /* @fixme - ajustar altura na chamada pra o ckeditor*/
+
+.comment-data{margin-top:20px;clear:both;}
+.comment-data > .list_stories_dx{margin-top:-3px;float:left;margin-right:10px;}
+.comment-data > .list_stories_date{color:#888;text-shadow:0 -1px 0 #fff;}
 
 .list_stories_actions > button{font-weight:bold;}
 .list_stories_actions > .menu-light{top:25px;display:none;z-index:20;}

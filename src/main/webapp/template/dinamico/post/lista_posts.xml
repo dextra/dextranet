@@ -51,6 +51,15 @@
 								<div class="speech-shape-small"></div>
 								<div class="content">
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nisl purus, sodales in congue eu, iaculis vel mi. Proin ac nulla est, sed auctor sapien. Cras ut nulla arcu, ut interdum felis.</p>
+									<div class="comment-data">
+										<span class="list_stories_date">26 minutos atrás</span>
+										<div class="list_stories_dx">
+											<a id="${post.id}" class="clearfix linkCurtir post">
+												<span class="icon_dx"></span>
+												<span class="numero_curtida">${post.quantidadeDeCurtidas}</span>
+											</a>
+										</div>
+									</div>
 								</div>
 							</li>
 							<li class="clearfix">
@@ -60,6 +69,15 @@
 								<div class="speech-shape-small"></div>
 								<div class="content">
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nisl purus, sodales in congue eu, iaculis vel mi. Proin ac nulla est, sed auctor sapien. Cras ut nulla arcu, ut interdum felis.</p>
+									<div class="comment-data">
+										<span class="list_stories_date">26 minutos atrás</span>
+										<div class="list_stories_dx">
+											<a id="${post.id}" class="clearfix linkCurtir post">
+												<span class="icon_dx"></span>
+												<span class="numero_curtida">${post.quantidadeDeCurtidas}</span>
+											</a>
+										</div>
+									</div>
 								</div>
 							</li>
 						</ul>
