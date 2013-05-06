@@ -332,8 +332,8 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 3px #aac7e8,ins
 .list_stories_newcomment #cke_27{display:none;} /* @fixme - desabilitar botões através da chamada pra o ckeditor */
 .list_stories_newcomment #cke_1_contents{height:85px !important;} /* @fixme - ajustar altura na chamada pra o ckeditor*/
 
-.comment-data{margin-top:20px;text-align:right;margin-bottom:-7px;}
-.comment-data > .list_stories_dx{margin-top:-3px;float:right;margin-right:0;margin-left:20px;}
+.comment-data{margin-top:20px;clear:both;}
+.comment-data > .list_stories_dx{margin-top:-3px;float:left;margin-right:10px;}
 .comment-data > .list_stories_date{color:#888;text-shadow:0 -1px 0 #fff;}
 
 .list_stories_actions > button{font-weight:bold;}
