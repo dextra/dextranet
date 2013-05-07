@@ -26,9 +26,9 @@
                         <label for="fileImagem">${messages.banner_imagem}</label>
                         <input type="file" id="fileImagem" name="imagem" class="not-empty" original-title="${messages.banner_imagem_tip}" size="42" />
                     </li>
-                    <li class="buttons">
-                        <input type="button" id="btnSalvarNovoBanner" class="btUpload" value="${messages.botao_upload}" />
-                        <input type="button" id="btnListarBanners" class="btView" value="${messages.banner_botao_todos}" />
+                    <li class="btn-group">
+                        <button class="btn btn-blue btn-xbig" type="button" id="btnSalvarNovoBanner">${messages.botao_upload}</button>
+                        <button class="btn btn-blue btn-xbig" type="button" id="btnListarBanners">${messages.banner_botao_todos}</button>
                     </li>
 		        </ul>
 		    </fieldset>

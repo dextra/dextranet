@@ -118,6 +118,9 @@ small{font-size:70%;}
 
 .btn-block{width:100%;}
 
+.btn-group { padding-top: 15px; text-align: right; }
+.btn-group .btn:last-child{ margin-left: 10px; }
+
 /*----------  Light menu  ----------*/
 .menu-light{list-style:none;position:absolute;left:0;top:0;box-shadow:0 10px 10px -6px #aaa;}
 .menu-light > li > a{display:block;padding:4px 6px;background-color:#fafafa;font-size:13px;border:1px solid #d9e3ee;margin-bottom:-1px;width:100px;box-shadow:inset 0 3px 3px -1px #f6f6f6;text-shadow:0 1px 0 #fff;color:#2171c0;}
