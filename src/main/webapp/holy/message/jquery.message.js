@@ -16,7 +16,6 @@
 
 	var remove = function() {
 		comp = $(this);
-		comp.closest('ul').trigger('remove.message', comp);
 		comp.fadeOut('slow', function() {
 			$(this).remove();
 		});
@@ -31,7 +30,6 @@
 			a.click($.proxy(remove, li));
 		}
 		var ul = li.closest('ul');
-		ul.trigger('remove.message', li);
 		li.fadeIn('slow');
 	}
 

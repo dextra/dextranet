@@ -2,39 +2,34 @@
 <engine>
 	<template selector="#content_left">
 	    <h1>${messages.banner_cadastro_titulo}</h1>
-		<form id="frmNovoBanner" class="form-dark form-horizontal clearfix"  method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-	        <ul>
-	            <li class="required">
-	                <label for="txtTitulo">${messages.banner_titulo}</label>
-	                <input type="text" id="txtTitulo" name="titulo" class="not-empty titulo" original-title="${messages.banner_titulo_tip}" maxlength="50" />
-	            </li>
-                   <li class="required">
-                       <label for="txtDataInicio">${messages.banner_dataInicio}</label>
-                       <input type="text" id="txtDataInicio" name="dataInicio" class="data not-empty" readonly="readonly" />
-                   </li>
-                   <li class="required">
-                       <label for="txtDataFim">${messages.banner_dataFim}</label>
-                       <input type="text" id="txtDataFim" name="dataFim" class="data not-empty" readonly="readonly" />
-                   </li>
-                   <li>
-                       <label for="txtLink">${messages.banner_link}</label>
-                       <input type="text" id="txtLink" name="link" original-title="${messages.banner_link_tip}" class="link" />
-                   </li>
-                   <li class="required">
-                       <label for="fileImagem">${messages.banner_imagem}</label>
-                       <input type="file" id="fileImagem" name="imagem" class="not-empty" original-title="${messages.banner_imagem_tip}" size="42" />
-                   </li>
-                   <li class="btn-group">
-                       <button class="btn btn-blue btn-xbig" type="button" id="btnSalvarNovoBanner">${messages.botao_upload}</button>
-                       <button class="btn btn-blue btn-xbig" type="button" id="btnListarBanners">${messages.banner_botao_todos}</button>
-                   </li>
-	        </ul>
+		<form id="frmNovoBanner" class="form-dark form-horizontal clearfix" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+	        <dl>
+	            <dt><label for="txtTitulo"><span class="input-obg"/>${messages.banner_titulo}</label></dt>
+	            <dd><input type="text" id="txtTitulo" name="titulo" class="not-empty titulo" original-title="${messages.banner_titulo_tip}" maxlength="50" /></dd>
+
+                <dt><label for="txtDataInicio"><span class="input-obg" />${messages.banner_dataInicio}</label></dt>
+                <dd><input type="text" id="txtDataInicio" name="dataInicio" class="data not-empty" readonly="readonly" /></dd>
+
+                <dt><label for="txtDataFim"><span class="input-obg" />${messages.banner_dataFim}</label></dt>
+                <dd><input type="text" id="txtDataFim" name="dataFim" class="data not-empty" readonly="readonly" /></dd>
+
+                <dt><label for="txtLink">${messages.banner_link}</label></dt>
+                <dd><input type="text" id="txtLink" name="link" original-title="${messages.banner_link_tip}" class="link" /></dd>
+
+                <dt><label for="fileImagem"><span class="input-obg" />${messages.banner_imagem}</label></dt>
+                <dd><input type="file" id="fileImagem" name="imagem" class="not-empty" original-title="${messages.banner_imagem_tip}" size="42" /></dd>
+
+                <dt></dt>
+                <dd class="btn-group">
+                    <button class="btn btn-blue btn-xbig" type="button" id="btnSalvarNovoBanner">${messages.botao_upload}</button>
+                    <button class="btn btn-blue btn-xbig" type="button" id="btnListarBanners">${messages.banner_botao_todos}</button>
+                </dd>
+	        </dl>
 		</form>
 		<a class="margin_top" href="#" id="link_abre_banners">${messages.banner_link_todos}</a>
 	</template>
 
 	<script>
-	    $('#frmNovoBanner').form();
 	    $('#frmNovoBanner input').tipsy({gravity: 'w', trigger: 'focus'});
 
         $('.data').datepicker();
