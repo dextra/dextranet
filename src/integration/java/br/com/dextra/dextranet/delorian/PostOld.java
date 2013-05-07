@@ -1,10 +1,8 @@
 package br.com.dextra.dextranet.delorian;
 
-import java.util.Date;
-
 public class PostOld {
-	private String nome;
-	private Date data;
+	private String usuario;
+	private String data;
 	private String titulo;
 	private String conteudo;
 
@@ -12,34 +10,41 @@ public class PostOld {
 
 	}
 
-	public PostOld(String nome, Date data, String titulo, String conteudo) {
-		this.nome = nome;
+	public PostOld(String nome, String data, String titulo, String conteudo) {
+		this.usuario = nome;
 		this.data = data;
 		this.titulo = titulo;
 		this.conteudo = conteudo;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getUsuario() {
+		return usuario;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+
+	public void setUsuario(String nome) {
+		this.usuario = nome;
 	}
-	public Date getData() {
+
+	public String getData() {
 		return data;
 	}
-	public void setData(Date data) {
+
+	public void setData(String data) {
 		this.data = data;
 	}
+
 	public String getTitulo() {
 		return titulo;
 	}
+
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
+
 	public String getConteudo() {
 		return conteudo;
 	}
+
 	public void setConteudo(String conteudo) {
 		this.conteudo = conteudo;
 	}
