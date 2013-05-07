@@ -17,6 +17,10 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 
 public class UsuarioRepository extends EntidadeRepository {
 
+	public Usuario persiste(Usuario usuario) {
+		return super.persiste(usuario);
+	}
+
 	public Usuario obtemPorId(String id) throws EntityNotFoundException {
 		Entity usuarioEntity = this.obtemPorId(id, Usuario.class);
 		return new Usuario(usuarioEntity);

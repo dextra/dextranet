@@ -1,7 +1,10 @@
 package br.com.dextra.teste;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
@@ -26,12 +29,14 @@ public class TesteIntegracaoBase {
 	@BeforeClass
 	public static void setup() {
 		server.enableDatastore(noStorage);
+		server.enableSearch();
 		server.start();
 	}
 
 	@AfterClass
-	public static void shutdown() {
+	public static void shutdown() throws IOException {
 		server.stop();
+		FileUtils.deleteDirectory(new File("WEB-INF"));
 	}
 
 	public void limpaPostsInseridos(PostRepository repositorioDePosts) {

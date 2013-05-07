@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalSearchServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.google.appengine.tools.development.testing.LocalUserServiceTestConfig;
@@ -48,6 +49,11 @@ public class GAETestServer {
 		authenticationEnabled = true;
 		this.userIsAdmin = userIsAdmin;
 		this.userLoggedIn = userLoggedIn;
+	}
+
+	public void enableSearch() {
+		LocalSearchServiceTestConfig localSearchServiceTestConfig = new LocalSearchServiceTestConfig();
+		gaeConfigurations.add(localSearchServiceTestConfig);
 	}
 
 }

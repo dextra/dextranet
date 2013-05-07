@@ -38,7 +38,7 @@ public class ComentarioRS {
 		Comentario comentario = post.comentar(this.obtemUsuarioLogado(), conteudo);
 
 		repositorioDePosts.persiste(post);
-		repositorioDeCurtidas.persiste(comentario);
+		repositorioDeComentarios.persiste(comentario);
 
 		return Response.ok().entity(post).build();
 	}

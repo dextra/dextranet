@@ -12,6 +12,10 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 
 public class AreaRepository extends EntidadeRepository {
 
+	public Area persiste(Area area) {
+		return super.persiste(area);
+	}
+
 	public void remove(String id) {
 		super.remove(id, Area.class);
 	}

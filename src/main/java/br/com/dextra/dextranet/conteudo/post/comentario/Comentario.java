@@ -5,12 +5,15 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.dextra.dextranet.conteudo.Conteudo;
+import br.com.dextra.dextranet.conteudo.ConteudoIndexavel;
 import br.com.dextra.dextranet.utils.ConteudoHTML;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Text;
+import com.google.appengine.api.search.Document;
+import com.google.appengine.api.search.Field;
 
-public class Comentario extends Conteudo {
+public class Comentario extends Conteudo implements ConteudoIndexavel {
 
 	private String postId;
 
@@ -59,6 +62,14 @@ public class Comentario extends Conteudo {
 	public String toString() {
 		return "Comentario [postId=" + postId + ", usuario=" + usuario + ", dataDeCriacao=" + dataDeCriacao
 				+ ", quantidadeDeCurtidas=" + quantidadeDeCurtidas + ", id=" + id + "]";
+	}
+
+	@Override
+	public Document toDocument() {
+		Document document = Document.newBuilder().setId(id)
+				.addField(Field.newBuilder().setName(ComentarioFields.conteudo.name()).setHTML(conteudo))
+				.addField(Field.newBuilder().setName(ComentarioFields.usuario.name()).setText(usuario)).build();
+		return document;
 	}
 
 }

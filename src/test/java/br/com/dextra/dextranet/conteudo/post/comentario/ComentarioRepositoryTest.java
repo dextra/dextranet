@@ -4,6 +4,7 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+import org.junit.After;
 import org.junit.Test;
 
 import br.com.dextra.dextranet.conteudo.post.Post;
@@ -17,6 +18,12 @@ public class ComentarioRepositoryTest extends TesteIntegracaoBase {
 	private ComentarioRepository repositorioDeComentarios = new ComentarioRepository();
 
 	private PostRepository repositorioDePosts = new PostRepository();
+
+	@After
+	public void removeDadosInseridos() {
+		this.limpaPostsInseridos(repositorioDePosts);
+		this.limpaComentariosInseridos(repositorioDeComentarios);
+	}
 
 	@Test
 	public void testaRemocao() {

@@ -14,7 +14,7 @@ public class EntidadeRepository {
 
 	protected DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
-	public <T extends Entidade> T persiste(T entidade) {
+	protected <T extends Entidade> T persiste(T entidade) {
 		datastore.put(entidade.toEntity());
 		return entidade;
 	}

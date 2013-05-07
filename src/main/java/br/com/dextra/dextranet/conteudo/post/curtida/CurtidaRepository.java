@@ -18,6 +18,10 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 
 public class CurtidaRepository extends EntidadeRepository {
 
+	public Curtida persiste(Curtida curtida) {
+		return super.persiste(curtida);
+	}
+
 	public void remove(String id) {
 		super.remove(id, Curtida.class);
 	}

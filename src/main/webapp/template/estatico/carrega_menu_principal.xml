@@ -6,37 +6,31 @@
 				<span class="icon_header_logo"></span>
 			</a>
 		</li>
-		<li>
-			<a href="https://dextranet.dextra.com.br/pma">PMA</a>
-		</li>
-		<li>
-			<a href="https://redmine.dextra.com.br/projects/suporte/issues/new">Infra</a>
-		</li>
-		<li>
-			<a href="https://dextranet.dextra.com.br/wiki/wiki">Wiki</a>
-		</li>
         <li>
-            <a href="http://dexboard-reload.appspot.com/">Dexboard</a>
+            <a href="http://dexboard-reload.appspot.com/" target="_blank">Dexboard</a>
         </li>
 		<li>
-			<a href="https://dextranet.dextra.com.br/dextraminds">Minds</a>
+			<a href="https://redmine.dextra.com.br/projects/suporte/issues/new" target="_blank">Infra</a>
 		</li>
 		<li>
-			<a href="https://redmine.dextra.com.br">Redmine</a>
+			<a href="https://dextranet.dextra.com.br/pma" target="_blank">PMA</a>
 		</li>
+        <li>
+            <a href="https://dextranet.dextra.com.br/wiki/wiki" target="_blank">Wiki</a>
+        </li>
 		<li id="header-main-menu-outros">
 			<a href="#">
-				Outros
+				Ferramentas
 				<span class="shape_arrow_right"></span>
 				<span class="shape_arrow_down"></span>
 			</a>
 			<ul class="header-dropdown">
-				<li>
-					<a href="#">Outra opção</a>
-				</li>
-				<li>
-					<a href="#">Mais outra opção</a>
-				</li>
+                <li>
+                    <a href="https://dextranet.dextra.com.br/dextraminds" target="_blank">Minds</a>
+                </li>
+                <li>
+                    <a href="https://redmine.dextra.com.br" target="_blank">Redmine</a>
+                </li>
 			</ul>
 		</li>
 	</template>

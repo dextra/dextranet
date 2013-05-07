@@ -1,3 +1,21 @@
 ul.content-banners { list-style-type:none;  padding:0; }
 
 img.banner { width: 300px; height: 70px; }
+
+<<<<<<< HEAD
+#frmNovoBanner {width: 491px;}
+
+#frmNovoBanner ul  li label { display:inline-block; width: 150px; }
+
+#frmNovoBanner ul li input { width: 230px; }
+=======
+#frmNovoBanner  ul  li label { display:inline-block; width: 150px; }
+
+#frmNovoBanner > dl{display:inline-block;padding-top:2px;width:100%;}
+#frmNovoBanner > dl > dt,
+#frmNovoBanner > dl > dd{margin-bottom:15px;}
+#frmNovoBanner > dl > dt{width:160px;font-size:15px;}
+#frmNovoBanner > dl > dd{width:235px;margin-top:-5px;}
+#frmNovoBanner > dl > dd.btn-group{width:100%;}
+
+>>>>>>> 824d09a9b4185bd5882425407e40e4df43f042f6
