@@ -35,6 +35,8 @@ public class OldDextranetDAO {
 
         ResultSet rsComentarios = stmt.executeQuery("SELECT comments.name, comments.timestamp, comments.comment FROM comments JOIN node ON comments.nid = node.nid WHERE node.type = 'blog' ORDER BY node.nid, node.created ASC;");
 
+        conexao.close();
+
         ArrayList<Comentario> comentarios = preencheComentarios(rsComentarios);
 
         return comentarios;
