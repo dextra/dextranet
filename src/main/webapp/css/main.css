@@ -180,6 +180,10 @@ textarea:focus{color:#5c95d5;border-color:#b7cce2;box-shadow:0 0 3px #b8c9dc,ins
 .form-fields-block textarea,
 .form-fields-block select{width:100%;}
 
+form input.data { width: 100px;}
+form input.titulo,
+form input.link { width: 476px;}
+
 /*----------  Header  ----------*/
 #header_placeholder{height:39px;position:relative;z-index:1;margin-bottom:30px;}
 #header_container{background-color:#e6ebf0;width:100%;position:fixed;top:0;left:0;width:100%;height:39px;z-index:2;box-shadow:inset 0 30px 30px -20px #f1f3f4, 0 4px 4px #d7e0e4;border:1px solid #f7fdff;z-index:15;}

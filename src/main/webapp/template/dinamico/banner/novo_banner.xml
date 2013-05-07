@@ -34,7 +34,6 @@
 	</template>
 
 	<script>
-	    $('#frmNovoBanner').form();
 	    $('#frmNovoBanner input').tipsy({gravity: 'w', trigger: 'focus'});
 
         $('.data').datepicker();
