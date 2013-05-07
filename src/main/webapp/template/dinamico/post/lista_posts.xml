@@ -104,7 +104,9 @@
 			{/for}
 			</ul>
 		</div>
-		<script type="text/javascript">			
+		<script type="text/javascript">
+		$('.new-comment textarea').autoresize();
+					
 		$('.list_stories_headline').click(function(e)
 		{
 			e.preventDefault();
@@ -122,6 +124,7 @@
 				item.find('.list_stories_contents,.list_stories_comments,.list_stories_newcomment').show();
 			}
 		});
+
 		
 		//CKEDITOR.replace('conteudoComentario');
 		</script>
