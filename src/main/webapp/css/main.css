@@ -154,9 +154,10 @@ textarea:focus{color:#5c95d5;border-color:#b7cce2;box-shadow:0 0 3px #b8c9dc,ins
 .form-dark input,
 .form-dark textarea,
 .form-dark select{background-color:#e6e6e6;text-shadow:0 1px 0 #fff;color:#777;box-shadow:inset 0 1px 0 0 #f5f5f5,inset 0 3px 3px 0 #ccc;}
+.form-dark textarea{line-height:17px;}
 .form-dark input:focus,
 .form-dark textarea:focus,
-.form-dark select:focus{color:#2183d5;background-color:#ecf7ff;box-shadow:inset 0 1px 0 0 #f5f5f5,inset 0 3px 3px 0 #cae7fa;}
+.form-dark select:focus{color:#0c4c81;background-color:#ecf7ff;box-shadow:inset 0 1px 0 0 #f5f5f5,inset 0 3px 3px 0 #cae7fa;}
 
 .form-big input,
 .form-big select,
@@ -166,7 +167,7 @@ textarea:focus{color:#5c95d5;border-color:#b7cce2;box-shadow:0 0 3px #b8c9dc,ins
 .form-horizontal dt{float:left;margin-bottom:25px;}
 .form-horizontal dt{clear:both;width:135px;}
 .form-horizontal dd{margin-top:-4px;}
-.form-horizontal dd input,
+.form-horizontal dd input, 
 .form-horizontal dd textarea,
 .form-horizontal dd select{width:100%;}
 
@@ -323,17 +324,29 @@ textarea:focus{color:#5c95d5;border-color:#b7cce2;box-shadow:0 0 3px #b8c9dc,ins
 
 .list_stories_comments > ul{list-style:none;margin:25px 0 15px;}
 .list_stories_comments > ul > li{margin-bottom:20px;position:relative;}
-.list_stories_comments > ul > li > .avatar-frame{width:32px;height:32px;padding:0;border-color:#668;float:left;margin:0 22px 0 2px;}
-.list_stories_comments > ul > li > .avatar-frame > img{width:32px;height:32px;border-radius:3px;}
+.list_stories_comments > ul > li > .avatar-frame, 
+.new-comment .avatar-frame {width:32px;height:32px;padding:0;border-color:#668;float:left;margin:0 22px 0 2px;}
+.list_stories_comments > ul > li > .avatar-frame > img, 
+.new-comment .avatar-frame > img {width:32px;height:32px;border-radius:3px;}
 .list_stories_comments > ul > li > .content{float:left;width:460px;font-size:12px;font-family:arial;color:#555;border:1px solid #ddf;border-radius:5px;padding:10px 12px;background-color:#fcfcff;}
 .list_stories_comments > ul > li > .content > p{padding-bottom:0;}
-.list_stories_comments .speech-shape-small,
-.list_stories_comments .speech-shape-small:before{position:absolute;left:46px;top:11px;border-right:dashed 12px #cfe1f3;border-top:solid 8px transparent;border-bottom:solid 8px transparent;border-radius:2px;z-index:1;width:0;height:0;}
-.list_stories_comments .speech-shape-small:before{display:block;content:"";border-right-color:#000;position:absolute;left:2px;top:-8px;z-index:1;border-right-color:#fcfcff;}
+.list_stories_comments .speech-shape-small, 
+.new-comment .speech-shape-small,
+.list_stories_comments .speech-shape-small:before,
+.new-comment .speech-shape-small:before{position:absolute;left:47px;top:11px;border-right:dashed 12px #cfe1f3;border-top:solid 8px transparent;border-bottom:solid 8px transparent;border-radius:2px;z-index:1;width:0;height:0;}
+.list_stories_comments .speech-shape-small:before,
+.new-comment .speech-shape-small:before{display:block;content:"";border-right-color:#000;position:absolute;left:2px;top:-8px;z-index:1;border-right-color:#fcfcff;}
 
 .list_stories_newcomment{margin-bottom:15px;clear:both;}
 .list_stories_newcomment #cke_27{display:none;} /* @fixme - desabilitar botões através da chamada pra o ckeditor */
 .list_stories_newcomment #cke_1_contents{height:85px !important;} /* @fixme - ajustar altura na chamada pra o ckeditor*/
+
+.new-comment {position:relative;}
+.new-comment textarea { width:484px;height:160px;background:#f0f0f0;box-shadow:inset 0 3px 3px rgba(10,0,45,.075);font-family:arial,sans-serif;font-size:12px;}
+.new-comment .speech-shape-small{border-right-color:#d5d5d5;}
+.new-comment .speech-shape-small:before{border-right-color:#f0f0f0;}
+.new-comment textarea:focus + .speech-shape-small{border-right-color:#B7CCE2;transition:all 150ms ease-in-out;}
+.new-comment textarea:focus + .speech-shape-small:before{border-right-color:#e5f4fe;}
 
 .comment-data{margin-top:20px;clear:both;}
 .comment-data > .list_stories_dx{margin-top:-3px;float:left;margin-right:10px;}

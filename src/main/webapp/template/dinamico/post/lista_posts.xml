@@ -53,6 +53,7 @@
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nisl purus, sodales in congue eu, iaculis vel mi. Proin ac nulla est, sed auctor sapien. Cras ut nulla arcu, ut interdum felis.</p>
 									<div class="comment-data">
 										<span class="list_stories_date">26 minutos atrás</span>
+										<button class="btn btn-small btn-light btn-excluirpost" title="Excluir este post"><strong>x </strong> Excluir</button><!-- @toDo tooltip -->
 										<div class="list_stories_dx">
 											<a id="${post.id}" class="clearfix linkCurtir post">
 												<span class="icon_dx"></span>
@@ -71,6 +72,7 @@
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nisl purus, sodales in congue eu, iaculis vel mi. Proin ac nulla est, sed auctor sapien. Cras ut nulla arcu, ut interdum felis.</p>
 									<div class="comment-data">
 										<span class="list_stories_date">26 minutos atrás</span>
+										<button class="btn btn-small btn-light btn-excluirpost" title="Excluir este post"><strong>x </strong> Excluir</button><!-- @toDo tooltip -->
 										<div class="list_stories_dx">
 											<a id="${post.id}" class="clearfix linkCurtir post">
 												<span class="icon_dx"></span>
@@ -87,8 +89,12 @@
 					<div class="list_stories_newcomment hidden">
 						<form id="form_new_post" class="clearfix form-dark form-fields-block">
 							<!--<button tabindex="9" id="postEditorToggle" class="btn float_right" type="button">Mostrar/esconder opções</button>-->
-							<div class="clear">
+							<div class="new-comment clear">
+								<div class="avatar-frame" title="Por ${post.usuario}">
+									<img src="${gravatar}${post.usuarioMD5}" alt="Avatar" />
+								</div>
 								<textarea cols="50" id="form_input_content" class="not-empty" style="resize:none;" name="conteudoComentario" tabindex="10" placeholder="Deixe seu comentario..."></textarea>
+								<div class="speech-shape-small"></div>
 							</div>
 							<button class="btn btn-blue float_right" id="form_post_submit" type="button" tabindex="11">Comentar</button>
 						</form>

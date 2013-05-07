@@ -2,7 +2,7 @@
 <engine>
 	<template selector="#content_left">
 	    <h1>${messages.banner_cadastro_titulo}</h1>
-		<form id="frmNovoBanner" class="form-dark form-horizontal clearfix"  method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+		<form id="frmNovoBanner" class="form-dark form-horizontal"  method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 	        <ul>
 	            <li class="required">
 	                <label for="txtTitulo">${messages.banner_titulo}</label>
@@ -22,7 +22,7 @@
                    </li>
                    <li class="required">
                        <label for="fileImagem">${messages.banner_imagem}</label>
-                       <input type="file" id="fileImagem" name="imagem" class="not-empty" original-title="${messages.banner_imagem_tip}" size="42" />
+                       <input type="file" id="fileImagem" name="imagem" class="not-empty" original-title="${messages.banner_imagem_tip}" size="22" />
                    </li>
                    <li class="btn-group">
                        <button class="btn btn-blue btn-xbig" type="button" id="btnSalvarNovoBanner">${messages.botao_upload}</button>
