@@ -146,7 +146,7 @@ textarea{
 input.submit{background-color:#ebeef1;color:#6d6e6e;text-shadow:0 1px 1px #fff;font-weight:bold;font-size:11px;}
 input:focus,
 select:focus,
-textarea:focus{color:#5396e1!important;border-color:#b7cce2;box-shadow:0 0 3px #b8c9dc,inset 0 4px 4px #f7f7f7,inset 0 0 0 1px #fff;}
+textarea:focus{color:#5396e1 !important;border-color:#b7cce2;box-shadow:0 0 3px #b8c9dc,inset 0 4px 4px #f7f7f7,inset 0 0 0 1px #fff;}
 
 #form_search{position:relative;z-index:2;margin-top:-3px;}
 #form_search_input{padding-right:25px;width:210px;position:relative;z-index:3;font-size:13px;padding:6px 35px 6px 10px;}
