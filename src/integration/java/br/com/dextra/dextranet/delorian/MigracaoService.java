@@ -31,7 +31,7 @@ public class MigracaoService {
 			}
 
 		}
-		return null;
+		return oldPosts;
 	}
 
 //	public static void main(String[] args) throws SQLException {
