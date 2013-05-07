@@ -12,7 +12,7 @@ public class OldDextranetDAO {
 	 * Consulta todos os posts no banco da antiga Dextranet
 	 * @return ArrayList contendo o conteudo que sera utilizado na migracao
 	 */
-    public ArrayList<PostOld> consultarPostsAntigos() throws SQLException {
+    public ArrayList<OldPost> consultarPostsAntigos() throws SQLException {
         Connection conexao = ControladorDeConexoes.abreConexao();
         Statement stmt = conexao.createStatement();
 
@@ -20,9 +20,9 @@ public class OldDextranetDAO {
 
         conexao.close();
 
-        ArrayList<PostOld> postsOld = preenchePosts(rsPosts);
+        ArrayList<OldPost> oldPosts = preenchePosts(rsPosts);
 
-        return postsOld;
+        return oldPosts;
     }
 
     /**
@@ -43,10 +43,47 @@ public class OldDextranetDAO {
     }
 
     /**
+     * Consulta o id e os arquivos de todos os posts que possuem algum tipo de anexo
+     * @return ArrayList de Integer com todos os ids e uma descricao do anexo
+     */
+    public ArrayList<OldAnexo> consultarPostsComAnexos() throws SQLException {
+    	Connection conexao = ControladorDeConexoes.abreConexao();
+        Statement stmt = conexao.createStatement();
+
+        ResultSet rsPostsAnexos = stmt.executeQuery("SELECT upload.nid, upload.description, node.title FROM upload JOIN node ON upload.nid = node.nid WHERE node.type = 'blog' ORDER BY node.nid ASC;");
+
+        conexao.close();
+
+        ArrayList<OldAnexo> idsPostsComComentarios = preencheValorPostsComAnexos(rsPostsAnexos);
+
+    	return idsPostsComComentarios;
+    }
+
+    /**
+     * Insere os ids dos Posts que possuem anexo em um ArrayList
+     */
+    private ArrayList<OldAnexo> preencheValorPostsComAnexos(ResultSet rsPostsAnexos) throws SQLException {
+    	ArrayList<OldAnexo> idsEAnexosPosts = new ArrayList<OldAnexo>();
+    	String idPostComAnexo;
+    	String anexo;
+    	String tituloDoPost;
+
+    	while (rsPostsAnexos.next()) {
+    		idPostComAnexo = rsPostsAnexos.getString("nid");
+    		anexo = rsPostsAnexos.getString("description");
+    		tituloDoPost = rsPostsAnexos.getString("title");
+
+			idsEAnexosPosts.add(new OldAnexo(Integer.parseInt(idPostComAnexo), anexo, tituloDoPost));
+        }
+
+    	return idsEAnexosPosts;
+	}
+
+	/**
      * Preenche um ArrayList com todos os posts
      */
-	private ArrayList<PostOld> preenchePosts(ResultSet rsPosts) throws SQLException {
-		ArrayList<PostOld> postsOld = new ArrayList<PostOld>();
+	private ArrayList<OldPost> preenchePosts(ResultSet rsPosts) throws SQLException {
+		ArrayList<OldPost> postsOld = new ArrayList<OldPost>();
 		String usuario;
 		String data;
 		String titulo;
@@ -60,7 +97,7 @@ public class OldDextranetDAO {
 
 			usuario = verificaUsuarioAnonimo(usuario);
 
-			postsOld.add(new PostOld(usuario, data, titulo, conteudo));
+			postsOld.add(new OldPost(usuario, data, titulo, conteudo));
         }
 		return postsOld;
 	}

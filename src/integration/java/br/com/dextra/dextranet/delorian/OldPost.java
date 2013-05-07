@@ -1,16 +1,16 @@
 package br.com.dextra.dextranet.delorian;
 
-public class PostOld {
+public class OldPost {
 	private String usuario;
 	private String data;
 	private String titulo;
 	private String conteudo;
 
-	public PostOld() {
+	public OldPost() {
 
 	}
 
-	public PostOld(String nome, String data, String titulo, String conteudo) {
+	public OldPost(String nome, String data, String titulo, String conteudo) {
 		this.usuario = nome;
 		this.data = data;
 		this.titulo = titulo;
