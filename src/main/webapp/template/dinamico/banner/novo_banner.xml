@@ -21,8 +21,8 @@
 
                 <dt></dt>
                 <dd class="btn-group">
-                    <button class="btn btn-blue btn-xbig" type="button" id="btnSalvarNovoBanner">${messages.botao_upload}</button>
-                    <button class="btn btn-blue btn-xbig" type="button" id="btnListarBanners">${messages.banner_botao_todos}</button>
+                    <button class="btn btn-blue" type="button" id="btnSalvarNovoBanner">${messages.botao_upload}</button>
+                    <button class="btn btn-blue" type="button" id="btnListarBanners">${messages.banner_botao_todos}</button>
                 </dd>
 	        </dl>
 		</form>
