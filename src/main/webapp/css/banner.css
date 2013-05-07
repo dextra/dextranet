@@ -1,3 +1,5 @@
 ul.content-banners { list-style-type:none;  padding:0; }
 
 img.banner { width: 300px; height: 70px; }
+
+#frmNovoBanner  ul  li label { display:inline-block; width: 150px; }

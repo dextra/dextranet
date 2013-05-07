@@ -18,7 +18,7 @@
 .list-team-empty > p > span{display:block;clear:both;}
 .list-team > li .empty{color:#999;font-style:italic;}
 
-.list-team-avatar{float:left;margin-right:20px;width:87px;}
+.list-team-avatar{float:left;margin-right:20px;width:87px; height: 120px;}
 .list-team-avatar > .avatar-frame{width:85px;height:85px;margin:1px;}
 .list-team-avatar > .avatar-frame > span{margin-top:11px;}
 .list-team-avatar > .avatar-frame > img{width:85px;max-height:85px;}
@@ -30,8 +30,8 @@
 .list-team-content-geral{margin-bottom:10px;}
 
 .list-team-content-data{list-style:none;}
-.list-team-content-data > li{float:left;width:265px;margin-right:20px;margin-bottom:4px;font-size:13px;color:#666;}
+.list-team-content-data > li{float:left;width:250px;margin-right:20px;margin-bottom:4px;font-size:13px;color:#666;}
 .list-team-content-data [class^=icon]{margin-right:3px;}
-.list-team-content-data > .list-team-content-phone{width:175px;}
+/* .list-team-content-data > .list-team-content-phone{width:175px;} */
 .list-team-content-data > li a{color:#569;}
 
