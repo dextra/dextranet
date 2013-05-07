@@ -2,7 +2,6 @@
 <engine>
 	<template selector="#content_left">
 	    <h1>${messages.banner_cadastro_titulo}</h1>
-
 		<form id="frmNovoBanner" class="form-dark form-horizontal clearfix" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 	        <dl>
 	            <dt><label for="txtTitulo"><span class="input-obg"/>${messages.banner_titulo}</label></dt>
@@ -18,7 +17,7 @@
                 <dd><input type="text" id="txtLink" name="link" original-title="${messages.banner_link_tip}" class="link" /></dd>
 
                 <dt><label for="fileImagem"><span class="input-obg" />${messages.banner_imagem}</label></dt>
-                <dd><input type="file" id="fileImagem" name="imagem" class="not-empty" original-title="${messages.banner_imagem_tip}" size="42" /></dd>
+                <dd><input type="file" id="fileImagem" name="imagem" class="not-empty" original-title="${messages.banner_imagem_tip}" size="22" /></dd>
 
                 <dt></dt>
                 <dd class="btn-group">
