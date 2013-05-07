@@ -1,3 +1,4 @@
+
 { "messages" : {
 	"label_newPost" : "Postar",
 	"label_home" : "Home",
@@ -56,6 +57,6 @@
 	"post_conteudo_tip" : "Digite o conteúdo do novo post...",
 	"post_comentario" : "comentário(s)",
 	"post_erro_campos_obrigatorios" : "Para publicar algo é necessário informar o título e o conteúdo!",
-	"post_mensagem_postagem_sucesso" : "Seu novo post foi postado com sucesso!"
+	"post_mensagem_postagem_sucesso" : "Seu novo post foi publicado com sucesso!"
 	}
 }
