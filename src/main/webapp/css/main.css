@@ -119,7 +119,8 @@ small{font-size:70%;}
 .btn-block{width:100%;}
 
 .btn-group { padding-top: 15px; text-align: right; }
-.btn-group .btn:last-child{ margin-left: 10px; }
+.btn-group .btn{ margin-right: 10px; }
+.btn-group .btn:last-child{ margin-right:0; }
 
 /*----------  Light menu  ----------*/
 .menu-light{list-style:none;position:absolute;left:0;top:0;box-shadow:0 10px 10px -6px #aaa;}
