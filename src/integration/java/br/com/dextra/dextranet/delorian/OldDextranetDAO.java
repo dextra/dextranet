@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class OldDextranetDAO {
 
@@ -88,6 +90,7 @@ public class OldDextranetDAO {
 		String data;
 		String titulo;
 		String conteudo;
+		Date dataTratada;
 
 		while (rsPosts.next()) {
 			usuario = rsPosts.getString("name");
@@ -95,11 +98,16 @@ public class OldDextranetDAO {
 			titulo = rsPosts.getString("title");
 			conteudo = rsPosts.getString("body");
 
+			dataTratada = tratarTimestamp(data);
 			usuario = verificaUsuarioAnonimo(usuario);
 
-			postsOld.add(new OldPost(usuario, data, titulo, conteudo));
+			postsOld.add(new OldPost(usuario, dataTratada, titulo, conteudo));
         }
 		return postsOld;
+	}
+
+	private Date tratarTimestamp(String dataString) {
+		return new Date(Long.parseLong(dataString) * 1000);
 	}
 
 	/**
@@ -110,15 +118,17 @@ public class OldDextranetDAO {
 		String usuario;
 		String data;
 		String comentario;
+		Date dataTratada;
 
 		while (rsComentarios.next()) {
 			usuario = rsComentarios.getString("name");
 			data = rsComentarios.getString("timestamp");
 			comentario = rsComentarios.getString("comment");
 
+			dataTratada = tratarTimestamp(data);
 			usuario = verificaUsuarioAnonimo(usuario);
 
-			comentarios.add(new Comentario(data, usuario, comentario));
+			comentarios.add(new Comentario(dataTratada, usuario, comentario));
         }
 		return comentarios;
 	}
