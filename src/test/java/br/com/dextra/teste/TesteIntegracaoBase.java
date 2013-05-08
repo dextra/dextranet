@@ -16,6 +16,8 @@ import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
 import br.com.dextra.dextranet.conteudo.post.comentario.ComentarioRepository;
 import br.com.dextra.dextranet.conteudo.post.curtida.Curtida;
 import br.com.dextra.dextranet.conteudo.post.curtida.CurtidaRepository;
+import br.com.dextra.dextranet.microblog.MicroBlogRepository;
+import br.com.dextra.dextranet.microblog.MicroPost;
 import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.dextranet.usuario.UsuarioRepository;
 import br.com.dextra.teste.container.GAETestServer;
@@ -71,6 +73,13 @@ public class TesteIntegracaoBase {
 		List<Banner> bannersCadastrados = repositorioDeBanners.lista();
 		for (Banner banner : bannersCadastrados) {
 			repositorioDeBanners.remove(banner.getId());
+		}
+	}
+
+	protected void limpaMicroPostsInseridos(MicroBlogRepository repository) {
+		List<MicroPost> microPosts = repository.buscarMicroPosts();
+		for (MicroPost micropost : microPosts) {
+			repository.remove(micropost.getId());
 		}
 	}
 

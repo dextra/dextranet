@@ -79,5 +79,5 @@ dextranet.usuario = {
 				$('.message').message($.i18n.messages.erro_campos_obrigatorios, 'error', true);
 			}
 		}
-		
+
 }
