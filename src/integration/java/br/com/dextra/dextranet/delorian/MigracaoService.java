@@ -53,23 +53,38 @@ public class MigracaoService {
 		}
 		return oldPostsWrapper;
 	}
+
+	public ArrayList<Comentario> recuperarComentariosDoPost(Integer nid, ArrayList<ComentarioWrapper> comentariosWrapper) {
+		ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
+
+		for (ComentarioWrapper comentarioWrapper : comentariosWrapper) {
+			if (comentarioWrapper.getNid().equals(nid)) {
+				comentarios.add(comentarioWrapper.getComentario());
+			}
+		}
+
+		return comentarios;
+	}
 /*
 	public static void main(String[] args) throws SQLException {
 		MigracaoService migracaoService = new MigracaoService();
 
-		ArrayList<OldPostWrapper> oldPosts = migracaoService.consultarPostsTratados();
-		ArrayList<ComentarioWrapper> comentarios = migracaoService.consultarComentarios();
+		ArrayList<OldPostWrapper> oldPostsWrapper = migracaoService.consultarPostsTratados();
+		ArrayList<ComentarioWrapper> comentariosWrapper = migracaoService.consultarComentarios();
 
 		//envia um post
-		for (OldPostWrapper oldPostWrapper : oldPosts) {
-			//envia o post
+		for (OldPostWrapper oldPostWrapper : oldPostsWrapper) {
+			//envia o post com json
 			//recebe o post novamente
+			//tratar json que veio de resposta
 
+			ArrayList<Comentario> comentarios = migracaoService.recuperarComentariosDoPost(oldPostWrapper.getNid(), comentariosWrapper);
 
+			for (Comentario comentario : comentarios) {
+				//inserir o postId que veio do servidor no comentario
+				//pra cada comentario, enviar uma requisicao para o servidor
+			}
 		}
-		//recebe o retorno do post
-
-
 	}
 */
 }
