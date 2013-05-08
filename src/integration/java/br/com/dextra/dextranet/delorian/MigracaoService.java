@@ -54,10 +54,10 @@ public class MigracaoService {
 		return oldPosts;
 	}
 
-	public static void main(String[] args) throws SQLException {
-		MigracaoService migracaoService = new MigracaoService();
-
-		migracaoService.consultarPostsTratados();
-	}
+//	public static void main(String[] args) throws SQLException {
+//		MigracaoService migracaoService = new MigracaoService();
+//
+//		migracaoService.consultarPostsTratados();
+//	}
 
 }
