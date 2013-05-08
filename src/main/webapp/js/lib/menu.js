@@ -25,8 +25,8 @@
 				});
 			} else {
 				headerMenu.close();
+				$(this).blur();
 			}
 		});
 	};
-
 })(jQuery);
