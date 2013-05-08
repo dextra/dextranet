@@ -37,9 +37,12 @@ public class EntidadeRepository {
 			Integer numeroDaPagina, EntidadeOrdenacao... ordenacao) {
 		Query query = new Query(clazz.getName());
 
-		for (EntidadeOrdenacao o : ordenacao) {
-			query.addSort(o.getAtributo(), o.getOrdenacao());
+		if (ordenacao!=null) {
+			for (EntidadeOrdenacao o : ordenacao) {
+				query.addSort(o.getAtributo(), o.getOrdenacao());
+			}
 		}
+		
 
 		PreparedQuery pquery = this.datastore.prepare(query);
 

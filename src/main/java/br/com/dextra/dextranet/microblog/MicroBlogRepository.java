@@ -17,6 +17,10 @@ public class MicroBlogRepository extends EntidadeRepository {
 		return toMicroPosts(prepared.asIterable());
 	}
 
+	public void remove(String id) {
+		super.remove(id, MicroPost.class);
+	}
+
 	private List<MicroPost> toMicroPosts(Iterable<Entity> asIterable) {
 		List<MicroPost> listaMicroPosts = new ArrayList<MicroPost>();
 
@@ -30,5 +34,4 @@ public class MicroBlogRepository extends EntidadeRepository {
 	public void salvar(MicroPost micropost) {
 		this.persiste(micropost);
 	}
-
 }
