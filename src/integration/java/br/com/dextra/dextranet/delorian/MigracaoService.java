@@ -14,8 +14,8 @@ public class MigracaoService {
 	/**
 	 * Consulta os posts na antiga Dextranet e trata todos os que possuem anexo
 	 */
-	public ArrayList<OldPost> consultarPostsTratados() throws SQLException {
-		ArrayList<OldPost> postsOld = oldDextranetDao.consultarPostsAntigos();
+	public ArrayList<OldPostWrapper> consultarPostsTratados() throws SQLException {
+		ArrayList<OldPostWrapper> postsOld = oldDextranetDao.consultarPostsAntigos();
 		ArrayList<OldAnexo> oldAnexos = oldDextranetDao.consultarPostsComAnexos();
 
 		postsOld = tratarPostsComAnexos(postsOld, oldAnexos);
@@ -26,38 +26,50 @@ public class MigracaoService {
 	/**
 	 * Consulta no DAO os comentarios de cada post
 	 */
-	public ArrayList<Comentario> consultarComentarios() throws SQLException {
+	public ArrayList<ComentarioWrapper> consultarComentarios() throws SQLException {
 		return oldDextranetDao.consultarComentariosAntigos();
 	}
 
 	/**
 	 * Adiciona um texto alertando que o post possuia anexos
 	 */
-	private ArrayList<OldPost> tratarPostsComAnexos(ArrayList<OldPost> oldPosts, ArrayList<OldAnexo> oldAnexos) {
-		for (int i = 0; i < oldPosts.size() ; i++) {
+	private ArrayList<OldPostWrapper> tratarPostsComAnexos(ArrayList<OldPostWrapper> oldPostsWrapper, ArrayList<OldAnexo> oldAnexos) {
+		for (int i = 0; i < oldPostsWrapper.size() ; i++) {
 			for (OldAnexo oldAnexo : oldAnexos) {
 
-				if (oldPosts.get(i).getTitulo().equals(oldAnexo.getTituloDoPost())) {
+				if (oldPostsWrapper.get(i).getNid().equals(oldAnexo.getPostId())) {
 					String mensagem = "<br /><p>ATENÇÃO: Este post continha um anexo que foi desconsiderado no processo de migracao</p>";
-					String conteudoPost = oldPosts.get(i).getConteudo();
+					String conteudoPost = oldPostsWrapper.get(i).getOldPost().getConteudo();
 					conteudoPost = conteudoPost.concat(mensagem);
 
-					oldPosts.get(i).setConteudo(conteudoPost);
+					oldPostsWrapper.get(i).getOldPost().setConteudo(conteudoPost);
 
-					System.out.println(conteudoPost);
+					System.out.println("Entrou");
 
 					break;
 				}
 
 			}
 		}
-		return oldPosts;
+		return oldPostsWrapper;
 	}
+/*
+	public static void main(String[] args) throws SQLException {
+		MigracaoService migracaoService = new MigracaoService();
 
-//	public static void main(String[] args) throws SQLException {
-//		MigracaoService migracaoService = new MigracaoService();
-//
-//		migracaoService.consultarPostsTratados();
-//	}
+		ArrayList<OldPostWrapper> oldPosts = migracaoService.consultarPostsTratados();
+		ArrayList<ComentarioWrapper> comentarios = migracaoService.consultarComentarios();
 
+		//envia um post
+		for (OldPostWrapper oldPostWrapper : oldPosts) {
+			//envia o post
+			//recebe o post novamente
+
+
+		}
+		//recebe o retorno do post
+
+
+	}
+*/
 }
