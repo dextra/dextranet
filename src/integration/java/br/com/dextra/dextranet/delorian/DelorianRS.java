@@ -1,7 +1,5 @@
 package br.com.dextra.dextranet.delorian;
 
-import java.io.InputStream;
-
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
@@ -15,8 +13,8 @@ public class DelorianRS {
 	private final String PROXY_PASSWORD = "321mudar";
 
 	public String enviarPost(OldPost oldPost) {
-		String url = "http://dev.dextra-dextranet.appspot.com/_ah;/s/migracao/post";
-		InputStream in = null;
+//		String url = "http://dev.dextra-dextranet.appspot.com/_ah/s/migracao/post";
+		String url = "http://dev.brunodextranet.appspot.com/s/migracao/post";
 
 		try {
 			PostMethod method = new PostMethod(url);
@@ -33,23 +31,20 @@ public class DelorianRS {
 			method.addParameter("titulo", oldPost.getTitulo());
 			method.addParameter("conteudo", oldPost.getConteudo());
 
-			int statusCode = client.executeMethod(method);
+			client.executeMethod(method);
+			byte[] responseBody = method.getResponseBody();
+			method.releaseConnection();
 
-			if (statusCode != -1) {
-				in = method.getResponseBodyAsStream();
-			}
-
-			System.out.println(in);
-
+			return new String(responseBody);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return in.toString();
+		return null;
 	}
 
 	public void enviarComentario(Comentario comentario, String postId) {
-		String url = "http://dev.dextra-dextranet.appspot.com/_ah;/s/migracao/post/"+postId+"/comentario";
-		InputStream in = null;
+//		String url = "http://dev.dextra-dextranet.appspot.com/_ah/s/migracao/post/"+postId+"/comentario";
+		String url = "http://dev.brunodextranet.appspot.com/s/migracao/post/"+postId+"/comentario";
 
 		try {
 			PostMethod method = new PostMethod(url);
@@ -65,14 +60,8 @@ public class DelorianRS {
 			method.addParameter("usuario", comentario.getUsuario());
 			method.addParameter("conteudo", comentario.getComentario());
 
-			int statusCode = client.executeMethod(method);
-
-			if (statusCode != -1) {
-				in = method.getResponseBodyAsStream();
-			}
-
-			System.out.println(in);
-
+			client.executeMethod(method);
+			method.releaseConnection();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
