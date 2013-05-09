@@ -15,7 +15,7 @@ public class DelorianRS {
 	private final String PROXY_PASSWORD = "321mudar";
 
 	public String enviarPost(OldPost oldPost) {
-		String url = "http://www.google.com/";
+		String url = "http://dev.dextra-dextranet.appspot.com/_ah;/s/migracao/post";
 		InputStream in = null;
 
 		try {
@@ -28,7 +28,7 @@ public class DelorianRS {
 			AuthScope authScope = new AuthScope(PROXY_HOST, PROXY_PORT);
 			client.getState().setProxyCredentials(authScope, credentials);
 
-//			method.addParameter("data", oldPost.getData());
+			method.addParameter("data", MigracaoService.formatarData(oldPost.getData()));
 			method.addParameter("usuario", oldPost.getUsuario());
 			method.addParameter("titulo", oldPost.getTitulo());
 			method.addParameter("conteudo", oldPost.getConteudo());
@@ -48,7 +48,7 @@ public class DelorianRS {
 	}
 
 	public void enviarComentario(Comentario comentario, String postId) {
-		String url = "post/" + postId + "/comentario";
+		String url = "http://dev.dextra-dextranet.appspot.com/_ah;/s/migracao/post/"+postId+"/comentario";
 		InputStream in = null;
 
 		try {
@@ -61,7 +61,7 @@ public class DelorianRS {
 			AuthScope authScope = new AuthScope(PROXY_HOST, PROXY_PORT);
 			client.getState().setProxyCredentials(authScope, credentials);
 
-//			method.addParameter("data", comentario.getData());
+			method.addParameter("data", MigracaoService.formatarData(comentario.getData()));
 			method.addParameter("usuario", comentario.getUsuario());
 			method.addParameter("conteudo", comentario.getComentario());
 
