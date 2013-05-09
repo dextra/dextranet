@@ -34,7 +34,7 @@ public class OldDextranetDAO {
     	Connection conexao = ControladorDeConexoes.abreConexao();
         Statement stmt = conexao.createStatement();
 
-        ResultSet rsComentarios = stmt.executeQuery("SELECT comments.name, comments.timestamp, comments.comment, node.nid FROM comments JOIN node ON comments.nid = node.nid WHERE node.type = 'blog' ORDER BY node.nid, node.created ASC;");
+        ResultSet rsComentarios = stmt.executeQuery("SELECT comments.name, comments.timestamp, comments.comment, node.nid FROM comments JOIN node ON comments.nid = node.nid WHERE node.type = 'blog' ORDER BY node.nid, comments.timestamp ASC;");
 
         conexao.close();
 

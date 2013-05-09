@@ -5,6 +5,7 @@ import java.util.List;
 
 public class NewPost {
 
+	private String id;
 	private String titulo;
 	private long quantidadeDeComentarios;
 	private Date dataDeAtualizacao;
@@ -18,10 +19,11 @@ public class NewPost {
 	public NewPost() {
 	}
 
-	public NewPost(String titulo, long quantidadeDeComentarios,
+	public NewPost(String id, String titulo, long quantidadeDeComentarios,
 			Date dataDeAtualizacao, String usuario, String usuarioMD5,
 			String conteudo, Date dataDeCriacao, long quantidadeDeCurtidas,
 			List<String> usuariosQueCurtiram) {
+		this.id = id;
 		this.titulo = titulo;
 		this.quantidadeDeComentarios = quantidadeDeComentarios;
 		this.dataDeAtualizacao = dataDeAtualizacao;
@@ -31,6 +33,14 @@ public class NewPost {
 		this.dataDeCriacao = dataDeCriacao;
 		this.quantidadeDeCurtidas = quantidadeDeCurtidas;
 		this.usuariosQueCurtiram = usuariosQueCurtiram;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getTitulo() {
