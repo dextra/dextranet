@@ -5,13 +5,18 @@ import java.util.ArrayList;
 
 public class MigracaoService {
 
+	private OldDextranetDAO oldDextranetDao;
+
+	public MigracaoService() {
+		oldDextranetDao = new OldDextranetDAO();
+	}
+
 	/**
 	 * Consulta os posts na antiga Dextranet e trata todos os que possuem anexo
 	 */
-	public ArrayList<OldPost> consultarPostsTratados() throws SQLException {
-		OldDextranetDAO oldDextranetDAO = new OldDextranetDAO();
-		ArrayList<OldPost> postsOld = oldDextranetDAO.consultarPostsAntigos();
-		ArrayList<OldAnexo> oldAnexos = oldDextranetDAO.consultarPostsComAnexos();
+	public ArrayList<OldPostWrapper> consultarPostsTratados() throws SQLException {
+		ArrayList<OldPostWrapper> postsOld = oldDextranetDao.consultarPostsAntigos();
+		ArrayList<OldAnexo> oldAnexos = oldDextranetDao.consultarPostsComAnexos();
 
 		postsOld = tratarPostsComAnexos(postsOld, oldAnexos);
 
@@ -19,25 +24,45 @@ public class MigracaoService {
 	}
 
 	/**
-	 * Adiciona um texto alertando que o post possuia anexos
+	 * Consulta no DAO os comentarios de cada post
 	 */
-	private ArrayList<OldPost> tratarPostsComAnexos(ArrayList<OldPost> oldPosts, ArrayList<OldAnexo> oldAnexos) {
-		for (OldPost oldPost : oldPosts) {
-
-			for (OldAnexo oldAnexo : oldAnexos) {
-				if (oldPost.getTitulo().equals(oldAnexo.getTituloDoPost())) {
-					System.out.println("NID: " + oldAnexo.getPostId());
-				}
-			}
-
-		}
-		return oldPosts;
+	public ArrayList<ComentarioWrapper> consultarComentarios() throws SQLException {
+		return oldDextranetDao.consultarComentariosAntigos();
 	}
 
-//	public static void main(String[] args) throws SQLException {
-//		MigracaoService migracaoService = new MigracaoService();
-//
-//		migracaoService.consultarPostsTratados();
-//	}
+	/**
+	 * Adiciona um texto alertando que o post possuia anexos
+	 */
+	private ArrayList<OldPostWrapper> tratarPostsComAnexos(ArrayList<OldPostWrapper> oldPostsWrapper, ArrayList<OldAnexo> oldAnexos) {
+		for (int i = 0; i < oldPostsWrapper.size() ; i++) {
+			for (OldAnexo oldAnexo : oldAnexos) {
 
+				if (oldPostsWrapper.get(i).getNid().equals(oldAnexo.getPostId())) {
+					String mensagem = "<br /><p>ATENÇÃO: Este post continha um anexo que foi desconsiderado no processo de migracao</p>";
+					String conteudoPost = oldPostsWrapper.get(i).getOldPost().getConteudo();
+					conteudoPost = conteudoPost.concat(mensagem);
+
+					oldPostsWrapper.get(i).getOldPost().setConteudo(conteudoPost);
+					break;
+				}
+
+			}
+		}
+		return oldPostsWrapper;
+	}
+
+	/**
+	 * Retorna um array com os comentarios de um post especifico
+	 */
+	public ArrayList<Comentario> recuperarComentariosDoPost(Integer nid, ArrayList<ComentarioWrapper> comentariosWrapper) {
+		ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
+
+		for (ComentarioWrapper comentarioWrapper : comentariosWrapper) {
+			if (comentarioWrapper.getNid().equals(nid)) {
+				comentarios.add(comentarioWrapper.getComentario());
+			}
+		}
+
+		return comentarios;
+	}
 }

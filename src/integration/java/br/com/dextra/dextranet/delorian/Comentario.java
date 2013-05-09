@@ -1,8 +1,9 @@
 package br.com.dextra.dextranet.delorian;
 
+import java.util.Date;
+
 public class Comentario {
-	private String postId;
-	private String data;
+	private Date data;
 	private String usuario;
 	private String comentario;
 
@@ -10,22 +11,16 @@ public class Comentario {
 
 	}
 
-	public Comentario(String data, String usuario, String comentario) {
+	public Comentario(Date data, String usuario, String comentario) {
 		this.data = data;
 		this.usuario = usuario;
 		this.comentario = comentario;
 	}
 
-	public String getPostId() {
-		return postId;
-	}
-	public void setPostId(String postId) {
-		this.postId = postId;
-	}
-	public String getData() {
+	public Date getData() {
 		return data;
 	}
-	public void setData(String data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 	public String getUsuario() {

@@ -122,9 +122,13 @@
 				item.addClass('expanded');
 				item.find('.list_stories_lead').hide();
 				item.find('.list_stories_contents,.list_stories_comments,.list_stories_newcomment').show();
+				item.find('.new-comment textarea').focus();
 			}
 		});
-		
+		$('.list_stories_numbercomments').click(function() {
+			$(this).parents('li').find('.list_stories_headline').click();
+		});
+
 		//CKEDITOR.replace('conteudoComentario');
 		</script>
 	</template>

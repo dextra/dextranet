@@ -5,7 +5,7 @@
 		<h1>${messages.usuario_edicao_titulo}</h1>
 
 		<div class="clearfix">
-		
+
 			<div class="avatar-frame avatar-frame-float">
 				<img src="${gravatar}${usuario.md5}?s=100" alt="Avatar" />
 			</div>
@@ -31,7 +31,7 @@
 						<select id="txtArea" name="area" class="not-empty">
 							<option></option>
 							{for area in areas}
-								<option value="${area.nome}">${area.nome}</option>
+								<option value="${area.id}">${area.nome}</option>
 							{/for}
 						</select>
 					</dd>
@@ -42,7 +42,7 @@
 						<select id="txtUnidade" name="unidade" class="not-empty">
 							<option></option>
 							{for unidade in unidades}
-								<option value="${unidade.nome}">${unidade.nome}</option>
+								<option value="${unidade.id}">${unidade.nome}</option>
 							{/for}
 						</select>
 					</dd>
@@ -82,9 +82,9 @@
 					</dd>
 				</dl>
 			</form>
-		
+
 		</div>
-		
+
 	</template>
 
     <script>

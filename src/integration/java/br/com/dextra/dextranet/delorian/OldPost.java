@@ -1,8 +1,10 @@
 package br.com.dextra.dextranet.delorian;
 
+import java.util.Date;
+
 public class OldPost {
 	private String usuario;
-	private String data;
+	private Date data;
 	private String titulo;
 	private String conteudo;
 
@@ -10,7 +12,7 @@ public class OldPost {
 
 	}
 
-	public OldPost(String nome, String data, String titulo, String conteudo) {
+	public OldPost(String nome, Date data, String titulo, String conteudo) {
 		this.usuario = nome;
 		this.data = data;
 		this.titulo = titulo;
@@ -25,11 +27,11 @@ public class OldPost {
 		this.usuario = nome;
 	}
 
-	public String getData() {
+	public Date getData() {
 		return data;
 	}
 
-	public void setData(String data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 
