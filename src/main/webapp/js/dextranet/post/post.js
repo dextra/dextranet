@@ -52,6 +52,20 @@ dextranet.post = {
 			}
 			
 			return conteudoLimpo;
-		}
+		},
+		
+		curtir : function(postId) {
+			$.ajax( {
+				type : "POST",
+				url : "/s/post/"+postId+"/curtida",
+				contentType : dextranet.application_json,
+				success : function(post) {
+					dextranet.post.listar();
+				},
+    			error: function(jqXHR, textStatus, errorThrown) {
+    				dextranet.processaErroNaRequisicao(jqXHR);
+    			}
+			});
+		} 
 
 };

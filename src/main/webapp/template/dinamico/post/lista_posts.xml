@@ -25,7 +25,7 @@
 					<!-- Curtidas, quantidade de comentarios, data, excluir -->
 					<div class="list_stories_data clearfix">
 						<div class="list_stories_dx">
-							<a id="${post.id}" class="clearfix linkCurtir post">
+							<a id="${post.id}" class="clearfix linkCurtir post" onclick="dextranet.post.curtir('${post.id}');">
 								<span class="icon_dx"></span>
 								<span class="numero_curtida">${post.quantidadeDeCurtidas}</span>
 							</a>
@@ -124,7 +124,6 @@
 				item.find('.list_stories_contents,.list_stories_comments,.list_stories_newcomment').show();
 			}
 		});
-
 		
 		//CKEDITOR.replace('conteudoComentario');
 		</script>
