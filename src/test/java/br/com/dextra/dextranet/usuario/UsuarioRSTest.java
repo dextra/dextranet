@@ -34,7 +34,7 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		Assert.assertTrue(StringUtils.isEmpty(usuarioPersistido.getGitHub()));
 		Assert.assertTrue(StringUtils.isEmpty(usuarioPersistido.getSkype()));
 
-		rest.atualizar(usuario.getId(), "Nome", "Apelido", "Área", "Unidade", "Ramal", "Residencial", "Celular",
+		rest.atualizar(usuario.getId(), "Nome", "Apelido", "&Aacute;rea", "Unidade", "Ramal", "Residencial", "Celular",
 				"GitHub", "Skype");
 		usuarioPersistido = repositorio.obtemPorId(usuario.getId());
 

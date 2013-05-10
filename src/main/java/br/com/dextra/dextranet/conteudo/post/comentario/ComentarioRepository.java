@@ -3,7 +3,6 @@ package br.com.dextra.dextranet.conteudo.post.comentario;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.dextra.dextranet.indexacao.IndexacaoRepository;
 import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.persistencia.EntidadeRepository;
 
@@ -17,18 +16,19 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 
 public class ComentarioRepository extends EntidadeRepository {
 
-	private IndexacaoRepository indexacao = new IndexacaoRepository();
-	
+	//private IndexacaoRepository indexacao = new IndexacaoRepository();
+
+	// TODO: Verificar se ha necessidade de indexar comentarios dos posts
 	public Comentario persiste(Comentario comentario) {
 		Comentario comentarioPersistido = super.persiste(comentario);
-		indexacao.indexar(comentarioPersistido);
+		// indexacao.indexar(comentarioPersistido);
 
 		return comentarioPersistido;
 	}
 
 	public void remove(String id) {
 		super.remove(id, Comentario.class);
-		indexacao.removeIndexacao(Comentario.class.getName(), id);
+		// indexacao.removeIndexacao(Comentario.class.getName(), id);
 	}
 
 	public Comentario obtemPorId(String id) throws EntityNotFoundException {

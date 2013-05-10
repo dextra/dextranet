@@ -1,0 +1,33 @@
+<engine>
+	<template selector="#div_curtidas_dialog">
+		<ul class="lista_curtidas" id="relacao_dos_posts">
+			{if curtidas.length == 0}
+				${messages.post_nenhuma_curtida}
+			{/if}
+			{for curtida in curtidas}
+				<div class="usuario_curtida">
+					<div class="avatar-frame avatar-frame-float">
+						<img src="${gravatar}${curtida.usuarioMD5}?s=100" alt="Avatar" />
+					</div>
+					${curtida.usuario}
+				</div>
+				<div class="usuario_curtida">
+					<div class="avatar-frame avatar-frame-float">
+						<img src="${gravatar}${curtida.usuarioMD5}?s=100" alt="Avatar" />
+					</div>
+					${curtida.usuario}
+				</div>
+				<div class="usuario_curtida">
+					<div class="avatar-frame avatar-frame-float">
+						<img src="${gravatar}${curtida.usuarioMD5}?s=100" alt="Avatar" />
+					</div>
+					${curtida.usuario}
+				</div>
+			{/for}
+		</ul>
+	</template>
+
+	<script type="text/javascript">
+		$('#div_curtidas_dialog').xdialog({overlay: {background: '#FFF', 'z-index': 100}}).css({'z-index': 101});
+	</script>
+</engine>
