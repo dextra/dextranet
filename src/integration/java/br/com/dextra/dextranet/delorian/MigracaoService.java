@@ -1,7 +1,9 @@
 package br.com.dextra.dextranet.delorian;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MigracaoService {
 
@@ -31,6 +33,25 @@ public class MigracaoService {
 	}
 
 	/**
+	 * Retorna um array com os comentarios de um post especifico
+	 */
+	public ArrayList<Comentario> recuperarComentariosDoPost(Integer nid, ArrayList<ComentarioWrapper> comentariosWrapper) {
+		ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
+
+		for (ComentarioWrapper comentarioWrapper : comentariosWrapper) {
+			if (comentarioWrapper.getNid().equals(nid)) {
+				comentarios.add(comentarioWrapper.getComentario());
+			}
+		}
+
+		return comentarios;
+	}
+
+	public static String formatarData(Date data) {
+		return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(data);
+	}
+
+	/**
 	 * Adiciona um texto alertando que o post possuia anexos
 	 */
 	private ArrayList<OldPostWrapper> tratarPostsComAnexos(ArrayList<OldPostWrapper> oldPostsWrapper, ArrayList<OldAnexo> oldAnexos) {
@@ -43,9 +64,6 @@ public class MigracaoService {
 					conteudoPost = conteudoPost.concat(mensagem);
 
 					oldPostsWrapper.get(i).getOldPost().setConteudo(conteudoPost);
-
-					System.out.println("Entrou");
-
 					break;
 				}
 
@@ -53,23 +71,4 @@ public class MigracaoService {
 		}
 		return oldPostsWrapper;
 	}
-/*
-	public static void main(String[] args) throws SQLException {
-		MigracaoService migracaoService = new MigracaoService();
-
-		ArrayList<OldPostWrapper> oldPosts = migracaoService.consultarPostsTratados();
-		ArrayList<ComentarioWrapper> comentarios = migracaoService.consultarComentarios();
-
-		//envia um post
-		for (OldPostWrapper oldPostWrapper : oldPosts) {
-			//envia o post
-			//recebe o post novamente
-
-
-		}
-		//recebe o retorno do post
-
-
-	}
-*/
 }
