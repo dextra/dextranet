@@ -7,16 +7,18 @@ public class OldPost {
 	private Date data;
 	private String titulo;
 	private String conteudo;
+	private Integer nid;
 
 	public OldPost() {
 
 	}
 
-	public OldPost(String nome, Date data, String titulo, String conteudo) {
+	public OldPost(String nome, Date data, String titulo, String conteudo, Integer nid) {
 		this.usuario = nome;
 		this.data = data;
 		this.titulo = titulo;
 		this.conteudo = conteudo;
+		this.nid = nid;
 	}
 
 	public String getUsuario() {
@@ -49,5 +51,13 @@ public class OldPost {
 
 	public void setConteudo(String conteudo) {
 		this.conteudo = conteudo;
+	}
+
+	public Integer getNid() {
+		return nid;
+	}
+
+	public void setNid(Integer nid) {
+		this.nid = nid;
 	}
 }
