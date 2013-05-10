@@ -31,7 +31,7 @@
 						<select id="txtArea" name="area" class="not-empty">
 							<option></option>
 							{for area in areas}
-								<option value="${area.id}">${area.nome}</option>
+								<option value="${area.nome}">${area.nome}</option>
 							{/for}
 						</select>
 					</dd>
@@ -42,7 +42,7 @@
 						<select id="txtUnidade" name="unidade" class="not-empty">
 							<option></option>
 							{for unidade in unidades}
-								<option value="${unidade.id}">${unidade.nome}</option>
+								<option value="${unidade.nome}">${unidade.nome}</option>
 							{/for}
 						</select>
 					</dd>
@@ -88,8 +88,8 @@
 	</template>
 
     <script>
-        $('#txtArea').val(this.usuario.area);
-        $('#txtUnidade').val(this.usuario.unidade);
+        $('#txtArea').val(stringUtils.resolveCaracteresHTML(this.usuario.area));
+        $('#txtUnidade').val(stringUtils.resolveCaracteresHTML(this.usuario.unidade));
 
         $('.message').message($.i18n.messages.usuario_mensagem_foto, 'info', true);
         $('#btnSalvar').click(dextranet.usuario.salvar);

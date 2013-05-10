@@ -61,7 +61,7 @@
                                 - ${messages.usuario_ramal} <strong>${colaborador.ramal}</strong>
                             {/if}
                         </p>
-                        
+
 						<ul class="list-team-content-data clearfix">
 							<li>
 								<span class="icon_gtalk-mini icon" original-title="${messages.usuario_email}"></span>
@@ -107,7 +107,7 @@
     </template>
 
     <script type="text/javascript">
-	
+
         $('.icon').tipsy();
     </script>
 </engine>
