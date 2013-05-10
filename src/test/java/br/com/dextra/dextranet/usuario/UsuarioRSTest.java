@@ -34,19 +34,24 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		Assert.assertTrue(StringUtils.isEmpty(usuarioPersistido.getGitHub()));
 		Assert.assertTrue(StringUtils.isEmpty(usuarioPersistido.getSkype()));
 
-		rest.atualizar(usuario.getId(), "Nome", "Apelido", "Area", "Unidade", "Ramal", "Residencial", "Celular",
+		rest.atualizar(usuario.getId(), "Nome", "Apelido", "Área", "Unidade", "Ramal", "Residencial", "Celular",
 				"GitHub", "Skype");
 		usuarioPersistido = repositorio.obtemPorId(usuario.getId());
 
 		Assert.assertEquals("Nome", usuarioPersistido.getNome());
 		Assert.assertEquals("Apelido", usuarioPersistido.getApelido());
-		Assert.assertEquals("Area", usuarioPersistido.getArea());
+		Assert.assertEquals("&Aacute;rea", usuarioPersistido.getArea());
 		Assert.assertEquals("Unidade", usuarioPersistido.getUnidade());
 		Assert.assertEquals("Ramal", usuarioPersistido.getRamal());
 		Assert.assertEquals("Residencial", usuarioPersistido.getTelefoneResidencial());
 		Assert.assertEquals("Celular", usuarioPersistido.getTelefoneCelular());
 		Assert.assertEquals("GitHub", usuarioPersistido.getGitHub());
 		Assert.assertEquals("Skype", usuarioPersistido.getSkype());
+
+		rest.atualizar(usuario.getId(), "Nome", "Apelido", "Area", "Unidade", "Ramal", "Residencial", "Celular",
+				"GitHub", "Skype");
+		usuarioPersistido = repositorio.obtemPorId(usuario.getId());
+		Assert.assertEquals("Area", usuarioPersistido.getArea());
 	}
 
 	@Test

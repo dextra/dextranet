@@ -33,14 +33,13 @@
         </ul>
 
         <ul class="list-team list-vertical clearfix">
-			<!-- @fixme exibir quando nenhum usuario for encontrado
 			<li class="list-team-empty">
 				<p>
 					<img src="img/smile-sad.gif"/>
 					<span>Nenhum dextrano</span>
 					<span>foi encontrado!</span>
 				</p>
-			</li>-->
+			</li>
             {for colaborador in usuarios}
                 <li class="clearfix colaborador">
                     <div class="list-team-avatar">
@@ -61,7 +60,7 @@
                                 - ${messages.usuario_ramal} <strong>${colaborador.ramal}</strong>
                             {/if}
                         </p>
-                        
+
 						<ul class="list-team-content-data clearfix">
 							<li>
 								<span class="icon_gtalk-mini icon" original-title="${messages.usuario_email}"></span>
@@ -107,7 +106,6 @@
     </template>
 
     <script type="text/javascript">
-	
         $('.icon').tipsy();
     </script>
 </engine>

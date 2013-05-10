@@ -1,6 +1,5 @@
 package br.com.dextra.dextranet.delorian;
 
-import java.util.Date;
 import java.util.List;
 
 public class NewPost {
@@ -8,11 +7,11 @@ public class NewPost {
 	private String id;
 	private String titulo;
 	private long quantidadeDeComentarios;
-	private Date dataDeAtualizacao;
+	private String dataDeAtualizacao;
 	private String usuario;
 	private String usuarioMD5;
 	private String conteudo;
-	private Date dataDeCriacao;
+	private String dataDeCriacao;
 	private long quantidadeDeCurtidas;
 	private List<String> usuariosQueCurtiram;
 
@@ -20,8 +19,8 @@ public class NewPost {
 	}
 
 	public NewPost(String id, String titulo, long quantidadeDeComentarios,
-			Date dataDeAtualizacao, String usuario, String usuarioMD5,
-			String conteudo, Date dataDeCriacao, long quantidadeDeCurtidas,
+			String dataDeAtualizacao, String usuario, String usuarioMD5,
+			String conteudo, String dataDeCriacao, long quantidadeDeCurtidas,
 			List<String> usuariosQueCurtiram) {
 		this.id = id;
 		this.titulo = titulo;
@@ -59,11 +58,11 @@ public class NewPost {
 		this.quantidadeDeComentarios = quantidadeDeComentarios;
 	}
 
-	public Date getDataDeAtualizacao() {
+	public String getDataDeAtualizacao() {
 		return dataDeAtualizacao;
 	}
 
-	public void setDataDeAtualizacao(Date dataDeAtualizacao) {
+	public void setDataDeAtualizacao(String dataDeAtualizacao) {
 		this.dataDeAtualizacao = dataDeAtualizacao;
 	}
 
@@ -91,11 +90,11 @@ public class NewPost {
 		this.conteudo = conteudo;
 	}
 
-	public Date getDataDeCriacao() {
+	public String getDataDeCriacao() {
 		return dataDeCriacao;
 	}
 
-	public void setDataDeCriacao(Date dataDeCriacao) {
+	public void setDataDeCriacao(String dataDeCriacao) {
 		this.dataDeCriacao = dataDeCriacao;
 	}
 
