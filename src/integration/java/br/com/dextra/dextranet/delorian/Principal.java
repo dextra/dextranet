@@ -8,7 +8,7 @@ import java.util.Scanner;
 import com.google.gson.Gson;
 
 public class Principal {
-
+/*
 	public static void main(String[] args) throws SQLException, IOException {
 		apresentacao();
 		Scanner scan = new Scanner(System.in);
@@ -73,7 +73,7 @@ public class Principal {
 			scan.close();
 		}
 	}
-
+*/
 	private static void migrarComentariosInterrompidos(Log log, DelorianService migracaoService, DelorianWS delorianRS, ArrayList<OldPost> oldPosts, ArrayList<Comentario> comentarios) {
 		if (log.getIndiceComentario() != 0) {
 			int indicePost = log.getIndicePost();
