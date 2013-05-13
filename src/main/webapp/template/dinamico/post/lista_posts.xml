@@ -10,18 +10,18 @@
 					<div class="speech-shape"></div>
 					<a class="list_stories_headline clearfix" href="#">
 						<h2 class="titulo ${post.id}">${post.titulo}</h2>
-					</a>	
-					
+					</a>
+
 					<!-- Lead -->
 					<div class="conteudo_inicial list_stories_lead hyphenize">${dextranet.post.conteudoParaExibicao(post.conteudo)}</div>
-					
+
 					<!-- Conteudo completo do post -->
 					<div id="${post.id}_post" class="list_stories_contents hidden">
 						<div id="${post.id}">
 							${post.conteudo}
 						</div>
 					</div>
-					
+
 					<!-- Curtidas, quantidade de comentarios, data, excluir -->
 					<div class="list_stories_data clearfix">
 						<div class="list_stories_dx clearfix">
@@ -39,10 +39,10 @@
 								${messages.post_comentario}
 							</a>
 						</div>
-						<span class="list_stories_date">26 minutos atrás</span>
+						<span class="list_stories_date time_ago">${post.dataDeAtualizacao}</span>
 						<button class="btn btn-small btn-light btn-excluirpost" title="Excluir este post"><strong>x </strong> Excluir</button><!-- @toDo tooltip -->
 					</div>
-				
+
 					<!-- Comentarios -->
 					<div class="list_stories_comments hidden">
 						<ul>
@@ -86,7 +86,7 @@
 							</li>
 						</ul>
 					</div>
-					
+
 					<!-- Novo comentario -->
 					<div class="list_stories_newcomment hidden">
 						<form id="form_new_post" class="clearfix form-dark form-fields-block">
@@ -101,27 +101,35 @@
 							<button class="btn btn-blue float_right" id="form_post_submit" type="button" tabindex="11">Comentar</button>
 						</form>
 					</div>
-					
+
 				</li>
 			{/for}
 			</ul>
 		</div>
 		<div id="div_curtidas_dialog"></div>
-		
+
 		<script type="text/javascript">
+
+		$.each($('span.time_ago'), function(){
+			data_completa = $(this).html();
+			tempo_atras = timeAgo.calcular(data_completa);
+			$(this).html(tempo_atras);
+			$(this).attr('title', data_completa);
+		});
+
 		$('.new-comment textarea').autoresize();
-					
+
 		$('.list_stories_headline').click(function(e)
 		{
 			e.preventDefault();
 			var item = $(this).parent('li');
-			if ( item.hasClass('expanded') === true ) 
+			if ( item.hasClass('expanded') === true )
 			{
 				item.removeClass('expanded');
 				item.find('.list_stories_lead').show();
 				item.find('.list_stories_contents,.list_stories_comments,.list_stories_newcomment').hide();
 			}
-			else 
+			else
 			{
 				item.addClass('expanded');
 				item.find('.list_stories_lead').hide();
