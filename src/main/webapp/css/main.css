@@ -370,6 +370,9 @@ form input.link { width: 476px;}
 
 .lista_curtidas .avatar-frame {width:24px;height:24px;padding:0;border-color:#668;float:left;margin:0 22px 0 2px;}
 .lista_curtidas .avatar-frame > img {width:24px;height:24px;border-radius:3px;}
+.lista_curtidas{overflow-y: auto;overflow-x: hidden;max-height: 300px;}
+.lista_curtidas .usuario_curtida{width:250px;height: 40px;}
+} 
 div.usuario_curtida {padding: 10px;border-bottom:1px solid #DDDDDD;} 
 
 /*----------  PaginaÃ§Ã£o  ----------*/
