@@ -67,13 +67,6 @@ public class Log {
 	}
 
 	public void salvarIndicePost(int indicePost) {
-//		try {
-//			BufferedWriter writer = new BufferedWriter(new FileWriter(LOG_POST));
-//			writer.write(indicePost + " 0");
-//		    writer.close();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
 		try {
 			FileUtils.writeStringToFile(new File(LOG_POST), indicePost + " 0");
 		} catch (IOException e) {
@@ -82,13 +75,6 @@ public class Log {
 	}
 
 	public void salvarPostId(int indicePost, String postId) {
-//		try {
-//			BufferedWriter writer = new BufferedWriter(new FileWriter(LOG_POST));
-//			writer.write(indicePost + " " + postId);
-//		    writer.close();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
 		try {
 			FileUtils.writeStringToFile(new File(LOG_POST), indicePost + " " + postId);
 		} catch (IOException e) {
@@ -97,13 +83,6 @@ public class Log {
 	}
 
 	public void salvarIndiceComentario(int indiceLog) {
-//		try {
-//			BufferedWriter writer = new BufferedWriter(new FileWriter(LOG_COMENTARIO));
-//			writer.write(indiceLog + " 0");
-//		    writer.close();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
 		try {
 			FileUtils.writeStringToFile(new File(LOG_COMENTARIO), indiceLog + " 0");
 		} catch (IOException e) {
@@ -112,13 +91,6 @@ public class Log {
 	}
 
 	public void zerarComentario() {
-//		try {
-//			BufferedWriter writer = new BufferedWriter(new FileWriter(LOG_COMENTARIO));
-//			writer.write("0 0");
-//		    writer.close();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
 		try {
 			FileUtils.writeStringToFile(new File(LOG_COMENTARIO), "0 0");
 		} catch (IOException e) {

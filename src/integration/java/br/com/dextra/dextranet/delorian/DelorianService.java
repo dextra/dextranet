@@ -59,7 +59,7 @@ public class DelorianService {
 			for (int j = 0; i < oldAnexos.size() ; i++) {
 
 				if (oldPosts.get(i).getNid().equals(oldAnexos.get(j).getPostId())) {
-					String mensagem = "<br /><br /><p style='font-weight: bold;'>ATENÇÃO: Este post continha um anexo que foi desconsiderado no processo de migracao</p>";
+					String mensagem = "<br /><br /><p style='font-weight: bold;'>ATENÇÃO: Este post continha um anexo que foi desconsiderado no processo de migracao.</p>";
 					String conteudoPost = oldPosts.get(i).getConteudo();
 					conteudoPost = conteudoPost.concat(mensagem);
 
