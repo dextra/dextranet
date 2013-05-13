@@ -11,18 +11,6 @@
 					</div>
 					${curtida.usuario}
 				</div>
-				<div class="usuario_curtida">
-					<div class="avatar-frame avatar-frame-float">
-						<img src="${gravatar}${curtida.usuarioMD5}?s=100" alt="Avatar" />
-					</div>
-					${curtida.usuario}
-				</div>
-				<div class="usuario_curtida">
-					<div class="avatar-frame avatar-frame-float">
-						<img src="${gravatar}${curtida.usuarioMD5}?s=100" alt="Avatar" />
-					</div>
-					${curtida.usuario}
-				</div>
 			{/for}
 		</ul>
 	</template>

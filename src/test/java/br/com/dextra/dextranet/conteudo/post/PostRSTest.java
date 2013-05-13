@@ -81,6 +81,27 @@ public class PostRSTest extends TesteIntegracaoBase {
 
 	}
 
+	@Test
+	public void testaBuscaPosts() throws EntityNotFoundException {
+		Post post01 = new Post(usuarioLogado, "post1", "esse eh um post de teste");
+		Post post02 = new Post("usuario", "post2", "esse eh um post de teste");
+		repositorioDePosts.persiste(post01);
+		repositorioDePosts.persiste(post02);
+
+		List<Post> busca = repositorioDePosts.listarPosts(PostFields.titulo.name() + ": post1");
+		Assert.assertEquals(1, busca.size());
+
+		busca = repositorioDePosts.listarPosts(PostFields.conteudo.name() + ": esse eh um post de teste");
+		Assert.assertEquals(2, busca.size());
+
+		busca = repositorioDePosts.listarPosts(PostFields.usuario.name() + ": usuario");
+		Assert.assertEquals(1, busca.size());
+
+		busca = repositorioDePosts.listarPosts("esse eh um post de teste");
+		Assert.assertEquals(2, busca.size());
+
+	}
+
 	public class PostRSFake extends PostRS {
 
 		@Override

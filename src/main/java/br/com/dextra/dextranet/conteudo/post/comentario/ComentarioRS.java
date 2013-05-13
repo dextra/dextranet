@@ -20,7 +20,7 @@ import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
 
-@Path("/post")
+@Path("/comentario")
 public class ComentarioRS {
 
 	private PostRepository repositorioDePosts = new PostRepository();
@@ -29,7 +29,7 @@ public class ComentarioRS {
 
 	private CurtidaRepository repositorioDeCurtidas = new CurtidaRepository();
 
-	@Path("/{postId}/comentario")
+	@Path("/{postId}")
 	@POST
 	@Produces(Application.JSON_UTF8)
 	public Response comentar(@PathParam("postId") String postId, @FormParam("conteudo") String conteudo)
@@ -43,7 +43,7 @@ public class ComentarioRS {
 		return Response.ok().entity(post).build();
 	}
 
-	@Path("/{postId}/comentario")
+	@Path("/{postId}")
 	@GET
 	@Produces(Application.JSON_UTF8)
 	public Response listarComentarios(@PathParam("postId") String postId) throws EntityNotFoundException {
@@ -51,7 +51,7 @@ public class ComentarioRS {
 		return Response.ok().entity(comentarios).build();
 	}
 
-	@Path("/{postId}/comentario/{comentarioId}/curtida")
+	@Path("/{postId}/{comentarioId}/curtida")
 	@POST
 	@Produces(Application.JSON_UTF8)
 	public Response curtir(@PathParam("postId") String postId, @PathParam("comentarioId") String comentarioId)
@@ -68,7 +68,7 @@ public class ComentarioRS {
 		return Response.ok().entity(comentario).build();
 	}
 
-	@Path("/{postId}/comentario/{comentarioId}/curtida")
+	@Path("/{postId}/{comentarioId}/curtida")
 	@DELETE
 	@Produces(Application.JSON_UTF8)
 	public Response descurtir(@PathParam("postId") String postId, @PathParam("comentarioId") String comentarioId)
@@ -82,7 +82,7 @@ public class ComentarioRS {
 		return Response.ok().entity(comentario).build();
 	}
 
-	@Path("/{postId}/comentario/{comentarioId}/curtida")
+	@Path("/{postId}/{comentarioId}/curtida")
 	@GET
 	@Produces(Application.JSON_UTF8)
 	public Response listarCurtidas(@PathParam("postId") String postId, @PathParam("comentarioId") String comentarioId)

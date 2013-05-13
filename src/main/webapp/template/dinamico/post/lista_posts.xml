@@ -17,7 +17,7 @@
 
 					<!-- Conteudo completo do post -->
 					<div id="${post.id}_post" class="list_stories_contents hidden">
-						<div id="${post.id}">
+						<div class="idClassPost" id="${post.id}">
 							${post.conteudo}
 						</div>
 					</div>
@@ -40,7 +40,7 @@
 							</a>
 						</div>
 						<span class="list_stories_date time_ago">${post.dataDeAtualizacao}</span>
-						<button class="btn btn-small btn-light btn-excluirpost" title="Excluir este post"><strong>x </strong> Excluir</button><!-- @toDo tooltip -->
+						<button class="btn btn-small btn-light btn-excluirpost" title="Excluir este post"><strong>x </strong> ${messages.post_excluir}</button><!-- @toDo tooltip -->
 					</div>
 
 					<!-- Comentarios -->
@@ -89,16 +89,16 @@
 
 					<!-- Novo comentario -->
 					<div class="list_stories_newcomment hidden">
-						<form id="form_new_post" class="clearfix form-dark form-fields-block">
+						<form id="form_comment" class="clearfix form-dark form-fields-block">
 							<!--<button tabindex="9" id="postEditorToggle" class="btn float_right" type="button">Mostrar/esconder opções</button>-->
 							<div class="new-comment clear">
 								<div class="avatar-frame" title="Por ${post.usuario}">
 									<img src="${gravatar}${post.usuarioMD5}" alt="Avatar" />
 								</div>
-								<textarea cols="50" id="form_input_content" class="not-empty" style="resize:none;" name="conteudoComentario" tabindex="10" placeholder="Deixe seu comentario..."></textarea>
+								<textarea cols="50" id="idConteudoComentario" class="not-empty" style="resize:none;" name="conteudoComentario" tabindex="10" placeholder="Deixe seu comentario... "></textarea>
 								<div class="speech-shape-small"></div>
 							</div>
-							<button class="btn btn-blue float_right" id="form_post_submit" type="button" tabindex="11">Comentar</button>
+							<button class="btn btn-blue float_right" id="form_comentar_submit" type="button" tabindex="11">Comentar</button>
 						</form>
 					</div>
 
@@ -141,17 +141,7 @@
 			$(this).parents('li').find('.list_stories_headline').click();
 		});
 
-		//CKEDITOR.replace('conteudoComentario');
+		$("#form_comentar_submit").click(dextranet.comment.comentar);
 		</script>
 	</template>
 </engine>
-
-
-
-
-
-
-
-
-
-

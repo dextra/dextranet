@@ -17,6 +17,12 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
 		{ name: 'styles' }
 	];
+	
+	config.coreStyles_strike = {
+	    element: 'strike',
+	    attributes: { 'class': 'StrikeThrough' },
+	    overrides: 'strike'
+	};
 
 	// Remove some buttons, provided by the standard plugins, which we don't
 	// need to have in the Standard(s) toolbar.
