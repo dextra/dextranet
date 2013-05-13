@@ -39,8 +39,8 @@
 								${messages.post_comentario}
 							</a>
 						</div>
-						<span class="list_stories_date">26 minutos atrás</span>
-						<button class="btn btn-small btn-light btn-excluirpost" title="Excluir este post"><strong>x </strong> Excluir</button><!-- @toDo tooltip -->
+						<span class="list_stories_date time_ago">${post.dataDeAtualizacao}</span>
+						<button class="btn btn-small btn-light btn-excluirpost" title="Excluir este post"><strong>x </strong> ${messages.post_excluir}</button><!-- @toDo tooltip -->
 					</div>
 
 					<!-- Comentarios -->
@@ -109,6 +109,14 @@
 		<div id="div_curtidas_dialog"></div>
 
 		<script type="text/javascript">
+
+		$.each($('span.time_ago'), function(){
+			data_completa = $(this).html();
+			tempo_atras = timeAgo.calcular(data_completa);
+			$(this).html(tempo_atras);
+			$(this).attr('title', data_completa);
+		});
+
 		$('.new-comment textarea').autoresize();
 
 		$('.list_stories_headline').click(function(e)

@@ -51,8 +51,15 @@ public class PostRS {
 	@DELETE
 	@Produces(Application.JSON_UTF8)
 	public Response deletar(@PathParam("id") String id) throws EntityNotFoundException {
-		repositorioDePosts.remove(id);
-		return Response.ok().build();
+		String usuarioLogado = obtemUsuarioLogado();
+		Post post = repositorioDePosts.obtemPorId(id);
+		if(post.getUsuario().equals(usuarioLogado)) {
+			repositorioDePosts.remove(id);
+			return Response.ok().build();
+		} else {
+			return Response.serverError().build();
+		}
+		
 	}
 
 	@Path("/")
