@@ -105,8 +105,6 @@ public class PostRS {
 	@Path("/buscar")
 	@Produces(Application.JSON_UTF8)
 	public Response listarPosts(@QueryParam("query") String query) throws EntityNotFoundException {
-		// TODO: verificar exceptions
-		// TODO: teste unitario
 		List<Post> posts = repositorioDePosts.listarPosts(query);
 		return Response.ok().entity(posts).build();
 	}
