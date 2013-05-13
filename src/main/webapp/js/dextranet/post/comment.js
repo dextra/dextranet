@@ -59,34 +59,34 @@ dextranet.comment = {
 	},
 
 	comentar : function() {
-		$("#form_comment").submit(function() {
-			var idDoPost = $(this).attr("class");
-			var conteudo = CKEDITOR.instances.textarea_comment.getData();
+		var idDoPost = $('.idClassPost').attr('id');
+		var conteudo = $('#idConteudoComentario').val();
 
-			dextranet.home.limparAvisoPreenchaCampos();
-
-			if (dextranet.strip.allElem(conteudo) == "") {
-				if (!dextranet.home.EhVisivel("#message-warning")) {
-					$("#container_message_warning_comment").addClass("container_message_warning");
-					$.holy("../template/dinamico/post/mensagem_preencha_campos.xml", {"seletor":"#container_message_warning_comment"});
-				}
-			} else {
-				$.ajax( {
-					type : 'POST',
-					url : '/s/comment',
-					data : {
-						"text" : conteudo,
-						"idReference" : idDoPost
-					},
-					success : function(comments) {
-							dextranet.comment.limpaTelaComentario();
-							dextranet.comment.carregaComentario(idDoPost);
-							dextranet.post.atualizaPost(idDoPost);
-					}
+		//dextranet.home.limparAvisoPreenchaCampos();
+		if (conteudo == "") {
+			if (!dextranet.home.EhVisivel("#message-warning")) {
+				$("#container_message_warning_comment").addClass(
+						"container_message_warning");
+				$.holy("../template/dinamico/post/mensagem_preencha_campos.xml",{
+									"seletor" : "#container_message_warning_comment"
 				});
 			}
-			return false;
-		});
+		} else {
+			$.ajax({
+				type : 'POST',
+				url : '/s/post/' + idDoPost + '/comentario',
+				data : {
+					"conteudo" : conteudo,
+					"postId" : idDoPost
+				},
+				success : function(comments) {
+					dextranet.comment.limpaTelaComentario();
+					dextranet.comment.carregaComentario(idDoPost);
+					dextranet.post.atualizaPost(idDoPost);
+				}
+			});
+		}
+		return false;
 	},
 
 	atualizaComentario : function(idComentario) {

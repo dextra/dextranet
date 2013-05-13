@@ -4,7 +4,7 @@ dextranet.settings = {
 			dextranet.settings.configuraLoading();
 			dextranet.settings.carregaInternacionalizacao();
 			dextranet.settings.inicializaMensagens();
-			dextranet.settings.carregaPaginacao();
+			//dextranet.settings.carregaPaginacao();
 			dextranet.settings.configuraDatePicker();
 			dextranet.settings.configuraMascaras();
 		},
