@@ -16,6 +16,11 @@ public class MicroPost extends Entidade {
 		this.data = new Date();
 	}
 
+	public MicroPost(String texto, Date data) {
+		this.texto = texto;
+		this.data = data;
+	}
+
 	public MicroPost(Entity microPostEntity) {
 		super((String) microPostEntity.getProperty(MicroBlogFields.ID
 				.getField()));
