@@ -20,7 +20,7 @@ import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
 
-@Path("/post")
+@Path("/comentario")
 public class ComentarioRS {
 
 	private PostRepository repositorioDePosts = new PostRepository();
@@ -29,7 +29,7 @@ public class ComentarioRS {
 
 	private CurtidaRepository repositorioDeCurtidas = new CurtidaRepository();
 
-	@Path("/{postId}/comentario")
+	@Path("/{postId}/comentar")
 	@POST
 	@Produces(Application.JSON_UTF8)
 	public Response comentar(@PathParam("postId") String postId, @FormParam("conteudo") String conteudo)

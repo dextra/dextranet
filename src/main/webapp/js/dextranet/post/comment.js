@@ -72,12 +72,13 @@ dextranet.comment = {
 				});
 			}
 		} else {
+			alert('Conteudo cheio');
 			$.ajax({
 				type : 'POST',
-				url : '/s/post/' + idDoPost + '/comentario',
+				url : '/s/comentario/' + idDoPost + '/comentar',
 				data : {
-					"conteudo" : conteudo,
-					"postId" : idDoPost
+					"postId" : idDoPost,
+					"conteudo" : conteudo
 				},
 				success : function(comments) {
 					dextranet.comment.limpaTelaComentario();
