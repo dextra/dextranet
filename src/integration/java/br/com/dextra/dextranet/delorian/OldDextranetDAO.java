@@ -13,7 +13,7 @@ public class OldDextranetDAO {
 	 * Consulta todos os posts no banco da antiga Dextranet
 	 * @return ArrayList contendo o conteudo que sera utilizado na migracao
 	 */
-    public ArrayList<OldPostWrapper> consultarPostsAntigos() throws SQLException {
+    public ArrayList<OldPost> consultarPostsAntigos() throws SQLException {
         Connection conexao = ControladorDeConexoes.abreConexao();
         Statement stmt = conexao.createStatement();
 
@@ -21,7 +21,7 @@ public class OldDextranetDAO {
 
         conexao.close();
 
-        ArrayList<OldPostWrapper> oldPosts = preenchePosts(rsPosts);
+        ArrayList<OldPost> oldPosts = preenchePosts(rsPosts);
 
         return oldPosts;
     }
@@ -30,7 +30,7 @@ public class OldDextranetDAO {
      * Consulta todos os comentarios do banco da antiga Dextranet
      * @return ArrayList contendo o conteudo que sera utilizado na migracao
      */
-    public ArrayList<ComentarioWrapper> consultarComentariosAntigos() throws SQLException {
+    public ArrayList<Comentario> consultarComentariosAntigos() throws SQLException {
     	Connection conexao = ControladorDeConexoes.abreConexao();
         Statement stmt = conexao.createStatement();
 
@@ -38,7 +38,7 @@ public class OldDextranetDAO {
 
         conexao.close();
 
-        ArrayList<ComentarioWrapper> comentarios = preencheComentarios(rsComentarios);
+        ArrayList<Comentario> comentarios = preencheComentarios(rsComentarios);
 
         return comentarios;
     }
@@ -73,8 +73,8 @@ public class OldDextranetDAO {
     		idPostComAnexo = rsPostsAnexos.getString("nid");
     		anexo = rsPostsAnexos.getString("description");
     		tituloDoPost = rsPostsAnexos.getString("title");
-    		System.out.println(idPostComAnexo);
-			idsEAnexosPosts.add(new OldAnexo(Integer.parseInt(idPostComAnexo), anexo, tituloDoPost));
+
+    		idsEAnexosPosts.add(new OldAnexo(Integer.parseInt(idPostComAnexo), anexo, tituloDoPost));
         }
 
     	return idsEAnexosPosts;
@@ -83,16 +83,15 @@ public class OldDextranetDAO {
 	/**
      * Preenche um ArrayList com todos os posts
      */
-	private ArrayList<OldPostWrapper> preenchePosts(ResultSet rsPosts) throws SQLException {
+	private ArrayList<OldPost> preenchePosts(ResultSet rsPosts) throws SQLException {
 
-		ArrayList<OldPostWrapper> postsOld = new ArrayList<OldPostWrapper>();
+		ArrayList<OldPost> oldPosts = new ArrayList<OldPost>();
 		String nid;
 		String usuario;
 		String data;
 		String titulo;
 		String conteudo;
 		Date dataTratada;
-		OldPost oldPostTemp;
 
 		while (rsPosts.next()) {
 			nid = rsPosts.getString("nid");
@@ -104,11 +103,10 @@ public class OldDextranetDAO {
 			dataTratada = tratarTimestamp(data);
 			usuario = verificaUsuarioAnonimo(usuario);
 
-			oldPostTemp = new OldPost(usuario, dataTratada, titulo, conteudo);
+			oldPosts.add(new OldPost(usuario, dataTratada, titulo, conteudo, Integer.parseInt(nid)));
 
-			postsOld.add(new OldPostWrapper(Integer.parseInt(nid), oldPostTemp));
         }
-		return postsOld;
+		return oldPosts;
 	}
 
 	private Date tratarTimestamp(String dataString) {
@@ -118,8 +116,8 @@ public class OldDextranetDAO {
 	/**
 	 * Preenche um ArrayList com todos os comentarios
 	 */
-	private ArrayList<ComentarioWrapper> preencheComentarios(ResultSet rsComentarios) throws SQLException {
-		ArrayList<ComentarioWrapper> comentarios = new ArrayList<ComentarioWrapper>();
+	private ArrayList<Comentario> preencheComentarios(ResultSet rsComentarios) throws SQLException {
+		ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
 		String usuario;
 		String data;
 		String comentario;
@@ -135,9 +133,7 @@ public class OldDextranetDAO {
 			dataTratada = tratarTimestamp(data);
 			usuario = verificaUsuarioAnonimo(usuario);
 
-			Comentario comentarioTemp = new Comentario(dataTratada, usuario, comentario);
-
-			comentarios.add(new ComentarioWrapper(Integer.parseInt(nid), comentarioTemp));
+			comentarios.add(new Comentario(dataTratada, usuario, comentario, Integer.parseInt(nid)));
         }
 		return comentarios;
 	}

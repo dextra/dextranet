@@ -12,7 +12,7 @@
 .list-team > li{border-bottom:dotted 1px #ddd;padding-bottom:15px;margin-bottom:20px;}
 .list-team > li:last-child{padding-bottom:0;border-bottom:0;margin-bottom:0;}
 
-.list-team-empty{text-align:center;border-radius:15px;padding-bottom:10px!important;}
+.list-team-empty{display:none;text-align:center;border-radius:15px;padding-bottom:10px!important;}
 .list-team-empty > p{padding-bottom:0;color:#887d52;line-height:20px;}
 .list-team-empty > p > img{margin-bottom:10px;}
 .list-team-empty > p > span{display:block;clear:both;}

@@ -24,10 +24,12 @@
 
 					<!-- Curtidas, quantidade de comentarios, data, excluir -->
 					<div class="list_stories_data clearfix">
-						<div class="list_stories_dx">
-							<a id="${post.id}" class="clearfix linkCurtir post">
-								<span class="icon_dx"></span>
-								<span class="numero_curtida">${post.quantidadeDeCurtidas}</span>
+						<div class="list_stories_dx clearfix">
+							<a id="like_${post.id}" class="linkCurtir post">
+								<span class="icon_dx" onclick="dextranet.post.curtir('${post.id}');"></span>
+							</a>
+							<a id="showLikes_${post.id}" class="showLikes" onclick="dextranet.post.listarCurtidas('${post.id}');">
+								<span class="numero_curtida">${post.quantidadeDeCurtidas} ${messages.post_curtidas}</span>
 							</a>
 						</div>
 						<div class="list_stories_numbercomments">
@@ -104,6 +106,8 @@
 			{/for}
 			</ul>
 		</div>
+		<div id="div_curtidas_dialog"></div>
+
 		<script type="text/javascript">
 		$('.new-comment textarea').autoresize();
 

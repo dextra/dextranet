@@ -58,8 +58,7 @@ public class PostRS {
 	@Path("/")
 	@GET
 	@Produces(Application.JSON_UTF8)
-	public Response listar(@QueryParam("r") @DefaultValue(Application.REGISTROS_POR_PAGINA) Integer registrosPorPagina,
-			@QueryParam("p") @DefaultValue("1") Integer pagina) {
+	public Response listar(@QueryParam("r") @DefaultValue(Application.REGISTROS_POR_PAGINA) Integer registrosPorPagina, @QueryParam("p") @DefaultValue("1") Integer pagina) {
 		List<Post> posts = this.listarPostsOrdenados(registrosPorPagina, pagina);
 		return Response.ok().entity(posts).build();
 	}
@@ -102,9 +101,18 @@ public class PostRS {
 		return Response.ok().entity(curtidas).build();
 	}
 
+	@GET
+	@Path("/buscar")
+	@Produces(Application.JSON_UTF8)
+	public Response listarPosts(@QueryParam("query") String query) throws EntityNotFoundException {
+		// TODO: verificar exceptions
+		// TODO: teste unitario
+		List<Post> posts = repositorioDePosts.listarPosts(query);
+		return Response.ok().entity(posts).build();
+	}
+
 	protected List<Post> listarPostsOrdenados(Integer registrosPorPagina, Integer pagina) {
-		EntidadeOrdenacao dataDeAtualizacaoDecrescente = new EntidadeOrdenacao(PostFields.dataDeAtualizacao.name(),
-				SortDirection.DESCENDING);
+		EntidadeOrdenacao dataDeAtualizacaoDecrescente = new EntidadeOrdenacao(PostFields.dataDeAtualizacao.name(), SortDirection.DESCENDING);
 
 		List<Post> posts = repositorioDePosts.lista(registrosPorPagina, pagina, dataDeAtualizacaoDecrescente);
 		return posts;

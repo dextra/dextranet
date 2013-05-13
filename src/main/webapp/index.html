@@ -30,6 +30,9 @@
 
         <script type="text/javascript" src="holy/tooltip/jquery.tipsy.js?v=${buildNumber}"></script>
         <link rel="stylesheet" type="text/css"  href="holy/tooltip/jquery.tipsy.css?v=${buildNumber}" media="all" />
+        
+        <script type="text/javascript" src="holy/xdialog/jquery.xdialog.js?v=${buildNumber}"></script>
+        <link rel="stylesheet" type="text/css"  href="holy/xdialog/jquery.xdialog.css?v=${buildNumber}" media="all" />
 
         <script type="text/javascript" src="holy/third/datepicker/jquery-ui-1.10.0.custom.min.js?v=${buildNumber}"></script>
         <link rel="stylesheet" type="text/css"  href="holy/third/datepicker/jquery-ui-1.10.0.custom.min.css?v=${buildNumber}" media="all" />
@@ -48,7 +51,7 @@
         <script type="text/javascript" src="js/lib/menu.js?v=${buildNumber}"></script>
 
         <!-- Scripts Dextranet -->
-        <script type="text/javascript" src="js/dextranet/index.js?v=${buildNumber}"></script>
+        <script type="text/javascript" src="js/dextranet/dextranet.js?v=${buildNumber}"></script>
         <script type="text/javascript" src="js/dextranet/settings.js?v=${buildNumber}"></script>
 
         <script type="text/javascript" src="js/dextranet/usuario.js?v=${buildNumber}"></script>
@@ -95,7 +98,7 @@
                   -- Corrigir variável do placeholder (usar texto: Procurar postagens e pessoas...).
                   -->
                 <div id="header_search_box">
-                    <form id="form_search">
+                    <form id="form_search" onsubmit="dextranet.buscarPosts();">
                         <input type="text" placeholder="Pesquisar posts..." id="form_search_input" />
                         <input type="submit" value="" title="Procurar!" id="form_search_submit" />
                     </form>

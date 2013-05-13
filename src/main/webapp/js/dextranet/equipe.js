@@ -16,11 +16,13 @@ dextranet.equipe = {
 
 		listarPelaInicial : function (inicial) {
 			var colaboradores = $('.list-team span.nome');
+			$('.list-team-empty').show();
 			$(colaboradores).each( function () {
 				var nomeDoColaborador = $(this).text();
 				var inicialDoNomeDoColaborador = nomeDoColaborador.substring(0, 1);
 				if (inicialDoNomeDoColaborador.toLowerCase() == inicial.toLowerCase()) {
 					$(this).closest('.colaborador').show();
+					$('.list-team-empty').hide();
 				} else {
 					$(this).closest('.colaborador').hide();
 				}

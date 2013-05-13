@@ -328,7 +328,7 @@ form input.link { width: 476px;}
 .list_stories_numbercomments > a{color:#666;display:block;padding:4px 5px;transition:background-color 250ms ease-in-out;border-radius:1px;-webkit-transition:background-color 250ms ease-in-out;}
 .list_stories_numbercomments > a:hover{background-color:#f6f6f6;border:dotted 1px #ccc;padding:3px 4px;color:#555;}
 .list_stories_dx{color:#349a94;}
-.list_stories_dx > a{padding:4px 5px;display:block;color:#007676;border-radius:1px;transition:background-color 250ms ease-in-out;-webkit-transition:background-color 250ms ease-in-out;}
+.list_stories_dx > a{padding:4px 5px;display:inline-table;color:#007676;border-radius:1px;transition:background-color 250ms ease-in-out;-webkit-transition:background-color 250ms ease-in-out;}
 .list_stories_dx > a:hover{border:dotted 1px #cbe6eb;padding:3px 4px;background-color:#e6ffff;}
 .list_stories_date{font-size:12px;font-style:italic;display:inline-block;padding-top:1px;margin-left:5px;cursor:default;}
 .list_stories_lead,
@@ -367,6 +367,10 @@ form input.link { width: 476px;}
 
 .list_stories_actions > button{font-weight:bold;}
 .list_stories_actions > .menu-light{top:25px;display:none;z-index:20;}
+
+.lista_curtidas .avatar-frame {width:24px;height:24px;padding:0;border-color:#668;float:left;margin:0 22px 0 2px;}
+.lista_curtidas .avatar-frame > img {width:24px;height:24px;border-radius:3px;}
+div.usuario_curtida {padding: 10px;border-bottom:1px solid #DDDDDD;} 
 
 /*----------  PaginaÃ§Ã£o  ----------*/
 .list-pagination {text-align:center}
