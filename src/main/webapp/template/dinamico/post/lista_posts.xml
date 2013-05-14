@@ -29,7 +29,8 @@
 								<span class="icon_dx" onclick="dextranet.post.curtir('${post.id}');"></span>
 							</a>
 							<a id="showLikes_${post.id}" class="showLikes" onclick="dextranet.post.listarCurtidas('${post.id}');">
-								<span class="numero_curtida">${post.quantidadeDeCurtidas} ${messages.post_curtidas}</span>
+								<span class="numero_curtida">${post.quantidadeDeCurtidas}</span>
+								<span>${messages.post_curtidas}</span>
 							</a>
 						</div>
 						<div class="list_stories_numbercomments">
