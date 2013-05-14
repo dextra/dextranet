@@ -9,17 +9,16 @@
 					</div>
 					<div class="speech-shape"></div>
 					<a class="list_stories_headline clearfix" href="#">
-						<h2 class="titulo ${postvo.post.id}">${postvo.post.titulo}</h2>
+						<h2 class="titulo ${postvo.post.id} wordwrap" >${postvo.post.titulo}</h2>
 					</a>
 
 					<!-- Lead -->
-					<div class="conteudo_inicial list_stories_lead hyphenize">${dextranet.post.conteudoParaExibicao(postvo.post.conteudo)}
-					</div>
+					<div class="conteudo_inicial list_stories_lead hyphenize wordwrap">${dextranet.post.conteudoParaExibicao(postvo.post.conteudo)}</div>
 
 					<!-- Conteudo completo do post -->
 					<div id="${postvo.post.id}_post" class="list_stories_contents hidden">
-						<div class="idClassPost" id="${postvo.post.id}">
-							${postvo.post.conteudo}
+						<div class="idClassPost wordwrap" id="${postvo.post.id}">
+							${postvo.post.conteudo}}
 						</div>
 					</div>
 
@@ -103,32 +102,36 @@
 		<script type="text/javascript">
 			$('.new-comment textarea').autoresize();
 
-			$('.list_stories_headline').click(function(e) {
-				e.preventDefault();
-				var item = $(this).parent('li');
-				if (item.hasClass('expanded') === true ) {
-					item.removeClass('expanded');
-					item.find('.list_stories_lead').show();
-					item.find('.list_stories_contents,.list_stories_comments,.list_stories_newcomment').hide();
-				} else {
-					item.addClass('expanded');
-					item.find('.list_stories_lead').hide();
-					item.find('.list_stories_contents,.list_stories_comments,.list_stories_newcomment').show();
-					item.find('.new-comment textarea').focus();
-				}
-			});
 
-			$.each($('span.time_ago'), function(){
+			$.each($('.time_ago'), function(){
 				data_completa = $(this).html();
 				tempo_atras = timeAgo.calcular(data_completa);
 				$(this).html(tempo_atras);
 				$(this).attr('title', data_completa);
 			});
 
+			$('.list_stories_headline').click(function(e)
+			{
+				e.preventDefault();
+				var item = $(this).parent('li');
+				if ( item.hasClass('expanded') === true )
+				{
+					item.removeClass('expanded');
+					item.find('.list_stories_lead').show();
+					item.find('.list_stories_contents,.list_stories_comments,.list_stories_newcomment').hide();
+				}
+				else
+				{
+					item.addClass('expanded');
+					item.find('.list_stories_lead').hide();
+					item.find('.list_stories_contents,.list_stories_comments,.list_stories_newcomment').show();
+				}
+			});
+
 			$('.list_stories_numbercomments').click(function() {
 				$(this).parents('li').find('.list_stories_headline').click();
-				var id = $(this).find('a').attr('id');
 			});
+
 
 			{if idPost != null}
 				itemComentario = $('#${idPost}');

@@ -3,8 +3,7 @@ var dextranet = {
 		gravatarUrl : "http://www.gravatar.com/avatar/",
 
 		processaErroNaRequisicao : function(jqXHR) {
-			messageError = '(' + jqXHR.status + ' ' + jqXHR.statusText + ') ' + jqXHR.responseText;
-			$('.message').message(messageError, 'error', true);
+			$('.message').message(jqXHR.responseText, 'error', true);
 		},
 
 		carregaMenus : function() {
@@ -38,8 +37,7 @@ var dextranet = {
 					
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
-    				var messageError = $.i18n.messages.erro_geral_sistema;
-    				$('.message').message(messageError, 'warning', true);
+    				dextranet.processaErroNaRequisicao(jqXHR);
     			}
 			});
 		}

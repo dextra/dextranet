@@ -38,6 +38,7 @@ public class Application extends javax.ws.rs.core.Application {
 		classes.add(MigracaoRS.class);
 
 		classes.add(MicroBlogRS.class);
+
 		return classes;
 	}
 
