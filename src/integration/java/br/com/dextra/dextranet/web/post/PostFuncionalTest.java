@@ -1,74 +1,31 @@
 package br.com.dextra.dextranet.web.post;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import org.junit.Test;
 
-import junit.framework.Assert;
+import br.com.dextra.teste.TesteFuncionalBase;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+public class PostFuncionalTest extends TesteFuncionalBase {
 
-import br.com.dextra.dextranet.web.PostTesteFuncionalUtils;
+	private PaginaNovoPost paginaNovoPost = null;
 
-public class PostFuncionalTest extends PostTesteFuncionalUtils {
-
-	private List<String> postsEncontrados = new ArrayList<String>();
-
-	private int quantidadePosts = 5;
-	private int vezesQueOScrollDescera = (int) Math.round(quantidadePosts / 20.0d + 0.5);
-
-	public void fluxoDeCriacaoPesquisaEPaginacaoDePosts() {
+	public void criarNovoPost() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
-		eCriouPosts(quantidadePosts);
-		quandoUsuarioDesceScrollAteFimDaPagina(vezesQueOScrollDescera);
-		entaoUsuarioVisualizaOsPosts();
-		eTodosOsPostsCriadosForamExibidos();
+		
+		String titulo = "Titulo de Teste";
+		String conteudo = "Texto do teste";
+		eCriouUmPost(titulo, conteudo);
+		entaoUsuarioVisualizaOPost(titulo, conteudo);
+	}
+	
+	protected void eCriouUmPost(String titulo, String conteudo) {
+		paginaNovoPost = paginaPrincipal.clicaEmNovoPost();
+		paginaNovoPost.criarNovoPost(titulo, conteudo);
 	}
 
-	private void quandoUsuarioDesceScrollAteFimDaPagina(int quantidadeDeVezesQueDescoOScroll) {
-		for (int i = 0; i <= quantidadeDeVezesQueDescoOScroll; i++) {
-			paginaPrincipal.scrollAteFim();
-		}
+
+	private void entaoUsuarioVisualizaOPost(String titulo, String conteudo) {
+		paginaPrincipal.existePost(titulo, conteudo);
 	}
 
-	private void entaoUsuarioVisualizaOsPosts() {
-		List<WebElement> htmlPostsEncontrados = driver.findElements(By.cssSelector("div.list_stories_headline h2"));
-		postsEncontrados.clear();
-
-		for (WebElement elementoPost : htmlPostsEncontrados) {
-			// obtem o titulo do post para futura comparacao
-			postsEncontrados.add(elementoPost.getText().toString().toUpperCase());
-		}
-	}
-
-	private void eTodosOsPostsCriadosForamExibidos() {
-		Collections.sort(postsInseridos);
-		Collections.sort(postsEncontrados);
-		Assert.assertEquals("Todos os posts inseridos deveriam ter sido visualizados.", postsInseridos,
-				postsEncontrados);
-	}
-
-	public void curtirUmPost() {
-		dadoQueUsuarioAcessaPaginaPrincipal();
-		eCriouPosts(1);
-		eleCurteUmPost();
-		eTentaCurtirNovamente();
-		eOPostFoiCurtidoApenasUmaVez();
-	}
-
-	private void eOPostFoiCurtidoApenasUmaVez() {
-		WebElement curtidas = driver.findElement(By.cssSelector("span.numero_curtida"));
-		Assert.assertEquals("1", curtidas.getText().toString());
-	}
-
-	private void eTentaCurtirNovamente() {
-		eleCurteUmPost();
-	}
-
-	private void eleCurteUmPost() {
-		paginaPrincipal.click(".linkCurtir");
-		paginaPrincipal.waitingForLoading();
-	}
 
 }

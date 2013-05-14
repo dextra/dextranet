@@ -60,9 +60,8 @@ dextranet.post = {
 				type : "POST",
 				url : "/s/post/"+postId+"/curtida",
 				contentType : dextranet.application_json,
-				success : function(post) {
-					var qtdCurtidas = parseInt($("div.list_stories_data a#showLikes_"+postId+" span.numero_curtida").text());
-					$("div.list_stories_data a#showLikes_"+postId+" span.numero_curtida").text(qtdCurtidas + 1);
+				success : function(qtdCurtidas) {
+					$("div.list_stories_data a#showLikes_"+postId+" span.numero_curtida").text(qtdCurtidas);
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);

@@ -9,16 +9,18 @@ import junit.framework.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import br.com.dextra.dextranet.web.PostTesteFuncionalUtils;
+import br.com.dextra.dextranet.web.post.PaginaNovoPost;
+import br.com.dextra.teste.TesteFuncionalBase;
 
-public class CommentFuncionalTest extends PostTesteFuncionalUtils {
+public class CommentFuncionalTest extends TesteFuncionalBase {
 
 	private List<String> comentariosEncontrados = new ArrayList<String>();
 	private List<String> comentariosInseridos = new ArrayList<String>();
+	private PaginaNovoPost paginaNovoPost = null;
 
 	public void fluxoDeCriacaoEListagemDeComentarios() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
-		eCriouPosts(1);
+		eCriouUmPost();
 		depoisCriaVariosComentariosParaOsPostsCriados(3);
 		entaoVisualizaOsComentarios();
 		eTodosOsComentariosCriadosForamExibidos();
@@ -63,7 +65,7 @@ public class CommentFuncionalTest extends PostTesteFuncionalUtils {
 
 	public void curtirUmComentario() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
-		eCriouPosts(1);
+		eCriouUmPost();
 		depoisCriaVariosComentariosParaOsPostsCriados(1);
 		eleCurteUmComentario();
 		eTentaCurtirNovamente();
@@ -83,5 +85,13 @@ public class CommentFuncionalTest extends PostTesteFuncionalUtils {
 	private void eleCurteUmComentario() {
 		paginaPrincipal.click("#relacao_dos_comentarios .linkCurtir");
 		paginaPrincipal.waitingForLoading();
+	}
+	
+	protected void eCriouUmPost() {
+		String titulo = "Titulo de Teste";
+		String conteudo = "Texto do teste";
+
+		paginaNovoPost = paginaPrincipal.clicaEmNovoPost();
+		paginaNovoPost.criarNovoPost(titulo, conteudo);
 	}
 }
