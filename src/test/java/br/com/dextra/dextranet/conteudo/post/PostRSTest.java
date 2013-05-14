@@ -81,6 +81,50 @@ public class PostRSTest extends TesteIntegracaoBase {
 
 	}
 
+	@Test
+	public void testaBuscaPosts() throws EntityNotFoundException {
+		Post post01 = new Post(usuarioLogado, "post1", "esse eh um post de teste");
+		Post post02 = new Post("usuario", "post2", "esse eh um post de teste");
+		repositorioDePosts.persiste(post01);
+		repositorioDePosts.persiste(post02);
+
+		List<Post> busca = repositorioDePosts.listarPosts(PostFields.titulo.name() + ": post1");
+		Assert.assertEquals(1, busca.size());
+
+		busca = repositorioDePosts.listarPosts(PostFields.conteudo.name() + ": esse eh um post de teste");
+		Assert.assertEquals(2, busca.size());
+
+		busca = repositorioDePosts.listarPosts(PostFields.usuario.name() + ": usuario");
+		Assert.assertEquals(1, busca.size());
+
+		busca = repositorioDePosts.listarPosts("esse eh um post de teste");
+		Assert.assertEquals(2, busca.size());
+
+	}
+	
+	@Test
+	public void testaRemover() throws EntityNotFoundException {
+		Post post = new Post("usuario", "titulo 01", "conteudo 01");
+		repositorioDePosts.persiste(post);
+
+		try {
+			rest.deletar(post.getId());
+			Assert.fail();
+		} catch (UsarioNaoPodeRemoverException e) {
+			Assert.assertTrue(true);
+		}
+		
+		Post post2 = new Post("dextranet", "titulo 02", "conteudo 02");
+		repositorioDePosts.persiste(post2);
+		
+		try {
+			rest.deletar(post2.getId());
+		} catch (UsarioNaoPodeRemoverException e) {
+			Assert.fail();
+		}
+
+	}
+
 	public class PostRSFake extends PostRS {
 
 		@Override

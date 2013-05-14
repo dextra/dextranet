@@ -51,9 +51,16 @@ public class PostRS {
 	@Path("/{id}")
 	@DELETE
 	@Produces(Application.JSON_UTF8)
-	public Response deletar(@PathParam("id") String id) throws EntityNotFoundException {
-		repositorioDePosts.remove(id);
-		return Response.ok().build();
+	public Response deletar(@PathParam("id") String id) throws EntityNotFoundException, UsarioNaoPodeRemoverException {
+		String usuarioLogado = obtemUsuarioLogado();
+		Post post = repositorioDePosts.obtemPorId(id);
+		if(post.getUsuario().equals(usuarioLogado)) {
+			repositorioDePosts.remove(id);
+			return Response.ok().build();
+		} else {
+			throw new UsarioNaoPodeRemoverException();
+		}
+		
 	}
 
 	@Path("/")
@@ -115,8 +122,6 @@ public class PostRS {
 	@Path("/buscar")
 	@Produces(Application.JSON_UTF8)
 	public Response listarPosts(@QueryParam("query") String query) throws EntityNotFoundException {
-		// TODO: verificar exceptions
-		// TODO: teste unitario
 		List<Post> posts = repositorioDePosts.listarPosts(query);
 		return Response.ok().entity(posts).build();
 	}

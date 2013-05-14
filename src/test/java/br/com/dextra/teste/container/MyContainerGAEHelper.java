@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import javax.naming.InitialContext;
 
@@ -64,6 +65,7 @@ public class MyContainerGAEHelper {
 		helper.setEnvIsAdmin(false);
 		helper.setEnvEmail("login.google@example.com");
 		helper.setEnvAuthDomain("example.com");
+		helper.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
 	}
 
 	public void criaMassaDeDados() {

@@ -43,12 +43,8 @@
 								${messages.post_comentario}
 							</a>
 						</div>
-						<span class="list_stories_date">26 minutos atrás</span>
-						<button class="btn btn-small btn-light btn-excluirpost"
-							title="Excluir este post">
-							<strong>x </strong>
-							Excluir
-						</button><!-- @toDo tooltip -->
+						<span class="list_stories_date time_ago">${postvo.post.dataDeAtualizacao}</span>
+						<button class="btn btn-small btn-light btn-excluirpost" title="Excluir este post" onclick="dextranet.post.remover('${postvo.post.id}')"><strong>x </strong> ${messages.post_excluir}</button><!-- @toDo tooltip -->
 					</div>
 
 					<!-- Novo comentario -->
@@ -118,6 +114,13 @@
 					item.find('.list_stories_contents,.list_stories_comments,.list_stories_newcomment').show();
 					item.find('.new-comment textarea').focus();
 				}
+			});
+
+			$.each($('span.time_ago'), function(){
+				data_completa = $(this).html();
+				tempo_atras = timeAgo.calcular(data_completa);
+				$(this).html(tempo_atras);
+				$(this).attr('title', data_completa);
 			});
 
 			$('.list_stories_numbercomments').click(function() {

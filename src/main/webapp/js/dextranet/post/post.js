@@ -67,7 +67,8 @@ dextranet.post = {
 				url : "/s/post/"+postId+"/curtida",
 				contentType : dextranet.application_json,
 				success : function(post) {
-					dextranet.post.listar();
+					var qtdCurtidas = parseInt($("div.list_stories_data a#showLikes_"+postId+" span.numero_curtida").text());
+					$("div.list_stories_data a#showLikes_"+postId+" span.numero_curtida").text(qtdCurtidas + 1);
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
@@ -89,6 +90,19 @@ dextranet.post = {
 			});
 		},
 
+		remover : function(postId) {
+			$.ajax( {
+				type : "DELETE",
+				url : "/s/post/"+postId,
+				contentType : dextranet.application_json,
+				success : function() {
+					dextranet.post.listar();
+				},
+    			error: function(jqXHR, textStatus, errorThrown) {
+    				dextranet.processaErroNaRequisicao(jqXHR);
+    			}
+			});
+		}
 
 		// Comentarios
 		comentar : function(idPost) {
