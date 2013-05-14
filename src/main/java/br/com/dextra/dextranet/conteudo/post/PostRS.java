@@ -82,8 +82,8 @@ public class PostRS {
 		}
 
 		repositorioDePosts.persiste(post);
-
-		return Response.ok().entity(post).build();
+		List<Curtida> curtidas = repositorioDeCurtidas.listaPorConteudo(postId);
+		return Response.ok().entity(curtidas.size()).build();
 	}
 
 	@Path("/{postId}/curtida")

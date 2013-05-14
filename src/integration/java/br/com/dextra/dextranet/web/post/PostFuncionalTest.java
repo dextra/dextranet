@@ -6,6 +6,7 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -18,6 +19,7 @@ public class PostFuncionalTest extends PostTesteFuncionalUtils {
 	private int quantidadePosts = 5;
 	private int vezesQueOScrollDescera = (int) Math.round(quantidadePosts / 20.0d + 0.5);
 
+	@Test
 	public void fluxoDeCriacaoPesquisaEPaginacaoDePosts() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
 		eCriouPosts(quantidadePosts);
