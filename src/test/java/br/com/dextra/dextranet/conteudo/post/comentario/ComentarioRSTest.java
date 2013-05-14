@@ -8,7 +8,6 @@ import org.junit.After;
 import org.junit.Test;
 
 import br.com.dextra.dextranet.conteudo.post.Post;
-import br.com.dextra.dextranet.conteudo.post.PostRS;
 import br.com.dextra.dextranet.conteudo.post.PostRepository;
 import br.com.dextra.dextranet.conteudo.post.curtida.Curtida;
 import br.com.dextra.dextranet.conteudo.post.curtida.CurtidaRepository;

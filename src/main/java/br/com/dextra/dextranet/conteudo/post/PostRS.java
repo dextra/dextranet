@@ -59,6 +59,9 @@ public class PostRS {
 			repositorioDePosts.remove(id);
 			return Response.ok().build();
 		} else {
+			// FIXME: um jeito mais elegante de se fazer isso é da seguinte forma:
+			// return Response.status(Status.FORBIDDEN).build();
+			// ou usar um handler de excepction que jah tem 
 			throw new UsarioNaoPodeRemoverException();
 		}
 
@@ -111,6 +114,8 @@ public class PostRS {
 	}
 
 	@GET
+	// FIXME: o padrao REST diz que nao pode haver verbos na URL de um servico
+	// uma sugestao seria mudar esse cara para um IndexacaoRS criando um metodo get /indexacao, por exemplo
 	@Path("/buscar")
 	@Produces(Application.JSON_UTF8)
 	public Response buscarPosts(@QueryParam("query") String query) throws EntityNotFoundException, HttpException {
@@ -124,6 +129,9 @@ public class PostRS {
 
 			return Response.ok().entity(posts).build();
 		} catch (SearchQueryException e) {
+			// FIXME: um jeito mais elegante de se fazer isso é da seguinte forma:
+			// return Response.status(Status.INTERNAL_SERVER_ERROR ).build();
+			// ou usar um handler de excepction que jah tem 
 			throw new HttpException(500);
 		}
 	}

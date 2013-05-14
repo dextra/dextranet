@@ -56,6 +56,7 @@ public class PostRepository extends EntidadeRepository {
 	}
 
 	public List<Post> buscarPosts(String q) throws EntityNotFoundException {
+		// FIXME: nao devemos colocar uma limitacao nos resultados encontrados?
 		Collection<ScoredDocument> result = IndexFacade.getIndex(Post.class.getName()).search(q).getResults();
 
 		List<Post> posts = new ArrayList<Post>();

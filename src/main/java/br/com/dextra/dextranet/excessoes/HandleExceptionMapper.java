@@ -1,3 +1,4 @@
+// FIXME: excessao com 2 s, minha gente? :)
 package br.com.dextra.dextranet.excessoes;
 
 import javax.ws.rs.core.MediaType;

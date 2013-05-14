@@ -102,6 +102,7 @@ dextranet.post = {
 			var idDoPost = idPost;
 			var conteudo = $('#' + idPost + ' .idConteudoComentario').val();
 			if (conteudo == "") {
+				// FIXME: nao daria pra usar o proprio componente de mensagens?
 				if (!dextranet.home.EhVisivel("#message-warning")) {
 					$("#container_message_warning_comment").addClass(
 							"container_message_warning");
@@ -130,6 +131,7 @@ dextranet.post = {
 		validarComentario : function(conteudo) {
 			if (conteudo.length > 20000) {
 				$("#container_message_warning_comment").addClass("container_message_warning");
+				// FIXME: nao daria pra usar o proprio componente de mensagens?
 				$.holy("../template/dinamico/post/mensagem_preencha_campos.xml", { 
 							"seletor" : "#container_message_warning_comment"
 				});

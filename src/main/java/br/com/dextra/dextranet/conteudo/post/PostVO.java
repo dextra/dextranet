@@ -4,6 +4,8 @@ import java.util.List;
 
 import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
 
+// FIXME: essa classe estah sendo utilizada?
+
 public class PostVO {
 	private Post post;
 	private List<Comentario> comentarios;
