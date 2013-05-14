@@ -6,10 +6,6 @@ import java.sql.SQLException;
 
 public class ControladorDeConexoes {
 
-	/*private static final String URL = "jdbc:postgresql://dbserver:5432/bruno_old_dextranet";
-    private static final String USUARIO = "postgres";
-    private static final String SENHA = "postgres123";*/
-
 	private static final String URL = "jdbc:postgresql://dbserver:5432/bruno_old_dextranet";
     private static final String USUARIO = "postgres";
     private static final String SENHA = "postgres123";

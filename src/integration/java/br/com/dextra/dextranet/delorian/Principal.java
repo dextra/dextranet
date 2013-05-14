@@ -26,17 +26,17 @@ public class Principal {
 			switch (escolha) {
 				case 1:
 					Log log = new Log();
-					DelorianService migracaoService = new DelorianService();
+					DelorianService delorianService = new DelorianService();
 					DelorianWS delorianWS = new DelorianWS();
 					Gson gson = new Gson();
 					NewPost newPost;
 
 					//Busca posts e comentarios
-					ArrayList<OldPost> oldPosts = migracaoService.consultarPostsTratados();
-					ArrayList<Comentario> comentarios = migracaoService.consultarComentarios();
+					ArrayList<OldPost> oldPosts = delorianService.consultarPostsTratados();
+					ArrayList<Comentario> comentarios = delorianService.consultarComentarios();
 
 					//Se verdadeiro, quer dizer que a migracao foi interrompida enquanto salvava comentarios
-					migrarComentariosInterrompidos(log, migracaoService, delorianWS, oldPosts, comentarios);
+					migrarComentariosInterrompidos(log, delorianService, delorianWS, oldPosts, comentarios);
 
 					int indicePost = log.getIndicePost() == 0 ? 0 : log.getIndicePost() + 1; //Se verdadeiro, migracao nunca foi feita. Se falso, migracao foi iniciada e interrompida.
 					//Envia um post de cada vez e em seguida todos os seus comentarios
@@ -51,7 +51,7 @@ public class Principal {
 						log.salvarPostId(i, newPost.getId());
 
 						//Recupera todos os comentarios do post enviado
-						ArrayList<Comentario> comentariosDoPost = migracaoService.selecionarComentariosDoPost(oldPosts.get(i).getNid(), comentarios);
+						ArrayList<Comentario> comentariosDoPost = delorianService.selecionarComentariosDoPost(oldPosts.get(i).getNid(), comentarios);
 						System.out.println("Id do post no GAE: " + newPost.getId());
 
 						//Envia todos os comentarios recuperados

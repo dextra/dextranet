@@ -2,138 +2,142 @@
 	<template selector="#content_left">
 		<div id="content_left_stretch">
 			<ul class="list_stories" id="relacao_dos_posts">
-			{for post in posts}
-				<li class="clearfix ${post.id}">
-					<div class="avatar-frame avatar-frame-small" title="Por ${post.usuario}">
-						<img src="${gravatar}${post.usuarioMD5}" alt="Avatar" />
+				{for postvo in postsvo}
+				<li class="clearfix" id="${postvo.post.id}">
+					<div class="avatar-frame avatar-frame-small" title="Por ${postvo.post.usuario}">
+						<img src="${gravatar}${postvo.post.usuarioMD5}" alt="Avatar" />
 					</div>
 					<div class="speech-shape"></div>
 					<a class="list_stories_headline clearfix" href="#">
-						<h2 class="titulo ${post.id}">${post.titulo}</h2>
+						<h2 class="titulo ${postvo.post.id} wordwrap" >${postvo.post.titulo}</h2>
 					</a>
 
 					<!-- Lead -->
-					<div class="conteudo_inicial list_stories_lead hyphenize">${dextranet.post.conteudoParaExibicao(post.conteudo)}</div>
+					<div class="conteudo_inicial list_stories_lead hyphenize wordwrap">${dextranet.post.conteudoParaExibicao(postvo.post.conteudo)}</div>
 
 					<!-- Conteudo completo do post -->
-					<div id="${post.id}_post" class="list_stories_contents hidden">
-						<div class="idClassPost" id="${post.id}">
-							${post.conteudo}
+					<div id="${postvo.post.id}_post" class="list_stories_contents hidden">
+						<div class="idClassPost wordwrap" id="${postvo.post.id}">
+							${postvo.post.conteudo}}
 						</div>
 					</div>
 
 					<!-- Curtidas, quantidade de comentarios, data, excluir -->
 					<div class="list_stories_data clearfix">
 						<div class="list_stories_dx clearfix">
-							<a id="like_${post.id}" class="linkCurtir post">
-								<span class="icon_dx" onclick="dextranet.post.curtir('${post.id}');"></span>
+							<a id="like_${postvo.post.id}" class="linkCurtir post">
+								<span class="icon_dx" onclick="dextranet.post.curtir('${postvo.post.id}');"></span>
 							</a>
-							<a id="showLikes_${post.id}" class="showLikes" onclick="dextranet.post.listarCurtidas('${post.id}');">
-								<span class="numero_curtida">${post.quantidadeDeCurtidas} ${messages.post_curtidas}</span>
+							<a id="showLikes_${postvo.post.id}" class="showLikes"
+								onclick="dextranet.post.listarCurtidas('${postvo.post.id}');">
+								<span class="numero_curtida">${postvo.post.quantidadeDeCurtidas}
+									${messages.post_curtidas}
+								</span>
 							</a>
 						</div>
 						<div class="list_stories_numbercomments">
-							<a id="${post.id}">
+							<a id="${postvo.post.id}">
 								<span class="icon_comments"></span>
-								<span class="numero_comentario">${post.quantidadeDeComentarios}</span>
+								<span class="numero_comentario">${postvo.post.quantidadeDeComentarios}</span>
 								${messages.post_comentario}
 							</a>
 						</div>
-						<span class="list_stories_date">26 minutos atrás</span>
-						<button class="btn btn-small btn-light btn-excluirpost" title="Excluir este post"><strong>x </strong> Excluir</button><!-- @toDo tooltip -->
-					</div>
-
-					<!-- Comentarios -->
-					<div class="list_stories_comments hidden">
-						<ul>
-							<li class="clearfix">
-								<div class="avatar-frame" title="Por ${post.usuario}">
-									<img src="${gravatar}${post.usuarioMD5}" alt="Avatar" />
-								</div>
-								<div class="speech-shape-small"></div>
-								<div class="content">
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nisl purus, sodales in congue eu, iaculis vel mi. Proin ac nulla est, sed auctor sapien. Cras ut nulla arcu, ut interdum felis.</p>
-									<div class="comment-data">
-										<span class="list_stories_date">26 minutos atrás</span>
-										<button class="btn btn-small btn-light btn-excluirpost" title="Excluir este post"><strong>x </strong> Excluir</button><!-- @toDo tooltip -->
-										<div class="list_stories_dx">
-											<a id="${post.id}" class="clearfix linkCurtir post">
-												<span class="icon_dx"></span>
-												<span class="numero_curtida">${post.quantidadeDeCurtidas}</span>
-											</a>
-										</div>
-									</div>
-								</div>
-							</li>
-							<li class="clearfix">
-								<div class="avatar-frame" title="Por ${post.usuario}">
-									<img src="${gravatar}${post.usuarioMD5}" alt="Avatar" />
-								</div>
-								<div class="speech-shape-small"></div>
-								<div class="content">
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nisl purus, sodales in congue eu, iaculis vel mi. Proin ac nulla est, sed auctor sapien. Cras ut nulla arcu, ut interdum felis.</p>
-									<div class="comment-data">
-										<span class="list_stories_date">26 minutos atrás</span>
-										<button class="btn btn-small btn-light btn-excluirpost" title="Excluir este post"><strong>x </strong> Excluir</button><!-- @toDo tooltip -->
-										<div class="list_stories_dx">
-											<a id="${post.id}" class="clearfix linkCurtir post">
-												<span class="icon_dx"></span>
-												<span class="numero_curtida">${post.quantidadeDeCurtidas}</span>
-											</a>
-										</div>
-									</div>
-								</div>
-							</li>
-						</ul>
+						<span class="list_stories_date time_ago">${postvo.post.dataDeAtualizacao}</span>
+						{if postvo.post.usuario == dextranet.usuario.logado.username}
+							<button class="btn btn-small btn-light btn-excluirpost" title="Excluir este post" onclick="dextranet.post.remover('${postvo.post.id}')"><strong>x </strong> ${messages.post_excluir}</button><!-- @toDo tooltip -->
+						{/if}
 					</div>
 
 					<!-- Novo comentario -->
 					<div class="list_stories_newcomment hidden">
 						<form id="form_comment" class="clearfix form-dark form-fields-block">
-							<!--<button tabindex="9" id="postEditorToggle" class="btn float_right" type="button">Mostrar/esconder opções</button>-->
 							<div class="new-comment clear">
-								<div class="avatar-frame" title="Por ${post.usuario}">
-									<img src="${gravatar}${post.usuarioMD5}" alt="Avatar" />
+								<div class="avatar-frame" title="Por ${postvo.post.usuario}">
+									<img src="${gravatar}${postvo.post.usuarioMD5}" alt="Avatar" />
 								</div>
-								<textarea cols="50" id="idConteudoComentario" class="not-empty" style="resize:none;" name="conteudoComentario" tabindex="10" placeholder="Deixe seu comentario... "></textarea>
+								<textarea cols="50" id="idConteudoComentario" class="idConteudoComentario not-empty"
+									style="resize:none;" name="conteudoComentario" tabindex="10"
+									placeholder="Deixe seu comentario... "></textarea>
 								<div class="speech-shape-small"></div>
 							</div>
-							<button class="btn btn-blue float_right" id="form_comentar_submit" type="button" tabindex="11">Comentar</button>
+							<button class="btn btn-blue float_right" id="form_comentar_submit"
+								type="button" tabindex="11" onclick="dextranet.post.comentar('${postvo.post.id}')">Comentar</button>
 						</form>
+						<!-- Comentarios -->
+						<ul class="list_stories_comment" id="relacao_dos_comentarios">
+							{for comentario in postvo.comentarios}
+							<li class="clearfix">
+								<div class="avatar-frame" title="Por ${comentario.usuario}">
+									<img src="${gravatar}${comentario.usuarioMD5}" alt="Avatar" />
+								</div>
+								<div class="speech-shape-small"></div>
+								<div class="content">
+									<p>${comentario.conteudo}</p>
+									<div class="comment-data">
+										<span class="list_stories_date time_ago">${comentario.dataDeCriacao}
+										</span>
+										<button class="btn btn-small btn-light btn-excluirpost"
+											title="Excluir este post">
+											<strong>x </strong>
+											Excluir
+										</button><!-- @toDo tooltip -->
+										<div class="list_stories_dx">
+											<a id="${comentario.id}" class="clearfix linkCurtir post">
+												<span class="icon_dx"></span>
+												<span class="numero_curtida">${comentario.quantidadeDeCurtidas}</span>
+											</a>
+										</div>
+									</div>
+								</div>
+							</li>
+							{/for}
+						</ul>
 					</div>
-
 				</li>
-			{/for}
+				{/for}
 			</ul>
 		</div>
 		<div id="div_curtidas_dialog"></div>
 
 		<script type="text/javascript">
-		$('.new-comment textarea').autoresize();
+			$('.new-comment textarea').autoresize();
 
-		$('.list_stories_headline').click(function(e)
-		{
-			e.preventDefault();
-			var item = $(this).parent('li');
-			if ( item.hasClass('expanded') === true )
-			{
-				item.removeClass('expanded');
-				item.find('.list_stories_lead').show();
-				item.find('.list_stories_contents,.list_stories_comments,.list_stories_newcomment').hide();
-			}
-			else
-			{
-				item.addClass('expanded');
-				item.find('.list_stories_lead').hide();
-				item.find('.list_stories_contents,.list_stories_comments,.list_stories_newcomment').show();
-				item.find('.new-comment textarea').focus();
-			}
-		});
-		$('.list_stories_numbercomments').click(function() {
-			$(this).parents('li').find('.list_stories_headline').click();
-		});
 
-		$("#form_comentar_submit").click(dextranet.comment.comentar);
+			$.each($('.time_ago'), function(){
+				data_completa = $(this).html();
+				tempo_atras = timeAgo.calcular(data_completa);
+				$(this).html(tempo_atras);
+				$(this).attr('title', data_completa);
+			});
+
+			$('.list_stories_headline').click(function(e)
+			{
+				e.preventDefault();
+				var item = $(this).parent('li');
+				if ( item.hasClass('expanded') === true )
+				{
+					item.removeClass('expanded');
+					item.find('.list_stories_lead').show();
+					item.find('.list_stories_contents,.list_stories_comments,.list_stories_newcomment').hide();
+				}
+				else
+				{
+					item.addClass('expanded');
+					item.find('.list_stories_lead').hide();
+					item.find('.list_stories_contents,.list_stories_comments,.list_stories_newcomment').show();
+				}
+			});
+
+			$('.list_stories_numbercomments').click(function() {
+				$(this).parents('li').find('.list_stories_headline').click();
+			});
+
+
+			{if idPost != null}
+				itemComentario = $('#${idPost}');
+				var item = itemComentario.find('.list_stories_headline');
+				item.click();
+			{/if}
 		</script>
 	</template>
 </engine>
