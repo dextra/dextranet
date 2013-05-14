@@ -3,7 +3,7 @@
 		<div id="content_left_stretch">
 			<ul class="list_stories" id="relacao_dos_posts">
 				{for postvo in postsvo}
-				<li class="clearfix" id="${postvo.post.id}">
+				<li class="post clearfix" id="${postvo.post.id}">
 					<div class="avatar-frame avatar-frame-small" title="Por ${postvo.post.usuario}">
 						<img src="${gravatar}${postvo.post.usuarioMD5}" alt="Avatar" />
 					</div>
