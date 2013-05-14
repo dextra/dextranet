@@ -35,8 +35,16 @@ dextranet.post = {
 				url : "/s/post",
 				contentType : dextranet.application_json,
 				success : function(posts) {
-					$.holy("../template/dinamico/post/lista_posts.xml", { posts : posts,
-																		  gravatar : dextranet.gravatarUrl });
+					
+					$.ajax({
+						url : "../template/dinamico/post/lista_posts.xml" + "?t=" + new Date().getTime(),
+						dataType : 'holy',
+						context : { posts : posts,
+							  gravatar : dextranet.gravatarUrl },
+						success : function() {
+							alert('bla');
+						}
+					});
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
