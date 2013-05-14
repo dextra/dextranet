@@ -7,7 +7,6 @@ import java.util.Set;
 import br.com.dextra.dextranet.area.AreaRS;
 import br.com.dextra.dextranet.banner.BannerRS;
 import br.com.dextra.dextranet.conteudo.post.PostRS;
-import br.com.dextra.dextranet.conteudo.post.comentario.ComentarioRS;
 import br.com.dextra.dextranet.microblog.MicroBlogRS;
 import br.com.dextra.dextranet.migracao.MigracaoRS;
 import br.com.dextra.dextranet.unidade.UnidadeRS;
@@ -36,7 +35,6 @@ public class Application extends javax.ws.rs.core.Application {
 		classes.add(BannerRS.class);
 
 		classes.add(PostRS.class);
-		classes.add(ComentarioRS.class);
 		classes.add(MigracaoRS.class);
 
 		classes.add(MicroBlogRS.class);
