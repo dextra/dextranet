@@ -13,6 +13,6 @@
 	</template>
 	<script>
 			CKEDITOR.replace('textarea_comment');
-			dextranet.comment.comentar();
+			dextranet.post.comentar();
 	</script>
 </engine>
