@@ -82,6 +82,20 @@ dextranet.post = {
     				dextranet.processaErroNaRequisicao(jqXHR);
     			}
 			});
+		},
+		
+		remover : function(postId) {
+			$.ajax( {
+				type : "DELETE",
+				url : "/s/post/"+postId,
+				contentType : dextranet.application_json,
+				success : function() {
+					dextranet.post.listar();
+				},
+    			error: function(jqXHR, textStatus, errorThrown) {
+    				dextranet.processaErroNaRequisicao(jqXHR);
+    			}
+			});
 		}
 
 };

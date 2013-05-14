@@ -41,7 +41,7 @@
 							</a>
 						</div>
 						<span class="list_stories_date time_ago">${post.dataDeAtualizacao}</span>
-						<button class="btn btn-small btn-light btn-excluirpost" title="Excluir este post"><strong>x </strong> ${messages.post_excluir}</button><!-- @toDo tooltip -->
+						<button class="btn btn-small btn-light btn-excluirpost" title="Excluir este post" onclick="dextranet.post.remover('${post.id}')"><strong>x </strong> ${messages.post_excluir}</button><!-- @toDo tooltip -->
 					</div>
 
 					<!-- Comentarios -->
