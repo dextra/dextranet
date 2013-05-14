@@ -30,9 +30,8 @@
 							</a>
 							<a id="showLikes_${postvo.post.id}" class="showLikes"
 								onclick="dextranet.post.listarCurtidas('${postvo.post.id}');">
-								<span class="numero_curtida">${postvo.post.quantidadeDeCurtidas}
-									${messages.post_curtidas}
-								</span>
+								<span class="numero_curtida">${postvo.post.quantidadeDeCurtidas}</span>
+								<span>${messages.post_curtidas}</span>
 							</a>
 						</div>
 						<div class="list_stories_numbercomments">
