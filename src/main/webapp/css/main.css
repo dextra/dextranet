@@ -337,13 +337,13 @@ form input.link { width: 476px;}
 
 .list_stories_comments {list-style:none outside none;margin:25px 0 15px;}
 .list_stories_comments li{margin-bottom:20px;position:relative;}
-.list_stories_comments .avatar-frame, 
+.list_stories_comments .avatar-frame,
 .new-comment .avatar-frame {width:32px;height:32px;padding:0;border-color:#668;float:left;margin:0 22px 0 2px;}
-.list_stories_comments .avatar-frame > img, 
+.list_stories_comments .avatar-frame > img,
 .new-comment .avatar-frame > img {width:32px;height:32px;border-radius:3px;}
 .list_stories_comments .content{float:left;width:460px;font-size:12px;font-family:arial;color:#555;border:1px solid #ddf;border-radius:5px;padding:10px 12px;background-color:#fcfcff;}
 .list_stories_comments .content > p{padding-bottom:0;}
-.list_stories_comments .speech-shape-small, 
+.list_stories_comments .speech-shape-small,
 .new-comment .speech-shape-small,
 .list_stories_comments .speech-shape-small:before,
 .new-comment .speech-shape-small:before{position:absolute;left:47px;top:11px;border-right:dashed 12px #cfe1f3;border-top:solid 8px transparent;border-bottom:solid 8px transparent;border-radius:2px;z-index:1;width:0;height:0;}
@@ -387,4 +387,4 @@ div.usuario_curtida {padding: 10px;border-bottom:1px solid #DDDDDD;}
 .content-right .tipsy-arrow {top: +20px;}
 
 /* Tamanho máximo para imagens dentro do post */
-.idClassPost > p > img{width: auto !important; max-height: 306px;}
+.idClassPost img{width: auto !important; max-height: 306px;}

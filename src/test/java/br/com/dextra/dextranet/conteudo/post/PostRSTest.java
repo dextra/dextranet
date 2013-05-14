@@ -101,7 +101,7 @@ public class PostRSTest extends TesteIntegracaoBase {
 		Assert.assertEquals(2, busca.size());
 
 	}
-	
+
 	@Test
 	public void testaRemover() throws EntityNotFoundException {
 		Post post = new Post("usuario", "titulo 01", "conteudo 01");
@@ -113,10 +113,10 @@ public class PostRSTest extends TesteIntegracaoBase {
 		} catch (UsarioNaoPodeRemoverException e) {
 			Assert.assertTrue(true);
 		}
-		
+
 		Post post2 = new Post("dextranet", "titulo 02", "conteudo 02");
 		repositorioDePosts.persiste(post2);
-		
+
 		try {
 			rest.deletar(post2.getId());
 		} catch (UsarioNaoPodeRemoverException e) {

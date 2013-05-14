@@ -32,8 +32,9 @@ var dextranet = {
 						return;
 					}
 					
-					$.holy("../template/dinamico/post/lista_posts.xml", { postvo : postvo,
-						  gravatar : dextranet.gravatarUrl });
+					$.holy("../template/dinamico/post/lista_posts.xml", { posts : posts, 
+																		  idPost : null, 
+																		  gravatar : dextranet.gravatarUrl });
 					
 				},
     			error: function(jqXHR, textStatus, errorThrown) {

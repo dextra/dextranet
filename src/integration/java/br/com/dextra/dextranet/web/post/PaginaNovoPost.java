@@ -22,7 +22,7 @@ public class PaginaNovoPost extends PaginaBase {
 		this.waitingForLoading();
 	}
 
-	public void criaNovoPost(String titulo, String conteudo) {
+	public void criarNovoPost(String titulo, String conteudo) {
 		this.redigeConteudoDoPost(titulo, conteudo);
 		this.submetePost();
 	}

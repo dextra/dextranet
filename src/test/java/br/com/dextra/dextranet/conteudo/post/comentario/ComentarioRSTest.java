@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Test;
 
 import br.com.dextra.dextranet.conteudo.post.Post;
+import br.com.dextra.dextranet.conteudo.post.PostRS;
 import br.com.dextra.dextranet.conteudo.post.PostRepository;
 import br.com.dextra.dextranet.conteudo.post.curtida.Curtida;
 import br.com.dextra.dextranet.conteudo.post.curtida.CurtidaRepository;
@@ -39,12 +40,8 @@ public class ComentarioRSTest extends TesteIntegracaoBase {
 	public void testaComentario() throws EntityNotFoundException {
 		Post post = new Post("usuario", "titulo", "conteudo");
 		repositorioDePosts.persiste(post);
-
 		rest.comentar(post.getId(), "novo comentario");
-
 		post = repositorioDePosts.obtemPorId(post.getId());
-		Assert.assertEquals(1, post.getQuantidadeDeComentarios());
-
 		List<Comentario> comentarios = repositorioDeComentarios.listaPorPost(post.getId());
 		Assert.assertEquals(1, comentarios.size());
 		Assert.assertEquals(usuarioLogado, comentarios.get(0).getUsuario());
