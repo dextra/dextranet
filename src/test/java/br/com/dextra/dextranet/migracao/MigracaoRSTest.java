@@ -45,8 +45,6 @@ public class MigracaoRSTest extends TesteIntegracaoBase {
 
 		Post postMigrado = repositorioDePosts.obtemPorId(post.getId());
 		Comentario comentarioMigrado = repositorioDeComentarios.obtemPorId(comentario.getId());
-
-		Assert.assertEquals(1, postMigrado.getQuantidadeDeComentarios());
 		Assert.assertEquals("outro-usuario", comentarioMigrado.getUsuario());
 		Assert.assertEquals(quatroDiasAtras, comentarioMigrado.getDataDeCriacao());
 	}

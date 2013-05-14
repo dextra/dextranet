@@ -36,8 +36,6 @@ public class ComentarioRS {
 			throws EntityNotFoundException {
 		Post post = repositorioDePosts.obtemPorId(postId);
 		Comentario comentario = post.comentar(this.obtemUsuarioLogado(), conteudo);
-
-		repositorioDePosts.persiste(post);
 		repositorioDeComentarios.persiste(comentario);
 
 		return Response.ok().entity(post).build();

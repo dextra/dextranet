@@ -50,8 +50,6 @@ public class PostTest extends TesteIntegracaoBase {
 		Assert.assertEquals(((Text) postEntity.getProperty(PostFields.conteudo.name())).getValue(), post.getConteudo());
 		Assert.assertEquals(postEntity.getProperty(PostFields.quantidadeDeCurtidas.name()),
 				post.getQuantidadeDeCurtidas());
-		Assert.assertEquals(postEntity.getProperty(PostFields.quantidadeDeComentarios.name()),
-				post.getQuantidadeDeComentarios());
 		Assert.assertEquals(postEntity.getProperty(PostFields.usuario.name()), post.getUsuario());
 		Assert.assertEquals(postEntity.getProperty(PostFields.usuariosQueCurtiram.name()),
 				post.getUsuariosQueCurtiram());
@@ -72,8 +70,6 @@ public class PostTest extends TesteIntegracaoBase {
 		Assert.assertEquals(post.getConteudo(), ((Text) postEntity.getProperty(PostFields.conteudo.name())).getValue());
 		Assert.assertEquals(post.getQuantidadeDeCurtidas(),
 				postEntity.getProperty(PostFields.quantidadeDeCurtidas.name()));
-		Assert.assertEquals(post.getQuantidadeDeComentarios(),
-				postEntity.getProperty(PostFields.quantidadeDeComentarios.name()));
 		Assert.assertEquals(post.getUsuario(), postEntity.getProperty(PostFields.usuario.name()));
 		Assert.assertEquals(post.getUsuariosQueCurtiram(),
 				postEntity.getProperty(PostFields.usuariosQueCurtiram.name()));

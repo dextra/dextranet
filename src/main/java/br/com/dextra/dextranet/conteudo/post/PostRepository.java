@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
+import br.com.dextra.dextranet.conteudo.post.comentario.ComentarioRepository;
 import br.com.dextra.dextranet.indexacao.IndexFacade;
 import br.com.dextra.dextranet.indexacao.IndexacaoRepository;
 import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
@@ -30,8 +32,10 @@ public class PostRepository extends EntidadeRepository {
 	}
 
 	public Post obtemPorId(String id) throws EntityNotFoundException {
-		Entity post = super.obtemPorId(id, Post.class);
-		return new Post(post);
+		Entity postEnt = super.obtemPorId(id, Post.class);
+		Post post = new Post(postEnt);
+		buscaComentariosPost(id, post);
+		return post;
 	}
 
 	public List<Post> lista(EntidadeOrdenacao... criterioOrdenacao) {
@@ -43,12 +47,15 @@ public class PostRepository extends EntidadeRepository {
 
 		Iterable<Entity> entidades = super.lista(Post.class, registrosPorPagina, numeroDaPagina, criterioOrdenacao);
 		for (Entity entidade : entidades) {
-			posts.add(new Post(entidade));
+			Post post = new Post(entidade);
+			buscaComentariosPost(post.getId(), post);
+			posts.add(post);
 		}
 
 		return posts;
 	}
 
+	//TODO: Verifica ae renan
 	public List<Post> listarPosts(String q) throws EntityNotFoundException {
 		Collection<ScoredDocument> result = IndexFacade.getIndex(Post.class.getName()).search(q).getResults();
 
@@ -59,6 +66,12 @@ public class PostRepository extends EntidadeRepository {
 		}
 
 		return posts;
+
+	}
+
+	private void buscaComentariosPost(String id, Post post) {
+		List<Comentario> comentarios = new ComentarioRepository().listaPorPost(id);
+		post.addComentarios(comentarios);
 	}
 
 }

@@ -18,7 +18,7 @@ dextranet.post = {
 					data : { 'titulo' : titulo, 'conteudo' : conteudo },
 					success : function() {
 						$('.message').message($.i18n.messages.post_mensagem_postagem_sucesso, 'success', true);
-						dextranet.post.listar();
+						dextranet.post.listar(null);
 					},
 	    			error: function(jqXHR, textStatus, errorThrown) {
 	    				dextranet.processaErroNaRequisicao(jqXHR);
@@ -29,17 +29,13 @@ dextranet.post = {
 			}
 		},
 
-		listar : function() {
-			dextranet.post.listarComComentarios(null);
-		},
-
-		listarComComentarios : function(idPost) {
+		listar : function(idPost) {
 			$.ajax( {
 				type : "GET",
 				url : "/s/post",
 				contentType : dextranet.application_json,
-				success : function(postsvo) {
-						$.holy("../template/dinamico/post/lista_posts.xml", { postsvo : postsvo,
+				success : function(posts) {
+						$.holy("../template/dinamico/post/lista_posts.xml", { posts : posts,
 							  												  gravatar : dextranet.gravatarUrl,
 							  												  idPost : idPost});
 				},
@@ -94,7 +90,7 @@ dextranet.post = {
 				url : "/s/post/"+postId,
 				contentType : dextranet.application_json,
 				success : function() {
-					dextranet.post.listar();
+					dextranet.post.listar(null);
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
@@ -115,6 +111,8 @@ dextranet.post = {
 					});
 				}
 			} else {
+				dextranet.post.validarComentario(conteudo);
+
 				$.ajax({
 					type : 'POST',
 					url : '/s/post/' + idDoPost + '/comentario',
@@ -123,12 +121,21 @@ dextranet.post = {
 					},
 					success : function(comments) {
 						dextranet.post.limpaCampoComentario();
-						dextranet.post.listarComComentarios(idDoPost);
+						dextranet.post.listar(idDoPost);
 					}
 				});
 			}
 			return false;
 		},
+
+		validarComentario : function() {
+			if (conteudo.length > 20000) {
+				$("#container_message_warning_comment").addClass(
+				"container_message_warning");
+				$.holy("../template/dinamico/post/mensagem_preencha_campos.xml", {
+							"seletor" : "#container_message_warning_comment"
+			}
+		}
 
 		limpaCampoComentario : function() {
 			if ($('#idConteudoComentario').val() != "") {

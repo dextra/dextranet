@@ -16,29 +16,26 @@ import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
 
 public class Post extends Conteudo implements ConteudoIndexavel {
-
 	private String titulo;
-
-	protected long quantidadeDeComentarios;
-
 	private Date dataDeAtualizacao;
+	private List<Comentario> comentarios;
 
 	public Post(String usuario, String titulo, String conteudo) {
 		super(usuario);
 		this.dataDeAtualizacao = new TimeMachine().dataAtual();
-		this.quantidadeDeComentarios = 0;
 		this.preenche(titulo, conteudo);
+		comentarios = new ArrayList<Comentario>();
 	}
 
 	@SuppressWarnings("unchecked")
 	public Post(Entity postEntity) {
 		super((String) postEntity.getProperty(PostFields.usuario.name()));
+		comentarios = new ArrayList<Comentario>();
 		this.id = (String) postEntity.getProperty(PostFields.id.name());
 		this.titulo = (String) postEntity.getProperty(PostFields.titulo.name());
 		this.conteudo = ((Text) postEntity.getProperty(PostFields.conteudo.name())).getValue();
 		this.quantidadeDeCurtidas = (Long) postEntity.getProperty(PostFields.quantidadeDeCurtidas.name());
 		this.usuariosQueCurtiram = (List<String>) postEntity.getProperty(PostFields.usuariosQueCurtiram.name());
-		this.quantidadeDeComentarios = (Long) postEntity.getProperty(PostFields.quantidadeDeComentarios.name());
 		this.dataDeCriacao = (Date) postEntity.getProperty(PostFields.dataDeCriacao.name());
 		this.dataDeAtualizacao = (Date) postEntity.getProperty(PostFields.dataDeAtualizacao.name());
 
@@ -66,12 +63,22 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 	}
 
 	public long getQuantidadeDeComentarios() {
-		return quantidadeDeComentarios;
+		return comentarios.size();
 	}
 
 	public Comentario comentar(String username, String conteudo) {
-		this.quantidadeDeComentarios++;
-		return new Comentario(this.id, username, new ConteudoHTML(conteudo).removeJavaScript());
+		Comentario comentario = new Comentario(this.id, username, new ConteudoHTML(conteudo).removeJavaScript());
+		comentarios.add(comentario);
+		return comentario;
+	}
+
+	public void addComentarios(List<Comentario> comentarios) {
+		this.comentarios.clear();
+		this.comentarios.addAll(comentarios);
+	}
+
+	public List<Comentario> getComentarios() {
+		return comentarios;
 	}
 
 	@Override
@@ -83,7 +90,6 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 		entidade.setProperty(PostFields.conteudo.name(), new Text(this.conteudo));
 		entidade.setProperty(PostFields.quantidadeDeCurtidas.name(), this.quantidadeDeCurtidas);
 		entidade.setProperty(PostFields.usuariosQueCurtiram.name(), this.usuariosQueCurtiram);
-		entidade.setProperty(PostFields.quantidadeDeComentarios.name(), this.quantidadeDeComentarios);
 		entidade.setProperty(PostFields.usuario.name(), this.usuario);
 		entidade.setProperty(PostFields.usuarioMD5.name(), this.usuarioMD5);
 		entidade.setProperty(PostFields.dataDeCriacao.name(), this.dataDeCriacao);
@@ -94,17 +100,14 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 
 	@Override
 	public String toString() {
-		return "Post [titulo=" + titulo + ", quantidadeDeComentarios=" + quantidadeDeComentarios
-				+ ", dataDeAtualizacao=" + dataDeAtualizacao + ", usuario=" + usuario + ", dataDeCriacao="
-				+ dataDeCriacao + ", quantidadeDeCurtidas=" + quantidadeDeCurtidas + ", id=" + id + "]";
+		return "Post [titulo=" + titulo + ", dataDeAtualizacao=" + dataDeAtualizacao + ", usuario=" + usuario + ", dataDeCriacao=" + dataDeCriacao + ", quantidadeDeCurtidas="
+				+ quantidadeDeCurtidas + ", id=" + id + "]";
 	}
 
 	@Override
 	public Document toDocument() {
-		Document document = Document.newBuilder().setId(id)
-				.addField(Field.newBuilder().setName(PostFields.id.name()).setText(id))
-				.addField(Field.newBuilder().setName(PostFields.titulo.name()).setText(titulo))
-				.addField(Field.newBuilder().setName(PostFields.conteudo.name()).setHTML(conteudo))
+		Document document = Document.newBuilder().setId(id).addField(Field.newBuilder().setName(PostFields.id.name()).setText(id))
+				.addField(Field.newBuilder().setName(PostFields.titulo.name()).setText(titulo)).addField(Field.newBuilder().setName(PostFields.conteudo.name()).setHTML(conteudo))
 				.addField(Field.newBuilder().setName(PostFields.usuario.name()).setText(usuario)).build();
 		return document;
 	}

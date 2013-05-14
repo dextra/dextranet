@@ -1,6 +1,5 @@
 package br.com.dextra.dextranet.conteudo.post;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.DELETE;
@@ -62,7 +61,7 @@ public class PostRS {
 		} else {
 			throw new UsarioNaoPodeRemoverException();
 		}
-		
+
 	}
 
 	@Path("/")
@@ -70,16 +69,7 @@ public class PostRS {
 	@Produces(Application.JSON_UTF8)
 	public Response listar(@QueryParam("r") @DefaultValue(Application.REGISTROS_POR_PAGINA) Integer registrosPorPagina, @QueryParam("p") @DefaultValue("1") Integer pagina) {
 		List<Post> posts = this.listarPostsOrdenados(registrosPorPagina, pagina);
-		List<PostVO> postsVO = new ArrayList<PostVO>();
-		for (Post post : posts) {
-			List<Comentario> comentarios = repositorioDeComentarios.listaPorPost(post.getId());
-			PostVO postVO = new PostVO();
-			postVO.setPost(post);
-			postVO.setComentarios(comentarios);
-			postsVO.add(postVO);
-		}
-
-		return Response.ok().entity(postsVO).build();
+		return Response.ok().entity(posts).build();
 	}
 
 	@Path("/{postId}/curtida")
@@ -145,10 +135,8 @@ public class PostRS {
 	public Response comentar(@PathParam("postId") String postId, @FormParam("conteudo") String conteudo) throws EntityNotFoundException {
 		Post post = repositorioDePosts.obtemPorId(postId);
 		Comentario comentario = post.comentar(this.obtemUsuarioLogado(), conteudo);
-
 		repositorioDePosts.persiste(post);
 		repositorioDeComentarios.persiste(comentario);
-
 		return Response.ok().entity(post).build();
 	}
 

@@ -2,49 +2,49 @@
 	<template selector="#content_left">
 		<div id="content_left_stretch">
 			<ul class="list_stories" id="relacao_dos_posts">
-				{for postvo in postsvo}
-				<li class="clearfix" id="${postvo.post.id}">
-					<div class="avatar-frame avatar-frame-small" title="Por ${postvo.post.usuario}">
-						<img src="${gravatar}${postvo.post.usuarioMD5}" alt="Avatar" />
+				{for post in posts}
+				<li class="clearfix" id="${post.id}">
+					<div class="avatar-frame avatar-frame-small" title="Por ${post.usuario}">
+						<img src="${gravatar}${post.usuarioMD5}" alt="Avatar" />
 					</div>
 					<div class="speech-shape"></div>
 					<a class="list_stories_headline clearfix" href="#">
-						<h2 class="titulo ${postvo.post.id} wordwrap" >${postvo.post.titulo}</h2>
+						<h2 class="titulo ${post.id} wordwrap" >${post.titulo}</h2>
 					</a>
 
 					<!-- Lead -->
 					<div class="conteudo_inicial list_stories_lead hyphenize wordwrap">${dextranet.post.conteudoParaExibicao(postvo.post.conteudo)}</div>
 
 					<!-- Conteudo completo do post -->
-					<div id="${postvo.post.id}_post" class="list_stories_contents hidden">
-						<div class="idClassPost wordwrap" id="${postvo.post.id}">
-							${postvo.post.conteudo}
+					<div id="${post.id}_post" class="list_stories_contents hidden">
+						<div class="idClassPost wordwrap" id="${post.id}">
+							${post.conteudo}
 						</div>
 					</div>
 
 					<!-- Curtidas, quantidade de comentarios, data, excluir -->
 					<div class="list_stories_data clearfix">
 						<div class="list_stories_dx clearfix">
-							<a id="like_${postvo.post.id}" class="linkCurtir post">
-								<span class="icon_dx" onclick="dextranet.post.curtir('${postvo.post.id}');"></span>
+							<a id="like_${post.id}" class="linkCurtir post">
+								<span class="icon_dx" onclick="dextranet.post.curtir('${post.id}');"></span>
 							</a>
-							<a id="showLikes_${postvo.post.id}" class="showLikes"
-								onclick="dextranet.post.listarCurtidas('${postvo.post.id}');">
-								<span class="numero_curtida">${postvo.post.quantidadeDeCurtidas}
+							<a id="showLikes_${post.id}" class="showLikes"
+								onclick="dextranet.post.listarCurtidas('${post.id}');">
+								<span class="numero_curtida">${post.quantidadeDeCurtidas}
 									${messages.post_curtidas}
 								</span>
 							</a>
 						</div>
 						<div class="list_stories_numbercomments">
-							<a id="${postvo.post.id}">
+							<a id="${post.id}">
 								<span class="icon_comments"></span>
-								<span class="numero_comentario">${postvo.post.quantidadeDeComentarios}</span>
+								<span class="numero_comentario">${post.quantidadeDeComentarios}</span>
 								${messages.post_comentario}
 							</a>
 						</div>
-						<span class="list_stories_date time_ago">${postvo.post.dataDeAtualizacao}</span>
+						<span class="list_stories_date time_ago">${post.dataDeAtualizacao}</span>
 						{if postvo.post.usuario == dextranet.usuario.logado.username}
-							<button class="btn btn-small btn-light btn-excluirpost" title="Excluir este post" onclick="dextranet.post.remover('${postvo.post.id}')"><strong>x </strong> ${messages.post_excluir}</button><!-- @toDo tooltip -->
+							<button class="btn btn-small btn-light btn-excluirpost" title="Excluir este post" onclick="dextranet.post.remover('${post.id}')"><strong>x </strong> ${messages.post_excluir}</button><!-- @toDo tooltip -->
 						{/if}
 					</div>
 
@@ -52,8 +52,8 @@
 					<div class="list_stories_newcomment hidden">
 						<form id="form_comment" class="clearfix form-dark form-fields-block">
 							<div class="new-comment clear">
-								<div class="avatar-frame" title="Por ${postvo.post.usuario}">
-									<img src="${gravatar}${postvo.post.usuarioMD5}" alt="Avatar" />
+								<div class="avatar-frame" title="Por ${post.usuario}">
+									<img src="${gravatar}${post.usuarioMD5}" alt="Avatar" />
 								</div>
 								<textarea cols="50" id="idConteudoComentario" class="idConteudoComentario not-empty"
 									style="resize:none;" name="conteudoComentario" tabindex="10"
@@ -61,7 +61,7 @@
 								<div class="speech-shape-small"></div>
 							</div>
 							<button class="btn btn-blue float_right" id="form_comentar_submit"
-								type="button" tabindex="11" onclick="dextranet.post.comentar('${postvo.post.id}')">Comentar</button>
+								type="button" tabindex="11" onclick="dextranet.post.comentar('${post.id}')">Comentar</button>
 						</form>
 						<!-- Comentarios -->
 						<ul class="list_stories_comments" id="relacao_dos_comentarios">
@@ -100,6 +100,7 @@
 		<div id="div_curtidas_dialog"></div>
 
 		<script type="text/javascript">
+			<![CDATA[
 			$('.new-comment textarea').autoresize();
 
 
@@ -133,11 +134,12 @@
 			});
 
 
-			{if idPost != null}
+			{if idPost != null && idPost != 'undefined'}
 				itemComentario = $('#${idPost}');
 				var item = itemComentario.find('.list_stories_headline');
 				item.click();
 			{/if}
+			]]>
 		</script>
 	</template>
 </engine>
