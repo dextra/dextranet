@@ -9,15 +9,15 @@
 					</div>
 					<div class="speech-shape"></div>
 					<a class="list_stories_headline clearfix" href="#">
-						<h2 class="titulo ${post.id}">${post.titulo}</h2>
+						<h2 class="titulo ${post.id} wordwrap" >${post.titulo}</h2>
 					</a>
 
 					<!-- Lead -->
-					<div class="conteudo_inicial list_stories_lead hyphenize">${dextranet.post.conteudoParaExibicao(post.conteudo)}</div>
+					<div class="conteudo_inicial list_stories_lead hyphenize wordwrap">${dextranet.post.conteudoParaExibicao(post.conteudo)}</div>
 
 					<!-- Conteudo completo do post -->
 					<div id="${post.id}_post" class="list_stories_contents hidden">
-						<div class="idClassPost" id="${post.id}">
+						<div class="idClassPost wordwrap" id="${post.id}">
 							${post.conteudo}
 						</div>
 					</div>
@@ -110,7 +110,7 @@
 
 		<script type="text/javascript">
 
-		$.each($('span.time_ago'), function(){
+		$.each($('.time_ago'), function(){
 			data_completa = $(this).html();
 			tempo_atras = timeAgo.calcular(data_completa);
 			$(this).html(tempo_atras);
@@ -134,7 +134,6 @@
 				item.addClass('expanded');
 				item.find('.list_stories_lead').hide();
 				item.find('.list_stories_contents,.list_stories_comments,.list_stories_newcomment').show();
-				item.find('.new-comment textarea').focus();
 			}
 		});
 		$('.list_stories_numbercomments').click(function() {

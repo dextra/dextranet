@@ -176,7 +176,7 @@ textarea:focus{color:#5396e1 !important;border-color:#b7cce2;box-shadow:0 0 3px 
 .form-horizontal dt{float:left;margin-bottom:25px;}
 .form-horizontal dt{clear:both;width:135px;}
 .form-horizontal dd{margin-top:-4px;}
-.form-horizontal dd input, 
+.form-horizontal dd input,
 .form-horizontal dd textarea,
 .form-horizontal dd select{width:100%;}
 
@@ -309,7 +309,7 @@ form input.link { width: 476px;}
 	color:#35679a;
 	margin:0;
 	cursor:pointer;
-	transition:	
+	transition:
 		background-color 150ms ease-in-out,
 		padding 150ms ease-in-out,
 		margin 150ms ease-in-out;
@@ -337,13 +337,13 @@ form input.link { width: 476px;}
 
 .list_stories_comments > ul{list-style:none;margin:25px 0 15px;}
 .list_stories_comments > ul > li{margin-bottom:20px;position:relative;}
-.list_stories_comments > ul > li > .avatar-frame, 
+.list_stories_comments > ul > li > .avatar-frame,
 .new-comment .avatar-frame {width:32px;height:32px;padding:0;border-color:#668;float:left;margin:0 22px 0 2px;}
-.list_stories_comments > ul > li > .avatar-frame > img, 
+.list_stories_comments > ul > li > .avatar-frame > img,
 .new-comment .avatar-frame > img {width:32px;height:32px;border-radius:3px;}
 .list_stories_comments > ul > li > .content{float:left;width:460px;font-size:12px;font-family:arial;color:#555;border:1px solid #ddf;border-radius:5px;padding:10px 12px;background-color:#fcfcff;}
 .list_stories_comments > ul > li > .content > p{padding-bottom:0;}
-.list_stories_comments .speech-shape-small, 
+.list_stories_comments .speech-shape-small,
 .new-comment .speech-shape-small,
 .list_stories_comments .speech-shape-small:before,
 .new-comment .speech-shape-small:before{position:absolute;left:47px;top:11px;border-right:dashed 12px #cfe1f3;border-top:solid 8px transparent;border-bottom:solid 8px transparent;border-radius:2px;z-index:1;width:0;height:0;}
@@ -372,8 +372,8 @@ form input.link { width: 476px;}
 .lista_curtidas .avatar-frame > img {width:24px;height:24px;border-radius:3px;}
 .lista_curtidas{overflow-y: auto;overflow-x: hidden;max-height: 300px;}
 .lista_curtidas .usuario_curtida{width:250px;height: 40px;}
-} 
-div.usuario_curtida {padding: 10px;border-bottom:1px solid #DDDDDD;} 
+}
+div.usuario_curtida {padding: 10px;border-bottom:1px solid #DDDDDD;}
 
 /*----------  PaginaÃ§Ã£o  ----------*/
 .list-pagination {text-align:center}
@@ -385,3 +385,6 @@ div.usuario_curtida {padding: 10px;border-bottom:1px solid #DDDDDD;}
 /* Tipsy */
 .content-right .tipsy,
 .content-right .tipsy-arrow {top: +20px;}
+
+/* Tamanho máximo para imagens dentro do post */
+.idClassPost > p > img{width: auto !important; max-height: 306px;}

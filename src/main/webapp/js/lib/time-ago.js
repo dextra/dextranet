@@ -8,7 +8,9 @@ timeAgo = {
 		dia = d[0].split("/");
 		hora = d[1].split(":");
 
+		//Date(yyyy, mm, dd, hh, mm, ss)
 		var date = new Date(dia[2],dia[1] - 1,dia[0],hora[0],hora[1],00),
+
 	    diff = (((new Date()).getTime() - date.getTime()) / 1000),
 	    day_diff = Math.floor(diff / 86400);
 
@@ -16,7 +18,7 @@ timeAgo = {
 			return;
 
 		return day_diff == 0 && (
-		        diff < 60 && "agora pouco" ||
+		        diff < 60 && "segundos atrás" ||
 		        diff < 120 && "1 minuto atrás" ||
 		        diff < 3600 && Math.floor( diff / 60 ) + " minutos atrás" ||
 		        diff < 7200 && "1 hora atrás" ||
