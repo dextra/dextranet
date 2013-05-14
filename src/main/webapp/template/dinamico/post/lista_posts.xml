@@ -44,7 +44,9 @@
 							</a>
 						</div>
 						<span class="list_stories_date time_ago">${postvo.post.dataDeAtualizacao}</span>
-						<button class="btn btn-small btn-light btn-excluirpost" title="Excluir este post" onclick="dextranet.post.remover('${postvo.post.id}')"><strong>x </strong> ${messages.post_excluir}</button><!-- @toDo tooltip -->
+						{if post.usuario == dextranet.usuario.logado.username}
+							<button class="btn btn-small btn-light btn-excluirpost" title="Excluir este post" onclick="dextranet.post.remover('${postvo.post.id}')"><strong>x </strong> ${messages.post_excluir}</button><!-- @toDo tooltip -->
+						{/if}
 					</div>
 
 					<!-- Novo comentario -->
