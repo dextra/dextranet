@@ -22,7 +22,7 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 	protected long quantidadeDeComentarios;
 
 	private Date dataDeAtualizacao;
-
+	
 	public Post(String usuario, String titulo, String conteudo) {
 		super(usuario);
 		this.dataDeAtualizacao = new TimeMachine().dataAtual();

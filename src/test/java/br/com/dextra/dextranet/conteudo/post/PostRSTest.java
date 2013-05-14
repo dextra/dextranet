@@ -88,16 +88,16 @@ public class PostRSTest extends TesteIntegracaoBase {
 		repositorioDePosts.persiste(post01);
 		repositorioDePosts.persiste(post02);
 
-		List<Post> busca = repositorioDePosts.listarPosts(PostFields.titulo.name() + ": post1");
+		List<Post> busca = repositorioDePosts.buscarPosts(PostFields.titulo.name() + ": post1");
 		Assert.assertEquals(1, busca.size());
 
-		busca = repositorioDePosts.listarPosts(PostFields.conteudo.name() + ": esse eh um post de teste");
+		busca = repositorioDePosts.buscarPosts(PostFields.conteudo.name() + ": esse eh um post de teste");
 		Assert.assertEquals(2, busca.size());
 
-		busca = repositorioDePosts.listarPosts(PostFields.usuario.name() + ": usuario");
+		busca = repositorioDePosts.buscarPosts(PostFields.usuario.name() + ": usuario");
 		Assert.assertEquals(1, busca.size());
 
-		busca = repositorioDePosts.listarPosts("esse eh um post de teste");
+		busca = repositorioDePosts.buscarPosts("esse eh um post de teste");
 		Assert.assertEquals(2, busca.size());
 
 	}

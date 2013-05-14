@@ -49,7 +49,7 @@ public class PostRepository extends EntidadeRepository {
 		return posts;
 	}
 
-	public List<Post> listarPosts(String q) throws EntityNotFoundException {
+	public List<Post> buscarPosts(String q) throws EntityNotFoundException {
 		Collection<ScoredDocument> result = IndexFacade.getIndex(Post.class.getName()).search(q).getResults();
 
 		List<Post> posts = new ArrayList<Post>();

@@ -56,13 +56,13 @@ public class PostRS {
 	public Response deletar(@PathParam("id") String id) throws EntityNotFoundException, UsarioNaoPodeRemoverException {
 		String usuarioLogado = obtemUsuarioLogado();
 		Post post = repositorioDePosts.obtemPorId(id);
-		if(post.getUsuario().equals(usuarioLogado)) {
+		if (post.getUsuario().equals(usuarioLogado)) {
 			repositorioDePosts.remove(id);
 			return Response.ok().build();
 		} else {
 			throw new UsarioNaoPodeRemoverException();
 		}
-		
+
 	}
 
 	@Path("/")
@@ -123,9 +123,15 @@ public class PostRS {
 	@GET
 	@Path("/buscar")
 	@Produces(Application.JSON_UTF8)
-	public Response listarPosts(@QueryParam("query") String query) throws EntityNotFoundException, HttpException {
+	public Response buscarPosts(@QueryParam("query") String query) throws EntityNotFoundException, HttpException {
 		try {
-			List<Post> posts = repositorioDePosts.listarPosts(query);
+			List<Post> posts = repositorioDePosts.buscarPosts(query);
+
+			List<Comentario> comentarios = repositorioDeComentarios.buscarComentarios(query);
+			for (Comentario comentario : comentarios) {
+				posts.add(repositorioDePosts.obtemPorId(comentario.getPostId()));
+			}
+
 			return Response.ok().entity(posts).build();
 		} catch (SearchQueryException e) {
 			throw new HttpException(500);

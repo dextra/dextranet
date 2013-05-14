@@ -32,7 +32,7 @@ var dextranet = {
 						return;
 					}
 					
-					$.holy("../template/dinamico/post/lista_posts.xml", { posts : posts,
+					$.holy("../template/dinamico/post/lista_posts.xml", { postvo : postvo,
 						  gravatar : dextranet.gravatarUrl });
 					
 				},
