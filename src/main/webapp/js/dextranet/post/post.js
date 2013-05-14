@@ -30,13 +30,18 @@ dextranet.post = {
 		},
 
 		listar : function() {
+			dextranet.post.listarComComentarios(null);
+		},
+
+		listarComComentarios : function(idPost) {
 			$.ajax( {
 				type : "GET",
 				url : "/s/post",
 				contentType : dextranet.application_json,
-				success : function(posts) {
-					$.holy("../template/dinamico/post/lista_posts.xml", { posts : posts,
-																		  gravatar : dextranet.gravatarUrl });
+				success : function(postsvo) {
+						$.holy("../template/dinamico/post/lista_posts.xml", { postsvo : postsvo,
+							  												  gravatar : dextranet.gravatarUrl,
+							  												  idPost : idPost});
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
@@ -44,16 +49,18 @@ dextranet.post = {
 			});
 		},
 
+
+
 		conteudoParaExibicao : function(conteudo) {
 			var conteudoLimpo = stringUtils.removeTagHTML(conteudo);
 
 			if (conteudoLimpo.length > 200) {
 				conteudoLimpo = conteudoLimpo.substring(0, 199) + " (...)"
 			}
-			
+
 			return conteudoLimpo;
 		},
-		
+
 		curtir : function(postId) {
 			$.ajax( {
 				type : "POST",
@@ -67,7 +74,7 @@ dextranet.post = {
     			}
 			});
 		},
-		
+
 		listarCurtidas : function(postId) {
 			$.ajax( {
 				type : "GET",
@@ -80,6 +87,40 @@ dextranet.post = {
     				dextranet.processaErroNaRequisicao(jqXHR);
     			}
 			});
-		}
+		},
 
+
+		// Comentarios
+		comentar : function(idPost) {
+			var idDoPost = idPost;
+			var conteudo = $('#' + idPost + ' .idConteudoComentario').val();
+			if (conteudo == "") {
+				if (!dextranet.home.EhVisivel("#message-warning")) {
+					$("#container_message_warning_comment").addClass(
+							"container_message_warning");
+					$.holy("../template/dinamico/post/mensagem_preencha_campos.xml",{
+										"seletor" : "#container_message_warning_comment"
+					});
+				}
+			} else {
+				$.ajax({
+					type : 'POST',
+					url : '/s/post/' + idDoPost + '/comentario',
+					data : {
+						"conteudo" : conteudo
+					},
+					success : function(comments) {
+						dextranet.post.limpaCampoComentario();
+						dextranet.post.listarComComentarios(idDoPost);
+					}
+				});
+			}
+			return false;
+		},
+
+		limpaCampoComentario : function() {
+			if ($('#idConteudoComentario').val() != "") {
+				$('#idConteudoComentario').val("");
+			}
+		}
 };

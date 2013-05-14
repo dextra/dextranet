@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<template selector=".list_comments_fromPost">
+		<br></br>
+		<ul class="list_stories_comment" id="relacao_dos_comentarios">
+			{for comentario in comentarios}
+			<li class="clearfix">
+				<div class="avatar-frame" title="Por ${comentario.usuario}">
+					<img src="${gravatar}${comentario.usuarioMD5}" alt="Avatar" />
+				</div>
+				<div class="speech-shape-small"></div>
+				<div class="content">
+					<p>{comentario.conteudo}</p>
+					<div class="comment-data">
+						<span class="list_stories_date">26 minutos atrás</span>
+						<button class="btn btn-small btn-light btn-excluirpost"
+							title="Excluir este post">
+							<strong>x </strong>
+							Excluir
+						</button><!-- @toDo tooltip -->
+						<div class="list_stories_dx">
+							<a id="${comentario.id}" class="clearfix linkCurtir post">
+								<span class="icon_dx"></span>
+								<span class="numero_curtida">${comentario.quantidadeDeCurtidas}</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</li>
+			{/for}
+		</ul>
+	</template>
+	<script>
+		$('.linkCurtir').tipsy({html:true});
+	</script>
+</engine>
