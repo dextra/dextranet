@@ -74,7 +74,7 @@
 								<div class="content">
 									<p>${comentario.conteudo}</p>
 									<div class="comment-data">
-										<span class="list_stories_date">26 minutos atrás ${comentario.dataDeCriacao}
+										<span class="list_stories_date time_ago">${comentario.dataDeCriacao}
 										</span>
 										<button class="btn btn-small btn-light btn-excluirpost"
 											title="Excluir este post">
