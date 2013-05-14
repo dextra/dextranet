@@ -15,12 +15,14 @@ import javax.ws.rs.core.Response;
 
 import br.com.dextra.dextranet.conteudo.post.curtida.Curtida;
 import br.com.dextra.dextranet.conteudo.post.curtida.CurtidaRepository;
+import br.com.dextra.dextranet.excessoes.HttpException;
 import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.rest.config.Application;
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.search.SearchQueryException;
 
 @Path("/post")
 public class PostRS {
@@ -104,9 +106,13 @@ public class PostRS {
 	@GET
 	@Path("/buscar")
 	@Produces(Application.JSON_UTF8)
-	public Response listarPosts(@QueryParam("query") String query) throws EntityNotFoundException {
-		List<Post> posts = repositorioDePosts.listarPosts(query);
-		return Response.ok().entity(posts).build();
+	public Response listarPosts(@QueryParam("query") String query) throws EntityNotFoundException, HttpException {
+		try {
+			List<Post> posts = repositorioDePosts.listarPosts(query);
+			return Response.ok().entity(posts).build();
+		} catch (SearchQueryException e) {
+			throw new HttpException(500);
+		}
 	}
 
 	protected List<Post> listarPostsOrdenados(Integer registrosPorPagina, Integer pagina) {
