@@ -44,7 +44,7 @@
 							</a>
 						</div>
 						<span class="list_stories_date time_ago">${postvo.post.dataDeAtualizacao}</span>
-						{if post.usuario == dextranet.usuario.logado.username}
+						{if postvo.post.usuario == dextranet.usuario.logado.username}
 							<button class="btn btn-small btn-light btn-excluirpost" title="Excluir este post" onclick="dextranet.post.remover('${postvo.post.id}')"><strong>x </strong> ${messages.post_excluir}</button><!-- @toDo tooltip -->
 						{/if}
 					</div>
@@ -65,7 +65,7 @@
 								type="button" tabindex="11" onclick="dextranet.post.comentar('${postvo.post.id}')">Comentar</button>
 						</form>
 						<!-- Comentarios -->
-						<ul class="list_stories_comment" id="relacao_dos_comentarios">
+						<ul class="list_stories_comments" id="relacao_dos_comentarios">
 							{for comentario in postvo.comentarios}
 							<li class="clearfix">
 								<div class="avatar-frame" title="Por ${comentario.usuario}">
@@ -75,7 +75,7 @@
 								<div class="content">
 									<p>${comentario.conteudo}</p>
 									<div class="comment-data">
-										<span class="list_stories_date">26 minutos atrás ${comentario.dataDeCriacao}
+										<span class="list_stories_date time_ago">${comentario.dataDeCriacao}
 										</span>
 										<button class="btn btn-small btn-light btn-excluirpost"
 											title="Excluir este post">

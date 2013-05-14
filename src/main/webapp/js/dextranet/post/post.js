@@ -49,8 +49,6 @@ dextranet.post = {
 			});
 		},
 
-
-
 		conteudoParaExibicao : function(conteudo) {
 			var conteudoLimpo = stringUtils.removeTagHTML(conteudo);
 
@@ -102,7 +100,7 @@ dextranet.post = {
     				dextranet.processaErroNaRequisicao(jqXHR);
     			}
 			});
-		}
+		},
 
 		// Comentarios
 		comentar : function(idPost) {
