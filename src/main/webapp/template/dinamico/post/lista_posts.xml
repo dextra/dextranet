@@ -18,7 +18,7 @@
 					<!-- Conteudo completo do post -->
 					<div id="${postvo.post.id}_post" class="list_stories_contents hidden">
 						<div class="idClassPost wordwrap" id="${postvo.post.id}">
-							${postvo.post.conteudo}}
+							${postvo.post.conteudo}
 						</div>
 					</div>
 
