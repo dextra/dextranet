@@ -35,6 +35,9 @@
 								<span> ${messages.post_curtidas}</span>
 							</a>
 						</div>
+						<script>
+							$('#showLikes_'+'${post.id}').attr('title', '${post.usuariosQueCurtiram}');
+						</script>
 						<div class="list_stories_numbercomments">
 							<a id="${post.id}">
 								<span class="icon_comments"></span>
@@ -119,7 +122,7 @@
 				$(this).html(tempo_atras);
 				$(this).attr('title', data_completa);
 			});
-
+			
 			$('.list_stories_headline').click(function(e)
 			{
 				e.preventDefault();
