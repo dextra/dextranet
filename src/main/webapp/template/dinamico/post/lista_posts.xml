@@ -29,15 +29,12 @@
 							<a id="like_${post.id}" class="linkCurtir post">
 								<span class="icon_dx" onclick="dextranet.post.curtir('${post.id}');"></span>
 							</a>
-							<a id="showLikes_${post.id}" class="showLikes"
+							<a id="showLikes_${post.id}" class="showLikes" title="${post.usuariosQueCurtiram}"
 								onclick="dextranet.post.listarCurtidas('${post.id}');">
 								<span class="numero_curtida">${post.quantidadeDeCurtidas} </span>
 								<span> ${messages.post_curtidas}</span>
 							</a>
 						</div>
-						<script>
-							$('#showLikes_'+'${post.id}').attr('title', '${post.usuariosQueCurtiram}');
-						</script>
 						<div class="list_stories_numbercomments">
 							<a id="${post.id}">
 								<span class="icon_comments"></span>
@@ -95,7 +92,7 @@
 												<span class="icon_dx"
 													onclick="dextranet.post.curtirComentario('${post.id}', '${comentario.id}');"></span>
 											</a>
-											<a id="showLikes_${comentario.id}" class="showLikes"
+											<a id="showLikes_${comentario.id}" class="showLikes" title="${comentario.usuariosQueCurtiram}"
 												onclick="dextranet.post.listarCurtidasComentario('${post.id}', '${comentario.id}');">
 												<span class="numero_curtida">${comentario.quantidadeDeCurtidas}</span>
 												<span> ${messages.post_curtidas}</span>
@@ -123,6 +120,12 @@
 				tempo_atras = timeAgo.calcular(data_completa);
 				$(this).html(tempo_atras);
 				$(this).attr('title', data_completa);
+			});
+			
+			$.each($('div.list_stories_dx .showLikes'), function() {
+				var usuariosQueCurtiram = $(this).attr('title');
+				usuariosQueCurtiram = usuariosQueCurtiram.replace(/,/g, "\n");
+				$(this).attr('title', usuariosQueCurtiram);
 			});
 			
 			$('.list_stories_headline').click(function(e)
