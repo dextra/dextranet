@@ -53,14 +53,14 @@ public class PostRS {
 	@Path("/{id}")
 	@DELETE
 	@Produces(Application.JSON_UTF8)
-	public Response deletar(@PathParam("id") String id) throws EntityNotFoundException, UsarioNaoPodeRemoverException {
+	public Response deletar(@PathParam("id") String id) throws EntityNotFoundException {
 		String usuarioLogado = obtemUsuarioLogado();
 		Post post = repositorioDePosts.obtemPorId(id);
 		if (post.getUsuario().equals(usuarioLogado)) {
 			repositorioDePosts.remove(id);
 			return Response.ok().build();
 		} else {
-			throw new UsarioNaoPodeRemoverException();
+			return Response.status(Status.FORBIDDEN).build();
 		}
 
 	}
@@ -127,7 +127,7 @@ public class PostRS {
 
 			return Response.ok().entity(posts).build();
 		} catch (SearchQueryException e) {
-			return Response.status(Status.INTERNAL_SERVER_ERROR ).build();
+			return Response.status(Status.INTERNAL_SERVER_ERROR ).entity(e).build();
 		}
 	}
 
@@ -201,7 +201,8 @@ public class PostRS {
 	@Path("/{comentarioId}/comentario")
 	@DELETE
 	@Produces(Application.JSON_UTF8)
-	public Response deletarComentario(@PathParam("comentarioId") String comentarioId) throws EntityNotFoundException, UsarioNaoPodeRemoverException {
+	public Response deletarComentario(@PathParam("comentarioId") String comentarioId) throws EntityNotFoundException {
+
 		String usuarioLogado = obtemUsuarioLogado();
 		Comentario comentario = repositorioDeComentarios.obtemPorId(comentarioId);
 		if (comentario.getUsuario().equals(usuarioLogado)) {
