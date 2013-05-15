@@ -14,7 +14,6 @@ import br.com.dextra.dextranet.conteudo.post.Post;
 import br.com.dextra.dextranet.conteudo.post.PostRS;
 import br.com.dextra.dextranet.conteudo.post.PostRepository;
 import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
-import br.com.dextra.dextranet.conteudo.post.comentario.ComentarioRS;
 import br.com.dextra.dextranet.conteudo.post.comentario.ComentarioRepository;
 import br.com.dextra.dextranet.rest.config.Application;
 
@@ -58,8 +57,8 @@ public class MigracaoRS {
 	@GET
 	@Produces(Application.JSON_UTF8)
 	public Response inserirComentario(@PathParam("postId") String postId) throws EntityNotFoundException {
-		ComentarioRS comentarioRest = new ComentarioRS();
-		return comentarioRest.listarComentarios(postId);
+		PostRS postRest = new PostRS();
+		return postRest.listarComentarios(postId);
 	}
 
 	protected Post criaNovoPostParaMigracao(Date data, String username, String titulo, String conteudo) {
