@@ -111,8 +111,6 @@ dextranet.post = {
 					});
 				}
 			} else {
-				dextranet.post.validarComentario(conteudo);
-
 				$.ajax({
 					type : 'POST',
 					url : '/s/post/' + idDoPost + '/comentario',
@@ -128,19 +126,10 @@ dextranet.post = {
 			return false;
 		},
 
-		validarComentario : function(conteudo) {
-			if (conteudo.length > 20000) {
-				$("#container_message_warning_comment").addClass("container_message_warning");
-				// FIXME: nao daria pra usar o proprio componente de mensagens?
-				$.holy("../template/dinamico/post/mensagem_preencha_campos.xml", { 
-							"seletor" : "#container_message_warning_comment"
-				});
-			}
-		},
-
 		limpaCampoComentario : function() {
 			if ($('#idConteudoComentario').val() != "") {
 				$('#idConteudoComentario').val("");
 			}
 		}
 };
+
