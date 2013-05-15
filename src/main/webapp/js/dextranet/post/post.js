@@ -2,6 +2,7 @@ dextranet.post = {
 
 		novo : function() {
 			$.holy("../template/dinamico/post/novo_post.xml", {});
+			dextranet.ativaMenu("sidebar_left_new_post");
 		},
 
 		postar : function() {
@@ -38,6 +39,7 @@ dextranet.post = {
 						$.holy("../template/dinamico/post/lista_posts.xml", { posts : posts,
 							  												  gravatar : dextranet.gravatarUrl,
 							  												  idPost : idPost});
+						dextranet.ativaMenu("sidebar_left_home");
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
