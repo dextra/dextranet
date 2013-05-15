@@ -60,7 +60,7 @@ public class PostRS {
 			repositorioDePosts.remove(id);
 			return Response.ok().build();
 		} else {
-			return Response.status(Status.FORBIDDEN).build();
+			throw new UsarioNaoPodeRemoverException();
 		}
 
 	}
