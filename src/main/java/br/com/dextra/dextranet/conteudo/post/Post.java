@@ -30,7 +30,7 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 	@SuppressWarnings("unchecked")
 	public Post(Entity postEntity) {
 		super((String) postEntity.getProperty(PostFields.usuario.name()));
-		comentarios = new ArrayList<Comentario>();
+		this.comentarios = new ArrayList<Comentario>();
 		this.id = (String) postEntity.getProperty(PostFields.id.name());
 		this.titulo = (String) postEntity.getProperty(PostFields.titulo.name());
 		this.conteudo = ((Text) postEntity.getProperty(PostFields.conteudo.name())).getValue();
@@ -106,10 +106,12 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 
 	@Override
 	public Document toDocument() {
-		Document document = Document.newBuilder().setId(id).addField(Field.newBuilder().setName(PostFields.id.name()).setText(id))
-				.addField(Field.newBuilder().setName(PostFields.titulo.name()).setText(titulo)).addField(Field.newBuilder().setName(PostFields.conteudo.name()).setHTML(conteudo))
+		Document document = Document.newBuilder().setId(id)
+				.addField(Field.newBuilder().setName(PostFields.id.name()).setText(id))
+				.addField(Field.newBuilder().setName(PostFields.titulo.name()).setText(titulo))
+				.addField(Field.newBuilder().setName(PostFields.conteudo.name()).setHTML(conteudo))
 				.addField(Field.newBuilder().setName(PostFields.usuario.name()).setText(usuario)).build();
 		return document;
 	}
-
+	
 }

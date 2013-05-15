@@ -1,19 +1,16 @@
 package br.com.dextra.dextranet.conteudo.post;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
 import br.com.dextra.dextranet.conteudo.post.comentario.ComentarioRepository;
-import br.com.dextra.dextranet.indexacao.IndexFacade;
 import br.com.dextra.dextranet.indexacao.IndexacaoRepository;
 import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.persistencia.EntidadeRepository;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.appengine.api.search.ScoredDocument;
 
 public class PostRepository extends EntidadeRepository {
 
@@ -53,20 +50,6 @@ public class PostRepository extends EntidadeRepository {
 		}
 
 		return posts;
-	}
-
-	public List<Post> buscarPosts(String q) throws EntityNotFoundException {
-		// FIXME: nao devemos colocar uma limitacao nos resultados encontrados?
-		Collection<ScoredDocument> result = IndexFacade.getIndex(Post.class.getName()).search(q).getResults();
-
-		List<Post> posts = new ArrayList<Post>();
-		for (ScoredDocument postDocument : result) {
-			String id = postDocument.getFields(PostFields.id.name()).iterator().next().getText();
-			posts.add(obtemPorId(id));
-		}
-
-		return posts;
-
 	}
 
 	private void buscaComentariosPost(String id, Post post) {

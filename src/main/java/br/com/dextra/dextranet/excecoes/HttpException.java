@@ -1,4 +1,4 @@
-package br.com.dextra.dextranet.excessoes;
+package br.com.dextra.dextranet.excecoes;
 
 public class HttpException extends Exception {
 
