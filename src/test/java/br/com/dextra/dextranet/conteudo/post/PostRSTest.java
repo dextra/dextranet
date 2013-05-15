@@ -7,6 +7,8 @@ import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Test;
 
+import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
+import br.com.dextra.dextranet.conteudo.post.comentario.ComentarioRepository;
 import br.com.dextra.dextranet.conteudo.post.curtida.Curtida;
 import br.com.dextra.dextranet.conteudo.post.curtida.CurtidaRepository;
 import br.com.dextra.dextranet.persistencia.EntidadeNaoEncontradaException;
@@ -21,13 +23,14 @@ public class PostRSTest extends TesteIntegracaoBase {
 	private PostRS rest = new PostRSFake();
 
 	private PostRepository repositorioDePosts = new PostRepository();
-
+	private ComentarioRepository repositorioDeComentarios = new ComentarioRepository();
 	private CurtidaRepository repositorioDeCurtidas = new CurtidaRepository();
 
 	@After
 	public void removeDadosInseridos() {
 		this.limpaPostsInseridos(repositorioDePosts);
 		this.limpaCurtidasInseridas(repositorioDeCurtidas);
+		this.limpaComentariosInseridos(repositorioDeComentarios);
 	}
 
 	@Test
@@ -122,16 +125,61 @@ public class PostRSTest extends TesteIntegracaoBase {
 		} catch (UsarioNaoPodeRemoverException e) {
 			Assert.fail();
 		}
+	}
 
+	@Test
+	public void testaComentario() throws EntityNotFoundException {
+		Post post = new Post("usuario", "titulo", "conteudo");
+		repositorioDePosts.persiste(post);
+		rest.comentar(post.getId(), "novo comentario");
+		post = repositorioDePosts.obtemPorId(post.getId());
+		List<Comentario> comentarios = repositorioDeComentarios.listaPorPost(post.getId());
+		Assert.assertEquals(1, comentarios.size());
+		Assert.assertEquals(usuarioLogado, comentarios.get(0).getUsuario());
+	}
+
+	@Test
+	public void testaCurtirComentario() throws EntityNotFoundException {
+		Comentario comentario = new Comentario("postId", "username", "conteudo");
+		repositorioDeComentarios.persiste(comentario);
+		Assert.assertEquals(0, comentario.getQuantidadeDeCurtidas());
+
+		rest.curtirComentario(comentario.getPostId(), comentario.getId());
+
+		List<Curtida> curtidas = repositorioDeCurtidas.listaPorConteudo(comentario.getId());
+		Assert.assertEquals(1, curtidas.size());
+		Assert.assertEquals(usuarioLogado, curtidas.get(0).getUsuario());
+
+		comentario = repositorioDeComentarios.obtemPorId(comentario.getId());
+		Assert.assertEquals(1, comentario.getQuantidadeDeCurtidas());
+		Assert.assertTrue(comentario.getUsuariosQueCurtiram().contains(usuarioLogado));
+	}
+
+	@Test
+	public void testaDescurtirComentario() throws EntityNotFoundException {
+		Comentario comentario = new Comentario("postId", "username", "comentario 01");
+		repositorioDeComentarios.persiste(comentario);
+
+		rest.curtirComentario(comentario.getPostId(), comentario.getId());
+		rest.descurtirComentario(comentario.getPostId(), comentario.getId());
+
+		comentario = repositorioDeComentarios.obtemPorId(comentario.getId());
+		Assert.assertEquals(0, comentario.getQuantidadeDeCurtidas());
+		Assert.assertFalse(comentario.getUsuariosQueCurtiram().contains(usuarioLogado));
+
+		try {
+			rest.descurtirComentario(comentario.getPostId(), comentario.getId());
+			Assert.fail();
+		} catch (EntidadeNaoEncontradaException e) {
+			Assert.assertTrue(true);
+		}
 	}
 
 	public class PostRSFake extends PostRS {
-
 		@Override
 		protected String obtemUsuarioLogado() {
 			return usuarioLogado;
 		}
 
 	}
-
 }
