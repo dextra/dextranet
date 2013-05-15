@@ -2,6 +2,7 @@ dextranet.post = {
 
 		novo : function() {
 			$.holy("../template/dinamico/post/novo_post.xml", {});
+			dextranet.ativaMenu("sidebar_left_new_post");
 		},
 
 		postar : function() {
@@ -38,6 +39,7 @@ dextranet.post = {
 						$.holy("../template/dinamico/post/lista_posts.xml", { posts : posts,
 							  												  gravatar : dextranet.gravatarUrl,
 							  												  idPost : idPost});
+						dextranet.ativaMenu("sidebar_left_home");
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
@@ -111,8 +113,6 @@ dextranet.post = {
 					});
 				}
 			} else {
-				dextranet.post.validarComentario(conteudo);
-
 				$.ajax({
 					type : 'POST',
 					url : '/s/post/' + idDoPost + '/comentario',
@@ -128,21 +128,12 @@ dextranet.post = {
 			return false;
 		},
 
-		validarComentario : function(conteudo) {
-			if (conteudo.length > 20000) {
-				$("#container_message_warning_comment").addClass("container_message_warning");
-				// FIXME: nao daria pra usar o proprio componente de mensagens?
-				$.holy("../template/dinamico/post/mensagem_preencha_campos.xml", {
-							"seletor" : "#container_message_warning_comment"
-				});
-			}
-		},
-
 		limpaCampoComentario : function() {
 			if ($('#idConteudoComentario').val() != "") {
 				$('#idConteudoComentario').val("");
 			}
 		},
+
 
 		removerComentario : function(postId, comentarioId) {
 			$.ajax( {
@@ -157,4 +148,29 @@ dextranet.post = {
     			}
 			});
 		},
-};
+
+		curtirComentario : function(postId, comentarioId) {
+			$.ajax( {
+				type : "POST",
+				url : "/s/post/"+postId+"/"+comentarioId+"/curtida",
+				contentType : dextranet.application_json,
+				success : function(qtdCurtidas) {
+					$("a#showLikes_"+comentarioId+" span.numero_curtida").text(qtdCurtidas.quantidadeDeCurtidas);
+				}
+			});
+		},
+
+		listarCurtidasComentario : function(postId, comentarioId) {
+			$.ajax( {
+				type : "GET",
+				url : "/s/post/"+postId+"/"+comentarioId+"/curtida",
+				contentType : dextranet.application_json,
+				success : function(curtidas) {
+					$.holy("../template/dinamico/post/lista_curtidas.xml", { curtidas : curtidas, gravatar : dextranet.gravatarUrl });
+				},
+    			error: function(jqXHR, textStatus, errorThrown) {
+    				dextranet.processaErroNaRequisicao(jqXHR);
+    			}
+			});
+		}
+	}

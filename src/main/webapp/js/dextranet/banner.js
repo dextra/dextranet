@@ -2,6 +2,7 @@ dextranet.banner = {
 
 		novo : function() {
 			$.holy("../template/dinamico/banner/novo_banner.xml", {});
+			dextranet.ativaMenu("sidebar_left_new_banner");
 		},
 
 		upload : function() {
@@ -61,6 +62,7 @@ dextranet.banner = {
                 dataType : "json",
                 success : function(bannersVigentes) {
                 	$.holy("../template/dinamico/banner/banners_vigentes.xml", { banners : bannersVigentes});
+                	dextranet.ativaMenu("sidebar_left_new_banner");
                 },
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
@@ -75,6 +77,7 @@ dextranet.banner = {
                 url : "/s/banner",
                 success : function(bannersCadastrados) {
                 	$.holy("../template/dinamico/banner/banners_cadastrados.xml", { banners : bannersCadastrados});
+                	dextranet.ativaMenu("sidebar_left_new_banner");
                 },
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);

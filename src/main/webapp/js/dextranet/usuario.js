@@ -53,6 +53,7 @@ dextranet.usuario = {
 																					gravatar : dextranet.gravatarUrl,
 																					areas : areas[0],
 																					unidades : unidades[0] });
+						dextranet.ativaMenu("sidebar_left_profile");
 					},
 	    			error: function(jqXHR, textStatus, errorThrown) {
 	    				dextranet.processaErroNaRequisicao(jqXHR);

@@ -31,8 +31,8 @@
 							</a>
 							<a id="showLikes_${post.id}" class="showLikes"
 								onclick="dextranet.post.listarCurtidas('${post.id}');">
-								<span class="numero_curtida">${post.quantidadeDeCurtidas}</span>
-								<span>${messages.post_curtidas}</span>
+								<span class="numero_curtida">${post.quantidadeDeCurtidas} </span>
+								<span> ${messages.post_curtidas}</span>
 							</a>
 						</div>
 						<div class="list_stories_numbercomments">
@@ -60,7 +60,7 @@
 									<img src="${gravatar}${post.usuarioMD5}" alt="Avatar" />
 								</div>
 								<textarea cols="50" id="idConteudoComentario" class="idConteudoComentario not-empty"
-									style="resize:none;" name="conteudoComentario" tabindex="10"
+									style="resize:none;" name="conteudoComentario" tabindex="10" maxlength="190000"
 									placeholder="Deixe seu comentario... "></textarea>
 								<div class="speech-shape-small"></div>
 							</div>
@@ -87,10 +87,15 @@
 											${messages.botao_excluir}
 										</button><!-- @toDo tooltip -->
 										{/if}
-										<div class="list_stories_dx">
-											<a id="${comentario.id}" class="clearfix linkCurtir post">
-												<span class="icon_dx"></span>
+										<div class="list_stories_dx clearfix">
+											<a id="like_${comentario.id}" class="linkCurtir comentario">
+												<span class="icon_dx"
+													onclick="dextranet.post.curtirComentario('${post.id}', '${comentario.id}');"></span>
+											</a>
+											<a id="showLikes_${comentario.id}" class="showLikes"
+												onclick="dextranet.post.listarCurtidasComentario('${post.id}', '${comentario.id}');">
 												<span class="numero_curtida">${comentario.quantidadeDeCurtidas}</span>
+												<span> ${messages.post_curtidas}</span>
 											</a>
 										</div>
 									</div>
@@ -137,6 +142,7 @@
 
 			$('.list_stories_numbercomments').click(function() {
 				$(this).parents('li').find('.list_stories_headline').click();
+				//$(this).parents('li').find('.list_stories_newcomment textarea').focus();
 			});
 
 
