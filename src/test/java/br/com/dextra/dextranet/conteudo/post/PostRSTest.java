@@ -14,7 +14,6 @@ import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
 import br.com.dextra.dextranet.conteudo.post.comentario.ComentarioRepository;
 import br.com.dextra.dextranet.conteudo.post.curtida.Curtida;
 import br.com.dextra.dextranet.conteudo.post.curtida.CurtidaRepository;
-import br.com.dextra.dextranet.indexacao.IndexacaoRepository;
 import br.com.dextra.dextranet.persistencia.EntidadeNaoEncontradaException;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
@@ -28,7 +27,6 @@ public class PostRSTest extends TesteIntegracaoBase {
 
 	private PostRepository repositorioDePosts = new PostRepository();
 	private CurtidaRepository repositorioDeCurtidas = new CurtidaRepository();
-	private IndexacaoRepository repositorioDeIndex = new IndexacaoRepository();
 	private ComentarioRepository repositorioDeComentarios = new ComentarioRepository();
 
 	@After
@@ -87,27 +85,6 @@ public class PostRSTest extends TesteIntegracaoBase {
 			Assert.assertTrue(true);
 		}
 
-	}
-
-	@Test
-	public void testaBuscaPosts() throws EntityNotFoundException {
-		Post post01 = new Post(usuarioLogado, "post1",
-				"esse eh um post de teste");
-		Post post02 = new Post("usuario", "post2", "esse eh um post de teste");
-		repositorioDePosts.persiste(post01);
-		repositorioDePosts.persiste(post02);
-
-		List<Post> busca = repositorioDeIndex.buscar(Post.class, PostFields.titulo.name() + ": post1");
-		Assert.assertEquals(1, busca.size());
-
-		busca = repositorioDeIndex.buscar(Post.class, PostFields.conteudo.name() + ": esse eh um post de teste");
-		Assert.assertEquals(2, busca.size());
-
-		busca = repositorioDeIndex.buscar(Post.class, PostFields.usuario.name() + ": usuario");
-		Assert.assertEquals(1, busca.size());
-
-		busca = repositorioDeIndex.buscar(Post.class, "esse eh um post de teste");
-		Assert.assertEquals(2, busca.size());
 	}
 
 	@Test(expected = EntityNotFoundException.class)
