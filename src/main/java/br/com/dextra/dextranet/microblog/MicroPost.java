@@ -4,6 +4,7 @@ import java.util.Date;
 
 import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.usuario.Usuario;
+import br.com.dextra.dextranet.usuario.UsuarioRepository;
 
 import com.google.appengine.api.datastore.Entity;
 
@@ -24,6 +25,16 @@ public class MicroPost extends Entidade {
                 .getField());
         this.data = (Date) microPostEntity.getProperty(MicroBlogFields.DATA
                 .getField());
+        atribuiUsuarioAoPost(microPostEntity);
+    }
+
+    private void atribuiUsuarioAoPost(Entity microPostEntity) {
+        String autor = (String) microPostEntity.getProperty(MicroBlogFields.AUTOR.getField());
+        this.autor = getUsuariorepository().obtemPorUsername(autor);
+    }
+
+    private UsuarioRepository getUsuariorepository() {
+        return new UsuarioRepository();
     }
 
     public MicroPost(String texto, Usuario autor, Date data) {
@@ -46,12 +57,17 @@ public class MicroPost extends Entidade {
         entidade.setProperty(MicroBlogFields.TEXTO.getField(), getTexto());
         entidade.setProperty(MicroBlogFields.DATA.getField(), getData());
         entidade.setProperty(MicroBlogFields.ID.getField(), getId());
+        entidade.setProperty(MicroBlogFields.AUTOR.getField(), getAutor().getUsername());
         return entidade;
     }
 
     @Override
     public String toString() {
         return "MicroPost [texto=" + texto + ", id=" + id + "]";
+    }
+
+    public Usuario getAutor() {
+        return autor;
     }
 
 }
