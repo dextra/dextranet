@@ -122,10 +122,10 @@
 				$(this).attr('title', data_completa);
 			});
 			
-			$.each($('div.list_stories_dx .showLikes'), function() {
-				var usuariosQueCurtiram = $(this).attr('title');
-				usuariosQueCurtiram = usuariosQueCurtiram.replace(/,/g, "\n");
-				$(this).attr('title', usuariosQueCurtiram);
+ 			$.each($('div.list_stories_dx .showLikes'), function() {
+ 				var usuariosQueCurtiram = $(this).attr('title');
+ 				usuariosQueCurtiram = usuariosQueCurtiram.replace(/,/g, "\n");
+ 				$(this).attr('title', usuariosQueCurtiram);
 			});
 			
 			$('.list_stories_headline').click(function(e)
