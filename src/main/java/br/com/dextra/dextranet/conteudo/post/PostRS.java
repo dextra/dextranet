@@ -12,6 +12,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
 import br.com.dextra.dextranet.conteudo.post.comentario.ComentarioRepository;
@@ -59,10 +60,7 @@ public class PostRS {
 			repositorioDePosts.remove(id);
 			return Response.ok().build();
 		} else {
-			// FIXME: um jeito mais elegante de se fazer isso é da seguinte forma:
-			// return Response.status(Status.FORBIDDEN).build();
-			// ou usar um handler de excepction que jah tem 
-			throw new UsarioNaoPodeRemoverException();
+			return Response.status(Status.FORBIDDEN).build();
 		}
 
 	}
@@ -129,10 +127,7 @@ public class PostRS {
 
 			return Response.ok().entity(posts).build();
 		} catch (SearchQueryException e) {
-			// FIXME: um jeito mais elegante de se fazer isso é da seguinte forma:
-			// return Response.status(Status.INTERNAL_SERVER_ERROR ).build();
-			// ou usar um handler de excepction que jah tem 
-			throw new HttpException(500);
+			return Response.status(Status.INTERNAL_SERVER_ERROR ).build();
 		}
 	}
 
@@ -201,5 +196,20 @@ public class PostRS {
 
 	protected String obtemUsuarioLogado() {
 		return AutenticacaoService.identificacaoDoUsuarioLogado();
+	}
+
+	@Path("/{comentarioId}/comentario")
+	@DELETE
+	@Produces(Application.JSON_UTF8)
+	public Response deletarComentario(@PathParam("comentarioId") String comentarioId) throws EntityNotFoundException, UsarioNaoPodeRemoverException {
+		String usuarioLogado = obtemUsuarioLogado();
+		Comentario comentario = repositorioDeComentarios.obtemPorId(comentarioId);
+		if (comentario.getUsuario().equals(usuarioLogado)) {
+			repositorioDeComentarios.remove(comentarioId);
+			return Response.ok().build();
+		} else {
+			return Response.status(Status.FORBIDDEN).build();
+		}
+
 	}
 }

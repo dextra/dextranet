@@ -9,11 +9,12 @@
 					</div>
 					<div class="speech-shape"></div>
 					<a class="list_stories_headline clearfix" href="#">
-						<h2 class="titulo ${post.id} wordwrap" >${post.titulo}</h2>
+						<h2 class="titulo ${post.id} wordwrap">${post.titulo}</h2>
 					</a>
 
 					<!-- Lead -->
-					<div class="conteudo_inicial list_stories_lead hyphenize wordwrap">${dextranet.post.conteudoParaExibicao(post.conteudo)}</div>
+					<div class="conteudo_inicial list_stories_lead hyphenize wordwrap">${dextranet.post.conteudoParaExibicao(post.conteudo)}
+					</div>
 
 					<!-- Conteudo completo do post -->
 					<div id="${post.id}_post" class="list_stories_contents hidden">
@@ -43,7 +44,11 @@
 						</div>
 						<span class="list_stories_date time_ago">${post.dataDeAtualizacao}</span>
 						{if post.usuario == dextranet.usuario.logado.username}
-							<button class="btn btn-small btn-light btn-excluirpost" title="Excluir este post" onclick="dextranet.post.remover('${post.id}')"><strong>x </strong> ${messages.post_excluir}</button><!-- @toDo tooltip -->
+						<button class="btn btn-small btn-light btn-excluirpost"
+							title="Excluir este post" onclick="dextranet.post.remover('${post.id}')">
+							<strong>x </strong>
+							${messages.post_excluir}
+						</button><!-- @toDo tooltip -->
 						{/if}
 					</div>
 
@@ -75,11 +80,13 @@
 									<div class="comment-data">
 										<span class="list_stories_date time_ago">${comentario.dataDeCriacao}
 										</span>
+										{if post.usuario == dextranet.usuario.logado.username}
 										<button class="btn btn-small btn-light btn-excluirpost"
-											title="Excluir este post">
+											title="Excluir este post" onclick="dextranet.post.removerComentario('${post.id}', '${comentario.id}')">
 											<strong>x </strong>
-											Excluir
+											${messages.botao_excluir}
 										</button><!-- @toDo tooltip -->
+										{/if}
 										<div class="list_stories_dx">
 											<a id="${comentario.id}" class="clearfix linkCurtir post">
 												<span class="icon_dx"></span>
@@ -132,7 +139,7 @@
 				$(this).parents('li').find('.list_stories_headline').click();
 			});
 
-			
+
 			{if idPost && typeof idPost != "object"}
 				itemComentario = $('#${idPost}');
 				var item = itemComentario.find('.list_stories_headline');

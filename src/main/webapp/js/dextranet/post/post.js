@@ -132,7 +132,7 @@ dextranet.post = {
 			if (conteudo.length > 20000) {
 				$("#container_message_warning_comment").addClass("container_message_warning");
 				// FIXME: nao daria pra usar o proprio componente de mensagens?
-				$.holy("../template/dinamico/post/mensagem_preencha_campos.xml", { 
+				$.holy("../template/dinamico/post/mensagem_preencha_campos.xml", {
 							"seletor" : "#container_message_warning_comment"
 				});
 			}
@@ -142,5 +142,19 @@ dextranet.post = {
 			if ($('#idConteudoComentario').val() != "") {
 				$('#idConteudoComentario').val("");
 			}
-		}
+		},
+
+		removerComentario : function(postId, comentarioId) {
+			$.ajax( {
+				type : "DELETE",
+				url : "/s/post/"+comentarioId+"/comentario",
+				contentType : dextranet.application_json,
+				success : function() {
+					dextranet.post.listar(postId);
+				},
+    			error: function(jqXHR, textStatus, errorThrown) {
+    				dextranet.processaErroNaRequisicao(jqXHR);
+    			}
+			});
+		},
 };
