@@ -20,9 +20,10 @@ public class MicroBlogRSTest {
     public void testSimplePost() {
         MicroBlogRS rs = getMicroBlogRS();
         rs.post("micromessage");
-        JsonArray json = JsonUtil.parse(rs.get()).getAsJsonArray();
+        JsonArray json = JsonUtil.parse((String) rs.get().getEntity()).getAsJsonArray();
         assertEquals(1, json.size());
         assertEquals("micromessage", json.get(0).getAsJsonObject().get("text").getAsString());
+        assertEquals("autor", json.get(0).getAsJsonObject().get("autor").getAsString());
     }
 
     private MicroBlogRS getMicroBlogRS() {
@@ -58,11 +59,10 @@ public class MicroBlogRSTest {
         rs.post("micromessage1");
         rs.post("micromessage2");
 
-        JsonArray json = JsonUtil.parse(rs.get()).getAsJsonArray();
+        JsonArray json = JsonUtil.parse((String) rs.get().getEntity()).getAsJsonArray();
         assertEquals(2, json.size());
         assertEquals("micromessage1", json.get(0).getAsJsonObject().get("text").getAsString());
         assertEquals("micromessage2", json.get(1).getAsJsonObject().get("text").getAsString());
     }
-
 
 }

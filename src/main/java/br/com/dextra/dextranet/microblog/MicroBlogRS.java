@@ -4,8 +4,8 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
 
-import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.dextranet.usuario.UsuarioRepository;
 
@@ -33,14 +33,15 @@ public class MicroBlogRS {
 
     @Path("/post")
     @GET
-    public String get() {
+    public Response get() {
         MicroBlogRepository repository = getMicroBlogRepository();
         JsonArray microPosts = new JsonArray();
         for (MicroPost microPost : repository.buscarMicroPosts()) {
             JsonObject microPostJson = new JsonObject();
             microPostJson.addProperty("text", microPost.getTexto());
+            microPostJson.addProperty("autor", microPost.getAutor().getUsername());
             microPosts.add(microPostJson);
         }
-        return microPosts.toString();
+        return Response.ok(microPosts.toString()).build();
     }
 }
