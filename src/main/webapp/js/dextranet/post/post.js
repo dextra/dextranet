@@ -142,5 +142,33 @@ dextranet.post = {
 			if ($('#idConteudoComentario').val() != "") {
 				$('#idConteudoComentario').val("");
 			}
-		}
+		},
+		
+		curtirComentario : function(postId, comentarioId) {
+			$.ajax( {
+				type : "POST",
+				url : "/s/post/"+postId+"/"+comentarioId+"/curtida",
+				contentType : dextranet.application_json,
+				success : function(qtdCurtidas) {
+					$("a#showLikes_"+comentarioId+" span.numero_curtida").text(qtdCurtidas.quantidadeDeCurtidas);
+				},
+    			error: function(jqXHR, textStatus, errorThrown) {
+    				dextranet.processaErroNaRequisicao(jqXHR);
+    			}
+			});
+		},
+
+		listarCurtidasComentario : function(postId, comentarioId) {
+			$.ajax( {
+				type : "GET",
+				url : "/s/post/"+postId+"/"+comentarioId+"/curtida",
+				contentType : dextranet.application_json,
+				success : function(curtidas) {
+					$.holy("../template/dinamico/post/lista_curtidas.xml", { curtidas : curtidas, gravatar : dextranet.gravatarUrl });
+				},
+    			error: function(jqXHR, textStatus, errorThrown) {
+    				dextranet.processaErroNaRequisicao(jqXHR);
+    			}
+			});
+		},
 };
