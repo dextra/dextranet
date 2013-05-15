@@ -2,6 +2,9 @@ package br.com.dextra.dextranet.conteudo.post;
 
 import java.util.List;
 
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
 import junit.framework.Assert;
 
 import org.junit.After;
@@ -24,17 +27,15 @@ public class PostRSTest extends TesteIntegracaoBase {
 	private PostRS rest = new PostRSFake();
 
 	private PostRepository repositorioDePosts = new PostRepository();
-
 	private CurtidaRepository repositorioDeCurtidas = new CurtidaRepository();
-
-	private ComentarioRepository repositorioDeComentarios = new ComentarioRepository();
-
 	private IndexacaoRepository repositorioDeIndex = new IndexacaoRepository();
+	private ComentarioRepository repositorioDeComentarios = new ComentarioRepository();
 
 	@After
 	public void removeDadosInseridos() {
 		this.limpaPostsInseridos(repositorioDePosts);
 		this.limpaCurtidasInseridas(repositorioDeCurtidas);
+		this.limpaComentariosInseridos(repositorioDeComentarios);
 	}
 
 	@Test
@@ -90,7 +91,8 @@ public class PostRSTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testaBuscaPosts() throws EntityNotFoundException {
-		Post post01 = new Post(usuarioLogado, "post1", "esse eh um post de teste");
+		Post post01 = new Post(usuarioLogado, "post1",
+				"esse eh um post de teste");
 		Post post02 = new Post("usuario", "post2", "esse eh um post de teste");
 		repositorioDePosts.persiste(post01);
 		repositorioDePosts.persiste(post02);
@@ -108,27 +110,75 @@ public class PostRSTest extends TesteIntegracaoBase {
 		Assert.assertEquals(2, busca.size());
 	}
 
-	@Test
+	@Test(expected = EntityNotFoundException.class)
 	public void testaRemover() throws EntityNotFoundException {
+		Post post = new Post("dextranet", "titulo 01", "conteudo 01");
+		String idPost = repositorioDePosts.persiste(post).getId();
+
+		Response response = rest.deletar(post.getId());
+		Assert.assertEquals(Status.OK.getStatusCode(), response.getStatus());
+
+		repositorioDePosts.obtemPorId(idPost);
+	}
+
+	@Test
+	public void testaRemoverComOutroUsuario() throws EntityNotFoundException {
 		Post post = new Post("usuario", "titulo 01", "conteudo 01");
+		String idPost = repositorioDePosts.persiste(post).getId();
+
+		Response response = rest.deletar(post.getId());
+		Assert.assertEquals(Status.FORBIDDEN.getStatusCode(), response.getStatus());
+
+		post = repositorioDePosts.obtemPorId(idPost);
+		Assert.assertNotNull(post);
+	}
+
+	@Test
+	public void testaComentario() throws EntityNotFoundException {
+		Post post = new Post("usuario", "titulo", "conteudo");
 		repositorioDePosts.persiste(post);
+		rest.comentar(post.getId(), "novo comentario");
+		post = repositorioDePosts.obtemPorId(post.getId());
+		List<Comentario> comentarios = repositorioDeComentarios.listaPorPost(post.getId());
+		Assert.assertEquals(1, comentarios.size());
+		Assert.assertEquals(usuarioLogado, comentarios.get(0).getUsuario());
+	}
+
+	@Test
+	public void testaCurtirComentario() throws EntityNotFoundException {
+		Comentario comentario = new Comentario("postId", "username", "conteudo");
+		repositorioDeComentarios.persiste(comentario);
+		Assert.assertEquals(0, comentario.getQuantidadeDeCurtidas());
+
+		rest.curtirComentario(comentario.getPostId(), comentario.getId());
+
+		List<Curtida> curtidas = repositorioDeCurtidas.listaPorConteudo(comentario.getId());
+		Assert.assertEquals(1, curtidas.size());
+		Assert.assertEquals(usuarioLogado, curtidas.get(0).getUsuario());
+
+		comentario = repositorioDeComentarios.obtemPorId(comentario.getId());
+		Assert.assertEquals(1, comentario.getQuantidadeDeCurtidas());
+		Assert.assertTrue(comentario.getUsuariosQueCurtiram().contains(usuarioLogado));
+	}
+
+	@Test
+	public void testaDescurtirComentario() throws EntityNotFoundException {
+		Comentario comentario = new Comentario("postId", "username", "comentario 01");
+		repositorioDeComentarios.persiste(comentario);
+
+		rest.curtirComentario(comentario.getPostId(), comentario.getId());
+		rest.descurtirComentario(comentario.getPostId(), comentario.getId());
+
+		comentario = repositorioDeComentarios.obtemPorId(comentario.getId());
+		Assert.assertEquals(0, comentario.getQuantidadeDeCurtidas());
+		Assert.assertFalse(comentario.getUsuariosQueCurtiram().contains(usuarioLogado));
 
 		try {
-			rest.deletar(post.getId());
+			rest.descurtirComentario(comentario.getPostId(), comentario.getId());
 			Assert.fail();
-		} catch (UsarioNaoPodeRemoverException e) {
+		} catch (EntidadeNaoEncontradaException e) {
 			Assert.assertTrue(true);
 		}
-
-		Post post2 = new Post("dextranet", "titulo 02", "conteudo 02");
-		repositorioDePosts.persiste(post2);
-
-		try {
-			rest.deletar(post2.getId());
-		} catch (UsarioNaoPodeRemoverException e) {
-			Assert.fail();
-		}
-
 	}
 
 	@Test
@@ -141,7 +191,6 @@ public class PostRSTest extends TesteIntegracaoBase {
 	}
 
 	public class PostRSFake extends PostRS {
-
 		@Override
 		protected String obtemUsuarioLogado() {
 			return usuarioLogado;
@@ -149,4 +198,38 @@ public class PostRSTest extends TesteIntegracaoBase {
 
 	}
 
+	@Test(expected = EntityNotFoundException.class)
+	public void testaRemoverComentario() throws EntityNotFoundException {
+		Post post = new Post("dextranet", "titulo 01", "conteudo 01");
+		String postId = repositorioDePosts.persiste(post).getId();
+
+		post = repositorioDePosts.obtemPorId(postId);
+		Assert.assertNotNull(post);
+
+		Comentario comentario = new Comentario(postId, "dextranet", "comentario 01");
+		String comentarioId = repositorioDeComentarios.persiste(comentario).getId();
+
+		Response responseComentario = rest.deletarComentario(comentarioId);
+		Assert.assertEquals(Status.OK.getStatusCode(), responseComentario.getStatus());
+
+		repositorioDeComentarios.obtemPorId(comentario.getId());
+	}
+
+	@Test
+	public void testaRemoverComentarioComOutroUsuario() throws EntityNotFoundException {
+		Post post = new Post("usuario", "titulo 01", "conteudo 01");
+		String postId = repositorioDePosts.persiste(post).getId();
+
+		post = repositorioDePosts.obtemPorId(postId);
+		Assert.assertNotNull(post);
+
+		Comentario comentario = new Comentario(postId, "usuario", "comentario 01");
+		String comentarioId = repositorioDeComentarios.persiste(comentario).getId();
+
+		Response responseComentario = rest.deletarComentario(comentarioId);
+		Assert.assertEquals(Status.FORBIDDEN.getStatusCode(), responseComentario.getStatus());
+
+		comentario = repositorioDeComentarios.obtemPorId(comentarioId);
+		Assert.assertNotNull(comentario);
+	}
 }

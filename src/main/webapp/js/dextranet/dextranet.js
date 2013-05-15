@@ -35,11 +35,17 @@ var dextranet = {
 					$.holy("../template/dinamico/post/lista_posts.xml", { posts : posts, 
 																		  idPost : null, 
 																		  gravatar : dextranet.gravatarUrl });
+					dextranet.ativaMenu("sidebar_left_home");
 					
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
     			}
 			});
+		},
+		
+		ativaMenu : function (menuClass) {
+			$('div#sidebar_left ul#sidebar_left_menu li').removeClass("active");
+			$('div#sidebar_left ul#sidebar_left_menu li#' + menuClass).addClass("active");
 		}
 };

@@ -9,11 +9,12 @@
 					</div>
 					<div class="speech-shape"></div>
 					<a class="list_stories_headline clearfix" href="#">
-						<h2 class="titulo ${post.id} wordwrap" >${post.titulo}</h2>
+						<h2 class="titulo ${post.id} wordwrap">${post.titulo}</h2>
 					</a>
 
 					<!-- Lead -->
-					<div class="conteudo_inicial list_stories_lead hyphenize wordwrap">${dextranet.post.conteudoParaExibicao(post.conteudo)}</div>
+					<div class="conteudo_inicial list_stories_lead hyphenize wordwrap">${dextranet.post.conteudoParaExibicao(post.conteudo)}
+					</div>
 
 					<!-- Conteudo completo do post -->
 					<div id="${post.id}_post" class="list_stories_contents hidden">
@@ -28,10 +29,10 @@
 							<a id="like_${post.id}" class="linkCurtir post">
 								<span class="icon_dx" onclick="dextranet.post.curtir('${post.id}');"></span>
 							</a>
-							<a id="showLikes_${post.id}" class="showLikes"
+							<a id="showLikes_${post.id}" class="showLikes" title="${post.usuariosQueCurtiram}"
 								onclick="dextranet.post.listarCurtidas('${post.id}');">
-								<span class="numero_curtida">${post.quantidadeDeCurtidas}</span>
-								<span>${messages.post_curtidas}</span>
+								<span class="numero_curtida">${post.quantidadeDeCurtidas} </span>
+								<span> ${messages.post_curtidas}</span>
 							</a>
 						</div>
 						<div class="list_stories_numbercomments">
@@ -43,7 +44,11 @@
 						</div>
 						<span class="list_stories_date time_ago">${post.dataDeAtualizacao}</span>
 						{if post.usuario == dextranet.usuario.logado.username}
-							<button class="btn btn-small btn-light btn-excluirpost" title="Excluir este post" onclick="dextranet.post.remover('${post.id}')"><strong>x </strong> ${messages.post_excluir}</button><!-- @toDo tooltip -->
+						<button class="btn btn-small btn-light btn-excluirpost"
+							title="Excluir este post" onclick="dextranet.post.remover('${post.id}')">
+							<strong>x </strong>
+							${messages.post_excluir}
+						</button><!-- @toDo tooltip -->
 						{/if}
 					</div>
 
@@ -55,7 +60,7 @@
 									<img src="${gravatar}${post.usuarioMD5}" alt="Avatar" />
 								</div>
 								<textarea cols="50" id="idConteudoComentario" class="idConteudoComentario not-empty"
-									style="resize:none;" name="conteudoComentario" tabindex="10"
+									style="resize:none;" name="conteudoComentario" tabindex="10" maxlength="190000"
 									placeholder="Deixe seu comentario... "></textarea>
 								<div class="speech-shape-small"></div>
 							</div>
@@ -75,15 +80,22 @@
 									<div class="comment-data">
 										<span class="list_stories_date time_ago">${comentario.dataDeCriacao}
 										</span>
+										{if post.usuario == dextranet.usuario.logado.username}
 										<button class="btn btn-small btn-light btn-excluirpost"
-											title="Excluir este post">
+											title="Excluir este post" onclick="dextranet.post.removerComentario('${post.id}', '${comentario.id}')">
 											<strong>x </strong>
-											Excluir
+											${messages.botao_excluir}
 										</button><!-- @toDo tooltip -->
-										<div class="list_stories_dx">
-											<a id="${comentario.id}" class="clearfix linkCurtir post">
-												<span class="icon_dx"></span>
+										{/if}
+										<div class="list_stories_dx clearfix">
+											<a id="like_${comentario.id}" class="linkCurtir comentario">
+												<span class="icon_dx"
+													onclick="dextranet.post.curtirComentario('${post.id}', '${comentario.id}');"></span>
+											</a>
+											<a id="showLikes_${comentario.id}" class="showLikes" title="${comentario.usuariosQueCurtiram}"
+												onclick="dextranet.post.listarCurtidasComentario('${post.id}', '${comentario.id}');">
 												<span class="numero_curtida">${comentario.quantidadeDeCurtidas}</span>
+												<span> ${messages.post_curtidas}</span>
 											</a>
 										</div>
 									</div>
@@ -109,7 +121,13 @@
 				$(this).html(tempo_atras);
 				$(this).attr('title', data_completa);
 			});
-
+			
+ 			$.each($('div.list_stories_dx .showLikes'), function() {
+ 				var usuariosQueCurtiram = $(this).attr('title');
+ 				usuariosQueCurtiram = usuariosQueCurtiram.replace(/,/g, "\n");
+ 				$(this).attr('title', usuariosQueCurtiram);
+			});
+			
 			$('.list_stories_headline').click(function(e)
 			{
 				e.preventDefault();
@@ -130,9 +148,10 @@
 
 			$('.list_stories_numbercomments').click(function() {
 				$(this).parents('li').find('.list_stories_headline').click();
+				//$(this).parents('li').find('.list_stories_newcomment textarea').focus();
 			});
 
-			
+
 			{if idPost && typeof idPost != "object"}
 				itemComentario = $('#${idPost}');
 				var item = itemComentario.find('.list_stories_headline');
