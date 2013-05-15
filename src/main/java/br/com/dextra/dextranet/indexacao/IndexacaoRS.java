@@ -21,22 +21,27 @@ import com.google.appengine.api.search.SearchQueryException;
 
 @Path("/indexacao")
 public class IndexacaoRS {
+	private PostRepository repositorioDePosts = new PostRepository();
+	private IndexacaoRepository repositorioDeIndex = new IndexacaoRepository();
 
 	@GET
 	@Path("/")
 	@Produces(Application.JSON_UTF8)
 	public Response buscarConteudo(@QueryParam("query") String query) throws EntityNotFoundException, HttpException {
 		try {
-			IndexacaoRepository repositorioDeIndex = new IndexacaoRepository();
-			PostRepository repositorioDePosts = new PostRepository();
+			Set<Post> ret = new HashSet<Post>();
 
-			Set<Post> posts = new HashSet<Post>(repositorioDeIndex.buscar(Post.class, query));
-			List<Comentario> comentarios = repositorioDeIndex.buscar(Comentario.class, query);
-			for (Comentario comentario : comentarios) {
-				posts.add(repositorioDePosts.obtemPorId(comentario.getPostId()));
+			List<Post> posts = repositorioDeIndex.buscar(Post.class, query);
+			for (Post post : posts) {
+				ret.add(repositorioDePosts.obtemPorId(post.getId()));
 			}
 
-			return Response.ok().entity(posts).build();
+			List<Comentario> comentarios = repositorioDeIndex.buscar(Comentario.class, query);
+			for (Comentario comentario : comentarios) {
+				ret.add(repositorioDePosts.obtemPorId(comentario.getPostId()));
+			}
+
+			return Response.ok().entity(ret).build();
 		} catch (SearchQueryException e) {
 			throw new HttpException(500);
 		}
