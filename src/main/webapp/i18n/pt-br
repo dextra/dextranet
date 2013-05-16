@@ -57,6 +57,7 @@
 	"post_conteudo_tip" : "Digite o conteúdo do novo post...",
 	"post_comentario" : "comentário(s)",
 	"post_erro_campos_obrigatorios" : "Para publicar algo é necessário informar o título e o conteúdo!",
+	"comentario_erro_campo_obrigatorio" : "Comentário está vazio.",
 	"post_mensagem_postagem_sucesso" : "Seu novo post foi publicado com sucesso!",
 	"post_mensagem_busca_campo_vazio" : "Para realizar a busca é necessário preencher o título, conteúdo ou autor do post/comentário!",
 	"post_curtidas" : "curtiram",

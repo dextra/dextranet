@@ -54,7 +54,7 @@
 
 					<!-- Novo comentario -->
 					<div class="list_stories_newcomment hidden">
-						<form id="form_comment" class="clearfix form-dark form-fields-block">
+						<form id="form_comment" class="clearfix form-dark form-fields-block " onclick="javascript: $.fn.validate();">
 							<div class="new-comment clear">
 								<div class="avatar-frame" title="Por ${post.usuario}">
 									<img src="${gravatar}${post.usuarioMD5}" alt="Avatar" />
@@ -112,7 +112,6 @@
 			<![CDATA[
 			$('.new-comment textarea').autoresize();
 
-
 			$.each($('.time_ago'), function(){
 				data_completa = $(this).html();
 				tempo_atras = timeAgo.calcular(data_completa);
@@ -149,6 +148,10 @@
 				var item = itemComentario.find('.list_stories_headline');
 				item.click();
 			{/if}
+
+			$(document).ready(function() {
+				$("#form_comment").validate();
+			});
 			]]>
 		</script>
 	</template>
