@@ -19,7 +19,7 @@ public class UsuarioTest extends TesteIntegracaoBase {
 	@Test
 	public void testeConstrutor() {
 		Entity usuarioEntity = new Usuario("dextranet").preenchePerfil("Dextranet Reload", "DxNet", "DEV", "CPS",
-				"229", "(19) 3256-6722", "(19) 9784-4510", "dxnet", "skypeDxNet").toEntity();
+				"229", "(19) 3256-6722", "(19) 9784-4510", "dxnet@gmail.com", "dxnet@gmail.com", "dxnet", "skypeDxNet").toEntity();
 		Usuario usuario = new Usuario(usuarioEntity);
 
 		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.id.name()), usuario.getId());
@@ -30,10 +30,10 @@ public class UsuarioTest extends TesteIntegracaoBase {
 		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.area.name()), usuario.getArea());
 		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.unidade.name()), usuario.getUnidade());
 		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.ramal.name()), usuario.getRamal());
-		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.telefoneResidencial.name()),
-				usuario.getTelefoneResidencial());
-		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.telefoneCelular.name()),
-				usuario.getTelefoneCelular());
+		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.telefoneResidencial.name()), usuario.getTelefoneResidencial());
+		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.telefoneCelular.name()), usuario.getTelefoneCelular());
+		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.email.name()), usuario.getEmail());
+		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.gtalk.name()), usuario.getGtalk());
 		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.gitHub.name()), usuario.getGitHub());
 		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.skype.name()), usuario.getSkype());
 		Assert.assertEquals(usuarioEntity.getProperty(UsuarioFields.ultimaAtualizacao.name()),
@@ -43,7 +43,7 @@ public class UsuarioTest extends TesteIntegracaoBase {
 	@Test
 	public void testeToEntity() {
 		Usuario usuario = new Usuario("dextranet").preenchePerfil("Dextranet Reload", "DxNet", "DEV", "CPS", "229",
-				"(19) 3256-6722", "(19) 9784-4510", "dxnet", "skypeDxNet");
+				"(19) 3256-6722", "(19) 9784-4510", "dxnet@gmail.com", "dxnet@gmail.com", "dxnet", "skypeDxNet");
 		Entity usuarioEntity = usuario.toEntity();
 
 		Assert.assertEquals(usuario.getId(), usuarioEntity.getProperty(UsuarioFields.id.name()));
@@ -54,10 +54,10 @@ public class UsuarioTest extends TesteIntegracaoBase {
 		Assert.assertEquals(usuario.getArea(), usuarioEntity.getProperty(UsuarioFields.area.name()));
 		Assert.assertEquals(usuario.getUnidade(), usuarioEntity.getProperty(UsuarioFields.unidade.name()));
 		Assert.assertEquals(usuario.getRamal(), usuarioEntity.getProperty(UsuarioFields.ramal.name()));
-		Assert.assertEquals(usuario.getTelefoneResidencial(),
-				usuarioEntity.getProperty(UsuarioFields.telefoneResidencial.name()));
-		Assert.assertEquals(usuario.getTelefoneCelular(),
-				usuarioEntity.getProperty(UsuarioFields.telefoneCelular.name()));
+		Assert.assertEquals(usuario.getTelefoneResidencial(), usuarioEntity.getProperty(UsuarioFields.telefoneResidencial.name()));
+		Assert.assertEquals(usuario.getTelefoneCelular(), usuarioEntity.getProperty(UsuarioFields.telefoneCelular.name()));
+		Assert.assertEquals(usuario.getEmail(), usuarioEntity.getProperty(UsuarioFields.email.name()));
+		Assert.assertEquals(usuario.getGtalk(), usuarioEntity.getProperty(UsuarioFields.gtalk.name()));
 		Assert.assertEquals(usuario.getGitHub(), usuarioEntity.getProperty(UsuarioFields.gitHub.name()));
 		Assert.assertEquals(usuario.getSkype(), usuarioEntity.getProperty(UsuarioFields.skype.name()));
 		Assert.assertNotNull(usuario.getUltimaAtualizacao());
