@@ -56,8 +56,8 @@
 					<div class="list_stories_newcomment hidden">
 						<form id="form_comment" class="clearfix form-dark form-fields-block">
 							<div class="new-comment clear">
-								<div class="avatar-frame" title="Por ${post.usuario}">
-									<img src="${gravatar}${post.usuarioMD5}" alt="Avatar" />
+								<div class="avatar-frame" title="Por ${dextranet.usuario.logado.username}">
+									<img src="${gravatar}${dextranet.usuario.logado.md5}" alt="Avatar" />
 								</div>
 								<textarea cols="50" id="idConteudoComentario" class="idConteudoComentario not-empty"
 									style="resize:none;" name="conteudoComentario" tabindex="10" maxlength="190000"
