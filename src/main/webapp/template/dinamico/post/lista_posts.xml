@@ -48,7 +48,7 @@
 							title="Excluir este post" onclick="dextranet.post.remover('${post.id}')">
 							<strong>x </strong>
 							${messages.post_excluir}
-						</button><!-- @toDo tooltip -->
+						</button>
 						{/if}
 					</div>
 
@@ -85,7 +85,7 @@
 											title="Excluir este post" onclick="dextranet.post.removerComentario('${post.id}', '${comentario.id}')">
 											<strong>x </strong>
 											${messages.botao_excluir}
-										</button><!-- @toDo tooltip -->
+										</button>
 										{/if}
 										<div class="list_stories_dx clearfix">
 											<a id="like_${comentario.id}" class="linkCurtir comentario">
@@ -124,7 +124,7 @@
 			
  			$.each($('div.list_stories_dx .showLikes'), function() {
  				var usuariosQueCurtiram = $(this).attr('title');
- 				usuariosQueCurtiram = usuariosQueCurtiram.replace(/,/g, "\n");
+ 				usuariosQueCurtiram = usuariosQueCurtiram.replace(/,/g, "<br/>");
  				$(this).attr('title', usuariosQueCurtiram);
 			});
 			
@@ -157,6 +157,11 @@
 				var item = itemComentario.find('.list_stories_headline');
 				item.click();
 			{/if}
+			
+			//Tooltips
+			$('div.avatar-frame').tipsy();
+			$('a.showLikes').tipsy({html: true });
+			$('button').tipsy();
 			]]>
 		</script>
 	</template>
