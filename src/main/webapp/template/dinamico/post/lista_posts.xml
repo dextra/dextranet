@@ -54,19 +54,6 @@
 
 					<!-- Novo comentario -->
 					<div class="list_stories_newcomment hidden">
-						<form id="form_comment" class="clearfix form-dark form-fields-block">
-							<div class="new-comment clear">
-								<div class="avatar-frame" title="Por ${dextranet.usuario.logado.username}">
-									<img src="${gravatar}${dextranet.usuario.logado.md5}" alt="Avatar" />
-								</div>
-								<textarea cols="50" id="idConteudoComentario" class="idConteudoComentario not-empty"
-									style="resize:none;" name="conteudoComentario" tabindex="10" maxlength="190000"
-									placeholder="Deixe seu comentario... "></textarea>
-								<div class="speech-shape-small"></div>
-							</div>
-							<button class="btn btn-blue float_right" id="form_comentar_submit"
-								type="button" tabindex="11" onclick="dextranet.post.comentar('${post.id}')">Comentar</button>
-						</form>
 						<!-- Comentarios -->
 						<ul class="list_stories_comments" id="relacao_dos_comentarios">
 							{for comentario in post.comentarios}
@@ -103,6 +90,19 @@
 							</li>
 							{/for}
 						</ul>
+						<form id="form_comment" class="clearfix form-dark form-fields-block">
+							<div class="new-comment clear">
+								<div class="avatar-frame" title="Por ${dextranet.usuario.logado.username}">
+									<img src="${gravatar}${dextranet.usuario.logado.md5}" alt="Avatar" />
+								</div>
+								<textarea cols="50" id="idConteudoComentario" class="idConteudoComentario not-empty"
+									style="resize:none;" name="conteudoComentario" tabindex="10" maxlength="190000"
+									placeholder="Deixe seu comentario... "></textarea>
+								<div class="speech-shape-small"></div>
+							</div>
+							<button class="btn btn-blue float_right" id="form_comentar_submit"
+								type="button" tabindex="11" onclick="dextranet.post.comentar('${post.id}')">Comentar</button>
+						</form>
 					</div>
 				</li>
 				{/for}
