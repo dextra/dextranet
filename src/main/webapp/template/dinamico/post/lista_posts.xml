@@ -121,13 +121,13 @@
 				$(this).html(tempo_atras);
 				$(this).attr('title', data_completa);
 			});
-			
+
  			$.each($('div.list_stories_dx .showLikes'), function() {
  				var usuariosQueCurtiram = $(this).attr('title');
  				usuariosQueCurtiram = usuariosQueCurtiram.replace(/,/g, "\n");
  				$(this).attr('title', usuariosQueCurtiram);
 			});
-			
+
 			$('.list_stories_headline').click(function(e)
 			{
 				e.preventDefault();
@@ -157,6 +157,8 @@
 				var item = itemComentario.find('.list_stories_headline');
 				item.click();
 			{/if}
+
+			dextranet.paginacao.paginar();
 			]]>
 		</script>
 	</template>

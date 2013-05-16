@@ -1,5 +1,7 @@
 dextranet.post = {
 
+		foundPosts : [],
+
 		novo : function() {
 			$.holy("../template/dinamico/post/novo_post.xml", {});
 			dextranet.ativaMenu("sidebar_left_new_post");
@@ -19,7 +21,7 @@ dextranet.post = {
 					data : { 'titulo' : titulo, 'conteudo' : conteudo },
 					success : function() {
 						$('.message').message($.i18n.messages.post_mensagem_postagem_sucesso, 'success', true);
-						dextranet.post.listar(null);
+						dextranet.post.listar(null, 1);
 					},
 	    			error: function(jqXHR, textStatus, errorThrown) {
 	    				dextranet.processaErroNaRequisicao(jqXHR);
@@ -30,16 +32,31 @@ dextranet.post = {
 			}
 		},
 
-		listar : function(idPost) {
+		listar : function(idPost, pagina) {
+			console.info('\n_____________\n' + dextranet.post.foundPosts.length);
+			console.info('\n Pagina ' + pagina + '\n Pagina corrente ' + dextranet.paginacao.paginaCorrente);
+			if (pagina == 1) {
+				dextranet.post.foundPosts = [];
+				dextranet.paginacao.paginaCorrente = 1;
+			}
+			console.info(dextranet.post.foundPosts.length);
+			if (!pagina) {
+				var pagina = 1;
+			}
+
 			$.ajax( {
 				type : "GET",
-				url : "/s/post",
+				url : "/s/post?p="+pagina,
 				contentType : dextranet.application_json,
 				success : function(posts) {
-						$.holy("../template/dinamico/post/lista_posts.xml", { posts : posts,
+					if(posts != null && posts.length > 0){
+						dextranet.post.foundPosts = dextranet.post.foundPosts.concat(posts);
+						$.holy("../template/dinamico/post/lista_posts.xml", { posts : dextranet.post.foundPosts,
 							  												  gravatar : dextranet.gravatarUrl,
 							  												  idPost : idPost});
 						dextranet.ativaMenu("sidebar_left_home");
+					}
+					console.info(dextranet.post.foundPosts.length);
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
@@ -91,7 +108,7 @@ dextranet.post = {
 				url : "/s/post/"+postId,
 				contentType : dextranet.application_json,
 				success : function() {
-					dextranet.post.listar(null);
+					dextranet.post.listar(null, 1);
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
