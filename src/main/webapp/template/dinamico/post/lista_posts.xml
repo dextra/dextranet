@@ -160,6 +160,7 @@
 			$('div.avatar-frame').tipsy();
 			$('a.showLikes').tipsy({html: true });
 			$('button').tipsy();
+			$('span.time_ago').tipsy();
 			]]>
 		</script>
 	</template>
