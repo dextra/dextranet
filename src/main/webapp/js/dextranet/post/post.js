@@ -116,7 +116,7 @@ dextranet.post = {
 					}
 				});
 			} else {
-				$('.message').message($.i18n.messages.comentario_erro_campo_obrigatorio, 'error', true);
+				$('.message').message($.i18n.messages.erro_campos_obrigatorios, 'error', true);
 			}
 			return false;
 		},
