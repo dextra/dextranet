@@ -12,19 +12,18 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
 import br.com.dextra.dextranet.conteudo.post.comentario.ComentarioRepository;
 import br.com.dextra.dextranet.conteudo.post.curtida.Curtida;
 import br.com.dextra.dextranet.conteudo.post.curtida.CurtidaRepository;
-import br.com.dextra.dextranet.excessoes.HttpException;
 import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.rest.config.Application;
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Query.SortDirection;
-import com.google.appengine.api.search.SearchQueryException;
 
 @Path("/post")
 public class PostRS {
@@ -52,17 +51,14 @@ public class PostRS {
 	@Path("/{id}")
 	@DELETE
 	@Produces(Application.JSON_UTF8)
-	public Response deletar(@PathParam("id") String id) throws EntityNotFoundException, UsarioNaoPodeRemoverException {
+	public Response deletar(@PathParam("id") String id) throws EntityNotFoundException {
 		String usuarioLogado = obtemUsuarioLogado();
 		Post post = repositorioDePosts.obtemPorId(id);
 		if (post.getUsuario().equals(usuarioLogado)) {
 			repositorioDePosts.remove(id);
 			return Response.ok().build();
 		} else {
-			// FIXME: um jeito mais elegante de se fazer isso é da seguinte forma:
-			// return Response.status(Status.FORBIDDEN).build();
-			// ou usar um handler de excepction que jah tem 
-			throw new UsarioNaoPodeRemoverException();
+			return Response.status(Status.FORBIDDEN).build();
 		}
 
 	}
@@ -111,29 +107,6 @@ public class PostRS {
 	public Response listarCurtidas(@PathParam("postId") String postId) throws EntityNotFoundException {
 		List<Curtida> curtidas = repositorioDeCurtidas.listaPorConteudo(postId);
 		return Response.ok().entity(curtidas).build();
-	}
-
-	@GET
-	// FIXME: o padrao REST diz que nao pode haver verbos na URL de um servico
-	// uma sugestao seria mudar esse cara para um IndexacaoRS criando um metodo get /indexacao, por exemplo
-	@Path("/buscar")
-	@Produces(Application.JSON_UTF8)
-	public Response buscarPosts(@QueryParam("query") String query) throws EntityNotFoundException, HttpException {
-		try {
-			List<Post> posts = repositorioDePosts.buscarPosts(query);
-
-			List<Comentario> comentarios = repositorioDeComentarios.buscarComentarios(query);
-			for (Comentario comentario : comentarios) {
-				posts.add(repositorioDePosts.obtemPorId(comentario.getPostId()));
-			}
-
-			return Response.ok().entity(posts).build();
-		} catch (SearchQueryException e) {
-			// FIXME: um jeito mais elegante de se fazer isso é da seguinte forma:
-			// return Response.status(Status.INTERNAL_SERVER_ERROR ).build();
-			// ou usar um handler de excepction que jah tem 
-			throw new HttpException(500);
-		}
 	}
 
 	protected List<Post> listarPostsOrdenados(Integer registrosPorPagina, Integer pagina) {
@@ -201,5 +174,21 @@ public class PostRS {
 
 	protected String obtemUsuarioLogado() {
 		return AutenticacaoService.identificacaoDoUsuarioLogado();
+	}
+
+	@Path("/{comentarioId}/comentario")
+	@DELETE
+	@Produces(Application.JSON_UTF8)
+	public Response deletarComentario(@PathParam("comentarioId") String comentarioId) throws EntityNotFoundException {
+
+		String usuarioLogado = obtemUsuarioLogado();
+		Comentario comentario = repositorioDeComentarios.obtemPorId(comentarioId);
+		if (comentario.getUsuario().equals(usuarioLogado)) {
+			repositorioDeComentarios.remove(comentarioId);
+			return Response.ok().build();
+		} else {
+			return Response.status(Status.FORBIDDEN).build();
+		}
+
 	}
 }

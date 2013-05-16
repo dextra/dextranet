@@ -29,7 +29,7 @@
 							<a id="like_${post.id}" class="linkCurtir post">
 								<span class="icon_dx" onclick="dextranet.post.curtir('${post.id}');"></span>
 							</a>
-							<a id="showLikes_${post.id}" class="showLikes"
+							<a id="showLikes_${post.id}" class="showLikes" title="${post.usuariosQueCurtiram}"
 								onclick="dextranet.post.listarCurtidas('${post.id}');">
 								<span class="numero_curtida">${post.quantidadeDeCurtidas} </span>
 								<span> ${messages.post_curtidas}</span>
@@ -48,13 +48,13 @@
 							title="Excluir este post" onclick="dextranet.post.remover('${post.id}')">
 							<strong>x </strong>
 							${messages.post_excluir}
-						</button><!-- @toDo tooltip -->
+						</button>
 						{/if}
 					</div>
 
 					<!-- Novo comentario -->
 					<div class="list_stories_newcomment hidden">
-						<form id="form_comment" class="clearfix form-dark form-fields-block " onclick="javascript: $.fn.validate();">
+						<form id="form_comment" class="clearfix form-dark form-fields-block">
 							<div class="new-comment clear">
 								<div class="avatar-frame" title="Por ${post.usuario}">
 									<img src="${gravatar}${post.usuarioMD5}" alt="Avatar" />
@@ -80,17 +80,19 @@
 									<div class="comment-data">
 										<span class="list_stories_date time_ago">${comentario.dataDeCriacao}
 										</span>
+										{if post.usuario == dextranet.usuario.logado.username}
 										<button class="btn btn-small btn-light btn-excluirpost"
-											title="Excluir este post">
+											title="Excluir este post" onclick="dextranet.post.removerComentario('${post.id}', '${comentario.id}')">
 											<strong>x </strong>
-											Excluir
-										</button><!-- @toDo tooltip -->
+											${messages.botao_excluir}
+										</button>
+										{/if}
 										<div class="list_stories_dx clearfix">
 											<a id="like_${comentario.id}" class="linkCurtir comentario">
 												<span class="icon_dx"
 													onclick="dextranet.post.curtirComentario('${post.id}', '${comentario.id}');"></span>
 											</a>
-											<a id="showLikes_${comentario.id}" class="showLikes"
+											<a id="showLikes_${comentario.id}" class="showLikes" title="${comentario.usuariosQueCurtiram}"
 												onclick="dextranet.post.listarCurtidasComentario('${post.id}', '${comentario.id}');">
 												<span class="numero_curtida">${comentario.quantidadeDeCurtidas}</span>
 												<span> ${messages.post_curtidas}</span>
@@ -119,6 +121,12 @@
 				$(this).attr('title', data_completa);
 			});
 
+ 			$.each($('div.list_stories_dx .showLikes'), function() {
+ 				var usuariosQueCurtiram = $(this).attr('title');
+ 				usuariosQueCurtiram = usuariosQueCurtiram.replace(/,/g, "<br/>");
+ 				$(this).attr('title', usuariosQueCurtiram);
+			});
+
 			$('.list_stories_headline').click(function(e)
 			{
 				e.preventDefault();
@@ -142,16 +150,16 @@
 				//$(this).parents('li').find('.list_stories_newcomment textarea').focus();
 			});
 
-
 			{if idPost && typeof idPost != "object"}
 				itemComentario = $('#${idPost}');
 				var item = itemComentario.find('.list_stories_headline');
 				item.click();
 			{/if}
 
-			$(document).ready(function() {
-				$("#form_comment").validate();
-			});
+			//Tooltips
+			$('div.avatar-frame').tipsy();
+			$('a.showLikes').tipsy({html: true });
+			$('button').tipsy();
 			]]>
 		</script>
 	</template>

@@ -62,7 +62,6 @@ dextranet.banner = {
                 dataType : "json",
                 success : function(bannersVigentes) {
                 	$.holy("../template/dinamico/banner/banners_vigentes.xml", { banners : bannersVigentes});
-                	dextranet.ativaMenu("sidebar_left_new_banner");
                 },
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);

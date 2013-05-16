@@ -1,10 +1,8 @@
 package br.com.dextra.dextranet.conteudo.post.comentario;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import br.com.dextra.dextranet.indexacao.IndexFacade;
 import br.com.dextra.dextranet.indexacao.IndexacaoRepository;
 import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.persistencia.EntidadeRepository;
@@ -16,7 +14,6 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
-import com.google.appengine.api.search.ScoredDocument;
 
 public class ComentarioRepository extends EntidadeRepository {
 
@@ -63,18 +60,6 @@ public class ComentarioRepository extends EntidadeRepository {
 		Iterable<Entity> entidades = pquery.asIterable();
 		for (Entity entidade : entidades) {
 			comentarios.add(new Comentario(entidade));
-		}
-
-		return comentarios;
-	}
-
-	public List<Comentario> buscarComentarios(String query) throws EntityNotFoundException {
-		Collection<ScoredDocument> result = IndexFacade.getIndex(Comentario.class.getName()).search(query).getResults();
-
-		List<Comentario> comentarios = new ArrayList<Comentario>();
-		for (ScoredDocument commentDocument : result) {
-			String id = commentDocument.getFields(ComentarioFields.id.name()).iterator().next().getText();
-			comentarios.add(obtemPorId(id));
 		}
 
 		return comentarios;

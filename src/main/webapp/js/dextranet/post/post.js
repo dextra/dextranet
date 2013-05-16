@@ -127,6 +127,21 @@ dextranet.post = {
 			}
 		},
 
+
+		removerComentario : function(postId, comentarioId) {
+			$.ajax( {
+				type : "DELETE",
+				url : "/s/post/"+comentarioId+"/comentario",
+				contentType : dextranet.application_json,
+				success : function() {
+					dextranet.post.listar(postId);
+				},
+    			error: function(jqXHR, textStatus, errorThrown) {
+    				dextranet.processaErroNaRequisicao(jqXHR);
+    			}
+			});
+		},
+
 		curtirComentario : function(postId, comentarioId) {
 			$.ajax( {
 				type : "POST",
@@ -134,10 +149,7 @@ dextranet.post = {
 				contentType : dextranet.application_json,
 				success : function(qtdCurtidas) {
 					$("a#showLikes_"+comentarioId+" span.numero_curtida").text(qtdCurtidas.quantidadeDeCurtidas);
-				},
-    			error: function(jqXHR, textStatus, errorThrown) {
-    				dextranet.processaErroNaRequisicao(jqXHR);
-    			}
+				}
 			});
 		},
 
@@ -153,5 +165,5 @@ dextranet.post = {
     				dextranet.processaErroNaRequisicao(jqXHR);
     			}
 			});
-		},
-};
+		}
+	}
