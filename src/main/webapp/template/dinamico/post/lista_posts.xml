@@ -48,25 +48,12 @@
 							title="Excluir este post" onclick="dextranet.post.remover('${post.id}')">
 							<strong>x </strong>
 							${messages.post_excluir}
-						</button><!-- @toDo tooltip -->
+						</button>
 						{/if}
 					</div>
 
 					<!-- Novo comentario -->
 					<div class="list_stories_newcomment hidden">
-						<form id="form_comment" class="clearfix form-dark form-fields-block">
-							<div class="new-comment clear">
-								<div class="avatar-frame" title="Por ${post.usuario}">
-									<img src="${gravatar}${post.usuarioMD5}" alt="Avatar" />
-								</div>
-								<textarea cols="50" id="idConteudoComentario" class="idConteudoComentario not-empty"
-									style="resize:none;" name="conteudoComentario" tabindex="10" maxlength="190000"
-									placeholder="Deixe seu comentario... "></textarea>
-								<div class="speech-shape-small"></div>
-							</div>
-							<button class="btn btn-blue float_right" id="form_comentar_submit"
-								type="button" tabindex="11" onclick="dextranet.post.comentar('${post.id}')">Comentar</button>
-						</form>
 						<!-- Comentarios -->
 						<ul class="list_stories_comments" id="relacao_dos_comentarios">
 							{for comentario in post.comentarios}
@@ -85,7 +72,7 @@
 											title="Excluir este post" onclick="dextranet.post.removerComentario('${post.id}', '${comentario.id}')">
 											<strong>x </strong>
 											${messages.botao_excluir}
-										</button><!-- @toDo tooltip -->
+										</button>
 										{/if}
 										<div class="list_stories_dx clearfix">
 											<a id="like_${comentario.id}" class="linkCurtir comentario">
@@ -103,6 +90,19 @@
 							</li>
 							{/for}
 						</ul>
+						<form id="form_comment" class="clearfix form-dark form-fields-block">
+							<div class="new-comment clear">
+								<div class="avatar-frame" title="Por ${dextranet.usuario.logado.username}">
+									<img src="${gravatar}${dextranet.usuario.logado.md5}" alt="Avatar" />
+								</div>
+								<textarea cols="50" id="idConteudoComentario" class="idConteudoComentario not-empty"
+									style="resize:none;" name="conteudoComentario" tabindex="10" maxlength="190000"
+									placeholder="Deixe seu comentario... "></textarea>
+								<div class="speech-shape-small"></div>
+							</div>
+							<button class="btn btn-blue float_right" id="form_comentar_submit"
+								type="button" tabindex="11" onclick="dextranet.post.comentar('${post.id}')">Comentar</button>
+						</form>
 					</div>
 				</li>
 				{/for}
@@ -114,7 +114,6 @@
 			<![CDATA[
 			$('.new-comment textarea').autoresize();
 
-
 			$.each($('.time_ago'), function(){
 				data_completa = $(this).html();
 				tempo_atras = timeAgo.calcular(data_completa);
@@ -124,7 +123,7 @@
 
  			$.each($('div.list_stories_dx .showLikes'), function() {
  				var usuariosQueCurtiram = $(this).attr('title');
- 				usuariosQueCurtiram = usuariosQueCurtiram.replace(/,/g, "\n");
+ 				usuariosQueCurtiram = usuariosQueCurtiram.replace(/,/g, "<br/>");
  				$(this).attr('title', usuariosQueCurtiram);
 			});
 
@@ -151,15 +150,20 @@
 				//$(this).parents('li').find('.list_stories_newcomment textarea').focus();
 			});
 
-
 			{if idPost && typeof idPost != "object"}
 				itemComentario = $('#${idPost}');
 				var item = itemComentario.find('.list_stories_headline');
 				item.click();
 			{/if}
-			//console.info("Length posts xml: " + ${posts.length});
+
 			dextranet.paginacao.complete = true;
 			dextranet.paginacao.paginar();
+
+			//Tooltips
+			$('div.avatar-frame').tipsy();
+			$('a.showLikes').tipsy({html: true });
+			$('button').tipsy();
+			$('span.time_ago').tipsy();
 			]]>
 		</script>
 	</template>

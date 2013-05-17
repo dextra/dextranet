@@ -12,7 +12,7 @@ var dextranet = {
 			$.holy("../template/estatico/carrega_miolo.xml", {});
 		},
 
-		buscarPosts : function() {
+		indexacao : function() {
 			var query = $('form#form_search input#form_search_input').val();
 			if (!query) {
 				var messageError = $.i18n.messages.post_mensagem_busca_campo_vazio;
@@ -22,7 +22,7 @@ var dextranet = {
 
 			$.ajax({
 				type : "GET",
-				url : "/s/post/buscar",
+				url : "/s/indexacao/",
 				data : { 'query' : query },
 				contentType : dextranet.application_json,
 				success : function(posts) {

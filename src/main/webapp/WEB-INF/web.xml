@@ -15,7 +15,7 @@
 
 	<context-param>
 		<param-name>resteasy.providers</param-name>
-		<param-value>br.com.dextra.dextranet.excessoes.HandleExceptionMapper</param-value>
+		<param-value>br.com.dextra.dextranet.excecoes.HandleExceptionMapper</param-value>
 	</context-param>
 
 	<servlet>
