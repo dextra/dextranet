@@ -35,6 +35,7 @@
 		</li>
 		<script type="text/javascript">
 			<![CDATA[
+				//Lista novo comentário
 				$comentario = $('li#' + '${postId}' + ' ul.list_stories_comments' + ' li.'+'${comentario.id}');
 				$('li.'+'${comentario.id}').remove();
 				$comentario.appendTo($('li#' + '${postId}' + '.clearfix ul.list_stories_comments'));

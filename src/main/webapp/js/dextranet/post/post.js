@@ -130,6 +130,18 @@ dextranet.post = {
 						dextranet.post.limpaCampoComentario(idPost);
 						$total_comentarios = $('a.' + idPost + ' span.numero_comentario');
 						$total_comentarios.text(parseInt($total_comentarios.text())+1);
+
+						$.ajax( {
+							type : "GET",
+							url : "/s/post?p=1&r="+dextranet.post.foundPosts.length,
+							contentType : dextranet.application_json,
+							success : function(posts) {
+								dextranet.post.foundPosts = posts;
+							},
+			    			error: function(jqXHR, textStatus, errorThrown) {
+			    				dextranet.processaErroNaRequisicao(jqXHR);
+			    			}
+						});
 					}
 				});
 			} else {
@@ -152,7 +164,7 @@ dextranet.post = {
 				contentType : dextranet.application_json,
 				success : function() {
 					$('li#'+postId+' ul.list_stories_comments' + ' li#'+comentarioId).slideUp(function(){
-						$('li#'+postId+' ul.list_stories_comments' + ' li#'+comentarioId).remove();
+						$(this).remove();
 						$total_comentarios = $('a.' + postId + ' span.numero_comentario');
 						$total_comentarios.text(parseInt($total_comentarios.text())-1);
 					});
