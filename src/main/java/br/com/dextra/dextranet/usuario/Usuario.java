@@ -37,7 +37,6 @@ public class Usuario extends Entidade {
 
 	private String gitHub;
 
-
 	private String skype;
 
 	private Date ultimaAtualizacao;
