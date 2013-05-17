@@ -18,7 +18,7 @@ public class PaginaPrincipal extends PaginaBase {
 	}
 
 	public PaginaPrincipal acesso() {
-		this.navigateTo("http://localhost:8080");
+		this.navigateTo("http://localhost:8380");
 		this.waitingForLoading();
 		return this;
 	}
@@ -53,14 +53,15 @@ public class PaginaPrincipal extends PaginaBase {
 	}
 	
 	public boolean existePost(String titulo, String conteudo) {
-		List<WebElement> htmlPostsEncontrados = driver.findElements(By.cssSelector("li.post"));
+		List<WebElement> htmlPostsEncontrados = driver.findElements(By.cssSelector("div#content_left_stretch ul#relacao_dos_posts.list_stories"));
 		
 		for (WebElement htmlPost : htmlPostsEncontrados) {
-			WebElement htmlTitulo = htmlPost.findElement(By.cssSelector("div.list_stories_headline h2.titulo"));
+			WebElement htmlTitulo = htmlPost.findElement(By.cssSelector("a.list_stories_headline h2.titulo"));
 			if (htmlTitulo.getText().equals(titulo)) {
-				htmlPost.findElement(By.cssSelector("div.list_stories_headline")).click();
+				htmlPost.findElement(By.cssSelector("a.list_stories_headline")).click();
+				waitForElement("div.list_stories_contents div p");
 				WebElement htmlConteudoPost = htmlPost.findElement(By.cssSelector("div.list_stories_contents div p"));
-				if(htmlConteudoPost.equals(conteudo)) {
+				if(htmlConteudoPost.getText().equals(conteudo)) {
 					return true;
 				}
 			}
