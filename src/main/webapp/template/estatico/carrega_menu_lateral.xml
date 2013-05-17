@@ -3,7 +3,7 @@
 	<template selector="#sidebar_left">
 		<ul id="sidebar_left_menu">
 			<li id="sidebar_left_home" class="active">
-				<a href="#" id="button_sidebar_left_home" tabindex="1" onclick="dextranet.post.listar(null, 1)">
+				<a href="#" id="button_sidebar_left_home" tabindex="1">
 					<span class="icon_sidebar_left_home"></span>
 					${messages.label_home}
 				</a>
@@ -35,7 +35,7 @@
 		</ul>
 	</template>
 	<script>
-		$("#button_sidebar_left_home").click(dextranet.post.listar(null, 1));
+		$("#button_sidebar_left_home").click(function(){dextranet.post.listar(null, 1)});
 		$("#button_sidebar_left_novopost").click(dextranet.post.novo);
 		$("#button_sidebar_left_new_banner").click(dextranet.banner.novo);
 		$("#button_sidebar_left_profile").click(dextranet.usuario.editar);

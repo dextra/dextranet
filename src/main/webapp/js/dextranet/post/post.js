@@ -33,16 +33,16 @@ dextranet.post = {
 		},
 
 		listar : function(idPost, pagina) {
-			console.info('\n_____________\n' + dextranet.post.foundPosts.length);
-			console.info('\n Pagina ' + pagina + '\n Pagina corrente ' + dextranet.paginacao.paginaCorrente);
+			console.info('Pagina antes: ' + pagina);
+			console.info('Pagina corrente antes: ' + dextranet.paginacao.paginaCorrente);
 			if (pagina == 1) {
 				dextranet.post.foundPosts = [];
 				dextranet.paginacao.paginaCorrente = 1;
 			}
-			console.info(dextranet.post.foundPosts.length);
 			if (!pagina) {
 				var pagina = 1;
 			}
+
 
 			$.ajax( {
 				type : "GET",
@@ -56,7 +56,6 @@ dextranet.post = {
 							  												  idPost : idPost});
 						dextranet.ativaMenu("sidebar_left_home");
 					}
-					console.info(dextranet.post.foundPosts.length);
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);

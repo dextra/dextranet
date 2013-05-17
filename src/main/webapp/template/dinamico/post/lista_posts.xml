@@ -157,7 +157,8 @@
 				var item = itemComentario.find('.list_stories_headline');
 				item.click();
 			{/if}
-
+			//console.info("Length posts xml: " + ${posts.length});
+			dextranet.paginacao.complete = true;
 			dextranet.paginacao.paginar();
 			]]>
 		</script>
