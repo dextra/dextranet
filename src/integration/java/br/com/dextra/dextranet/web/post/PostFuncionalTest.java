@@ -1,5 +1,7 @@
 package br.com.dextra.dextranet.web.post;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
 
 import br.com.dextra.teste.TesteFuncionalBase;
@@ -7,7 +9,7 @@ import br.com.dextra.teste.TesteFuncionalBase;
 public class PostFuncionalTest extends TesteFuncionalBase {
 
 	private PaginaNovoPost paginaNovoPost = null;
-
+	
 	public void criarNovoPost() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
 		
@@ -24,7 +26,7 @@ public class PostFuncionalTest extends TesteFuncionalBase {
 
 
 	private void entaoUsuarioVisualizaOPost(String titulo, String conteudo) {
-		paginaPrincipal.existePost(titulo, conteudo);
+		Assert.assertTrue(paginaPrincipal.existePost(titulo, conteudo));
 	}
 
 

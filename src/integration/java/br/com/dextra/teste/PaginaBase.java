@@ -25,9 +25,9 @@ public class PaginaBase extends PageObject {
 		int tentativas = 1;
 
 		while (tentativas < MAX_ATTEMPT_TO_WAIT) {
-			boolean loadingAtivo = Boolean.valueOf(this.getElementAttribute(loadingCssSeletor, "active"));
+			boolean loadingInativo = Boolean.valueOf(this.getElementAttribute(loadingCssSeletor, "style").matches("display: none;"));
 
-			if (!loadingAtivo) {
+			if (loadingInativo) {
 				break;
 			}
 

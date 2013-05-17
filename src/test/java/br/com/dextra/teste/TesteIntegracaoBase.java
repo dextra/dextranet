@@ -33,6 +33,7 @@ public class TesteIntegracaoBase {
 		server.enableDatastore(noStorage);
 		server.enableSearch();
 		server.start();
+		server.enableJetty();
 	}
 
 	@AfterClass
