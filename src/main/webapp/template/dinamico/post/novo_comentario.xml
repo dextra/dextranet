@@ -39,6 +39,7 @@
 				$('li.'+'${comentario.id}').remove();
 				$comentario.appendTo($('li#' + '${postId}' + '.clearfix ul.list_stories_comments'));
 
+				//Calcula tempo de postagem
 				$.each($('.time_ago'), function(){
 					data_completa = $(this).html();
 					tempo_atras = timeAgo.calcular(data_completa);

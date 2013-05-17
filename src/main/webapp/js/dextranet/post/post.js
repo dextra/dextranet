@@ -33,8 +33,6 @@ dextranet.post = {
 		},
 
 		listar : function(idPost, pagina) {
-			console.info('Pagina antes: ' + pagina);
-			console.info('Pagina corrente antes: ' + dextranet.paginacao.paginaCorrente);
 			if (pagina == 1) {
 				dextranet.post.foundPosts = [];
 				dextranet.paginacao.paginaCorrente = 1;
@@ -130,6 +128,8 @@ dextranet.post = {
 																				comentario : comentario,
 																				gravatar : dextranet.gravatarUrl});
 						dextranet.post.limpaCampoComentario(idPost);
+						$total_comentarios = $('a.' + idPost + ' span.numero_comentario');
+						$total_comentarios.text(parseInt($total_comentarios.text())+1);
 					}
 				});
 			} else {
@@ -153,6 +153,8 @@ dextranet.post = {
 				success : function() {
 					$('li#'+postId+' ul.list_stories_comments' + ' li#'+comentarioId).slideUp(function(){
 						$('li#'+postId+' ul.list_stories_comments' + ' li#'+comentarioId).remove();
+						$total_comentarios = $('a.' + postId + ' span.numero_comentario');
+						$total_comentarios.text(parseInt($total_comentarios.text())-1);
 					});
 				},
     			error: function(jqXHR, textStatus, errorThrown) {

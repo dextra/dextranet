@@ -36,7 +36,7 @@
 							</a>
 						</div>
 						<div class="list_stories_numbercomments">
-							<a id="${post.id}">
+							<a id="${post.id}" class="${post.id}">
 								<span class="icon_comments"></span>
 								<span class="numero_comentario">${post.quantidadeDeComentarios}</span>
 								${messages.post_comentario}
