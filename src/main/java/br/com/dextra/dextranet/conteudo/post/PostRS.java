@@ -124,7 +124,7 @@ public class PostRS {
 		Comentario comentario = post.comentar(this.obtemUsuarioLogado(), conteudo);
 		repositorioDePosts.persiste(post);
 		repositorioDeComentarios.persiste(comentario);
-		return Response.ok().entity(post).build();
+		return Response.ok().entity(comentario).build();
 	}
 
 	@Path("/{postId}/comentario")

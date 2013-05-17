@@ -117,18 +117,19 @@ dextranet.post = {
 
 		// Comentarios
 		comentar : function(idPost) {
-			var idDoPost = idPost;
 			var conteudo = $('#' + idPost + ' .idConteudoComentario').val();
 			if (conteudo != "") {
 				$.ajax({
 					type : 'POST',
-					url : '/s/post/' + idDoPost + '/comentario',
+					url : '/s/post/' + idPost + '/comentario',
 					data : {
 						"conteudo" : conteudo
 					},
-					success : function(comments) {
-						dextranet.post.limpaCampoComentario();
-						dextranet.post.listar(idDoPost);
+					success : function(comentario) {
+						$.holy("../template/dinamico/post/novo_comentario.xml", {postId : idPost,
+																				comentario : comentario,
+																				gravatar : dextranet.gravatarUrl});
+						dextranet.post.limpaCampoComentario(idPost);
 					}
 				});
 			} else {
@@ -137,9 +138,9 @@ dextranet.post = {
 			return false;
 		},
 
-		limpaCampoComentario : function() {
-			if ($('#idConteudoComentario').val() != "") {
-				$('#idConteudoComentario').val("");
+		limpaCampoComentario : function(postId) {
+			if ($('#' + postId + ' .idConteudoComentario').val() != "") {
+				$('#' + postId + ' .idConteudoComentario').val("")
 			}
 		},
 
@@ -150,7 +151,9 @@ dextranet.post = {
 				url : "/s/post/"+comentarioId+"/comentario",
 				contentType : dextranet.application_json,
 				success : function() {
-					dextranet.post.listar(postId);
+					$('li#'+postId+' ul.list_stories_comments' + ' li#'+comentarioId).slideUp(function(){
+						$('li#'+postId+' ul.list_stories_comments' + ' li#'+comentarioId).remove();
+					});
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);

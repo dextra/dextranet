@@ -57,7 +57,7 @@
 						<!-- Comentarios -->
 						<ul class="list_stories_comments" id="relacao_dos_comentarios">
 							{for comentario in post.comentarios}
-							<li class="clearfix">
+							<li class="clearfix" id="${comentario.id}">
 								<div class="avatar-frame" title="Por ${comentario.usuario}">
 									<img src="${gravatar}${comentario.usuarioMD5}" alt="Avatar" />
 								</div>
@@ -67,9 +67,9 @@
 									<div class="comment-data">
 										<span class="list_stories_date time_ago">${comentario.dataDeCriacao}
 										</span>
-										{if post.usuario == dextranet.usuario.logado.username}
+										{if comentario.usuario == dextranet.usuario.logado.username}
 										<button class="btn btn-small btn-light btn-excluirpost"
-											title="Excluir este post" onclick="dextranet.post.removerComentario('${post.id}', '${comentario.id}')">
+											title="Excluir este comentário" onclick="dextranet.post.removerComentario('${post.id}', '${comentario.id}')">
 											<strong>x </strong>
 											${messages.botao_excluir}
 										</button>
@@ -95,7 +95,7 @@
 								<div class="avatar-frame" title="Por ${dextranet.usuario.logado.username}">
 									<img src="${gravatar}${dextranet.usuario.logado.md5}" alt="Avatar" />
 								</div>
-								<textarea cols="50" id="idConteudoComentario" class="idConteudoComentario not-empty"
+								<textarea cols="50" id="${post.id}" class="idConteudoComentario not-empty"
 									style="resize:none;" name="conteudoComentario" tabindex="10" maxlength="190000"
 									placeholder="Deixe seu comentario... "></textarea>
 								<div class="speech-shape-small"></div>
