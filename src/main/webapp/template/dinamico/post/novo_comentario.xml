@@ -1,6 +1,6 @@
 <engine>
 	<template selector="ul.list_stories_comments" append="true">
-		<li class="clearfix ${comentario.id}">
+		<li class="clearfix" id="${comentario.id}">
 			<div class="avatar-frame" title="Por ${comentario.usuario}">
 				<img src="${gravatar}${comentario.usuarioMD5}" alt="Avatar" />
 			</div>
