@@ -20,6 +20,7 @@ public class TesteFuncionalBase extends TesteIntegracaoBase {
 
 	@BeforeClass
 	public static void setup() {
+		TesteIntegracaoBase.startJetty = true;
 		TesteIntegracaoBase.setup();
 
 		environment = EnvironmentFactory.createEnvironment();

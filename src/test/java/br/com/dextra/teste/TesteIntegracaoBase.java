@@ -25,6 +25,8 @@ import br.com.dextra.teste.container.GAETestServer;
 public class TesteIntegracaoBase {
 
 	protected static GAETestServer server = new GAETestServer();
+	
+	protected static Boolean startJetty = false;
 
 	private static final boolean noStorage = true;
 
@@ -33,7 +35,9 @@ public class TesteIntegracaoBase {
 		server.enableDatastore(noStorage);
 		server.enableSearch();
 		server.start();
-		server.enableJetty();
+		if(startJetty) {
+			server.enableJetty();
+		}
 	}
 
 	@AfterClass
