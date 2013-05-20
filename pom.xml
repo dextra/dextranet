@@ -155,7 +155,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                         <jvmFlag>-Xdebug</jvmFlag>
                         <jvmFlag>-Xnoagent</jvmFlag>
                         <jvmFlag>-Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n</jvmFlag>
-                        <jvmFlag>https.proxyHost=172.16.129.4 https.proxyPort=3128</jvmFlag>
                     </jvmFlags>
                     <disableUpdateCheck>true</disableUpdateCheck>
                     <oauth2>false</oauth2>
