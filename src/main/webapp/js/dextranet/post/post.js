@@ -105,7 +105,10 @@ dextranet.post = {
 				url : "/s/post/"+postId,
 				contentType : dextranet.application_json,
 				success : function() {
-					dextranet.post.listar(null, 1);
+					$('li#'+postId).slideUp(function(){
+						$(this).remove();
+						dextranet.post.listar(null, 1);
+					});
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
