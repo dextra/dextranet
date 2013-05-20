@@ -19,7 +19,6 @@ public class IndexacaoRepositoryTest extends TesteIntegracaoBase {
 	private IndexacaoRepository repositorioDeIndex = new IndexacaoRepository();
 	private ComentarioRepository repositorioDeComentarios = new ComentarioRepository();
 
-	@Test
 	public void testaBuscaPostsIndexados() {
 		Post post01 = new Post("usuario01", "post1", "esse eh um post de teste");
 		Post post02 = new Post("usuario02", "post2", "esse eh um post de teste");
