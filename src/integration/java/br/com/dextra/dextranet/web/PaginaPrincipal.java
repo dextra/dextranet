@@ -18,7 +18,7 @@ public class PaginaPrincipal extends PaginaBase {
 	}
 
 	public PaginaPrincipal acesso() {
-		this.navigateTo("http://localhost:8380");
+		this.navigateTo("http://localhost:8031");
 		this.waitingForLoading();
 		return this;
 	}
