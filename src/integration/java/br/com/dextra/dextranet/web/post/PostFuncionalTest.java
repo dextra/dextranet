@@ -9,7 +9,8 @@ import br.com.dextra.teste.TesteFuncionalBase;
 public class PostFuncionalTest extends TesteFuncionalBase {
 
 	private PaginaNovoPost paginaNovoPost = null;
-	
+
+	@Test
 	public void criarNovoPost() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
 		
