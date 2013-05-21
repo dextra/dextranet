@@ -21,6 +21,8 @@ public class Application extends javax.ws.rs.core.Application {
 
 	public static final String REGISTROS_POR_PAGINA = "20";
 
+	public static final int LIMITE_REGISTROS_FULL_TEXT_SEARCH = 50;
+
 	/**
 	 * Adicionando todas as classes referentes a servicos REST que irao existir
 	 * nesta aplicacao.

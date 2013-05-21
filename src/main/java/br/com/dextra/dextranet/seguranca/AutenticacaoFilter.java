@@ -24,8 +24,7 @@ public class AutenticacaoFilter implements Filter {
 	protected String excludePatterns = "";
 
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException,
-			ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
 
 		UserService userService = UserServiceFactory.getUserService();
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
