@@ -34,9 +34,16 @@ public class PaginaPrincipal extends PaginaBase {
 		return new PaginaNovoComentario(driver);
 	}
 
-	public PaginaNovoComentario clicaEmNovoComentario() {
-		this.click(".list_stories_comments a");
-		this.waitingForLoading();
+	public PaginaNovoComentario clicaEmNovoComentario(String tituloPost) {
+		List<WebElement> htmlPostsEncontrados = driver.findElements(By.cssSelector("div#content_left_stretch ul#relacao_dos_posts.list_stories"));
+
+		for (WebElement htmlPost : htmlPostsEncontrados) {
+			WebElement htmlTitulo = htmlPost.findElement(By.cssSelector("a.list_stories_headline h2.titulo"));
+			if (htmlTitulo.getText().equals(tituloPost)) {
+				htmlPost.findElement(By.cssSelector("a.list_stories_headline")).click();
+			}
+		}
+
 		return new PaginaNovoComentario(driver);
 	}
 
@@ -51,10 +58,10 @@ public class PaginaPrincipal extends PaginaBase {
 
 		return this;
 	}
-	
+
 	public boolean existePost(String titulo, String conteudo) {
 		List<WebElement> htmlPostsEncontrados = driver.findElements(By.cssSelector("div#content_left_stretch ul#relacao_dos_posts.list_stories"));
-		
+
 		for (WebElement htmlPost : htmlPostsEncontrados) {
 			WebElement htmlTitulo = htmlPost.findElement(By.cssSelector("a.list_stories_headline h2.titulo"));
 			if (htmlTitulo.getText().equals(titulo)) {
@@ -66,7 +73,7 @@ public class PaginaPrincipal extends PaginaBase {
 				}
 			}
 		}
-		
+
 		return false;
 	}
 }

@@ -10,18 +10,18 @@ public class PaginaNovoComentario extends PaginaBase {
 	}
 
 	public PaginaNovoComentario redigeConteudoDoComentario(String conteudo) {
-		this.writeCKEditor(conteudo, "textUnidade_comment");
+		this.redigeConteudoComentario(conteudo);
 
 		return this;
-	}
-
-	public void submeteComentario() {
-		this.click("input#input_comment_submit");
-		this.waitingForLoading();
 	}
 
 	public void criaNovoComentario(String conteudo) {
 		this.redigeConteudoDoComentario(conteudo);
 		this.submeteComentario();
+	}
+
+	private void submeteComentario() {
+		this.click("button#form_comentar_submit");
+		this.waitingForLoading();
 	}
 }

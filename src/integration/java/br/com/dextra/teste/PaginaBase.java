@@ -16,6 +16,10 @@ public class PaginaBase extends PageObject {
 		((JavascriptExecutor) driver).executeScript("CKEDITOR.instances." + form + ".setData(\"" + text + "\");");
 	}
 
+	public void redigeConteudoComentario(String text) {
+		this.writeTextArea("textarea#idConteudoComentario", text);
+	}
+
 	public void waitingForLoading() {
 		String loadingCssSeletor = "div.loading";
 
