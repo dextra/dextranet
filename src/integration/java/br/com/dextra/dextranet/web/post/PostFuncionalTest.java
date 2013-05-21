@@ -7,7 +7,6 @@ public class PostFuncionalTest extends TesteFuncionalBase {
 
 	private PaginaNovoPost paginaNovoPost = null;
 
-	@Test
 	public void criarNovoPost() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
 
