@@ -16,15 +16,15 @@ public class PaginaBase extends PageObject {
 		((JavascriptExecutor) driver).executeScript("CKEDITOR.instances." + form + ".setData(\"" + text + "\");");
 	}
 
-	public void redigeConteudoComentario(String text) {
-		this.writeTextArea("textarea#idConteudoComentario", text);
+	public void redigeConteudoComentario(String text, String idConteudoComentario) {
+		this.writeTextArea("textarea#" + idConteudoComentario, text);
 	}
 
 	public void waitingForLoading() {
 		String loadingCssSeletor = "div.loading";
 
 		// faz um sleep inicial para o carregando aparecer
-		this.waitToLoad(TIME_TO_WAIT);
+		this.waitToLoad(20);
 
 		int tentativas = 1;
 
@@ -36,7 +36,7 @@ public class PaginaBase extends PageObject {
 			}
 
 			tentativas++;
-			this.waitToLoad(TIME_TO_WAIT);
+			this.waitToLoad(20);
 		}
 
 		if (tentativas >= MAX_ATTEMPT_TO_WAIT) {
