@@ -17,7 +17,12 @@ import br.com.dextra.dextranet.excecoes.HttpException;
 import br.com.dextra.dextranet.rest.config.Application;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.search.Query;
+import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.SearchQueryException;
+import com.google.appengine.api.search.SortExpression;
+import com.google.appengine.api.search.SortOptions;
+import com.google.appengine.api.search.SortOptions.Builder;
 
 @Path("/indexacao")
 public class IndexacaoRS {
@@ -31,7 +36,8 @@ public class IndexacaoRS {
 		try {
 			Set<Post> ret = new HashSet<Post>();
 
-			List<Post> posts = repositorioDeIndex.buscar(Post.class, query);
+			Query postQuery = buildPostQuery(query);
+			List<Post> posts = repositorioDeIndex.buscar(Post.class, postQuery);
 			for (Post post : posts) {
 				ret.add(repositorioDePosts.obtemPorId(post.getId()));
 			}
@@ -45,6 +51,20 @@ public class IndexacaoRS {
 		} catch (SearchQueryException e) {
 			throw new HttpException(500);
 		}
+	}
+
+	private Query buildPostQuery(String queryString) {
+		Builder sortOptions = SortOptions.newBuilder();
+		sortOptions.addSortExpression(
+				SortExpression.newBuilder()
+				.setExpression("data")
+				.setDirection(SortExpression.SortDirection.DESCENDING)
+				.setDefaultValue("")).setLimit(Application.LIMITE_REGISTROS_FULL_TEXT_SEARCH)
+				.build();
+
+		QueryOptions options = QueryOptions.newBuilder().setLimit(Application.LIMITE_REGISTROS_FULL_TEXT_SEARCH).setSortOptions(sortOptions).build();
+		return Query.newBuilder().setOptions(options).build(queryString);
+
 	}
 
 }

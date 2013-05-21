@@ -108,6 +108,7 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 	public Document toDocument() {
 		Document document = Document.newBuilder().setId(id)
 				.addField(Field.newBuilder().setName(PostFields.id.name()).setText(id))
+				.addField(Field.newBuilder().setName("data").setDate(dataDeCriacao))
 				.addField(Field.newBuilder().setName(PostFields.titulo.name()).setText(titulo))
 				.addField(Field.newBuilder().setName(PostFields.conteudo.name()).setHTML(conteudo))
 				.addField(Field.newBuilder().setName(PostFields.usuario.name()).setText(usuario)).build();
