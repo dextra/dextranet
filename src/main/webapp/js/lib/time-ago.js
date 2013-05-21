@@ -4,13 +4,9 @@ timeAgo = {
 		if(!data)
 			return "Data inválida";
 
-		console.info("Data: " + data);
 		d = data.split(" ");
-		console.info("d: " + d);
 		dia = d[0].split("/");
-		console.info("dia: " + dia);
 		hora = d[1].split(":");
-		console.info("hora: " + hora);
 
 		//Date(yyyy, mm, dd, hh, mm, ss)
 		var date = new Date(dia[2],dia[1] - 1,dia[0],hora[0],hora[1],00),
