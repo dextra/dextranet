@@ -95,7 +95,7 @@
 								<div class="avatar-frame" title="Por ${dextranet.usuario.logado.username}">
 									<img src="${gravatar}${dextranet.usuario.logado.md5}" alt="Avatar" />
 								</div>
-								<textarea cols="50" id="${post.id}" class="idConteudoComentario not-empty"
+								<textarea cols="50" id="idConteudo_${post.id}" class="idConteudoComentario not-empty"
 									style="resize:none;" name="conteudoComentario" tabindex="10" maxlength="190000"
 									placeholder="Deixe seu comentario... "></textarea>
 								<div class="speech-shape-small"></div>

@@ -19,6 +19,7 @@ public class IndexacaoRepositoryTest extends TesteIntegracaoBase {
 	private IndexacaoRepository repositorioDeIndex = new IndexacaoRepository();
 	private ComentarioRepository repositorioDeComentarios = new ComentarioRepository();
 
+	@Test
 	public void testaBuscaPostsIndexados() {
 		Post post01 = new Post("usuario01", "post1", "esse eh um post de teste");
 		Post post02 = new Post("usuario02", "post2", "esse eh um post de teste");
@@ -33,6 +34,9 @@ public class IndexacaoRepositoryTest extends TesteIntegracaoBase {
 
 		busca = repositorioDeIndex.buscar(Post.class, PostFields.usuario.name() + ": usuario01");
 		Assert.assertEquals(1, busca.size());
+
+		busca = repositorioDeIndex.buscar(Post.class, "esse eh um post de teste");
+		Assert.assertEquals(2, busca.size());
 
 		busca = repositorioDeIndex.buscar(Post.class, "esse eh um post de teste");
 		Assert.assertEquals(2, busca.size());

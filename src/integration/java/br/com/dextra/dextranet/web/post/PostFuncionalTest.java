@@ -9,13 +9,13 @@ public class PostFuncionalTest extends TesteFuncionalBase {
 
 	public void criarNovoPost() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
-		
+
 		String titulo = "Titulo de Teste";
 		String conteudo = "Texto do teste";
 		eCriouUmPost(titulo, conteudo);
 		entaoUsuarioVisualizaOPost(titulo, conteudo);
 	}
-	
+
 	protected void eCriouUmPost(String titulo, String conteudo) {
 		paginaNovoPost = paginaPrincipal.clicaEmNovoPost();
 		paginaNovoPost.criarNovoPost(titulo, conteudo);

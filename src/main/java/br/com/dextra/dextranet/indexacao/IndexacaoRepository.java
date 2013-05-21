@@ -14,6 +14,7 @@ import br.com.dextra.dextranet.persistencia.EntidadeRepository;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.search.Index;
+import com.google.appengine.api.search.Query;
 import com.google.appengine.api.search.ScoredDocument;
 
 public class IndexacaoRepository extends EntidadeRepository {
@@ -28,7 +29,7 @@ public class IndexacaoRepository extends EntidadeRepository {
 		IndexFacade.getIndex(indexKey).delete(id);
 	}
 
-	public <T extends Conteudo> List<T> buscar(Class<T> clazz, String query) {
+	public <T extends Conteudo> List<T> buscar(Class<T> clazz, Query query) {
 		Index idx = IndexFacade.getIndex(clazz.getName());
 
 		List<T> ret = new ArrayList<T>();
@@ -36,8 +37,8 @@ public class IndexacaoRepository extends EntidadeRepository {
 
 		try {
 			Constructor<T> constructor = clazz.getDeclaredConstructor(Entity.class);
-			for (ScoredDocument commentDocument : results) {
-				String id = commentDocument.getFields("id").iterator().next().getText();
+			for (ScoredDocument doc : results) {
+				String id = doc.getFields("id").iterator().next().getText();
 				Entity entity = obtemPorId(id, clazz);
 				ret.add(constructor.newInstance(entity));
 			}
@@ -47,6 +48,10 @@ public class IndexacaoRepository extends EntidadeRepository {
 		}
 
 		return ret;
+	}
+
+	public <T extends Conteudo> List<T> buscar(Class<T> clazz, String query) {
+		return buscar(clazz, Query.newBuilder().build(query));
 	}
 
 }

@@ -65,7 +65,8 @@ public class Comentario extends Conteudo implements ConteudoIndexavel {
 
 	@Override
 	public Document toDocument() {
-		Document document = Document.newBuilder().setId(id).addField(Field.newBuilder().setName(ComentarioFields.id.name()).setText(id))
+		Document document = Document.newBuilder()
+				.addField(Field.newBuilder().setName(ComentarioFields.id.name()).setText(id))
 				.addField(Field.newBuilder().setName(ComentarioFields.conteudo.name()).setHTML(conteudo))
 				.addField(Field.newBuilder().setName(ComentarioFields.usuario.name()).setText(usuario)).build();
 		return document;

@@ -25,6 +25,8 @@ public class PostRepository extends EntidadeRepository {
 
 	public void remove(String id) {
 		super.remove(id, Post.class);
+		ComentarioRepository repositorioDeComentarios = new ComentarioRepository();
+		repositorioDeComentarios.removeComentariosPost(id);
 		indexacao.removeIndexacao(Post.class.getName(), id);
 	}
 

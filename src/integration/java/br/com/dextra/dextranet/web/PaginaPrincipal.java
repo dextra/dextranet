@@ -34,10 +34,22 @@ public class PaginaPrincipal extends PaginaBase {
 		return new PaginaNovoComentario(driver);
 	}
 
-	public PaginaNovoComentario clicaEmNovoComentario() {
-		this.click(".list_stories_comments a");
-		this.waitingForLoading();
-		return new PaginaNovoComentario(driver);
+	public PaginaNovoComentario clicaEmNovoComentario(String tituloPost) {
+		List<WebElement> htmlPostsEncontrados = driver.findElements(By.cssSelector("div#content_left_stretch ul#relacao_dos_posts.list_stories"));
+		String idConteudoComentario = "idConteudo_";
+		for (WebElement htmlPost : htmlPostsEncontrados) {
+			WebElement htmlTitulo = htmlPost.findElement(By.cssSelector("a.list_stories_headline h2.titulo"));
+			idConteudoComentario += htmlTitulo.getAttribute("class").split(" ")[1];
+			if (htmlTitulo.getText().equals(tituloPost)) {
+				htmlPost.findElement(By.cssSelector("a.list_stories_headline")).click();
+				break;
+			}
+		}
+
+		PaginaNovoComentario paginaNovoComentario = new PaginaNovoComentario(driver);
+		paginaNovoComentario.setIdConteudoComentario(idConteudoComentario);
+
+		return paginaNovoComentario;
 	}
 
 	public PaginaPrincipal scrollAteFim() {
@@ -51,10 +63,10 @@ public class PaginaPrincipal extends PaginaBase {
 
 		return this;
 	}
-	
+
 	public boolean existePost(String titulo, String conteudo) {
 		List<WebElement> htmlPostsEncontrados = driver.findElements(By.cssSelector("div#content_left_stretch ul#relacao_dos_posts.list_stories"));
-		
+
 		for (WebElement htmlPost : htmlPostsEncontrados) {
 			WebElement htmlTitulo = htmlPost.findElement(By.cssSelector("a.list_stories_headline h2.titulo"));
 			if (htmlTitulo.getText().equals(titulo)) {
@@ -66,7 +78,7 @@ public class PaginaPrincipal extends PaginaBase {
 				}
 			}
 		}
-		
+
 		return false;
 	}
 }
