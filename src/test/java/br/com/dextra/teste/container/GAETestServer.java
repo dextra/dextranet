@@ -80,7 +80,7 @@ public class GAETestServer {
 	
 			WebServerDeployer server = builder.createDeployer(JettyServerDeployer.class);
 			server.setName("WebServer");
-			server.bindPort(8380);
+			server.bindPort(8080);
 	
 			ContextWebServer web = server.createContextWebServer();
 			web.setContext("/");

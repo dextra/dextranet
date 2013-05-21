@@ -11,15 +11,15 @@ var dextranet = {
 			$.holy("../template/estatico/carrega_menu_lateral.xml", {});
 			$.holy("../template/estatico/carrega_miolo.xml", {});
 		},
-		
+
 		indexacao : function() {
 			var query = $('form#form_search input#form_search_input').val();
 			if (!query) {
-				var messageError = $.i18n.messages.post_mensagem_busca_campo_vazio; 
+				var messageError = $.i18n.messages.post_mensagem_busca_campo_vazio;
 				$('.message').message(messageError, 'warning', true);
 				return;
 			}
-			
+
 			$.ajax({
 				type : "GET",
 				url : "/s/indexacao/",
@@ -27,23 +27,23 @@ var dextranet = {
 				contentType : dextranet.application_json,
 				success : function(posts) {
 					if (posts.length == 0) {
-						var messageError = $.i18n.messages.mensagem_nenhum_registro; 
+						var messageError = $.i18n.messages.mensagem_nenhum_registro;
 						$('.message').message(messageError, 'warning', true);
 						return;
 					}
-					
-					$.holy("../template/dinamico/post/lista_posts.xml", { posts : posts, 
-																		  idPost : null, 
+
+					$.holy("../template/dinamico/post/lista_posts.xml", { posts : posts,
+																		  idPost : null,
 																		  gravatar : dextranet.gravatarUrl });
 					dextranet.ativaMenu("sidebar_left_home");
-					
+
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
     			}
 			});
 		},
-		
+
 		ativaMenu : function (menuClass) {
 			$('div#sidebar_left ul#sidebar_left_menu li').removeClass("active");
 			$('div#sidebar_left ul#sidebar_left_menu li#' + menuClass).addClass("active");

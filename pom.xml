@@ -48,8 +48,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <gae.application.version>test</gae.application.version>
-        <appengine.target.version>1.8.0</appengine.target.version>
-        <appengine.target.plugin.version>1.8.0</appengine.target.plugin.version>
+        <appengine.target.version>1.7.7.1</appengine.target.version>
+        <appengine.target.plugin.version>1.7.7.1</appengine.target.plugin.version>
         <resteasy.target.version>2.3.6.Final</resteasy.target.version>
         <mycontainer.version>1.4.1</mycontainer.version>
     </properties>
