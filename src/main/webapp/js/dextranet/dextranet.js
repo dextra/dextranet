@@ -42,6 +42,8 @@ var dextranet = {
     				dextranet.processaErroNaRequisicao(jqXHR);
     			}
 			});
+			
+			return false;
 		},
 
 		ativaMenu : function (menuClass) {

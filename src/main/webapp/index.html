@@ -98,7 +98,7 @@
                   -- Corrigir variável do placeholder (usar texto: Procurar postagens e pessoas...).
                   -->
                 <div id="header_search_box">
-                    <form id="form_search" onsubmit="dextranet.indexacao();">
+                    <form id="form_search">
                         <input type="text" placeholder="Pesquisar posts..." id="form_search_input" />
                         <input type="submit" value="" title="Procurar!" id="form_search_submit" />
                     </form>
@@ -116,5 +116,11 @@
         </div>
 
         <script type="text/javascript" src="js/dextranet/microblog.js"></script>
+        
+        <script>
+        	$('#form_search').submit(function(){
+				return dextranet.indexacao();        		
+        	});
+        </script>
     </body>
 </html>
