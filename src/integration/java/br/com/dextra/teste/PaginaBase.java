@@ -1,7 +1,5 @@
 package br.com.dextra.teste;
 
-import java.util.Date;
-
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
@@ -32,12 +30,9 @@ public class PaginaBase extends PageObject {
 		int tentativas = 1;
 
 		while (tentativas < MAX_ATTEMPT_TO_WAIT) {
-			System.out.println("Tentativa: " + tentativas);
-			System.out.println((new Date()).toString());
 			
 			boolean loadingAtivo = this.getElement(loadingCssSeletor).isDisplayed();
-//			boolean loadingInativo = Boolean.valueOf(this.getElementAttribute(loadingCssSeletor, "style").matches("display: none;"));
-			System.out.println((new Date()).toString());
+
 			if (!loadingAtivo) {
 				break;
 			}
