@@ -24,7 +24,7 @@ public class PaginaBase extends PageObject {
 		String loadingCssSeletor = "div.loading";
 
 		// faz um sleep inicial para o carregando aparecer
-		this.waitToLoad(20);
+		this.waitToLoad(TIME_TO_WAIT);
 
 		int tentativas = 1;
 
@@ -36,7 +36,7 @@ public class PaginaBase extends PageObject {
 			}
 
 			tentativas++;
-			this.waitToLoad(20);
+			this.waitToLoad(TIME_TO_WAIT);
 		}
 
 		if (tentativas >= MAX_ATTEMPT_TO_WAIT) {
