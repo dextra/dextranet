@@ -6,6 +6,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import com.google.appengine.repackaged.org.joda.time.DateTime;
+import com.google.appengine.repackaged.org.joda.time.DateTimeZone;
+
 import br.com.dextra.dextranet.rest.config.Application;
 
 public class TimeMachine {
@@ -19,8 +22,12 @@ public class TimeMachine {
 	private SimpleDateFormat formatoData = new SimpleDateFormat(DATA, Application.BRASIL);
 
 	public Date dataAtual() {
-		Calendar calendar = new GregorianCalendar(Application.BRASIL);
-		return calendar.getTime();
+		
+		DateTimeZone zone = DateTimeZone.forID("Europe/London"); 
+		DateTime dateTime = new DateTime(zone);
+		
+		return dateTime.toDate();
+		
 	}
 
 	public Date inicioDoDia(Date data) {
@@ -31,6 +38,12 @@ public class TimeMachine {
 		inicioDoDia.set(Calendar.SECOND, 0);
 		inicioDoDia.set(Calendar.MILLISECOND, 0);
 
+		formatoDataHora.setTimeZone(Application.SAO_PAULO);
+		try {
+			return formatoDataHora.parse(inicioDoDia.getTime().toString());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		return inicioDoDia.getTime();
 	}
 
@@ -42,6 +55,12 @@ public class TimeMachine {
 		fimDoDia.set(Calendar.SECOND, 59);
 		fimDoDia.set(Calendar.MILLISECOND, 99);
 
+		formatoDataHora.setTimeZone(Application.SAO_PAULO);
+		try {
+			return formatoDataHora.parse(fimDoDia.getTime().toString());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		return fimDoDia.getTime();
 	}
 

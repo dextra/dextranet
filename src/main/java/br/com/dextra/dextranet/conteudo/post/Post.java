@@ -80,6 +80,11 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 	public List<Comentario> getComentarios() {
 		return comentarios;
 	}
+	
+	public void registraDataDeMigracao(Date data) {
+		super.registraDataDeMigracao(data);
+		this.dataDeAtualizacao = data;
+	}
 
 	@Override
 	public Entity toEntity() {

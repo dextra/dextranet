@@ -3,6 +3,7 @@ package br.com.dextra.dextranet.microblog;
 import java.util.Date;
 
 import br.com.dextra.dextranet.persistencia.Entidade;
+import br.com.dextra.dextranet.utils.TimeMachine;
 
 import com.google.appengine.api.datastore.Entity;
 
@@ -13,7 +14,7 @@ public class MicroPost extends Entidade {
 
 	public MicroPost(String texto) {
 		this.texto = texto;
-		this.data = new Date();
+		this.data = new TimeMachine().dataAtual();
 	}
 
 	public MicroPost(String texto, Date data) {
