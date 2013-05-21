@@ -4,9 +4,9 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.google.appengine.api.datastore.Entity;
-
 import br.com.dextra.teste.TesteIntegracaoBase;
+
+import com.google.appengine.api.datastore.Entity;
 
 //a heranca eh para poder testar os objetos envolvendo entity
 public class UnidadeTest extends TesteIntegracaoBase {

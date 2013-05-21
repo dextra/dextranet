@@ -10,6 +10,7 @@ import org.junit.BeforeClass;
 
 import br.com.dextra.dextranet.banner.Banner;
 import br.com.dextra.dextranet.banner.BannerRepository;
+import br.com.dextra.dextranet.conteudo.Conteudo;
 import br.com.dextra.dextranet.conteudo.post.Post;
 import br.com.dextra.dextranet.conteudo.post.PostRepository;
 import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
@@ -48,7 +49,7 @@ public class TesteIntegracaoBase {
 
 	public void limpaPostsInseridos(PostRepository repositorioDePosts) {
 		List<Post> postsCadastrados = repositorioDePosts.lista();
-		for (Post post : postsCadastrados) {
+		for (Conteudo post : postsCadastrados) {
 			repositorioDePosts.remove(post.getId());
 		}
 	}

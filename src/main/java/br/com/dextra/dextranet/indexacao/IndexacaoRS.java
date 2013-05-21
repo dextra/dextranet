@@ -11,6 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import br.com.dextra.dextranet.conteudo.Conteudo;
 import br.com.dextra.dextranet.conteudo.post.Post;
 import br.com.dextra.dextranet.conteudo.post.PostRepository;
 import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
@@ -39,7 +40,7 @@ public class IndexacaoRS {
 
 			Query postQuery = buildPostQuery(query);
 			List<Post> posts = repositorioDeIndex.buscar(Post.class, postQuery);
-			for (Post post : posts) {
+			for (Conteudo post : posts) {
 				ret.add(repositorioDePosts.obtemPorId(post.getId()));
 			}
 
