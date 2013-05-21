@@ -7,6 +7,8 @@ import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Test;
 
+import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
+import br.com.dextra.dextranet.conteudo.post.comentario.ComentarioRepository;
 import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
@@ -46,8 +48,7 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		int pagina1 = 1;
 		int pagina2 = 2;
 
-		EntidadeOrdenacao dataAtualizacaoDescentente = new EntidadeOrdenacao(PostFields.dataDeAtualizacao.name(),
-				SortDirection.DESCENDING);
+		EntidadeOrdenacao dataAtualizacaoDescentente = new EntidadeOrdenacao(PostFields.dataDeAtualizacao.name(), SortDirection.DESCENDING);
 
 		Post post01 = new Post("dextranet", "titulo 01", "conteudo 01");
 		repositorio.persiste(post01);
@@ -78,6 +79,20 @@ public class PostRepositoryTest extends TesteIntegracaoBase {
 		Assert.assertEquals(post03, postsPagina02.get(0));
 		Assert.assertEquals(post02, postsPagina02.get(1));
 		Assert.assertEquals(post01, postsPagina02.get(2));
+	}
+
+	@Test
+	public void testaRemocaoComentariosPorPost() {
+		Post post01 = new Post("dextranet", "titulo 01", "conteudo 01");
+		repositorio.persiste(post01);
+
+		Comentario c = new Comentario(post01.getId(), "username", "conteudo");
+		ComentarioRepository repositorioDeComentarios = new ComentarioRepository();
+		repositorioDeComentarios.persiste(c);
+		repositorio.remove(post01.getId());
+
+		Assert.assertEquals(0, repositorioDeComentarios.listaPorPost(post01.getId()).size());
+
 	}
 
 }

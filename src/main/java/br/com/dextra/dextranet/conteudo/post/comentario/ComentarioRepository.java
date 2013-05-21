@@ -31,6 +31,13 @@ public class ComentarioRepository extends EntidadeRepository {
 		indexacao.removeIndexacao(Comentario.class.getName(), id);
 	}
 
+	public void removeComentariosPost(String postId) {
+		List<Comentario> comentarios = listaPorPost(postId);
+		for (Comentario comentario : comentarios) {
+			remove(comentario.getId());
+		}
+	}
+
 	public Comentario obtemPorId(String id) throws EntityNotFoundException {
 		Entity comentario = super.obtemPorId(id, Comentario.class);
 		return new Comentario(comentario);
