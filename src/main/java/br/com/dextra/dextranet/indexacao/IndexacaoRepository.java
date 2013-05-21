@@ -37,8 +37,8 @@ public class IndexacaoRepository extends EntidadeRepository {
 
 		try {
 			Constructor<T> constructor = clazz.getDeclaredConstructor(Entity.class);
-			for (ScoredDocument commentDocument : results) {
-				String id = commentDocument.getFields("id").iterator().next().getText();
+			for (ScoredDocument doc : results) {
+				String id = doc.getFields("id").iterator().next().getText();
 				Entity entity = obtemPorId(id, clazz);
 				ret.add(constructor.newInstance(entity));
 			}

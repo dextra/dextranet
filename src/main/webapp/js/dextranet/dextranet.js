@@ -17,7 +17,7 @@ var dextranet = {
 			if (!query) {
 				var messageError = $.i18n.messages.post_mensagem_busca_campo_vazio;
 				$('.message').message(messageError, 'warning', true);
-				return;
+				return false;
 			}
 
 			$.ajax({
@@ -29,7 +29,7 @@ var dextranet = {
 					if (posts.length == 0) {
 						var messageError = $.i18n.messages.mensagem_nenhum_registro;
 						$('.message').message(messageError, 'warning', true);
-						return;
+						return false;
 					}
 
 					$.holy("../template/dinamico/post/lista_posts.xml", { posts : posts,
@@ -42,6 +42,8 @@ var dextranet = {
     				dextranet.processaErroNaRequisicao(jqXHR);
     			}
 			});
+			
+			return false;
 		},
 
 		ativaMenu : function (menuClass) {

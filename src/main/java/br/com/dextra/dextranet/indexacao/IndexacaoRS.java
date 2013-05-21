@@ -1,5 +1,6 @@
 package br.com.dextra.dextranet.indexacao;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -59,7 +60,8 @@ public class IndexacaoRS {
 				SortExpression.newBuilder()
 				.setExpression("data")
 				.setDirection(SortExpression.SortDirection.DESCENDING)
-				.setDefaultValue("")).setLimit(Application.LIMITE_REGISTROS_FULL_TEXT_SEARCH)
+				.setDefaultValueDate(new Date()))
+				.setLimit(Application.LIMITE_REGISTROS_FULL_TEXT_SEARCH)
 				.build();
 
 		QueryOptions options = QueryOptions.newBuilder().setLimit(Application.LIMITE_REGISTROS_FULL_TEXT_SEARCH).setSortOptions(sortOptions).build();

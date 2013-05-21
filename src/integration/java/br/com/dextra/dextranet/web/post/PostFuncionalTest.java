@@ -1,6 +1,9 @@
 package br.com.dextra.dextranet.web.post;
 
 import junit.framework.Assert;
+
+import org.junit.Test;
+
 import br.com.dextra.teste.TesteFuncionalBase;
 
 public class PostFuncionalTest extends TesteFuncionalBase {
