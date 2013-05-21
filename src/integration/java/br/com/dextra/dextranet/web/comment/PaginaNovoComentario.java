@@ -12,7 +12,7 @@ public class PaginaNovoComentario extends PaginaBase {
 	}
 
 	public PaginaNovoComentario redigeConteudoDoComentario(String conteudo) {
-		this.redigeConteudoComentario(conteudo, idConteudoComentario);
+		this.redigeConteudoTextArea(conteudo, idConteudoComentario);
 
 		return this;
 	}
