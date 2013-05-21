@@ -12,7 +12,6 @@ public class PostFuncionalTest extends TesteFuncionalBase {
 
 	@Test
 	public void criarNovoPost() {
-		paginaNovoPost.waitToLoad(10000);
 		dadoQueUsuarioAcessaPaginaPrincipal();
 
 		String titulo = "Titulo de Teste";
