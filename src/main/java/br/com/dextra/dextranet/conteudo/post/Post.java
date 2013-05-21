@@ -80,11 +80,6 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 	public List<Comentario> getComentarios() {
 		return comentarios;
 	}
-	
-	public void registraDataDeMigracao(Date data) {
-		super.registraDataDeMigracao(data);
-		this.dataDeAtualizacao = data;
-	}
 
 	@Override
 	public Entity toEntity() {
@@ -111,13 +106,11 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 
 	@Override
 	public Document toDocument() {
-		Document document = Document.newBuilder()
+		Document document = Document.newBuilder().setId(id)
 				.addField(Field.newBuilder().setName(PostFields.id.name()).setText(id))
-				.addField(Field.newBuilder().setName("data").setDate(dataDeCriacao))
 				.addField(Field.newBuilder().setName(PostFields.titulo.name()).setText(titulo))
 				.addField(Field.newBuilder().setName(PostFields.conteudo.name()).setHTML(conteudo))
-				.addField(Field.newBuilder().setName(PostFields.usuario.name()).setText(usuario))
-				.build();
+				.addField(Field.newBuilder().setName(PostFields.usuario.name()).setText(usuario)).build();
 		return document;
 	}
 	

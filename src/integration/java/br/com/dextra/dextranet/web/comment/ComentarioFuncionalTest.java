@@ -4,7 +4,6 @@ import java.util.List;
 
 import junit.framework.Assert;
 
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -15,7 +14,6 @@ public class ComentarioFuncionalTest extends TesteFuncionalBase {
 	private PaginaNovoPost paginaNovoPost = null;
 	private String tituloPost;
 
-	@Test
 	public void criarComentario() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
 		eCriouUmPost();

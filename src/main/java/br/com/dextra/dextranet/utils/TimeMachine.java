@@ -6,10 +6,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import br.com.dextra.dextranet.rest.config.Application;
+
 import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.google.appengine.repackaged.org.joda.time.DateTimeZone;
-
-import br.com.dextra.dextranet.rest.config.Application;
 
 public class TimeMachine {
 
@@ -23,13 +23,13 @@ public class TimeMachine {
 
 	public Date dataAtual() {
 		
-		DateTimeZone zone = DateTimeZone.forID("Europe/London"); 
+		DateTimeZone zone = DateTimeZone.forID("America/Sao_Paulo"); 
 		DateTime dateTime = new DateTime(zone);
 		
-		return dateTime.toDate();
+		return dateTime.toLocalDateTime().toDateTime().toDate();
 		
 	}
-
+	
 	public Date inicioDoDia(Date data) {
 		Calendar inicioDoDia = new GregorianCalendar();
 		inicioDoDia.setTime(data);
