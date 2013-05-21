@@ -75,6 +75,7 @@ dextranet.post = {
 		curtir : function(postId) {
 			$.ajax( {
 				type : "POST",
+				loading : false,
 				url : "/s/post/"+postId+"/curtida",
 				contentType : dextranet.application_json,
 				success : function(qtdCurtidas) {
@@ -182,6 +183,7 @@ dextranet.post = {
 		curtirComentario : function(postId, comentarioId) {
 			$.ajax( {
 				type : "POST",
+				loading : false,
 				url : "/s/post/"+postId+"/"+comentarioId+"/curtida",
 				contentType : dextranet.application_json,
 				success : function(qtdCurtidas) {

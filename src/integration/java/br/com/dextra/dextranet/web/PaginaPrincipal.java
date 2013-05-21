@@ -36,15 +36,20 @@ public class PaginaPrincipal extends PaginaBase {
 
 	public PaginaNovoComentario clicaEmNovoComentario(String tituloPost) {
 		List<WebElement> htmlPostsEncontrados = driver.findElements(By.cssSelector("div#content_left_stretch ul#relacao_dos_posts.list_stories"));
-
+		String idConteudoComentario = "";
 		for (WebElement htmlPost : htmlPostsEncontrados) {
 			WebElement htmlTitulo = htmlPost.findElement(By.cssSelector("a.list_stories_headline h2.titulo"));
+			idConteudoComentario = htmlTitulo.getAttribute("class").split(" ")[1];
 			if (htmlTitulo.getText().equals(tituloPost)) {
 				htmlPost.findElement(By.cssSelector("a.list_stories_headline")).click();
+				break;
 			}
 		}
 
-		return new PaginaNovoComentario(driver);
+		PaginaNovoComentario paginaNovoComentario = new PaginaNovoComentario(driver);
+		paginaNovoComentario.setIdConteudoComentario(idConteudoComentario);
+
+		return paginaNovoComentario;
 	}
 
 	public PaginaPrincipal scrollAteFim() {
