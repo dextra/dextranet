@@ -13,7 +13,7 @@
 					{if comentario.usuario == dextranet.usuario.logado.username}
 					<button class="btn btn-small btn-light btn-excluirpost"
 						title="Excluir este comentário"
-						onclick="dextranet.post.removerComentario('${postId}', '${comentario.id}'), slide_up();">
+						onclick="dextranet.post.removerComentario('${postId}', '${comentario.id}')">
 						<strong>x </strong>
 						${messages.botao_excluir}
 					</button>
@@ -35,16 +35,6 @@
 		</li>
 		<script type="text/javascript">
 			<![CDATA[
-
-				function slide_up(){
-
-					$('li#'+'${comentario.id}').slideUp(function(){
-						$(this).remove();
-						$total_comentarios = $('a.' + '${postId}' + ' span.numero_comentario');
-						$total_comentarios.text(parseInt($total_comentarios.text())-1);
-					});
-				}
-
 				//Lista novo comentário
 				$comentario = $('li#' + '${postId}' + ' ul.list_stories_comments' + ' li.'+'${comentario.id}');
 				$('li.'+'${comentario.id}').remove();
