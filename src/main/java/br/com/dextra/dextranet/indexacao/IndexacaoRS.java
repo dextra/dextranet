@@ -18,6 +18,7 @@ import br.com.dextra.dextranet.excecoes.HttpException;
 import br.com.dextra.dextranet.rest.config.Application;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.search.IndexSpec;
 import com.google.appengine.api.search.Query;
 import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.SearchQueryException;
@@ -68,5 +69,11 @@ public class IndexacaoRS {
 		return Query.newBuilder().setOptions(options).build(queryString);
 
 	}
-
+	
+	@GET
+	@Path("/delete")
+	public void apagarIndicesFTS(){
+		repositorioDeIndex.apagaIndices("br.com.dextra.dextranet.conteudo.post.Post");
+		repositorioDeIndex.apagaIndices(Comentario.class.getName());
+	}
 }

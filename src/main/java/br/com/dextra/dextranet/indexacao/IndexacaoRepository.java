@@ -53,5 +53,9 @@ public class IndexacaoRepository extends EntidadeRepository {
 	public <T extends Conteudo> List<T> buscar(Class<T> clazz, String query) {
 		return buscar(clazz, Query.newBuilder().build(query));
 	}
+	
+	public void apagaIndices(String kind){
+		IndexFacade.getIndex(kind).deleteSchema();
+	}
 
 }
