@@ -20,7 +20,8 @@ public class TesteFuncionalBase extends TesteIntegracaoBase {
 
 	@BeforeClass
 	public static void setup() {
-		TesteIntegracaoBase.startJetty = true;
+		server.enableAuthentication(true, false);
+		server.enableJetty(8080);
 		TesteIntegracaoBase.setup();
 
 		environment = EnvironmentFactory.createEnvironment();
@@ -30,7 +31,6 @@ public class TesteFuncionalBase extends TesteIntegracaoBase {
 	@AfterClass
 	public static void shutdown() throws IOException {
 		driver.quit();
-
 		TesteIntegracaoBase.shutdown();
 	}
 

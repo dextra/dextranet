@@ -1,10 +1,8 @@
 package br.com.dextra.teste;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
@@ -26,8 +24,6 @@ import br.com.dextra.teste.container.GAETestServer;
 public class TesteIntegracaoBase {
 
 	protected static GAETestServer server = new GAETestServer();
-	
-	protected static Boolean startJetty = false;
 
 	private static final boolean noStorage = true;
 
@@ -36,15 +32,11 @@ public class TesteIntegracaoBase {
 		server.enableDatastore(noStorage);
 		server.enableSearch();
 		server.start();
-		if(startJetty) {
-			server.enableJetty();
-		}
 	}
 
 	@AfterClass
 	public static void shutdown() throws IOException {
 		server.stop();
-		FileUtils.deleteDirectory(new File("WEB-INF"));
 	}
 
 	public void limpaPostsInseridos(PostRepository repositorioDePosts) {
