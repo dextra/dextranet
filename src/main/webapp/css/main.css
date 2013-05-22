@@ -1,8 +1,8 @@
 /*----------  Resets  ----------*/
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,
+html,body,div,span,applet,object,iframe,h1.title,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,
 q,s,samp,small,strike,strong,sub,sup, tt,var,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,input,button,table,caption,tbody,tfoot,thead,tr,th,td
 {margin:0;padding:0;border:0;outline:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;}
-h1,h2,h3,h4,h5,h6,body{margin:0;}
+h1.title,h2,h3,h4,h5,h6,body{margin:0;}
 ol,ul{list-style-position:inside;}
 blockquote,q{quotes:none;}
 blockquote:before,blockquote:after,q:before,q:after{content:'';content:none;}
@@ -83,14 +83,14 @@ a:hover{color:#d66a00; cursor:pointer;}
 
 p{padding-bottom:18px; line-height:18px;}
 
-h1,
+h1.title,
 h2,
 h3,
 h4,
 h5,
 h6{color:#4e4846;margin-top:0;margin-bottom:20px;font-weight:bold;}
 
-h1{color:#0066a2;font-size:18px;font-weight:bold;margin-bottom:20px;}
+h1.title{color:#0066a2;font-size:18px;font-weight:bold;margin-bottom:20px;}
 
 small{font-size:70%;}
 

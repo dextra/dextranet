@@ -150,14 +150,12 @@
 				//$(this).parents('li').find('.list_stories_newcomment textarea').focus();
 			});
 
-			{if idPost && typeof idPost != "object"}
-				itemComentario = $('#${idPost}');
-				var item = itemComentario.find('.list_stories_headline');
-				item.click();
+			{if busca}
+				dextranet.paginacao.complete = false;
+			{else}
+				dextranet.paginacao.complete = true;
+				dextranet.paginacao.paginar();
 			{/if}
-
-			dextranet.paginacao.complete = true;
-			dextranet.paginacao.paginar();
 
 			//Tooltips
 			$('div.avatar-frame').tipsy();

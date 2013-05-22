@@ -35,7 +35,7 @@
 		</ul>
 	</template>
 	<script>
-		$("#button_sidebar_left_home").click(function(){dextranet.post.listar(null, 1)});
+		$("#button_sidebar_left_home").click(function(){dextranet.post.listar(1)});
 		$("#button_sidebar_left_novopost").click(dextranet.post.novo);
 		$("#button_sidebar_left_new_banner").click(dextranet.banner.novo);
 		$("#button_sidebar_left_profile").click(dextranet.usuario.editar);

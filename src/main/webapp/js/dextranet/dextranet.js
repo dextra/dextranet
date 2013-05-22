@@ -31,9 +31,8 @@ var dextranet = {
 						$('.message').message(messageError, 'warning', true);
 						return false;
 					}
-
-					$.holy("../template/dinamico/post/lista_posts.xml", { posts : posts,
-																		  idPost : null,
+					$.holy("../template/dinamico/post/lista_posts.xml", { busca : true,
+																		  posts : posts,
 																		  gravatar : dextranet.gravatarUrl });
 					dextranet.ativaMenu("sidebar_left_home");
 

@@ -10,6 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import br.com.dextra.dextranet.conteudo.Conteudo;
 import br.com.dextra.dextranet.conteudo.post.Post;
@@ -52,21 +53,18 @@ public class IndexacaoRS {
 
 			return Response.ok().entity(ret).build();
 		} catch (SearchQueryException e) {
-			throw new HttpException(500);
+			throw new HttpException(Status.INTERNAL_SERVER_ERROR);
 		} catch (EntityNotFoundException e) {
-			throw new HttpException(404);
+			throw new HttpException(Status.NOT_FOUND);
 		}
 	}
 
 	private Query criarOpcoesOrdenacaoPosts(String query) {
 		Builder sortOptions = SortOptions.newBuilder();
-		sortOptions.addSortExpression(
-				SortExpression.newBuilder()
-				.setExpression(PostFields.dataDeCriacao.name())
-				.setDirection(SortExpression.SortDirection.DESCENDING)
-				.setDefaultValueDate(new Date()))
-				.setLimit(Application.LIMITE_REGISTROS_FULL_TEXT_SEARCH)
-				.build();
+		sortOptions
+				.addSortExpression(
+						SortExpression.newBuilder().setExpression(PostFields.dataDeCriacao.name()).setDirection(SortExpression.SortDirection.DESCENDING)
+								.setDefaultValueDate(new Date())).setLimit(Application.LIMITE_REGISTROS_FULL_TEXT_SEARCH).build();
 
 		QueryOptions options = QueryOptions.newBuilder().setLimit(Application.LIMITE_REGISTROS_FULL_TEXT_SEARCH).setSortOptions(sortOptions).build();
 		return Query.newBuilder().setOptions(options).build(query);
