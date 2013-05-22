@@ -333,7 +333,8 @@ form input.link { width: 476px;}
 .list_stories_date{font-size:12px;font-style:italic;display:inline-block;padding-top:1px;margin-left:5px;cursor:default;}
 .list_stories_lead,
 .list_stories_contents{text-shadow:0 1px 1px #fff;font-size:12px;font-family:arial;color:#505153;line-height:18px;}
-.btn-excluirpost{float:right;}
+.btn-excluirpost {float:right;}
+.btn-excluir-comentario {float:right;}
 
 .list_stories_comments {list-style:none outside none;margin:25px 0 15px;}
 .list_stories_comments li{margin-bottom:20px;position:relative;}
