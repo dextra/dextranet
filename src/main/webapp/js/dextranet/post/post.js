@@ -50,9 +50,10 @@ dextranet.post = {
 					if(posts != null && posts.length > 0){
 						dextranet.post.foundPosts = dextranet.post.foundPosts.concat(posts);
 					}
-						$.holy("../template/dinamico/post/lista_posts.xml", { posts : dextranet.post.foundPosts,
+						$.holy("../template/dinamico/post/lista_posts.xml", { busca : false,
+																			  posts : dextranet.post.foundPosts,
 							  												  gravatar : dextranet.gravatarUrl,
-							  												  idPost : idPost});
+							  												  idPost : idPost });
 						dextranet.ativaMenu("sidebar_left_home");
 					
 				},

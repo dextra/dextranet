@@ -155,9 +155,10 @@
 				var item = itemComentario.find('.list_stories_headline');
 				item.click();
 			{/if}
-
 			
-			{if ! defined('busca')}
+			{if busca}
+				dextranet.paginacao.complete = false;
+			{else}
 				dextranet.paginacao.complete = true;
 				dextranet.paginacao.paginar();
 			{/if}
