@@ -21,13 +21,13 @@ public class TimeMachine {
 
 	private SimpleDateFormat formatoData = new SimpleDateFormat(DATA, Application.BRASIL);
 
+	private DateTimeZone americaSaoPaulo = DateTimeZone.forID("America/Sao_Paulo");
+
 	public Date dataAtual() {
-		DateTimeZone zone = DateTimeZone.forID("America/Sao_Paulo"); 
-		DateTime dateTime = new DateTime(zone);
-		
+		DateTime dateTime = new DateTime(americaSaoPaulo);
 		return dateTime.toLocalDateTime().toDateTime().toDate();
 	}
-	
+
 	public Date inicioDoDia(Date data) {
 		Calendar inicioDoDia = TimeMachine.getSaoPauloCalendar();
 		inicioDoDia.setTime(data);
@@ -36,7 +36,7 @@ public class TimeMachine {
 		inicioDoDia.set(Calendar.SECOND, 0);
 		inicioDoDia.set(Calendar.MILLISECOND, 0);
 
-		return inicioDoDia.getTime();
+		return new DateTime(inicioDoDia.getTimeInMillis(), americaSaoPaulo).toLocalDateTime().toDateTime().toDate();
 	}
 
 	public Date fimDoDia(Date data) {
@@ -46,7 +46,7 @@ public class TimeMachine {
 		fimDoDia.set(Calendar.MINUTE, 59);
 		fimDoDia.set(Calendar.SECOND, 59);
 		fimDoDia.set(Calendar.MILLISECOND, 99);
-		return fimDoDia.getTime();
+		return new DateTime(fimDoDia.getTimeInMillis(), americaSaoPaulo).toLocalDateTime().toDateTime().toDate();
 	}
 
 	public String formataData(Date data) {
@@ -75,7 +75,7 @@ public class TimeMachine {
 		diasPraFrente.setTime(data);
 		diasPraFrente.add(Calendar.DAY_OF_MONTH, dias);
 
-		return diasPraFrente.getTime();
+		return new DateTime(diasPraFrente.getTimeInMillis(), americaSaoPaulo).toLocalDateTime().toDateTime().toDate();
 	}
 
 	public Date diasParaAtras(int dias) {
@@ -87,7 +87,7 @@ public class TimeMachine {
 		diasPraFrente.setTime(data);
 		diasPraFrente.add(Calendar.DAY_OF_MONTH, dias * -1);
 
-		return diasPraFrente.getTime();
+		return new DateTime(diasPraFrente.getTimeInMillis(), americaSaoPaulo).toLocalDateTime().toDateTime().toDate();
 	}
 
 	public static GregorianCalendar getSaoPauloCalendar() {
