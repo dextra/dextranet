@@ -13,7 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.*/
 
 (function($) {
-	
+
 	jQuery.pushLoading = function(opts) {
 		if (!$('.loading').length) {
 			$('body').append('<div class="loading"><div class="load"></div><div class="overlay"></div></div>');
@@ -33,7 +33,7 @@ limitations under the License.*/
 		}
 		$('.loading').data('loading-ajax-stack', stack);
 	}
-	
+
 	jQuery.popLoading = function(opts) {
 		if (!$('.loading').length) {
 			throw 'dom .loading not found';
@@ -49,19 +49,19 @@ limitations under the License.*/
 		stack--;
 		$('.loading').data('loading-ajax-stack', stack);
 	}
-	
+
 	jQuery.loading = function(opts) {
 
 		var bgOver = opts.overlay;
 		if (!bgOver) {
 			bgOver = '#000000'
 		}
-		
+
 		var overOpacity = opts.opacity;
 		if (!overOpacity) {
 			overOpacity = '50'
 		}
-		
+
 		$('body').ajaxSend(function(evt, xhr, ajax) {
 			if (!ajax.loading) {
 				return;

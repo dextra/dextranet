@@ -36,7 +36,7 @@ public class PaginaPrincipal extends PaginaBase {
 
 	public PaginaNovoComentario clicaEmNovoComentario(String tituloPost) {
 		List<WebElement> htmlPostsEncontrados = driver.findElements(By.cssSelector("div#content_left_stretch ul#relacao_dos_posts.list_stories"));
-		String idConteudoComentario = "idConteudo_";
+		String idConteudoComentario = "";
 		for (WebElement htmlPost : htmlPostsEncontrados) {
 			WebElement htmlTitulo = htmlPost.findElement(By.cssSelector("a.list_stories_headline h2.titulo"));
 			idConteudoComentario += htmlTitulo.getAttribute("class").split(" ")[1];
@@ -47,7 +47,7 @@ public class PaginaPrincipal extends PaginaBase {
 		}
 
 		PaginaNovoComentario paginaNovoComentario = new PaginaNovoComentario(driver);
-		paginaNovoComentario.setIdConteudoComentario(idConteudoComentario);
+		paginaNovoComentario.setIdTextAreaComentario(idConteudoComentario);
 
 		return paginaNovoComentario;
 	}

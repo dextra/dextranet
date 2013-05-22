@@ -4,6 +4,7 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -15,53 +16,60 @@ public class ComentarioFuncionalTest extends TesteFuncionalBase {
 	private String tituloPost;
 	private PaginaNovoComentario paginaNovoComentario;
 
-	public void criarComentario() {
+	@Test
+	public void testComentario() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
-		eCriouUmPost();
-		depoisDeCriarPostCriaComentario();
-		entaoChecaSeComentarioInserido();
+		eleCriaPost();
+		eleCriaComentarioParaPost();
+		eChecaSeComentarioFoiInserido();
+		eleCurteComentario();
+		eChecaSeComentarioFoiCurtido();
+		eleExcluiComentario();
+		eChecaSeComentarioFoiExcluido();
 	}
 
-	private void entaoChecaSeComentarioInserido() {
-		List<WebElement> htmlComentariosEncontrados = driver.findElements(By.cssSelector("ul.list_stories_comments li.clearfix div.content p.wordwrap"));
-		Assert.assertTrue(htmlComentariosEncontrados.size() > 0);
+	private void eChecaSeComentarioFoiExcluido() {
+		Assert.assertFalse(existeComentario());
 	}
 
-	private void depoisDeCriarPostCriaComentario() {
-		paginaNovoComentario = paginaPrincipal.clicaEmNovoComentario(tituloPost);
-		String conteudo = "Texto do comentário.";
-		paginaNovoComentario.criaNovoComentario(conteudo);
-	}
-
-	public void curtirUmComentario() {
-		dadoQueUsuarioAcessaPaginaPrincipal();
-		eCriouUmPost();
-		depoisDeCriarPostCriaComentario();
-		eleCurteUmComentario();
-		eTentaCurtirNovamente();
-		eOComentarioFoiCurtidoApenasUmaVez();
-	}
-
-	private void eOComentarioFoiCurtidoApenasUmaVez() {
-		WebElement curtidas = driver
-				.findElement(By.cssSelector("#relacao_dos_comentarios .linkCurtir .numero_curtida"));
-		Assert.assertEquals("1", curtidas.getText().toString());
-	}
-
-	private void eTentaCurtirNovamente() {
-		eleCurteUmComentario();
-	}
-
-	private void eleCurteUmComentario() {
-		paginaPrincipal.click("#relacao_dos_comentarios .linkCurtir");
+	private void eleExcluiComentario() {
+		String botaoExcluir = "div.content .comment-data button.btn-excluir-comentario";
+		paginaPrincipal.click(botaoExcluir);
 		paginaPrincipal.waitingForLoading();
 	}
 
-	protected void eCriouUmPost() {
+	protected void eleCriaPost() {
 		tituloPost = "Titulo de Teste";
 		String conteudo = "Texto do teste";
 
 		paginaNovoPost = paginaPrincipal.clicaEmNovoPost();
 		paginaNovoPost.criarNovoPost(tituloPost, conteudo);
+	}
+
+	private void eleCriaComentarioParaPost() {
+		paginaNovoComentario = paginaPrincipal.clicaEmNovoComentario(tituloPost);
+		String conteudo = "Texto do comentário.";
+		paginaNovoComentario.criaNovoComentario(conteudo);
+	}
+
+	private void eleCurteComentario() {
+		String linkCurtir = "div.content .comment-data .list_stories_dx .linkCurtir .icon_dx";
+		paginaPrincipal.click(linkCurtir);
+		paginaPrincipal.waitingForLoading();
+	}
+
+	private void eChecaSeComentarioFoiInserido() {
+		Assert.assertTrue(existeComentario());
+	}
+
+	private Boolean existeComentario() {
+		List<WebElement> htmlComentariosEncontrados = driver.findElements(By.cssSelector("ul.list_stories_comments li.clearfix div.content p.wordwrap"));
+		return (htmlComentariosEncontrados.size() > 0);
+	}
+
+	private void eChecaSeComentarioFoiCurtido() {
+		String numeroCurtida = "div.content .comment-data .list_stories_dx .showLikes .numero_curtida";
+		WebElement curtidas = driver.findElement(By.cssSelector(numeroCurtida));
+		Assert.assertEquals("1", curtidas.getText());
 	}
 }
