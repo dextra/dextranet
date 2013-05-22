@@ -1,4 +1,4 @@
-package br.com.dextra.teste;
+package br.com.dextra.dextranet;
 
 import java.io.IOException;
 
@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import br.com.dextra.dextranet.web.PaginaPrincipal;
 import br.com.dextra.expertus.EnvironmentFactory;
 import br.com.dextra.expertus.environment.Environment;
+import br.com.dextra.teste.TesteIntegracaoBase;
 
 public class TesteFuncionalBase extends TesteIntegracaoBase {
 
@@ -20,7 +21,8 @@ public class TesteFuncionalBase extends TesteIntegracaoBase {
 
 	@BeforeClass
 	public static void setup() {
-		TesteIntegracaoBase.startJetty = true;
+		server.enableAuthentication(true, false);
+		server.enableJetty(8080);
 		TesteIntegracaoBase.setup();
 
 		environment = EnvironmentFactory.createEnvironment();
@@ -30,7 +32,6 @@ public class TesteFuncionalBase extends TesteIntegracaoBase {
 	@AfterClass
 	public static void shutdown() throws IOException {
 		driver.quit();
-
 		TesteIntegracaoBase.shutdown();
 	}
 

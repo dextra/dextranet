@@ -56,7 +56,7 @@ public class PostRepository extends EntidadeRepository {
 
 	private void buscaComentariosPost(String id, Post post) {
 		List<Comentario> comentarios = new ComentarioRepository().listaPorPost(id);
-		post.addComentarios(comentarios);
+		post.adicionarComentarios(comentarios);
 	}
 
 }

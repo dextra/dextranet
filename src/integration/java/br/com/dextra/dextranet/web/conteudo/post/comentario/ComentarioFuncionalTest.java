@@ -1,4 +1,4 @@
-package br.com.dextra.dextranet.web.comment;
+package br.com.dextra.dextranet.web.conteudo.post.comentario;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import junit.framework.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import br.com.dextra.dextranet.web.post.PaginaNovoPost;
-import br.com.dextra.teste.TesteFuncionalBase;
+import br.com.dextra.dextranet.TesteFuncionalBase;
+import br.com.dextra.dextranet.web.conteudo.post.PaginaNovoPost;
 
 public class ComentarioFuncionalTest extends TesteFuncionalBase {
 	private PaginaNovoPost paginaNovoPost = null;

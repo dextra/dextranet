@@ -1,8 +1,12 @@
 package br.com.dextra.teste.container;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
+
+import org.apache.commons.io.FileUtils;
 
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalSearchServiceTestConfig;
@@ -21,12 +25,13 @@ public class GAETestServer {
 	private LocalServiceTestHelper gaeTestHelper;
 
 	private List<LocalServiceTestConfig> gaeConfigurations = new ArrayList<LocalServiceTestConfig>();
-	
-	private MyContainerGAEHelper myContainerGAEHelper = new MyContainerGAEHelper();
 
 	private boolean authenticationEnabled = true;
 	private boolean userLoggedIn = true;
 	private boolean userIsAdmin = false;
+
+	private boolean jettyIsEnabled = false;
+	private int jettyPort = 8080;
 
 	public void start() {
 		gaeTestHelper = new LocalServiceTestHelper(
@@ -42,11 +47,15 @@ public class GAETestServer {
 		gaeTestHelper.setTimeZone(TimeZone.getTimeZone("America/Sao_Paulo"));
 
 		gaeTestHelper.setUp();
+
+		if (jettyIsEnabled) {
+			this.startJetty();
+		}
 	}
 
-	public void stop() {
+	public void stop() throws IOException {
 		gaeTestHelper.tearDown();
-		myContainerGAEHelper.shutdownMycontainer();
+		FileUtils.deleteDirectory(new File("WEB-INF"));
 	}
 
 	public void enableDatastore(boolean noStorage) {
@@ -71,8 +80,12 @@ public class GAETestServer {
 	}
 	
 
-	public void enableJetty() {
-		
+	public void enableJetty(int port) {
+		this.jettyIsEnabled = true;
+		this.jettyPort = port;
+	}
+
+	private void startJetty() {
 		ContainerBuilder builder;
 		try {
 			builder = new ContainerBuilder();
@@ -80,7 +93,7 @@ public class GAETestServer {
 	
 			WebServerDeployer server = builder.createDeployer(JettyServerDeployer.class);
 			server.setName("WebServer");
-			server.bindPort(8080);
+			server.bindPort(this.jettyPort);
 	
 			ContextWebServer web = server.createContextWebServer();
 			web.setContext("/");

@@ -42,6 +42,7 @@ public class TimeMachine {
 		try {
 			return formatoDataHora.parse(inicioDoDia.getTime().toString());
 		} catch (ParseException e) {
+			// FIXME: medo!
 			e.printStackTrace();
 		}
 		return inicioDoDia.getTime();
@@ -57,6 +58,7 @@ public class TimeMachine {
 
 		formatoDataHora.setTimeZone(Application.SAO_PAULO);
 		try {
+			// FIXME: medo!
 			return formatoDataHora.parse(fimDoDia.getTime().toString());
 		} catch (ParseException e) {
 			e.printStackTrace();

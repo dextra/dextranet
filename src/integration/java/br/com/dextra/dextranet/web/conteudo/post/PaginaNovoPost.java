@@ -1,8 +1,8 @@
-package br.com.dextra.dextranet.web.post;
+package br.com.dextra.dextranet.web.conteudo.post;
 
 import org.openqa.selenium.WebDriver;
 
-import br.com.dextra.teste.PaginaBase;
+import br.com.dextra.dextranet.PaginaBase;
 
 public class PaginaNovoPost extends PaginaBase {
 

@@ -1,15 +1,14 @@
 package br.com.dextra.teste;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 import br.com.dextra.dextranet.banner.Banner;
 import br.com.dextra.dextranet.banner.BannerRepository;
+import br.com.dextra.dextranet.conteudo.Conteudo;
 import br.com.dextra.dextranet.conteudo.post.Post;
 import br.com.dextra.dextranet.conteudo.post.PostRepository;
 import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
@@ -25,8 +24,6 @@ import br.com.dextra.teste.container.GAETestServer;
 public class TesteIntegracaoBase {
 
 	protected static GAETestServer server = new GAETestServer();
-	
-	protected static Boolean startJetty = false;
 
 	private static final boolean noStorage = true;
 
@@ -35,20 +32,16 @@ public class TesteIntegracaoBase {
 		server.enableDatastore(noStorage);
 		server.enableSearch();
 		server.start();
-		if(startJetty) {
-			server.enableJetty();
-		}
 	}
 
 	@AfterClass
 	public static void shutdown() throws IOException {
 		server.stop();
-		FileUtils.deleteDirectory(new File("WEB-INF"));
 	}
 
 	public void limpaPostsInseridos(PostRepository repositorioDePosts) {
 		List<Post> postsCadastrados = repositorioDePosts.lista();
-		for (Post post : postsCadastrados) {
+		for (Conteudo post : postsCadastrados) {
 			repositorioDePosts.remove(post.getId());
 		}
 	}
