@@ -22,10 +22,8 @@ public class ComentarioFuncionalTest extends TesteFuncionalBase {
 		eleCriaPost();
 		eleCriaComentarioParaPost();
 		eChecaSeComentarioFoiInserido();
-
 		eleCurteComentario();
 		eChecaSeComentarioFoiCurtido();
-
 		eleExcluiComentario();
 		eChecaSeComentarioFoiExcluido();
 	}
