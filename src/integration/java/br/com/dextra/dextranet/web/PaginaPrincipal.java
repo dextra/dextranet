@@ -7,9 +7,9 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import br.com.dextra.dextranet.web.comment.PaginaNovoComentario;
-import br.com.dextra.dextranet.web.post.PaginaNovoPost;
-import br.com.dextra.teste.PaginaBase;
+import br.com.dextra.dextranet.PaginaBase;
+import br.com.dextra.dextranet.web.conteudo.post.PaginaNovoPost;
+import br.com.dextra.dextranet.web.conteudo.post.comentario.PaginaNovoComentario;
 
 public class PaginaPrincipal extends PaginaBase {
 

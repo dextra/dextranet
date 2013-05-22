@@ -1,15 +1,23 @@
-package br.com.dextra.dextranet.web.post;
+package br.com.dextra.dextranet.web.conteudo.post;
 
 import junit.framework.Assert;
 
+import org.junit.After;
 import org.junit.Test;
 
-import br.com.dextra.teste.TesteFuncionalBase;
+import br.com.dextra.dextranet.TesteFuncionalBase;
+import br.com.dextra.dextranet.conteudo.post.PostRepository;
 
 public class PostFuncionalTest extends TesteFuncionalBase {
 
 	private PaginaNovoPost paginaNovoPost = null;
 
+	@After
+	public void limpaDadosCriados() {
+		this.limpaPostsInseridos(new PostRepository());
+	}
+
+	@Test
 	public void criarNovoPost() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
 

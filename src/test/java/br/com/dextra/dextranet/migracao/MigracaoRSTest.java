@@ -6,7 +6,6 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import br.com.dextra.dextranet.conteudo.Conteudo;
 import br.com.dextra.dextranet.conteudo.post.Post;
 import br.com.dextra.dextranet.conteudo.post.PostRepository;
 import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
@@ -30,20 +29,23 @@ public class MigracaoRSTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testaInserirPost() throws EntityNotFoundException {
-		Conteudo post = rest.criaNovoPostParaMigracao(cincoDiasAtras, "username", "titulo", "conteudo");
-		Conteudo postMigrado = repositorioDePosts.obtemPorId(post.getId());
+		Post post = rest.criaNovoPostParaMigracao(cincoDiasAtras, "username", "titulo", "conteudo");
+		Post postMigrado = repositorioDePosts.obtemPorId(post.getId());
 
 		Assert.assertEquals("username", postMigrado.getUsuario());
 		Assert.assertEquals(cincoDiasAtras, postMigrado.getDataDeCriacao());
+		Assert.assertEquals(cincoDiasAtras, postMigrado.getDataDeAtualizacao());
 	}
 
 	@Test
 	public void testaInserirComentario() throws EntityNotFoundException {
-		Conteudo post = rest.criaNovoPostParaMigracao(cincoDiasAtras, "username", "titulo", "conteudo");
+		Post post = rest.criaNovoPostParaMigracao(cincoDiasAtras, "username", "titulo", "conteudo");
 		Comentario comentario = rest.criaNovoComentarioParaMigracao(post.getId(), quatroDiasAtras, "outro-usuario",
 				"conteudo");
 
 		Post postMigrado = repositorioDePosts.obtemPorId(post.getId());
+		Assert.assertEquals(quatroDiasAtras, postMigrado.getDataDeAtualizacao());
+
 		Comentario comentarioMigrado = repositorioDeComentarios.obtemPorId(comentario.getId());
 		Assert.assertEquals("outro-usuario", comentarioMigrado.getUsuario());
 		Assert.assertEquals(quatroDiasAtras, comentarioMigrado.getDataDeCriacao());

@@ -35,7 +35,7 @@ public class PostRS {
 	@POST
 	@Produces(Application.JSON_UTF8)
 	public Response inserir(@FormParam("titulo") String titulo, @FormParam("conteudo") String conteudo) {
-		Post post = new Post(obtemUsuarioLogado(), titulo, conteudo);
+		Post  post = new Post(obtemUsuarioLogado(), titulo, conteudo);
 		repositorioDePosts.persiste(post);
 		return Response.ok().entity(post).build();
 	}

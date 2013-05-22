@@ -48,7 +48,7 @@ public class MicroBlogRepositoryTest extends TesteIntegracaoBase {
 	@Test
 	public void testOrdemPosts() {
 		TimeMachine timeMachine = new TimeMachine();
-		Date inicioDoDia = timeMachine.inicioDoDia(new Date());
+		Date inicioDoDia = timeMachine.inicioDoDia(new TimeMachine().dataAtual());
 		Date fimDoDia = timeMachine.fimDoDia(inicioDoDia);
 		Date umDiaAtras = timeMachine.diasParaAtras(inicioDoDia, 1);
 

@@ -4,8 +4,6 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
-import br.com.dextra.dextranet.conteudo.post.comentario.ComentarioFields;
 import br.com.dextra.dextranet.utils.TimeMachine;
 import br.com.dextra.teste.TesteIntegracaoBase;
 

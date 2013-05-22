@@ -16,14 +16,17 @@ import com.google.appengine.api.search.Document;
 import com.google.appengine.api.search.Field;
 
 public class Post extends Conteudo implements ConteudoIndexavel {
+
 	private String titulo;
+
 	private Date dataDeAtualizacao;
+
 	private List<Comentario> comentarios;
 
 	public Post(String usuario, String titulo, String conteudo) {
 		super(usuario);
-		this.dataDeAtualizacao = new TimeMachine().dataAtual();
 		this.preenche(titulo, conteudo);
+		this.dataDeAtualizacao = this.dataDeCriacao;
 		comentarios = new ArrayList<Comentario>();
 	}
 
@@ -58,12 +61,22 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 		return titulo;
 	}
 
+	public long getQuantidadeDeComentarios() {
+		return comentarios.size();
+	}
+
 	public Date getDataDeAtualizacao() {
 		return dataDeAtualizacao;
 	}
 
-	public long getQuantidadeDeComentarios() {
-		return comentarios.size();
+	@Deprecated
+	public Comentario comentarParaMigracao(String username, String conteudo, Date data) {
+		Comentario comentario = new Comentario(this.id, username, new ConteudoHTML(conteudo).removeJavaScript());
+		comentario.registraDataDeMigracao(data);
+		this.dataDeAtualizacao = data;
+
+		comentarios.add(comentario);
+		return comentario;
 	}
 
 	public Comentario comentar(String username, String conteudo) {
@@ -72,7 +85,7 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 		return comentario;
 	}
 
-	public void addComentarios(List<Comentario> comentarios) {
+	public void adicionarComentarios(List<Comentario> comentarios) {
 		this.comentarios.clear();
 		this.comentarios.addAll(comentarios);
 	}
@@ -106,14 +119,16 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 
 	@Override
 	public Document toDocument() {
-		Document document = Document.newBuilder()
-				.addField(Field.newBuilder().setName(PostFields.id.name()).setText(id))
-				.addField(Field.newBuilder().setName("data").setDate(dataDeCriacao))
-				.addField(Field.newBuilder().setName(PostFields.titulo.name()).setText(titulo))
-				.addField(Field.newBuilder().setName(PostFields.conteudo.name()).setHTML(conteudo))
-				.addField(Field.newBuilder().setName(PostFields.usuario.name()).setText(usuario))
-				.build();
+		Document document = Document.newBuilder().addField(Field.newBuilder().setName(PostFields.id.name()).setText(id))
+				.addField(Field.newBuilder().setName(PostFields.dataDeCriacao.name()).setDate(dataDeCriacao))
+				.addField(Field.newBuilder().setName(PostFields.titulo.name()).setText(titulo)).addField(Field.newBuilder().setName(PostFields.conteudo.name()).setHTML(conteudo))
+				.addField(Field.newBuilder().setName(PostFields.usuario.name()).setText(usuario)).build();
 		return document;
 	}
-	
+
+	@Override
+	public void registraDataDeMigracao(Date data) {
+		super.registraDataDeMigracao(data);
+		this.dataDeAtualizacao = data;
+	}
 }

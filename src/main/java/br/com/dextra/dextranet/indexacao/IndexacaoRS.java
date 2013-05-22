@@ -11,7 +11,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import br.com.dextra.dextranet.conteudo.Conteudo;
 import br.com.dextra.dextranet.conteudo.post.Post;
+import br.com.dextra.dextranet.conteudo.post.PostFields;
 import br.com.dextra.dextranet.conteudo.post.PostRepository;
 import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
 import br.com.dextra.dextranet.excecoes.HttpException;
@@ -33,17 +35,17 @@ public class IndexacaoRS {
 	@GET
 	@Path("/")
 	@Produces(Application.JSON_UTF8)
-	public Response buscarConteudo(@QueryParam("query") String query) throws EntityNotFoundException, HttpException {
+	public Response buscarConteudo(@QueryParam("query") String query) throws HttpException {
 		try {
 			Set<Post> ret = new HashSet<Post>();
 
-			Query postQuery = buildPostQuery(query);
+			Query postQuery = criarOpcoesOrdenacaoPosts(query);
 			List<Post> posts = repositorioDeIndex.buscar(Post.class, postQuery);
-			for (Post post : posts) {
+			for (Conteudo post : posts) {
 				ret.add(repositorioDePosts.obtemPorId(post.getId()));
 			}
 
-			List<Comentario> comentarios = repositorioDeIndex.buscar(Comentario.class, query);
+			List<Comentario> comentarios = repositorioDeIndex.buscar(Comentario.class, postQuery);
 			for (Comentario comentario : comentarios) {
 				ret.add(repositorioDePosts.obtemPorId(comentario.getPostId()));
 			}
@@ -51,21 +53,23 @@ public class IndexacaoRS {
 			return Response.ok().entity(ret).build();
 		} catch (SearchQueryException e) {
 			throw new HttpException(500);
+		} catch (EntityNotFoundException e) {
+			throw new HttpException(404);
 		}
 	}
 
-	private Query buildPostQuery(String queryString) {
+	private Query criarOpcoesOrdenacaoPosts(String query) {
 		Builder sortOptions = SortOptions.newBuilder();
 		sortOptions.addSortExpression(
 				SortExpression.newBuilder()
-				.setExpression("data")
+				.setExpression(PostFields.dataDeCriacao.name())
 				.setDirection(SortExpression.SortDirection.DESCENDING)
 				.setDefaultValueDate(new Date()))
 				.setLimit(Application.LIMITE_REGISTROS_FULL_TEXT_SEARCH)
 				.build();
 
 		QueryOptions options = QueryOptions.newBuilder().setLimit(Application.LIMITE_REGISTROS_FULL_TEXT_SEARCH).setSortOptions(sortOptions).build();
-		return Query.newBuilder().setOptions(options).build(queryString);
+		return Query.newBuilder().setOptions(options).build(query);
 
 	}
 

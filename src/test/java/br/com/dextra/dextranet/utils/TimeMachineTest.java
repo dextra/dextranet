@@ -62,4 +62,5 @@ public class TimeMachineTest {
 
 		Assert.assertEquals("05/04/2013 00:00", timeMachine.formataData(diasPraTras));
 	}
+
 }

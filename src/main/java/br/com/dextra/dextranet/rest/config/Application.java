@@ -18,6 +18,8 @@ public class Application extends javax.ws.rs.core.Application {
 	public static final String JSON_UTF8 = "application/json;charset=UTF-8";
 
 	public static final Locale BRASIL = new Locale("pt", "BR");
+	
+	public static final String TIMEZONE_SAO_PAULO = "America/Sao_Paulo"; 
 
 	public static final String REGISTROS_POR_PAGINA = "20";
 

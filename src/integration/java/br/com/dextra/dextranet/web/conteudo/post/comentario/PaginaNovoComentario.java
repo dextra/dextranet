@@ -1,8 +1,8 @@
-package br.com.dextra.dextranet.web.comment;
+package br.com.dextra.dextranet.web.conteudo.post.comentario;
 
 import org.openqa.selenium.WebDriver;
 
-import br.com.dextra.teste.PaginaBase;
+import br.com.dextra.dextranet.PaginaBase;
 
 public class PaginaNovoComentario extends PaginaBase {
 	private String idConteudoComentario;

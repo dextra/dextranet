@@ -4,9 +4,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import br.com.dextra.dextranet.rest.config.Application;
+
+import com.google.appengine.repackaged.org.joda.time.DateTime;
+import com.google.appengine.repackaged.org.joda.time.DateTimeZone;
 
 public class TimeMachine {
 
@@ -17,14 +19,18 @@ public class TimeMachine {
 	private SimpleDateFormat formatoDataHora = new SimpleDateFormat(DATA_HORA, Application.BRASIL);
 
 	private SimpleDateFormat formatoData = new SimpleDateFormat(DATA, Application.BRASIL);
+	
+	private final DateTimeZone zone = DateTimeZone.forID(Application.TIMEZONE_SAO_PAULO); 
 
 	public Date dataAtual() {
-		Calendar calendar = new GregorianCalendar(Application.BRASIL);
-		return calendar.getTime();
+		DateTime dateTime = new DateTime(zone);
+		return dateTime.toLocalDateTime().toDateTime().toDate();
 	}
-
+	
 	public Date inicioDoDia(Date data) {
-		Calendar inicioDoDia = new GregorianCalendar();
+		DateTime dateTime = new DateTime(zone);
+		Calendar inicioDoDia = dateTime.toLocalDateTime().toDateTime().toGregorianCalendar();
+		
 		inicioDoDia.setTime(data);
 		inicioDoDia.set(Calendar.HOUR, 0);
 		inicioDoDia.set(Calendar.MINUTE, 0);
@@ -35,7 +41,8 @@ public class TimeMachine {
 	}
 
 	public Date fimDoDia(Date data) {
-		Calendar fimDoDia = new GregorianCalendar();
+		DateTime dateTime = new DateTime(zone);
+		Calendar fimDoDia = dateTime.toLocalDateTime().toDateTime().toGregorianCalendar();
 		fimDoDia.setTime(data);
 		fimDoDia.set(Calendar.HOUR, 23);
 		fimDoDia.set(Calendar.MINUTE, 59);
@@ -67,7 +74,8 @@ public class TimeMachine {
 	}
 
 	public Date diasParaFrente(Date data, int dias) {
-		Calendar diasPraFrente = new GregorianCalendar();
+		DateTime dateTime = new DateTime(zone);
+		Calendar diasPraFrente = dateTime.toLocalDateTime().toDateTime().toGregorianCalendar();
 		diasPraFrente.setTime(data);
 		diasPraFrente.add(Calendar.DAY_OF_MONTH, dias);
 
@@ -79,10 +87,11 @@ public class TimeMachine {
 	}
 
 	public Date diasParaAtras(Date data, int dias) {
-		Calendar diasPraFrente = new GregorianCalendar();
-		diasPraFrente.setTime(data);
-		diasPraFrente.add(Calendar.DAY_OF_MONTH, dias * -1);
+		DateTime dateTime = new DateTime(zone);
+		Calendar diasParaAtras = dateTime.toLocalDateTime().toDateTime().toGregorianCalendar();
+		diasParaAtras.setTime(data);
+		diasParaAtras.add(Calendar.DAY_OF_MONTH, dias * -1);
 
-		return diasPraFrente.getTime();
+		return diasParaAtras.getTime();
 	}
 }
