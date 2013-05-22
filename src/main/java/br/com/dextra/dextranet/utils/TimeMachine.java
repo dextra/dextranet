@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import br.com.dextra.dextranet.rest.config.Application;
 
@@ -20,49 +19,36 @@ public class TimeMachine {
 	private SimpleDateFormat formatoDataHora = new SimpleDateFormat(DATA_HORA, Application.BRASIL);
 
 	private SimpleDateFormat formatoData = new SimpleDateFormat(DATA, Application.BRASIL);
+	
+	private final DateTimeZone zone = DateTimeZone.forID(Application.TIMEZONE_SAO_PAULO); 
 
 	public Date dataAtual() {
-		
-		DateTimeZone zone = DateTimeZone.forID("America/Sao_Paulo"); 
 		DateTime dateTime = new DateTime(zone);
-		
 		return dateTime.toLocalDateTime().toDateTime().toDate();
-		
 	}
 	
 	public Date inicioDoDia(Date data) {
-		Calendar inicioDoDia = new GregorianCalendar();
+		DateTime dateTime = new DateTime(zone);
+		Calendar inicioDoDia = dateTime.toLocalDateTime().toDateTime().toGregorianCalendar();
+		
 		inicioDoDia.setTime(data);
 		inicioDoDia.set(Calendar.HOUR, 0);
 		inicioDoDia.set(Calendar.MINUTE, 0);
 		inicioDoDia.set(Calendar.SECOND, 0);
 		inicioDoDia.set(Calendar.MILLISECOND, 0);
 
-		formatoDataHora.setTimeZone(Application.SAO_PAULO);
-		try {
-			return formatoDataHora.parse(inicioDoDia.getTime().toString());
-		} catch (ParseException e) {
-			// FIXME: medo!
-			e.printStackTrace();
-		}
 		return inicioDoDia.getTime();
 	}
 
 	public Date fimDoDia(Date data) {
-		Calendar fimDoDia = new GregorianCalendar();
+		DateTime dateTime = new DateTime(zone);
+		Calendar fimDoDia = dateTime.toLocalDateTime().toDateTime().toGregorianCalendar();
 		fimDoDia.setTime(data);
 		fimDoDia.set(Calendar.HOUR, 23);
 		fimDoDia.set(Calendar.MINUTE, 59);
 		fimDoDia.set(Calendar.SECOND, 59);
 		fimDoDia.set(Calendar.MILLISECOND, 99);
 
-		formatoDataHora.setTimeZone(Application.SAO_PAULO);
-		try {
-			// FIXME: medo!
-			return formatoDataHora.parse(fimDoDia.getTime().toString());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
 		return fimDoDia.getTime();
 	}
 
@@ -88,7 +74,8 @@ public class TimeMachine {
 	}
 
 	public Date diasParaFrente(Date data, int dias) {
-		Calendar diasPraFrente = new GregorianCalendar();
+		DateTime dateTime = new DateTime(zone);
+		Calendar diasPraFrente = dateTime.toLocalDateTime().toDateTime().toGregorianCalendar();
 		diasPraFrente.setTime(data);
 		diasPraFrente.add(Calendar.DAY_OF_MONTH, dias);
 
@@ -100,10 +87,11 @@ public class TimeMachine {
 	}
 
 	public Date diasParaAtras(Date data, int dias) {
-		Calendar diasPraFrente = new GregorianCalendar();
-		diasPraFrente.setTime(data);
-		diasPraFrente.add(Calendar.DAY_OF_MONTH, dias * -1);
+		DateTime dateTime = new DateTime(zone);
+		Calendar diasParaAtras = dateTime.toLocalDateTime().toDateTime().toGregorianCalendar();
+		diasParaAtras.setTime(data);
+		diasParaAtras.add(Calendar.DAY_OF_MONTH, dias * -1);
 
-		return diasPraFrente.getTime();
+		return diasParaAtras.getTime();
 	}
 }

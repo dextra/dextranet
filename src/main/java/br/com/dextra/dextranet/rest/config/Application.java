@@ -3,7 +3,6 @@ package br.com.dextra.dextranet.rest.config;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
-import java.util.TimeZone;
 
 import br.com.dextra.dextranet.area.AreaRS;
 import br.com.dextra.dextranet.banner.BannerRS;
@@ -20,7 +19,7 @@ public class Application extends javax.ws.rs.core.Application {
 
 	public static final Locale BRASIL = new Locale("pt", "BR");
 	
-	public static final TimeZone SAO_PAULO = TimeZone.getTimeZone("America/Sao_Paulo"); 
+	public static final String TIMEZONE_SAO_PAULO = "America/Sao_Paulo"; 
 
 	public static final String REGISTROS_POR_PAGINA = "20";
 
