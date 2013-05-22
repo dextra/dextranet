@@ -29,9 +29,9 @@ public class TimeMachine {
 	}
 	
 	public Date inicioDoDia(Date data) {
-		Calendar inicioDoDia = this.getSaoPauloCalendar();
+		Calendar inicioDoDia = TimeMachine.getSaoPauloCalendar();
 		inicioDoDia.setTime(data);
-		inicioDoDia.set(Calendar.HOUR, 0);
+		inicioDoDia.set(Calendar.HOUR_OF_DAY, 0);
 		inicioDoDia.set(Calendar.MINUTE, 0);
 		inicioDoDia.set(Calendar.SECOND, 0);
 		inicioDoDia.set(Calendar.MILLISECOND, 0);
@@ -40,9 +40,9 @@ public class TimeMachine {
 	}
 
 	public Date fimDoDia(Date data) {
-		Calendar fimDoDia = this.getSaoPauloCalendar();
+		Calendar fimDoDia = TimeMachine.getSaoPauloCalendar();
 		fimDoDia.setTime(data);
-		fimDoDia.set(Calendar.HOUR, 23);
+		fimDoDia.set(Calendar.HOUR_OF_DAY, 23);
 		fimDoDia.set(Calendar.MINUTE, 59);
 		fimDoDia.set(Calendar.SECOND, 59);
 		fimDoDia.set(Calendar.MILLISECOND, 99);
@@ -71,7 +71,7 @@ public class TimeMachine {
 	}
 
 	public Date diasParaFrente(Date data, int dias) {
-		Calendar diasPraFrente = this.getSaoPauloCalendar();
+		Calendar diasPraFrente = TimeMachine.getSaoPauloCalendar();
 		diasPraFrente.setTime(data);
 		diasPraFrente.add(Calendar.DAY_OF_MONTH, dias);
 
@@ -83,14 +83,14 @@ public class TimeMachine {
 	}
 
 	public Date diasParaAtras(Date data, int dias) {
-		Calendar diasPraFrente = this.getSaoPauloCalendar();
+		Calendar diasPraFrente = TimeMachine.getSaoPauloCalendar();
 		diasPraFrente.setTime(data);
 		diasPraFrente.add(Calendar.DAY_OF_MONTH, dias * -1);
 
 		return diasPraFrente.getTime();
 	}
 
-	private GregorianCalendar getSaoPauloCalendar() {
+	public static GregorianCalendar getSaoPauloCalendar() {
 		return new GregorianCalendar(DateTimeZone.forID("America/Sao_Paulo").toTimeZone());
 	}
 
