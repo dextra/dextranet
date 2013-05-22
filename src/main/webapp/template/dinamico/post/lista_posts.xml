@@ -150,12 +150,6 @@
 				//$(this).parents('li').find('.list_stories_newcomment textarea').focus();
 			});
 
-			{if idPost && typeof idPost != "object"}
-				itemComentario = $('#${idPost}');
-				var item = itemComentario.find('.list_stories_headline');
-				item.click();
-			{/if}
-			
 			{if busca}
 				dextranet.paginacao.complete = false;
 			{else}

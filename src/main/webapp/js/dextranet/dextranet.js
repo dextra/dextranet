@@ -33,8 +33,7 @@ var dextranet = {
 					}
 					$.holy("../template/dinamico/post/lista_posts.xml", { busca : true,
 																		  posts : posts,
-																		  gravatar : dextranet.gravatarUrl,
-																		  idPost : null });
+																		  gravatar : dextranet.gravatarUrl });
 					dextranet.ativaMenu("sidebar_left_home");
 
 				},
