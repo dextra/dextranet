@@ -21,7 +21,7 @@ public class Application extends javax.ws.rs.core.Application {
 	
 	public static final String TIMEZONE_SAO_PAULO = "America/Sao_Paulo"; 
 
-	public static final String REGISTROS_POR_PAGINA = "5";
+	public static final String REGISTROS_POR_PAGINA = "20";
 
 	public static final int LIMITE_REGISTROS_FULL_TEXT_SEARCH = 50;
 
