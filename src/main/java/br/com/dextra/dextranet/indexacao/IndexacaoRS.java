@@ -1,5 +1,6 @@
 package br.com.dextra.dextranet.indexacao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -19,10 +20,15 @@ import br.com.dextra.dextranet.excecoes.HttpException;
 import br.com.dextra.dextranet.rest.config.Application;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.search.Document;
+import com.google.appengine.api.search.GetRequest;
+import com.google.appengine.api.search.GetResponse;
+import com.google.appengine.api.search.Index;
 import com.google.appengine.api.search.IndexSpec;
 import com.google.appengine.api.search.Query;
 import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.SearchQueryException;
+import com.google.appengine.api.search.SearchServiceFactory;
 import com.google.appengine.api.search.SortExpression;
 import com.google.appengine.api.search.SortOptions;
 import com.google.appengine.api.search.SortOptions.Builder;
@@ -74,7 +80,8 @@ public class IndexacaoRS {
 	@GET
 	@Path("/delete")
 	public void apagarIndicesFTS(){
-		repositorioDeIndex.apagaIndices("br.com.dextra.dextranet.conteudo.post.Post");
-		repositorioDeIndex.apagaIndices(Comentario.class.getName());
+		repositorioDeIndex.apagaIndices(Post.class);
+		repositorioDeIndex.apagaIndices(Comentario.class);
 	}
+	
 }

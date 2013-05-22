@@ -13,9 +13,14 @@ import br.com.dextra.dextranet.conteudo.ConteudoIndexavel;
 import br.com.dextra.dextranet.persistencia.EntidadeRepository;
 
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.search.Document;
+import com.google.appengine.api.search.GetRequest;
+import com.google.appengine.api.search.GetResponse;
 import com.google.appengine.api.search.Index;
+import com.google.appengine.api.search.IndexSpec;
 import com.google.appengine.api.search.Query;
 import com.google.appengine.api.search.ScoredDocument;
+import com.google.appengine.api.search.SearchServiceFactory;
 
 public class IndexacaoRepository extends EntidadeRepository {
 
@@ -54,8 +59,29 @@ public class IndexacaoRepository extends EntidadeRepository {
 		return buscar(clazz, Query.newBuilder().build(query));
 	}
 	
-	public void apagaIndices(String kind){
-		IndexFacade.getIndex(kind).deleteSchema();
+	public void apagaIndices(Class nomeIndice){
+		try {
+		    while (true) {
+		        List<String> docIds = new ArrayList<String>();
+		        // Return a set of document IDs.
+		        GetRequest request = GetRequest.newBuilder().setReturningIdsOnly(true).build();
+		        GetResponse<Document> response = getIndex(nomeIndice).getRange(request);
+		        if (response.getResults().isEmpty()) {
+		            break;
+		        }
+		        for (Document doc : response) {
+		            docIds.add(doc.getId());
+		        }
+		        getIndex(nomeIndice).delete(docIds);
+		    }
+		} catch (RuntimeException e) {
+		}
 	}
+	
+	public Index getIndex(Class nomeIndice) {
+	    IndexSpec indexSpec = IndexSpec.newBuilder().setName(nomeIndice.getName()).build();
+	    return SearchServiceFactory.getSearchService().getIndex(indexSpec);
+	}
+
 
 }
