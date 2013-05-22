@@ -156,8 +156,11 @@
 				item.click();
 			{/if}
 
-			dextranet.paginacao.complete = true;
-			dextranet.paginacao.paginar();
+			
+			{if ! defined('busca')}
+				dextranet.paginacao.complete = true;
+				dextranet.paginacao.paginar();
+			{/if}
 
 			//Tooltips
 			$('div.avatar-frame').tipsy();

@@ -31,10 +31,10 @@ var dextranet = {
 						$('.message').message(messageError, 'warning', true);
 						return false;
 					}
-
 					$.holy("../template/dinamico/post/lista_posts.xml", { posts : posts,
 																		  idPost : null,
-																		  gravatar : dextranet.gravatarUrl });
+																		  gravatar : dextranet.gravatarUrl,
+																		  busca: true});
 					dextranet.ativaMenu("sidebar_left_home");
 
 				},
