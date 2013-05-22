@@ -14,6 +14,7 @@ import br.com.dextra.teste.TesteFuncionalBase;
 public class ComentarioFuncionalTest extends TesteFuncionalBase {
 	private PaginaNovoPost paginaNovoPost = null;
 	private String tituloPost;
+	private PaginaNovoComentario paginaNovoComentario;
 
 	@Test
 	public void criarComentario() {
@@ -29,7 +30,7 @@ public class ComentarioFuncionalTest extends TesteFuncionalBase {
 	}
 
 	private void depoisDeCriarPostCriaComentario() {
-		PaginaNovoComentario paginaNovoComentario = paginaPrincipal.clicaEmNovoComentario(tituloPost);
+		paginaNovoComentario = paginaPrincipal.clicaEmNovoComentario(tituloPost);
 		String conteudo = "Texto do comentário.";
 		paginaNovoComentario.criaNovoComentario(conteudo);
 	}
