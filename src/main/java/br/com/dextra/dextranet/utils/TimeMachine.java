@@ -19,18 +19,18 @@ public class TimeMachine {
 	private SimpleDateFormat formatoDataHora = new SimpleDateFormat(DATA_HORA, Application.BRASIL);
 
 	private SimpleDateFormat formatoData = new SimpleDateFormat(DATA, Application.BRASIL);
-	
-	private final DateTimeZone zone = DateTimeZone.forID(Application.TIMEZONE_SAO_PAULO); 
+
+	private final DateTimeZone zone = DateTimeZone.forID(Application.TIMEZONE_SAO_PAULO);
 
 	public Date dataAtual() {
 		DateTime dateTime = new DateTime(zone);
 		return dateTime.toLocalDateTime().toDateTime().toDate();
 	}
-	
+
 	public Date inicioDoDia(Date data) {
 		DateTime dateTime = new DateTime(zone);
 		Calendar inicioDoDia = dateTime.toLocalDateTime().toDateTime().toGregorianCalendar();
-		
+
 		inicioDoDia.setTime(data);
 		inicioDoDia.set(Calendar.HOUR, 0);
 		inicioDoDia.set(Calendar.MINUTE, 0);
@@ -56,7 +56,7 @@ public class TimeMachine {
 		return formatoDataHora.format(data);
 	}
 
-	public Date tranformaEmData(String data) {
+	public Date transformaEmData(String data) {
 		try {
 			SimpleDateFormat formatter = this.formatoData;
 			if (data.length() > DATA.length()) {

@@ -129,7 +129,10 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 
 	@Override
 	public void registraDataDeMigracao(Date data) {
-		super.registraDataDeMigracao(data);
-		this.dataDeAtualizacao = data;
+		TimeMachine tMachine = new TimeMachine();
+		Date dataFormatada = tMachine.transformaEmData(tMachine.formataData(data));
+
+		super.registraDataDeMigracao(dataFormatada);
+		this.dataDeAtualizacao = dataFormatada;
 	}
 }

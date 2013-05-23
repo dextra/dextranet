@@ -1,6 +1,11 @@
 package br.com.dextra.dextranet.migracao;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import junit.framework.Assert;
 
@@ -28,13 +33,26 @@ public class MigracaoRSTest extends TesteIntegracaoBase {
 	private Date quatroDiasAtras = timeMachine.diasParaAtras(4);
 
 	@Test
+	public void testaDataPost() throws ParseException {
+		Date dataAtual = Calendar.getInstance(Locale.ENGLISH).getTime();
+
+		DateFormat formatPadrao = new SimpleDateFormat("dd/MM/yyyy");
+		System.out.println(formatPadrao.parse(formatPadrao.format(dataAtual)));
+	}
+
+	@Test
 	public void testaInserirPost() throws EntityNotFoundException {
 		Post post = rest.criaNovoPostParaMigracao(cincoDiasAtras, "username", "titulo", "conteudo");
 		Post postMigrado = repositorioDePosts.obtemPorId(post.getId());
 
+		TimeMachine tMachine = new TimeMachine();
+		String cincoDiasAtrasFormat = tMachine.formataData(cincoDiasAtras);
+		String dataCriacaoFormat = tMachine.formataData(postMigrado.getDataDeCriacao());
+		String dataAtualizacaoFormat = tMachine.formataData(postMigrado.getDataDeAtualizacao());
+
 		Assert.assertEquals("username", postMigrado.getUsuario());
-		Assert.assertEquals(cincoDiasAtras, postMigrado.getDataDeCriacao());
-		Assert.assertEquals(cincoDiasAtras, postMigrado.getDataDeAtualizacao());
+		Assert.assertEquals(cincoDiasAtrasFormat, dataCriacaoFormat);
+		Assert.assertEquals(cincoDiasAtrasFormat, dataAtualizacaoFormat);
 	}
 
 	@Test
