@@ -150,11 +150,11 @@
 				//$(this).parents('li').find('.list_stories_newcomment textarea').focus();
 			});
 
-			{if busca}
-				dextranet.paginacao.complete = false;
-			{else}
+			{if paginar}
 				dextranet.paginacao.complete = true;
 				dextranet.paginacao.paginar();
+			{else}
+				dextranet.paginacao.complete = false;
 			{/if}
 
 			//Tooltips
