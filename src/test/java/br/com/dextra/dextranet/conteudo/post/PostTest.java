@@ -138,11 +138,12 @@ public class PostTest extends TesteIntegracaoBase {
 	@Test
 	public void testaRegistraDataMigracao() {
 		Date cincoDiasAtras = timeMachine.diasParaAtras(5);
-
 		Post post = new Post("usuario", "titulo", "Conteudo de teste");
 		post.registraDataDeMigracao(cincoDiasAtras);
 
-		Assert.assertEquals(cincoDiasAtras, post.getDataDeCriacao());
+		String cincoDiasAtrasFormat = timeMachine.formataData(cincoDiasAtras);
+		String dataCriacaoFormat = timeMachine.formataData(post.getDataDeCriacao());
+		Assert.assertEquals(cincoDiasAtrasFormat, dataCriacaoFormat);
 	}
 
 }
