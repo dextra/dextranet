@@ -1,17 +1,19 @@
 package br.com.dextra.dextranet.excecoes;
 
+import javax.ws.rs.core.Response.Status;
+
 public class HttpException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
-	private int httpCode;
+	private Status status;
 
-	public HttpException(int httpCode) {
-		this.httpCode = httpCode;
+	public HttpException(Status status) {
+		this.status = status;
 	}
 
-	public int httpCode() {
-		return httpCode;
+	public Status status() {
+		return this.status;
 	}
 
 }

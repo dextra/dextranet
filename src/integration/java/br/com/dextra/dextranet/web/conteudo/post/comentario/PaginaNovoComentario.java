@@ -5,14 +5,15 @@ import org.openqa.selenium.WebDriver;
 import br.com.dextra.dextranet.PaginaBase;
 
 public class PaginaNovoComentario extends PaginaBase {
-	private String idConteudoComentario;
+	private String idTextAreaComentario;
 
 	public PaginaNovoComentario(WebDriver driver) {
 		super(driver);
 	}
 
 	public PaginaNovoComentario redigeConteudoDoComentario(String conteudo) {
-		this.redigeConteudoTextArea(conteudo, idConteudoComentario);
+		String idTextArea = "idConteudo_" + idTextAreaComentario;
+		this.redigeConteudoTextArea(conteudo, idTextArea);
 
 		return this;
 	}
@@ -27,11 +28,11 @@ public class PaginaNovoComentario extends PaginaBase {
 		this.waitingForLoading();
 	}
 
-	public String getIdConteudoComentario() {
-		return idConteudoComentario;
+	public String getIdTextAreaComentario() {
+		return idTextAreaComentario;
 	}
 
-	public void setIdConteudoComentario(String idConteudoComentario) {
-		this.idConteudoComentario = idConteudoComentario;
+	public void setIdTextAreaComentario(String idConteudoComentario) {
+		this.idTextAreaComentario = idConteudoComentario;
 	}
 }

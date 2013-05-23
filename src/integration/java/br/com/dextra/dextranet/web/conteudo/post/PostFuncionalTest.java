@@ -17,7 +17,6 @@ public class PostFuncionalTest extends TesteFuncionalBase {
 		this.limpaPostsInseridos(new PostRepository());
 	}
 
-	@Test
 	public void criarNovoPost() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
 
