@@ -31,7 +31,7 @@ var dextranet = {
 						$('.message').message(messageError, 'warning', true);
 						return false;
 					}
-					$.holy("../template/dinamico/post/lista_posts.xml", { busca : true,
+					$.holy("../template/dinamico/post/lista_posts.xml", { paginar : false,
 																		  posts : posts,
 																		  gravatar : dextranet.gravatarUrl });
 					dextranet.ativaMenu("sidebar_left_home");
@@ -41,7 +41,7 @@ var dextranet = {
     				dextranet.processaErroNaRequisicao(jqXHR);
     			}
 			});
-			
+
 			return false;
 		},
 
