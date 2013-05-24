@@ -69,6 +69,8 @@
 	"horas_atras" : " horas atrás",
 	"ontem" : " Ontem",
 	"semanas_atras" : " semanas atrás",
-	"data_invalida" : "Data inválida"
+	"data_invalida" : "Data inválida",
+	"novo_micropost" : "Compartilhe algo",
+	"enviar_micropost" : "Enviar"
 	}
 }

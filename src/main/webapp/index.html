@@ -68,6 +68,7 @@
         <script type="text/javascript" src="js/dextranet/post/curtir.js?v=${buildNumber}"></script>
         <script type="text/javascript" src="js/dextranet/paginacao/paginacao.js?v=${buildNumber}"></script>
         <script type="text/javascript" src="js/dextranet/paginacao/pagina.js?v=${buildNumber}"></script>
+        <script type="text/javascript" src="js/dextranet/microblog.js?v=${buildNumber}"></script>
         <script type="text/javascript" src="js/dextranet/paginacao/query.js?v=${buildNumber}"></script>
 
         <link rel="stylesheet" type="text/css" href="css/main.css?v=${buildNumber}" media="all" />
@@ -80,6 +81,7 @@
                 dextranet.carregaMenus();
                 dextranet.usuario.exibirUsuarioLogado();
                 dextranet.usuario.carregaLogout();
+                dextranet.microblog.listar();
                 dextranet.banner.listarVigentes();
                 dextranet.post.listar(null, 1);
             });
@@ -114,9 +116,6 @@
                 </div>
             </div>
         </div>
-
-        <script type="text/javascript" src="js/dextranet/microblog.js"></script>
-        
         <script>
         	$('#form_search').submit(function(){
 				return dextranet.indexacao();        		

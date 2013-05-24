@@ -1,19 +1,25 @@
 package br.com.dextra.dextranet.microblog;
 
+import java.util.List;
+
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
+import br.com.dextra.dextranet.rest.config.Application;
+
+import com.google.appengine.api.datastore.Query.SortDirection;
 
 @Path("/microblog")
 public class MicroBlogRS {
 
 	@Path("/post")
 	@POST
-	public void post(@FormParam("text") String text) {
+	public void post(@FormParam("texto") String text) {
 		MicroPost micropost = new MicroPost(text);
 		MicroBlogRepository repository = getMicroBlogRepository();
 		repository.salvar(micropost);
@@ -25,14 +31,12 @@ public class MicroBlogRS {
 
 	@Path("/post")
 	@GET
-	public String get() {
+	@Produces(Application.JSON_UTF8)
+	public Response get() {
 		MicroBlogRepository repository = getMicroBlogRepository();
-		JsonArray microPosts = new JsonArray();
-		for (MicroPost microPost : repository.buscarMicroPosts()) {
-			JsonObject microPostJson = new JsonObject();
-			microPostJson.addProperty("text", microPost.getTexto());
-			microPosts.add(microPostJson);
-		}
-		return microPosts.toString();
+		
+		EntidadeOrdenacao dataDeAtualizacaoDecrescente = new EntidadeOrdenacao(MicroBlogFields.DATA.getField(), SortDirection.DESCENDING);
+		List<MicroPost> microPosts = repository.lista(dataDeAtualizacaoDecrescente);
+		return Response.ok().entity(microPosts).build();
 	}
 }
