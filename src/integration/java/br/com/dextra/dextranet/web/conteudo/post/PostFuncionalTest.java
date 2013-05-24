@@ -17,6 +17,7 @@ public class PostFuncionalTest extends TesteFuncionalBase {
 		this.limpaPostsInseridos(new PostRepository());
 	}
 
+	//@Test
 	public void criarNovoPost() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
 
@@ -24,6 +25,16 @@ public class PostFuncionalTest extends TesteFuncionalBase {
 		String conteudo = "Texto do teste";
 		eCriouUmPost(titulo, conteudo);
 		entaoUsuarioVisualizaOPost(titulo, conteudo);
+	}
+	
+	//@Test
+	public void excluirPost() {
+		dadoQueUsuarioAcessaPaginaPrincipal();
+
+		String titulo = "Titulo de Teste";
+		String conteudo = "Texto do teste";
+		eCriouUmPost(titulo, conteudo);
+		entaoUsuarioExcluiOPost(titulo, conteudo);
 	}
 
 	protected void eCriouUmPost(String titulo, String conteudo) {
@@ -35,6 +46,8 @@ public class PostFuncionalTest extends TesteFuncionalBase {
 	private void entaoUsuarioVisualizaOPost(String titulo, String conteudo) {
 		Assert.assertTrue(paginaPrincipal.existePost(titulo, conteudo));
 	}
-
-
+	
+	private void entaoUsuarioExcluiOPost(String titulo, String conteudo) {
+		Assert.assertTrue(paginaPrincipal.excluiPost(titulo, conteudo));
+	}
 }
