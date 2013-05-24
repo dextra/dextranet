@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+    <template selector="#microposts">
+    	<div id="container-microblog">
+    		<form id="form_novo_micropost" class="clearfix form-dark form-fields-block">
+	    		<div id="novo_micropost">
+	    			<textarea id="conteudo_novo_micropost" maxlength="140" style="resize:none;" placeholder="${messages.novo_micropost}"></textarea>
+	    			<button class="btn btn-blue btn-small float_right" id="form_micropost_submit" type="button">${messages.enviar_micropost}</button>
+	    		</div>
+    		</form>
+    		<ul id="list_microposts">
+		    	{for post in posts}
+		    		<li class="micropost">
+		    			<div class="micropost-conteudo">
+		    				<div class="avatar-frame" title="Por ${post.id}">
+								<img src="${gravatar}" alt="Avatar" />
+							</div>
+							<div class="micropost-texto wordwrap">${post.texto}</div>
+						</div>
+						<div class="micropost-data">
+							<span class="time_ago">${post.data}</span>
+						</div>
+		    		</li>
+		    	{/for}
+	    	</ul>
+    	</div>
+	</template>
+	
+	<script>
+		timeAgo.serverDate();
+
+		$.each($('.time_ago'), function(){
+			data_completa = $(this).html();
+			tempo_atras = timeAgo.calcular(data_completa);
+			$(this).html(tempo_atras);
+			$(this).attr('title', data_completa);
+		});
+		
+		//Tooltips
+		$('div.avatar-frame').tipsy();
+		$('span.time_ago').tipsy();
+	
+		$("#form_micropost_submit").click(dextranet.microblog.postar);
+	</script>
+</engine>
