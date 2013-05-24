@@ -13,6 +13,9 @@ timeAgo = {
 				data_servidor = timeMachine.responseText.replace(/"/g,'');
 				d = data_servidor.split(" ");
 				dia = d[0].split("/");
+				if(!d[1]){
+					d[1] = "00:00";
+				}
 				hora = d[1].split(":");
 
 				//Date(yyyy, mm, dd, hh, mm, ss)
@@ -30,6 +33,9 @@ timeAgo = {
 
 		d = data.split(" ");
 		dia = d[0].split("/");
+		if(!d[1]){
+			d[1] = "00:00";
+		}
 		hora = d[1].split(":");
 
 		//Date(yyyy, mm, dd, hh, mm, ss)

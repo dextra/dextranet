@@ -6,6 +6,7 @@
 	    		<div id="novo_micropost">
 	    			<textarea id="conteudo_novo_micropost" maxlength="140" style="resize:none;" placeholder="${messages.novo_micropost}"></textarea>
 	    			<button class="btn btn-blue btn-small float_right" id="form_micropost_submit" type="button">${messages.enviar_micropost}</button>
+	    			<span id="caracteres_restantes"></span>
 	    		</div>
     		</form>
     		<ul id="list_microposts">
@@ -18,28 +19,35 @@
 							<div class="micropost-texto wordwrap">${post.texto}</div>
 						</div>
 						<div class="micropost-data">
-							<span class="time_ago">${post.data}</span>
+							<span class="time_ago_microposts">${post.data}</span>
 						</div>
 		    		</li>
 		    	{/for}
 	    	</ul>
     	</div>
 	</template>
-	
+
 	<script>
+		<![CDATA[
+		$('span#caracteres_restantes').text($('#conteudo_novo_micropost').attr('maxLength'));
+		$('#conteudo_novo_micropost').keyup(function() {
+		    $('span#caracteres_restantes').text( parseInt($(this).attr('maxLength')) - (this.value.length) );
+		});
+
 		timeAgo.serverDate();
 
-		$.each($('.time_ago'), function(){
+		$.each($('.time_ago_microposts'), function(){
 			data_completa = $(this).html();
-			tempo_atras = timeAgo.calcular(data_completa);
+			tempo_atras = timeAgo.calcular(data_completa)
 			$(this).html(tempo_atras);
 			$(this).attr('title', data_completa);
 		});
-		
+
 		//Tooltips
 		$('div.avatar-frame').tipsy();
-		$('span.time_ago').tipsy();
-	
+		$('span.time_ago_microposts').tipsy();
+
 		$("#form_micropost_submit").click(dextranet.microblog.postar);
+		]]>
 	</script>
 </engine>

@@ -1,5 +1,5 @@
 dextranet.microblog = {
-	
+
 	listar : function() {
 		$.ajax( {
 			type : "GET",
@@ -14,7 +14,7 @@ dextranet.microblog = {
 			}
 		});
 	},
-	
+
 	postar : function() {
 		var conteudo = $('div#novo_micropost textarea#conteudo_novo_micropost').val();
 		if (conteudo != "") {
