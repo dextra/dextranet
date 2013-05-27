@@ -395,9 +395,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                     <name>sauceCloudbees</name>
                 </property>
             </activation>
-            <properties>
-                <expertus.environment.type>sauceCloudbees</expertus.environment.type>
-            </properties>
             <build>
 				<plugins>
 					<plugin>
@@ -418,6 +415,9 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 					</plugin>
 				</plugins>
 			</build>
+            <properties>
+                <expertus.environment.type>sauceCloudbees</expertus.environment.type>
+            </properties>
         </profile>
 		<profile>
 			<id>integracao-continua</id>
