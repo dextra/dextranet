@@ -399,6 +399,35 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                 <expertus.environment.type>sauceCloudbees</expertus.environment.type>
             </properties>
         </profile>
+		<profile>
+			<id>it</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+				<property>
+					<name>funcional</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>test</goal>
+								</goals>
+								<configuration>
+									<includes>
+										<include>**/*Funcional.java</include>
+									</includes>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
     </profiles>
 
     <scm>
