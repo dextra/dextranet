@@ -8,7 +8,7 @@
 			<div class="content">
 				<p class="wordwrap">${comentario.conteudo}</p>
 				<div class="comment-data">
-					<span class="list_stories_date time_ago">${comentario.dataDeCriacao}
+					<span class="list_stories_date time_ago_novo_comentario">${comentario.dataDeCriacao}
 					</span>
 					{if comentario.usuario == dextranet.usuario.logado.username}
 					<button id="btn-excluir-comentario_${comentario.id}" class="btn btn-small btn-light btn-excluir-comentario"
@@ -42,7 +42,7 @@
 
 				//Calcula tempo de postagem
 				timeAgo.serverDate();
-				$.each($('.time_ago'), function(){
+				$.each($('.time_ago_novo_comentario'), function(){
 					data_completa = $(this).html();
 					tempo_atras = timeAgo.calcular(data_completa);
 					$(this).html(tempo_atras);
@@ -53,7 +53,7 @@
 				$('div.avatar-frame').tipsy();
 				$('a.showLikes').tipsy({html: true });
 				$('button').tipsy();
-				$('span.time_ago').tipsy();
+				$('span.time_ago_novo_comentario').tipsy();
 			]]>
 		</script>
 
