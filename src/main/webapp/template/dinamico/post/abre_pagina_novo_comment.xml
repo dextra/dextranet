@@ -11,8 +11,8 @@
 			</form>
 		</div>
 	</template>
-	<script>
-			CKEDITOR.replace('textarea_comment');
-			dextranet.post.comentar();
+	<script>	
+		CKEDITOR.replace('textarea_comment');
+		dextranet.post.comentar();
 	</script>
 </engine>

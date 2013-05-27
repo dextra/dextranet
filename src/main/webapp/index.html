@@ -88,21 +88,23 @@
     <body>
         <div id="container">
             <div id="header_placeholder"></div>
-            <div id="header_container" rel="section">
+            <div id="header_container" class="clearfix" rel="section">
                 <ul id="header_main_menu"></ul>
-                <div id="box_user_actions"></div>
-                <div id="box_user"></div>
                 <!--
                   -- @fixme
                   -- Mover bloco de busca para arquivo correto.
                   -- Corrigir variável do placeholder (usar texto: Procurar postagens e pessoas...).
                   -->
-                <div id="header_search_box">
-                    <form id="form_search">
-                        <input type="text" placeholder="Pesquisar posts..." id="form_search_input" />
-                        <input type="submit" value="" title="Procurar!" id="form_search_submit" />
-                    </form>
-                </div>
+				<div id="header_right_box">
+					<div id="header_search_box">
+						<form id="form_search">
+							<input type="text" placeholder="Pesquisar posts..." id="form_search_input" />
+							<input type="submit" value="" title="Procurar!" id="form_search_submit" />
+						</form>
+					</div>
+					<div id="box_user"></div>
+					<div id="box_user_actions"></div>
+				</div>
             </div>
             <div id="sidebar_left" rel="section"></div>
             <div id="container_main_overlay"></div>

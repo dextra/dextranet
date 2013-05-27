@@ -12,7 +12,7 @@
 #frmPerfil > dl > dt{width:105px;font-size:15px;}
 #frmPerfil > dl > dd{width:235px;margin-top:-5px;}
 
-#box_user{position:relative;float:right;height:40px;border-left:solid 1px #cfd5d9;border-right:1px solid #cfd5d9;top:-1px;background-color:#f0f3f4;list-style-type:none;}
+#box_user{position:relative;height:40px;border-left:solid 1px #cfd5d9;border-right:1px solid #cfd5d9;margin-top:-1px;background-color:#f0f3f4;list-style-type:none;display:inline-block;vertical-align:top;}
 #box_user:hover{box-shadow:inset 0 0 2px 1px #fff;}
 #box_user.active,
 #box_user:active{background-color:#ecf1f5;box-shadow:inset 0 45px 45px -45px #c9d4df;}
@@ -23,6 +23,6 @@
 #box_user > li#box_user_info .shape_arrow_down{display:none;}
 #box_user > li#box_user_info > img{background-color:#f7f7f7;border:1px solid #b9cedd;padding:1px;width:20px;height:20px;vertical-align:middle;margin-right:5px;border-radius:2px;box-shadow:0 0 0 1px rgba(255, 255, 255, 0.5);}
 
-#box_user_actions { float:right; vertical-align: middle; }
+#box_user_actions { vertical-align: top; display:inline-block;}
 #box_user_actions:hover{ background-color:#e9eef3; box-shadow:inset 0 0 2px 1px #f6ffff; }
 #box_user_actions .logout{ padding: 8px  10px 0 10px; }

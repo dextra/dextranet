@@ -57,17 +57,6 @@ html{font-size:100%;}
 .float_left{float:left;}
 .float_right{float:right;}
 
-.wordwrap{
-	white-space: pre; /* CSS2 */
-	white-space: -moz-pre-wrap; /* Mozilla */
-	white-space: -hp-pre-wrap;/* HP printers */
-	white-space: -o-pre-wrap; /* Opera 7 */
-	white-space: -pre-wrap; /* Opera 4-6 */
-	white-space: pre-wrap; /* CSS 2.1 */
-	white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
-	word-wrap: break-word; /* IE */
-	_white-space: pre; /* IE hack to re-specify in addition to word-wrap */}
-
 .margin_right{margin-right:15px;}
 .margin_left{margin-left:15px;}
 .margin_bottom{margin-bottom:15px;}
@@ -148,12 +137,6 @@ input:focus,
 select:focus,
 textarea:focus{color:#5396e1 !important;border-color:#b7cce2;box-shadow:0 0 3px #b8c9dc,inset 0 4px 4px #f7f7f7,inset 0 0 0 1px #fff;}
 
-#form_search{position:relative;z-index:2;margin-top:-3px;}
-#form_search_input{padding-right:25px;width:210px;position:relative;z-index:3;font-size:13px;padding:6px 35px 6px 10px;}
-#form_search_submit_name{background-color:transparent;box-shadow:0 0 0 transparent;border:0;background:url('../img/main-bundle.png') -46px -115px;position:absolute;z-index:4;cursor:pointer;right:25px;top:4px;width:22px;height:22px;}
-#form_search_submit{background-color:transparent;box-shadow:0 0 0 transparent;border:0;background:url('../img/main-bundle.png') -46px -115px;position:absolute;z-index:4;cursor:pointer;right:8px;top:7px;width:22px;height:22px;transition:none;}
-#form_search_input:focus + #form_search_submit{background-position:-67px -115px;}
-
 #form_new_post > #cke_form_input_content{margin:20px 0;}
 #form_new_post > #postEditorToggle{margin-top:20px;border-radius:10px 10px 0 0;margin-bottom:-1px;}
 #form_new_post .btn{margin-top:20px;}
@@ -195,9 +178,11 @@ form input.link { width: 476px;}
 
 /*----------  Header  ----------*/
 #header_placeholder{height:39px;position:relative;z-index:1;margin-bottom:30px;}
-#header_container{background-color:#e6ebf0;width:100%;position:fixed;top:0;left:0;width:100%;height:39px;z-index:2;box-shadow:inset 0 30px 30px -20px #f1f3f4, 0 4px 4px #d7e0e4;border:1px solid #f7fdff;z-index:15;}
+#header_container{background-color:#e6ebf0;width:100%;position:fixed;top:0;left:0;width:100%;min-height:39px;z-index:2;box-shadow:inset 0 30px 30px -20px #f1f3f4, 0 4px 4px #d7e0e4;border:1px solid #f7fdff;z-index:15;}
 
-#header_main_menu{float:left;margin-right:20px;list-style:none;}
+#header_right_box{position:absolute;right:0;top:0;width:32.5%;text-align:right;}
+
+#header_main_menu{margin-right:20px;list-style:none;display:inline-block;vertical-align:top;}
 #header_main_menu > li{float:left;height:40px;margin-top:-1px;position:relative;}
 #header_main_menu > li .shape_arrow_down{display:none;}
 #header_main_menu > li > a{display:block;padding:13px 25px 9px;font-weight:bold;font-size:13px;text-shadow:0 1px 1px #fff;color:#35679a;border-right:solid 1px #cfd5d9;border-left:solid 1px #f7f8fc;}
@@ -221,7 +206,12 @@ form input.link { width: 476px;}
 #header_main_menu > li > ul > li:last-child > a{border-radius:0 0 6px 6px;}
 #header_main_menu > li.active > ul{display:block;}
 
-#header_search_box{float:right;height:32px;width:210px;margin-top:6px;margin-right:15px;}
+#header_search_box{height:32px;margin-right:10px;display:inline-block;margin-top:3px;width:50%;}
+#form_search{position:relative;z-index:2;}
+#form_search_input{padding-right:25px;width:100%;position:relative;z-index:3;font-size:13px;padding:6px 35px 6px 10px;color:#333;}
+#form_search_submit_name{background-color:transparent;box-shadow:0 0 0 transparent;border:0;background:url('../img/main-bundle.png') -46px -115px;position:absolute;z-index:4;cursor:pointer;right:25px;top:4px;width:22px;height:22px;}
+#form_search_submit{background-color:transparent;box-shadow:0 0 0 transparent;border:0;background:url('../img/main-bundle.png') -46px -115px;position:absolute;z-index:4;cursor:pointer;right:8px;top:7px;width:22px;height:22px;transition:none;}
+#form_search_input:focus + #form_search_submit{background-position:-67px -115px;}
 
 /*---------  Barra lateral esquerda  ----------*/
 #sidebar_left{left:0;top:0;height:100%;list-style-type:none;border-right:solid 1px #d9dbdd;position:fixed;z-index:2;background-color: #EBEEF1; box-shadow:-15px 15px 15px -15px #FFFFFF inset;}
@@ -321,7 +311,7 @@ form input.link { width: 476px;}
 .list_stories_headline > h2:hover,
 .list_stories_headline > h2:active{background-color:#e9f3ff;padding:5px 8px;margin:-5px -8px;}
 
-.list_stories_data{clear:both;margin:20px -12px 0;background-color:#fcfcfc;padding:6px 12px 4px;box-shadow:inset 0 3px 3px #fafafa;}
+.list_stories_data{clear:both;margin:10px -12px 0;background-color:#f9f9f9;padding:6px 12px 4px;box-shadow:inset 0 3px 3px #fafafa;}
 .list_stories_numbercomments,
 .list_stories_actions,
 .list_stories_dx{font-size:12px;float:left;position:relative;margin-right:10px;}
@@ -355,8 +345,8 @@ form input.link { width: 476px;}
 .list_stories_newcomment #cke_27{display:none;} /* @fixme - desabilitar botões através da chamada pra o ckeditor */
 .list_stories_newcomment #cke_1_contents{height:85px !important;} /* @fixme - ajustar altura na chamada pra o ckeditor*/
 
-.new-comment {position:relative;}
-.new-comment textarea { width:484px;background:#f0f0f0;box-shadow:inset 0 3px 3px rgba(10,0,45,.075);font-family:arial,sans-serif;font-size:12px;padding-top:8px;}
+.new-comment {position:relative;margin-bottom:15px;}
+.new-comment textarea { width:486px;background:#f0f0f0;box-shadow:inset 0 3px 3px rgba(10,0,45,.075);font-family:arial,sans-serif;font-size:12px;padding-top:8px;}
 .new-comment .speech-shape-small{border-right-color:#d5d5d5;}
 .new-comment .speech-shape-small:before{border-right-color:#f0f0f0;}
 .new-comment textarea:focus + .speech-shape-small{border-right-color:#B7CCE2;transition:all 150ms ease-in-out;}
