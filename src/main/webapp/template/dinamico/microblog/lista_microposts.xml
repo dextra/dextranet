@@ -13,8 +13,8 @@
 		    	{for post in posts}
 		    		<li class="micropost">
 		    			<div class="micropost-conteudo">
-		    				<div class="avatar-frame" title="Por ${post.id}">
-								<img src="${gravatar}" alt="Avatar" />
+		    				<div class="avatar-frame" title="Por ${post.usuario}">
+								<img src="${gravatar}{post.usuarioMD5}" alt="Avatar" />
 							</div>
 							<div class="micropost-texto wordwrap">${post.texto}</div>
 						</div>
