@@ -388,6 +388,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                 <expertus.environment.browser>FIREFOX</expertus.environment.browser>
             </properties>
         </profile>
+<!--
         <profile>
             <id>sauceCloudbees</id>
             <activation>
@@ -399,14 +400,18 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                 <expertus.environment.type>sauceCloudbees</expertus.environment.type>
             </properties>
         </profile>
+-->
 		<profile>
-			<id>it</id>
+			<id>integracao-continua</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
 				<property>
-					<name>funcional</name>
+					<name>integracao-continua</name>
 				</property>
 			</activation>
+			 <properties>
+                <expertus.environment.type>sauceCloudbees</expertus.environment.type>
+            </properties>
 			<build>
 				<plugins>
 					<plugin>
