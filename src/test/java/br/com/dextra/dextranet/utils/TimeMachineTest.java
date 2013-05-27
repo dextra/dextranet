@@ -35,9 +35,9 @@ public class TimeMachineTest {
 
 	@Test
 	public void testaTransformaEmDataCompleta() {
-		DateTime dateTime = new DateTime(2013, 03, 10, 10, 12);
-		dateTime = dateTime.withZone(zone);
-		Assert.assertEquals(dateTime.toLocalDateTime().toDateTime().toDate(), timeMachine.transformaEmData("10/03/2013 10:12"));
+		// no gregorian calendar o mes eh de 0 a 11
+		Calendar calendar = new GregorianCalendar(2013, 3, 10, 10, 12);
+		Assert.assertEquals(calendar.getTime(), timeMachine.transformaEmData("10/04/2013 10:12"));
 	}
 
 	@Test
