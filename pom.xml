@@ -388,7 +388,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                 <expertus.environment.browser>FIREFOX</expertus.environment.browser>
             </properties>
         </profile>
-<!--
         <profile>
             <id>sauceCloudbees</id>
             <activation>
@@ -399,8 +398,27 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             <properties>
                 <expertus.environment.type>sauceCloudbees</expertus.environment.type>
             </properties>
+            <build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>test</goal>
+								</goals>
+								<configuration>
+									<includes>
+										<include>**/*Funcional.java</include>
+									</includes>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
         </profile>
--->
 		<profile>
 			<id>integracao-continua</id>
 			<activation>
@@ -409,9 +427,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 					<name>integracao-continua</name>
 				</property>
 			</activation>
-			 <properties>
-                <expertus.environment.type>sauceCloudbees</expertus.environment.type>
-            </properties>
 			<build>
 				<plugins>
 					<plugin>

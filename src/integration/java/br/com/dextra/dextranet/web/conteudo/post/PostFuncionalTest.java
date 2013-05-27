@@ -17,7 +17,7 @@ public class PostFuncionalTest extends TesteFuncionalBase {
 		this.limpaPostsInseridos(new PostRepository());
 	}
 
-	//@Test
+	@Test
 	public void criarNovoPost() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
 
@@ -27,7 +27,7 @@ public class PostFuncionalTest extends TesteFuncionalBase {
 		entaoUsuarioVisualizaOPost(titulo, conteudo);
 	}
 	
-	//@Test
+	@Test
 	public void excluirPost() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
 
