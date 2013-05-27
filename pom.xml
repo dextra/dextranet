@@ -409,15 +409,15 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
 									<includes>
 										<include>**/*Funcional.java</include>
 									</includes>
+									<systemPropertyVariables>
+										<expertus.environment.type>sauceCloudbees</expertus.environment.type>
+									</systemPropertyVariables>
 								</configuration>
 							</execution>
 						</executions>
 					</plugin>
 				</plugins>
 			</build>
-            <properties>
-                <expertus.environment.type>sauceCloudbees</expertus.environment.type>
-            </properties>
         </profile>
 		<profile>
 			<id>integracao-continua</id>
