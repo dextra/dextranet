@@ -16,10 +16,12 @@ public class ComentarioFuncionalTest extends TesteFuncionalBase {
 	private String tituloPost;
 	private PaginaNovoComentario paginaNovoComentario;
 
-	@Test
+	//@Test
 	public void testComentario() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
 		eleCriaPost();
+		eleCurtePost();
+		eChecaSePostFoiCurtido();
 		eleCriaComentarioParaPost();
 		eChecaSeComentarioFoiInserido();
 		eleCurteComentario();
@@ -46,6 +48,12 @@ public class ComentarioFuncionalTest extends TesteFuncionalBase {
 		paginaNovoPost.criarNovoPost(tituloPost, conteudo);
 	}
 
+	private void eleCurtePost() {
+		String linkCurtir = "li.clearfix .list_stories_data .list_stories_dx .post .icon_dx";
+		paginaPrincipal.click(linkCurtir);
+		paginaPrincipal.waitingForLoading();
+	}
+
 	private void eleCriaComentarioParaPost() {
 		paginaNovoComentario = paginaPrincipal.clicaEmNovoComentario(tituloPost);
 		String conteudo = "Texto do comentário.";
@@ -69,6 +77,12 @@ public class ComentarioFuncionalTest extends TesteFuncionalBase {
 
 	private void eChecaSeComentarioFoiCurtido() {
 		String numeroCurtida = "div.content .comment-data .list_stories_dx .showLikes .numero_curtida";
+		WebElement curtidas = driver.findElement(By.cssSelector(numeroCurtida));
+		Assert.assertEquals("1", curtidas.getText());
+	}
+
+	private void eChecaSePostFoiCurtido() {
+		String numeroCurtida = "li.clearfix .list_stories_data .list_stories_dx .showLikes .numero_curtida";
 		WebElement curtidas = driver.findElement(By.cssSelector(numeroCurtida));
 		Assert.assertEquals("1", curtidas.getText());
 	}

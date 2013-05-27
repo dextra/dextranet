@@ -45,8 +45,8 @@ public class BannerRS {
 			@FormParam("dataFim") String dataFim, @FormParam("link") String link, @FormParam("imagem") String imagem,
 			@Context HttpServletRequest request) {
 
-		Banner banner = new Banner(titulo, link, timeMachine.tranformaEmData(dataInicio),
-				timeMachine.tranformaEmData(dataFim), AutenticacaoService.identificacaoDoUsuarioLogado());
+		Banner banner = new Banner(titulo, link, timeMachine.transformaEmData(dataInicio),
+				timeMachine.transformaEmData(dataFim), AutenticacaoService.identificacaoDoUsuarioLogado());
 		banner.adicionaImagem(this.obtemBlobKeyDaImagem(request));
 
 		repositorio.persiste(banner);

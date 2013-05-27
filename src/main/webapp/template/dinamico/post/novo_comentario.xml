@@ -41,6 +41,7 @@
 				$comentario.appendTo($('li#' + '${postId}' + '.clearfix ul.list_stories_comments'));
 
 				//Calcula tempo de postagem
+				timeAgo.serverDate();
 				$.each($('.time_ago'), function(){
 					data_completa = $(this).html();
 					tempo_atras = timeAgo.calcular(data_completa);

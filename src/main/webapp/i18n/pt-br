@@ -62,6 +62,13 @@
 	"post_mensagem_busca_campo_vazio" : "Para realizar a busca é necessário preencher o título, conteúdo ou autor do post/comentário!",
 	"post_curtidas" : "curtiram",
 	"post_nenhuma_curtida" : "Ninguém curtiu isso ainda.",
-	"post_excluir" : "Excluir"
+	"post_excluir" : "Excluir",
+	"segundos_atras" : "segundos atrás",
+	"minutos_atras" : " minutos atrás",
+	"hora_atras" : " 1 hora atrás",
+	"horas_atras" : " horas atrás",
+	"ontem" : " Ontem",
+	"semanas_atras" : " semanas atrás",
+	"data_invalida" : "Data inválida"
 	}
 }

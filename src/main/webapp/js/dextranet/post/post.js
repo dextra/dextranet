@@ -50,11 +50,10 @@ dextranet.post = {
 					if(posts != null && posts.length > 0){
 						dextranet.post.foundPosts = dextranet.post.foundPosts.concat(posts);
 					}
-						$.holy("../template/dinamico/post/lista_posts.xml", { busca : false,
-																			  posts : dextranet.post.foundPosts,
-							  												  gravatar : dextranet.gravatarUrl });
-						dextranet.ativaMenu("sidebar_left_home");
-					
+					$.holy("../template/dinamico/post/lista_posts.xml", { paginar : posts.length > 0,
+																		  posts : dextranet.post.foundPosts,
+																		  gravatar : dextranet.gravatarUrl });
+					dextranet.ativaMenu("sidebar_left_home");
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
@@ -76,10 +75,10 @@ dextranet.post = {
 			$.ajax( {
 				type : "POST",
 				loading : false,
-				url : "/s/post/"+postId+"/curtida",
+				url : "/s/post/" + postId + "/curtida",
 				contentType : dextranet.application_json,
 				success : function(qtdCurtidas) {
-					$("div.list_stories_data a#showLikes_"+postId+" span.numero_curtida").text(qtdCurtidas);
+					$("div.list_stories_data a#showLikes_" + postId + " span.numero_curtida").text(qtdCurtidas);
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
