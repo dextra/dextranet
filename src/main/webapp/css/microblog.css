@@ -8,6 +8,9 @@
 
 ul#list_microposts {
 	margin-top: 5px;
+	overflow: auto;
+	height: 318px;
+	width: 312px;
 }
 
 li.micropost {
