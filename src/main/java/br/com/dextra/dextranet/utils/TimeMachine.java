@@ -36,7 +36,7 @@ public class TimeMachine {
 		inicioDoDia.set(Calendar.MINUTE, 0);
 		inicioDoDia.set(Calendar.SECOND, 0);
 		inicioDoDia.set(Calendar.MILLISECOND, 0);
-
+		inicioDoDia.setTimeZone(zone.toTimeZone());
 		return inicioDoDia.getTime();
 	}
 
@@ -48,7 +48,7 @@ public class TimeMachine {
 		fimDoDia.set(Calendar.MINUTE, 59);
 		fimDoDia.set(Calendar.SECOND, 59);
 		fimDoDia.set(Calendar.MILLISECOND, 99);
-
+		fimDoDia.setTimeZone(zone.toTimeZone());
 		return fimDoDia.getTime();
 	}
 
