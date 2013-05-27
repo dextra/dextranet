@@ -8,9 +8,16 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import br.com.dextra.dextranet.rest.config.Application;
+
+import com.google.appengine.repackaged.org.joda.time.DateTime;
+import com.google.appengine.repackaged.org.joda.time.DateTimeZone;
+
 public class TimeMachineTest {
 
 	private TimeMachine timeMachine = new TimeMachine();
+	
+	private final DateTimeZone zone = DateTimeZone.forID(Application.TIMEZONE_SAO_PAULO);
 
 	@Test
 	public void testaFormataData() {
@@ -35,16 +42,18 @@ public class TimeMachineTest {
 
 	@Test
 	public void testaInicioDoDia() {
-		Calendar calendar = new GregorianCalendar(2013, 3, 10);
-		Date inicioDoDia = timeMachine.inicioDoDia(calendar.getTime());
-		Assert.assertEquals("10/04/2013 00:00", timeMachine.formataData(inicioDoDia));
+		DateTime dateTime = new DateTime(2013, 03, 10, 15, 20);
+		dateTime = dateTime.withZone(zone);
+		Date inicioDoDia = timeMachine.inicioDoDia(dateTime.toLocalDateTime().toDateTime().toDate());
+		Assert.assertEquals("10/03/2013 00:00", timeMachine.formataData(inicioDoDia));
 	}
 
 	@Test
 	public void testaFimDoDia() {
-		Calendar calendar = new GregorianCalendar(2013, 3, 10);
-		Date inicioDoDia = timeMachine.fimDoDia(calendar.getTime());
-		Assert.assertEquals("10/04/2013 23:59", timeMachine.formataData(inicioDoDia));
+		DateTime dateTime = new DateTime(2013, 03, 10, 15, 20);
+		dateTime = dateTime.withZone(zone);
+		Date fimDoDia = timeMachine.fimDoDia(dateTime.toLocalDateTime().toDateTime().toDate());
+		Assert.assertEquals("10/03/2013 23:59", timeMachine.formataData(fimDoDia));
 	}
 
 	@Test

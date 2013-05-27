@@ -9,6 +9,7 @@ import br.com.dextra.dextranet.rest.config.Application;
 
 import com.google.appengine.repackaged.org.joda.time.DateTime;
 import com.google.appengine.repackaged.org.joda.time.DateTimeZone;
+import com.google.appengine.repackaged.org.joda.time.LocalDateTime;
 
 public class TimeMachine {
 
@@ -28,28 +29,17 @@ public class TimeMachine {
 	}
 
 	public Date inicioDoDia(Date data) {
-		DateTime dateTime = new DateTime(zone);
-		Calendar inicioDoDia = dateTime.toLocalDateTime().toDateTime().toGregorianCalendar();
-
-		inicioDoDia.setTime(data);
-		inicioDoDia.set(Calendar.HOUR, 0);
-		inicioDoDia.set(Calendar.MINUTE, 0);
-		inicioDoDia.set(Calendar.SECOND, 0);
-		inicioDoDia.set(Calendar.MILLISECOND, 0);
-
-		return inicioDoDia.getTime();
+		DateTime dateTime = new LocalDateTime(data).toDateTime().withZone(zone);
+		dateTime = dateTime.withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0).withMillisOfSecond(0);
+		
+		return dateTime.toLocalDateTime().toDateTime().toDate();
 	}
 
 	public Date fimDoDia(Date data) {
-		DateTime dateTime = new DateTime(zone);
-		Calendar fimDoDia = dateTime.toLocalDateTime().toDateTime().toGregorianCalendar();
-		fimDoDia.setTime(data);
-		fimDoDia.set(Calendar.HOUR, 23);
-		fimDoDia.set(Calendar.MINUTE, 59);
-		fimDoDia.set(Calendar.SECOND, 59);
-		fimDoDia.set(Calendar.MILLISECOND, 99);
-
-		return fimDoDia.getTime();
+		DateTime dateTime = new LocalDateTime(data).toDateTime().withZone(zone);
+		dateTime = dateTime.withHourOfDay(23).withMinuteOfHour(59).withSecondOfMinute(59).withMillisOfSecond(99);
+		
+		return dateTime.toLocalDateTime().toDateTime().toDate();
 	}
 
 	public String formataData(Date data) {
