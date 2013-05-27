@@ -36,7 +36,7 @@
 							</a>
 						</div>
 						<div class="list_stories_numbercomments">
-							<a id="${post.id}" class="${post.id}">
+							<a id="idComentarioLink_${post.id}" class="${post.id}">
 								<span class="icon_comments"></span>
 								<span class="numero_comentario">${post.quantidadeDeComentarios}</span>
 								${messages.post_comentario}
@@ -68,7 +68,7 @@
 										<span class="list_stories_date time_ago">${comentario.dataDeCriacao}
 										</span>
 										{if comentario.usuario == dextranet.usuario.logado.username}
-										<button class="btn btn-small btn-light btn-excluir-comentario"
+										<button id="btn-excluir-comentario_${comentario.id}" class="btn btn-small btn-light btn-excluir-comentario"
 											title="Excluir este comentário" onclick="dextranet.post.removerComentario('${post.id}', '${comentario.id}')">
 											<strong>x </strong>
 											${messages.botao_excluir}
