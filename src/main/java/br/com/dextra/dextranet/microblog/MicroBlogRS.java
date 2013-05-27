@@ -19,8 +19,8 @@ public class MicroBlogRS {
 
 	@Path("/post")
 	@POST
-	public void post(@FormParam("texto") String text) {
-		MicroPost micropost = new MicroPost(text);
+	public void post(@FormParam("texto") String texto) {
+		MicroPost micropost = new MicroPost(texto);
 		MicroBlogRepository repository = getMicroBlogRepository();
 		repository.salvar(micropost);
 	}
