@@ -81,9 +81,9 @@
                 dextranet.carregaMenus();
                 dextranet.usuario.exibirUsuarioLogado();
                 dextranet.usuario.carregaLogout();
-                dextranet.microblog.listar();
+                dextranet.microblog.listar(1);
                 dextranet.banner.listarVigentes();
-                dextranet.post.listar(null, 1);
+                dextranet.post.listar(1);
             });
         </script>
     </head>
@@ -118,7 +118,7 @@
         </div>
         <script>
         	$('#form_search').submit(function(){
-				return dextranet.indexacao();        		
+				return dextranet.indexacao();
         	});
         </script>
     </body>

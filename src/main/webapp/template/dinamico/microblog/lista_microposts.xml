@@ -25,7 +25,7 @@
 		    	{/for}
 	    	</ul>
     	</div>
-	</template>
+    	<a id="paginar_microblog">+</a>
 
 	<script>
 		<![CDATA[
@@ -38,16 +38,38 @@
 
 		$.each($('.time_ago_microposts'), function(){
 			data_completa = $(this).html();
-			tempo_atras = timeAgo.calcular(data_completa)
+			tempo_atras = timeAgo.calcular(data_completa);
 			$(this).html(tempo_atras);
 			$(this).attr('title', data_completa);
 		});
+
+		$('a#paginar_microblog').click(function(){
+			{if paginar}
+				dextranet.microblog.listar(dextranet.paginacao.paginaCorrenteMicroBlog+= 1)
+				dextranet.paginacao.indiceUltimoMicroPost = $('li.micropost').size();
+	 		{/if}
+		});
+
+		if(dextranet.paginacao.paginaCorrenteMicroBlog > 1){
+			indiceElemento = dextranet.paginacao.indiceUltimoMicroPost - 1;
+
+			$('html, body').animate({
+                    scrollTop: $('li.micropost:eq(' + indiceElemento + ')').offset().top
+                     }, 'slow');
+		}
 
 		//Tooltips
 		$('div.avatar-frame').tipsy();
 		$('span.time_ago_microposts').tipsy();
 
-		$("#form_micropost_submit").click(dextranet.microblog.postar);
+		$("#form_micropost_submit").click(function(){
+			if($('textarea#conteudo_novo_micropost').val())
+				dextranet.microblog.postar();
+					$('textarea#conteudo_novo_micropost').focus();
+		})
+
 		]]>
 	</script>
+
+	</template>
 </engine>

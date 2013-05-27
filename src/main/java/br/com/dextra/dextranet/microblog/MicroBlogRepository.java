@@ -18,11 +18,19 @@ public class MicroBlogRepository extends EntidadeRepository {
 		return toMicroPosts(prepared.asIterable());
 	}
 
-	public List<MicroPost> lista(EntidadeOrdenacao ... criterioOrdenacao) {
+
+
+	public List<MicroPost> lista(EntidadeOrdenacao... criterioOrdenacao) {
+		return this.lista(null, null, criterioOrdenacao);
+	}
+
+	public List<MicroPost> lista(Integer registrosPorPagina, Integer numeroDaPagina, EntidadeOrdenacao... criterioOrdenacao) {
 		List<MicroPost> microPosts = new ArrayList<MicroPost>();
-		Iterable<Entity> lista = super.lista(MicroPost.class, criterioOrdenacao);
-		for (Entity entity : lista) {
-			microPosts.add(new MicroPost(entity));
+		Iterable<Entity> entidades = super.lista(MicroPost.class, registrosPorPagina, numeroDaPagina, criterioOrdenacao);
+
+		for (Entity entidade : entidades) {
+			MicroPost microPost = new MicroPost(entidade);
+			microPosts.add(microPost);
 		}
 
 		return microPosts;

@@ -1,12 +1,26 @@
 dextranet.microblog = {
 
-	listar : function() {
+	foundMicroPosts : [],
+
+	listar : function(pagina) {
+		if (pagina == 1) {
+			dextranet.microblog.foundMicroPosts = [];
+			dextranet.paginacao.paginaCorrenteMicroBlog = 1;
+		}
+		if (!pagina) {
+			var pagina = 1;
+		}
+
 		$.ajax( {
 			type : "GET",
-			url : "/s/microblog/post",
+			url : "/s/microblog/post?p="+pagina,
 			contentType : dextranet.application_json,
 			success : function(microposts) {
-				$.holy("../template/dinamico/microblog/lista_microposts.xml", { posts : microposts,
+				if(microposts != null && microposts.length > 0){
+					dextranet.microblog.foundMicroPosts = dextranet.microblog.foundMicroPosts.concat(microposts);
+				}
+				$.holy("../template/dinamico/microblog/lista_microposts.xml", { paginar : microposts.length > 0,
+																				posts : dextranet.microblog.foundMicroPosts,
 																       			gravatar : dextranet.gravatarUrl });
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
@@ -25,7 +39,7 @@ dextranet.microblog = {
 					"texto" : conteudo
 				},
 				success : function() {
-					dextranet.microblog.listar();
+					dextranet.microblog.listar(1);
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
@@ -37,20 +51,3 @@ dextranet.microblog = {
 		return false;
 	}
 }
-
-//(function($) {
-//
-//    $('#new_tweet').submit(function() {
-//        var text = $('#tweet_text').val();
-//        $('.tweets').prepend('<li>' + text + '</li>');
-//
-//        var post = {};
-//        post.text = text;
-//
-//        $.post("/s/microblog/post", post).done(function(data) {
-//            console.log($.get("/s/microblog/post"));
-//        });
-//        return false;
-//    });
-//
-//}(jQuery));

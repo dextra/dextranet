@@ -2,14 +2,13 @@
 	position: relative;
 	right: 0;
 	width: 300px;
-	height: 400px;
+	height: auto;
 	top: 0;
 }
 
 ul#list_microposts {
 	margin-top: 5px;
-	overflow: auto;
-	height: 318px;
+	height: auto;
 	width: 312px;
 }
 

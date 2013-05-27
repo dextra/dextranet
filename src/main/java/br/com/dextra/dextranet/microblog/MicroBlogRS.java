@@ -33,22 +33,10 @@ public class MicroBlogRS {
 		return new MicroBlogRepository();
 	}
 
-//	@Path("/post")
-//	@GET
-//	@Produces(Application.JSON_UTF8)
-//	public Response get() {
-//
-//		EntidadeOrdenacao dataDeAtualizacaoDecrescente = new EntidadeOrdenacao(MicroBlogFields.DATA.getField(), SortDirection.DESCENDING);
-//		List<MicroPost> microPosts = microBlogRepository.lista(dataDeAtualizacaoDecrescente);
-//		return Response.ok().entity(microPosts).build();
-//	}
-
-
-
 	@Path("/post")
 	@GET
 	@Produces(Application.JSON_UTF8)
-	public Response listar(@QueryParam("r") @DefaultValue(Application.REGISTROS_POR_PAGINA) Integer registrosPorPagina, @QueryParam("p") @DefaultValue("1") Integer pagina) {
+	public Response listar(@QueryParam("r") @DefaultValue(Application.REGISTROS_POR_PAGINA_MICROPOSTS) Integer registrosPorPagina, @QueryParam("p") @DefaultValue("1") Integer pagina) {
 		List<MicroPost> microPosts = this.listarMicroPostsOrdenados(registrosPorPagina, pagina);
 		return Response.ok().entity(microPosts).build();
 	}
@@ -60,7 +48,4 @@ public class MicroBlogRS {
 		List<MicroPost> microPosts = microBlogRepository.lista(registrosPorPagina, pagina, dataDeAtualizacaoDecrescente);
 		return microPosts;
 	}
-
-
-
 }
