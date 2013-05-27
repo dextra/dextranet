@@ -398,13 +398,10 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             <build>
 				<plugins>
 					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-surefire-plugin</artifactId>
 						<executions>
 							<execution>
-								<phase>integration-test</phase>
-								<goals>
-									<goal>test</goal>
-								</goals>
 								<configuration>
 									<includes>
 										<include>**/*Funcional.java</include>
