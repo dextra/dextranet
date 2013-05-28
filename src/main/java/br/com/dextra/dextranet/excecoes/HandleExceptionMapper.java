@@ -1,5 +1,4 @@
-// FIXME: excessao com 2 s, minha gente? :)
-package br.com.dextra.dextranet.excessoes;
+package br.com.dextra.dextranet.excecoes;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -14,13 +13,16 @@ public class HandleExceptionMapper implements ExceptionMapper<HttpException> {
 
 	@Override
 	public Response toResponse(HttpException exception) {
-		switch (exception.httpCode()) {
-		case 400:
-			return createResponse(Status.BAD_REQUEST, Messages.getMessage("http.error.400"));
-		case 500:
-			return createResponse(Status.INTERNAL_SERVER_ERROR, Messages.getMessage("http.error.500"));
+		Status status = exception.status();
+		switch (status) {
+		case BAD_REQUEST:
+			return createResponse(status, Messages.getMessage("http.error.400"));
+		case NOT_FOUND:
+			return createResponse(status, Messages.getMessage("http.error.404"));
+		case INTERNAL_SERVER_ERROR:
+			return createResponse(status, Messages.getMessage("http.error.500"));
 		default:
-			throw new RuntimeException("[" + getClass().getName() + "]: code" + exception.httpCode() + " not found");
+			throw new RuntimeException("[" + getClass().getName() + "]: status " + status + " not found");
 		}
 	}
 

@@ -2,7 +2,7 @@
 <engine>
 	<template selector="#content_left">
 
-		<h1>${messages.usuario_edicao_titulo}</h1>
+		<h1 class="titulo">${messages.usuario_edicao_titulo}</h1>
 
 		<div class="clearfix">
 
@@ -51,6 +51,18 @@
 					</dt>
 					<dd>
 						<input type="text" id="txtRamal" name="ramal" value="${usuario.ramal}" alt="ramal" />
+					</dd>
+					<dt>
+						<label for="txtEmail">${messages.usuario_email}:</label>
+					</dt>
+					<dd>
+						<input type="text" id="txtEmail" name="email" value="${usuario.email}" maxlength="50" />
+					</dd>
+					<dt>
+						<label for="txtGtalk">${messages.usuario_gtalk}:</label>
+					</dt>
+					<dd>
+						<input type="text" id="txtGtalk" name="gtalk" value="${usuario.gtalk}" maxlength="50" />
 					</dd>
 					<dt>
 						<label for="txtSkype">${messages.usuario_skype}:</label>

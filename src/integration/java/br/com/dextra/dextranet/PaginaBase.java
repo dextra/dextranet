@@ -1,4 +1,4 @@
-package br.com.dextra.teste;
+package br.com.dextra.dextranet;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -16,6 +16,11 @@ public class PaginaBase extends PageObject {
 		((JavascriptExecutor) driver).executeScript("CKEDITOR.instances." + form + ".setData(\"" + text + "\");");
 	}
 
+	public void redigeConteudoTextArea(String text, String idTextArea) {
+		String textarea = "textarea#" + idTextArea;
+		this.writeTextArea(textarea, text);
+	}
+
 	public void waitingForLoading() {
 		String loadingCssSeletor = "div.loading";
 
@@ -25,6 +30,7 @@ public class PaginaBase extends PageObject {
 		int tentativas = 1;
 
 		while (tentativas < MAX_ATTEMPT_TO_WAIT) {
+
 			boolean loadingAtivo = Boolean.valueOf(this.getElementAttribute(loadingCssSeletor, "active"));
 
 			if (!loadingAtivo) {

@@ -22,7 +22,7 @@
         <script type="text/javascript" src="holy/datatable/jquery.datatable.js?v=${buildNumber}"></script>
         <link rel="stylesheet" type="text/css"  href="holy/datatable/jquery.datatable.css?v=${buildNumber}" media="all" />
 
-        <script type="text/javascript" src="holy/loading/jquery.loading.min.js?v=${buildNumber}"></script>
+        <script type="text/javascript" src="holy/loading/jquery.loading.js?v=${buildNumber}"></script>
         <link rel="stylesheet" type="text/css"  href="holy/loading/jquery.loading.min.css?v=${buildNumber}" media="all" />
 
         <script type="text/javascript" src="holy/message/jquery.message.min.js?v=${buildNumber}"></script>
@@ -81,7 +81,7 @@
                 dextranet.usuario.exibirUsuarioLogado();
                 dextranet.usuario.carregaLogout();
                 dextranet.banner.listarVigentes();
-                dextranet.post.listar(null);
+                dextranet.post.listar(null, 1);
             });
         </script>
     </head>
@@ -98,7 +98,7 @@
                   -- Corrigir variável do placeholder (usar texto: Procurar postagens e pessoas...).
                   -->
                 <div id="header_search_box">
-                    <form id="form_search" onsubmit="dextranet.buscarPosts();">
+                    <form id="form_search">
                         <input type="text" placeholder="Pesquisar posts..." id="form_search_input" />
                         <input type="submit" value="" title="Procurar!" id="form_search_submit" />
                     </form>
@@ -116,5 +116,11 @@
         </div>
 
         <script type="text/javascript" src="js/dextranet/microblog.js"></script>
+        
+        <script>
+        	$('#form_search').submit(function(){
+				return dextranet.indexacao();        		
+        	});
+        </script>
     </body>
 </html>

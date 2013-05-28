@@ -19,12 +19,9 @@ public class MicroPost extends Entidade {
     }
 
     public MicroPost(Entity microPostEntity) {
-        super((String) microPostEntity.getProperty(MicroBlogFields.ID
-                .getField()));
-        this.texto = (String) microPostEntity.getProperty(MicroBlogFields.TEXTO
-                .getField());
-        this.data = (Date) microPostEntity.getProperty(MicroBlogFields.DATA
-                .getField());
+        super((String) microPostEntity.getProperty(MicroBlogFields.ID.getField()));
+        this.texto = (String) microPostEntity.getProperty(MicroBlogFields.TEXTO.getField());
+        this.data = (Date) microPostEntity.getProperty(MicroBlogFields.DATA.getField());
         atribuiUsuarioAoPost(microPostEntity);
     }
 
@@ -69,5 +66,4 @@ public class MicroPost extends Entidade {
     public Usuario getAutor() {
         return autor;
     }
-
 }

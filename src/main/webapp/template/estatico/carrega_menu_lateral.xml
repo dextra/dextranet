@@ -35,13 +35,13 @@
 		</ul>
 	</template>
 	<script>
-		$("#button_sidebar_left_home").click(dextranet.post.listar);
+		$("#button_sidebar_left_home").click(function(){dextranet.post.listar(1)});
 		$("#button_sidebar_left_novopost").click(dextranet.post.novo);
 		$("#button_sidebar_left_new_banner").click(dextranet.banner.novo);
 		$("#button_sidebar_left_profile").click(dextranet.usuario.editar);
 		$("#button_sidebar_left_team").click(dextranet.equipe.listar);
 		$("#form_new_post").submit(dextranet.post.criaNovoPost);
-		
+
 		$('ul#sidebar_left_menu li').click(function() {
 			$('ul#sidebar_left_menu li').removeClass("active");
 			$(this).addClass("active");

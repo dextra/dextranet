@@ -60,8 +60,7 @@ public class Comentario extends Conteudo implements ConteudoIndexavel {
 
 	@Override
 	public String toString() {
-		return "Comentario [postId=" + postId + ", usuario=" + usuario + ", dataDeCriacao=" + dataDeCriacao
-				+ ", quantidadeDeCurtidas=" + quantidadeDeCurtidas + ", id=" + id + "]";
+		return "Comentario [postId=" + postId + ", usuario=" + usuario + ", dataDeCriacao=" + dataDeCriacao + ", quantidadeDeCurtidas=" + quantidadeDeCurtidas + ", id=" + id + "]";
 	}
 
 	@Override

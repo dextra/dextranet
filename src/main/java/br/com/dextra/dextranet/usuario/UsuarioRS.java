@@ -30,8 +30,8 @@ public class UsuarioRS {
 	public Response atualizar(@PathParam("id") String id, @FormParam("nome") String nome,
 			@FormParam("apelido") String apelido, @FormParam("area") String area, @FormParam("unidade") String unidade,
 			@FormParam("ramal") String ramal, @FormParam("telefoneResidencial") String telefoneResidencial,
-			@FormParam("telefoneCelular") String telefoneCelular, @FormParam("gitHub") String gitHub,
-			@FormParam("skype") String skype) throws EntityNotFoundException {
+			@FormParam("telefoneCelular") String telefoneCelular, @FormParam("email") String email,
+			@FormParam("gtalk") String gtalk, @FormParam("gitHub") String gitHub, @FormParam("skype") String skype) throws EntityNotFoundException {
 
 		Usuario usuario = repositorio.obtemPorId(id);
 
@@ -40,7 +40,7 @@ public class UsuarioRS {
 			return Response.status(Status.FORBIDDEN).build();
 		}
 
-		usuario.preenchePerfil(nome, apelido, area, unidade, ramal, telefoneResidencial, telefoneCelular, gitHub, skype);
+		usuario.preenchePerfil(nome, apelido, area, unidade, ramal, telefoneResidencial, telefoneCelular, email, gtalk, gitHub, skype);
 		repositorio.persiste(usuario);
 
 		return Response.ok().entity(usuario).build();

@@ -31,6 +31,16 @@ CKEDITOR.editorConfig = function( config ) {
 	// Se the most common block elements.
 	config.format_tags = 'p;h1;h2;h3;pre';
 
+	//Por padrão, target="_blank"
+	CKEDITOR.on('dialogDefinition', function ( e ){
+		if(e.data.name == 'link'){
+			e.data.definition.getContents('target').get('linkTargetType')['items'].splice(0, 3);
+			e.data.definition.getContents('target').get('linkTargetType')['items'].splice(1, 1);
+			e.data.definition.getContents('target').get('linkTargetType')['items'].splice(2, 2);
+			e.data.definition.getContents('target').get('linkTargetType')['default']='_blank';
+		}
+	});
+
 	// Make dialogs simpler.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 };

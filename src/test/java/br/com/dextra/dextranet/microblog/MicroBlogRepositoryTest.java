@@ -31,7 +31,7 @@ public class MicroBlogRepositoryTest extends TesteIntegracaoBase {
     @After
     public void removeDados() {
         this.limpaMicroPostsInseridos(repository);
-        this.limpaUsuariosCriados(usuarioRepository);
+        this.limpaUsuariosInseridos(usuarioRepository);
     }
 
     @Test
@@ -78,8 +78,4 @@ public class MicroBlogRepositoryTest extends TesteIntegracaoBase {
         assertEquals("micromessa2", buscarMicroPosts.get(1).getTexto());
         assertEquals("micromessa1", buscarMicroPosts.get(2).getTexto());
     }
-
-
-
-
 }

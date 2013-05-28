@@ -1,0 +1,61 @@
+<engine>
+	<template selector="ul.list_stories_comments" append="true">
+		<li class="clearfix ${comentario.id}" id="${comentario.id}">
+			<div class="avatar-frame" title="Por ${comentario.usuario}">
+				<img src="${gravatar}${comentario.usuarioMD5}" alt="Avatar" />
+			</div>
+			<div class="speech-shape-small"></div>
+			<div class="content">
+				<p class="wordwrap">${comentario.conteudo}</p>
+				<div class="comment-data">
+					<span class="list_stories_date time_ago">${comentario.dataDeCriacao}
+					</span>
+					{if comentario.usuario == dextranet.usuario.logado.username}
+					<button class="btn btn-small btn-light btn-excluir-comentario"
+						title="Excluir este comentário"
+						onclick="dextranet.post.removerComentario('${postId}', '${comentario.id}')">
+						<strong>x </strong>
+						${messages.botao_excluir}
+					</button>
+					{/if}
+					<div class="list_stories_dx clearfix">
+						<a id="like_${comentario.id}" class="linkCurtir comentario">
+							<span class="icon_dx"
+								onclick="dextranet.post.curtirComentario('${postId}', '${comentario.id}');"></span>
+						</a>
+						<a id="showLikes_${comentario.id}" class="showLikes"
+							title="${comentario.usuariosQueCurtiram}"
+							onclick="dextranet.post.listarCurtidasComentario('${postId}', '${comentario.id}');">
+							<span class="numero_curtida">${comentario.quantidadeDeCurtidas}</span>
+							<span> ${messages.post_curtidas}</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</li>
+		<script type="text/javascript">
+			<![CDATA[
+				//Lista novo comentário
+				$comentario = $('li#' + '${postId}' + ' ul.list_stories_comments' + ' li.'+'${comentario.id}');
+				$('li.'+'${comentario.id}').remove();
+				$comentario.appendTo($('li#' + '${postId}' + '.clearfix ul.list_stories_comments'));
+
+				//Calcula tempo de postagem
+				timeAgo.serverDate();
+				$.each($('.time_ago'), function(){
+					data_completa = $(this).html();
+					tempo_atras = timeAgo.calcular(data_completa);
+					$(this).html(tempo_atras);
+					$(this).attr('title', data_completa);
+				});
+
+				//Tooltips
+				$('div.avatar-frame').tipsy();
+				$('a.showLikes').tipsy({html: true });
+				$('button').tipsy();
+				$('span.time_ago').tipsy();
+			]]>
+		</script>
+
+	</template>
+</engine>

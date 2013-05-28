@@ -18,14 +18,12 @@ import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
 import br.com.dextra.dextranet.conteudo.post.comentario.ComentarioRepository;
 import br.com.dextra.dextranet.conteudo.post.curtida.Curtida;
 import br.com.dextra.dextranet.conteudo.post.curtida.CurtidaRepository;
-import br.com.dextra.dextranet.excessoes.HttpException;
 import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.rest.config.Application;
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Query.SortDirection;
-import com.google.appengine.api.search.SearchQueryException;
 
 @Path("/post")
 public class PostRS {
@@ -37,7 +35,7 @@ public class PostRS {
 	@POST
 	@Produces(Application.JSON_UTF8)
 	public Response inserir(@FormParam("titulo") String titulo, @FormParam("conteudo") String conteudo) {
-		Post post = new Post(obtemUsuarioLogado(), titulo, conteudo);
+		Post  post = new Post(obtemUsuarioLogado(), titulo, conteudo);
 		repositorioDePosts.persiste(post);
 		return Response.ok().entity(post).build();
 	}
@@ -53,14 +51,14 @@ public class PostRS {
 	@Path("/{id}")
 	@DELETE
 	@Produces(Application.JSON_UTF8)
-	public Response deletar(@PathParam("id") String id) throws EntityNotFoundException, UsarioNaoPodeRemoverException {
+	public Response deletar(@PathParam("id") String id) throws EntityNotFoundException {
 		String usuarioLogado = obtemUsuarioLogado();
 		Post post = repositorioDePosts.obtemPorId(id);
 		if (post.getUsuario().equals(usuarioLogado)) {
 			repositorioDePosts.remove(id);
 			return Response.ok().build();
 		} else {
-			throw new UsarioNaoPodeRemoverException();
+			return Response.status(Status.FORBIDDEN).build();
 		}
 
 	}
@@ -111,26 +109,6 @@ public class PostRS {
 		return Response.ok().entity(curtidas).build();
 	}
 
-	@GET
-	// FIXME: o padrao REST diz que nao pode haver verbos na URL de um servico
-	// uma sugestao seria mudar esse cara para um IndexacaoRS criando um metodo get /indexacao, por exemplo
-	@Path("/buscar")
-	@Produces(Application.JSON_UTF8)
-	public Response buscarPosts(@QueryParam("query") String query) throws EntityNotFoundException, HttpException {
-		try {
-			List<Post> posts = repositorioDePosts.buscarPosts(query);
-
-			List<Comentario> comentarios = repositorioDeComentarios.buscarComentarios(query);
-			for (Comentario comentario : comentarios) {
-				posts.add(repositorioDePosts.obtemPorId(comentario.getPostId()));
-			}
-
-			return Response.ok().entity(posts).build();
-		} catch (SearchQueryException e) {
-			return Response.status(Status.INTERNAL_SERVER_ERROR ).build();
-		}
-	}
-
 	protected List<Post> listarPostsOrdenados(Integer registrosPorPagina, Integer pagina) {
 		EntidadeOrdenacao dataDeAtualizacaoDecrescente = new EntidadeOrdenacao(PostFields.dataDeAtualizacao.name(), SortDirection.DESCENDING);
 
@@ -146,7 +124,7 @@ public class PostRS {
 		Comentario comentario = post.comentar(this.obtemUsuarioLogado(), conteudo);
 		repositorioDePosts.persiste(post);
 		repositorioDeComentarios.persiste(comentario);
-		return Response.ok().entity(post).build();
+		return Response.ok().entity(comentario).build();
 	}
 
 	@Path("/{postId}/comentario")
@@ -201,7 +179,8 @@ public class PostRS {
 	@Path("/{comentarioId}/comentario")
 	@DELETE
 	@Produces(Application.JSON_UTF8)
-	public Response deletarComentario(@PathParam("comentarioId") String comentarioId) throws EntityNotFoundException, UsarioNaoPodeRemoverException {
+	public Response deletarComentario(@PathParam("comentarioId") String comentarioId) throws EntityNotFoundException {
+
 		String usuarioLogado = obtemUsuarioLogado();
 		Comentario comentario = repositorioDeComentarios.obtemPorId(comentarioId);
 		if (comentario.getUsuario().equals(usuarioLogado)) {

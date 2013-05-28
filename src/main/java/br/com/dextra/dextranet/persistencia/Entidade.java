@@ -31,7 +31,7 @@ public abstract class Entidade {
 	}
 
 	public abstract Entity toEntity();
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

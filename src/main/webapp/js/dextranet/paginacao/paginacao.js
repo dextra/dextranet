@@ -1,22 +1,18 @@
 dextranet.paginacao = {
-		acabouOsPosts : false,
 
-		resetPaginacao : function() {
-			dextranet.paginacao.acabouOsPosts = false;
-		}
-}
+	paginaCorrente : 1,
+	complete : true,
 
-dextranet.paginacao.paginacaoDosPosts = function() {
-
-	var complete = true;
-	$(window).scroll(function() {
-		if(complete && ($(window).scrollTop() + $(window).height()) > ($('body').height()) && !dextranet.paginacao.acabouOsPosts) {
-			complete = false;
-			dextranet.post.listaPost(consulta.getText(), numeroDaPagina.getPagina(), function() {complete = true;});
-			numeroDaPagina.next();
-		}
-		return false;
-	});
+	paginar : function() {
+		$(window).scroll(function(e) {
+			e.preventDefault();
+			if(dextranet.paginacao.complete && ($(window).scrollTop() + $(window).height()) == ($(document).height()) && $('li#sidebar_left_home').hasClass('active')) {
+				dextranet.paginacao.complete = false;
+				dextranet.post.listar(dextranet.paginacao.paginaCorrente+= 1);
+			}
+			return false;
+		});
+	}
 };
 
 

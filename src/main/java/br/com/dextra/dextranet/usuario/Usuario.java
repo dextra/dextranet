@@ -31,6 +31,10 @@ public class Usuario extends Entidade {
 
 	private String telefoneCelular;
 
+	private String email;
+
+	private String gtalk;
+
 	private String gitHub;
 
 	private String skype;
@@ -53,8 +57,11 @@ public class Usuario extends Entidade {
 		this.ramal = (String) entidade.getProperty(UsuarioFields.ramal.name());
 		this.telefoneResidencial = (String) entidade.getProperty(UsuarioFields.telefoneResidencial.name());
 		this.telefoneCelular = (String) entidade.getProperty(UsuarioFields.telefoneCelular.name());
+		this.email = (String) entidade.getProperty(UsuarioFields.email.name());
+		this.gtalk = (String) entidade.getProperty(UsuarioFields.gtalk.name());
 		this.gitHub = (String) entidade.getProperty(UsuarioFields.gitHub.name());
 		this.skype = (String) entidade.getProperty(UsuarioFields.skype.name());
+
 		this.ultimaAtualizacao = (Date) entidade.getProperty(UsuarioFields.ultimaAtualizacao.name());
 	}
 
@@ -106,8 +113,16 @@ public class Usuario extends Entidade {
 		return ultimaAtualizacao;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public String getGtalk() {
+		return gtalk;
+	}
+
 	public Usuario preenchePerfil(String nome, String apelido, String area, String unidade, String ramal,
-			String telefoneResidencial, String telefoneCelular, String gitHub, String skype) {
+			String telefoneResidencial, String telefoneCelular, String email, String gtalk, String gitHub, String skype) {
 		ConteudoHTML conteudoHTML = new ConteudoHTML(nome);
 		this.nome = conteudoHTML.removeJavaScript();
 
@@ -128,6 +143,12 @@ public class Usuario extends Entidade {
 
 		conteudoHTML.setConteudo(telefoneCelular);
 		this.telefoneCelular = conteudoHTML.removeJavaScript();
+
+		conteudoHTML.setConteudo(email);
+		this.email = conteudoHTML.removeJavaScript();
+
+		conteudoHTML.setConteudo(gtalk);
+		this.gtalk = conteudoHTML.removeJavaScript();
 
 		conteudoHTML.setConteudo(gitHub);
 		this.gitHub = conteudoHTML.removeJavaScript();
@@ -151,11 +172,13 @@ public class Usuario extends Entidade {
 		entidade.setProperty(UsuarioFields.area.name(), this.area);
 		entidade.setProperty(UsuarioFields.unidade.name(), this.unidade);
 		entidade.setProperty(UsuarioFields.ramal.name(), this.ramal);
+		entidade.setProperty(UsuarioFields.ultimaAtualizacao.name(), this.ultimaAtualizacao);
 		entidade.setProperty(UsuarioFields.telefoneResidencial.name(), this.telefoneResidencial);
 		entidade.setProperty(UsuarioFields.telefoneCelular.name(), this.telefoneCelular);
-		entidade.setProperty(UsuarioFields.gitHub.name(), this.gitHub);
+		entidade.setProperty(UsuarioFields.email.name(), this.email);
+		entidade.setProperty(UsuarioFields.gtalk.name(), this.gtalk);
 		entidade.setProperty(UsuarioFields.skype.name(), this.skype);
-		entidade.setProperty(UsuarioFields.ultimaAtualizacao.name(), this.ultimaAtualizacao);
+		entidade.setProperty(UsuarioFields.gitHub.name(), this.gitHub);
 
 		return entidade;
 	}
@@ -163,5 +186,4 @@ public class Usuario extends Entidade {
 	public static String geraMD5(String username) {
 		return MD5.hash(username + DEFAULT_DOMAIN);
 	}
-
 }

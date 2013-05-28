@@ -72,8 +72,7 @@ public class MigracaoRS {
 			throws EntityNotFoundException {
 		Post post = repositorioDePosts.obtemPorId(postId);
 
-		Comentario comentarioMigracao = post.comentar(username, conteudo);
-		comentarioMigracao.registraDataDeMigracao(data);
+		Comentario comentarioMigracao = post.comentarParaMigracao(username, conteudo, data);
 
 		repositorioDePosts.persiste(post);
 		return repositorioDeComentarios.persiste(comentarioMigracao);

@@ -39,7 +39,7 @@ public class MyContainerGAEHelper {
 	private LocalDatastoreServiceTestConfig ds;
 	private LocalSearchServiceTestConfig fts;
 
-	private int port = 8380;
+	private int port = 8080;
 
 	public void setPort(int port) {
 		this.port = port;
