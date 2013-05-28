@@ -4,13 +4,12 @@ import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 import br.com.dextra.dextranet.TesteFuncionalBase;
 import br.com.dextra.dextranet.conteudo.post.PostRepository;
 
 public class PostTesteFuncional extends TesteFuncionalBase {
+
 	private PaginaNovoPost paginaNovoPost = null;
 
 	@After
@@ -20,13 +19,22 @@ public class PostTesteFuncional extends TesteFuncionalBase {
 
 	@Test
 	public void criarNovoPost() {
-		paginaPrincipal.dadoQueUsuarioAcessaPaginaPrincipal();
+		dadoQueUsuarioAcessaPaginaPrincipal();
+
 		String titulo = "Titulo de Teste";
 		String conteudo = "Texto do teste";
 		eCriouUmPost(titulo, conteudo);
 		entaoUsuarioVisualizaOPost(titulo, conteudo);
-		eleCurtePost();
-		eChecaSePostFoiCurtido();
+	}
+	
+	@Test
+	public void excluirPost() {
+		dadoQueUsuarioAcessaPaginaPrincipal();
+
+		String titulo = "Titulo de Teste";
+		String conteudo = "Texto do teste";
+		eCriouUmPost(titulo, conteudo);
+		entaoUsuarioExcluiOPost(titulo, conteudo);
 	}
 
 	protected void eCriouUmPost(String titulo, String conteudo) {
@@ -36,20 +44,10 @@ public class PostTesteFuncional extends TesteFuncionalBase {
 
 
 	private void entaoUsuarioVisualizaOPost(String titulo, String conteudo) {
-		Assert.assertTrue(paginaNovoPost.existePostPor(titulo, conteudo));
+		Assert.assertTrue(paginaPrincipal.existePost(titulo, conteudo));
 	}
-
-	private void eleCurtePost() {
-		String linkCurtir = "a#like_" + paginaNovoPost.getIdPost();
-		linkCurtir += " span";
-		paginaPrincipal.click(linkCurtir);
-		paginaPrincipal.waitToLoad();
-	}
-
-	private void eChecaSePostFoiCurtido() {
-		String numeroCurtida = "a#showLikes_" + paginaNovoPost.getIdPost();
-		numeroCurtida +=  " .numero_curtida";
-		WebElement curtidas = driver.findElement(By.cssSelector(numeroCurtida));
-		Assert.assertEquals("1", curtidas.getText());
+	
+	private void entaoUsuarioExcluiOPost(String titulo, String conteudo) {
+		Assert.assertTrue(paginaPrincipal.excluiPost(titulo, conteudo));
 	}
 }

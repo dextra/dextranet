@@ -13,27 +13,48 @@ import javax.ws.rs.core.Response;
 
 import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.rest.config.Application;
+import br.com.dextra.dextranet.usuario.Usuario;
+import br.com.dextra.dextranet.usuario.UsuarioRepository;
 
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 @Path("/microblog")
 public class MicroBlogRS {
 	private MicroBlogRepository microBlogRepository = new MicroBlogRepository();
 
+    @Path("/post")
+    @POST
+    public void post(@FormParam("text") String text) {
+        MicroPost micropost = new MicroPost(text, obtemUsuarioLogado());
+        MicroBlogRepository repository = getMicroBlogRepository();
+        repository.salvar(micropost);
+    }
+    
+    protected Usuario obtemUsuarioLogado() {
+        return new UsuarioRepository().obtemUsuarioLogado();
+    }
 
-	@Path("/post")
-	@POST
-	public void post(@FormParam("texto") String texto) {
-		MicroPost micropost = new MicroPost(texto);
-		MicroBlogRepository repository = getMicroBlogRepository();
-		repository.salvar(micropost);
-	}
+    protected MicroBlogRepository getMicroBlogRepository() {
+        return new MicroBlogRepository();
+    }
 
-	protected MicroBlogRepository getMicroBlogRepository() {
-		return new MicroBlogRepository();
-	}
-
-	@Path("/post")
+    @Path("/post")
+    @GET
+    public Response get() {
+        MicroBlogRepository repository = getMicroBlogRepository();
+        JsonArray microPosts = new JsonArray();
+        for (MicroPost microPost : repository.buscarMicroPosts()) {
+            JsonObject microPostJson = new JsonObject();
+            microPostJson.addProperty("text", microPost.getTexto());
+            microPostJson.addProperty("autor", microPost.getAutor().getUsername());
+            microPosts.add(microPostJson);
+        }
+        return Response.ok(microPosts.toString()).build();
+    }
+    
+    @Path("/post")
 	@GET
 	@Produces(Application.JSON_UTF8)
 	public Response listar(@QueryParam("r") @DefaultValue(Application.REGISTROS_POR_PAGINA_MICROPOSTS) Integer registrosPorPagina, @QueryParam("p") @DefaultValue("1") Integer pagina) {
@@ -48,4 +69,5 @@ public class MicroBlogRS {
 		List<MicroPost> microPosts = microBlogRepository.lista(registrosPorPagina, pagina, dataDeAtualizacaoDecrescente);
 		return microPosts;
 	}
+
 }

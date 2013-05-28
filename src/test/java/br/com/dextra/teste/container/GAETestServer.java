@@ -26,6 +26,8 @@ public class GAETestServer {
 
 	private List<LocalServiceTestConfig> gaeConfigurations = new ArrayList<LocalServiceTestConfig>();
 
+	private WebServerDeployer server;
+		
 	private boolean authenticationEnabled = true;
 	private boolean userLoggedIn = true;
 	private boolean userIsAdmin = false;
@@ -86,12 +88,16 @@ public class GAETestServer {
 	}
 
 	private void startJetty() {
+		if(server != null) {
+			return;
+		}
+		
 		ContainerBuilder builder;
 		try {
 			builder = new ContainerBuilder();
 			builder.deployVMShutdownHook();
 	
-			WebServerDeployer server = builder.createDeployer(JettyServerDeployer.class);
+			server = builder.createDeployer(JettyServerDeployer.class);
 			server.setName("WebServer");
 			server.bindPort(this.jettyPort);
 	
