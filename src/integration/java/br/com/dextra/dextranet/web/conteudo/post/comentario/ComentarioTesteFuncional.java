@@ -16,7 +16,7 @@ public class ComentarioTesteFuncional extends TesteFuncionalBase {
 
 	//@Test
 	public void testComentario() {
-		paginaPrincipal.dadoQueUsuarioAcessaPaginaPrincipal();
+		paginaPrincipal.acessaPaginaPrincipal();
 		eleCriaPost();
 		eleCriaComentarioParaPost();
 		eChecaSeComentarioFoiInserido();

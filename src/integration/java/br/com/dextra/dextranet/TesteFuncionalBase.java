@@ -21,10 +21,10 @@ public class TesteFuncionalBase extends TesteIntegracaoBase {
 
 	@BeforeClass
 	public static void setup() {
-//		server.enableAuthentication(true, false);
-//		server.enableJetty(8080);
-//		TesteIntegracaoBase.setup();
-//
+		server.enableAuthentication(true, false);
+		server.enableJetty(8080);
+		TesteIntegracaoBase.setup();
+
 		environment = EnvironmentFactory.createEnvironment();
 		driver = environment.createDriver();
 	}

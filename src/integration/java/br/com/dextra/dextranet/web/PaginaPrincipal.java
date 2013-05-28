@@ -17,7 +17,7 @@ public class PaginaPrincipal extends PaginaBase {
 		super(driver);
 	}
 
-	public void dadoQueUsuarioAcessaPaginaPrincipal() {
+	public void acessaPaginaPrincipal() {
 		acesso();
 	}
 
