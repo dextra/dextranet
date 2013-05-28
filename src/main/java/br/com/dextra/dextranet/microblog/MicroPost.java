@@ -54,7 +54,7 @@ public class MicroPost extends Entidade {
 		entidade.setProperty(MicroBlogFields.ID.getField(), getId());
 		entidade.setProperty(MicroBlogFields.TEXTO.getField(), getTexto());
 		entidade.setProperty(MicroBlogFields.DATA.getField(), getData());
-		entidade.setProperty(MicroBlogFields.AUTOR.getField(), getAutor());
+		entidade.setProperty(MicroBlogFields.AUTOR.getField(), getAutor().getUsername());
 		return entidade;
 	}
 
