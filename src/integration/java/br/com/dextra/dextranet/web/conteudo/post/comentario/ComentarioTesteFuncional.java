@@ -16,7 +16,7 @@ public class ComentarioTesteFuncional extends TesteFuncionalBase {
 
 	@Test
 	public void testComentario() {
-		paginaPrincipal.acessaPaginaPrincipal();
+		dadoQueUsuarioAcessaPaginaPrincipal();
 		eleCriaPost();
 		eleCriaComentarioParaPost();
 		eChecaSeComentarioFoiInserido();
@@ -68,5 +68,9 @@ public class ComentarioTesteFuncional extends TesteFuncionalBase {
 		numeroCurtida +=  " span";
 		WebElement curtidas = driver.findElement(By.cssSelector(numeroCurtida));
 		Assert.assertEquals("1", curtidas.getText());
+	}
+
+	private void dadoQueUsuarioAcessaPaginaPrincipal() {
+		paginaPrincipal.acessaPaginaPrincipal();
 	}
 }
