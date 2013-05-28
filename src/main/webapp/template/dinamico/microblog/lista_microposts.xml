@@ -9,13 +9,13 @@
 	    			<span id="caracteres_restantes"></span>
 	    		</div>
     		</form>
-    		<div id="novos_microPosts" class="hidden list_stories_data"><a id="ver_novos_microPosts" onclick="dextranet.microblog.listar(1);"><span id="qtd_novos_microPosts"></span>${messages.novos_microPosts}</a></div>
+    		<div id="novos_microPosts" class="hidden list_stories_data"><a title="${messages.ver_novos_posts}" id="ver_novos_microPosts" onclick="dextranet.microblog.listar(1);"><span id="qtd_novos_microPosts"></span>${messages.novos_microPosts}</a></div>
     		<ul id="list_microposts">
 		    	{for post in posts}
 		    		<li class="micropost">
 		    			<div class="micropost-conteudo">
 		    				<div class="avatar-frame" title="Por ${post.autor.username}">
-								<img src="${gravatar}{post.autor.md5}" alt="Avatar" />
+								<img src="${gravatar}${post.autor.md5}" alt="Avatar" />
 							</div>
 							<div class="micropost-texto wordwrap">${post.texto}</div>
 						</div>
@@ -67,6 +67,7 @@
 		//Tooltips
 		$('div.avatar-frame').tipsy();
 		$('span.time_ago_microposts').tipsy();
+		$('a#ver_novos_microPosts').tipsy();
 
 		$("#form_micropost_submit").click(function(){
 			if($('textarea#conteudo_novo_micropost').val())

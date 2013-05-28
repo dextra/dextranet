@@ -73,6 +73,7 @@
 	"novo_micropost" : "Compartilhe algo",
 	"enviar_micropost" : "Enviar",
 	"novos_posts" : " novo(s) post(s)",
-	"novos_microPosts" : " novo(s) micropost(s)"
+	"novos_microPosts" : " novo(s) micropost(s)",
+	"ver_novos_posts" : "Ver"
 	}
 }
