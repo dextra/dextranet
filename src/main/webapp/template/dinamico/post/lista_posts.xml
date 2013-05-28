@@ -114,6 +114,8 @@
 			<![CDATA[
 			$('.new-comment textarea').autoresize();
 
+			timeAgo.serverDate();
+
 			$.each($('.time_ago'), function(){
 				data_completa = $(this).html();
 				tempo_atras = timeAgo.calcular(data_completa);

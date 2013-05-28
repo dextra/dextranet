@@ -2,7 +2,7 @@ package br.com.dextra.dextranet.microblog;
 
 public enum MicroBlogFields {
 
-	TEXTO("texto"), DATA("data"), ID("id");
+	ID("id"), TEXTO("texto"), DATA("data"), USUARIO("usuario"), USUARIOMD5("usuarioMD5");
 
 	private String value;
 

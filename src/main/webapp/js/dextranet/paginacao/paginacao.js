@@ -1,6 +1,7 @@
 dextranet.paginacao = {
 
 	paginaCorrente : 1,
+
 	complete : true,
 
 	paginar : function() {
@@ -12,8 +13,10 @@ dextranet.paginacao = {
 			}
 			return false;
 		});
-	}
+	},
+
+	paginaCorrenteMicroBlog : 1,
+
+	indiceUltimoMicroPost : 1
+
 };
-
-
-
