@@ -23,8 +23,8 @@ public class MicroBlogTesteFuncional extends TesteFuncionalBase {
 
 	private void eleCriaMicroPosts() {
 		for (int cont = 0; cont <= QTD_MICRO_POSTS; cont++) {
-			String substituir = cont + "";
-			microBlog.redigeMensagem(MENSAGEM_MICRO_POST.replace("[NUM]", substituir));
+			String substituto = cont + "";
+			microBlog.redigeMensagem(MENSAGEM_MICRO_POST.replace("[NUM]", substituto));
 			microBlog.clicaBotaoEnviar();
 		}
 	}
