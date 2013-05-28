@@ -2,9 +2,7 @@ package br.com.dextra.dextranet.indexacao;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -22,15 +20,9 @@ import br.com.dextra.dextranet.excecoes.HttpException;
 import br.com.dextra.dextranet.rest.config.Application;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.appengine.api.search.Document;
-import com.google.appengine.api.search.GetRequest;
-import com.google.appengine.api.search.GetResponse;
-import com.google.appengine.api.search.Index;
-import com.google.appengine.api.search.IndexSpec;
 import com.google.appengine.api.search.Query;
 import com.google.appengine.api.search.QueryOptions;
 import com.google.appengine.api.search.SearchQueryException;
-import com.google.appengine.api.search.SearchServiceFactory;
 import com.google.appengine.api.search.SortExpression;
 import com.google.appengine.api.search.SortOptions;
 import com.google.appengine.api.search.SortOptions.Builder;
@@ -45,7 +37,7 @@ public class IndexacaoRS {
 	@Produces(Application.JSON_UTF8)
 	public Response buscarConteudo(@QueryParam("query") String query) throws HttpException {
 		try {
-			Set<Post> ret = new HashSet<Post>();
+			List<Post> ret = new ArrayList<Post>();
 
 			Query postQuery = criarOpcoesOrdenacaoPosts(query);
 			List<Post> posts = repositorioDeIndex.buscar(Post.class, postQuery);
@@ -53,9 +45,12 @@ public class IndexacaoRS {
 				ret.add(repositorioDePosts.obtemPorId(post.getId()));
 			}
 
-			List<Comentario> comentarios = repositorioDeIndex.buscar(Comentario.class, postQuery);
+			List<Comentario> comentarios = repositorioDeIndex.buscar(Comentario.class, query);
 			for (Comentario comentario : comentarios) {
-				ret.add(repositorioDePosts.obtemPorId(comentario.getPostId()));
+				Post post = repositorioDePosts.obtemPorId(comentario.getPostId());
+				if(!ret.contains(post)) {
+					ret.add(post);
+				}
 			}
 
 			return Response.ok().entity(ret).build();
