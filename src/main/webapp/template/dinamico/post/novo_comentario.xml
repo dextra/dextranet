@@ -42,12 +42,12 @@
 
 				//Calcula tempo de postagem
 				timeAgo.serverDate();
-				$.each($('.time_ago_novo_comentario'), function(){
-					data_completa = $(this).html();
-					tempo_atras = timeAgo.calcular(data_completa);
-					$(this).html(tempo_atras);
-					$(this).attr('title', data_completa);
-				});
+
+				$elemento = $('.time_ago_novo_comentario:last');
+				data_completa = $elemento.html();
+				tempo_atras = timeAgo.calcular(data_completa);
+				$elemento.html(tempo_atras);
+				$elemento.attr('title', data_completa);
 
 				//Tooltips
 				$('div.avatar-frame').tipsy();
