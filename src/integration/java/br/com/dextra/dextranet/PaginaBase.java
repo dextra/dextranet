@@ -36,9 +36,8 @@ public class PaginaBase extends PageObject {
 
 		while (tentativas < MAX_ATTEMPT_TO_WAIT) {
 
-			boolean loadingAtivo = false;
-//			boolean loadingAtivo = Boolean.valueOf(this.getElementAttribute(loadingCssSeletor, "active"));
-//
+			boolean loadingAtivo = Boolean.valueOf(this.getElementAttribute(loadingCssSeletor, "active"));
+
 			if (!loadingAtivo) {
 				break;
 			}

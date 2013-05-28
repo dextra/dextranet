@@ -4,6 +4,8 @@ import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import br.com.dextra.dextranet.TesteFuncionalBase;
 import br.com.dextra.dextranet.conteudo.post.PostRepository;
@@ -24,16 +26,8 @@ public class PostTesteFuncional extends TesteFuncionalBase {
 		String conteudo = "Texto do teste";
 		eCriouUmPost(titulo, conteudo);
 		entaoUsuarioVisualizaOPost(titulo, conteudo);
-	}
-	
-	@Test
-	public void excluirPost() {
-		dadoQueUsuarioAcessaPaginaPrincipal();
-
-		String titulo = "Titulo de Teste";
-		String conteudo = "Texto do teste";
-		eCriouUmPost(titulo, conteudo);
-		entaoUsuarioExcluiOPost(titulo, conteudo);
+		eleCurtePost();
+		eChecaSePostFoiCurtido();
 	}
 
 	protected void eCriouUmPost(String titulo, String conteudo) {
@@ -41,15 +35,24 @@ public class PostTesteFuncional extends TesteFuncionalBase {
 		paginaNovoPost.criarNovoPost(titulo, conteudo);
 	}
 
-
 	private void entaoUsuarioVisualizaOPost(String titulo, String conteudo) {
-		Assert.assertTrue(paginaPrincipal.existePost(titulo, conteudo));
+		Assert.assertTrue(paginaNovoPost.existePostPor(titulo, conteudo));
 	}
-	
-	private void entaoUsuarioExcluiOPost(String titulo, String conteudo) {
-		Assert.assertTrue(paginaPrincipal.excluiPost(titulo, conteudo));
+
+	private void eleCurtePost() {
+		String linkCurtir = "a#like_" + paginaNovoPost.getIdPost();
+		linkCurtir += " span";
+		paginaPrincipal.click(linkCurtir);
+		paginaPrincipal.waitToLoad();
 	}
-	
+
+	private void eChecaSePostFoiCurtido() {
+		String numeroCurtida = "a#showLikes_" + paginaNovoPost.getIdPost();
+		numeroCurtida += " .numero_curtida";
+		WebElement curtidas = driver.findElement(By.cssSelector(numeroCurtida));
+		Assert.assertEquals("1", curtidas.getText());
+	}
+
 	private void dadoQueUsuarioAcessaPaginaPrincipal() {
 		paginaPrincipal.acessaPaginaPrincipal();
 	}

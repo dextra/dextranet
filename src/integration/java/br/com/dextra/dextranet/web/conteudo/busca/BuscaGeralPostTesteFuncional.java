@@ -2,7 +2,6 @@ package br.com.dextra.dextranet.web.conteudo.busca;
 
 import junit.framework.Assert;
 
-import org.junit.After;
 import org.junit.Test;
 
 import br.com.dextra.dextranet.TesteFuncionalBase;
@@ -13,7 +12,7 @@ public class BuscaGeralPostTesteFuncional  extends TesteFuncionalBase {
 	private static final String CONTEUDO_COMENTARIO = "Texto do comentário.";
 	private static final String CONTEUDO_POST = "Conteudo do post";
 	private static final String TITULO_POST = "Titulo do post";
-	private static final int QTD_POSTS = 1;//TODO: aumentar para 2
+	private static final int QTD_POSTS = 3;
 	private PaginaNovoPost paginaNovoPost;
 	private PaginaNovoComentario paginaNovoComentario;
 	private BuscaGeralPost buscaGeralPost;
@@ -26,8 +25,8 @@ public class BuscaGeralPostTesteFuncional  extends TesteFuncionalBase {
 
 	@Test
 	public void testaBuscaGeralPorPost() {
-		paginaPrincipal.acessaPaginaPrincipal();
-//		eleCriaPostsEComentario();
+		dadoQueUsuarioAcessaPaginaPrincipal();
+		eleCriaPostsEComentario();
 		eleFazBuscaPosts();
 		entaoChecaSePostEncontrado();
 		eleBuscaPostPorComentarios();
@@ -73,5 +72,9 @@ public class BuscaGeralPostTesteFuncional  extends TesteFuncionalBase {
 
 		String conteudo = CONTEUDO_COMENTARIO;
 		paginaNovoComentario.criaNovoComentario(conteudo);
+	}
+
+	private void dadoQueUsuarioAcessaPaginaPrincipal() {
+		paginaPrincipal.acessaPaginaPrincipal();
 	}
 }
