@@ -2,7 +2,6 @@ package br.com.dextra.dextranet.web.conteudo.busca;
 
 import junit.framework.Assert;
 
-import org.junit.After;
 import org.junit.Test;
 
 import br.com.dextra.dextranet.TesteFuncionalBase;
