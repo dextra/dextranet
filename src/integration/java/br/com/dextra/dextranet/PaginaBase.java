@@ -12,13 +12,18 @@ public class PaginaBase extends PageObject {
 		super(driver);
 	}
 
-	public void writeCKEditor(String text, String form) {
-		((JavascriptExecutor) driver).executeScript("CKEDITOR.instances." + form + ".setData(\"" + text + "\");");
+	public void redigeCKEditor(String conteudo, String form) {
+		((JavascriptExecutor) driver).executeScript("CKEDITOR.instances." + form + ".setData(\"" + conteudo + "\");");
 	}
 
 	public void redigeConteudoTextArea(String text, String idTextArea) {
 		String textarea = "textarea#" + idTextArea;
 		this.writeTextArea(textarea, text);
+	}
+
+	public void redigeTextoInput(String texto, String idInput) {
+		String input = "input#" + idInput;
+		this.writeInputText(input, texto);
 	}
 
 	public void waitingForLoading() {
@@ -31,8 +36,9 @@ public class PaginaBase extends PageObject {
 
 		while (tentativas < MAX_ATTEMPT_TO_WAIT) {
 
-			boolean loadingAtivo = Boolean.valueOf(this.getElementAttribute(loadingCssSeletor, "active"));
-
+			boolean loadingAtivo = false;
+//			boolean loadingAtivo = Boolean.valueOf(this.getElementAttribute(loadingCssSeletor, "active"));
+//
 			if (!loadingAtivo) {
 				break;
 			}

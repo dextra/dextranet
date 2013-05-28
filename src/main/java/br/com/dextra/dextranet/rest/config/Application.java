@@ -24,6 +24,8 @@ public class Application extends javax.ws.rs.core.Application {
 
 	public static final String REGISTROS_POR_PAGINA = "20";
 
+	public static final String REGISTROS_POR_PAGINA_MICROPOSTS = "10";
+
 	public static final int LIMITE_REGISTROS_FULL_TEXT_SEARCH = 50;
 
 	/**
