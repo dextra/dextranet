@@ -1,5 +1,7 @@
 package br.com.dextra.dextranet.persistencia;
 
+import java.util.Date;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -9,6 +11,9 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 
 public class EntidadeRepository {
 
@@ -42,7 +47,7 @@ public class EntidadeRepository {
 				query.addSort(o.getAtributo(), o.getOrdenacao());
 			}
 		}
-		
+
 
 		PreparedQuery pquery = this.datastore.prepare(query);
 
@@ -54,6 +59,18 @@ public class EntidadeRepository {
 		}
 
 		return pquery.asIterable();
+	}
+
+	public int verificaNovos(Date data, String classe, String dataCriacao) {
+		Query query = new Query(classe);
+
+		Filter filter = new FilterPredicate(dataCriacao, FilterOperator.GREATER_THAN, data);
+		query.setFilter(filter );
+		PreparedQuery pquery = this.datastore.prepare(query);
+
+		FetchOptions opcoesFetch = FetchOptions.Builder.withDefaults();
+		opcoesFetch.limit(100);
+		return pquery.countEntities(opcoesFetch);
 	}
 
 }

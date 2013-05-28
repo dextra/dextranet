@@ -9,6 +9,8 @@ dextranet.settings = {
 			dextranet.settings.configuraMascaras();
 		},
 
+		intervaloBuscaNovosPosts : 60000,//1 minuto
+
 		configuraLoading : function() {
 			$.loading( {
 				text : 'Carregando...',
@@ -16,7 +18,7 @@ dextranet.settings = {
 				opacity : '60'
 			});
 
-	        jQuery.ajaxSetup( {
+	        $.ajaxSetup( {
 	            loading : true
 	        });
 
@@ -60,4 +62,5 @@ dextranet.settings = {
 			numeroDaPagina.setPaginaInicial();
 			dextranet.paginacao.paginacaoDosPosts();
 		}
+
 };

@@ -203,5 +203,23 @@ dextranet.post = {
     				dextranet.processaErroNaRequisicao(jqXHR);
     			}
 			});
+		},
+
+		contar : function(data) {
+			$.ajax( {
+				type : "GET",
+				url : "/s/post/count?d="+data,
+				contentType : dextranet.application_json,
+				loading : false,
+				success : function(resultado) {
+					if(resultado > 0){
+						$('div#novos_posts').show();
+						$('span#qtd_novos_posts').text(resultado);
+					}
+				},
+    			error: function(jqXHR, textStatus, errorThrown) {
+    				dextranet.processaErroNaRequisicao(jqXHR);
+    			}
+			});
 		}
 	}

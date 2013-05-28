@@ -1,7 +1,6 @@
 package br.com.dextra.dextranet.conteudo.post;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
@@ -12,12 +11,6 @@ import br.com.dextra.dextranet.persistencia.EntidadeRepository;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.appengine.api.datastore.FetchOptions;
-import com.google.appengine.api.datastore.PreparedQuery;
-import com.google.appengine.api.datastore.Query;
-import com.google.appengine.api.datastore.Query.Filter;
-import com.google.appengine.api.datastore.Query.FilterOperator;
-import com.google.appengine.api.datastore.Query.FilterPredicate;
 
 public class PostRepository extends EntidadeRepository {
 
@@ -64,18 +57,6 @@ public class PostRepository extends EntidadeRepository {
 	private void buscaComentariosPost(String id, Post post) {
 		List<Comentario> comentarios = new ComentarioRepository().listaPorPost(id);
 		post.adicionarComentarios(comentarios);
-	}
-
-	protected int countNew(Date data) {
-		Query query = new Query(Post.class.getName());
-
-		Filter filter = new FilterPredicate(PostFields.dataDeCriacao.name(), FilterOperator.GREATER_THAN, data);
-		query.setFilter(filter );
-		PreparedQuery pquery = this.datastore.prepare(query);
-
-		FetchOptions opcoesFetch = FetchOptions.Builder.withDefaults();
-		opcoesFetch.limit(1000);
-		return pquery.countEntities(opcoesFetch);
 	}
 
 }

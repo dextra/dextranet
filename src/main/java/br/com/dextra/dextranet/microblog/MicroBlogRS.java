@@ -1,5 +1,6 @@
 package br.com.dextra.dextranet.microblog;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.DefaultValue;
@@ -26,12 +27,12 @@ public class MicroBlogRS {
 
     @Path("/post")
     @POST
-    public void post(@FormParam("text") String text) {
+    public void post(@FormParam("texto") String text) {
         MicroPost micropost = new MicroPost(text, obtemUsuarioLogado());
         MicroBlogRepository repository = getMicroBlogRepository();
         repository.salvar(micropost);
     }
-    
+
     protected Usuario obtemUsuarioLogado() {
         return new UsuarioRepository().obtemUsuarioLogado();
     }
@@ -47,13 +48,13 @@ public class MicroBlogRS {
         JsonArray microPosts = new JsonArray();
         for (MicroPost microPost : repository.buscarMicroPosts()) {
             JsonObject microPostJson = new JsonObject();
-            microPostJson.addProperty("text", microPost.getTexto());
+            microPostJson.addProperty("texto", microPost.getTexto());
             microPostJson.addProperty("autor", microPost.getAutor().getUsername());
             microPosts.add(microPostJson);
         }
         return Response.ok(microPosts.toString()).build();
     }
-    
+
     @Path("/post")
 	@GET
 	@Produces(Application.JSON_UTF8)
@@ -68,6 +69,16 @@ public class MicroBlogRS {
 
 		List<MicroPost> microPosts = microBlogRepository.lista(registrosPorPagina, pagina, dataDeAtualizacaoDecrescente);
 		return microPosts;
+	}
+
+	@Path("/count/")
+	@GET
+	@Produces(Application.JSON_UTF8)
+	public Response verificaNovosMicroPosts(@QueryParam("d") Date data) {
+		MicroBlogRepository microBlogRepository = new MicroBlogRepository();
+		int total = microBlogRepository.verificaNovos(data, MicroPost.class.getName(), MicroBlogFields.DATA.getField());
+
+		return Response.ok().entity(total).build();
 	}
 
 }

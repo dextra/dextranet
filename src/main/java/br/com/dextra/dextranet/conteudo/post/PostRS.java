@@ -193,12 +193,12 @@ public class PostRS {
 
 	}
 
-	@Path("/count")
+	@Path("/count/")
 	@GET
 	@Produces(Application.JSON_UTF8)
-	public Response contaNovos(@QueryParam("d") @DefaultValue("Tue May 29 2013 13:12:34 GMT-0300 (BRT)") Date data) {
+	public Response verificaNovosPosts(@QueryParam("d") Date data) {
 		PostRepository postRepository = new PostRepository();
-		int total = postRepository.countNew(data);
+		int total = postRepository.verificaNovos(data, Post.class.getName(), PostFields.dataDeAtualizacao.name());
 
 		return Response.ok().entity(total).build();
 	}

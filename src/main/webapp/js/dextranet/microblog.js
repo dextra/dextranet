@@ -49,5 +49,23 @@ dextranet.microblog = {
 			$('.message').message($.i18n.messages.erro_campos_obrigatorios, 'error', true);
 		}
 		return false;
+	},
+
+	contar : function(data) {
+		$.ajax( {
+			type : "GET",
+			url : "/s/microblog/count?d="+data,
+			contentType : dextranet.application_json,
+			loading : false,
+			success : function(resultado) {
+				if(resultado > 0){
+					$('div#novos_microPosts').show();
+					$('span#qtd_novos_microPosts').text(resultado);
+				}
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				dextranet.processaErroNaRequisicao(jqXHR);
+			}
+		});
 	}
 }
