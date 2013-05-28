@@ -22,63 +22,61 @@ import br.com.dextra.dextranet.usuario.UsuarioRepository;
 import br.com.dextra.teste.container.GAETestServer;
 
 public class TesteIntegracaoBase {
+    protected static GAETestServer server = new GAETestServer();
 
-	protected static GAETestServer server = new GAETestServer();
+    private static final boolean noStorage = true;
 
-	private static final boolean noStorage = true;
+    @BeforeClass
+    public static void setup() {
+        server.enableDatastore(noStorage);
+        server.enableSearch();
+        server.start();
+    }
 
-	@BeforeClass
-	public static void setup() {
-		server.enableDatastore(noStorage);
-		server.enableSearch();
-		server.start();
-	}
+    @AfterClass
+    public static void shutdown() throws IOException {
+        server.stop();
+    }
 
-	@AfterClass
-	public static void shutdown() throws IOException {
-		server.stop();
-	}
+    public void limpaPostsInseridos(PostRepository repositorioDePosts) {
+        List<Post> postsCadastrados = repositorioDePosts.lista();
+        for (Conteudo post : postsCadastrados) {
+            repositorioDePosts.remove(post.getId());
+        }
+    }
 
-	public void limpaPostsInseridos(PostRepository repositorioDePosts) {
-		List<Post> postsCadastrados = repositorioDePosts.lista();
-		for (Conteudo post : postsCadastrados) {
-			repositorioDePosts.remove(post.getId());
-		}
-	}
+    public void limpaComentariosInseridos(ComentarioRepository repositorioDeComentarios) {
+        List<Comentario> comentariosCadastrados = repositorioDeComentarios.lista();
+        for (Comentario comentario : comentariosCadastrados) {
+            repositorioDeComentarios.remove(comentario.getId());
+        }
+    }
 
-	public void limpaComentariosInseridos(ComentarioRepository repositorioDeComentarios) {
-		List<Comentario> comentariosCadastrados = repositorioDeComentarios.lista();
-		for (Comentario comentario : comentariosCadastrados) {
-			repositorioDeComentarios.remove(comentario.getId());
-		}
-	}
+    public void limpaCurtidasInseridas(CurtidaRepository repositorioDeCurtidas) {
+        List<Curtida> curtidasCadastradas = repositorioDeCurtidas.lista();
+        for (Curtida curtida : curtidasCadastradas) {
+            repositorioDeCurtidas.remove(curtida.getId());
+        }
+    }
 
-	public void limpaCurtidasInseridas(CurtidaRepository repositorioDeCurtidas) {
-		List<Curtida> curtidasCadastradas = repositorioDeCurtidas.lista();
-		for (Curtida curtida : curtidasCadastradas) {
-			repositorioDeCurtidas.remove(curtida.getId());
-		}
-	}
+    public void limpaUsuariosInseridos(UsuarioRepository repositorioDeUsuarios) {
+        List<Usuario> usuarios = repositorioDeUsuarios.lista();
+        for (Usuario usuario : usuarios) {
+            repositorioDeUsuarios.remove(usuario.getId());
+        }
+    }
 
-	public void limpaUsuariosInseridos(UsuarioRepository repositorioDeUsuarios) {
-		List<Usuario> usuarios = repositorioDeUsuarios.lista();
-		for (Usuario usuario : usuarios) {
-			repositorioDeUsuarios.remove(usuario.getId());
-		}
-	}
+    public void limpaBannersInseridos(BannerRepository repositorioDeBanners) {
+        List<Banner> bannersCadastrados = repositorioDeBanners.lista();
+        for (Banner banner : bannersCadastrados) {
+            repositorioDeBanners.remove(banner.getId());
+        }
+    }
 
-	public void limpaBannersInseridos(BannerRepository repositorioDeBanners) {
-		List<Banner> bannersCadastrados = repositorioDeBanners.lista();
-		for (Banner banner : bannersCadastrados) {
-			repositorioDeBanners.remove(banner.getId());
-		}
-	}
-
-	protected void limpaMicroPostsInseridos(MicroBlogRepository repository) {
-		List<MicroPost> microPosts = repository.buscarMicroPosts();
-		for (MicroPost micropost : microPosts) {
-			repository.remove(micropost.getId());
-		}
-	}
-
+    protected void limpaMicroPostsInseridos(MicroBlogRepository repository) {
+        List<MicroPost> microPosts = repository.buscarMicroPosts();
+        for (MicroPost micropost : microPosts) {
+            repository.remove(micropost.getId());
+        }
+    }
 }

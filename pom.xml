@@ -3,13 +3,11 @@
 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>br.com.dextra</groupId>
     <artifactId>dextranet</artifactId>
     <name>dextranet</name>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
-
     <repositories>
         <repository>
             <id>dextra-thirdy</id>
@@ -32,7 +30,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             <url>https://dextranet.dextra.com.br/nexus/content/repositories/mirror-jboss-thirdparty-release/</url>
         </repository>
     </repositories>
-
     <pluginRepositories>
         <pluginRepository>
             <id>mirror-central</id>
@@ -53,13 +50,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <resteasy.target.version>2.3.6.Final</resteasy.target.version>
         <mycontainer.version>1.4.1</mycontainer.version>
     </properties>
-
     <dependencies>
-		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>9.1-901.jdbc4</version>
-		</dependency>
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.1-901.jdbc4</version>
+        </dependency>
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-1.0-sdk</artifactId>
@@ -143,7 +139,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             </exclusions>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -274,10 +269,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                 </configuration>
             </plugin>
         </plugins>
-
         <finalName>dextranet</finalName>
     </build>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -357,99 +350,93 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             </dependency>
             <!-- dependencia do http client -->
             <dependency>
-				<groupId>org.apache.httpcomponents</groupId>
-				<artifactId>httpclient</artifactId>
-				<version>4.1.2</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.httpcomponents</groupId>
-				<artifactId>httpcore</artifactId>
-				<version>4.2.3</version>
-			</dependency>
-			<dependency>
-				<groupId>joda-time</groupId>
-				<artifactId>joda-time</artifactId>
-				<version>2.2</version>
-			</dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpcore</artifactId>
+                <version>4.2.3</version>
+            </dependency>
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>2.2</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-
     <profiles>
+        <!-- Profile que executa os testes unitarios, de integracao e de selenium localmente -->
         <profile>
-            <id>local</id>
+            <id>selenium</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
                 <property>
-                    <name>local</name>
+                    <name>selenium</name>
                 </property>
             </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>integration-test</goal>
+          							<goal>verify</goal>
+                                </goals>
+                                <configuration>
+                                    <includes>
+                                        <include>**/*Funcional.java</include>
+                                    </includes>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
             <properties>
                 <expertus.environment.type>local</expertus.environment.type>
                 <expertus.environment.browser>FIREFOX</expertus.environment.browser>
             </properties>
         </profile>
+        <!-- Profile que executa os testes unitarios, de integracao e de selenium no ambiente de integracao continua -->
         <profile>
-            <id>sauceCloudbees</id>
+            <id>integracao-continua</id>
             <activation>
+                <activeByDefault>false</activeByDefault>
                 <property>
-                    <name>sauceCloudbees</name>
+                    <name>integracao-continua</name>
                 </property>
             </activation>
             <build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<executions>
-							<execution>
-								<phase>integration-test</phase>
-								<goals>
-									<goal>test</goal>
-								</goals>
-								<configuration>
-									<includes>
-										<include>**/*Funcional.java</include>
-									</includes>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>integration-test</goal>
+          							<goal>verify</goal>
+                                </goals>
+                                <configuration>
+                                    <includes>
+                                        <include>**/*Funcional.java</include>
+                                    </includes>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
             <properties>
                 <expertus.environment.type>sauceCloudbees</expertus.environment.type>
             </properties>
         </profile>
-		<profile>
-			<id>integracao-continua</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-				<property>
-					<name>integracao-continua</name>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<executions>
-							<execution>
-								<phase>integration-test</phase>
-								<goals>
-									<goal>test</goal>
-								</goals>
-								<configuration>
-									<includes>
-										<include>**/*Funcional.java</include>
-									</includes>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
     </profiles>
-
     <scm>
         <connection>scm:git:git@github.com:dextra/dextranet.git</connection>
         <url>scm:git:git@github.com:dextra/dextranet.git</url>
