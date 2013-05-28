@@ -14,7 +14,7 @@ public class ComentarioTesteFuncional extends TesteFuncionalBase {
 	private String tituloPost;
 	private PaginaNovoComentario paginaNovoComentario;
 
-	//@Test
+	@Test
 	public void testComentario() {
 		paginaPrincipal.acessaPaginaPrincipal();
 		eleCriaPost();
