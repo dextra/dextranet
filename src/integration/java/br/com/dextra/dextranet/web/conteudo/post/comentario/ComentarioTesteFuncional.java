@@ -1,7 +1,5 @@
 package br.com.dextra.dextranet.web.conteudo.post.comentario;
 
-import java.util.List;
-
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -29,7 +27,7 @@ public class ComentarioTesteFuncional extends TesteFuncionalBase {
 	}
 
 	private void eChecaSeComentarioFoiExcluido() {
-		Assert.assertFalse(existeComentario());
+		Assert.assertFalse(paginaNovoComentario.existeComentario());
 	}
 
 	private void eleExcluiComentario() {
@@ -62,16 +60,7 @@ public class ComentarioTesteFuncional extends TesteFuncionalBase {
 	}
 
 	private void eChecaSeComentarioFoiInserido() {
-		Assert.assertTrue(existeComentario());
-	}
-
-	private Boolean existeComentario() {
-		List<WebElement> htmlComentariosEncontrados = driver.findElements(By.cssSelector("ul.list_stories_comments li.clearfix"));
-		if (htmlComentariosEncontrados != null && htmlComentariosEncontrados.size() > 0) {
-			paginaNovoComentario.setIdComentario(htmlComentariosEncontrados.get(0).getAttribute("id"));
-			return true;
-		}
-		return false;
+		Assert.assertTrue(paginaNovoComentario.existeComentario());
 	}
 
 	private void eChecaSeComentarioFoiCurtido() {
