@@ -1,5 +1,6 @@
 package br.com.dextra.dextranet.conteudo.post;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.DELETE;
@@ -190,5 +191,15 @@ public class PostRS {
 			return Response.status(Status.FORBIDDEN).build();
 		}
 
+	}
+
+	@Path("/count")
+	@GET
+	@Produces(Application.JSON_UTF8)
+	public Response contaNovos(@QueryParam("d") @DefaultValue("Tue May 29 2013 13:12:34 GMT-0300 (BRT)") Date data) {
+		PostRepository postRepository = new PostRepository();
+		int total = postRepository.countNew(data);
+
+		return Response.ok().entity(total).build();
 	}
 }
