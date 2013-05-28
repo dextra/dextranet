@@ -43,7 +43,6 @@
         //Calcula tempo de postagem
         timeAgo.serverDate();
 
-
         $elemento = $comentario.find('span.time_ago_novo_comentario');
         data_completa = $elemento.html();
         tempo_atras = timeAgo.calcular(data_completa);
