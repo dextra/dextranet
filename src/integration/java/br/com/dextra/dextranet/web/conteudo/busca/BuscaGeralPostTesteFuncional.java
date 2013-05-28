@@ -26,7 +26,7 @@ public class BuscaGeralPostTesteFuncional  extends TesteFuncionalBase {
 
 	@Test
 	public void testaBuscaGeralPorPost() {
-		paginaPrincipal.dadoQueUsuarioAcessaPaginaPrincipal();
+		paginaPrincipal.acessaPaginaPrincipal();
 //		eleCriaPostsEComentario();
 		eleFazBuscaPosts();
 		entaoChecaSePostEncontrado();

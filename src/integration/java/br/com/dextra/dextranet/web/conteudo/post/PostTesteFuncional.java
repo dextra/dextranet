@@ -50,4 +50,8 @@ public class PostTesteFuncional extends TesteFuncionalBase {
 	private void entaoUsuarioExcluiOPost(String titulo, String conteudo) {
 		Assert.assertTrue(paginaPrincipal.excluiPost(titulo, conteudo));
 	}
+	
+	private void dadoQueUsuarioAcessaPaginaPrincipal() {
+		paginaPrincipal.acessaPaginaPrincipal();
+	}
 }
