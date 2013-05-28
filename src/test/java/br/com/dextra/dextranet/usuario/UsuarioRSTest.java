@@ -31,13 +31,11 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		Assert.assertTrue(StringUtils.isEmpty(usuarioPersistido.getRamal()));
 		Assert.assertTrue(StringUtils.isEmpty(usuarioPersistido.getTelefoneResidencial()));
 		Assert.assertTrue(StringUtils.isEmpty(usuarioPersistido.getTelefoneCelular()));
-		Assert.assertTrue(StringUtils.isEmpty(usuarioPersistido.getEmail()));
-		Assert.assertTrue(StringUtils.isEmpty(usuarioPersistido.getGtalk()));
 		Assert.assertTrue(StringUtils.isEmpty(usuarioPersistido.getGitHub()));
 		Assert.assertTrue(StringUtils.isEmpty(usuarioPersistido.getSkype()));
 
 		rest.atualizar(usuario.getId(), "Nome", "Apelido", "&Aacute;rea", "Unidade", "Ramal", "Residencial", "Celular",
-				"Email", "Gtalk", "GitHub", "Skype");
+				"GitHub", "Skype");
 		usuarioPersistido = repositorio.obtemPorId(usuario.getId());
 
 		Assert.assertEquals("Nome", usuarioPersistido.getNome());
@@ -47,12 +45,10 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		Assert.assertEquals("Ramal", usuarioPersistido.getRamal());
 		Assert.assertEquals("Residencial", usuarioPersistido.getTelefoneResidencial());
 		Assert.assertEquals("Celular", usuarioPersistido.getTelefoneCelular());
-		Assert.assertEquals("Email", usuarioPersistido.getEmail());
-		Assert.assertEquals("Gtalk", usuarioPersistido.getGtalk());
 		Assert.assertEquals("GitHub", usuarioPersistido.getGitHub());
 		Assert.assertEquals("Skype", usuarioPersistido.getSkype());
 
-		rest.atualizar(usuario.getId(), "Nome", "Apelido", "Area", "Unidade", "Ramal", "Residencial", "Celular", "Email", "Gtalk",
+		rest.atualizar(usuario.getId(), "Nome", "Apelido", "Area", "Unidade", "Ramal", "Residencial", "Celular",
 				"GitHub", "Skype");
 		usuarioPersistido = repositorio.obtemPorId(usuario.getId());
 		Assert.assertEquals("Area", usuarioPersistido.getArea());
@@ -64,7 +60,7 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		repositorio.persiste(usuario);
 
 		Response resposta = rest.atualizar(usuario.getId(), "Nome", "Apelido", "Area", "Unidade", "Ramal",
-				"Residencial", "Celular", "Email", "Gtalk", "GitHub", "Skype");
+				"Residencial", "Celular", "GitHub", "Skype");
 		Assert.assertEquals(Status.FORBIDDEN.getStatusCode(), resposta.getStatus());
 	}
 
