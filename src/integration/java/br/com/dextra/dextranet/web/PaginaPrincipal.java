@@ -67,21 +67,4 @@ public class PaginaPrincipal extends PaginaBase {
 
 		return false;
 	}
-	
-	public boolean excluiPost(String titulo, String conteudo) {
-		List<WebElement> htmlPostsEncontrados = driver.findElements(By.cssSelector("div#content_left_stretch ul#relacao_dos_posts.list_stories"));
-
-		for (WebElement htmlPost : htmlPostsEncontrados) {
-			WebElement htmlTitulo = htmlPost.findElement(By.cssSelector("a.list_stories_headline h2.titulo"));
-			if (htmlTitulo.getText().equals(titulo)) {
-				htmlPost.findElement(By.cssSelector(".btn-excluirpost")).click();
-				waitForElement("div#content_left_stretch ul#relacao_dos_posts.list_stories");
-				List<WebElement> posts = htmlPost.findElements(By.cssSelector("div#content_left_stretch ul#relacao_dos_posts.list_stories"));
-				if (posts.size() == 0) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
 }

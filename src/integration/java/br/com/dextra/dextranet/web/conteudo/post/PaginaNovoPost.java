@@ -32,8 +32,17 @@ public class PaginaNovoPost extends PaginaBase {
 		this.submetePost();
 	}
 
+	public void excluiPost() {
+		this.click("button#btn-excluirpost_" + idPost);
+		this.waitingForLoading();
+	}
+
 	public Boolean existePostPor(String titulo, String conteudo) {
 		List<WebElement> htmlPostsEncontrados = driver.findElements(By.cssSelector("div#content_left_stretch ul#relacao_dos_posts.list_stories"));
+		if (driver.findElements(By.cssSelector("div#content_left_stretch ul#relacao_dos_posts.list_stories li")).size() < 1) {
+			return false;
+		}
+
 		for (WebElement htmlPost : htmlPostsEncontrados) {
 			WebElement htmlTitulo = htmlPost.findElement(By.cssSelector("a.list_stories_headline h2.titulo"));
 			if (htmlTitulo.getText().equals(titulo)) {
