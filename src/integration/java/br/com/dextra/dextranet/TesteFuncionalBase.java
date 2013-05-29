@@ -34,9 +34,4 @@ public class TesteFuncionalBase extends TesteIntegracaoBase {
 		driver.quit();
 		TesteIntegracaoBase.shutdown();
 	}
-
-	protected void dadoQueUsuarioAcessaPaginaPrincipal() {
-		paginaPrincipal.acesso();
-	}
-
 }

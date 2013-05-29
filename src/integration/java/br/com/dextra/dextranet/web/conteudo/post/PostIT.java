@@ -4,12 +4,13 @@ import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import br.com.dextra.dextranet.TesteFuncionalBase;
 import br.com.dextra.dextranet.conteudo.post.PostRepository;
 
 public class PostIT extends TesteFuncionalBase {
-
 	private PaginaNovoPost paginaNovoPost = null;
 
 	@After
@@ -18,36 +19,51 @@ public class PostIT extends TesteFuncionalBase {
 	}
 
 	@Test
-	public void criarNovoPost() {
+	public void testaPost() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
-		
 		String titulo = "Titulo de Teste";
 		String conteudo = "Texto do teste";
-		eCriouUmPost(titulo, conteudo);
-		entaoUsuarioVisualizaOPost(titulo, conteudo);
-	}
-	
-	@Test
-	public void excluirPost() {
-		dadoQueUsuarioAcessaPaginaPrincipal();
 
-		String titulo = "Titulo de Teste";
-		String conteudo = "Texto do teste";
-		eCriouUmPost(titulo, conteudo);
-		entaoUsuarioExcluiOPost(titulo, conteudo);
+		eleCriaUmPost(titulo, conteudo);
+		eChecasePostExiste(titulo, conteudo);
+		eleCurtePost();
+		eChecaSePostFoiCurtido();
+		eleExcluiPost();
+		eChecasePostExisteAoExcluir(titulo, conteudo);
 	}
 
-	protected void eCriouUmPost(String titulo, String conteudo) {
+	protected void eleCriaUmPost(String titulo, String conteudo) {
 		paginaNovoPost = paginaPrincipal.clicaEmNovoPost();
 		paginaNovoPost.criarNovoPost(titulo, conteudo);
 	}
 
-
-	private void entaoUsuarioVisualizaOPost(String titulo, String conteudo) {
-		Assert.assertTrue(paginaPrincipal.existePost(titulo, conteudo));
+	private void eChecasePostExiste(String titulo, String conteudo) {
+		Assert.assertTrue(paginaNovoPost.existePostPor(titulo, conteudo));
 	}
-	
-	private void entaoUsuarioExcluiOPost(String titulo, String conteudo) {
-		Assert.assertTrue(paginaPrincipal.excluiPost(titulo, conteudo));
+
+	private void eChecasePostExisteAoExcluir(String titulo, String conteudo) {
+		Assert.assertTrue(!paginaNovoPost.existePostPor(titulo, conteudo));
+	}
+
+	private void eleCurtePost() {
+		String linkCurtir = "a#like_" + paginaNovoPost.getIdPost();
+		linkCurtir += " span";
+		paginaPrincipal.click(linkCurtir);
+		paginaPrincipal.waitToLoad();
+	}
+
+	private void eChecaSePostFoiCurtido() {
+		String numeroCurtida = "a#showLikes_" + paginaNovoPost.getIdPost();
+		numeroCurtida += " .numero_curtida";
+		WebElement curtidas = driver.findElement(By.cssSelector(numeroCurtida));
+		Assert.assertEquals("1", curtidas.getText());
+	}
+
+	private void eleExcluiPost() {
+		paginaNovoPost.excluiPost();
+	}
+
+	private void dadoQueUsuarioAcessaPaginaPrincipal() {
+		paginaPrincipal.acessaPaginaPrincipal();
 	}
 }

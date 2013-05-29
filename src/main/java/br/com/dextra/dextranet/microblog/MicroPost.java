@@ -49,14 +49,14 @@ public class MicroPost extends Entidade {
     }
 
     @Override
-    public Entity toEntity() {
-        Entity entidade = new Entity(getKey(MicroPost.class));
-        entidade.setProperty(MicroBlogFields.TEXTO.getField(), getTexto());
-        entidade.setProperty(MicroBlogFields.DATA.getField(), getData());
-        entidade.setProperty(MicroBlogFields.ID.getField(), getId());
-        entidade.setProperty(MicroBlogFields.AUTOR.getField(), getAutor().getUsername());
-        return entidade;
-    }
+	public Entity toEntity() {
+		Entity entidade = new Entity(getKey(MicroPost.class));
+		entidade.setProperty(MicroBlogFields.ID.getField(), getId());
+		entidade.setProperty(MicroBlogFields.TEXTO.getField(), getTexto());
+		entidade.setProperty(MicroBlogFields.DATA.getField(), getData());
+		entidade.setProperty(MicroBlogFields.AUTOR.getField(), getAutor().getUsername());
+		return entidade;
+	}
 
     @Override
     public String toString() {
@@ -66,4 +66,5 @@ public class MicroPost extends Entidade {
     public Usuario getAutor() {
         return autor;
     }
+    
 }

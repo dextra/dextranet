@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+    <template selector="#microposts">
+    	<div id="container-microblog">
+    		<form id="form_novo_micropost" class="clearfix form-dark form-fields-block">
+	    		<div id="novo_micropost">
+	    			<textarea id="conteudo_novo_micropost" maxlength="140" style="resize:none;" placeholder="${messages.novo_micropost}"></textarea>
+	    			<button class="btn btn-blue btn-small float_right" id="form_micropost_submit" type="button">${messages.enviar_micropost}</button>
+	    			<span id="caracteres_restantes"></span>
+	    		</div>
+    		</form>
+    		<ul id="list_microposts">
+		    	{for post in posts}
+		    		<li class="micropost">
+		    			<div class="micropost-conteudo">
+		    				<div class="avatar-frame" title="Por ${post.usuario}">
+								<img src="${gravatar}{post.usuarioMD5}" alt="Avatar" />
+							</div>
+							<div class="micropost-texto wordwrap">${post.texto}</div>
+						</div>
+						<div class="micropost-data">
+							<span class="time_ago_microposts">${post.data}</span>
+						</div>
+		    		</li>
+		    	{/for}
+	    	</ul>
+    	</div>
+    	<a id="paginar_microblog">+</a>
+
+	<script>
+		<![CDATA[
+		$('span#caracteres_restantes').text($('#conteudo_novo_micropost').attr('maxLength'));
+		$('#conteudo_novo_micropost').keyup(function() {
+		    $('span#caracteres_restantes').text( parseInt($(this).attr('maxLength')) - (this.value.length) );
+		});
+
+		timeAgo.serverDate();
+
+		$.each($('.time_ago_microposts'), function(){
+			data_completa = $(this).html();
+			tempo_atras = timeAgo.calcular(data_completa);
+			$(this).html(tempo_atras);
+			$(this).attr('title', data_completa);
+		});
+
+		$('a#paginar_microblog').click(function(){
+			{if paginar}
+				dextranet.microblog.listar(dextranet.paginacao.paginaCorrenteMicroBlog+= 1)
+				dextranet.paginacao.indiceUltimoMicroPost = $('li.micropost').size();
+	 		{/if}
+		});
+
+		if(dextranet.paginacao.paginaCorrenteMicroBlog > 1){
+			indiceElemento = dextranet.paginacao.indiceUltimoMicroPost - 1;
+
+			$('html, body').animate({
+                    scrollTop: $('li.micropost:eq(' + indiceElemento + ')').offset().top
+                     }, 'slow');
+		}
+
+		//Tooltips
+		$('div.avatar-frame').tipsy();
+		$('span.time_ago_microposts').tipsy();
+
+		$("#form_micropost_submit").click(function(){
+			if($('textarea#conteudo_novo_micropost').val())
+				dextranet.microblog.postar();
+					$('textarea#conteudo_novo_micropost').focus();
+		})
+
+		]]>
+	</script>
+
+	</template>
+</engine>
