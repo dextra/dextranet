@@ -384,7 +384,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                             <execution>
                                 <phase>integration-test</phase>
                                 <goals>
-                                    <goal>integration-test</goal>
           							<goal>verify</goal>
                                 </goals>
                                 <configuration>
@@ -419,7 +418,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                             <execution>
                                 <phase>integration-test</phase>
                                 <goals>
-                                    <goal>test</goal>
           							<goal>verify</goal>
                                 </goals>
                                 <configuration>
