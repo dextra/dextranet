@@ -31,17 +31,13 @@ public class PaginaBase extends PageObject {
 
 		// faz um sleep inicial para o carregando aparecer
 		this.waitToLoad(TIME_TO_WAIT);
-
 		int tentativas = 1;
 
 		while (tentativas < MAX_ATTEMPT_TO_WAIT) {
-
 			boolean loadingAtivo = Boolean.valueOf(this.getElementAttribute(loadingCssSeletor, "active"));
-
 			if (!loadingAtivo) {
 				break;
 			}
-
 			tentativas++;
 			this.waitToLoad(TIME_TO_WAIT);
 		}

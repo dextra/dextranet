@@ -11,7 +11,6 @@ import br.com.dextra.dextranet.TesteFuncionalBase;
 import br.com.dextra.dextranet.conteudo.post.PostRepository;
 
 public class PostTesteFuncional extends TesteFuncionalBase {
-
 	private PaginaNovoPost paginaNovoPost = null;
 
 	@After
@@ -20,23 +19,30 @@ public class PostTesteFuncional extends TesteFuncionalBase {
 	}
 
 	@Test
-	public void criarNovoPost() {
+	public void testaPost() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
 		String titulo = "Titulo de Teste";
 		String conteudo = "Texto do teste";
-		eCriouUmPost(titulo, conteudo);
-		entaoUsuarioVisualizaOPost(titulo, conteudo);
+
+		eleCriaUmPost(titulo, conteudo);
+		eChecasePostExiste(titulo, conteudo);
 		eleCurtePost();
 		eChecaSePostFoiCurtido();
+		eleExcluiPost();
+		eChecasePostExisteAoExcluir(titulo, conteudo);
 	}
 
-	protected void eCriouUmPost(String titulo, String conteudo) {
+	protected void eleCriaUmPost(String titulo, String conteudo) {
 		paginaNovoPost = paginaPrincipal.clicaEmNovoPost();
 		paginaNovoPost.criarNovoPost(titulo, conteudo);
 	}
 
-	private void entaoUsuarioVisualizaOPost(String titulo, String conteudo) {
+	private void eChecasePostExiste(String titulo, String conteudo) {
 		Assert.assertTrue(paginaNovoPost.existePostPor(titulo, conteudo));
+	}
+
+	private void eChecasePostExisteAoExcluir(String titulo, String conteudo) {
+		Assert.assertTrue(!paginaNovoPost.existePostPor(titulo, conteudo));
 	}
 
 	private void eleCurtePost() {
@@ -51,6 +57,10 @@ public class PostTesteFuncional extends TesteFuncionalBase {
 		numeroCurtida += " .numero_curtida";
 		WebElement curtidas = driver.findElement(By.cssSelector(numeroCurtida));
 		Assert.assertEquals("1", curtidas.getText());
+	}
+
+	private void eleExcluiPost() {
+		paginaNovoPost.excluiPost();
 	}
 
 	private void dadoQueUsuarioAcessaPaginaPrincipal() {
