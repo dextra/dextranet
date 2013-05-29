@@ -11,14 +11,14 @@ setIntervalUtils = {
 
 	verificaPosts : function (data){
 		setInterval(function() {
-			dextranet.post.contar(setIntervalUtils.formataData(ultimoPost));
+			dextranet.post.verificaNovos(setIntervalUtils.formataData(ultimoPost));
 		}, dextranet.settings.intervaloBuscaNovosPosts);
 
 	},
 
 	verificaMicroBlog : function (data){
 		setInterval(function() {
-			dextranet.microblog.contar(setIntervalUtils.formataData(ultimoMicroPost));
+			dextranet.microblog.verificaNovos(setIntervalUtils.formataData(ultimoMicroPost));
 		}, dextranet.settings.intervaloBuscaNovosPosts);
 
 	}

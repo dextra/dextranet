@@ -205,7 +205,7 @@ dextranet.post = {
 			});
 		},
 
-		contar : function(data) {
+		verificaNovos : function(data) {
 			$.ajax( {
 				type : "GET",
 				url : "/s/post/count?d="+data,

@@ -51,7 +51,7 @@ dextranet.microblog = {
 		return false;
 	},
 
-	contar : function(data) {
+	verificaNovos : function(data) {
 		$.ajax( {
 			type : "GET",
 			url : "/s/microblog/count?d="+data,
