@@ -20,14 +20,13 @@ public class PostIT extends TesteFuncionalBase {
 	@Test
 	public void criarNovoPost() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
-		
+
 		String titulo = "Titulo de Teste";
 		String conteudo = "Texto do teste";
 		eCriouUmPost(titulo, conteudo);
 		entaoUsuarioVisualizaOPost(titulo, conteudo);
 	}
 	
-	@Test
 	public void excluirPost() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
 
