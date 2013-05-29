@@ -379,13 +379,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             <build>
                 <plugins>
                     <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <artifactId>maven-surefire-plugin</artifactId>
                         <executions>
                             <execution>
-                                <phase>integration-test</phase>
+                                <phase>test</phase>
                                 <goals>
-                                    <goal>integration-test</goal>
-          							<goal>verify</goal>
+                                    <goal>test</goal>
                                 </goals>
                                 <configuration>
                                     <includes>
@@ -414,12 +413,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             <build>
                 <plugins>
                     <plugin>
-                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <artifactId>maven-surefire-plugin</artifactId>
                         <executions>
                             <execution>
-                                <phase>integration-test</phase>
+                                <phase>test</phase>
                                 <goals>
-                                    <goal>integration-test</goal>
+                                    <goal>test</goal>
                                 </goals>
                                 <configuration>
                                     <includes>
