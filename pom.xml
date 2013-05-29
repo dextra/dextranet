@@ -389,7 +389,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                                 </goals>
                                 <configuration>
                                     <includes>
-                                        <include>**/*Funcional.java</include>
+                                        <include>**/*IT.java</include>
                                     </includes>
                                 </configuration>
                             </execution>
@@ -423,7 +423,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                                 </goals>
                                 <configuration>
                                     <includes>
-                                        <include>**/*Funcional.java</include>
+                                        <include>**/*IT.java</include>
                                     </includes>
                                 </configuration>
                             </execution>
