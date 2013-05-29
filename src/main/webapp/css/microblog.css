@@ -38,7 +38,8 @@ div.avatar-frame img {
 }
 
 .micropost-texto {
-	width: 230px;
+	width: 217px;
+	padding: 0 5px;
 	height: 70px;
 	display: inline-block;
 	font-size: 12px;

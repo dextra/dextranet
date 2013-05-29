@@ -67,5 +67,22 @@ dextranet.microblog = {
 				dextranet.processaErroNaRequisicao(jqXHR);
 			}
 		});
+	},
+
+	remover : function(microPostId) {
+		$.ajax( {
+			type : "DELETE",
+			url : "/s/microblog/"+microPostId,
+			contentType : dextranet.application_json,
+			success : function() {
+				$('li#'+microPostId).slideUp(function(){
+					$(this).remove();
+					dextranet.microblog.listar(1);
+				});
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				dextranet.processaErroNaRequisicao(jqXHR);
+			}
+		});
 	}
 }

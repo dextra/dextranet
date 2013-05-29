@@ -46,7 +46,7 @@
 						<span class="list_stories_date time_ago">${post.dataDeAtualizacao}</span>
 						{if post.usuario == dextranet.usuario.logado.username}
 						<button id="btn-excluirpost_${post.id}" class="btn btn-small btn-light btn-excluirpost"
-							title="Excluir este post" onclick="dextranet.post.remover('${post.id}')">
+							title="${messages.title_excluir}" onclick="dextranet.post.remover('${post.id}')">
 							<strong>x </strong>
 							${messages.post_excluir}
 						</button>
