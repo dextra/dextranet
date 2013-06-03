@@ -90,7 +90,7 @@ public class MicroBlogRS {
 	@Produces(Application.JSON_UTF8)
 	public Response deletar(@PathParam("id") String id) throws EntityNotFoundException {
 		MicroPost microPost = microBlogRepository.obtemPorId(id);
-		if (microPost.getAutor().getUsername().equals(obtemUsuarioLogado())) {
+		if (microPost.getAutor().equals(obtemUsuarioLogado())) {
 			microBlogRepository.remove(id);
 			return Response.ok().build();
 		} else {
