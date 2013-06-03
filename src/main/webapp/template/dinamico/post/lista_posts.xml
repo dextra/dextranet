@@ -4,105 +4,108 @@
 			<ul class="list_stories" id="relacao_dos_posts">
 				{for post in posts}
 				<li class="clearfix" id="${post.id}">
-					<div class="avatar-frame avatar-frame-small" title="Por ${post.usuario}">
-						<img src="${gravatar}${post.usuarioMD5}" alt="Avatar" />
-					</div>
-					<div class="speech-shape"></div>
-					<a class="list_stories_headline clearfix" href="#">
-						<h2 class="titulo ${post.id}">${post.titulo}</h2>
-					</a>
-
-					<!-- Lead -->
-					<div class="conteudo_inicial list_stories_lead hyphenize">${dextranet.post.conteudoParaExibicao(post.conteudo)}
-					</div>
-
-					<!-- Conteudo completo do post -->
-					<div id="${post.id}_post" class="list_stories_contents hidden">
-						<div class="idClassPost" id="${post.id}">
-							${post.conteudo}
+					<div class="story-overlay"></div>
+					<div class="story-content">
+						<div class="avatar-frame avatar-frame-small" title="Por ${post.usuario}">
+							<img src="${gravatar}${post.usuarioMD5}" alt="Avatar" />
 						</div>
-					</div>
+						<div class="speech-shape"></div>
+						<a class="list_stories_headline clearfix" href="#">
+							<h2 class="titulo ${post.id}">${post.titulo}</h2>
+						</a>
 
-					<!-- Curtidas, quantidade de comentarios, data, excluir -->
-					<div class="list_stories_data clearfix">
-						<div class="list_stories_dx clearfix">
-							<a id="like_${post.id}" class="linkCurtir post">
-								<span class="icon_dx" onclick="dextranet.post.curtir('${post.id}');"></span>
-							</a>
-							<a id="showLikes_${post.id}" class="showLikes" title="${post.usuariosQueCurtiram}"
-								onclick="dextranet.post.listarCurtidas('${post.id}');">
-								<span class="numero_curtida">${post.quantidadeDeCurtidas} </span>
-								<span> ${messages.post_curtidas}</span>
-							</a>
+						<!-- Lead -->
+						<div class="conteudo_inicial list_stories_lead hyphenize">${dextranet.post.conteudoParaExibicao(post.conteudo)}
 						</div>
-						<div class="list_stories_numbercomments">
-							<a id="${post.id}" class="${post.id}">
-								<span class="icon_comments"></span>
-								<span class="numero_comentario">${post.quantidadeDeComentarios}</span>
-								${messages.post_comentario}
-							</a>
-						</div>
-						<span class="list_stories_date time_ago">${post.dataDeAtualizacao}</span>
-						{if post.usuario == dextranet.usuario.logado.username}
-						<button class="btn btn-small btn-light btn-excluirpost"
-							title="Excluir este post" onclick="dextranet.post.remover('${post.id}')">
-							<strong>x </strong>
-							${messages.post_excluir}
-						</button>
-						{/if}
-					</div>
 
-					<!-- Novo comentario -->
-					<div class="list_stories_newcomment hidden">
-						<!-- Comentarios -->
-						<ul class="list_stories_comments" id="relacao_dos_comentarios">
-							{for comentario in post.comentarios}
-							<li class="clearfix" id="${comentario.id}">
-								<div class="avatar-frame" title="Por ${comentario.usuario}">
-									<img src="${gravatar}${comentario.usuarioMD5}" alt="Avatar" />
-								</div>
-								<div class="speech-shape-small"></div>
-								<div class="content">
-									<p>${comentario.conteudo}</p>
-									<div class="comment-data">
-										<span class="list_stories_date time_ago">${comentario.dataDeCriacao}
-										</span>
-										{if comentario.usuario == dextranet.usuario.logado.username}
-										<button class="btn btn-small btn-light btn-excluir-comentario"
-											title="Excluir este comentário" onclick="dextranet.post.removerComentario('${post.id}', '${comentario.id}')">
-											<strong>x </strong>
-											${messages.botao_excluir}
-										</button>
-										{/if}
-										<div class="list_stories_dx clearfix">
-											<a id="like_${comentario.id}" class="linkCurtir comentario">
-												<span class="icon_dx"
-													onclick="dextranet.post.curtirComentario('${post.id}', '${comentario.id}');"></span>
-											</a>
-											<a id="showLikes_${comentario.id}" class="showLikes" title="${comentario.usuariosQueCurtiram}"
-												onclick="dextranet.post.listarCurtidasComentario('${post.id}', '${comentario.id}');">
-												<span class="numero_curtida">${comentario.quantidadeDeCurtidas}</span>
-												<span> ${messages.post_curtidas}</span>
-											</a>
+						<!-- Conteudo completo do post -->
+						<div id="${post.id}_post" class="list_stories_contents hidden">
+							<div class="idClassPost" id="${post.id}">
+								${post.conteudo}
+							</div>
+						</div>
+
+						<!-- Curtidas, quantidade de comentarios, data, excluir -->
+						<div class="list_stories_data clearfix">
+							<div class="list_stories_dx clearfix">
+								<a id="like_${post.id}" class="linkCurtir post">
+									<span class="icon_dx" onclick="dextranet.post.curtir('${post.id}');"></span>
+								</a>
+								<a id="showLikes_${post.id}" class="showLikes" title="${post.usuariosQueCurtiram}"
+									onclick="dextranet.post.listarCurtidas('${post.id}');">
+									<span class="numero_curtida">${post.quantidadeDeCurtidas} </span>
+									<span> ${messages.post_curtidas}</span>
+								</a>
+							</div>
+							<div class="list_stories_numbercomments">
+								<a id="${post.id}" class="${post.id}">
+									<span class="icon_comments"></span>
+									<span class="numero_comentario">${post.quantidadeDeComentarios}</span>
+									${messages.post_comentario}
+								</a>
+							</div>
+							<span class="list_stories_date time_ago">${post.dataDeAtualizacao}</span>
+							{if post.usuario == dextranet.usuario.logado.username}
+							<button class="btn btn-small btn-light btn-excluirpost"
+								title="Excluir este post" onclick="dextranet.post.remover('${post.id}')">
+								<strong>x </strong>
+								${messages.post_excluir}
+							</button>
+							{/if}
+						</div>
+
+						<!-- Novo comentario -->
+						<div class="list_stories_newcomment hidden">
+							<!-- Comentarios -->
+							<ul class="list_stories_comments" id="relacao_dos_comentarios">
+								{for comentario in post.comentarios}
+								<li class="clearfix" id="${comentario.id}">
+									<div class="avatar-frame" title="Por ${comentario.usuario}">
+										<img src="${gravatar}${comentario.usuarioMD5}" alt="Avatar" />
+									</div>
+									<div class="speech-shape-small"></div>
+									<div class="content">
+										<p>${comentario.conteudo}</p>
+										<div class="comment-data">
+											<span class="list_stories_date time_ago">${comentario.dataDeCriacao}
+											</span>
+											{if comentario.usuario == dextranet.usuario.logado.username}
+											<button class="btn btn-small btn-light btn-excluir-comentario"
+												title="Excluir este comentário" onclick="dextranet.post.removerComentario('${post.id}', '${comentario.id}')">
+												<strong>x </strong>
+												${messages.botao_excluir}
+											</button>
+											{/if}
+											<div class="list_stories_dx clearfix">
+												<a id="like_${comentario.id}" class="linkCurtir comentario">
+													<span class="icon_dx"
+														onclick="dextranet.post.curtirComentario('${post.id}', '${comentario.id}');"></span>
+												</a>
+												<a id="showLikes_${comentario.id}" class="showLikes" title="${comentario.usuariosQueCurtiram}"
+													onclick="dextranet.post.listarCurtidasComentario('${post.id}', '${comentario.id}');">
+													<span class="numero_curtida">${comentario.quantidadeDeCurtidas}</span>
+													<span> ${messages.post_curtidas}</span>
+												</a>
+											</div>
 										</div>
 									</div>
+								</li>
+								{/for}
+							</ul>
+							<form id="form_comment" class="clearfix form-dark form-fields-block">
+								<div class="new-comment clear">
+									<div class="avatar-frame" title="Por ${dextranet.usuario.logado.username}">
+										<img src="${gravatar}${dextranet.usuario.logado.md5}" alt="Avatar" />
+									</div>
+									<textarea cols="50" id="idConteudo_${post.id}" class="idConteudoComentario not-empty"
+										style="resize:none;" name="conteudoComentario" tabindex="10" maxlength="190000"
+										placeholder="Deixe seu comentario... "></textarea>
+									<div class="speech-shape-small"></div>
 								</div>
-							</li>
-							{/for}
-						</ul>
-						<form id="form_comment" class="clearfix form-dark form-fields-block">
-							<div class="new-comment clear">
-								<div class="avatar-frame" title="Por ${dextranet.usuario.logado.username}">
-									<img src="${gravatar}${dextranet.usuario.logado.md5}" alt="Avatar" />
-								</div>
-								<textarea cols="50" id="idConteudo_${post.id}" class="idConteudoComentario not-empty"
-									style="resize:none;" name="conteudoComentario" tabindex="10" maxlength="190000"
-									placeholder="Deixe seu comentario... "></textarea>
-								<div class="speech-shape-small"></div>
-							</div>
-							<button class="btn btn-blue float_right" id="form_comentar_submit"
-								type="button" tabindex="11" onclick="dextranet.post.comentar('${post.id}')">Comentar</button>
-						</form>
+								<button class="btn btn-blue float_right" id="form_comentar_submit"
+									type="button" tabindex="11" onclick="dextranet.post.comentar('${post.id}')">Comentar</button>
+							</form>
+						</div>
 					</div>
 				</li>
 				{/for}
@@ -112,7 +115,12 @@
 
 		<script type="text/javascript">
 			<![CDATA[
-			$('.new-comment textarea').autoresize();
+			$('.new-comment textarea').autoresize().keypress(function(e) {
+				if ( !e.shiftKey && e.which === 13 ) {
+					$(this).parents('.list_stories_newcomment').find('#form_comentar_submit').click();
+					return false;
+				}
+			});
 
 			timeAgo.serverDate();
 
@@ -132,16 +140,18 @@
 			$('.list_stories_headline').click(function(e)
 			{
 				e.preventDefault();
-				var item = $(this).parent('li');
+				var item = $(this).parents('li');
 				if ( item.hasClass('expanded') === true )
 				{
 					item.removeClass('expanded');
+					item.find('.story-overlay').stop().fadeOut('fast');
 					item.find('.list_stories_lead').show();
 					item.find('.list_stories_contents,.list_stories_comments,.list_stories_newcomment').hide();
 				}
 				else
 				{
 					item.addClass('expanded');
+					item.find('.story-overlay').stop().fadeIn('fast');
 					item.find('.list_stories_lead').hide();
 					item.find('.list_stories_contents,.list_stories_comments,.list_stories_newcomment').show();
 				}

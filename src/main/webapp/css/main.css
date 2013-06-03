@@ -206,9 +206,10 @@ form input.link { width: 476px;}
 #header_main_menu > li > ul > li:last-child > a{border-radius:0 0 6px 6px;}
 #header_main_menu > li.active > ul{display:block;}
 
-#header_search_box{height:32px;margin-right:10px;display:inline-block;margin-top:3px;width:50%;}
+#header_search_box{height:32px;margin-right:10px;display:inline-block;margin-top:3px;width:40%;}
 #form_search{position:relative;z-index:2;}
 #form_search_input{padding-right:25px;width:100%;position:relative;z-index:3;font-size:13px;padding:6px 35px 6px 10px;color:#333;}
+#form_search_input:focus{color:#004077 !important;}
 #form_search_submit_name{background-color:transparent;box-shadow:0 0 0 transparent;border:0;background:url('../img/main-bundle.png') -46px -115px;position:absolute;z-index:4;cursor:pointer;right:25px;top:4px;width:22px;height:22px;}
 #form_search_submit{background-color:transparent;box-shadow:0 0 0 transparent;border:0;background:url('../img/main-bundle.png') -46px -115px;position:absolute;z-index:4;cursor:pointer;right:8px;top:7px;width:22px;height:22px;transition:none;}
 #form_search_input:focus + #form_search_submit{background-position:-67px -115px;}
@@ -284,13 +285,15 @@ form input.link { width: 476px;}
 #container_mensagem > .error{background-color:#ffe3e1;border-color:#cfb1af;color:#572c29;}
 
 /*----------  Listagem de estÃ³rias de usuÃ¡rios  ----------*/
-.list_stories{list-style:none;margin:10px 5px 0;}
-.list_stories > li{border-radius:5px;background-color:#fefefe;border:1px solid #cfe1f3;padding:8px 12px 2px;margin-bottom:25px;margin-left:80px;position:relative;}
-.list_stories > li > .speech-shape,
-.list_stories > li > .speech-shape:before{position:absolute;left:-15px;top:16px;border-right:dashed 15px #cfe1f3;border-top:solid 10px transparent;border-bottom:solid 10px transparent;border-radius:3px;z-index:1;width:0;height:0;}
-.list_stories > li > .speech-shape:before{display:block;content:"";border-right-color:#000;position:absolute;left:2px;top:-10px;z-index:1;border-right-color:#fefefe;}
-.list_stories > li > .avatar-frame{position:absolute;left:-80px;top:0;width:50px;height:50px;padding:0;}
-.list_stories > li > .avatar-frame > img{width:50px;height:50px;}
+.list_stories{list-style:none;margin:10px 5px 0;position:relative;z-index:10;}
+.list_stories > li{margin-bottom:25px;position:relative;}
+.list_stories > li > .story-overlay{position:absolute;left:-10px;top:-9px;width:100%;height:100%;z-index:4;padding:10px;background-color:#ecf5fd;border-radius:5px;display:none;}
+.list_stories > li > .story-content{border-radius:5px;background-color:#fefefe;border:1px solid #b3c6da;padding:8px 12px 2px;margin-left:80px;position:relative;z-index:5;}
+.list_stories > li > .story-content > .speech-shape,
+.list_stories > li > .story-content > .speech-shape:before{position:absolute;left:-15px;top:16px;border-right:dashed 15px #B3C6DA;border-top:solid 10px transparent;border-bottom:solid 10px transparent;border-radius:3px;z-index:1;width:0;height:0;}
+.list_stories > li > .story-content > .speech-shape:before{display:block;content:"";border-right-color:#000;position:absolute;left:2px;top:-10px;z-index:1;border-right-color:#fefefe;}
+.list_stories > li > .story-content > .avatar-frame{position:absolute;left:-80px;top:0;width:50px;height:50px;padding:0;}
+.list_stories > li > .story-content > .avatar-frame > img{width:50px;height:50px;}
 
 .list_stories_headline{margin:2px 0 12px;text-align:left;display:block;}
 .list_stories_headline > h2{
@@ -332,14 +335,14 @@ form input.link { width: 476px;}
 .new-comment .avatar-frame {width:32px;height:32px;padding:0;border-color:#668;float:left;margin:0 22px 0 2px;}
 .list_stories_comments .avatar-frame > img,
 .new-comment .avatar-frame > img {width:32px;height:32px;border-radius:3px;}
-.list_stories_comments .content{float:left;width:460px;font-size:12px;font-family:arial;color:#555;border:1px solid #ddf;border-radius:5px;padding:10px 12px;background-color:#fcfcff;}
+.list_stories_comments .content{float:left;width:460px;font-size:12px;font-family:arial;color:#555;border:1px solid #b7c5d3;border-radius:5px;padding:10px 12px;background-color:#fcfcff;}
 .list_stories_comments .content > p{padding-bottom:0;}
 .list_stories_comments .speech-shape-small,
 .new-comment .speech-shape-small,
 .list_stories_comments .speech-shape-small:before,
-.new-comment .speech-shape-small:before{position:absolute;left:47px;top:11px;border-right:dashed 12px #cfe1f3;border-top:solid 8px transparent;border-bottom:solid 8px transparent;border-radius:2px;z-index:1;width:0;height:0;}
+.new-comment .speech-shape-small:before{position:absolute;left:47px;top:11px;border-right:dashed 12px #c2ced9;border-top:solid 8px transparent;border-bottom:solid 8px transparent;border-radius:2px;z-index:1;width:0;height:0;}
 .list_stories_comments .speech-shape-small:before,
-.new-comment .speech-shape-small:before{display:block;content:"";border-right-color:#000;position:absolute;left:2px;top:-8px;z-index:1;border-right-color:#fcfcff;}
+.new-comment .speech-shape-small:before{display:block;content:"";position:absolute;left:2px;top:-8px;z-index:1;border-right-color:#fcfcff;}
 
 .list_stories_newcomment{margin-bottom:15px;clear:both;}
 .list_stories_newcomment #cke_27{display:none;} /* @fixme - desabilitar botões através da chamada pra o ckeditor */
@@ -363,7 +366,6 @@ form input.link { width: 476px;}
 .lista_curtidas .avatar-frame > img {width:24px;height:24px;border-radius:3px;}
 .lista_curtidas{overflow-y: auto;overflow-x: hidden;max-height: 300px;}
 .lista_curtidas .usuario_curtida{width:250px;height: 40px;}
-}
 div.usuario_curtida {padding: 10px;border-bottom:1px solid #DDDDDD;}
 
 /*----------  PaginaÃ§Ã£o  ----------*/
