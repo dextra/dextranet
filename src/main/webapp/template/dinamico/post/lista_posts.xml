@@ -151,7 +151,7 @@
 				else
 				{
 					item.addClass('expanded');
-					item.find('.story-overlay').stop().fadeIn('fast');
+					item.find('.story-overlay').stop().fadeIn(25);
 					item.find('.list_stories_lead').hide();
 					item.find('.list_stories_contents,.list_stories_comments,.list_stories_newcomment').show();
 				}

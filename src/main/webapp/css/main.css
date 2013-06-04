@@ -287,7 +287,7 @@ form input.link { width: 476px;}
 /*----------  Listagem de estÃ³rias de usuÃ¡rios  ----------*/
 .list_stories{list-style:none;margin:10px 5px 0;position:relative;z-index:10;}
 .list_stories > li{margin-bottom:25px;position:relative;}
-.list_stories > li > .story-overlay{position:absolute;left:-10px;top:-9px;width:100%;height:100%;z-index:4;padding:10px;background-color:#ecf5fd;border-radius:5px;display:none;}
+.list_stories > li > .story-overlay{position:absolute;left:-10px;top:-9px;width:100%;height:100%;z-index:4;padding:10px;background-color:#ecf5fd;border-radius:5px;display:none;box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.75) inset, 0 0 5px 1px rgba(35, 70, 150, 0.1) inset, 0 1px 1px rgba(0, 0, 0, 0.3);}
 .list_stories > li > .story-content{border-radius:5px;background-color:#fefefe;border:1px solid #b3c6da;padding:8px 12px 2px;margin-left:80px;position:relative;z-index:5;}
 .list_stories > li > .story-content > .speech-shape,
 .list_stories > li > .story-content > .speech-shape:before{position:absolute;left:-15px;top:16px;border-right:dashed 15px #B3C6DA;border-top:solid 10px transparent;border-bottom:solid 10px transparent;border-radius:3px;z-index:1;width:0;height:0;}
@@ -325,7 +325,7 @@ form input.link { width: 476px;}
 .list_stories_dx > a:hover{border:dotted 1px #cbe6eb;padding:3px 4px;background-color:#e6ffff;}
 .list_stories_date{font-size:12px;font-style:italic;display:inline-block;padding-top:1px;margin-left:5px;cursor:default;}
 .list_stories_lead,
-.list_stories_contents{text-shadow:0 1px 1px #fff;font-size:12px;font-family:arial;color:#505153;line-height:18px;}
+.list_stories_contents{text-shadow:0 1px 1px #fff;font-size:12px;font-family:arial;color:#505153;line-height:18px;text-overflow: ellipsis;overflow-x:hidden;}
 .btn-excluirpost {float:right;}
 .btn-excluir-comentario {float:right;}
 
