@@ -20,14 +20,20 @@
 					${messages.label_team}
 				</a>
 			</li>
+			<li id="sidebar_left_teams">
+				<a href="#" id="button_sidebar_left_teams" tabindex="4">
+					<span class="icon_sidebar_left_times"></span>
+					${messages.label_teams}
+				</a>
+			</li>
 			<li id="sidebar_left_profile">
-				<a href="#" id="button_sidebar_left_profile" tabindex="4">
+				<a href="#" id="button_sidebar_left_profile" tabindex="5">
 					<span class="icon_sidebar_left_perfil"></span>
 					${messages.label_profile}
 				</a>
 			</li>
 			<li id="sidebar_left_new_banner">
-				<a href="#" id="button_sidebar_left_new_banner" tabindex="5">
+				<a href="#" id="button_sidebar_left_new_banner" tabindex="6">
 					<span class="icon_sidebar_left_categoria"></span>
 					${messages.label_banner}
 				</a>

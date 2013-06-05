@@ -17,7 +17,6 @@ import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
 public class UsuarioRepository extends EntidadeRepository {
-
     public Usuario persiste(Usuario usuario) {
         return super.persiste(usuario);
     }

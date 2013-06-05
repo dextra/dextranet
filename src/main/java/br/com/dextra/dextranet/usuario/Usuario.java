@@ -37,6 +37,8 @@ public class Usuario extends Entidade {
 
 	private Date ultimaAtualizacao;
 
+	private String team;
+
 	public Usuario(String username) {
 		this.username = username.trim();
 		this.md5 = geraMD5(this.username);
@@ -55,7 +57,7 @@ public class Usuario extends Entidade {
 		this.telefoneCelular = (String) entidade.getProperty(UsuarioFields.telefoneCelular.name());
 		this.gitHub = (String) entidade.getProperty(UsuarioFields.gitHub.name());
 		this.skype = (String) entidade.getProperty(UsuarioFields.skype.name());
-
+		this.setTeam((String) entidade.getProperty(UsuarioFields.team.name()));
 		this.ultimaAtualizacao = (Date) entidade.getProperty(UsuarioFields.ultimaAtualizacao.name());
 	}
 
@@ -101,6 +103,14 @@ public class Usuario extends Entidade {
 
 	public String getSkype() {
 		return skype;
+	}
+
+	public String getTeam() {
+		return team;
+	}
+
+	public void setTeam(String team) {
+		this.team = team;
 	}
 
 	public Date getUltimaAtualizacao() {
@@ -157,6 +167,7 @@ public class Usuario extends Entidade {
 		entidade.setProperty(UsuarioFields.telefoneCelular.name(), this.telefoneCelular);
 		entidade.setProperty(UsuarioFields.skype.name(), this.skype);
 		entidade.setProperty(UsuarioFields.gitHub.name(), this.gitHub);
+		entidade.setProperty(UsuarioFields.team.name(), this.getTeam());
 
 		return entidade;
 	}

@@ -30,6 +30,7 @@ html{font-size:100%;}
 .icon_sidebar_left_categoria{background-position:-80px -28px;}
 .icon_sidebar_left_perfil{background-position:-120px -28px;}
 .icon_sidebar_left_equipe{background-position:-164px -28px;}
+.icon_sidebar_left_times{background-position:-164px -28px;}
 .icon_comments{background-position:-27px -117px;width:18px;height:18px;margin-right:6px;}
 .icon_dx{background-position:-2px -119px;width:22px;height:14px;margin-right:6px;}
 
@@ -276,7 +277,7 @@ textarea:focus{color:#5c95d5;border-color:#9bc7f8;box-shadow:0 0 5px #75b6ff,ins
 	color:#35679a;
 	margin:0;
 	cursor:pointer;
-	transition:	
+	transition:
 		background-color 150ms ease-in-out,
 		padding 150ms ease-in-out,
 		margin 150ms ease-in-out;
