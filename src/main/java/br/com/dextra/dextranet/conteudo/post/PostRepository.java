@@ -59,4 +59,14 @@ public class PostRepository extends EntidadeRepository {
 		post.adicionarComentarios(comentarios);
 	}
 
+	public List<Post> toPosts(Iterable<Entity> asIterable) {
+		List<Post> listaPosts = new ArrayList<Post>();
+
+		for (Entity entity : asIterable) {
+			listaPosts.add(new Post(entity));
+		}
+
+		return listaPosts;
+	}
+
 }

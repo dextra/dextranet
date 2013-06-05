@@ -14,12 +14,12 @@ timeAgo = {
 				d = data_servidor.split(" ");
 				dia = d[0].split("/");
 				if(!d[1]){
-					d[1] = "00:00";
+					d[1] = "00:00:00";
 				}
 				hora = d[1].split(":");
 
 				//Date(yyyy, mm, dd, hh, mm, ss)
-				timeAgo.data = new Date(dia[2],dia[1] - 1,dia[0],hora[0],hora[1],00);
+				timeAgo.data = new Date(dia[2],dia[1] - 1,dia[0],hora[0],hora[1],hora[2]);
 			},
    			error: function(jqXHR, textStatus, errorThrown) {
    				dextranet.processaErroNaRequisicao(jqXHR);
@@ -34,12 +34,12 @@ timeAgo = {
 		d = data.split(" ");
 		dia = d[0].split("/");
 		if(!d[1]){
-			d[1] = "00:00";
+			d[1] = "00:00:00";
 		}
 		hora = d[1].split(":");
 
 		//Date(yyyy, mm, dd, hh, mm, ss)
-		var date = new Date(dia[2],dia[1] - 1,dia[0],hora[0],hora[1],00);
+		var date = new Date(dia[2],dia[1] - 1,dia[0],hora[0],hora[1],hora[2]);
 
 
 		diff = ((timeAgo.data.getTime() - date.getTime()) / 1000),

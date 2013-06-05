@@ -1,5 +1,6 @@
 <engine>
 	<template selector="#content_left">
+		<div id="novos_posts" class="hidden list_stories_data"><a id="ver_novos_posts" onclick="dextranet.post.listaNovos();"><span id="qtd_novos_posts"></span>${messages.novos_posts}</a></div>
 		<div id="content_left_stretch">
 			<ul class="list_stories" id="relacao_dos_posts">
 				{for post in posts}
@@ -45,7 +46,7 @@
 						<span class="list_stories_date time_ago">${post.dataDeAtualizacao}</span>
 						{if post.usuario == dextranet.usuario.logado.username}
 						<button id="btn-excluirpost_${post.id}" class="btn btn-small btn-light btn-excluirpost"
-							title="Excluir este post" onclick="dextranet.post.remover('${post.id}')">
+							title="${messages.title_excluir}" onclick="dextranet.post.remover('${post.id}')">
 							<strong>x </strong>
 							${messages.post_excluir}
 						</button>
@@ -114,6 +115,11 @@
 			<![CDATA[
 			$('.new-comment textarea').autoresize();
 
+			//Verifica novos posts
+			var ultimoPost = $('ul#relacao_dos_posts li:first').find('span.time_ago').text();
+			setIntervalUtils.verificaPosts(ultimoPost);
+
+			//Calcula tempo de post
 			timeAgo.serverDate();
 
 			$.each($('.time_ago'), function(){

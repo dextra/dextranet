@@ -7,6 +7,7 @@ import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.persistencia.EntidadeRepository;
 
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 
@@ -17,8 +18,6 @@ public class MicroBlogRepository extends EntidadeRepository {
 		PreparedQuery prepared = this.datastore.prepare(query);
 		return toMicroPosts(prepared.asIterable());
 	}
-
-
 
 	public List<MicroPost> lista(EntidadeOrdenacao... criterioOrdenacao) {
 		return this.lista(null, null, criterioOrdenacao);
@@ -40,7 +39,7 @@ public class MicroBlogRepository extends EntidadeRepository {
 		super.remove(id, MicroPost.class);
 	}
 
-	private List<MicroPost> toMicroPosts(Iterable<Entity> asIterable) {
+	public List<MicroPost> toMicroPosts(Iterable<Entity> asIterable) {
 		List<MicroPost> listaMicroPosts = new ArrayList<MicroPost>();
 
 		for (Entity entity : asIterable) {
@@ -52,5 +51,11 @@ public class MicroBlogRepository extends EntidadeRepository {
 
 	public void salvar(MicroPost micropost) {
 		this.persiste(micropost);
+	}
+
+	public MicroPost obtemPorId(String id) throws EntityNotFoundException {
+		Entity postEnt = super.obtemPorId(id, MicroPost.class);
+		MicroPost microPost = new MicroPost(postEnt);
+		return microPost;
 	}
 }
