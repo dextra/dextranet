@@ -5,7 +5,6 @@ import java.util.List;
 
 import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.persistencia.EntidadeRepository;
-import br.com.dextra.dextranet.usuario.Usuario;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -26,10 +25,10 @@ public class TeamRepository extends EntidadeRepository {
 	}
 
 	public List<Team> lista() {
-		EntidadeOrdenacao ordenacaoPorUsername = new EntidadeOrdenacao(TeamFields.nome.name(), SortDirection.ASCENDING);
+		EntidadeOrdenacao ordenacaoPorNome = new EntidadeOrdenacao(TeamFields.nome.name(), SortDirection.ASCENDING);
 		List<Team> teams = new ArrayList<Team>();
 
-		Iterable<Entity> entidades = super.lista(Usuario.class, ordenacaoPorUsername);
+		Iterable<Entity> entidades = super.lista(Team.class, ordenacaoPorNome);
 		for (Entity entidade : entidades) {
 			teams.add(new Team(entidade));
 		}

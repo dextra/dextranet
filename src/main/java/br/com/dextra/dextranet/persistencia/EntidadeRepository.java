@@ -42,7 +42,7 @@ public class EntidadeRepository {
 				query.addSort(o.getAtributo(), o.getOrdenacao());
 			}
 		}
-		
+
 
 		PreparedQuery pquery = this.datastore.prepare(query);
 
