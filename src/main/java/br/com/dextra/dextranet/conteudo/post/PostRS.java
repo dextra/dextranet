@@ -23,6 +23,7 @@ import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.rest.config.Application;
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 
+import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
@@ -198,8 +199,20 @@ public class PostRS {
 	@Produces(Application.JSON_UTF8)
 	public Response verificaNovosPosts(@QueryParam("d") Date data) {
 		PostRepository postRepository = new PostRepository();
-		int total = postRepository.verificaNovos(data, Post.class.getName(), PostFields.dataDeAtualizacao.name());
+		Iterable<Entity> total = postRepository.verificaNovos(data, Post.class.getName(), PostFields.dataDeAtualizacao.name(), SortDirection.DESCENDING);
+		List<Post> novosPosts = postRepository.toPosts(total);
 
-		return Response.ok().entity(total).build();
+		return Response.ok().entity(novosPosts).build();
+	}
+
+	@Path("/paginar/")
+	@GET
+	@Produces(Application.JSON_UTF8)
+	public Response paginar(@QueryParam("u") Date data) {
+		PostRepository postRepository = new PostRepository();
+		Iterable<Entity> total = postRepository.paginar(data, Post.class.getName(), PostFields.dataDeAtualizacao.name(), SortDirection.DESCENDING);
+		List<Post> novosPosts = postRepository.toPosts(total);
+
+		return Response.ok().entity(novosPosts).build();
 	}
 }

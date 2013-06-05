@@ -2,6 +2,8 @@ package br.com.dextra.dextranet.persistencia;
 
 import java.util.Date;
 
+import br.com.dextra.dextranet.rest.config.Application;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -14,6 +16,7 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
+import com.google.appengine.api.datastore.Query.SortDirection;
 
 public class EntidadeRepository {
 
@@ -61,16 +64,29 @@ public class EntidadeRepository {
 		return pquery.asIterable();
 	}
 
-	public int verificaNovos(Date data, String classe, String dataCriacao) {
+	public Iterable<Entity> verificaNovos(Date data, String classe, String dataCriacao, SortDirection direcaoOrdenacao) {
 		Query query = new Query(classe);
 
 		Filter filter = new FilterPredicate(dataCriacao, FilterOperator.GREATER_THAN, data);
-		query.setFilter(filter );
+		query.setFilter(filter);
+		query.addSort(dataCriacao, direcaoOrdenacao);
 		PreparedQuery pquery = this.datastore.prepare(query);
 
 		FetchOptions opcoesFetch = FetchOptions.Builder.withDefaults();
-		opcoesFetch.limit(100);
-		return pquery.countEntities(opcoesFetch);
+		return pquery.asIterable(opcoesFetch);
+	}
+
+	public Iterable<Entity> paginar(Date data, String classe, String dataCriacao, SortDirection direcaoOrdenacao) {
+		Query query = new Query(classe);
+
+		Filter filter = new FilterPredicate(dataCriacao, FilterOperator.LESS_THAN, data);
+		query.setFilter(filter);
+		query.addSort(dataCriacao, direcaoOrdenacao);
+		PreparedQuery pquery = this.datastore.prepare(query);
+
+		FetchOptions opcoesFetch = FetchOptions.Builder.withDefaults();
+		opcoesFetch.limit(Integer.parseInt(Application.REGISTROS_POR_PAGINA));
+		return pquery.asIterable(opcoesFetch);
 	}
 
 }

@@ -9,7 +9,8 @@
 	    			<span id="caracteres_restantes"></span>
 	    		</div>
     		</form>
-    		<div id="novos_microPosts" class="hidden list_stories_data"><a title="${messages.ver_novos_posts}" id="ver_novos_microPosts" onclick="dextranet.microblog.listar(1);"><span id="qtd_novos_microPosts"></span>${messages.novos_microPosts}</a></div>
+    		<div id="novos_microPosts" class="hidden list_stories_data"><a id="ver_novos_microPosts" onclick="dextranet.microblog.listaNovos();"><span id="qtd_novos_microPosts"></span>${messages.novos_microPosts}</a></div>
+    		<div id="list_novosMicroposts"></div>
     		<ul id="list_microposts">
 		    	{for post in posts}
 		    		<li class="micropost" id="${post.id}">
@@ -57,12 +58,14 @@
 
 		$('a#paginar_microblog').click(function(){
 			{if paginar}
-				dextranet.microblog.listar(dextranet.paginacao.paginaCorrenteMicroBlog+= 1)
+				dextranet.paginacao.paginarMicroPost = true;
+				ultimoMicroPost = $('ul#list_microposts li:last div.micropost-data span.time_ago_microposts').attr('original-title');
+				dextranet.microblog.paginar(setIntervalUtils.formataData(ultimoMicroPost));
 				dextranet.paginacao.indiceUltimoMicroPost = $('li.micropost').size();
 	 		{/if}
 		});
 
-		if(dextranet.paginacao.paginaCorrenteMicroBlog > 1){
+		if(dextranet.paginacao.paginarMicroPost){
 			indiceElemento = dextranet.paginacao.indiceUltimoMicroPost - 1;
 
 			$('html, body').animate({
@@ -73,7 +76,6 @@
 		//Tooltips
 		$('div.avatar-frame').tipsy();
 		$('span.time_ago_microposts').tipsy();
-		$('a#ver_novos_microPosts').tipsy();
 
 		$("#form_micropost_submit").click(function(){
 			if($('textarea#conteudo_novo_micropost').val())

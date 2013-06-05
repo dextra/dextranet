@@ -9,7 +9,8 @@ dextranet.paginacao = {
 			e.preventDefault();
 			if(dextranet.paginacao.complete && ($(window).scrollTop() + $(window).height()) == ($(document).height()) && $('li#sidebar_left_home').hasClass('active')) {
 				dextranet.paginacao.complete = false;
-				dextranet.post.listar(dextranet.paginacao.paginaCorrente+= 1);
+				ultimoRegistro = $('ul#relacao_dos_posts li:last div.list_stories_data span.list_stories_date').attr('original-title');
+				dextranet.post.paginar(setIntervalUtils.formataData(ultimoRegistro));
 			}
 			return false;
 		});
@@ -17,6 +18,12 @@ dextranet.paginacao = {
 
 	paginaCorrenteMicroBlog : 1,
 
-	indiceUltimoMicroPost : 1
+	indiceUltimoMicroPost : 1,
+
+	paginarMicroPost : false,
+
+	novosPosts : [],
+
+	novosMicroPosts : []
 
 };

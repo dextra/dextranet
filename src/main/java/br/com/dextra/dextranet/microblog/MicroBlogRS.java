@@ -20,6 +20,7 @@ import br.com.dextra.dextranet.rest.config.Application;
 import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.dextranet.usuario.UsuarioRepository;
 
+import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.JsonArray;
@@ -80,9 +81,12 @@ public class MicroBlogRS {
 	@Produces(Application.JSON_UTF8)
 	public Response verificaNovosMicroPosts(@QueryParam("d") Date data) {
 		MicroBlogRepository microBlogRepository = new MicroBlogRepository();
-		int total = microBlogRepository.verificaNovos(data, MicroPost.class.getName(), MicroBlogFields.DATA.getField());
 
-		return Response.ok().entity(total).build();
+		Iterable<Entity> total = microBlogRepository.verificaNovos(data, MicroPost.class.getName(), MicroBlogFields.DATA.getField(), SortDirection.DESCENDING);
+
+		List<MicroPost> novosMicroPosts = microBlogRepository.toMicroPosts(total);
+
+		return Response.ok().entity(novosMicroPosts).build();
 	}
 
 	@Path("/{id}")
@@ -97,6 +101,17 @@ public class MicroBlogRS {
 			return Response.status(Status.FORBIDDEN).build();
 		}
 
+	}
+
+	@Path("/paginar/")
+	@GET
+	@Produces(Application.JSON_UTF8)
+	public Response paginar(@QueryParam("u") Date data) {
+		MicroBlogRepository microBlogRepository = new MicroBlogRepository();
+		Iterable<Entity> total = microBlogRepository.paginar(data, MicroPost.class.getName(), MicroBlogFields.DATA.getField(), SortDirection.DESCENDING);
+		List<MicroPost> novosMicroPosts = microBlogRepository.toMicroPosts(total);
+
+		return Response.ok().entity(novosMicroPosts).build();
 	}
 
 }

@@ -39,7 +39,7 @@ public class MicroBlogRepository extends EntidadeRepository {
 		super.remove(id, MicroPost.class);
 	}
 
-	private List<MicroPost> toMicroPosts(Iterable<Entity> asIterable) {
+	public List<MicroPost> toMicroPosts(Iterable<Entity> asIterable) {
 		List<MicroPost> listaMicroPosts = new ArrayList<MicroPost>();
 
 		for (Entity entity : asIterable) {

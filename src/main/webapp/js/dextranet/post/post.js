@@ -206,20 +206,60 @@ dextranet.post = {
 		},
 
 		verificaNovos : function(data) {
+			if(data){
+				$.ajax( {
+					type : "GET",
+					url : "/s/post/count?d="+data,
+					contentType : dextranet.application_json,
+					loading : false,
+					success : function(resultado) {
+						dextranet.paginacao.novosPosts = [];
+						if(resultado.length > 1){
+							$('div#novos_posts').show();
+							$('span#qtd_novos_posts').text(resultado.length - 1);
+							resultado.pop();
+							dextranet.paginacao.novosPosts = resultado;
+						}
+					},
+	    			error: function(jqXHR, textStatus, errorThrown) {
+	    				dextranet.processaErroNaRequisicao(jqXHR);
+	    			}
+				});
+			}
+		},
+
+		listaNovos : function() {
+			if(dextranet.paginacao.novosPosts.length > 0){
+				aux = dextranet.post.foundPosts;
+				dextranet.post.foundPosts = [];
+				dextranet.post.foundPosts = dextranet.post.foundPosts.concat(dextranet.paginacao.novosPosts, aux);
+
+				$.holy("../template/dinamico/post/lista_posts.xml", { paginar : true,
+																	  posts : dextranet.post.foundPosts,
+														       		  gravatar : dextranet.gravatarUrl
+	       		});
+
+			}
+		},
+
+		paginar : function(ultimoRegistro) {
 			$.ajax( {
 				type : "GET",
-				url : "/s/post/count?d="+data,
+				url : "/s/post/paginar?u="+ultimoRegistro,
 				contentType : dextranet.application_json,
-				loading : false,
-				success : function(resultado) {
-					if(resultado > 0){
-						$('div#novos_posts').show();
-						$('span#qtd_novos_posts').text(resultado);
+				success : function(posts) {
+					if(posts != null && posts.length > 0){
+						dextranet.post.foundPosts = dextranet.post.foundPosts.concat(posts);
 					}
+					$.holy("../template/dinamico/post/lista_posts.xml", { paginar : posts.length > 0,
+																		  posts : dextranet.post.foundPosts,
+																		  gravatar : dextranet.gravatarUrl });
+					dextranet.ativaMenu("sidebar_left_home");
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
     			}
 			});
 		}
+
 	}
