@@ -40,6 +40,7 @@ dextranet.microblog = {
 				},
 				success : function() {
 					dextranet.microblog.listar(1);
+					dextranet.paginacao.paginarMicroPost = false;
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
