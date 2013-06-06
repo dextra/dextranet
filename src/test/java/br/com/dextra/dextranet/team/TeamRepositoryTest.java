@@ -6,19 +6,19 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import br.com.dextra.dextranet.time.Team;
-import br.com.dextra.dextranet.time.TeamRepository;
+import br.com.dextra.dextranet.grupos.Grupo;
+import br.com.dextra.dextranet.grupos.GrupoRepository;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
 
 public class TeamRepositoryTest extends TesteIntegracaoBase {
-	private TeamRepository repositorio = new TeamRepository();
+	private GrupoRepository repositorio = new GrupoRepository();
 
 	@Test
 	public void testaRemover() {
-		Team team = new Team("Time", "grupoemailtime@dextra-sw.com");
-		Team teamPersistido = repositorio.persiste(team);
+		Grupo team = new Grupo("Time", "grupoemailtime@dextra-sw.com");
+		Grupo teamPersistido = repositorio.persiste(team);
 		repositorio.remove(teamPersistido.getId());
 
 		try {
@@ -30,8 +30,8 @@ public class TeamRepositoryTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testaInserir() throws EntityNotFoundException {
-		Team team = new Team("Time", "grupoemailtime@dextra-sw.com");
-		Team teamPersistido = repositorio.persiste(team);
+		Grupo team = new Grupo("Time", "grupoemailtime@dextra-sw.com");
+		Grupo teamPersistido = repositorio.persiste(team);
 		Assert.assertEquals(team.getNome(), teamPersistido.getNome());
 		Assert.assertEquals(team.getEmailGrupo(), teamPersistido.getEmailGrupo());
 		limparTime(team.getId());
@@ -40,9 +40,9 @@ public class TeamRepositoryTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testaBuscarPorId() throws EntityNotFoundException {
-		Team team = new Team("Time", "grupoemailtime@dextra-sw.com");
+		Grupo team = new Grupo("Time", "grupoemailtime@dextra-sw.com");
 		repositorio.persiste(team);
-		Team teamEncontrado = repositorio.obtemPorId(team.getId());
+		Grupo teamEncontrado = repositorio.obtemPorId(team.getId());
 		Assert.assertEquals(team.getNome(), teamEncontrado.getNome());
 		Assert.assertEquals(team.getEmailGrupo(), teamEncontrado.getEmailGrupo());
 		limparTime(team.getId());
@@ -50,14 +50,14 @@ public class TeamRepositoryTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testaListar() {
-		Team teamA = new Team("Time A", "grupoemailtimea@dextra-sw.com");
+		Grupo teamA = new Grupo("Time A", "grupoemailtimea@dextra-sw.com");
 		repositorio.persiste(teamA);
-		Team teamB = new Team("Time B", "grupoemailtimeb@dextra-sw.com");
+		Grupo teamB = new Grupo("Time B", "grupoemailtimeb@dextra-sw.com");
 		repositorio.persiste(teamB);
-		Team teamC = new Team("Time C", "grupoemailtimec@dextra-sw.com");
+		Grupo teamC = new Grupo("Time C", "grupoemailtimec@dextra-sw.com");
 		repositorio.persiste(teamC);
 
-		List<Team> teams = repositorio.lista();
+		List<Grupo> teams = repositorio.lista();
 		Assert.assertEquals(3, teams.size());
 		Assert.assertEquals(teams.get(0).getId(), teamA.getId());
 		Assert.assertEquals(teams.get(1).getId(), teamB.getId());
@@ -69,8 +69,8 @@ public class TeamRepositoryTest extends TesteIntegracaoBase {
         repositorio.remove(id);
 	}
 
-	private void limparTimes(List<Team> teams) {
-		for (Team team : teams) {
+	private void limparTimes(List<Grupo> teams) {
+		for (Grupo team : teams) {
 			repositorio.remove(team.getId());
 		}
 	}

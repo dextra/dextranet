@@ -1,4 +1,4 @@
-package br.com.dextra.dextranet.time;
+package br.com.dextra.dextranet.grupos;
 
 import java.util.List;
 
@@ -16,14 +16,14 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import br.com.dextra.dextranet.rest.config.Application;
 
 @Path("/team")
-public class TeamRS {
-	TeamRepository repositorio = new TeamRepository();
+public class GrupoRS {
+	GrupoRepository repositorio = new GrupoRepository();
 
 	@Path("/")
 	@GET
 	@Produces(Application.JSON_UTF8)
 	public Response listar() {
-		List<Team> teams = repositorio.lista();
+		List<Grupo> teams = repositorio.lista();
 		return Response.ok().entity(teams).build();
 	}
 
@@ -31,7 +31,7 @@ public class TeamRS {
 	@PUT
 	@Produces(Application.JSON_UTF8)
 	public Response adicionar(@FormParam("nome") String nome, @FormParam("emailGrupo") String emailGrupo) {
-		Team team = new Team(nome, emailGrupo);
+		Grupo team = new Grupo(nome, emailGrupo);
 		repositorio.persiste(team);
 		return Response.ok().entity(team).build();
 	}
@@ -40,7 +40,7 @@ public class TeamRS {
 	@PUT
 	@Produces(Application.JSON_UTF8)
 	public Response atualizar(@PathParam("id") String id, @FormParam("nome") String nome, @FormParam("emailGrupo") String emailGrupo) throws EntityNotFoundException {
-		Team team = repositorio.obtemPorId(id);
+		Grupo team = repositorio.obtemPorId(id);
 		team = team.preenche(nome, emailGrupo);
 		repositorio.persiste(team);
 		return Response.ok().entity(team).build();
