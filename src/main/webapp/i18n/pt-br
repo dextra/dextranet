@@ -76,6 +76,8 @@
 	"novos_posts" : " novo(s) post(s)",
 	"novos_microPosts" : " novo(s) micropost(s)",
 	"ver_novos_posts" : "Ver",
-	"title_excluir" : "Excluir este post"
+	"title_excluir" : "Excluir este post",
+	"time_nome" : "Nome do time",
+	"time_email" : "Grupo de email"
 	}
 }
