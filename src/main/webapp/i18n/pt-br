@@ -78,6 +78,9 @@
 	"ver_novos_posts" : "Ver",
 	"title_excluir" : "Excluir este post",
 	"time_nome" : "Nome do time",
-	"time_email" : "Grupo de email"
+	"time_email" : "Grupo de email",
+	"time_pessoas" : "Pessoas",
+	"time_projeto" : "Projeto",
+	"time_novo" : "Novo time"
 	}
 }
