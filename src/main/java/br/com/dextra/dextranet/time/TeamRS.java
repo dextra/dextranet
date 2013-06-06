@@ -2,6 +2,7 @@ package br.com.dextra.dextranet.time;
 
 import java.util.List;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
@@ -30,8 +31,9 @@ public class TeamRS {
 	@PUT
 	@Produces(Application.JSON_UTF8)
 	public Response adicionar(@FormParam("nome") String nome, @FormParam("emailGrupo") String emailGrupo) {
-
-		return null;
+		Team team = new Team(nome, emailGrupo);
+		repositorio.persiste(team);
+		return Response.ok().entity(team).build();
 	}
 
 	@Path("/{id}")
@@ -42,5 +44,13 @@ public class TeamRS {
 		team = team.preenche(nome, emailGrupo);
 		repositorio.persiste(team);
 		return Response.ok().entity(team).build();
+	}
+
+	@Path("/{id}")
+	@DELETE
+	@Produces(Application.JSON_UTF8)
+	public Response deletar(@PathParam("id") String id) {
+		repositorio.remove(id);
+		return Response.ok().build();
 	}
 }

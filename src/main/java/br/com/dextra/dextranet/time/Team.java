@@ -14,8 +14,8 @@ public class Team extends Entidade {
 	private List<Usuario> usuarios;
 
 	public Team(String nome, String emailGrupo) {
-		this.nome = nome;
-		this.emailGrupo = emailGrupo;
+		super();
+		preenche(nome, emailGrupo);
 	}
 
 	public Team(Entity entidade) {

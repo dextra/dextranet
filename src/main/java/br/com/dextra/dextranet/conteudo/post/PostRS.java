@@ -19,12 +19,14 @@ import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
 import br.com.dextra.dextranet.conteudo.post.comentario.ComentarioRepository;
 import br.com.dextra.dextranet.conteudo.post.curtida.Curtida;
 import br.com.dextra.dextranet.conteudo.post.curtida.CurtidaRepository;
+import br.com.dextra.dextranet.persistencia.EntidadeBusca;
 import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.rest.config.Application;
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
 @Path("/post")
@@ -199,7 +201,13 @@ public class PostRS {
 	@Produces(Application.JSON_UTF8)
 	public Response verificaNovosPosts(@QueryParam("d") Date data) {
 		PostRepository postRepository = new PostRepository();
-		Iterable<Entity> total = postRepository.verificaNovos(data, Post.class.getName(), PostFields.dataDeAtualizacao.name(), SortDirection.DESCENDING);
+		EntidadeBusca entidadeBusca = new EntidadeBusca();
+		entidadeBusca.setData(data);
+		entidadeBusca.setCampo(PostFields.dataDeAtualizacao.name());
+		entidadeBusca.setClazz(Post.class.getName());
+		entidadeBusca.setDirecaoOrdenacao(SortDirection.DESCENDING);
+		entidadeBusca.setFiltro(FilterOperator.GREATER_THAN);
+		Iterable<Entity> total = postRepository.paginar(entidadeBusca);
 		List<Post> novosPosts = postRepository.toPosts(total);
 
 		return Response.ok().entity(novosPosts).build();
@@ -210,7 +218,14 @@ public class PostRS {
 	@Produces(Application.JSON_UTF8)
 	public Response paginar(@QueryParam("u") Date data) {
 		PostRepository postRepository = new PostRepository();
-		Iterable<Entity> total = postRepository.paginar(data, Post.class.getName(), PostFields.dataDeAtualizacao.name(), SortDirection.DESCENDING);
+		EntidadeBusca entidadeBusca = new EntidadeBusca();
+		entidadeBusca.setData(data);
+		entidadeBusca.setCampo(PostFields.dataDeAtualizacao.name());
+		entidadeBusca.setClazz(Post.class.getName());
+		entidadeBusca.setDirecaoOrdenacao(SortDirection.DESCENDING);
+		entidadeBusca.setLimite(Integer.parseInt(Application.REGISTROS_POR_PAGINA));
+		entidadeBusca.setFiltro(FilterOperator.LESS_THAN);
+		Iterable<Entity> total = postRepository.paginar(entidadeBusca);
 		List<Post> novosPosts = postRepository.toPosts(total);
 
 		return Response.ok().entity(novosPosts).build();

@@ -8,7 +8,7 @@ dextranet.settings = {
 			dextranet.settings.configuraMascaras();
 		},
 
-		intervaloBuscaNovosPosts : 60000,//1 minuto
+		intervaloBuscaNovosPosts : 6000,//1 minuto
 
 		configuraLoading : function() {
 			$.loading( {

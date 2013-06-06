@@ -15,6 +15,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import br.com.dextra.dextranet.persistencia.EntidadeBusca;
 import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.rest.config.Application;
 import br.com.dextra.dextranet.usuario.Usuario;
@@ -22,6 +23,7 @@ import br.com.dextra.dextranet.usuario.UsuarioRepository;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -81,11 +83,14 @@ public class MicroBlogRS {
 	@Produces(Application.JSON_UTF8)
 	public Response verificaNovosMicroPosts(@QueryParam("d") Date data) {
 		MicroBlogRepository microBlogRepository = new MicroBlogRepository();
-
-		Iterable<Entity> total = microBlogRepository.verificaNovos(data, MicroPost.class.getName(), MicroBlogFields.DATA.getField(), SortDirection.DESCENDING);
-
+		EntidadeBusca entidadeBusca = new EntidadeBusca();
+		entidadeBusca.setData(data);
+		entidadeBusca.setCampo(MicroBlogFields.DATA.getField());
+		entidadeBusca.setClazz(MicroPost.class.getName());
+		entidadeBusca.setFiltro(FilterOperator.GREATER_THAN);
+		entidadeBusca.setDirecaoOrdenacao(SortDirection.DESCENDING);
+		Iterable<Entity> total = microBlogRepository.paginar(entidadeBusca);
 		List<MicroPost> novosMicroPosts = microBlogRepository.toMicroPosts(total);
-
 		return Response.ok().entity(novosMicroPosts).build();
 	}
 
@@ -108,7 +113,14 @@ public class MicroBlogRS {
 	@Produces(Application.JSON_UTF8)
 	public Response paginar(@QueryParam("u") Date data) {
 		MicroBlogRepository microBlogRepository = new MicroBlogRepository();
-		Iterable<Entity> total = microBlogRepository.paginar(data, MicroPost.class.getName(), MicroBlogFields.DATA.getField(), SortDirection.DESCENDING);
+		EntidadeBusca entidadeBusca = new EntidadeBusca();
+		entidadeBusca.setData(data);
+		entidadeBusca.setCampo(MicroBlogFields.DATA.getField());
+		entidadeBusca.setClazz(MicroPost.class.getName());
+		entidadeBusca.setDirecaoOrdenacao(SortDirection.DESCENDING);
+		entidadeBusca.setLimite(Integer.parseInt(Application.REGISTROS_POR_PAGINA));
+		entidadeBusca.setFiltro(FilterOperator.LESS_THAN);
+		Iterable<Entity> total = microBlogRepository.paginar(entidadeBusca);
 		List<MicroPost> novosMicroPosts = microBlogRepository.toMicroPosts(total);
 
 		return Response.ok().entity(novosMicroPosts).build();

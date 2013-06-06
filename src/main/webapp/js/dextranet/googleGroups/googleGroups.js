@@ -1,5 +1,0 @@
-dextranet.googlegroups = {
-		adicionar : function() {
-			
-		}
-} 
