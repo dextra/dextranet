@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+    <template selector="#content_left">
+
+		<div class="clearfix">
+
+	        <form id="frmPerfil" class="form-dark form-horizontal clearfix">
+				<dl>
+					<dt>
+						<label for="txtTimeNome"><span class="input-obg"></span>${messages.time_nome}:</label>
+					</dt>
+					<dd>
+						<input type="text" id="txtTimeNome" name="time_nome" value="" class="not-empty" maxlength="50" />
+					</dd>
+
+					<dt>
+						<label for="txtTimeEmail"><span class="input-obg"></span>${messages.time_email}:</label>
+					</dt>
+					<dd>
+						<input type="text" id="txtTimeEmail" name="time_email" value="" class="not-empty" maxlength="50" />
+					</dd>
+
+					<dd>
+						<button id="btnSalvar" class="btn btn-blue btn-block" type="button" >${messages.botao_salvar}</button>
+					</dd>
+				</dl>
+			</form>
+		</div>
+
+
+    </template>
+
+    <script type="text/javascript">
+        $('.icon').tipsy();
+    </script>
+</engine>

@@ -18,11 +18,13 @@ public class MicroBlogTesteFuncional extends TesteFuncionalBase {
 		microBlog = new MicroBlog(driver);
 	}
 
-	//@Test
+	@Test
 	public void testaMicroBlog() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
 		eleCriaMicroPosts();
 		entaoChecaSeMicroPostFoiCriado();
+		eleExcluiMicroPost();
+		eChecaseMicroPostExisteAoExcluir();
 	}
 
 	private void eleCriaMicroPosts() {
@@ -38,11 +40,20 @@ public class MicroBlogTesteFuncional extends TesteFuncionalBase {
 	}
 
 	private void entaoChecaSeMicroPostFoiCriado() {
-		Boolean microPostExistente = microBlog.microPostExistente(mensagemMicroPost("0"));
+		Boolean microPostExistente = microBlog.microPostExistente(mensagemMicroPost(Integer.toString(QTD_MICRO_POSTS)));
 		Assert.assertTrue(microPostExistente);
 	}
 
 	private void dadoQueUsuarioAcessaPaginaPrincipal() {
 		paginaPrincipal.acessaPaginaPrincipal();
+	}
+
+	private void eleExcluiMicroPost() {
+		microBlog.excluiMicroPost();
+	}
+
+	private void eChecaseMicroPostExisteAoExcluir() {
+		Boolean microPostExistente = microBlog.microPostExistente(mensagemMicroPost(Integer.toString(QTD_MICRO_POSTS)));
+		Assert.assertTrue(!microPostExistente);
 	}
 }

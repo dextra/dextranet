@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import br.com.dextra.dextranet.PaginaBase;
 
 public class MicroBlog extends PaginaBase {
+	private String idMicroPost;
+
 	public MicroBlog(WebDriver driver) {
 		super(driver);
 	}
@@ -22,11 +24,24 @@ public class MicroBlog extends PaginaBase {
 
 	public Boolean microPostExistente(String mensagem) {
 		WebElement htmlMicroPost = this.getElement("ul#list_microposts li:first-child div.micropost-conteudo div.micropost-texto.wordwrap");
+		WebElement liMicroPost = this.getElement("ul#list_microposts li:first-child");
 		String mensagemComparacao = htmlMicroPost.getText();
 		if (StringUtils.isNotEmpty(mensagemComparacao) && mensagemComparacao.equals(mensagem)) {
+			if(StringUtils.isNotEmpty(liMicroPost.getText())){
+				idMicroPost = getIdMicroPost(liMicroPost);
+			}
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	public void excluiMicroPost() {
+		this.click("button#btn-excluirpost_" + idMicroPost);
+		this.waitingForLoading();
+	}
+
+	private String getIdMicroPost(WebElement htmlMicroPost) {
+		return htmlMicroPost.getAttribute("id");
 	}
 }

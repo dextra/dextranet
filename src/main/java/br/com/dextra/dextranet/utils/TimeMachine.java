@@ -13,7 +13,7 @@ import com.google.appengine.repackaged.org.joda.time.LocalDateTime;
 
 public class TimeMachine {
 
-	public static final String DATA_HORA = "dd/MM/yyyy HH:mm";
+	public static final String DATA_HORA = "dd/MM/yyyy HH:mm:ss";
 
 	public static final String DATA = "dd/MM/yyyy";
 
@@ -31,14 +31,14 @@ public class TimeMachine {
 	public Date inicioDoDia(Date data) {
 		DateTime dateTime = new LocalDateTime(data).toDateTime().withZone(zone);
 		dateTime = dateTime.withHourOfDay(0).withMinuteOfHour(0).withSecondOfMinute(0).withMillisOfSecond(0);
-		
+
 		return dateTime.toLocalDateTime().toDateTime().toDate();
 	}
 
 	public Date fimDoDia(Date data) {
 		DateTime dateTime = new LocalDateTime(data).toDateTime().withZone(zone);
 		dateTime = dateTime.withHourOfDay(23).withMinuteOfHour(59).withSecondOfMinute(59).withMillisOfSecond(99);
-		
+
 		return dateTime.toLocalDateTime().toDateTime().toDate();
 	}
 

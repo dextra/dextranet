@@ -4,10 +4,11 @@ dextranet.settings = {
 			dextranet.settings.configuraLoading();
 			dextranet.settings.carregaInternacionalizacao();
 			dextranet.settings.inicializaMensagens();
-			//dextranet.settings.carregaPaginacao();
 			dextranet.settings.configuraDatePicker();
 			dextranet.settings.configuraMascaras();
 		},
+
+		intervaloBuscaNovosPosts : 60000,//1 minuto
 
 		configuraLoading : function() {
 			$.loading( {
@@ -16,7 +17,7 @@ dextranet.settings = {
 				opacity : '60'
 			});
 
-	        jQuery.ajaxSetup( {
+	        $.ajaxSetup( {
 	            loading : true
 	        });
 
@@ -52,12 +53,4 @@ dextranet.settings = {
                 'ramal'     : { mask : '9999' }
 			};
 		},
-
-		// FIXME: a paginacao deveria estar relacionada ao post e nao ao settings
-		carregaPaginacao : function() {
-			numeroDaPagina = new dextranet.paginacao.pagina();
-			consulta = new dextranet.paginacao.query();
-			numeroDaPagina.setPaginaInicial();
-			dextranet.paginacao.paginacaoDosPosts();
-		}
 };

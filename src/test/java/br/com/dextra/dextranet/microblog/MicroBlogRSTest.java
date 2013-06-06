@@ -22,7 +22,7 @@ public class MicroBlogRSTest {
         rs.post("micromessage");
         JsonArray json = JsonUtil.parse((String) rs.get().getEntity()).getAsJsonArray();
         assertEquals(1, json.size());
-        assertEquals("micromessage", json.get(0).getAsJsonObject().get("text").getAsString());
+        assertEquals("micromessage", json.get(0).getAsJsonObject().get("texto").getAsString());
         assertEquals("autor", json.get(0).getAsJsonObject().get("autor").getAsString());
     }
 
@@ -61,8 +61,8 @@ public class MicroBlogRSTest {
 
         JsonArray json = JsonUtil.parse((String) rs.get().getEntity()).getAsJsonArray();
         assertEquals(2, json.size());
-        assertEquals("micromessage1", json.get(0).getAsJsonObject().get("text").getAsString());
-        assertEquals("micromessage2", json.get(1).getAsJsonObject().get("text").getAsString());
+        assertEquals("micromessage1", json.get(0).getAsJsonObject().get("texto").getAsString());
+        assertEquals("micromessage2", json.get(1).getAsJsonObject().get("texto").getAsString());
     }
 
 }
