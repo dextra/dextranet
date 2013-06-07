@@ -24,7 +24,7 @@ html{font-size:100%;}
 /*----------  Icons / Shapes  ----------*/
 [class^="icon_"]{display:inline-block;vertical-align:middle;width:16px;height:16px;background-image:url('../img/main-bundle.png');}
 
-.icon_header_logo{width:135px;height:23px;}
+.icon_header_logo{width:104px;height:23px;}
 .icon_sidebar_left_home{background-position:0 -28px;}
 .icon_sidebar_left_novopost{background-position:-40px -32px;}
 .icon_sidebar_left_categoria{background-position:-80px -28px;}
