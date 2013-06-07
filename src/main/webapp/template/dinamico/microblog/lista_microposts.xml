@@ -33,12 +33,17 @@
 		    	{/for}
 	    	</ul>
     	</div>
-    	<a id="paginar_microblog">+</a>
+    	<a id="paginar_microblog">Carregar mais</a>
 
-	<script>
-		$('#novo_micropost textarea').autoresize().css('height', '29px');
-	
+	<script>	
 		<![CDATA[
+		$('#novo_micropost textarea').autoresize().css('height', '29px').keypress(function(e) {
+			if ( e.which === 13 && !e.shiftKey ) {
+				$('#form_micropost_submit').click();
+				return;
+			}
+		});		
+		
 		$('span#caracteres_restantes').text($('#conteudo_novo_micropost').attr('maxLength'));
 		$('#conteudo_novo_micropost').keyup(function() {
 		    $('span#caracteres_restantes').text( parseInt($(this).attr('maxLength')) - (this.value.length) );
