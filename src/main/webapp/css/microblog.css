@@ -23,47 +23,46 @@
 }
 #list_microposts {
 	margin-top: 5px;
-	margin-bottom:20px;
 	height: auto;
 	width: 312px;
 	list-style:none;
 }
-#list_microposts .btn-excluirpost{padding:1px 5px 3px;float:right;margin-left:8px;}
+#list_microposts .btn-excluirpost{padding:0 5px 2px;float:right;margin-left:10px;}
 #list_microposts .btn-excluirpost:active,
 #list_microposts .btn-excluirpost:hover{color:#b44;border-color:#faa;}
 
 .micropost {
 	background-color: #fefefe;
-	border: 1px solid #a3c3e2;
-	border-top:0;
+	border-bottom: 1px dotted #a3c3e2;
  	padding: 8px 12px 0;
+	margin:0 -14px;
 	position: relative;
-	width:274px;
+	width:304px;
 }
-.micropost:last-child{border-bottom-left-radius:5px;border-bottom-right-radius:5px;border-bottom: 1px solid #a3c3e2;}
-.micropost:first-child{border-top-left-radius:5px;border-top-right-radius:5px;border-top: 1px solid #a3c3e2;}
+.micropost:last-child{}
+.micropost:first-child{border-top: 1px dotted #a3c3e2;}
 
 div.avatar-frame {
-	width: 20px;
-	height: 20px;
+	width: 24px;
+	height: 24px;
 	padding: 0;
 	border-color: #668;
 	float:left;
-	margin-right:10px;
+	margin:3px 8px 1px 0;
 	border-radius:4px;
 }
 
 div.avatar-frame img {
-	width: 20px;
-	height: 20px;
+	width: 24px;
+	height: 24px;
 	border-radius: 3px;
 }
 
 .micropost-texto {
-	padding: 0 5px;
 	line-height:16px;
 	font-size: 12px;
 	color:#555;
+	margin-bottom:10px;
 }
 .micropost-texto a {color:#3d88d3;}
 .micropost-texto a:hover{color:#333;}
