@@ -1,3 +1,19 @@
+#novo_micropost{position:relative;}
+#novo_micropost textarea{
+	border:1px solid #dadada;
+	background-color:#fbfbfb;
+	box-shadow:inset 0 0 0 1px #fff,0 0 0 5px #f2f2f2,inset 0 -10px 20px #fcfcfc,inset 0 2px 2px #e5e5e5;
+	margin:5px 0 10px;
+	font:bold 13px 'Open Sans', arial, sans-serif;}
+#novo_micropost textarea:focus{
+	border-color:#89b9cf;
+	background-color:#f3fbff;
+	color:#647f8b;
+	box-shadow:inset 0 0 0 1px #fff,0 0 0 5px #e1edf3,inset 0 -10px 20px #fcfcfc,inset 0 2px 2px #c2e2f1;}
+#novo_micropost #form_micropost_submit{font-size:13px;}
+#novo_micropost #caracteres_restantes{display:block;float:left;background-color:#f2f2f2;padding:12px 10px 5px;margin:-13px 0 0 -5px;border-radius:0 0 5px 5px;transition:all 100ms ease-in-out;margin-bottom:15px;}
+#novo_micropost textarea:focus + #caracteres_restantes{background-color:#e1edf3;color:#5c8a9f;}
+
 #container-microblog {
 	position: relative;
 	right: 0;
@@ -5,57 +21,63 @@
 	height: auto;
 	top: 0;
 }
-
-ul#list_microposts {
+#list_microposts {
 	margin-top: 5px;
+	margin-bottom:20px;
 	height: auto;
 	width: 312px;
+	list-style:none;
 }
+#list_microposts .btn-excluirpost{padding:1px 5px 3px;float:right;margin-left:8px;}
+#list_microposts .btn-excluirpost:active,
+#list_microposts .btn-excluirpost:hover{color:#b44;border-color:#faa;}
 
-li.micropost {
-	list-style: none;
-	height: 85px;
-	border-radius: 5px;
+.micropost {
 	background-color: #fefefe;
-	border: 1px solid #cfe1f3;
- 	padding: 8px 12px 6px;
+	border: 1px solid #a3c3e2;
+	border-top:0;
+ 	padding: 8px 12px 0;
 	position: relative;
-	margin-top: 5px;
+	width:274px;
 }
+.micropost:last-child{border-bottom-left-radius:5px;border-bottom-right-radius:5px;border-bottom: 1px solid #a3c3e2;}
+.micropost:first-child{border-top-left-radius:5px;border-top-right-radius:5px;border-top: 1px solid #a3c3e2;}
 
 div.avatar-frame {
-	width: 32px;
-	height: 32px;
+	width: 20px;
+	height: 20px;
 	padding: 0;
 	border-color: #668;
-	float: left;
+	float:left;
+	margin-right:10px;
+	border-radius:4px;
 }
 
 div.avatar-frame img {
-	width: 32px;
-	height: 32px;
+	width: 20px;
+	height: 20px;
 	border-radius: 3px;
 }
 
 .micropost-texto {
-	width: 217px;
 	padding: 0 5px;
-	height: 70px;
-	display: inline-block;
+	line-height:16px;
 	font-size: 12px;
-	float: right;
-	text-align: justify;
+	color:#555;
 }
+.micropost-texto a {color:#3d88d3;}
+.micropost-texto a:hover{color:#333;}
 
 .micropost-data {
 	display: block;
 	clear: both;
 	background-color: #FCFCFC;
 	box-shadow: inset 0 3px 3px #FAFAFA;
-	width: 295px;
 	height: 20px;
-	margin: -11px;
+	padding:2px 12px;
+	margin:0 -12px;
 }
+.micropost:last-child .micropost-data{border-radius:0 0 5px 5px;}
 
 .micropost-data span {
 	font-size: 10px;
@@ -63,3 +85,21 @@ div.avatar-frame img {
 	float: right;
 	margin: 3px;
 }
+
+#paginar_microblog{
+	display:block;
+	text-align:center;
+	border:1px solid #a3c5db;
+	text-shadow:0 -1px 0 #fff;
+	box-shadow:inset 0 0 0 1px rgba(255,255,255,.8),0 -5px 5px -2px #e7eff5,inset 0 3px 3px rgba(190,190,240,.25);
+	border-radius:2px 2px 5px 5px;
+	margin:0 -15px -10px;
+	padding:4px 0;
+	font-size:12px;
+	background-color:#e5f4fd;
+	transition:all 35ms ease-in-out;
+	font-weight:bold;}
+#paginar_microblog:hover{background-color:#f1faff;border-color:#9bbed5;color:#437798;transition:none;}
+#paginar_microblog:active{box-shadow:inset 0 0 0 1px rgba(255,255,255,.8),0 -5px 5px -2px #e7eff5,inset 0 3px 3px rgba(190,190,240,.25),inset 0 50px 50px -50px rgba(90,90,150,.25);color:#7ea4bc;}
+
+
