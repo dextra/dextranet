@@ -22,6 +22,7 @@
 #box_user > li#box_user_info{padding:9px 15px 5px 15px;color:#566c7c;font-weight:bold;font-size:13px;float:left;}
 #box_user > li#box_user_info .shape_arrow_down{display:none;}
 #box_user > li#box_user_info > img{background-color:#f7f7f7;border:1px solid #b9cedd;padding:1px;width:20px;height:20px;vertical-align:middle;margin-right:5px;border-radius:2px;box-shadow:0 0 0 1px rgba(255, 255, 255, 0.5);}
+#box_user > li#box_user_info > #user_login{font-size:12px;}
 
 #box_user_actions { vertical-align: top; display:inline-block;}
 #box_user_actions:hover{ background-color:#e9eef3; box-shadow:inset 0 0 2px 1px #f6ffff; }
