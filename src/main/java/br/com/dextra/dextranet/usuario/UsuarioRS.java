@@ -85,12 +85,12 @@ public class UsuarioRS {
 		return AutenticacaoService.identificacaoDoUsuarioLogado();
 	}
 
-	@Path("/{id}/{idTeam}/adicionar-usuario-team")
+	@Path("/{id}/{idGrupo}/adicionar-usuario-grupo")
 	@PUT
 	@Produces(Application.JSON_UTF8)
-	public Response adicionarUsuarioTime(@PathParam("id") String id, @PathParam("idTeam") String idTeam) throws EntityNotFoundException {
+	public Response adicionarUsuarioGrupo(@PathParam("id") String id, @PathParam("idGrupo") String idGrupo) throws EntityNotFoundException {
 		Usuario usuario = repositorio.obtemPorId(id);
-		usuario.setTeam(idTeam);
+		usuario.setIdGrupo(idGrupo);
 		repositorio.persiste(usuario);
 		return Response.ok().entity(usuario).build();
 	}

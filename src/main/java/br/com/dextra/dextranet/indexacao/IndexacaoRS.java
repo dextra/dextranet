@@ -18,6 +18,7 @@ import br.com.dextra.dextranet.conteudo.post.PostRepository;
 import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
 import br.com.dextra.dextranet.excecoes.HttpException;
 import br.com.dextra.dextranet.rest.config.Application;
+import br.com.dextra.dextranet.utils.ConteudoHTML;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.search.Query;
@@ -38,6 +39,9 @@ public class IndexacaoRS {
 	public Response buscarConteudo(@QueryParam("query") String query) throws HttpException {
 		try {
 			List<Post> ret = new ArrayList<Post>();
+
+			ConteudoHTML conteudoHTML = new ConteudoHTML(query);
+			query = conteudoHTML.removeJavaScript();
 
 			Query postQuery = criarOpcoesOrdenacaoPosts(query);
 			List<Post> posts = repositorioDeIndex.buscar(Post.class, postQuery);
@@ -72,12 +76,12 @@ public class IndexacaoRS {
 		return Query.newBuilder().setOptions(options).build(query);
 
 	}
-	
+
 	@GET
 	@Path("/delete")
 	public void apagarIndicesFTS(){
 		repositorioDeIndex.apagaIndices(Post.class);
 		repositorioDeIndex.apagaIndices(Comentario.class);
 	}
-	
+
 }
