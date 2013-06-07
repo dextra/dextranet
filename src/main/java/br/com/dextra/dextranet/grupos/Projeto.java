@@ -7,10 +7,11 @@ import br.com.dextra.dextranet.persistencia.Entidade;
 public class Projeto extends Entidade {
 	private String nome;
 	private String gitHub;
+	private String idGrupo;
 
 	@Override
 	public Entity toEntity() {
-		// TODO Auto-generated method stub
+		// TODO IMPLEMENTAR
 		return null;
 	}
 
@@ -20,5 +21,13 @@ public class Projeto extends Entidade {
 
 	public String getGitHub() {
 		return gitHub;
+	}
+
+	public String getIdGrupo() {
+		return idGrupo;
+	}
+
+	public void setIdGrupo(String idGrupo) {
+		this.idGrupo = idGrupo;
 	}
 }

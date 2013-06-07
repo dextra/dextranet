@@ -10,34 +10,20 @@ import br.com.dextra.dextranet.utils.TimeMachine;
 import com.google.appengine.api.datastore.Entity;
 
 public class Usuario extends Entidade {
-
 	private static final String DEFAULT_DOMAIN = "@dextra-sw.com";
-
 	private String username;
-
 	private String md5;
-
 	private String nome;
-
 	private String apelido;
-
 	private String area;
-
 	private String unidade;
-
 	private String ramal;
-
 	private String telefoneResidencial;
-
 	private String telefoneCelular;
-
 	private String gitHub;
-
 	private String skype;
-
 	private Date ultimaAtualizacao;
-
-	private String team;
+	private String idGrupo;
 
 	public Usuario(String username) {
 		this.username = username.trim();
@@ -57,8 +43,8 @@ public class Usuario extends Entidade {
 		this.telefoneCelular = (String) entidade.getProperty(UsuarioFields.telefoneCelular.name());
 		this.gitHub = (String) entidade.getProperty(UsuarioFields.gitHub.name());
 		this.skype = (String) entidade.getProperty(UsuarioFields.skype.name());
-		this.setTeam((String) entidade.getProperty(UsuarioFields.team.name()));
 		this.ultimaAtualizacao = (Date) entidade.getProperty(UsuarioFields.ultimaAtualizacao.name());
+		this.idGrupo = (String) entidade.getProperty(UsuarioFields.idGrupo.name());
 	}
 
 	public String getUsername() {
@@ -105,16 +91,16 @@ public class Usuario extends Entidade {
 		return skype;
 	}
 
-	public String getTeam() {
-		return team;
-	}
-
-	public void setTeam(String team) {
-		this.team = team;
-	}
-
 	public Date getUltimaAtualizacao() {
 		return ultimaAtualizacao;
+	}
+
+	public String getIdGrupo() {
+		return idGrupo;
+	}
+
+	public void setIdGrupo(String idGrupo) {
+		this.idGrupo = idGrupo;
 	}
 
 	public Usuario preenchePerfil(String nome, String apelido, String area, String unidade, String ramal,
@@ -167,7 +153,7 @@ public class Usuario extends Entidade {
 		entidade.setProperty(UsuarioFields.telefoneCelular.name(), this.telefoneCelular);
 		entidade.setProperty(UsuarioFields.skype.name(), this.skype);
 		entidade.setProperty(UsuarioFields.gitHub.name(), this.gitHub);
-		entidade.setProperty(UsuarioFields.team.name(), this.getTeam());
+		entidade.setProperty(UsuarioFields.idGrupo.name(), this.getIdGrupo());
 
 		return entidade;
 	}

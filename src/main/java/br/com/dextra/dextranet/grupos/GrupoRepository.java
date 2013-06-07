@@ -11,13 +11,13 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
 public class GrupoRepository extends EntidadeRepository {
-	public Grupo persiste(Grupo team) {
-		return super.persiste(team);
+	public Grupo persiste(Grupo grupo) {
+		return super.persiste(grupo);
 	}
 
 	public Grupo obtemPorId(String id) throws EntityNotFoundException {
-		Entity teamEntity = this.obtemPorId(id, Grupo.class);
-		return new Grupo(teamEntity);
+		Entity grupoEntity = this.obtemPorId(id, Grupo.class);
+		return new Grupo(grupoEntity);
 	}
 
 	public void remove(String id) {
@@ -26,13 +26,13 @@ public class GrupoRepository extends EntidadeRepository {
 
 	public List<Grupo> lista() {
 		EntidadeOrdenacao ordenacaoPorNome = new EntidadeOrdenacao(GrupoFields.nome.name(), SortDirection.ASCENDING);
-		List<Grupo> teams = new ArrayList<Grupo>();
+		List<Grupo> grupos = new ArrayList<Grupo>();
 
 		Iterable<Entity> entidades = super.lista(Grupo.class, ordenacaoPorNome);
 		for (Entity entidade : entidades) {
-			teams.add(new Grupo(entidade));
+			grupos.add(new Grupo(entidade));
 		}
 
-		return teams;
+		return grupos;
 	}
 }

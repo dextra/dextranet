@@ -1,11 +1,9 @@
 package br.com.dextra.dextranet.grupos;
 
 import java.util.List;
-
 import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.dextranet.utils.ConteudoHTML;
-
 import com.google.appengine.api.datastore.Entity;
 
 public class Grupo extends Entidade {
@@ -14,9 +12,9 @@ public class Grupo extends Entidade {
 	private List<GoogleGrupo> googleGrupos;
 	private List<Projeto> projetos;
 
-	public Grupo(String nome, String emailGrupo) {
+	public Grupo(String nome) {
 		super();
-		preenche(nome, emailGrupo);
+		preenche(nome);
 	}
 
 	public Grupo(Entity entidade) {
@@ -33,7 +31,7 @@ public class Grupo extends Entidade {
 		return entidade;
 	}
 
-	public Grupo preenche(String nome, String emailGrupo) {
+	public Grupo preenche(String nome) {
 		ConteudoHTML conteudoHTML = new ConteudoHTML(nome);
 		this.nome = conteudoHTML.removeJavaScript();
 		return this;

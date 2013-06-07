@@ -6,10 +6,11 @@ import br.com.dextra.dextranet.persistencia.Entidade;
 
 public class GoogleGrupo extends Entidade {
 	private String email;
-	private String grupo;
+	private String idGrupo;
 
 	@Override
 	public Entity toEntity() {
+		//TODO: implementar
 		return null;
 	}
 
@@ -17,7 +18,11 @@ public class GoogleGrupo extends Entidade {
 		return email;
 	}
 
-	public String getGrupo() {
-		return grupo;
+	public String getIdGrupo() {
+		return idGrupo;
+	}
+
+	public void setIdGrupo(String idGrupo) {
+		this.idGrupo = idGrupo;
 	}
 }

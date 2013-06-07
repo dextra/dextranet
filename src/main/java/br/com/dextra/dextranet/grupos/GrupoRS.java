@@ -11,11 +11,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-import com.google.appengine.api.datastore.EntityNotFoundException;
-
 import br.com.dextra.dextranet.rest.config.Application;
 
-@Path("/team")
+import com.google.appengine.api.datastore.EntityNotFoundException;
+
+@Path("/grupo")
 public class GrupoRS {
 	GrupoRepository repositorio = new GrupoRepository();
 
@@ -23,27 +23,27 @@ public class GrupoRS {
 	@GET
 	@Produces(Application.JSON_UTF8)
 	public Response listar() {
-		List<Grupo> teams = repositorio.lista();
-		return Response.ok().entity(teams).build();
+		List<Grupo> grupos = repositorio.lista();
+		return Response.ok().entity(grupos).build();
 	}
 
 	@Path("/")
 	@PUT
 	@Produces(Application.JSON_UTF8)
-	public Response adicionar(@FormParam("nome") String nome, @FormParam("emailGrupo") String emailGrupo) {
-		Grupo team = new Grupo(nome, emailGrupo);
-		repositorio.persiste(team);
-		return Response.ok().entity(team).build();
+	public Response adicionar(@FormParam("nome") String nome) {
+		Grupo grupo = new Grupo(nome);
+		repositorio.persiste(grupo);
+		return Response.ok().entity(grupo).build();
 	}
 
 	@Path("/{id}")
 	@PUT
 	@Produces(Application.JSON_UTF8)
-	public Response atualizar(@PathParam("id") String id, @FormParam("nome") String nome, @FormParam("emailGrupo") String emailGrupo) throws EntityNotFoundException {
-		Grupo team = repositorio.obtemPorId(id);
-		team = team.preenche(nome, emailGrupo);
-		repositorio.persiste(team);
-		return Response.ok().entity(team).build();
+	public Response atualizar(@PathParam("id") String id, @FormParam("nome") String nome) throws EntityNotFoundException {
+		Grupo grupo = repositorio.obtemPorId(id);
+		grupo = grupo.preenche(nome);
+		repositorio.persiste(grupo);
+		return Response.ok().entity(grupo).build();
 	}
 
 	@Path("/{id}")
