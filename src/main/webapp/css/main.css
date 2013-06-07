@@ -315,7 +315,7 @@ form input.link { width: 476px;}
 .list_stories_headline > h2:hover,
 .list_stories_headline > h2:active{background-color:#e9f3ff;padding:5px 8px;margin:-5px -8px;}
 
-.list_stories_data{clear:both;margin:10px -12px 0;background-color:#f9f9f9;padding:6px 12px 4px;box-shadow:inset 0 3px 3px #fafafa;}
+.list_stories_data{clear:both;margin:12px -11px -1px;background-color:#f9f9f9;padding:4px 12px 3px;box-shadow:inset 0 3px 3px #fafafa;}
 .list_stories_numbercomments,
 .list_stories_actions,
 .list_stories_dx{font-size:12px;float:left;position:relative;margin-right:10px;}
@@ -327,8 +327,10 @@ form input.link { width: 476px;}
 .list_stories_date{font-size:12px;font-style:italic;display:inline-block;padding-top:1px;margin-left:5px;cursor:default;}
 .list_stories_lead,
 .list_stories_contents{text-shadow:0 1px 1px #fff;font-size:12px;font-family:arial;color:#505153;line-height:18px;}
-.btn-excluirpost {float:right;}
+.btn-excluirpost {float:right;margin-top:1px;}
 .btn-excluir-comentario {float:right;}
+
+#novos_posts{margin:12px -15px -1px;padding:8px 15px 6px;font-size:14px;text-shadow:0 -1px 0 #fff;box-shadow:inset 0 15px 15px -15px #eee;}
 
 .list_stories_comments {list-style:none outside none;margin:25px 0 15px;}
 .list_stories_comments li{margin-bottom:20px;position:relative;}
