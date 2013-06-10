@@ -9,10 +9,10 @@ import br.com.dextra.dextranet.web.conteudo.post.PaginaNovoPost;
 import br.com.dextra.dextranet.web.conteudo.post.comentario.PaginaNovoComentario;
 
 public class BuscaGeralPostTesteFuncional  extends TesteFuncionalBase {
-	private static final String CONTEUDO_COMENTARIO = "Texto do comentário.";
+	private static final String CONTEUDO_COMENTARIO = "Texto do comentario.";
 	private static final String CONTEUDO_POST = "Conteudo do post";
 	private static final String TITULO_POST = "Titulo do post";
-	private static final int QTD_POSTS = 3;
+	private static final int QTD_POSTS = 0;
 	private PaginaNovoPost paginaNovoPost;
 	private PaginaNovoComentario paginaNovoComentario;
 	private BuscaGeralPost buscaGeralPost;
@@ -34,7 +34,7 @@ public class BuscaGeralPostTesteFuncional  extends TesteFuncionalBase {
 	}
 
 	private void eleBuscaPostPorComentarios() {
-		buscaGeralPost.redigeConteudoDaBusca("conteudo:" + CONTEUDO_COMENTARIO);
+		buscaGeralPost.redigeConteudoDaBusca(CONTEUDO_COMENTARIO);
 		buscaGeralPost.clicaNoBotaoPesquisa();
 	}
 

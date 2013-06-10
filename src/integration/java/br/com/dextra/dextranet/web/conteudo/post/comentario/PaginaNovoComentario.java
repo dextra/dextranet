@@ -43,7 +43,7 @@ public class PaginaNovoComentario extends PaginaBase {
 	}
 
 	public Boolean existeComentarioPor(String comentario) {
-		WebElement htmlComentario = this.getElement("#relacao_dos_posts li:first-child div.list_stories_newcomment.hidden  ul.list_stories_comments li:first-child .wordwrap");
+		WebElement htmlComentario = this.getElement("#relacao_dos_posts li:first-child div.list_stories_newcomment.hidden ul.list_stories_comments li:first-child .wordwrap");
 		String comentarioPagina = htmlComentario.getText();
 		if (StringUtils.isNotEmpty(comentarioPagina) && comentario.equals(comentarioPagina)) {
 			return true;
