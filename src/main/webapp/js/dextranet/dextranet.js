@@ -31,6 +31,7 @@ var dextranet = {
 						$('.message').message(messageError, 'warning', true);
 						return false;
 					}
+					clearInterval(setIntervalUtils.timerPosts);
 					$.holy("../template/dinamico/post/lista_posts.xml", { paginar : false,
 																		  posts : posts,
 																		  gravatar : dextranet.gravatarUrl });

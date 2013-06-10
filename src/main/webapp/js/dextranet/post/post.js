@@ -36,6 +36,8 @@ dextranet.post = {
 			if (pagina == 1) {
 				dextranet.post.foundPosts = [];
 				dextranet.paginacao.paginaCorrente = 1;
+				//Volta a verificar novos Posts
+				setIntervalUtils.timerPosts = false;
 			}
 			if (!pagina) {
 				var pagina = 1;
