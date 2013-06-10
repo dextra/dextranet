@@ -123,7 +123,7 @@
 			});
 
 			//Verifica novos posts
-			var ultimoPost = $('ul#relacao_dos_posts li:first').find('span.time_ago').text();
+			var ultimoPost = $('ul#relacao_dos_posts li:first').find('span.time_ago:first').text();
 			setIntervalUtils.verificaPosts(ultimoPost);
 
 			//Calcula tempo de post
