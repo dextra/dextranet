@@ -88,6 +88,7 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 	public Comentario comentar(String username, String conteudo) {
 		Comentario comentario = new Comentario(this.id, username, new ConteudoHTML(conteudo).removeJavaScript());
 		comentarios.add(comentario);
+		this.dataDeAtualizacao = new Date();
 		return comentario;
 	}
 
