@@ -5,6 +5,7 @@ import java.util.Date;
 import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.dextranet.usuario.UsuarioRepository;
+import br.com.dextra.dextranet.utils.TimeMachine;
 
 import com.google.appengine.api.datastore.Entity;
 
@@ -15,7 +16,7 @@ public class MicroPost extends Entidade {
     private Usuario autor;
 
     public MicroPost(String texto, Usuario autor) {
-        this(texto, autor, new Date());
+        this(texto, autor, new TimeMachine().dataAtual());
     }
 
     public MicroPost(Entity microPostEntity) {
@@ -66,5 +67,5 @@ public class MicroPost extends Entidade {
     public Usuario getAutor() {
         return autor;
     }
-    
+
 }

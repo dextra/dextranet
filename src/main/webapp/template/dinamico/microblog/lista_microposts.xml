@@ -28,6 +28,7 @@
 						</div>
 						<div class="micropost-data">
 							<span class="time_ago_microposts">${post.data}</span>
+							<div id="time_ago_microposts" class="hidden">${post.data}</div>
 						</div>
 		    		</li>
 		    	{/for}
@@ -66,7 +67,7 @@
 		$('a#paginar_microblog').click(function(){
 			{if paginar}
 				dextranet.paginacao.paginarMicroPost = true;
-				ultimoMicroPost = $('ul#list_microposts li:last div.micropost-data span.time_ago_microposts').attr('original-title');
+				ultimoMicroPost = $('ul#list_microposts li:last div.micropost-data div#time_ago_microposts').text();
 				dextranet.microblog.paginar(setIntervalUtils.formataData(ultimoMicroPost));
 				dextranet.paginacao.indiceUltimoMicroPost = $('li.micropost').size();
 	 		{/if}

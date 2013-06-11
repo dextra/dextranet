@@ -4,7 +4,7 @@
 		<div id="content_left_stretch">
 			<ul class="list_stories" id="relacao_dos_posts">
 				{for post in posts}
-				<li class="clearfix" id="${post.id}">
+				<li class="clearfix listaPost" id="${post.id}">
 					<div class="story-overlay"></div>
 					<div class="story-content">
 						<div class="avatar-frame avatar-frame-small" title="Por ${post.usuario}">

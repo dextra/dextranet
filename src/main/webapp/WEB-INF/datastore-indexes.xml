@@ -22,6 +22,7 @@
     </datastore-index>
 
 	<datastore-index kind="br.com.dextra.dextranet.conteudo.post.Post" ancestor="false" source="manual">
+		<property name="postId" direction="asc"/>
         <property name="dataDeCriacao" direction="desc"/>
     </datastore-index>
 
