@@ -20,6 +20,7 @@
 	width: 300px;
 	height: auto;
 	top: 0;
+	margin-top: 5px;
 }
 #list_microposts {
 	height: auto;
