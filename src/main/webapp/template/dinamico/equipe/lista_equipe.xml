@@ -44,7 +44,7 @@
                 <li class="clearfix colaborador">
                     <div class="list-team-avatar">
                         <div class="avatar-frame">
-                            <img src="${gravatar}${colaborador.md5}" />
+                            <img class="avatar-frame-equipe" src="${gravatar}${colaborador.md5}" />
                         </div>
                     </div>
                     <div class="list-team-content">

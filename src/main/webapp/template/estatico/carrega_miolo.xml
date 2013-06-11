@@ -5,8 +5,8 @@
 
     <template selector="#content_right">
 		<div class="block-white">
-			<div id="microposts"></div>
 			<div id="banners-vigentes"></div>
+			<div id="microposts"></div>
 		</div>
 	</template>
 </engine>

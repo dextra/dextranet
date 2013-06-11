@@ -387,3 +387,6 @@ div.usuario_curtida {padding: 10px;border-bottom:1px solid #DDDDDD;}
 
 /* Tamanho máximo para imagens dentro do post */
 .idClassPost img{width: auto !important; max-height: 306px;}
+
+/*Avatar frame equipe */
+.avatar-frame-equipe{height: 85px !important}

@@ -45,6 +45,7 @@
 								</a>
 							</div>
 							<span class="list_stories_date time_ago">${post.dataDeAtualizacao}</span>
+							<div id="time_ago" class="hidden">${post.dataDeAtualizacao}</div>
 							{if post.usuario == dextranet.usuario.logado.username}
 							<button id="btn-excluirpost_${post.id}" class="btn btn-small btn-light btn-excluirpost"
 								title="Excluir este post" onclick="dextranet.post.remover('${post.id}')">
@@ -123,8 +124,8 @@
 			});
 
 			//Verifica novos posts
-			var ultimoPost = $('ul#relacao_dos_posts li:first').find('span.time_ago:first').text();
-			setIntervalUtils.verificaPosts(ultimoPost);
+			//var ultimoPost = $('ul#relacao_dos_posts li:first').find('span.time_ago:first').text();
+			//setIntervalUtils.verificaPosts(ultimoPost);
 
 			//Calcula tempo de post
 			timeAgo.serverDate();
