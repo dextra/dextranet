@@ -30,7 +30,9 @@ public class MigracaoRS {
 	@POST
 	@Produces(Application.JSON_UTF8)
 	public Response inserirPost(@FormParam("data") Date data, @FormParam("usuario") String username,
-			@FormParam("titulo") String titulo, @FormParam("conteudo") String conteudo) {
+			@FormParam("titulo") String titulo, @FormParam("conteudo") String conteudo, @FormParam("timestamp") String timestamp) {
+		data = new Date(Long.parseLong(timestamp) * 1000);
+
 		Post post = criaNovoPostParaMigracao(data, username, titulo, conteudo);
 		return Response.ok().entity(post).build();
 	}
@@ -47,9 +49,9 @@ public class MigracaoRS {
 	@POST
 	@Produces(Application.JSON_UTF8)
 	public Response inserirComentario(@PathParam("postId") String postId, @FormParam("data") Date data,
-			@FormParam("usuario") String usuario, @FormParam("conteudo") String conteudo)
+			@FormParam("usuario") String usuario, @FormParam("conteudo") String conteudo, @FormParam("timestamp") String timestamp)
 			throws EntityNotFoundException {
-		Comentario comentario = criaNovoComentarioParaMigracao(postId, data, usuario, conteudo);
+		Comentario comentario = criaNovoComentarioParaMigracao(postId, data, usuario, conteudo, timestamp);
 		return Response.ok().entity(comentario).build();
 	}
 
@@ -68,11 +70,11 @@ public class MigracaoRS {
 		return repositorioDePosts.persiste(postMigracao);
 	}
 
-	protected Comentario criaNovoComentarioParaMigracao(String postId, Date data, String username, String conteudo)
+	protected Comentario criaNovoComentarioParaMigracao(String postId, Date data, String username, String conteudo, String timestamp)
 			throws EntityNotFoundException {
 		Post post = repositorioDePosts.obtemPorId(postId);
 
-		Comentario comentarioMigracao = post.comentarParaMigracao(username, conteudo, data);
+		Comentario comentarioMigracao = post.comentarParaMigracao(username, conteudo, data, timestamp);
 
 		repositorioDePosts.persiste(post);
 		return repositorioDeComentarios.persiste(comentarioMigracao);

@@ -1,6 +1,7 @@
 package br.com.dextra.dextranet.conteudo.post;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -70,8 +71,13 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 	}
 
 	@Deprecated
-	public Comentario comentarParaMigracao(String username, String conteudo, Date data) {
+	public Comentario comentarParaMigracao(String username, String conteudo, Date data, String timestamp) {
 		Comentario comentario = new Comentario(this.id, username, new ConteudoHTML(conteudo).removeJavaScript());
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(Long.parseLong(timestamp));
+		data = calendar.getTime();
+
 		comentario.registraDataDeMigracao(data);
 		this.dataDeAtualizacao = data;
 
@@ -122,7 +128,8 @@ public class Post extends Conteudo implements ConteudoIndexavel {
 		Document document = Document.newBuilder().setId(id)
 				.addField(Field.newBuilder().setName(PostFields.id.name()).setText(id))
 				.addField(Field.newBuilder().setName(PostFields.dataDeCriacao.name()).setDate(dataDeCriacao))
-				.addField(Field.newBuilder().setName(PostFields.titulo.name()).setText(titulo)).addField(Field.newBuilder().setName(PostFields.conteudo.name()).setHTML(conteudo))
+				.addField(Field.newBuilder().setName(PostFields.titulo.name()).setText(titulo))
+				.addField(Field.newBuilder().setName(PostFields.conteudo.name()).setHTML(conteudo))
 				.addField(Field.newBuilder().setName(PostFields.usuario.name()).setText(usuario)).build();
 		return document;
 	}
