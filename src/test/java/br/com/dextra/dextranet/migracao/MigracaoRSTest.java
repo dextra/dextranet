@@ -59,8 +59,7 @@ public class MigracaoRSTest extends TesteIntegracaoBase {
 	public void testaInserirComentario() throws EntityNotFoundException {
 		Post post = rest.criaNovoPostParaMigracao(cincoDiasAtras, "username", "titulo", "conteudo");
 		Comentario comentario = rest.criaNovoComentarioParaMigracao(post.getId(), quatroDiasAtras, "outro-usuario",
-				"conteudo");
-
+				"conteudo", String.valueOf(quatroDiasAtras.getTime()));
 		Post postMigrado = repositorioDePosts.obtemPorId(post.getId());
 		Assert.assertEquals(quatroDiasAtras, postMigrado.getDataDeAtualizacao());
 
