@@ -44,7 +44,7 @@
 									${messages.post_comentario}
 								</a>
 							</div>
-							<span class="list_stories_date time_ago">${post.dataDeAtualizacao}</span>
+							<span class="list_stories_date time_ago">${post.dataDeCriacao}</span>
 							<div id="time_ago" class="hidden">${post.dataDeAtualizacao}</div>
 							{if post.usuario == dextranet.usuario.logado.username}
 							<button id="btn-excluirpost_${post.id}" class="btn btn-small btn-light btn-excluirpost"
