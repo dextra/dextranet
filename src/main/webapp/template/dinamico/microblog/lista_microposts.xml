@@ -34,8 +34,9 @@
 		    	{/for}
 	    	</ul>
     	</div>
-    	<a id="paginar_microblog">Carregar mais</a>
-
+    	{if paginar}
+    		<a id="paginar_microblog">Carregar mais</a>
+		{/if}
 	<script>
 		<![CDATA[
 		$('#novo_micropost textarea').autoresize().css('height', '29px').keypress(function(e) {
@@ -51,8 +52,8 @@
 		});
 
 		//Verifica novos posts
-		var ultimoMicroPost = $('ul#list_microposts li.micropost:first').find('span.time_ago_microposts').text();
-		setIntervalUtils.verificaMicroBlog(ultimoMicroPost);
+<!-- 		var ultimoMicroPost = $('ul#list_microposts li.micropost:first').find('span.time_ago_microposts').text(); -->
+<!-- 		setIntervalUtils.verificaMicroBlog(ultimoMicroPost); -->
 
 		//Calcula tempo de post
 		timeAgo.serverDate();
@@ -66,11 +67,15 @@
 
 		$('a#paginar_microblog').click(function(){
 			{if paginar}
-				dextranet.paginacao.paginarMicroPost = true;
-				ultimoMicroPost = $('ul#list_microposts li:last div.micropost-data div#time_ago_microposts').text();
-				dextranet.microblog.paginar(setIntervalUtils.formataData(ultimoMicroPost));
-				dextranet.paginacao.indiceUltimoMicroPost = $('li.micropost').size();
+<!-- 				Paginacao relativa ao último post -->
+<!-- 				dextranet.paginacao.paginarMicroPost = true; -->
+<!-- 				ultimoMicroPost = $('ul#list_microposts li:last div.micropost-data div#time_ago_microposts').text(); -->
+<!-- 				dextranet.microblog.paginar(setIntervalUtils.formataData(ultimoMicroPost)); -->
+<!-- 				dextranet.paginacao.indiceUltimoMicroPost = $('li.micropost').size(); -->
+					dextranet.microblog.listar(dextranet.paginacao.paginaCorrenteMicroBlog + 1);
+					dextranet.paginacao.paginaCorrenteMicroBlog = dextranet.paginacao.paginaCorrenteMicroBlog + 1;
 	 		{/if}
+
 		});
 
 		if(dextranet.paginacao.paginarMicroPost){
