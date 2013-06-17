@@ -1,6 +1,8 @@
 package br.com.dextra.dextranet.microblog;
 
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.usuario.Usuario;
@@ -53,7 +55,7 @@ public class MicroPost extends Entidade {
 	public Entity toEntity() {
 		Entity entidade = new Entity(getKey(MicroPost.class));
 		entidade.setProperty(MicroBlogFields.ID.getField(), getId());
-		entidade.setProperty(MicroBlogFields.TEXTO.getField(), getTexto());
+		entidade.setProperty(MicroBlogFields.TEXTO.getField(), converterTextoEmURL(getTexto()));
 		entidade.setProperty(MicroBlogFields.DATA.getField(), getData());
 		entidade.setProperty(MicroBlogFields.AUTOR.getField(), getAutor().getUsername());
 		return entidade;
@@ -66,6 +68,19 @@ public class MicroPost extends Entidade {
 
     public Usuario getAutor() {
         return autor;
+    }
+
+    public static String converterTextoEmURL(String text) {
+    	if (text == null) {
+    		return text;
+    	}
+
+    	String str = "(?i)\\b((?:https?://|www\\d{0,3}[.]|[a-z0-9.\\-]+[.][a-z]{2,4}/)(?:[^\\s()<>]+|\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\))+(?:\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\)|[^\\s`!()\\[\\]{};:\'\".,<>?«»“”‘’]))";
+    	Pattern patt = Pattern.compile(str);
+    	Matcher matcher = patt.matcher(text);
+    	text = matcher.replaceAll("<a href=\"$1\" target='_blank'>$1</a>");
+
+    	return text;
     }
 
 }
