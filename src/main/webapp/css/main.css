@@ -58,6 +58,17 @@ html{font-size:100%;}
 .float_left{float:left;}
 .float_right{float:right;}
 
+.wordwrap{
+	white-space: pre; /* CSS2 */
+	white-space: -moz-pre-wrap; /* Mozilla */
+	white-space: -hp-pre-wrap;/* HP printers */
+	white-space: -o-pre-wrap; /* Opera 7 */
+	white-space: -pre-wrap; /* Opera 4-6 */
+	white-space: pre-wrap; /* CSS 2.1 */
+	white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
+	word-wrap: break-word; /* IE */
+	_white-space: pre; /* IE hack to re-specify in addition to word-wrap */}
+
 .margin_right{margin-right:15px;}
 .margin_left{margin-left:15px;}
 .margin_bottom{margin-bottom:15px;}
