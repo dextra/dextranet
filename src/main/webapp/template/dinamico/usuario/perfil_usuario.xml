@@ -59,6 +59,12 @@
 						<input type="text" id="txtSkype" name="skype" value="${usuario.skype}" maxlength="30" />
 					</dd>
 					<dt>
+						<label for="txtBlog">${messages.usuario_blog}:</label>
+					</dt>
+					<dd>
+						<input type="text" id="txtBlog" name="blog" value="${usuario.blog}" maxlength="50" />
+					</dd>
+					<dt>
 						<label for="txtGitHub">${messages.usuario_github}:</label>
 					</dt>
 					<dd>

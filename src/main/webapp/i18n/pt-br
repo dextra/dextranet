@@ -46,6 +46,7 @@
     "usuario_unidade" : "Unidade",
     "usuario_ramal" : "Ramal",
     "usuario_skype" : "Skype",
+    "usuario_blog" : "Blog",
     "usuario_github" : "GitHub",
     "usuario_github_tip" : "Informe o identificador de seu usuário no GitHub.",
     "usuario_telefone_residencial" : "Telefone",
