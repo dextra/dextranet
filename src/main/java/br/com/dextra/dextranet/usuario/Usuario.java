@@ -24,6 +24,7 @@ public class Usuario extends Entidade {
 	private String skype;
 	private Date ultimaAtualizacao;
 	private String idGrupo;
+	private String blog;
 
 	public Usuario(String username) {
 		this.username = username.trim();
@@ -45,6 +46,8 @@ public class Usuario extends Entidade {
 		this.skype = (String) entidade.getProperty(UsuarioFields.skype.name());
 		this.ultimaAtualizacao = (Date) entidade.getProperty(UsuarioFields.ultimaAtualizacao.name());
 		this.idGrupo = (String) entidade.getProperty(UsuarioFields.idGrupo.name());
+		this.blog = (String) entidade.getProperty(UsuarioFields.blog.name());
+
 	}
 
 	public String getUsername() {
@@ -103,8 +106,12 @@ public class Usuario extends Entidade {
 		this.idGrupo = idGrupo;
 	}
 
+	public String getBlog() {
+		return blog;
+	}
+
 	public Usuario preenchePerfil(String nome, String apelido, String area, String unidade, String ramal,
-			String telefoneResidencial, String telefoneCelular, String gitHub, String skype) {
+			String telefoneResidencial, String telefoneCelular, String gitHub, String skype, String blog) {
 		ConteudoHTML conteudoHTML = new ConteudoHTML(nome);
 		this.nome = conteudoHTML.removeJavaScript();
 
@@ -131,7 +138,11 @@ public class Usuario extends Entidade {
 
 		conteudoHTML.setConteudo(skype);
 		this.skype = conteudoHTML.removeJavaScript();
+
 		this.ultimaAtualizacao = new TimeMachine().dataAtual();
+
+		conteudoHTML.setConteudo(blog);
+		this.blog = conteudoHTML.removeJavaScript();
 
 		return this;
 	}
@@ -154,6 +165,7 @@ public class Usuario extends Entidade {
 		entidade.setProperty(UsuarioFields.skype.name(), this.skype);
 		entidade.setProperty(UsuarioFields.gitHub.name(), this.gitHub);
 		entidade.setProperty(UsuarioFields.idGrupo.name(), this.getIdGrupo());
+		entidade.setProperty(UsuarioFields.blog.name(), this.blog);
 
 		return entidade;
 	}
