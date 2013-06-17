@@ -1,5 +1,7 @@
 package br.com.dextra.dextranet.conteudo.post.comentario;
 
+import java.util.Date;
+
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -17,12 +19,11 @@ public class ComentarioTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testaConstrutor() {
-		Comentario novoComentario = new Comentario("post-id", "dextranet",
-				"<script>alert('Hello!');</script><h1>conteudo</h1>");
+		Date dataAtual = timeMachine.dataAtual();
+		Comentario novoComentario = new Comentario("post-id", "dextranet", "<script>alert('Hello!');</script><h1>conteudo</h1>");
 		Assert.assertEquals("39566cf6ac41da40deb7c6452a9ed94b", novoComentario.getUsuarioMD5());
 		Assert.assertEquals(0, novoComentario.getQuantidadeDeCurtidas());
-		Assert.assertEquals(timeMachine.formataData(timeMachine.dataAtual()),
-				timeMachine.formataData(novoComentario.getDataDeCriacao()));
+		Assert.assertEquals(timeMachine.formataData(dataAtual), timeMachine.formataData(novoComentario.getDataDeCriacao()));
 		Assert.assertEquals("post-id", novoComentario.getPostId());
 		Assert.assertEquals("<h1>conteudo</h1>", novoComentario.getConteudo());
 	}
