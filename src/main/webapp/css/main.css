@@ -402,3 +402,6 @@ div.usuario_curtida {padding: 10px;border-bottom:1px solid #DDDDDD;}
 
 /*Avatar frame equipe */
 .avatar-frame-equipe{height: 85px !important}
+
+/*Loading post*/
+.loadPost {margin-left:15%; display:none; height:100%; position:absolute; width: 220px; height:33px; background: #FFF url('../img/load.gif') center center no-repeat; text-align: center; z-index: 9999;}

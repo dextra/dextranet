@@ -44,15 +44,28 @@ dextranet.post = {
 
 			$.ajax( {
 				type : "GET",
+				loading : false,
 				url : "/s/post?p="+pagina,
 				contentType : dextranet.application_json,
+				beforeSend: function() {
+					$("div.loadPost:first").show();
+				},
 				success : function(posts) {
 					if(posts != null && posts.length > 0){
 						dextranet.post.foundPosts = dextranet.post.foundPosts.concat(posts);
 					}
-					$.holy("../template/dinamico/post/lista_posts.xml", { paginar : posts.length > 0,
-																		  posts : dextranet.post.foundPosts,
-																		  gravatar : dextranet.gravatarUrl });
+
+					$.ajax({
+						url : "../template/dinamico/post/lista_posts.xml",
+						loading : false,
+						dataType : 'holy',
+						context : { paginar : posts.length > 0,
+								posts : dextranet.post.foundPosts,
+								gravatar : dextranet.gravatarUrl}
+					});
+
+					$("div.loadPost:last").hide();
+
 					dextranet.ativaMenu("sidebar_left_home");
 				},
     			error: function(jqXHR, textStatus, errorThrown) {

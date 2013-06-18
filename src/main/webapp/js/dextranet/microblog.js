@@ -13,15 +13,23 @@ dextranet.microblog = {
 
 		$.ajax( {
 			type : "GET",
+			loading : false,
 			url : "/s/microblog/post?p="+pagina,
 			contentType : dextranet.application_json,
 			success : function(microposts) {
 				if(microposts != null && microposts.length > 0){
 					dextranet.microblog.foundMicroPosts = dextranet.microblog.foundMicroPosts.concat(microposts);
 				}
-				$.holy("../template/dinamico/microblog/lista_microposts.xml", { paginar : microposts.length > 0,
-																				posts : dextranet.microblog.foundMicroPosts,
-																       			gravatar : dextranet.gravatarUrl });
+
+				$.ajax({
+					url : "../template/dinamico/microblog/lista_microposts.xml",
+					loading : false,
+					dataType : 'holy',
+					context : { paginar : microposts.length > 0,
+								posts : dextranet.microblog.foundMicroPosts,
+				       			gravatar : dextranet.gravatarUrl }
+				});
+
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				dextranet.processaErroNaRequisicao(jqXHR);
