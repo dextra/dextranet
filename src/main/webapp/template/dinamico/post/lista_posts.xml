@@ -113,7 +113,7 @@
 			</ul>
 		</div>
 		<div id="div_curtidas_dialog"></div>
-
+		<div class="loadPost"></div>
 		<script type="text/javascript">
 			<![CDATA[
 			$('.new-comment textarea').autoresize().keypress(function(e) {
