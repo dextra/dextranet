@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
 import br.com.dextra.dextranet.TesteFuncionalBase;
 import br.com.dextra.dextranet.web.conteudo.post.PaginaNovoPost;
 
-public class ComentarioTesteFuncional extends TesteFuncionalBase {
+public class ComentarioIT extends TesteFuncionalBase {
 	private PaginaNovoPost paginaNovoPost = null;
 	private String tituloPost;
 	private PaginaNovoComentario paginaNovoComentario;

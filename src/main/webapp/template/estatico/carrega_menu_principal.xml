@@ -25,6 +25,9 @@
 				<span class="shape_arrow_down"></span>
 			</a>
 			<ul class="header_dropdown">
+				<li>
+					<a href="https://rdv.dextra.com.br/rdv/login.html" target="_blank">Sistema Reebolso (RDV)</a>
+				</li>
                 <li>
                     <a href="http://blogs.dextra.com.br/" target="_blank">Blog da Dextra</a>
                 </li>
@@ -37,7 +40,7 @@
 			</ul>
 		</li>
 	</template>
-	<script>	
+	<script>
 	$(document).ready(function() {
 		headerMenu.start();
 	});

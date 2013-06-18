@@ -33,9 +33,10 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		Assert.assertTrue(StringUtils.isEmpty(usuarioPersistido.getTelefoneCelular()));
 		Assert.assertTrue(StringUtils.isEmpty(usuarioPersistido.getGitHub()));
 		Assert.assertTrue(StringUtils.isEmpty(usuarioPersistido.getSkype()));
+		Assert.assertTrue(StringUtils.isEmpty(usuarioPersistido.getBlog()));
 
 		rest.atualizar(usuario.getId(), "Nome", "Apelido", "&Aacute;rea", "Unidade", "Ramal", "Residencial", "Celular",
-				"GitHub", "Skype");
+				"GitHub", "Skype", "blog");
 		usuarioPersistido = repositorio.obtemPorId(usuario.getId());
 
 		Assert.assertEquals("Nome", usuarioPersistido.getNome());
@@ -47,9 +48,10 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		Assert.assertEquals("Celular", usuarioPersistido.getTelefoneCelular());
 		Assert.assertEquals("GitHub", usuarioPersistido.getGitHub());
 		Assert.assertEquals("Skype", usuarioPersistido.getSkype());
+		Assert.assertEquals("blog", usuarioPersistido.getBlog());
 
 		rest.atualizar(usuario.getId(), "Nome", "Apelido", "Area", "Unidade", "Ramal", "Residencial", "Celular",
-				"GitHub", "Skype");
+				"GitHub", "Skype", "blog");
 		usuarioPersistido = repositorio.obtemPorId(usuario.getId());
 		Assert.assertEquals("Area", usuarioPersistido.getArea());
 	}
@@ -60,7 +62,7 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		repositorio.persiste(usuario);
 
 		Response resposta = rest.atualizar(usuario.getId(), "Nome", "Apelido", "Area", "Unidade", "Ramal",
-				"Residencial", "Celular", "GitHub", "Skype");
+				"Residencial", "Celular", "GitHub", "Skype", "blog");
 		Assert.assertEquals(Status.FORBIDDEN.getStatusCode(), resposta.getStatus());
 	}
 

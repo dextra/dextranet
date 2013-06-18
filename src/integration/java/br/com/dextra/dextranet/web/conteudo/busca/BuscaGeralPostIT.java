@@ -8,7 +8,7 @@ import br.com.dextra.dextranet.TesteFuncionalBase;
 import br.com.dextra.dextranet.web.conteudo.post.PaginaNovoPost;
 import br.com.dextra.dextranet.web.conteudo.post.comentario.PaginaNovoComentario;
 
-public class BuscaGeralPostTesteFuncional  extends TesteFuncionalBase {
+public class BuscaGeralPostIT  extends TesteFuncionalBase {
 	private static final String CONTEUDO_COMENTARIO = "Texto do comentário.";
 	private static final String CONTEUDO_POST = "Conteúdo do post";
 	private static final String TITULO_POST = "Título do post";
@@ -17,7 +17,7 @@ public class BuscaGeralPostTesteFuncional  extends TesteFuncionalBase {
 	private PaginaNovoComentario paginaNovoComentario;
 	private BuscaGeralPost buscaGeralPost;
 
-	public BuscaGeralPostTesteFuncional() {
+	public BuscaGeralPostIT() {
 		buscaGeralPost =  new BuscaGeralPost(driver);
 		paginaNovoPost = new PaginaNovoPost(driver);
 		paginaNovoComentario = new PaginaNovoComentario(driver);
