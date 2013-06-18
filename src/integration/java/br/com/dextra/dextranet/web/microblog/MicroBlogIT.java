@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import br.com.dextra.dextranet.TesteFuncionalBase;
 
-public class MicroBlogTesteFuncional extends TesteFuncionalBase {
+public class MicroBlogIT extends TesteFuncionalBase {
 	private static final int QTD_MICRO_POSTS = 2;
 	private static String MENSAGEM_MICRO_POST = "Texto do micropost [NUM]: A Dextra Sistemas foi fundada " +
 										"em 1995 por 3 ex-alunos da Unicamp. O nome Dextra vem " +
@@ -14,7 +14,7 @@ public class MicroBlogTesteFuncional extends TesteFuncionalBase {
 
 	MicroBlog microBlog;
 
-	public MicroBlogTesteFuncional() {
+	public MicroBlogIT() {
 		microBlog = new MicroBlog(driver);
 	}
 
