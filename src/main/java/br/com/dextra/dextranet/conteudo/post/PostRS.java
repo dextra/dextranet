@@ -91,7 +91,7 @@ public class PostRS {
 		return Response.ok().entity(curtidas.size()).build();
 	}
 
-	@Path("/{postId}/curtida")
+	@Path("/{postId}/descurtida")
 	@DELETE
 	@Produces(Application.JSON_UTF8)
 	public Response descurtir(@PathParam("postId") String postId) throws EntityNotFoundException {
@@ -101,8 +101,17 @@ public class PostRS {
 		post.descurtir(usuarioLogado);
 		repositorioDeCurtidas.remove(post.getId(), usuarioLogado);
 		repositorioDePosts.persiste(post);
+		List<Curtida> curtidas = repositorioDeCurtidas.listaPorConteudo(postId);
+		return Response.ok().entity(curtidas.size()).build();
+	}
 
-		return Response.ok().entity(post).build();
+	@Path("/{postId}/curtido")
+	@GET
+	@Produces(Application.JSON_UTF8)
+	public Response curtido(@PathParam("postId") String postId) throws EntityNotFoundException {
+		Post post = repositorioDePosts.obtemPorId(postId);
+		boolean usuarioCurtiu = post.getUsuarioCurtiu();
+		return Response.ok().entity(usuarioCurtiu).build();
 	}
 
 	@Path("/{postId}/curtida")

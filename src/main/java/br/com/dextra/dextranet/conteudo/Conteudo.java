@@ -81,6 +81,10 @@ public abstract class Conteudo extends Entidade {
 		return this.usuariosQueCurtiram.contains(username);
 	}
 
+	public boolean getUsuarioCurtiu() {
+		return this.usuarioJaCurtiu(this.usuario);
+	}
+
 	public void registraDataDeMigracao(Date data) {
 		this.dataDeCriacao = data;
 	}

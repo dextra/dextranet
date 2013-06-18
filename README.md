@@ -19,7 +19,7 @@ mvn appengine:update
 Ambiente de Desenvolvimento
 ---------------------------
 
-http://dev.dextra-dextranet.appspot.com/
+http://dev.dev-dextranet.appspot.com/
 
 Ambiente de Produção
 ---------------------------

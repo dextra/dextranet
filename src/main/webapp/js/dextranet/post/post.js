@@ -86,6 +86,51 @@ dextranet.post = {
 			});
 		},
 
+		descurtir : function(postId) {
+			$.ajax( {
+				type : "DELETE",
+				loading : false,
+				url : "/s/post/" + postId + "/descurtida",
+				contentType : dextranet.application_json,
+				success : function(qtdCurtidas) {
+					$("div.list_stories_data a#showLikes_" + postId + " span.numero_curtida").text(qtdCurtidas);
+				},
+    			error: function(jqXHR, textStatus, errorThrown) {
+    				dextranet.processaErroNaRequisicao(jqXHR);
+    			}
+			});
+		},
+
+		curtido : function(postId) {
+			var curtiu;
+			$.ajax( {
+				type : "GET",
+				loading : false,
+				url : "/s/post/" + postId + "/curtido",
+				contentType : dextranet.application_json,
+				async : false,
+				success : function(usuarioCurtiu) {
+					curtiu = usuarioCurtiu;
+				},
+    			error: function(jqXHR, textStatus, errorThrown) {
+    				dextranet.processaErroNaRequisicao(jqXHR);
+    			}
+			});
+
+			return curtiu;
+		},
+
+		curtirDescurtir : function (postId) {
+			var curtiu = dextranet.post.curtido(postId);
+			if (!curtiu) {
+				$("#like_" + postId + " .icon_dx").css('background-position', '-24px -119px');
+				dextranet.post.curtir(postId);
+			} else {
+				$("#like_" + postId + " .icon_dx").css('background-position', '-2px -119px');
+				dextranet.post.descurtir(postId);
+			}
+		},
+
 		listarCurtidas : function(postId) {
 			$.ajax( {
 				type : "GET",
