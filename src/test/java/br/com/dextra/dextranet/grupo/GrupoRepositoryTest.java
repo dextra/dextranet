@@ -1,16 +1,9 @@
 package br.com.dextra.dextranet.grupo;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import junit.framework.Assert;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.dextra.dextranet.grupos.Grupo;
 import br.com.dextra.dextranet.grupos.GrupoRepository;
-import br.com.dextra.dextranet.grupos.Membro;
 import br.com.dextra.dextranet.grupos.MembroRepository;
 import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.dextranet.usuario.UsuarioRepository;

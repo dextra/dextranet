@@ -1,6 +1,5 @@
 package br.com.dextra.dextranet.grupos;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -16,9 +15,9 @@ public class Grupo extends Entidade {
 	private String proprietario;
 	private List<Membro> membros;
 
-	public Grupo(String nome, String descricao, String proprietario, ArrayList<Membro> membros) {
+	public Grupo(String nome, String descricao, String proprietario) {
 		super();
-		preenche(nome, descricao, proprietario, membros);
+		preenche(nome, descricao, proprietario);
 	}
 
 	public Grupo(Entity entidade) {
@@ -35,12 +34,11 @@ public class Grupo extends Entidade {
 		entidade.setProperty(GrupoFields.nome.name(), this.nome);
 		entidade.setProperty(GrupoFields.descricao.name(), this.descricao);
 		entidade.setProperty(GrupoFields.proprietario.name(), this.proprietario);
-		entidade.setProperty(GrupoFields.membros.name(), this.membros);
 
 		return entidade;
 	}
 
-	public Grupo preenche(String nome, String descricao, String proprietario, List<Membro> membros) {
+	public Grupo preenche(String nome, String descricao, String proprietario) {
 		ConteudoHTML conteudoHTML = new ConteudoHTML(nome);
 		this.nome = conteudoHTML.removeJavaScript();
 
@@ -49,8 +47,6 @@ public class Grupo extends Entidade {
 
 		conteudoHTML = new ConteudoHTML(proprietario);
 		this.proprietario = conteudoHTML.removeJavaScript();
-
-		this.membros = membros;
 
 		return this;
 	}
@@ -71,6 +67,9 @@ public class Grupo extends Entidade {
 		return membros;
 	}
 
+	public void setMembros(List<Membro> membros) {
+		this.membros = membros;
+	}
 
 	@Override
 	public String toString() {
