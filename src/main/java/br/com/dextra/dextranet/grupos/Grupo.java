@@ -29,7 +29,7 @@ public class Grupo extends Entidade {
 
 	@Override
 	public Entity toEntity() {
-		Entity entidade = new Entity(this.getKey(this.getClass()));
+		Entity entidade = new Entity(this.getKey(Grupo.class));
 		entidade.setProperty(GrupoFields.id.name(), this.id);
 		entidade.setProperty(GrupoFields.nome.name(), this.nome);
 		entidade.setProperty(GrupoFields.descricao.name(), this.descricao);

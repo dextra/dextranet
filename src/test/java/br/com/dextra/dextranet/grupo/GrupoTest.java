@@ -1,42 +1,38 @@
 package br.com.dextra.dextranet.grupo;
 
-import java.util.ArrayList;
-
 import junit.framework.Assert;
 
 import org.junit.Test;
 
 import br.com.dextra.dextranet.grupos.Grupo;
 import br.com.dextra.dextranet.grupos.GrupoFields;
-import br.com.dextra.dextranet.grupos.Membro;
-import br.com.dextra.dextranet.grupos.MembroFields;
+import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.appengine.api.datastore.Entity;
 
-public class GrupoTest {
-
+public class GrupoTest extends TesteIntegracaoBase {
 	private String nome = "Grupo 1";
 	private String descricao = "Descricao do Grupo 1";
 	private String proprietario = "login.google";
-	private String idUsuario = "67b3f88f-434c-4422-8fff-6c7e5d7acbc6";
 
 	@Test
 	public void testaConstrutor() {
-		ArrayList<Membro> membros = new ArrayList<Membro>();
 		Grupo grupo = new Grupo(nome, descricao, proprietario);
-		Membro membro = new Membro(idUsuario, grupo.getId());
-		membros.add(membro);
 
-		grupo.setMembros(membros);
-		Assert.assertEquals(nome, grupo.getNome());
-		Assert.assertEquals(descricao, grupo.getDescricao());
-		Assert.assertEquals(proprietario, grupo.getProprietario());
-		Assert.assertEquals(nome, grupo.getNome());
-		Assert.assertEquals(idUsuario, grupo.getMembros().get(0).getIdUsuario());
-		Assert.assertEquals(grupo.getId(), grupo.getMembros().get(0).getIdGrupo());
+		Assert.assertEquals(this.nome, grupo.getNome());
+		Assert.assertEquals(this.descricao, grupo.getDescricao());
+		Assert.assertEquals(this.proprietario, grupo.getProprietario());
+		Assert.assertEquals(this.nome, grupo.getNome());
 	}
 
+	@Test
 	public void testaConstrutorEntity() {
-		//TODO: implementar
+		Grupo grupo = new Grupo(this.nome, this.descricao, this.proprietario);
+
+		Entity entity = grupo.toEntity();
+		Assert.assertEquals(entity.getProperty(GrupoFields.id.name()), grupo.getId());
+		Assert.assertEquals(entity.getProperty(GrupoFields.nome.name()), grupo.getNome());
+		Assert.assertEquals(entity.getProperty(GrupoFields.descricao.name()), grupo.getDescricao());
+		Assert.assertEquals(entity.getProperty(GrupoFields.proprietario.name()), grupo.getProprietario());
 	}
 }

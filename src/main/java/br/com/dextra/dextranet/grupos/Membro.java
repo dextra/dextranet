@@ -5,7 +5,6 @@ import com.google.appengine.api.datastore.Entity;
 import br.com.dextra.dextranet.persistencia.Entidade;
 
 public class Membro extends Entidade {
-	private String id;
 	private String idUsuario;
 	private String idGrupo;
 
