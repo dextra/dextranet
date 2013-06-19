@@ -1,6 +1,5 @@
 package br.com.dextra.dextranet.grupos;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.DELETE;
@@ -15,7 +14,6 @@ import javax.ws.rs.core.Response.Status;
 
 import br.com.dextra.dextranet.rest.config.Application;
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
-import br.com.dextra.dextranet.usuario.Usuario;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
 
@@ -35,8 +33,7 @@ public class GrupoRS {
 	@PUT
 	@Produces(Application.JSON_UTF8)
 	public Response adicionar(@FormParam("nome") String nome, @FormParam("descricao") String descricao, @FormParam("proprietario") String proprietario) {
-		//TODO: Ajustar os usuarios - Rodrigo
-		Grupo grupo = new Grupo(nome, descricao, proprietario, new ArrayList<Membro>());
+		Grupo grupo = new Grupo(nome, descricao, proprietario);
 		repositorio.persiste(grupo);
 		return Response.ok().entity(grupo).build();
 	}
@@ -46,8 +43,7 @@ public class GrupoRS {
 	@Produces(Application.JSON_UTF8)
 	public Response atualizar(@PathParam("id") String id, @FormParam("nome") String nome, @FormParam("descricao") String descricao, @FormParam("proprietario") String proprietario) throws EntityNotFoundException {
 		Grupo grupo = repositorio.obtemPorId(id);
-		//TODO: Ajustar os usuarios - Rodrigo
-		grupo = grupo.preenche(nome, descricao, proprietario, new ArrayList<Membro>());
+		grupo = grupo.preenche(nome, descricao, proprietario);
 		repositorio.persiste(grupo);
 		return Response.ok().entity(grupo).build();
 	}

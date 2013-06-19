@@ -2,7 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.com.dextra</groupId>
     <artifactId>dextranet</artifactId>
@@ -182,18 +181,6 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
-                    <!-- expertus properties -->
-                    <systemPropertyVariables>
-                        <expertus.environment.type>${expertus.environment.type}</expertus.environment.type>
-                        <expertus.environment.sauce.platform>${expertus.environment.sauce.platform}</expertus.environment.sauce.platform>
-                        <expertus.environment.browser>${expertus.environment.browser}</expertus.environment.browser>
-                        <expertus.environment.sauce.browser.version>${expertus.environment.sauce.browser.version}</expertus.environment.sauce.browser.version>
-                        <expertus.environment.sauce.username>${expertus.environment.sauce.username}</expertus.environment.sauce.username>
-                        <expertus.environment.sauce.key>${expertus.environment.sauce.key}</expertus.environment.sauce.key>
-                        <expertus.environment.host>${expertus.environment.host}</expertus.environment.host>
-                        <expertus.environment.port>${expertus.environment.port}</expertus.environment.port>
-                        <expertus.environment.application>${expertus.environment.application}</expertus.environment.application>
-                    </systemPropertyVariables>
                 </configuration>
             </plugin>
             <plugin>
@@ -386,22 +373,22 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                                 <phase>test</phase>
                                 <goals>
                                     <goal>integration-test</goal>
-          							<goal>verify</goal>
+                                    <goal>verify</goal>
                                 </goals>
                                 <configuration>
                                     <includes>
                                         <include>**/*IT.java</include>
                                     </includes>
+                                    <systemPropertyVariables>
+                                        <expertus.environment.type>local</expertus.environment.type>
+                                        <expertus.environment.browser>FIREFOX</expertus.environment.browser>
+                                    </systemPropertyVariables>
                                 </configuration>
                             </execution>
                         </executions>
                     </plugin>
                 </plugins>
             </build>
-            <properties>
-                <expertus.environment.type>local</expertus.environment.type>
-                <expertus.environment.browser>FIREFOX</expertus.environment.browser>
-            </properties>
         </profile>
         <!-- Profile que executa os testes unitarios, de integracao e de selenium no ambiente de integracao continua -->
         <profile>
@@ -421,21 +408,21 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                                 <phase>test</phase>
                                 <goals>
                                     <goal>integration-test</goal>
-          							<goal>verify</goal>
+                                    <goal>verify</goal>
                                 </goals>
                                 <configuration>
                                     <includes>
                                         <include>**/*IT.java</include>
                                     </includes>
+                                    <systemPropertyVariables>
+                                        <expertus.environment.type>sauceCloudbees</expertus.environment.type>
+                                    </systemPropertyVariables>
                                 </configuration>
                             </execution>
                         </executions>
                     </plugin>
                 </plugins>
             </build>
-            <properties>
-                <expertus.environment.type>sauceCloudbees</expertus.environment.type>
-            </properties>
         </profile>
     </profiles>
     <scm>
@@ -443,5 +430,4 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <url>scm:git:git@github.com:dextra/dextranet.git</url>
         <developerConnection>scm:git:git@github.com:dextra/dextranet.git</developerConnection>
     </scm>
-
 </project>
