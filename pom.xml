@@ -380,8 +380,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                                         <include>**/*IT.java</include>
                                     </includes>
                                     <systemPropertyVariables>
-										<expertus.environment.type>local</expertus.environment.type>
-										<expertus.environment.browser>FIREFOX</expertus.environment.browser>
+                                        <expertus.environment.type>local</expertus.environment.type>
+                                        <expertus.environment.browser>FIREFOX</expertus.environment.browser>
                                     </systemPropertyVariables>
                                 </configuration>
                             </execution>
@@ -414,9 +414,9 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                                     <includes>
                                         <include>**/*IT.java</include>
                                     </includes>
-				                    <systemPropertyVariables>
-				                        <expertus.environment.type>sauceCloudbees</expertus.environment.type>
-				                    </systemPropertyVariables>
+                                    <systemPropertyVariables>
+                                        <expertus.environment.type>sauceCloudbees</expertus.environment.type>
+                                    </systemPropertyVariables>
                                 </configuration>
                             </execution>
                         </executions>
