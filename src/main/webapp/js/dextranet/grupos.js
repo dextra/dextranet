@@ -18,7 +18,7 @@ dextranet.grupos = {
 		listar : function() {
 			$.ajax( {
 				type : "GET",
-				url : "/s/grupos",
+				url : "/s/usuario",
 				dataType : "json",
 				success : function(grupos) {
 					$.holy("../template/dinamico/grupo/lista_grupos.xml", { grupos : grupos});
