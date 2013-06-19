@@ -23,7 +23,6 @@ public class Usuario extends Entidade {
 	private String gitHub;
 	private String skype;
 	private Date ultimaAtualizacao;
-	private String idGrupo;
 	private String blog;
 
 	public Usuario(String username) {
@@ -45,7 +44,6 @@ public class Usuario extends Entidade {
 		this.gitHub = (String) entidade.getProperty(UsuarioFields.gitHub.name());
 		this.skype = (String) entidade.getProperty(UsuarioFields.skype.name());
 		this.ultimaAtualizacao = (Date) entidade.getProperty(UsuarioFields.ultimaAtualizacao.name());
-		this.idGrupo = (String) entidade.getProperty(UsuarioFields.idGrupo.name());
 		this.blog = (String) entidade.getProperty(UsuarioFields.blog.name());
 
 	}
@@ -96,14 +94,6 @@ public class Usuario extends Entidade {
 
 	public Date getUltimaAtualizacao() {
 		return ultimaAtualizacao;
-	}
-
-	public String getIdGrupo() {
-		return idGrupo;
-	}
-
-	public void setIdGrupo(String idGrupo) {
-		this.idGrupo = idGrupo;
 	}
 
 	public String getBlog() {
@@ -164,7 +154,6 @@ public class Usuario extends Entidade {
 		entidade.setProperty(UsuarioFields.telefoneCelular.name(), this.telefoneCelular);
 		entidade.setProperty(UsuarioFields.skype.name(), this.skype);
 		entidade.setProperty(UsuarioFields.gitHub.name(), this.gitHub);
-		entidade.setProperty(UsuarioFields.idGrupo.name(), this.getIdGrupo());
 		entidade.setProperty(UsuarioFields.blog.name(), this.blog);
 
 		return entidade;

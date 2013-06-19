@@ -90,7 +90,6 @@ public class UsuarioRS {
 	@Produces(Application.JSON_UTF8)
 	public Response adicionarUsuarioGrupo(@PathParam("id") String id, @PathParam("idGrupo") String idGrupo) throws EntityNotFoundException {
 		Usuario usuario = repositorio.obtemPorId(id);
-		usuario.setIdGrupo(idGrupo);
 		repositorio.persiste(usuario);
 		return Response.ok().entity(usuario).build();
 	}
