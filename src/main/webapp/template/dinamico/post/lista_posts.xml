@@ -29,7 +29,12 @@
 						<div class="list_stories_data clearfix">
 							<div class="list_stories_dx clearfix">
 								<a id="like_${post.id}" class="linkCurtir post">
-									<span class="icon_dx" onclick="dextranet.post.curtir('${post.id}');"></span>
+									<span class="icon_dx curtiu" onclick="dextranet.post.curtirDescurtir('${post.id}');"></span>
+									<script>
+										if(${post.usuarioCurtiu}){
+											$('a#like_${post.id} span.icon_dx').addClass('icon_dx_curtido');
+										}
+									</script>
 								</a>
 								<a id="showLikes_${post.id}" class="showLikes" title="${post.usuariosQueCurtiram}"
 									onclick="dextranet.post.listarCurtidas('${post.id}');">

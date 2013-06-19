@@ -19,9 +19,7 @@ import com.google.appengine.api.search.Field;
 public class Post extends Conteudo implements ConteudoIndexavel {
 
 	private String titulo;
-
 	private Date dataDeAtualizacao;
-
 	private List<Comentario> comentarios;
 
 	public Post(String usuario, String titulo, String conteudo) {
