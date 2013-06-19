@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+    <template selector="#content_left">
+
+		<button id="btnAddNovo" class="btn btn-blue btn-block" type="button" >${messages.grupo_novo}</button>
+		<div id="frmNovoGrupo" class="clearfix hidden">
+
+	        <form id="frmPerfil" class="form-dark form-horizontal clearfix">
+				<dl>
+					<dt>
+						<label for="txtGrupoNome"><span class="input-obg"></span>${messages.grupo_nome}:</label>
+					</dt>
+					<dd>
+						<input type="text" id="txtGrupoNome" name="grupo_nome" value="" class="not-empty" maxlength="50" />
+					</dd>
+
+					<dt>
+						<label for="txtGrupoEmail"><span class="input-obg"></span>${messages.grupo_email}:</label>
+					</dt>
+					<dd>
+						<input type="text" id="txtGrupoEmail" name="grupo_email" value="" class="not-empty" maxlength="50" />
+					</dd>
+
+					<dt>
+						<label for="txtGrupoPessoas"><span class="input-obg"></span>${messages.grupo_pessoas}:</label>
+					</dt>
+					<dd>
+						<input type="text" id="txtGrupoPessoas" name="grupo_pessoas" value="" class="not-empty" maxlength="50" />
+					</dd>
+
+					<dt>
+						<label for="txtGrupoProjeto"><span class="input-obg"></span>${messages.grupo_projeto}:</label>
+					</dt>
+					<dd>
+						<input type="text" id="txtGrupoProjeto" name="grupo_projeto" value="" class="not-empty" maxlength="50" />
+					</dd>
+
+					<dd>
+						<button id="btnSalvar" class="btn btn-blue btn-block" type="button" >${messages.botao_salvar}</button>
+					</dd>
+				</dl>
+			</form>
+		</div>
+
+		<div id="listaGrupos" class="clearfix">
+
+			<ul class="list-menu-abcd clearfix">
+				<li><a href="#" onclick="dextranet.grupos.listar();">Todos</a></li>
+				{for letra in dextranet.settings.alfabeto}
+					 <li><a href="#" onclick="dextranet.grupos.listarPelaInicial('${letra}');">${letra}</a></li>
+				{/for}
+	        </ul>
+
+	        <ul class="list-grupo list-vertical clearfix">
+			<li class="list-grupo-empty">
+				<p>
+					<img src="img/smile-sad.gif"/>
+					<span>Nenhum grupo</span>
+					<span>foi encontrado!</span>
+				</p>
+			</li>
+<!-- 	      	 {for grupo in grupos} -->
+<!--                 <li class="clearfix grupo"> -->
+<!--                     <div class="list-grupo-content"> -->
+<!--                         <h3> -->
+<!--                             <span class="nome">${grupo.nome}</span> -->
+<!--                         </h3> -->
+
+<!-- 						<ul class="list-grupo-content-data clearfix"> -->
+<!-- 							<li class="list-grupo-content-phone"> -->
+<!--                                 <span class="icon_cellphone-mini icon" original-title="${messages.grupo_descricao}"></span> -->
+<!--                                 {if grupo.descricao } -->
+<!--                                     ${grupo.descricao} -->
+<!--                                 {/if} -->
+<!-- 							</li> -->
+<!-- 							<li class="list-grupo-content-phone"> -->
+<!--                                 <span class="icon_cellphone-mini icon" original-title="${messages.grupo_pessoas}"></span> -->
+<!--                                 {if grupo.pessoas } -->
+<!--              						{for pessoa in pessoas} -->
+<!--                                     	<p>${pessoa.nome}</p> -->
+<!--                                     {/for} -->
+<!--                                 {/if} -->
+<!-- 							</li> -->
+<!-- 						</ul> -->
+<!--                     </div> -->
+<!--                 </li> -->
+<!--             {/for} -->
+	        </ul>
+		</div>
+    </template>
+
+    <script type="text/javascript">
+        $('.icon').tipsy();
+        $("#btnAddNovo").click(dextranet.grupos.novo);
+    </script>
+</engine>

@@ -20,16 +20,6 @@ public class PostTest extends TesteIntegracaoBase {
 	private TimeMachine timeMachine = new TimeMachine();
 
 	@Test
-	public void testaConstrutor() {
-		Post novoPost = new Post("dextranet", "titulo", "conteudo");
-		Assert.assertEquals("39566cf6ac41da40deb7c6452a9ed94b", novoPost.getUsuarioMD5());
-		Assert.assertEquals(0, novoPost.getQuantidadeDeComentarios());
-		Assert.assertEquals(0, novoPost.getQuantidadeDeCurtidas());
-		Assert.assertEquals(timeMachine.formataData(timeMachine.dataAtual()),
-				timeMachine.formataData(novoPost.getDataDeCriacao()));
-	}
-
-	@Test
 	public void testaPreenche() {
 		Post novoPost = new Post("usuario", "<script>alert('Hello!');</script><h3>titulo</h3>",
 				"<script>alert('Hello!');</script><h1>conteudo</h1>");

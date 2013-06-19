@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<template selector="#content_left">
+
+		<h1 class="titulo">${messages.grupo_titulo}</h1>
+
+		<div class="clearfix">
+
+			<form id="frmGrupo" class="form-dark form-horizontal clearfix">
+				<dl>
+					<dt>
+						<label for="txtGrupoNome">
+							<span class="input-obg"></span>
+							${messages.grupo_nome}:
+						</label>
+					</dt>
+					<dd>
+						<input type="text" id="txtGrupoNome" name="grupo_nome" value="" class="not-empty" maxlength="50" />
+					</dd>
+
+					<dt>
+						<label for="txtGrupoDescricao">
+							<span class="input-obg"></span>
+							${messages.grupo_descricao}:
+						</label>
+					</dt>
+					<dd>
+						<textarea id="txtGrupoDescricao" name="grupo_descricao" class="not-empty" maxlength="500"></textarea>
+					</dd>
+
+					<dt>
+						<label for="txtGrupoPessoas">
+							<span></span>
+							${messages.grupo_pessoas}:
+						</label>
+					</dt>
+
+					<dt>
+						<input type="text" id="pessoa" name="pessoa" value="" />
+						<input type="hidden" id="pessoasSelecionadas" name="pessoasSelecionadas" value="" />
+					</dt>
+
+					<dt>
+						<select multiple="true" id="listaPessoas" style="width:300px;"></select>
+  						<a href="#" id="remove">Remover</a>
+					</dt>
+
+					<dt></dt>
+					<dd>
+						<button id="btnSalvar" class="btn btn-blue btn-block" type="button" >${messages.botao_salvar}</button>
+					</dd>
+				</dl>
+			</form>
+
+		</div>
+
+	</template>
+	<script>
+		$('#remove').click(function() {
+			return !$('#listaPessoas option:selected').remove();
+		});
+
+		$(function() {
+			$.ajax({
+				url: "/s/usuario",
+				loading: false,
+				dataType: "json",
+				success: function( data ) {
+					var source =  $.map( data, function( item ) {
+						return {
+							label: item.nome,
+							id: item.id
+						}
+					});
+
+					$( "#pessoa" ).autocomplete({
+						source: source,
+						minLength: 1,
+						select: function( event, ui ) {
+							if(!$("#listaPessoas option[value='"+ui.item.id+"']").val()){
+								$( "#listaPessoas" ).append($("<![CDATA[<option></option>]]>").val(ui.item.id).html(ui.item.label) );
+							};
+						},
+						close: function( event, ui ) {
+							$("#pessoa").val('');
+						}
+					});
+				}
+			});
+		});
+
+		//Lista de pessoas selecionadas
+
+		$('#btnSalvar').click(function(){
+			var pessoas = [];
+			$("#listaPessoas>option").each(function()
+			{
+			    pessoas.push($(this).val());
+			});
+			$('#pessoasSelecionadas').val(pessoas);
+			dextranet.grupos.salvar();
+		});
+
+	</script>
+</engine>
