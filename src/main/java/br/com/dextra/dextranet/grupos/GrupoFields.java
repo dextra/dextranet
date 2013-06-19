@@ -1,5 +1,5 @@
 package br.com.dextra.dextranet.grupos;
 
 public enum GrupoFields {
-	id, nome;
+	id, nome, descricao, proprietario;
 }

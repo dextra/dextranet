@@ -185,10 +185,6 @@ public class PostRS {
 		return Response.ok().entity(curtidas).build();
 	}
 
-	protected String obtemUsuarioLogado() {
-		return AutenticacaoService.identificacaoDoUsuarioLogado();
-	}
-
 	@Path("/{comentarioId}/comentario")
 	@DELETE
 	@Produces(Application.JSON_UTF8)
@@ -238,5 +234,9 @@ public class PostRS {
 		List<Post> novosPosts = postRepository.toPosts(total);
 
 		return Response.ok().entity(novosPosts).build();
+	}
+
+	protected String obtemUsuarioLogado() {
+		return AutenticacaoService.identificacaoDoUsuarioLogado();
 	}
 }

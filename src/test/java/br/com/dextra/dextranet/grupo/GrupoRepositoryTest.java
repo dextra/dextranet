@@ -1,5 +1,6 @@
 package br.com.dextra.dextranet.grupo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -8,6 +9,7 @@ import org.junit.Test;
 
 import br.com.dextra.dextranet.grupos.Grupo;
 import br.com.dextra.dextranet.grupos.GrupoRepository;
+import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -17,7 +19,7 @@ public class GrupoRepositoryTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testaRemover() {
-		Grupo grupo = new Grupo("Grupo");
+		Grupo grupo = new Grupo("Grupo 1", "Descrição do Grupo 1", "login.google", new ArrayList<Usuario>());
 		Grupo grupoPersistido = repositorio.persiste(grupo);
 		repositorio.remove(grupoPersistido.getId());
 
