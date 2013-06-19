@@ -5,7 +5,7 @@
 	"label_banner" : "Banner",
 	"label_profile" : "Perfil",
 	"label_team" : "Equipe",
-	"label_teams" : "Times",
+	"label_grupos" : "Grupos",
 	"botao_salvar" : "Salvar",
     "botao_upload" : "Upload",
     "botao_visualizar" : "Visualizar",
@@ -78,10 +78,9 @@
 	"novos_microPosts" : " novo(s) micropost(s)",
 	"ver_novos_posts" : "Ver",
 	"title_excluir" : "Excluir este post",
-	"time_nome" : "Nome do time",
-	"time_email" : "Grupo de email",
-	"time_pessoas" : "Pessoas",
-	"time_projeto" : "Projeto",
-	"time_novo" : "Novo time"
+	"grupo_nome" : "Nome do grupo",
+	"grupo_descricao" : "Descrição",
+	"grupo_pessoas" : "Pessoas",
+	"grupo_novo" : "Novo grupo"
 	}
 }
