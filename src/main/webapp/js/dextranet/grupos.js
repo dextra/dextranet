@@ -18,10 +18,10 @@ dextranet.grupos = {
 		listar : function() {
 			$.ajax( {
 				type : "GET",
-				url : "/s/usuario",
+				url : "/s/grupos",
 				dataType : "json",
-				success : function(usuarios) {
-					$.holy("../template/dinamico/grupo/lista_grupos.xml", { usuarios : usuarios, gravatar : dextranet.gravatarUrl });
+				success : function(grupos) {
+					$.holy("../template/dinamico/grupo/lista_grupos.xml", { grupos : grupos});
 					dextranet.ativaMenu("sidebar_left_grupos");
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
@@ -34,21 +34,19 @@ dextranet.grupos = {
 			var colaboradores = $('.list-grupo span.nome');
 			$('.list-grupo-empty').show();
 			$(colaboradores).each( function () {
-				var nomeDoColaborador = $(this).text();
-				var inicialDoNomeDoColaborador = nomeDoColaborador.substring(0, 1);
-				if (inicialDoNomeDoColaborador.toLowerCase() == inicial.toLowerCase()) {
-					$(this).closest('.colaborador').show();
+				var nomeDoGrupo = $(this).text();
+				var inicialDoNomeDoGrupo = nomeDoGrupo.substring(0, 1);
+				if (inicialDoNomeDoGrupo.toLowerCase() == inicial.toLowerCase()) {
+					$(this).closest('.grupo').show();
 					$('.list-grupo-empty').hide();
 				} else {
-					$(this).closest('.colaborador').hide();
+					$(this).closest('.grupo').hide();
 				}
 			});
 		},
 
 		salvar : function() {
 			if ($('#frmGrupo').validate()) {
-
-
 
 //				$.ajax( {
 //					type : "PUT",

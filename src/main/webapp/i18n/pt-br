@@ -81,6 +81,7 @@
 	"grupo_nome" : "Nome do grupo",
 	"grupo_descricao" : "Descrição",
 	"grupo_pessoas" : "Pessoas",
-	"grupo_novo" : "Novo grupo"
+	"grupo_novo" : "Novo grupo",
+	"grupo_titulo" : "Grupo"
 	}
 }

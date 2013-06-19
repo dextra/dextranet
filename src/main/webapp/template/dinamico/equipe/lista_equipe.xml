@@ -3,33 +3,12 @@
     <template selector="#content_left">
 
         <ul class="list-menu-abcd clearfix">
-            <li><a href="#" onclick="dextranet.equipe.listar();">Todos</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('a');">a</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('b');">b</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('c');">c</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('d');">d</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('e');">e</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('f');">f</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('g');">g</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('h');">h</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('i');">i</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('j');">j</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('k');">k</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('l');">l</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('m');">m</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('n');">n</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('o');">o</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('p');">p</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('q');">q</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('r');">r</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('s');">s</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('t');">t</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('u');">u</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('v');">v</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('w');">w</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('x');">x</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('y');">y</a></li>
-            <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('z');">z</a></li>
+            <ul class="list-menu-abcd clearfix">
+				<li><a href="#" onclick="dextranet.equipe.listar();">Todos</a></li>
+				{for letra in dextranet.settings.alfabeto}
+					 <li><a href="#" onclick="dextranet.equipe.listarPelaInicial('${letra}');">${letra}</a></li>
+				{/for}
+	        </ul>
         </ul>
 
         <ul class="list-team list-vertical clearfix">
