@@ -281,6 +281,13 @@ form input.link { width: 476px;}
 #sidebar_left_menu > li > l#box_new_post > li input[type=text]{width:100%;}
 #sidebar_left_menu .sidebar_show_right{display:none;}
 
+
+#sidebar_left_menu > li#sidebar_left_team {position:relative}
+#sidebar_left_menu > li#sidebar_left_team > ul {display: none; background: none repeat scroll 0 0 #FFFFFF; border: 1px solid #CCCCCC; left: 63px; list-style: none outside none; position: absolute; top: 20px; width: 140px;}
+#sidebar_left_menu > li > a span.shape_arrow_right {display: block; transform: rotate(90deg); position: absolute; top: 20px; width: 0px; left: 70px; border-bottom: 5px solid #CCCCCC;}
+#sidebar_left_menu > li > a:hover span.shape_arrow_right {display: block; transform: rotate(90deg); position: absolute; top: 20px; width: 0px; left: 70px; border-bottom: 5px solid #35679A;}
+
+
 /*----------  Estrutura dos blocos centrais de conteÃºdo  ----------*/
 .block-white{background-color:#fdfdfd;padding:10px 15px;border-radius:5px;box-shadow:inset 0 0 0 1px #fff,0 0 0 1px #eaeaea,0 0 4px #e9e9e9;color:#999;text-shadow:0 1px 1px #fff;}
 
