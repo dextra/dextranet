@@ -1,5 +1,6 @@
 package br.com.dextra.dextranet.grupos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.DELETE;
@@ -20,21 +21,35 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 @Path("/grupo")
 public class GrupoRS {
 	GrupoRepository repositorio = new GrupoRepository();
+	MembroRepository repositorioMembro = new MembroRepository();
 
 	@Path("/")
 	@GET
 	@Produces(Application.JSON_UTF8)
-	public Response listar() {
+	public Response listar() throws EntityNotFoundException {
 		List<Grupo> grupos = repositorio.lista();
-		return Response.ok().entity(grupos).build();
+
+		List<Grupo> gruposRetorno = new ArrayList<Grupo>();
+		for (Grupo grupo : grupos) {
+			Grupo grupoRetorno = new Grupo(grupo.getNome(), grupo.getDescricao(), grupo.getProprietario());
+			grupoRetorno.setMembros(repositorioMembro.obtemPorIdGrupo(grupo.getId()));
+		}
+
+		return Response.ok().entity(gruposRetorno).build();
 	}
 
 	@Path("/")
 	@PUT
 	@Produces(Application.JSON_UTF8)
-	public Response adicionar(@FormParam("nome") String nome, @FormParam("descricao") String descricao, @FormParam("proprietario") String proprietario) {
+	public Response adicionar(@FormParam("nome") String nome, @FormParam("descricao") String descricao, @FormParam("proprietario") String proprietario, @FormParam("membros") String[] idUsuarios) {
 		Grupo grupo = new Grupo(nome, descricao, proprietario);
 		repositorio.persiste(grupo);
+
+		for (String idUsuario : idUsuarios) {
+			Membro membro = new Membro(idUsuario, grupo.getId());
+			repositorioMembro.persiste(membro);
+		}
+
 		return Response.ok().entity(grupo).build();
 	}
 
