@@ -36,7 +36,7 @@ public class GrupoRS {
 	@Produces(Application.JSON_UTF8)
 	public Response adicionar(@FormParam("nome") String nome, @FormParam("descricao") String descricao, @FormParam("proprietario") String proprietario) {
 		//TODO: Ajustar os usuarios - Rodrigo
-		Grupo grupo = new Grupo(nome, descricao, proprietario, new ArrayList<Usuario>());
+		Grupo grupo = new Grupo(nome, descricao, proprietario, new ArrayList<Membro>());
 		repositorio.persiste(grupo);
 		return Response.ok().entity(grupo).build();
 	}
@@ -47,7 +47,7 @@ public class GrupoRS {
 	public Response atualizar(@PathParam("id") String id, @FormParam("nome") String nome, @FormParam("descricao") String descricao, @FormParam("proprietario") String proprietario) throws EntityNotFoundException {
 		Grupo grupo = repositorio.obtemPorId(id);
 		//TODO: Ajustar os usuarios - Rodrigo
-		grupo = grupo.preenche(nome, descricao, proprietario, new ArrayList<Usuario>());
+		grupo = grupo.preenche(nome, descricao, proprietario, new ArrayList<Membro>());
 		repositorio.persiste(grupo);
 		return Response.ok().entity(grupo).build();
 	}

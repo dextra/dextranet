@@ -1,21 +1,24 @@
 package br.com.dextra.dextranet.grupos;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import br.com.dextra.dextranet.persistencia.Entidade;
-import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.dextranet.utils.ConteudoHTML;
+
 import com.google.appengine.api.datastore.Entity;
 
 public class Grupo extends Entidade {
 	private String nome;
 	private String descricao;
 	private String proprietario;
-	private List<Usuario> usuarios;
+	private List<Membro> membros;
 
-	public Grupo(String nome, String descricao, String proprietario, List<Usuario> usuarios) {
+	public Grupo(String nome, String descricao, String proprietario, ArrayList<Membro> membros) {
 		super();
-		preenche(nome, descricao, proprietario, usuarios);
+		preenche(nome, descricao, proprietario, membros);
 	}
 
 	public Grupo(Entity entidade) {
@@ -32,11 +35,12 @@ public class Grupo extends Entidade {
 		entidade.setProperty(GrupoFields.nome.name(), this.nome);
 		entidade.setProperty(GrupoFields.descricao.name(), this.descricao);
 		entidade.setProperty(GrupoFields.proprietario.name(), this.proprietario);
+		entidade.setProperty(GrupoFields.membros.name(), this.membros);
 
 		return entidade;
 	}
 
-	public Grupo preenche(String nome, String descricao, String proprietario, List<Usuario> usuarios) {
+	public Grupo preenche(String nome, String descricao, String proprietario, List<Membro> membros) {
 		ConteudoHTML conteudoHTML = new ConteudoHTML(nome);
 		this.nome = conteudoHTML.removeJavaScript();
 
@@ -46,19 +50,13 @@ public class Grupo extends Entidade {
 		conteudoHTML = new ConteudoHTML(proprietario);
 		this.proprietario = conteudoHTML.removeJavaScript();
 
+		this.membros = membros;
+
 		return this;
 	}
 
 	public String getNome() {
 		return nome;
-	}
-
-	public List<Usuario> getUsuarios() {
-		return usuarios;
-	}
-
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
 	}
 
 	public String getDescricao() {
@@ -67,5 +65,19 @@ public class Grupo extends Entidade {
 
 	public String getProprietario() {
 		return proprietario;
+	}
+
+	public List<Membro> getMembros() {
+		return membros;
+	}
+
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this)
+			.append("id", this.id)
+				.append("nome", this.nome)
+					.append("descricao", this.descricao)
+						.append("proprietario", this.proprietario).toString();
 	}
 }
