@@ -17,6 +17,8 @@ import br.com.dextra.dextranet.conteudo.post.curtida.Curtida;
 import br.com.dextra.dextranet.conteudo.post.curtida.CurtidaRepository;
 import br.com.dextra.dextranet.grupos.Grupo;
 import br.com.dextra.dextranet.grupos.GrupoRepository;
+import br.com.dextra.dextranet.grupos.Membro;
+import br.com.dextra.dextranet.grupos.MembroRepository;
 import br.com.dextra.dextranet.microblog.MicroBlogRepository;
 import br.com.dextra.dextranet.microblog.MicroPost;
 import br.com.dextra.dextranet.usuario.Usuario;
@@ -79,6 +81,13 @@ public class TesteIntegracaoBase {
     	List<Grupo> grupos = repositorioDeGrupo.lista();
     	for (Grupo grupo : grupos) {
 			repositorioDeGrupo.remove(grupo.getId());
+		}
+    }
+
+    public void limpaMembroInseridos(MembroRepository repositorioDeMembro) {
+    	List<Membro> membros = repositorioDeMembro.lista();
+    	for (Membro membro : membros) {
+    		repositorioDeMembro.remove(membro.getId());
 		}
     }
 

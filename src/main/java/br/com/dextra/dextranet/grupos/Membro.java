@@ -1,5 +1,7 @@
 package br.com.dextra.dextranet.grupos;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 import com.google.appengine.api.datastore.Entity;
 
 import br.com.dextra.dextranet.persistencia.Entidade;
@@ -7,6 +9,7 @@ import br.com.dextra.dextranet.persistencia.Entidade;
 public class Membro extends Entidade {
 	private String idUsuario;
 	private String idGrupo;
+	private String nomeUsuario;
 
 	public Membro(String idUsuario, String idGrupo) {
 		super();
@@ -40,4 +43,20 @@ public class Membro extends Entidade {
 		return idUsuario;
 	}
 
+	public String getNomeUsuario() {
+		return nomeUsuario;
+	}
+
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringBuilder(this.getClass())
+			.append("id", this.id)
+				.append("idUsuario", this.idUsuario)
+					.append("nomeUsuario", this.nomeUsuario)
+						.append("idGrupo", this.idGrupo).toString();
+	}
 }

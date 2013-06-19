@@ -1,5 +1,7 @@
 package br.com.dextra.dextranet.grupos;
 
+import java.util.List;
+
 import br.com.dextra.dextranet.persistencia.EntidadeRepository;
 
 import com.google.appengine.api.datastore.Entity;
@@ -11,8 +13,18 @@ public class MembroRepository extends EntidadeRepository {
 	}
 
 	public Membro obtemPorId(String id) throws EntityNotFoundException {
-		Entity grupoEntity = this.obtemPorId(id, Grupo.class);
-		return new Membro(grupoEntity);
+		Entity membroEntity = this.obtemPorId(id, Membro.class);
+		return new Membro(membroEntity);
+	}
+
+	public List<Membro> obtemPorIdGrupo(String idGrupo) throws EntityNotFoundException {
+		Entity membros = this.obtemPorId(idGrupo, Membro.class);
+		return null;
+	}
+
+	public List<Membro> lista() {
+
+		return null;
 	}
 
 	public void remove(String id) {
