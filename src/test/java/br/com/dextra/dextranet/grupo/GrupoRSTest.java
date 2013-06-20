@@ -1,24 +1,20 @@
 package br.com.dextra.dextranet.grupo;
 
-import javax.ws.rs.core.Response;
-
 import junit.framework.Assert;
 
 import org.junit.After;
 import org.junit.Test;
 
-import com.google.appengine.api.datastore.Entity;
-import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.gson.JsonArray;
-import com.googlecode.mycontainer.commons.util.JsonUtil;
-
-import br.com.dextra.dextranet.grupos.Grupo;
 import br.com.dextra.dextranet.grupos.GrupoRS;
 import br.com.dextra.dextranet.grupos.GrupoRepository;
 import br.com.dextra.dextranet.grupos.MembroRepository;
 import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.dextranet.usuario.UsuarioRepository;
 import br.com.dextra.teste.TesteIntegracaoBase;
+
+import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.gson.JsonArray;
+import com.googlecode.mycontainer.commons.util.JsonUtil;
 
 public class GrupoRSTest extends TesteIntegracaoBase {
 	private GrupoRepository repositorioGrupo = new GrupoRepository();
@@ -34,14 +30,14 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		this.limpaMembroInseridos(repositorioMembro);
 	}
 
-
+	@Test
 	public void testeAdicionarGrupo() throws EntityNotFoundException {
 		String nome = "Grupo A";
 		String descricao = "Grupo teste";
 		Usuario usuario = new Usuario("JoaoDextrano");
 		usuario = usuarioRepository.persiste(usuario);
 		rest.adicionar(nome, descricao, new String[] {usuario.getId()});
-		JsonArray jsonArray = JsonUtil.parse((String) rest.listar().getEntity().toString()).getAsJsonArray();
+		JsonArray jsonArray = JsonUtil.parse(rest.listar().getEntity().toString()).getAsJsonArray();
 
 		Assert.assertEquals(jsonArray.size(), 1);
 	}

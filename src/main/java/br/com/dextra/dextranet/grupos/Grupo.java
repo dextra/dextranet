@@ -2,8 +2,6 @@ package br.com.dextra.dextranet.grupos;
 
 import java.util.List;
 
-import org.apache.commons.lang.builder.ToStringBuilder;
-
 import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.utils.ConteudoHTML;
 
@@ -73,10 +71,10 @@ public class Grupo extends Entidade {
 
 	@Override
 	public String toString() {
-		return new ToStringBuilder(this)
-					.append("Grupo [id=", this.id)
-						.append("nome=", this.nome)
-							.append("descricao=", this.descricao)
-								.append("proprietario=", this.proprietario).append("]").toString();
+		return new StringBuilder().append("Grupo [")
+						.append(GrupoFields.id.name() + "=").append(this.id + ",")
+							.append(GrupoFields.nome.name() + "=").append(this.nome + ",")
+								.append(GrupoFields.descricao.name() + "=").append(this.descricao + ",")
+									.append(GrupoFields.proprietario.name() + "=").append(this.proprietario).append("]").toString();
 	}
 }
