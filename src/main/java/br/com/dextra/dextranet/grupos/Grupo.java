@@ -74,9 +74,9 @@ public class Grupo extends Entidade {
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this)
-			.append("id", this.id)
-				.append("nome", this.nome)
-					.append("descricao", this.descricao)
-						.append("proprietario", this.proprietario).toString();
+					.append("Grupo [id=", this.id)
+						.append("nome=", this.nome)
+							.append("descricao=", this.descricao)
+								.append("proprietario=", this.proprietario).append("]").toString();
 	}
 }

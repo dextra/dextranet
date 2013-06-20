@@ -7,6 +7,7 @@ import java.util.Set;
 import br.com.dextra.dextranet.area.AreaRS;
 import br.com.dextra.dextranet.banner.BannerRS;
 import br.com.dextra.dextranet.conteudo.post.PostRS;
+import br.com.dextra.dextranet.grupos.GrupoRS;
 import br.com.dextra.dextranet.indexacao.IndexacaoRS;
 import br.com.dextra.dextranet.microblog.MicroBlogRS;
 import br.com.dextra.dextranet.migracao.MigracaoRS;
@@ -46,8 +47,8 @@ public class Application extends javax.ws.rs.core.Application {
 		classes.add(TimeMachineRS.class);
 		classes.add(MigracaoRS.class);
 		classes.add(IndexacaoRS.class);
-
 		classes.add(MicroBlogRS.class);
+		classes.add(GrupoRS.class);
 
 		return classes;
 	}

@@ -28,11 +28,12 @@ public class GrupoRS {
 	@Produces(Application.JSON_UTF8)
 	public Response listar() throws EntityNotFoundException {
 		List<Grupo> grupos = repositorio.lista();
-
 		List<Grupo> gruposRetorno = new ArrayList<Grupo>();
 		for (Grupo grupo : grupos) {
 			Grupo grupoRetorno = new Grupo(grupo.getNome(), grupo.getDescricao(), grupo.getProprietario());
+			grupoRetorno.setId(grupo.getId());
 			grupoRetorno.setMembros(repositorioMembro.obtemPorIdGrupo(grupo.getId()));
+			gruposRetorno.add(grupoRetorno);
 		}
 
 		return Response.ok().entity(gruposRetorno).build();
@@ -41,8 +42,8 @@ public class GrupoRS {
 	@Path("/")
 	@PUT
 	@Produces(Application.JSON_UTF8)
-	public Response adicionar(@FormParam("nome") String nome, @FormParam("descricao") String descricao, @FormParam("proprietario") String proprietario, @FormParam("membros") String[] idUsuarios) {
-		Grupo grupo = new Grupo(nome, descricao, proprietario);
+	public Response adicionar(@FormParam("nome") String nome, @FormParam("descricao") String descricao, @FormParam("membros") String[] idUsuarios) {
+		Grupo grupo = new Grupo(nome, descricao, obtemUsuarioLogado());
 		repositorio.persiste(grupo);
 
 		for (String idUsuario : idUsuarios) {
@@ -71,6 +72,11 @@ public class GrupoRS {
 		Grupo grupo = repositorio.obtemPorId(id);
 
 		if (usuarioLogado.equals(grupo.getProprietario())) {
+			List<Membro> obtemPorIdGrupo = repositorioMembro.obtemPorIdGrupo(id);
+			for (Membro membro : obtemPorIdGrupo) {
+				repositorioMembro.remove(membro.getId());
+			}
+
 			repositorio.remove(id);
 			return Response.ok().build();
 		} else {

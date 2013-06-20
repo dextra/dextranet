@@ -10,6 +10,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 
 public class EntidadeRepository {
@@ -51,6 +52,15 @@ public class EntidadeRepository {
 			opcoesFetch.offset(registrosPorPagina * (numeroDaPagina - 1));
 			return pquery.asIterable(opcoesFetch);
 		}
+
+		return pquery.asIterable();
+	}
+
+	protected <T extends Entidade> Iterable<Entity> obterPor(Class<T> clazz, String campo, String valor) {
+		Query query = new Query(clazz.getName());
+		Filter filter = new FilterPredicate(campo, FilterOperator.EQUAL, valor);
+		query.setFilter(filter);
+		PreparedQuery pquery = this.datastore.prepare(query);
 
 		return pquery.asIterable();
 	}
