@@ -1,4 +1,4 @@
-package br.com.dextra.dextranet.grupos;
+package br.com.dextra.dextranet.grupo;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
