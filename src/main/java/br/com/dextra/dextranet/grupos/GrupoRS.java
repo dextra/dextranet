@@ -42,8 +42,8 @@ public class GrupoRS {
 	@Path("/")
 	@PUT
 	@Produces(Application.JSON_UTF8)
-	public Response adicionar(@FormParam("nome") String nome, @FormParam("descricao") String descricao, @FormParam("proprietario") String proprietario, @FormParam("membros") String[] idUsuarios) {
-		Grupo grupo = new Grupo(nome, descricao, proprietario);
+	public Response adicionar(@FormParam("nome") String nome, @FormParam("descricao") String descricao, @FormParam("membros") String[] idUsuarios) {
+		Grupo grupo = new Grupo(nome, descricao, obtemUsuarioLogado());
 		repositorio.persiste(grupo);
 
 		for (String idUsuario : idUsuarios) {

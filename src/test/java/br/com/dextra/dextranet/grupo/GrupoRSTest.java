@@ -9,6 +9,8 @@ import org.junit.Test;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.gson.JsonArray;
+import com.googlecode.mycontainer.commons.util.JsonUtil;
 
 import br.com.dextra.dextranet.grupos.Grupo;
 import br.com.dextra.dextranet.grupos.GrupoRS;
@@ -37,9 +39,10 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		String descricao = "Grupo teste";
 		Usuario usuario = new Usuario("JoaoDextrano");
 		usuario = usuarioRepository.persiste(usuario);
-		rest.adicionar(nome, descricao, USUARIO_LOGADO, new String[] {usuario.getId()});
-		Response lista = rest.listar();
-		//TODO EM CONSTRUÇÃO
+		rest.adicionar(nome, descricao, new String[] {usuario.getId()});
+		JsonArray jsonArray = JsonUtil.parse((String) rest.listar().getEntity().toString()).getAsJsonArray();
+
+		Assert.assertEquals(jsonArray.size(), 1);
 	}
 
 	public class GrupoRSFake extends GrupoRS {
