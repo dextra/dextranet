@@ -11,18 +11,7 @@ setIntervalUtils = {
 		}
 	},
 
-	timerPosts : null,
-
 	timerMicroPosts : null,
-
-	verificaPosts : function (data){
-		if(!setIntervalUtils.timerPosts && data){
-			setIntervalUtils.timerPosts = setInterval(function() {
-				dextranet.post.verificaNovos(setIntervalUtils.formataData(ultimoPost));
-			}, dextranet.settings.intervaloBuscaNovosPosts);
-		}
-
-	},
 
 	verificaMicroBlog : function (data){
 		if(!setIntervalUtils.timerMicroPosts && data){
