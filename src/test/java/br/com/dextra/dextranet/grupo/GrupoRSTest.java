@@ -1,5 +1,8 @@
 package br.com.dextra.dextranet.grupo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import junit.framework.Assert;
 
 import org.junit.After;
@@ -36,7 +39,12 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		String descricao = "Grupo teste";
 		Usuario usuario = new Usuario("JoaoDextrano");
 		usuario = usuarioRepository.persiste(usuario);
-		rest.adicionar(nome, descricao, new String[] {usuario.getId()});
+		UsuarioMembro uMembro = new UsuarioMembro(usuario.getId(), usuario.getNome());
+
+		List<UsuarioMembro> uMembros = new ArrayList<UsuarioMembro>();
+		uMembros.add(uMembro);
+
+		rest.adicionar(nome, descricao, uMembros);
 		JsonArray jsonArray = JsonUtil.parse(rest.listar().getEntity().toString()).getAsJsonArray();
 
 		Assert.assertEquals(jsonArray.size(), 1);

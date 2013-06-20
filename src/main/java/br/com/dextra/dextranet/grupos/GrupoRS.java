@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import br.com.dextra.dextranet.grupo.UsuarioMembro;
 import br.com.dextra.dextranet.rest.config.Application;
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 
@@ -42,14 +43,14 @@ public class GrupoRS {
 	@Path("/")
 	@PUT
 	@Produces(Application.JSON_UTF8)
-	public Response adicionar(@FormParam("nome") String nome, @FormParam("descricao") String descricao, @FormParam("usuarios") Object[] usuarios) {
+	public Response adicionar(@FormParam("nome") String nome, @FormParam("descricao") String descricao, @FormParam("usuarios") List<UsuarioMembro> usuarios) {
 		Grupo grupo = new Grupo(nome, descricao, obtemUsuarioLogado());
 		repositorio.persiste(grupo);
 
-//		for (String idUsuario : usuarios) {
-//			Membro membro = new Membro(idUsuario, grupo.getId());
-//			repositorioMembro.persiste(membro);
-//		}
+		for (UsuarioMembro usuarioMembro : usuarios) {
+			Membro membro = new Membro(usuarioMembro.getId(), grupo.getId());
+			repositorioMembro.persiste(membro);
+		}
 
 		return Response.ok().entity(grupo).build();
 	}
@@ -57,14 +58,14 @@ public class GrupoRS {
 	@Path("/{id}")
 	@PUT
 	@Produces(Application.JSON_UTF8)
-	public Response atualizar(@PathParam("id") String id, @FormParam("nome") String nome, @FormParam("descricao") String descricao, @FormParam("usuarios") Object[] usuarios) throws EntityNotFoundException {
+	public Response atualizar(@PathParam("id") String id, @FormParam("nome") String nome, @FormParam("descricao") String descricao, @FormParam("usuarios") List<UsuarioMembro> usuarios) throws EntityNotFoundException {
 		String usuarioLogado = obtemUsuarioLogado();
 		Grupo grupo = repositorio.obtemPorId(id);
 		if (usuarioLogado.equals(grupo.getProprietario())) {
 			grupo = grupo.preenche(nome, descricao, usuarioLogado);
 			repositorio.persiste(grupo);
 
-			//adicionaNovosMembros(idUsuarios, grupo.getId());
+			adicionaNovosMembros(usuarios, grupo.getId());
 
 			return Response.ok().entity(grupo).build();
 		} else {
@@ -96,13 +97,13 @@ public class GrupoRS {
 		return AutenticacaoService.identificacaoDoUsuarioLogado();
 	}
 
-	private void adicionaNovosMembros(String[] idUsuarios, String idGrupo) throws EntityNotFoundException {
-		for (String idUsuario : idUsuarios) {
+	private void adicionaNovosMembros(List<UsuarioMembro> usuarios, String idGrupo) throws EntityNotFoundException {
+		for (UsuarioMembro usuario : usuarios) {
 			Membro membroNovo;
 			List<Membro> membros = repositorioMembro.obtemPorIdGrupo(idGrupo);
 			for (Membro membro : membros) {
-				if (!membro.getId().equals(idUsuario)) {
-					membroNovo = new Membro(idUsuario, idGrupo);
+				if (!membro.getId().equals(usuario)) {
+					membroNovo = new Membro(usuario.getId(), idGrupo);
 					repositorioMembro.persiste(membroNovo);
 				}
 			}
