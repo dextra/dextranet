@@ -64,7 +64,6 @@ public class PostRS {
 		} else {
 			return Response.status(Status.FORBIDDEN).build();
 		}
-
 	}
 
 	@Path("/")

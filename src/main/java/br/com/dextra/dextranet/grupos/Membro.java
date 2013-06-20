@@ -20,6 +20,7 @@ public class Membro extends Entidade {
 	public Membro(Entity entity) {
 		this.id = (String) entity.getProperty(MembroFields.id.name());
 		this.idGrupo = (String) entity.getProperty(MembroFields.idGrupo.name());
+		this.idUsuario = (String) entity.getProperty(MembroFields.idUsuario.name());
 	}
 
 	@Override
@@ -27,6 +28,7 @@ public class Membro extends Entidade {
 		Entity entidade = new Entity(this.getKey(this.getClass()));
 		entidade.setProperty(MembroFields.id.name(), this.id);
 		entidade.setProperty(MembroFields.idGrupo.name(), this.idGrupo);
+		entidade.setProperty(MembroFields.idUsuario.name(), this.idUsuario);
 
 		return entidade;
 	}

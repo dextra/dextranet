@@ -86,9 +86,11 @@ public class TesteIntegracaoBase {
 
     public void limpaMembroInseridos(MembroRepository repositorioDeMembro) {
     	List<Membro> membros = repositorioDeMembro.lista();
-    	for (Membro membro : membros) {
-    		repositorioDeMembro.remove(membro.getId());
-		}
+    	if (membros != null) {
+	    	for (Membro membro : membros) {
+	    		repositorioDeMembro.remove(membro.getId());
+			}
+    	}
     }
 
     protected void limpaMicroPostsInseridos(MicroBlogRepository repository) {
