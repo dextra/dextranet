@@ -52,7 +52,7 @@ public class GrupoRS {
 			repositorioMembro.persiste(membro);
 		}
 
-		return Response.ok().entity(grupo).build();
+		return Response.ok().build();
 	}
 
 	@Path("/{id}")

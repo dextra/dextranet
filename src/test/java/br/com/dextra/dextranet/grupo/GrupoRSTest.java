@@ -3,6 +3,8 @@ package br.com.dextra.dextranet.grupo;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.core.Response;
+
 import junit.framework.Assert;
 
 import org.junit.After;
@@ -16,8 +18,6 @@ import br.com.dextra.dextranet.usuario.UsuarioRepository;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.gson.JsonArray;
-import com.googlecode.mycontainer.commons.util.JsonUtil;
 
 public class GrupoRSTest extends TesteIntegracaoBase {
 	private GrupoRepository repositorioGrupo = new GrupoRepository();
@@ -43,11 +43,25 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 
 		List<UsuarioMembro> uMembros = new ArrayList<UsuarioMembro>();
 		uMembros.add(uMembro);
+		Response response = rest.adicionar(nome, descricao, uMembros);
 
-		rest.adicionar(nome, descricao, uMembros);
-		JsonArray jsonArray = JsonUtil.parse(rest.listar().getEntity().toString()).getAsJsonArray();
+		Assert.assertEquals(response.getStatus(), 200);
+	}
 
-		Assert.assertEquals(jsonArray.size(), 1);
+
+	public void testeRemoverGrupo() {
+		String nome = "Grupo A";
+		String descricao = "Grupo teste";
+		Usuario usuario = new Usuario("JoaoDextrano");
+		usuario = usuarioRepository.persiste(usuario);
+		GrupoRS grupoRS = new GrupoRS();
+//		Grupo grupo = new Grupo(nome, descricao, grupoRS.);
+//		repositorioGrupo.persiste(grupo);
+		UsuarioMembro uMembro = new UsuarioMembro(usuario.getId(), usuario.getNome());
+
+
+//		rest.
+
 	}
 
 	public class GrupoRSFake extends GrupoRS {
