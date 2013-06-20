@@ -1,11 +1,11 @@
-(function($)
-{
+(function($){
 	headerMenu = {};
 	headerMenu.close = function() {
 		$('#header_main_menu > li,#box_user').removeClass('active');
 		$('.header_dropdown').hide();
 		$('body').unbind('click.closeMenu');
 	};
+	
 	headerMenu.start = function() {
 		$('#header_main_menu > li > a').bind('click.openMenu', function(e) 
 		{

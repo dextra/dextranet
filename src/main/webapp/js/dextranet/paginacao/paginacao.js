@@ -22,8 +22,6 @@ dextranet.paginacao = {
 
 	paginarMicroPost : false,
 
-	novosPosts : [],
-
 	novosMicroPosts : []
 
 };

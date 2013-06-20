@@ -14,13 +14,13 @@
 					${messages.label_newPost}
 				</a>
 			</li>
+
 			<li id="sidebar_left_team">
 				<a href="#" id="button_sidebar_left_team" tabindex="3">
 					<span class="icon_sidebar_left_equipe"></span>
 					${messages.label_team}
 				</a>
 			</li>
-
 			<li id="sidebar_left_grupos">
 				<a href="#" id="button_sidebar_left_grupos" tabindex="4">
 					<span class="icon_sidebar_left_times"></span>
@@ -28,21 +28,38 @@
 				</a>
 			</li>
 
+			<li id="sidebar_left_team">
+				<a href="#" id="button_sidebar_left_team" tabindex="3">
+					<span class="icon_sidebar_left_times"></span>
+					<span class="shape_arrow_right"></span>
+					TODO
+				</a>
+				<ul>
+					<li>
+						<a href="#">${messages.label_team}</a>
+					</li>
+					<li>
+						<a href="#">${messages.label_grupos}</a>
+					</li>
+				</ul>
+			</li>
+
 			<li id="sidebar_left_profile">
-				<a href="#" id="button_sidebar_left_profile" tabindex="5">
+				<a href="#" id="button_sidebar_left_profile" tabindex="4">
 					<span class="icon_sidebar_left_perfil"></span>
 					${messages.label_profile}
 				</a>
 			</li>
 			<li id="sidebar_left_new_banner">
-				<a href="#" id="button_sidebar_left_new_banner" tabindex="6">
+				<a href="#" id="button_sidebar_left_new_banner" tabindex="5">
 					<span class="icon_sidebar_left_categoria"></span>
 					${messages.label_banner}
 				</a>
 			</li>
 		</ul>
 	</template>
-	<script>
+
+	<script type="text/javascript">
 		$("#button_sidebar_left_home").click(function(){dextranet.post.listar(1)});
 		$("#button_sidebar_left_novopost").click(dextranet.post.novo);
 		$("#button_sidebar_left_new_banner").click(dextranet.banner.novo);
@@ -52,8 +69,8 @@
 		$("#form_new_post").submit(dextranet.post.criaNovoPost);
 
 		$('ul#sidebar_left_menu li').click(function() {
-			$('ul#sidebar_left_menu li').removeClass("active");
-			$(this).addClass("active");
+		$('ul#sidebar_left_menu li').removeClass("active");
+		$(this).addClass("active");
 		});
 	</script>
 </engine>
