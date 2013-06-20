@@ -59,32 +59,32 @@
 					<span>foi encontrado!</span>
 				</p>
 			</li>
-<!-- 	      	 {for grupo in grupos} -->
-<!--                 <li class="clearfix grupo"> -->
-<!--                     <div class="list-grupo-content"> -->
-<!--                         <h3> -->
-<!--                             <span class="nome">${grupo.nome}</span> -->
-<!--                         </h3> -->
+	      	 {for grupo in grupos}
+                <li class="clearfix grupo">
+                    <div class="list-grupo-content">
+                        <h3>
+                            <span class="nome">${grupo.nome}</span>
+                        </h3>
 
-<!-- 						<ul class="list-grupo-content-data clearfix"> -->
-<!-- 							<li class="list-grupo-content-phone"> -->
-<!--                                 <span class="icon_cellphone-mini icon" original-title="${messages.grupo_descricao}"></span> -->
-<!--                                 {if grupo.descricao } -->
-<!--                                     ${grupo.descricao} -->
-<!--                                 {/if} -->
-<!-- 							</li> -->
-<!-- 							<li class="list-grupo-content-phone"> -->
-<!--                                 <span class="icon_cellphone-mini icon" original-title="${messages.grupo_pessoas}"></span> -->
-<!--                                 {if grupo.pessoas } -->
-<!--              						{for pessoa in pessoas} -->
-<!--                                     	<p>${pessoa.nome}</p> -->
-<!--                                     {/for} -->
-<!--                                 {/if} -->
-<!-- 							</li> -->
-<!-- 						</ul> -->
-<!--                     </div> -->
-<!--                 </li> -->
-<!--             {/for} -->
+						<ul class="list-grupo-content-data clearfix">
+							<li class="list-grupo-content-phone">
+                                <span class="icon_cellphone-mini icon" original-title="${messages.grupo_descricao}"></span>
+                                {if grupo.descricao }
+                                    ${grupo.descricao}
+                                {/if}
+							</li>
+							<li class="list-grupo-content-phone">
+                                <span class="icon_cellphone-mini icon" original-title="${messages.grupo_pessoas}"></span>
+                                {if grupo.pessoas }
+             						{for pessoa in pessoas}
+                                    	<p>${pessoa.nome}</p>
+                                    {/for}
+                                {/if}
+							</li>
+						</ul>
+                    </div>
+                </li>
+            {/for}
 	        </ul>
 		</div>
     </template>

@@ -1,24 +1,14 @@
 dextranet.grupos = {
 
 		novo : function() {
-			$.ajax( {
-				type : "GET",
-				url : "/s/usuario",
-				dataType : "json",
-				success : function(usuarios) {
-					$.holy("../template/dinamico/grupo/grupo.xml", { usuarios : usuarios});
-					dextranet.ativaMenu("sidebar_left_grupos");
-				},
-    			error: function(jqXHR, textStatus, errorThrown) {
-    				dextranet.processaErroNaRequisicao(jqXHR);
-    			}
-			});
+			$.holy("../template/dinamico/grupo/grupo.xml", {});
+			dextranet.ativaMenu("sidebar_left_grupos");
 		},
 
 		listar : function() {
 			$.ajax( {
 				type : "GET",
-				url : "/s/usuario",
+				url : "/s/grupo",
 				dataType : "json",
 				success : function(grupos) {
 					$.holy("../template/dinamico/grupo/lista_grupos.xml", { grupos : grupos});
@@ -48,19 +38,20 @@ dextranet.grupos = {
 		salvar : function() {
 			if ($('#frmGrupo').validate()) {
 
-//				$.ajax( {
-//					type : "PUT",
-//					url : "/s/usuario/" + dextranet.usuario.logado.id,
-//					data : form2js("frmGrupo"),
-//					success : function(data) {
-//						$('.message').message($.i18n.messages.usuario_mensagem_edicao_sucesso, 'success', true);
-//						dextranet.usuario.editar();
-//						console.info(data);
-//					},
-//	    			error: function(jqXHR, textStatus, errorThrown) {
-//	    				dextranet.processaErroNaRequisicao(jqXHR);
-//	    			}
-//				});
+				$.ajax( {
+					type : "PUT",
+					url : "/s/grupo/",
+					var blergh = $('select').data('usuarios');
+					data : form2js("frmGrupo"), blergh,
+					success : function(data) {
+						$('.message').message($.i18n.messages.usuario_mensagem_edicao_sucesso, 'success', true);
+						console.info(data);
+						dextranet.grupos.listar();
+					},
+	    			error: function(jqXHR, textStatus, errorThrown) {
+	    				dextranet.processaErroNaRequisicao(jqXHR);
+	    			}
+				});
 			} else {
 				$('.message').message($.i18n.messages.erro_campos_obrigatorios, 'error', true);
 			}
