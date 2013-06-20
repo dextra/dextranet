@@ -34,6 +34,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		this.limpaMembroInseridos(repositorioMembro);
 	}
 
+
 	public void testeAdicionarGrupo() throws EntityNotFoundException {
 		String nome = "Grupo A";
 		String descricao = "Grupo teste";
