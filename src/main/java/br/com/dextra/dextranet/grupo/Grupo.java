@@ -1,4 +1,4 @@
-package br.com.dextra.dextranet.grupos;
+package br.com.dextra.dextranet.grupo;
 
 import java.util.List;
 

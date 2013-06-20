@@ -4,8 +4,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import br.com.dextra.dextranet.grupos.Grupo;
-import br.com.dextra.dextranet.grupos.GrupoFields;
+import br.com.dextra.dextranet.grupo.Grupo;
+import br.com.dextra.dextranet.grupo.GrupoFields;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.appengine.api.datastore.Entity;

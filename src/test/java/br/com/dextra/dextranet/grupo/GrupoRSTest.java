@@ -10,9 +10,9 @@ import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Test;
 
-import br.com.dextra.dextranet.grupos.GrupoRS;
-import br.com.dextra.dextranet.grupos.GrupoRepository;
-import br.com.dextra.dextranet.grupos.MembroRepository;
+import br.com.dextra.dextranet.grupo.GrupoRS;
+import br.com.dextra.dextranet.grupo.GrupoRepository;
+import br.com.dextra.dextranet.grupo.MembroRepository;
 import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.dextranet.usuario.UsuarioRepository;
 import br.com.dextra.teste.TesteIntegracaoBase;
