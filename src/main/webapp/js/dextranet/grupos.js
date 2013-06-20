@@ -22,7 +22,7 @@ dextranet.grupos = {
 				dataType : "json",
 				success : function(grupos) {
 					$.holy("../template/dinamico/grupo/lista_grupos.xml", { grupos : grupos});
-					dextranet.ativaMenu("sidebar_left_grupos");
+					dextranet.ativaMenu("sidebar_left_team");
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
