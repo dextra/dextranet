@@ -42,14 +42,14 @@ public class GrupoRS {
 	@Path("/")
 	@PUT
 	@Produces(Application.JSON_UTF8)
-	public Response adicionar(@FormParam("nome") String nome, @FormParam("descricao") String descricao, @FormParam("membros") String[] idUsuarios) {
+	public Response adicionar(@FormParam("nome") String nome, @FormParam("descricao") String descricao, @FormParam("usuarios") Object[] usuarios) {
 		Grupo grupo = new Grupo(nome, descricao, obtemUsuarioLogado());
 		repositorio.persiste(grupo);
 
-		for (String idUsuario : idUsuarios) {
-			Membro membro = new Membro(idUsuario, grupo.getId());
-			repositorioMembro.persiste(membro);
-		}
+//		for (String idUsuario : usuarios) {
+//			Membro membro = new Membro(idUsuario, grupo.getId());
+//			repositorioMembro.persiste(membro);
+//		}
 
 		return Response.ok().entity(grupo).build();
 	}
@@ -57,14 +57,14 @@ public class GrupoRS {
 	@Path("/{id}")
 	@PUT
 	@Produces(Application.JSON_UTF8)
-	public Response atualizar(@PathParam("id") String id, @FormParam("nome") String nome, @FormParam("descricao") String descricao, @FormParam("membros") String[] idUsuarios) throws EntityNotFoundException {
+	public Response atualizar(@PathParam("id") String id, @FormParam("nome") String nome, @FormParam("descricao") String descricao, @FormParam("usuarios") Object[] usuarios) throws EntityNotFoundException {
 		String usuarioLogado = obtemUsuarioLogado();
 		Grupo grupo = repositorio.obtemPorId(id);
 		if (usuarioLogado.equals(grupo.getProprietario())) {
 			grupo = grupo.preenche(nome, descricao, usuarioLogado);
 			repositorio.persiste(grupo);
 
-			adicionaNovosMembros(idUsuarios, grupo.getId());
+			//adicionaNovosMembros(idUsuarios, grupo.getId());
 
 			return Response.ok().entity(grupo).build();
 		} else {
