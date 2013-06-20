@@ -10,6 +10,7 @@ import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Test;
 
+import br.com.dextra.dextranet.grupos.Grupo;
 import br.com.dextra.dextranet.grupos.GrupoRS;
 import br.com.dextra.dextranet.grupos.GrupoRepository;
 import br.com.dextra.dextranet.grupos.MembroRepository;
@@ -46,6 +47,22 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		Response response = rest.adicionar(nome, descricao, uMembros);
 
 		Assert.assertEquals(response.getStatus(), 200);
+	}
+
+	@Test
+	public void testeRemoverGrupo() {
+		String nome = "Grupo A";
+		String descricao = "Grupo teste";
+		Usuario usuario = new Usuario("JoaoDextrano");
+		usuario = usuarioRepository.persiste(usuario);
+		GrupoRS grupoRS = new GrupoRS();
+		Grupo grupo = new Grupo(nome, descricao, grupoRS.);
+		repositorioGrupo.persiste(grupo);
+		UsuarioMembro uMembro = new UsuarioMembro(usuario.getId(), usuario.getNome());
+
+
+		rest.
+
 	}
 
 	public class GrupoRSFake extends GrupoRS {
