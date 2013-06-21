@@ -13,6 +13,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.apache.commons.lang3.StringUtils;
+
+import br.com.dextra.dextranet.conteudo.post.UsarioNaoPodeRemoverException;
 import br.com.dextra.dextranet.rest.config.Application;
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 
@@ -110,13 +113,32 @@ public class GrupoRS {
 	}
 
 	private void adicionaNovosMembros(List<UsuarioJSON> usuarios, String idGrupo) throws EntityNotFoundException {
+		List<Membro> membros = repositorioMembro.obtemPorIdGrupo(idGrupo);
+		deletaMembros(usuarios, membros);
+		adicionarEAtualizarMembros(usuarios, membros);
+	}
+
+	private void adicionarEAtualizarMembros(List<UsuarioJSON> usuarios, List<Membro> membros) {
 		for (UsuarioJSON usuario : usuarios) {
-			Membro membroNovo;
-			List<Membro> membros = repositorioMembro.obtemPorIdGrupo(idGrupo);
 			for (Membro membro : membros) {
-				if (!membro.getId().equals(usuario)) {
-					membroNovo = new Membro(usuario.getId(), idGrupo, membro.getNomeUsuario());
-					repositorioMembro.persiste(membroNovo);
+				if (StringUtils.isEmpty(usuario.getId()) || usuario.getId().equals(membro.getIdUsuario())) {
+					Membro membroAtualizar = new Membro(usuario.getId(), membro.getIdGrupo(), usuario.getNome());
+					if (StringUtils.isNotEmpty(usuario.getId())) {
+						membroAtualizar.setId(membro.getId());
+					}
+					repositorioMembro.persiste(membroAtualizar);
+				}
+			}
+		}
+	}
+
+	private void deletaMembros(List<UsuarioJSON> usuarios, List<Membro> membros) {
+		for (Membro membro : membros) {
+			for (UsuarioJSON usuario : usuarios) {
+				if (membro.getIdUsuario().equals(usuario.getId())) {
+					continue;
+				} else {
+					repositorioMembro.remove(membro.getId());
 				}
 			}
 		}
