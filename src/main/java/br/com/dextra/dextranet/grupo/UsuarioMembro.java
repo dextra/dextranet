@@ -1,9 +1,12 @@
-
 package br.com.dextra.dextranet.grupo;
 
 public class UsuarioMembro {
 	private String id;
 	private String nome;
+
+	public UsuarioMembro() {
+
+	}
 
 	public UsuarioMembro(String id, String nome) {
 		this.id = id;
@@ -21,5 +24,10 @@ public class UsuarioMembro {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	@Override
+	public String toString() {
+		return "id: " + id + ", nome:" + nome;
 	}
 }

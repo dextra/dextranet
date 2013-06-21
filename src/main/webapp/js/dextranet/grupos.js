@@ -42,21 +42,26 @@ dextranet.grupos = {
 
 				var usuarios = JSON.stringify(dextranet.grupos.usuariosSelecionados);
 				console.info(usuarios);
+				var objeto = [];
+				objeto.push(form2js("frmGrupo"));
+				//objeto.usuarios = usuarios;
 
-				$.ajax( {
-					type : "PUT",
-					url : "/s/grupo/",
-					//data : form2js("frmGrupo"),
-					data : {form : form2js("frmGrupo"), usuarios : usuarios},
-					success : function(data) {
-						$('.message').message($.i18n.messages.usuario_mensagem_edicao_sucesso, 'success', true);
-						console.info(data);
-						dextranet.grupos.listar();
-					},
-	    			error: function(jqXHR, textStatus, errorThrown) {
-	    				dextranet.processaErroNaRequisicao(jqXHR);
-	    			}
-				});
+				console.info(objeto);
+
+//				$.ajax( {
+//					type : "PUT",
+//					url : "/s/grupo/",
+//					//data : form2js("frmGrupo"),
+//					data : form2js("frmGrupo"),
+//					success : function(data) {
+//						$('.message').message($.i18n.messages.usuario_mensagem_edicao_sucesso, 'success', true);
+//						console.info(data);
+//						dextranet.grupos.listar();
+//					},
+//	    			error: function(jqXHR, textStatus, errorThrown) {
+//	    				dextranet.processaErroNaRequisicao(jqXHR);
+//	    			}
+//				});
 			} else {
 				$('.message').message($.i18n.messages.erro_campos_obrigatorios, 'error', true);
 			}
