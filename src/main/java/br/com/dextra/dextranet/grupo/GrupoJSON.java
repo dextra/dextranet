@@ -9,6 +9,7 @@ public class GrupoJSON {
 	private String id;
 	private String nome;
 	private String descricao;
+	private String proprietario;
 	private List<UsuarioJSON> usuarios;
 
 	public GrupoJSON() {
@@ -51,5 +52,13 @@ public class GrupoJSON {
 
 	public void setUsuarios(List<UsuarioJSON> usuarios) {
 		this.usuarios = usuarios;
+	}
+
+	public String getProprietario() {
+		return proprietario;
+	}
+
+	public void setProprietario(String proprietario) {
+		this.proprietario = proprietario;
 	}
 }

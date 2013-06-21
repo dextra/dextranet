@@ -56,10 +56,12 @@ public class EntidadeRepository {
 		return pquery.asIterable();
 	}
 
-	protected <T extends Entidade> Iterable<Entity> obterPor(Class<T> clazz, String campo, String valor) {
+	protected <T extends Entidade> Iterable<Entity> obterPor(Class<T> clazz, String[] campos, String[] valores) {
 		Query query = new Query(clazz.getName());
-		Filter filter = new FilterPredicate(campo, FilterOperator.EQUAL, valor);
-		query.setFilter(filter);
+		for (int cont = 0; cont < campos.length; cont++) {
+			Filter filter = new FilterPredicate(campos[cont], FilterOperator.EQUAL, valores[cont]);
+			query.setFilter(filter);
+		}
 		PreparedQuery pquery = this.datastore.prepare(query);
 
 		return pquery.asIterable();

@@ -31,7 +31,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	public void testeAdicionarGrupo() throws EntityNotFoundException {
+	public void testaAdicionarGrupo() throws EntityNotFoundException {
 		String nome = "Grupo A";
 		String descricao = "Grupo teste";
 		Usuario usuario = new Usuario("JoaoDextrano");
@@ -47,7 +47,40 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	public void testeObterGrupo() throws EntityNotFoundException {
+	public void testaAlterarGrupo() throws EntityNotFoundException {
+		String nome = "Grupo A";
+		String nomeAlterado = "Grupo alterado";
+		String descricao = "Grupo teste";
+		String descricaoAlterada = "Grupo teste alterado";
+		String nomeMembro = "JoaoDextrano";
+		String nomeMembroAlterado = "JoseDextrano";
+
+		Usuario usuario = new Usuario(nomeMembro);
+		usuario = usuarioRepository.persiste(usuario);
+		Grupo grupo = new Grupo(nome, descricao, rest.obtemUsuarioLogado());
+		grupo = repositorioGrupo.persiste(grupo);
+		repositorioMembro.persiste(new Membro(usuario.getId(), grupo.getId(), usuario.getNome()));
+
+		GrupoJSON grupojsonAtualizar = (GrupoJSON)rest.obter(grupo.getId()).getEntity();
+		grupojsonAtualizar.setNome(nomeAlterado);
+		grupojsonAtualizar.setDescricao(descricaoAlterada);
+		UsuarioJSON usuariojson = new UsuarioJSON(null, nomeMembroAlterado);
+		List<UsuarioJSON> usuariosjson = new ArrayList<UsuarioJSON>();
+		usuariosjson.add(usuariojson);
+		grupojsonAtualizar.setUsuarios(usuariosjson);
+
+		rest.atualizar(grupojsonAtualizar);
+
+		Response response = rest.obter(grupo.getId());
+		Assert.assertNotNull(response.getEntity());
+		GrupoJSON grupojson = (GrupoJSON)response.getEntity();
+		Assert.assertEquals(grupojson.getNome(), nomeAlterado);
+		Assert.assertEquals(grupojson.getDescricao(), descricaoAlterada);
+		Assert.assertEquals(grupojson.getUsuarios().get(0).getNome(), nomeMembroAlterado);
+	}
+
+	@Test
+	public void testaObterGrupo() throws EntityNotFoundException {
 		String nome = "Grupo A";
 		String descricao = "Grupo teste";
 		Usuario usuario = new Usuario("JoaoDextrano");
@@ -55,16 +88,16 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		Grupo grupo = new Grupo(nome, descricao, rest.obtemUsuarioLogado());
 		grupo = repositorioGrupo.persiste(grupo);
 		repositorioMembro.persiste(new Membro(usuario.getId(), grupo.getId(), usuario.getNome()));
-		Response obter = rest.obter(grupo.getId());
-		Assert.assertNotNull(obter.getEntity());
-		GrupoJSON grupojson = (GrupoJSON)obter.getEntity();
+		Response response = rest.obter(grupo.getId());
+		Assert.assertNotNull(response.getEntity());
+		GrupoJSON grupojson = (GrupoJSON)response.getEntity();
 		Assert.assertEquals(grupojson.getNome(), nome);
 		Assert.assertEquals(grupojson.getDescricao(), descricao);
 		Assert.assertEquals(grupojson.getUsuarios().get(0).getNome(), usuario.getNome());
 	}
 
 	@Test
-	public void testeListar() throws EntityNotFoundException {
+	public void testaListar() throws EntityNotFoundException {
 		String nome = "Grupo A";
 		String descricao = "Grupo teste";
 		Usuario usuario = new Usuario("JoaoDextrano");
@@ -72,9 +105,8 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		Grupo grupo = new Grupo(nome, descricao, rest.obtemUsuarioLogado());
 		grupo = repositorioGrupo.persiste(grupo);
 		repositorioMembro.persiste(new Membro(usuario.getId(), grupo.getId(), usuario.getNome()));
-
 		Response response = rest.listar();
-
+		@SuppressWarnings("unchecked")
 		List<GrupoJSON> gruposjson = (List<GrupoJSON>) response.getEntity();
 		for (GrupoJSON grupojson : gruposjson) {
 			Assert.assertEquals(grupojson.getNome(), nome);
@@ -84,7 +116,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	public void testeRemoverGrupo() throws EntityNotFoundException {
+	public void testaRemoverGrupo() throws EntityNotFoundException {
 		String nome = "Grupo A";
 		String descricao = "Grupo teste";
 		Usuario usuario = new Usuario("JoaoDextrano");
