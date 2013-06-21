@@ -40,13 +40,13 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 
 		List<UsuarioJSON> uMembros = new ArrayList<UsuarioJSON>();
 		uMembros.add(uMembro);
-		GrupoJSON grupojson = new GrupoJSON(nome, descricao, uMembros);
+		GrupoJSON grupojson = new GrupoJSON(null, nome, descricao, uMembros);
 		Response response = rest.adicionar(grupojson);
 
 		Assert.assertEquals(response.getStatus(), 200);
 	}
 
-
+	@Test
 	public void testeRemoverGrupo() {
 		String nome = "Grupo A";
 		String descricao = "Grupo teste";
@@ -55,8 +55,19 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		GrupoRSFake grupoRS = new GrupoRSFake();
 		Grupo grupo = new Grupo(nome, descricao, grupoRS.obtemUsuarioLogado());
 		grupo = repositorioGrupo.persiste(grupo);
-		Membro membro = repositorioMembro.persiste(new Membro(usuario.getId(), grupo.getId(), usuario.getNome()));
-		//TODO:CONSTRUCAO
+		repositorioMembro.persiste(new Membro(usuario.getId(), grupo.getId(), usuario.getNome()));
+
+		try {
+			rest.deletar(grupo.getId());
+		} catch (EntityNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			repositorioGrupo.obtemPorId(grupo.getId());
+		} catch (EntityNotFoundException e) {
+			Assert.assertTrue(true);
+		}
 	}
 
 	public class GrupoRSFake extends GrupoRS {
