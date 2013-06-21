@@ -28,6 +28,9 @@ public class GrupoRS {
 	@Produces(Application.JSON_UTF8)
 	public Response obter(@PathParam("id") String id) throws EntityNotFoundException {
 		Grupo grupo = repositorio.obtemPorId(id);
+		List<Membro> membros = repositorioMembro.obtemPorIdGrupo(grupo.getId());
+		grupo.setMembros(membros);
+
 		return Response.ok().entity(grupo.getGrupoJSON()).build();
 	}
 

@@ -47,21 +47,52 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	public void testeRemoverGrupo() {
+	public void testeObterGrupo() throws EntityNotFoundException {
 		String nome = "Grupo A";
 		String descricao = "Grupo teste";
 		Usuario usuario = new Usuario("JoaoDextrano");
 		usuario = usuarioRepository.persiste(usuario);
-		GrupoRSFake grupoRS = new GrupoRSFake();
-		Grupo grupo = new Grupo(nome, descricao, grupoRS.obtemUsuarioLogado());
+		Grupo grupo = new Grupo(nome, descricao, rest.obtemUsuarioLogado());
+		grupo = repositorioGrupo.persiste(grupo);
+		repositorioMembro.persiste(new Membro(usuario.getId(), grupo.getId(), usuario.getNome()));
+		Response obter = rest.obter(grupo.getId());
+		Assert.assertNotNull(obter.getEntity());
+		GrupoJSON grupojson = (GrupoJSON)obter.getEntity();
+		Assert.assertEquals(grupojson.getNome(), nome);
+		Assert.assertEquals(grupojson.getDescricao(), descricao);
+		Assert.assertEquals(grupojson.getUsuarios().get(0).getNome(), usuario.getNome());
+	}
+
+	@Test
+	public void testeListar() throws EntityNotFoundException {
+		String nome = "Grupo A";
+		String descricao = "Grupo teste";
+		Usuario usuario = new Usuario("JoaoDextrano");
+		usuario = usuarioRepository.persiste(usuario);
+		Grupo grupo = new Grupo(nome, descricao, rest.obtemUsuarioLogado());
 		grupo = repositorioGrupo.persiste(grupo);
 		repositorioMembro.persiste(new Membro(usuario.getId(), grupo.getId(), usuario.getNome()));
 
-		try {
-			rest.deletar(grupo.getId());
-		} catch (EntityNotFoundException e) {
-			e.printStackTrace();
+		Response response = rest.listar();
+
+		List<GrupoJSON> gruposjson = (List<GrupoJSON>) response.getEntity();
+		for (GrupoJSON grupojson : gruposjson) {
+			Assert.assertEquals(grupojson.getNome(), nome);
+			Assert.assertEquals(grupojson.getDescricao(), descricao);
+			Assert.assertEquals(grupojson.getUsuarios().get(0).getNome(), usuario.getNome());
 		}
+	}
+
+	@Test
+	public void testeRemoverGrupo() throws EntityNotFoundException {
+		String nome = "Grupo A";
+		String descricao = "Grupo teste";
+		Usuario usuario = new Usuario("JoaoDextrano");
+		usuario = usuarioRepository.persiste(usuario);
+		Grupo grupo = new Grupo(nome, descricao, rest.obtemUsuarioLogado());
+		grupo = repositorioGrupo.persiste(grupo);
+		repositorioMembro.persiste(new Membro(usuario.getId(), grupo.getId(), usuario.getNome()));
+		rest.deletar(grupo.getId());
 
 		try {
 			repositorioGrupo.obtemPorId(grupo.getId());
