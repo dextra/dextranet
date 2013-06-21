@@ -14,7 +14,8 @@ public class GrupoJSON {
 	public GrupoJSON() {
 	}
 
-	public GrupoJSON(String nome, String descricao, List<UsuarioJSON> usuarios) {
+	public GrupoJSON(String id, String nome, String descricao, List<UsuarioJSON> usuarios) {
+		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.usuarios = usuarios;

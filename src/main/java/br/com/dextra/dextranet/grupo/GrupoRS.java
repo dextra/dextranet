@@ -23,6 +23,14 @@ public class GrupoRS {
 	GrupoRepository repositorio = new GrupoRepository();
 	MembroRepository repositorioMembro = new MembroRepository();
 
+	@Path("/{id}")
+	@GET
+	@Produces(Application.JSON_UTF8)
+	public Response obter(@PathParam("id") String id) throws EntityNotFoundException {
+		Grupo grupo = repositorio.obtemPorId(id);
+		return Response.ok().entity(grupo.getGrupoJSON()).build();
+	}
+
 	@Path("/")
 	@GET
 	@Produces(Application.JSON_UTF8)
@@ -36,7 +44,7 @@ public class GrupoRS {
 				UsuarioJSON usuariojson = new UsuarioJSON(membro.getId(), membro.getNomeUsuario());
 				usuariosjson.add(usuariojson);
 			}
-			GrupoJSON grupojson = new GrupoJSON(grupo.getNome(), grupo.getDescricao(), usuariosjson);
+			GrupoJSON grupojson = new GrupoJSON(grupo.getId(), grupo.getNome(), grupo.getDescricao(), usuariosjson);
 			gruposRetorno.add(grupojson);
 		}
 

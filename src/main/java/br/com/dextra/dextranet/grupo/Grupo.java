@@ -53,6 +53,11 @@ public class Grupo extends Entidade {
 		return this;
 	}
 
+	public GrupoJSON getGrupoJSON() {
+		GrupoJSON grupojson = new GrupoJSON(this.id, this.nome, this.descricao, getUsuarioJSON());
+		return grupojson;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -63,6 +68,16 @@ public class Grupo extends Entidade {
 
 	public String getProprietario() {
 		return proprietario;
+	}
+
+	public List<UsuarioJSON> getUsuarioJSON() {
+		UsuarioJSON usuariojson;
+		List<UsuarioJSON> usuariosjson = new ArrayList<UsuarioJSON>();
+		for (Membro membro : this.membros) {
+			usuariojson = new UsuarioJSON(membro.getId(), membro.getNomeUsuario());
+			usuariosjson.add(usuariojson);
+		}
+		return usuariosjson;
 	}
 
 	public List<Membro> getMembros() {
