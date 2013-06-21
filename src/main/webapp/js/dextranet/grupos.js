@@ -3,7 +3,7 @@ dextranet.grupos = {
 		usuariosSelecionados : [],
 
 		novo : function() {
-			$.holy("../template/dinamico/grupo/grupo.xml", {});
+			$.holy("../template/dinamico/grupo/novo_grupo.xml", {});
 			dextranet.ativaMenu("sidebar_left_grupos");
 		},
 
@@ -64,5 +64,67 @@ dextranet.grupos = {
 				$('.message').message($.i18n.messages.erro_campos_obrigatorios, 'error', true);
 			}
 		},
+
+		editar : function(grupoId){
+			$.ajax( {
+				type : "GET",
+				url : "/s/grupo/"+grupoId,
+				contentType : dextranet.application_json,
+				success : function(data) {
+					$.holy("../template/dinamico/grupo/editar_grupo.xml", { grupo : data });
+					dextranet.ativaMenu("sidebar_left_team");
+				},
+    			error: function(jqXHR, textStatus, errorThrown) {
+    				dextranet.processaErroNaRequisicao(jqXHR);
+    			}
+			});
+		},
+
+		remover : function(grupoId){
+			$.ajax( {
+				type : "DELETE",
+				url : "/s/grupo/"+grupoId,
+				loading : false,
+				contentType : dextranet.application_json,
+				success : function() {
+					$('li#'+grupoId).slideUp(function(){
+						$(this).remove();
+						dextranet.grupos.listar();
+					});
+				},
+    			error: function(jqXHR, textStatus, errorThrown) {
+    				dextranet.processaErroNaRequisicao(jqXHR);
+    			}
+			});
+		},
+
+		atualizar : function(grupoId) {
+			if ($('#frmGrupo').validate()) {
+
+				var usuarios = JSON.stringify(dextranet.grupos.usuariosSelecionados);
+				var grupo = form2js("frmGrupo");
+				delete grupo["membros"];
+
+				grupo.usuarios = jQuery.parseJSON(usuarios);
+
+				$.ajax( {
+					type : "PUT",
+					url : "/s/grupo/"+grupoId,
+					contentType : "application/json",
+					dataType : "json",
+					data : JSON.stringify(grupo),
+					success : function(data) {
+						$('.message').message($.i18n.messages.usuario_mensagem_edicao_sucesso, 'success', true);
+						dextranet.grupos.listar();
+					},
+	    			error: function(jqXHR, textStatus, errorThrown) {
+	    				dextranet.processaErroNaRequisicao(jqXHR);
+	    			}
+				});
+			} else {
+				$('.message').message($.i18n.messages.erro_campos_obrigatorios, 'error', true);
+			}
+		},
+
 
 }

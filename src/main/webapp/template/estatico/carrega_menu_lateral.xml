@@ -16,25 +16,17 @@
 			</li>
 
 			<li id="sidebar_left_team">
-				<a href="#" tabindex="3">
+				<a id="button_sidebar_left_team" href="#">
 					<span class="icon_sidebar_left_times"></span>
-					<div>
-						<span class="shape_arrow_right"></span>
-					</div>
-					TODO
+					${messages.label_team}
 				</a>
-				<ul class="right_menu">
-					<li>
-						<a id="button_sidebar_left_team" href="#">
-							${messages.label_team}
-						</a>
-					</li>
-					<li>
-						<a id="button_sidebar_left_grupos" href="#">
-							${messages.label_grupos}
-						</a>
-					</li>
-				</ul>
+			</li>
+
+			<li id="sidebar_left_team">
+				<a id="button_sidebar_left_grupos" href="#">
+					<span class="icon_sidebar_left_times"></span>
+					${messages.label_grupos}
+				</a>
 			</li>
 
 			<li id="sidebar_left_profile">

@@ -2,7 +2,7 @@
 <engine>
 	<template selector="#content_left">
 
-		<h1 class="titulo">${messages.grupo_titulo}</h1>
+			<h1 class="titulo">${messages.grupo_titulo}</h1>
 
 		<div class="clearfix">
 
@@ -37,7 +37,6 @@
 
 					<dt>
 						<input type="text" id="pessoa" name="pessoa" value="" />
-						<input type="hidden" id="membros" name="membros" value="" />
 					</dt>
 
 					<dt>
@@ -56,8 +55,9 @@
 
 	</template>
 	<script>
-		var pessoas = [];
+		var idGrupo = $('h1.titulo').attr('id');
 
+		var pessoas = [];
 
 		$('#remove').click(function() {
 			var idRemover = $('#listaPessoas option:selected').val();
@@ -109,7 +109,7 @@
 			    usuarios.push({ id: element, nome: nome.html()});
 			});
 			dextranet.grupos.usuariosSelecionados = usuarios;
-			console.info(dextranet.grupos.usuariosSelecionados);
+
 			dextranet.grupos.salvar();
 		});
 
