@@ -116,32 +116,21 @@ public class GrupoRS {
 	private void adicionaNovosMembros(List<UsuarioJSON> usuarios, String idGrupo) throws EntityNotFoundException {
 		List<Membro> membros = repositorioMembro.obtemPorIdGrupo(idGrupo);
 		deletaMembros(usuarios, membros);
-		adicionarEAtualizarMembros(usuarios, membros);
+		adicionarEAtualizarMembros(usuarios, idGrupo);
 	}
 
-	private void adicionarEAtualizarMembros(List<UsuarioJSON> usuarios, List<Membro> membros) {
+	private void adicionarEAtualizarMembros(List<UsuarioJSON> usuarios, String idGrupo) {
+		//TODO: Adicionar somente os necessários
 		for (UsuarioJSON usuario : usuarios) {
-			for (Membro membro : membros) {
-				if (StringUtils.isEmpty(usuario.getId()) || usuario.getId().equals(membro.getIdUsuario())) {
-					Membro membroAtualizar = new Membro(usuario.getId(), membro.getIdGrupo(), usuario.getNome());
-					if (StringUtils.isNotEmpty(usuario.getId())) {
-						membroAtualizar.setId(membro.getId());
-					}
-					repositorioMembro.persiste(membroAtualizar);
-				}
-			}
+			Membro membroAtualizar = new Membro(usuario.getId(), idGrupo, usuario.getNome());
+			repositorioMembro.persiste(membroAtualizar);
 		}
 	}
 
 	private void deletaMembros(List<UsuarioJSON> usuarios, List<Membro> membros) {
+		//TODO Remover somente os que não existem na tela
 		for (Membro membro : membros) {
-			for (UsuarioJSON usuario : usuarios) {
-				if (membro.getIdUsuario().equals(usuario.getId())) {
-					continue;
-				} else {
-					repositorioMembro.remove(membro.getId());
-				}
-			}
+			repositorioMembro.remove(membro.getId());
 		}
 	}
 }
