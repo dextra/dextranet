@@ -45,13 +45,12 @@ dextranet.grupos = {
 
 				grupo.usuarios = jQuery.parseJSON(usuarios);
 
-				console.info(grupo);
-
 				$.ajax( {
 					type : "PUT",
 					url : "/s/grupo/",
 					contentType : "application/json",
-					data : grupo,
+					dataType : "json",
+					data : JSON.stringify(grupo),
 					success : function(data) {
 						$('.message').message($.i18n.messages.usuario_mensagem_edicao_sucesso, 'success', true);
 						dextranet.grupos.listar();

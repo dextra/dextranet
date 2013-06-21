@@ -1,5 +1,6 @@
 package br.com.dextra.dextranet.grupo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.dextra.dextranet.persistencia.Entidade;
@@ -12,6 +13,9 @@ public class Grupo extends Entidade {
 	private String descricao;
 	private String proprietario;
 	private List<Membro> membros;
+
+	public Grupo() {
+	}
 
 	public Grupo(String nome, String descricao, String proprietario) {
 		super();

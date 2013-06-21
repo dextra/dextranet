@@ -1,6 +1,7 @@
 package br.com.dextra.dextranet.grupo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.core.Response;
 
@@ -35,13 +36,14 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		String descricao = "Grupo teste";
 		Usuario usuario = new Usuario("JoaoDextrano");
 		usuario = usuarioRepository.persiste(usuario);
-		UsuarioMembro uMembro = new UsuarioMembro(usuario.getId(), usuario.getNome());
+		UsuarioJSON uMembro = new UsuarioJSON(usuario.getId(), usuario.getNome());
 
-		ArrayList<UsuarioMembro> uMembros = new ArrayList<UsuarioMembro>();
+		List<UsuarioJSON> uMembros = new ArrayList<UsuarioJSON>();
 		uMembros.add(uMembro);
-	//	Response response = rest.adicionar(nome, descricao, uMembros);
+		GrupoJSON grupojson = new GrupoJSON(nome, descricao, uMembros);
+		Response response = rest.adicionar(grupojson);
 
-		//Assert.assertEquals(response.getStatus(), 200);
+		Assert.assertEquals(response.getStatus(), 200);
 	}
 
 

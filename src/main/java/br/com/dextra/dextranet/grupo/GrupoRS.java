@@ -5,18 +5,14 @@ import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-import javax.xml.bind.annotation.XmlRootElement;
 
-import br.com.dextra.dextranet.grupo.UsuarioMembro;
 import br.com.dextra.dextranet.rest.config.Application;
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 
@@ -32,12 +28,16 @@ public class GrupoRS {
 	@Produces(Application.JSON_UTF8)
 	public Response listar() throws EntityNotFoundException {
 		List<Grupo> grupos = repositorio.lista();
-		List<Grupo> gruposRetorno = new ArrayList<Grupo>();
+		List<GrupoJSON> gruposRetorno = new ArrayList<GrupoJSON>();
 		for (Grupo grupo : grupos) {
-			Grupo grupoRetorno = new Grupo(grupo.getNome(), grupo.getDescricao(), grupo.getProprietario());
-			grupoRetorno.setId(grupo.getId());
-			grupoRetorno.setMembros(repositorioMembro.obtemPorIdGrupo(grupo.getId()));
-			gruposRetorno.add(grupoRetorno);
+			List<Membro> membros = repositorioMembro.obtemPorIdGrupo(grupo.getId());
+			List<UsuarioJSON> usuariosjson = new ArrayList<UsuarioJSON>();
+			for (Membro membro : membros) {
+				UsuarioJSON usuariojson = new UsuarioJSON(membro.getId(), membro.getNomeUsuario());
+				usuariosjson.add(usuariojson);
+			}
+			GrupoJSON grupojson = new GrupoJSON(grupo.getNome(), grupo.getDescricao(), usuariosjson);
+			gruposRetorno.add(grupojson);
 		}
 
 		return Response.ok().entity(gruposRetorno).build();
@@ -45,17 +45,15 @@ public class GrupoRS {
 
 	@Path("/")
 	@PUT
-	@Produces(Application.JSON_UTF8)
 	@Consumes(Application.JSON_UTF8)
-	public Response adicionar(GrupoJSON grupo) {
-		System.out.println("Teste");
-//		Grupo grupo = new Grupo(nome, descricao, obtemUsuarioLogado());
-//		repositorio.persiste(grupo);
+	public Response adicionar(GrupoJSON grupojson) {
+		Grupo grupo = new Grupo(grupojson.getNome(), grupojson.getDescricao(), obtemUsuarioLogado());
+		repositorio.persiste(grupo);
 
-//		for (UsuarioMembro usuarioMembro : usuarios) {
-//			Membro membro = new Membro(usuarioMembro.getId(), grupo.getId());
-//			repositorioMembro.persiste(membro);
-//		}
+		for (UsuarioJSON usuariojson : grupojson.getUsuarios()) {
+			Membro membro = new Membro(usuariojson.getId(), grupo.getId());
+			repositorioMembro.persiste(membro);
+		}
 
 		return Response.ok().build();
 	}
@@ -63,16 +61,14 @@ public class GrupoRS {
 	@Path("/{id}")
 	@PUT
 	@Produces(Application.JSON_UTF8)
-	public Response atualizar(@PathParam("id") String id, @FormParam("nome") String nome, @FormParam("descricao") String descricao) throws EntityNotFoundException {
+	public Response atualizar(GrupoJSON grupojson) throws EntityNotFoundException {
 		String usuarioLogado = obtemUsuarioLogado();
-		Grupo grupo = repositorio.obtemPorId(id);
+		Grupo grupo = repositorio.obtemPorId(grupojson.getId());
 		if (usuarioLogado.equals(grupo.getProprietario())) {
-			grupo = grupo.preenche(nome, descricao, usuarioLogado);
+			grupo = grupo.preenche(grupojson.getNome(), grupojson.getDescricao(), usuarioLogado);
 			repositorio.persiste(grupo);
-
-//			adicionaNovosMembros(usuarios, grupo.getId());
-
-			return Response.ok().entity(grupo).build();
+			adicionaNovosMembros(grupojson.getUsuarios(), grupo.getId());
+			return Response.ok().build();
 		} else {
 			return Response.status(Status.FORBIDDEN).build();
 		}
@@ -102,8 +98,8 @@ public class GrupoRS {
 		return AutenticacaoService.identificacaoDoUsuarioLogado();
 	}
 
-	private void adicionaNovosMembros(List<UsuarioMembro> usuarios, String idGrupo) throws EntityNotFoundException {
-		for (UsuarioMembro usuario : usuarios) {
+	private void adicionaNovosMembros(List<UsuarioJSON> usuarios, String idGrupo) throws EntityNotFoundException {
+		for (UsuarioJSON usuario : usuarios) {
 			Membro membroNovo;
 			List<Membro> membros = repositorioMembro.obtemPorIdGrupo(idGrupo);
 			for (Membro membro : membros) {
