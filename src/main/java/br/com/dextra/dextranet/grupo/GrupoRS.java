@@ -76,9 +76,9 @@ public class GrupoRS {
 	@Path("/{id}")
 	@PUT
 	@Produces(Application.JSON_UTF8)
-	public Response atualizar(GrupoJSON grupojson) throws EntityNotFoundException {
+	public Response atualizar(@PathParam("id") String id, GrupoJSON grupojson) throws EntityNotFoundException {
 		String usuarioLogado = obtemUsuarioLogado();
-		Grupo grupo = repositorio.obtemPorId(grupojson.getId());
+		Grupo grupo = repositorio.obtemPorId(id);
 		if (usuarioLogado.equals(grupo.getProprietario())) {
 			grupo = grupo.preenche(grupojson.getNome(), grupojson.getDescricao(), usuarioLogado);
 			repositorio.persiste(grupo);

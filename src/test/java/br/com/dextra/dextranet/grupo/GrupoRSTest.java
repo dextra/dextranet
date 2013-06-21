@@ -69,7 +69,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		usuariosjson.add(usuariojson);
 		grupojsonAtualizar.setUsuarios(usuariosjson);
 
-		rest.atualizar(grupojsonAtualizar);
+		rest.atualizar(grupojsonAtualizar.getId(), grupojsonAtualizar);
 
 		Response response = rest.obter(grupo.getId());
 		Assert.assertNotNull(response.getEntity());
