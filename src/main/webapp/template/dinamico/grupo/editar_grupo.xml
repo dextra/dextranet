@@ -41,7 +41,7 @@
 
 					<dt>
 						<select multiple="true" id="listaPessoas" style="width:300px;">
-							{for usuario in grupo.usuarios
+							{for usuario in grupo.usuarios}
 								<option value="${usuario.id}">${usuario.nome}</option>
 							{/for}
 						</select>
