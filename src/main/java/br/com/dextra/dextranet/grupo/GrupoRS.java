@@ -15,7 +15,6 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.lang3.StringUtils;
 
-import br.com.dextra.dextranet.conteudo.post.UsarioNaoPodeRemoverException;
 import br.com.dextra.dextranet.rest.config.Application;
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 
@@ -41,6 +40,7 @@ public class GrupoRS {
 	@GET
 	@Produces(Application.JSON_UTF8)
 	public Response listar() throws EntityNotFoundException {
+		String proprietario = obtemUsuarioLogado();
 		List<Grupo> grupos = repositorio.lista();
 		List<GrupoJSON> gruposRetorno = new ArrayList<GrupoJSON>();
 		for (Grupo grupo : grupos) {
@@ -51,6 +51,7 @@ public class GrupoRS {
 				usuariosjson.add(usuariojson);
 			}
 			GrupoJSON grupojson = new GrupoJSON(grupo.getId(), grupo.getNome(), grupo.getDescricao(), usuariosjson);
+			grupojson.setProprietario(proprietario);
 			gruposRetorno.add(grupojson);
 		}
 
