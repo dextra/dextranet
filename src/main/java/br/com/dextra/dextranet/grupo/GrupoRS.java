@@ -51,7 +51,7 @@ public class GrupoRS {
 		repositorio.persiste(grupo);
 
 		for (UsuarioJSON usuariojson : grupojson.getUsuarios()) {
-			Membro membro = new Membro(usuariojson.getId(), grupo.getId());
+			Membro membro = new Membro(usuariojson.getId(), grupo.getId(), usuariojson.getNome());
 			repositorioMembro.persiste(membro);
 		}
 
@@ -104,7 +104,7 @@ public class GrupoRS {
 			List<Membro> membros = repositorioMembro.obtemPorIdGrupo(idGrupo);
 			for (Membro membro : membros) {
 				if (!membro.getId().equals(usuario)) {
-					membroNovo = new Membro(usuario.getId(), idGrupo);
+					membroNovo = new Membro(usuario.getId(), idGrupo, membro.getNomeUsuario());
 					repositorioMembro.persiste(membroNovo);
 				}
 			}

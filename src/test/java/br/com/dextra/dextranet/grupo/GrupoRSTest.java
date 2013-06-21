@@ -55,7 +55,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		GrupoRSFake grupoRS = new GrupoRSFake();
 		Grupo grupo = new Grupo(nome, descricao, grupoRS.obtemUsuarioLogado());
 		grupo = repositorioGrupo.persiste(grupo);
-		Membro membro = repositorioMembro.persiste(new Membro(usuario.getId(), grupo.getId()));
+		Membro membro = repositorioMembro.persiste(new Membro(usuario.getId(), grupo.getId(), usuario.getNome()));
 		//TODO:CONSTRUCAO
 	}
 

@@ -11,10 +11,11 @@ public class Membro extends Entidade {
 	private String idGrupo;
 	private String nomeUsuario;
 
-	public Membro(String idUsuario, String idGrupo) {
+	public Membro(String idUsuario, String idGrupo, String nomeUsuario) {
 		super();
 		this.idUsuario = idUsuario;
 		this.idGrupo = idGrupo;
+		this.nomeUsuario = nomeUsuario;
 	}
 
 	public Membro(Entity entity) {
