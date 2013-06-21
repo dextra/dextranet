@@ -42,6 +42,7 @@ dextranet.grupos = {
 
 				var usuarios = JSON.stringify(dextranet.grupos.usuariosSelecionados);
 				var grupo = form2js("frmGrupo");
+				delete grupo["membros"];
 
 				grupo.usuarios = jQuery.parseJSON(usuarios);
 

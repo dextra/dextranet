@@ -75,8 +75,8 @@
 							</li>
 							<li class="list-grupo-content-phone">
                                 <span class="icon_cellphone-mini icon" original-title="${messages.grupo_pessoas}"></span>
-                                {if grupo.pessoas }
-             						{for pessoa in pessoas}
+                                {if grupo.usuarios }
+             						{for pessoa in grupo.usuarios}
                                     	<p>${pessoa.nome}</p>
                                     {/for}
                                 {/if}
