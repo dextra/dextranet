@@ -58,6 +58,7 @@
 	<script>
 		var pessoas = [];
 
+
 		$('#remove').click(function() {
 			var idRemover = $('#listaPessoas option:selected').val();
 			pessoas.splice( pessoas.indexOf( idRemover ), 1 );
@@ -102,7 +103,13 @@
 		//Lista de pessoas selecionadas
 
 		$('#btnSalvar').click(function(){
-			console.info($('#membros'));
+			var usuarios = [];
+			pessoas.forEach(function(element) {
+				nome = $('#listaPessoas option').val(element);
+			    usuarios.push({ id: element, nome: nome.html()});
+			});
+			dextranet.grupos.usuariosSelecionados = usuarios;
+			console.info(dextranet.grupos.usuariosSelecionados);
 			dextranet.grupos.salvar();
 		});
 

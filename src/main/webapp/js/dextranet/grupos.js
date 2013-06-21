@@ -1,5 +1,7 @@
 dextranet.grupos = {
 
+		usuariosSelecionados : [],
+
 		novo : function() {
 			$.holy("../template/dinamico/grupo/grupo.xml", {});
 			dextranet.ativaMenu("sidebar_left_grupos");
@@ -38,11 +40,14 @@ dextranet.grupos = {
 		salvar : function() {
 			if ($('#frmGrupo').validate()) {
 
+				var usuarios = JSON.stringify(dextranet.grupos.usuariosSelecionados);
+				console.info(usuarios);
+
 				$.ajax( {
 					type : "PUT",
 					url : "/s/grupo/",
-					var blergh = $('select').data('usuarios');
-					data : form2js("frmGrupo"), blergh,
+					//data : form2js("frmGrupo"),
+					data : {form : form2js("frmGrupo"), usuarios : usuarios},
 					success : function(data) {
 						$('.message').message($.i18n.messages.usuario_mensagem_edicao_sucesso, 'success', true);
 						console.info(data);
@@ -55,7 +60,6 @@ dextranet.grupos = {
 			} else {
 				$('.message').message($.i18n.messages.erro_campos_obrigatorios, 'error', true);
 			}
-		}
-
+		},
 
 }
