@@ -12,22 +12,23 @@ public class MicroBlogWebTest extends TesteFuncionalBase {
 										"em 1995 por 3 ex-alunos da Unicamp. O nome Dextra vem " +
 										"do latim, que significa (direita).";
 
-	MicroBlog microBlog;
+	PaginaMicroBlog microBlog;
 
 	public MicroBlogWebTest() {
-		microBlog = new MicroBlog(driver);
+		microBlog = new PaginaMicroBlog(driver);
 	}
 
 	@Test
 	public void testaMicroBlog() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
-		eleCriaMicroPosts();
-		entaoChecaSeMicroPostFoiCriado();
-		eleExcluiMicroPost();
-		eChecaseMicroPostExisteAoExcluir();
+		quandoEleCriaMicroPosts();
+		entaoUmNovoMicroPostApareceNoMicroBlog();
+
+		quandoEleExcluiMicroPost();
+		entaoMicroPostNaoExisteMaisNoMicroBlog();
 	}
 
-	private void eleCriaMicroPosts() {
+	private void quandoEleCriaMicroPosts() {
 		for (int cont = 0; cont <= QTD_MICRO_POSTS; cont++) {
 			String substituto = cont + "";
 			microBlog.redigeMensagem(mensagemMicroPost(substituto));
@@ -39,7 +40,7 @@ public class MicroBlogWebTest extends TesteFuncionalBase {
 		return MENSAGEM_MICRO_POST.replace("[NUM]", substituto);
 	}
 
-	private void entaoChecaSeMicroPostFoiCriado() {
+	private void entaoUmNovoMicroPostApareceNoMicroBlog() {
 		Boolean microPostExistente = microBlog.microPostExistente(mensagemMicroPost(Integer.toString(QTD_MICRO_POSTS)));
 		Assert.assertTrue(microPostExistente);
 	}
@@ -48,11 +49,11 @@ public class MicroBlogWebTest extends TesteFuncionalBase {
 		paginaPrincipal.acessaPaginaPrincipal();
 	}
 
-	private void eleExcluiMicroPost() {
+	private void quandoEleExcluiMicroPost() {
 		microBlog.excluiMicroPost();
 	}
 
-	private void eChecaseMicroPostExisteAoExcluir() {
+	private void entaoMicroPostNaoExisteMaisNoMicroBlog() {
 		Boolean microPostExistente = microBlog.microPostExistente(mensagemMicroPost(Integer.toString(QTD_MICRO_POSTS)));
 		Assert.assertTrue(!microPostExistente);
 	}
