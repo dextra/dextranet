@@ -89,7 +89,10 @@
 						source: source,
 						minLength: 1,
 						select: function( event, ui ) {
-							if(jQuery.inArray($("#listaPessoas option[value='"+ui.item.id+"']").val(), pessoas) == 0){
+						console.info(ui.item.id);
+						console.info(pessoas);
+						console.info(jQuery.inArray(ui.item.id, pessoas));
+							if(jQuery.inArray(ui.item.id, pessoas) == 0){
 								$( "#listaPessoas" ).append($("<![CDATA[<option></option>]]>").val(ui.item.id).html(ui.item.label) );
 							};
 						},

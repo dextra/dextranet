@@ -45,7 +45,7 @@ public class GrupoRS {
 			List<Membro> membros = repositorioMembro.obtemPorIdGrupo(grupo.getId());
 			List<UsuarioJSON> usuariosjson = new ArrayList<UsuarioJSON>();
 			for (Membro membro : membros) {
-				UsuarioJSON usuariojson = new UsuarioJSON(membro.getId(), membro.getNomeUsuario());
+				UsuarioJSON usuariojson = new UsuarioJSON(membro.getIdUsuario(), membro.getNomeUsuario());
 				usuariosjson.add(usuariojson);
 			}
 			GrupoJSON grupojson = new GrupoJSON(grupo.getId(), grupo.getNome(), grupo.getDescricao(), usuariosjson);

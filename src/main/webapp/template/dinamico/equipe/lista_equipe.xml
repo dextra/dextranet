@@ -61,6 +61,16 @@
 									<span class="empty">${messages.label_campo_nao_informado}</span>
 								{/if}
 							</li>
+
+							<li>
+								<span class="icon_blog-mini icon" original-title="${messages.usuario_blog}"></span>
+								{if colaborador.blog }
+									<a href="${colaborador.blog}">${colaborador.blog}</a>
+								{else}
+									<span class="empty">${messages.label_campo_nao_informado}</span>
+								{/if}
+							</li>
+
 							<li class="list-team-content-phone">
                                 <span class="icon_cellphone-mini icon" original-title="${messages.usuario_telefone_celular}"></span>
                                 {if colaborador.telefoneCelular }
