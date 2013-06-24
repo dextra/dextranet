@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+import br.com.dextra.dextranet.seguranca.AutenticacaoService;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GrupoJSON {
 	private String id;
@@ -60,5 +62,14 @@ public class GrupoJSON {
 
 	public void setProprietario(String proprietario) {
 		this.proprietario = proprietario;
+	}
+
+	public Boolean getExcluirGrupo() {
+		String usuarioLogado = AutenticacaoService.identificacaoDoUsuarioLogado();
+		if (usuarioLogado.equals(proprietario)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
