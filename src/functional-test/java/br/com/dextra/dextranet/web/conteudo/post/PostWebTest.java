@@ -30,7 +30,7 @@ public class PostWebTest extends TesteFuncionalBase {
         quandoEleCurtePost();
         entaoPostFoiCurtidoPeloUsuarioLogado();
 
-        quandoEleExcluirPost();
+        quandoEleExcluiPost();
         entaoPostNaoExisteMaisNaTimeline(titulo, conteudo);
     }
 
@@ -61,7 +61,7 @@ public class PostWebTest extends TesteFuncionalBase {
         Assert.assertEquals("1", curtidas.getText());
     }
 
-    private void quandoEleExcluirPost() {
+    private void quandoEleExcluiPost() {
         paginaNovoPost.excluiPost();
     }
 

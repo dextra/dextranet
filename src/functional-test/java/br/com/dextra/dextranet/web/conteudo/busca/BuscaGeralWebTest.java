@@ -44,7 +44,7 @@ public class BuscaGeralWebTest extends TesteFuncionalBase {
 	}
 
 	@Test
-	public void testaBuscaPorTituloDePost() {
+	public void testaBuscaGeral() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
 		quandoEleBuscaPeloTituloDeUmPostExistente();
 		entaoEleEncontraPostDesejado();

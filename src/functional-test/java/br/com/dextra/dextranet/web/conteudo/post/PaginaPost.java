@@ -38,6 +38,8 @@ public class PaginaPost extends PaginaBase {
 	}
 
 	public Boolean existePostPor(String titulo, String conteudo) {
+		this.waitingForLoading();
+
 		List<WebElement> htmlPostsEncontrados = driver.findElements(By.cssSelector("div#content_left_stretch ul#relacao_dos_posts.list_stories"));
 		if (driver.findElements(By.cssSelector("div#content_left_stretch ul#relacao_dos_posts.list_stories li")).size() < 1) {
 			return false;
