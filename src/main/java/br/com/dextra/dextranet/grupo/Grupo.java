@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.dextra.dextranet.persistencia.Entidade;
+import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 import br.com.dextra.dextranet.utils.ConteudoHTML;
 
 import com.google.appengine.api.datastore.Entity;
@@ -86,6 +87,15 @@ public class Grupo extends Entidade {
 
 	public void setMembros(List<Membro> membros) {
 		this.membros = membros;
+	}
+
+	public Boolean getExcluirGrupo() {
+		String usuarioLogado = AutenticacaoService.identificacaoDoUsuarioLogado();
+		if (usuarioLogado.equals(proprietario)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
