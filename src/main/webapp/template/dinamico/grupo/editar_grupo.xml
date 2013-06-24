@@ -92,7 +92,7 @@
 						console.info(ui.item.id);
 						console.info(pessoas);
 						console.info(jQuery.inArray(ui.item.id, pessoas));
-							if(jQuery.inArray(ui.item.id, pessoas) == 0){
+							if(jQuery.inArray(ui.item.id, pessoas) != 0){
 								$( "#listaPessoas" ).append($("<![CDATA[<option></option>]]>").val(ui.item.id).html(ui.item.label) );
 							};
 						},
