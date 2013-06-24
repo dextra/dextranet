@@ -220,7 +220,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                         </goals>
                         <configuration>
                             <sources>
-                                <source>${basedir}/src/integration/java</source>
+                                <source>${basedir}/src/functional-test/java</source>
                             </sources>
                         </configuration>
                     </execution>
