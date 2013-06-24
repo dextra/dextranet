@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.dextra.dextranet.persistencia.Entidade;
+import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 import br.com.dextra.dextranet.utils.ConteudoHTML;
 
 import com.google.appengine.api.datastore.Entity;
@@ -55,6 +56,8 @@ public class Grupo extends Entidade {
 
 	public GrupoJSON getGrupoJSON() {
 		GrupoJSON grupojson = new GrupoJSON(this.id, this.nome, this.descricao, getUsuarioJSON());
+		grupojson.setProprietario(proprietario);
+		grupojson.setExcluirGrupo(proprietario.equals(AutenticacaoService.identificacaoDoUsuarioLogado()));
 		return grupojson;
 	}
 
@@ -74,7 +77,7 @@ public class Grupo extends Entidade {
 		UsuarioJSON usuariojson;
 		List<UsuarioJSON> usuariosjson = new ArrayList<UsuarioJSON>();
 		for (Membro membro : this.membros) {
-			usuariojson = new UsuarioJSON(membro.getId(), membro.getNomeUsuario());
+			usuariojson = new UsuarioJSON(membro.getIdUsuario(), membro.getNomeUsuario());
 			usuariosjson.add(usuariojson);
 		}
 		return usuariosjson;

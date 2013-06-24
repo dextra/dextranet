@@ -38,20 +38,12 @@ public class GrupoRS {
 	@GET
 	@Produces(Application.JSON_UTF8)
 	public Response listar() throws EntityNotFoundException {
-		String usuarioLogado = obtemUsuarioLogado();
 		List<Grupo> grupos = repositorio.lista();
 		List<GrupoJSON> gruposRetorno = new ArrayList<GrupoJSON>();
 		for (Grupo grupo : grupos) {
 			List<Membro> membros = repositorioMembro.obtemPorIdGrupo(grupo.getId());
-			List<UsuarioJSON> usuariosjson = new ArrayList<UsuarioJSON>();
-			for (Membro membro : membros) {
-				UsuarioJSON usuariojson = new UsuarioJSON(membro.getIdUsuario(), membro.getNomeUsuario());
-				usuariosjson.add(usuariojson);
-			}
-			GrupoJSON grupojson = new GrupoJSON(grupo.getId(), grupo.getNome(), grupo.getDescricao(), usuariosjson);
-			grupojson.setProprietario(grupo.getProprietario());
-			grupojson.setExcluirGrupo(grupo.getProprietario().equals(usuarioLogado));
-			gruposRetorno.add(grupojson);
+			grupo.setMembros(membros);
+			gruposRetorno.add(grupo.getGrupoJSON());
 		}
 
 		return Response.ok().entity(gruposRetorno).build();
