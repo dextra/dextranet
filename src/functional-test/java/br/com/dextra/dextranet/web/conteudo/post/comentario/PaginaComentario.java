@@ -9,15 +9,15 @@ import org.openqa.selenium.WebElement;
 
 import br.com.dextra.dextranet.PaginaBase;
 
-public class PaginaNovoComentario extends PaginaBase {
+public class PaginaComentario extends PaginaBase {
 	private String idPost;
 	private String idComentario;
 
-	public PaginaNovoComentario(WebDriver driver) {
+	public PaginaComentario(WebDriver driver) {
 		super(driver);
 	}
 
-	public PaginaNovoComentario redigeConteudoDoComentario(String conteudo) {
+	public PaginaComentario redigeConteudoDoComentario(String conteudo) {
 		String idTextArea = "idConteudo_" + idPost;
 		this.redigeConteudoTextArea(conteudo, idTextArea);
 

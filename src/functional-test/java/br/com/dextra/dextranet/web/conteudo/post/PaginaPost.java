@@ -8,14 +8,14 @@ import org.openqa.selenium.WebElement;
 
 import br.com.dextra.dextranet.PaginaBase;
 
-public class PaginaNovoPost extends PaginaBase {
+public class PaginaPost extends PaginaBase {
 	private String idPost;
 
-	public PaginaNovoPost(WebDriver driver) {
+	public PaginaPost(WebDriver driver) {
 		super(driver);
 	}
 
-	public PaginaNovoPost redigeConteudoDoPost(String titulo, String conteudo) {
+	public PaginaPost redigeConteudoDoPost(String titulo, String conteudo) {
 		this.redigeTextoInput(titulo, "form_input_title");
 		this.redigeCKEditor(conteudo, "form_input_content");
 

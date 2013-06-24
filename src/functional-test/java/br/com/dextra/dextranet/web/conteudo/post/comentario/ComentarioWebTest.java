@@ -7,12 +7,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import br.com.dextra.dextranet.TesteFuncionalBase;
-import br.com.dextra.dextranet.web.conteudo.post.PaginaNovoPost;
+import br.com.dextra.dextranet.web.conteudo.post.PaginaPost;
 
 public class ComentarioWebTest extends TesteFuncionalBase {
-	private PaginaNovoPost paginaNovoPost = null;
+	private PaginaPost paginaNovoPost = null;
 	private String tituloPost;
-	private PaginaNovoComentario paginaNovoComentario;
+	private PaginaComentario paginaNovoComentario;
 
 	@Test
 	public void testComentario() {
@@ -46,7 +46,7 @@ public class ComentarioWebTest extends TesteFuncionalBase {
 	}
 
 	private void eleCriaComentarioParaPost() {
-		paginaNovoComentario = new PaginaNovoComentario(driver);
+		paginaNovoComentario = new PaginaComentario(driver);
 		paginaNovoComentario.setIdPost(paginaNovoPost.getIdPost());
 		String conteudo = "Texto do comentário.";
 		paginaNovoComentario.criaNovoComentario(conteudo);

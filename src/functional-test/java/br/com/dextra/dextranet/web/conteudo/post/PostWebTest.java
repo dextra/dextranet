@@ -11,7 +11,7 @@ import br.com.dextra.dextranet.TesteFuncionalBase;
 import br.com.dextra.dextranet.conteudo.post.PostRepository;
 
 public class PostWebTest extends TesteFuncionalBase {
-    private PaginaNovoPost paginaNovoPost = null;
+    private PaginaPost paginaNovoPost = null;
 
     @After
     public void limpaDadosCriados() {
@@ -24,42 +24,44 @@ public class PostWebTest extends TesteFuncionalBase {
         String titulo = "Titulo de Teste";
         String conteudo = "Texto do teste";
 
-        eleCriaUmPost(titulo, conteudo);
-        eChecasePostExiste(titulo, conteudo);
-        eleCurtePost();
-        eChecaSePostFoiCurtido();
-        eleExcluiPost();
-        eChecasePostExisteAoExcluir(titulo, conteudo);
+        quandoEleCriaUmPost(titulo, conteudo);
+        entaoNovoPostExisteNaTimeline(titulo, conteudo);
+
+        quandoEleCurtePost();
+        entaoPostFoiCurtidoPeloUsuarioLogado();
+
+        quandoEleExcluirPost();
+        entaoPostNaoExisteMaisNaTimeline(titulo, conteudo);
     }
 
-    protected void eleCriaUmPost(String titulo, String conteudo) {
+    protected void quandoEleCriaUmPost(String titulo, String conteudo) {
         paginaNovoPost = paginaPrincipal.clicaEmNovoPost();
         paginaNovoPost.criarNovoPost(titulo, conteudo);
     }
 
-    private void eChecasePostExiste(String titulo, String conteudo) {
+    private void entaoNovoPostExisteNaTimeline(String titulo, String conteudo) {
         Assert.assertTrue(paginaNovoPost.existePostPor(titulo, conteudo));
     }
 
-    private void eChecasePostExisteAoExcluir(String titulo, String conteudo) {
+    private void entaoPostNaoExisteMaisNaTimeline(String titulo, String conteudo) {
         Assert.assertTrue(!paginaNovoPost.existePostPor(titulo, conteudo));
     }
 
-    private void eleCurtePost() {
+    private void quandoEleCurtePost() {
         String linkCurtir = "a#like_" + paginaNovoPost.getIdPost();
         linkCurtir += " span";
         paginaPrincipal.click(linkCurtir);
         paginaPrincipal.waitToLoad();
     }
 
-    private void eChecaSePostFoiCurtido() {
+    private void entaoPostFoiCurtidoPeloUsuarioLogado() {
         String numeroCurtida = "a#showLikes_" + paginaNovoPost.getIdPost();
         numeroCurtida += " .numero_curtida";
         WebElement curtidas = driver.findElement(By.cssSelector(numeroCurtida));
         Assert.assertEquals("1", curtidas.getText());
     }
 
-    private void eleExcluiPost() {
+    private void quandoEleExcluirPost() {
         paginaNovoPost.excluiPost();
     }
 

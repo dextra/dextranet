@@ -11,16 +11,16 @@ import br.com.dextra.dextranet.conteudo.post.Post;
 import br.com.dextra.dextranet.conteudo.post.PostRepository;
 import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
 import br.com.dextra.dextranet.conteudo.post.comentario.ComentarioRepository;
-import br.com.dextra.dextranet.web.conteudo.post.PaginaNovoPost;
-import br.com.dextra.dextranet.web.conteudo.post.comentario.PaginaNovoComentario;
+import br.com.dextra.dextranet.web.conteudo.post.PaginaPost;
+import br.com.dextra.dextranet.web.conteudo.post.comentario.PaginaComentario;
 
 public class BuscaGeralWebTest extends TesteFuncionalBase {
 	private static final String CONTEUDO_COMENTARIO = "Texto do comentário.";
 	private static final String CONTEUDO_POST = "Conteúdo do post";
 	private static final String TITULO_POST = "Título do post";
 	private static final int QTD_POSTS = 3;
-	private PaginaNovoPost paginaNovoPost;
-	private PaginaNovoComentario paginaNovoComentario;
+	private PaginaPost paginaNovoPost;
+	private PaginaComentario paginaNovoComentario;
 	private PaginaBuscaGeral buscaGeralPost;
 
 	private PostRepository repositorioDePosts = new PostRepository();
@@ -28,8 +28,8 @@ public class BuscaGeralWebTest extends TesteFuncionalBase {
 
 	public BuscaGeralWebTest() {
 		buscaGeralPost = new PaginaBuscaGeral(driver);
-		paginaNovoPost = new PaginaNovoPost(driver);
-		paginaNovoComentario = new PaginaNovoComentario(driver);
+		paginaNovoPost = new PaginaPost(driver);
+		paginaNovoComentario = new PaginaComentario(driver);
 	}
 
 	@Before

@@ -8,8 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import br.com.dextra.dextranet.PaginaBase;
-import br.com.dextra.dextranet.web.conteudo.post.PaginaNovoPost;
-import br.com.dextra.dextranet.web.conteudo.post.comentario.PaginaNovoComentario;
+import br.com.dextra.dextranet.web.conteudo.post.PaginaPost;
+import br.com.dextra.dextranet.web.conteudo.post.comentario.PaginaComentario;
 
 public class PaginaPrincipal extends PaginaBase {
 
@@ -27,15 +27,15 @@ public class PaginaPrincipal extends PaginaBase {
 		return this;
 	}
 
-	public PaginaNovoPost clicaEmNovoPost() {
+	public PaginaPost clicaEmNovoPost() {
 		this.click("span.icon_sidebar_left_novopost");
 		this.waitingForLoading();
-		return new PaginaNovoPost(driver);
+		return new PaginaPost(driver);
 	}
 
-	public PaginaNovoComentario abreNovoComentario() {
+	public PaginaComentario abreNovoComentario() {
 		this.waitingForLoading();
-		return new PaginaNovoComentario(driver);
+		return new PaginaComentario(driver);
 	}
 
 	public PaginaPrincipal scrollAteFim() {
