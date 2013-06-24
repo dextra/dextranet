@@ -181,6 +181,9 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
+                    <excludes>
+                        <exclude>**/*WebTest.java</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
@@ -377,7 +380,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                                 </goals>
                                 <configuration>
                                     <includes>
-                                        <include>**/*IT.java</include>
+                                        <include>**/*WebTest.java</include>
                                     </includes>
                                     <systemPropertyVariables>
                                         <expertus.environment.type>local</expertus.environment.type>
@@ -412,7 +415,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                                 </goals>
                                 <configuration>
                                     <includes>
-                                        <include>**/*IT.java</include>
+                                        <include>**/*WebTest.java</include>
                                     </includes>
                                     <systemPropertyVariables>
                                         <expertus.environment.type>sauceCloudbees</expertus.environment.type>
