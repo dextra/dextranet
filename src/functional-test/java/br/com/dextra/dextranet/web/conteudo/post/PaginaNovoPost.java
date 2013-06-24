@@ -47,8 +47,11 @@ public class PaginaNovoPost extends PaginaBase {
 			WebElement htmlTitulo = htmlPost.findElement(By.cssSelector("a.list_stories_headline h2.titulo"));
 			if (htmlTitulo.getText().equals(titulo)) {
 				htmlPost.findElement(By.cssSelector("a.list_stories_headline")).click();
-				waitForElement("div.list_stories_contents div p");
-				WebElement htmlConteudoPost = htmlPost.findElement(By.cssSelector("div.list_stories_contents div p"));
+
+				String conteudoDoComentarioCSSSelector = "div.story-content div.list_stories_contents div.idClassPost";
+				waitForElement(conteudoDoComentarioCSSSelector);
+				WebElement htmlConteudoPost = htmlPost.findElement(By.cssSelector(conteudoDoComentarioCSSSelector));
+
 				if(htmlConteudoPost.getText().equals(conteudo)) {
 					idPost = getIdPost(htmlPost);
 					return true;

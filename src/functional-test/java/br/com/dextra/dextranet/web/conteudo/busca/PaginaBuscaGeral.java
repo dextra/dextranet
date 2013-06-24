@@ -4,9 +4,9 @@ import org.openqa.selenium.WebDriver;
 
 import br.com.dextra.dextranet.PaginaBase;
 
-public class BuscaGeralPost extends PaginaBase {
+public class PaginaBuscaGeral extends PaginaBase {
 
-	public BuscaGeralPost(WebDriver driver) {
+	public PaginaBuscaGeral(WebDriver driver) {
 		super(driver);
 	}
 
