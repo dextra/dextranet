@@ -30,7 +30,7 @@ html{font-size:100%;}
 .icon_sidebar_left_categoria{background-position:-80px -28px;}
 .icon_sidebar_left_perfil{background-position:-120px -28px;}
 .icon_sidebar_left_equipe{background-position:-164px -28px;}
-.icon_sidebar_left_times{background-position:-164px -28px;}
+.icon_sidebar_left_grupos{background-position:-164px -28px;}
 .icon_comments{background-position:-27px -117px;width:18px;height:18px;margin-right:6px;}
 .icon_dx{background-position:-2px -119px;width:22px;height:14px;margin-right:6px;}
 .icon_dx_curtido{background-position:-24px -119px;width:22px;height:14px;margin-right:6px;}
@@ -255,8 +255,8 @@ form input.link { width: 476px;}
 #sidebar_left_menu > li:hover .icon_sidebar_left_equipe,
 #sidebar_left_menu > li.active .icon_sidebar_left_equipe{background-position:-164px -69px;}
 
-#sidebar_left_menu > li:hover .icon_sidebar_left_times,
-#sidebar_left_menu > li.active .icon_sidebar_left_times{background-position:-164px -69px;}
+#sidebar_left_menu > li:hover .icon_sidebar_left_grupos,
+#sidebar_left_menu > li.active .icon_sidebar_left_grupos{background-position:-164px -69px;}
 
 #sidebar_left_menu > li > a > span{display:block;width:38px;height:38px;margin:0 auto 10px;}
 

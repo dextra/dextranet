@@ -60,9 +60,7 @@
 	</template>
 	<script>
 		var idGrupo = $('h1.titulo').attr('id');
-
 		var pessoas = [];
-
 		$("#listaPessoas>option").each(function()
 		{
 		    pessoas.push($(this).val());
@@ -71,7 +69,6 @@
 		$('#remove').click(function() {
 			var idRemover = $('#listaPessoas option:selected').val();
 			pessoas.splice( pessoas.indexOf( idRemover ), 1 );
-			$('#membros').val(pessoas);
 			return !$('#listaPessoas option:selected').remove();
 		});
 
@@ -92,17 +89,15 @@
 						source: source,
 						minLength: 1,
 						select: function( event, ui ) {
-							if(!$("#listaPessoas option[value='"+ui.item.id+"']").val()){
+							if(jQuery.inArray($("#listaPessoas option[value='"+ui.item.id+"']").val(), pessoas) == 0){
 								$( "#listaPessoas" ).append($("<![CDATA[<option></option>]]>").val(ui.item.id).html(ui.item.label) );
 							};
 						},
 						close: function( event, ui ) {
 							$("#pessoa").val('');
-							$("#listaPessoas>option").each(function()
-							{
-							    pessoas.push($(this).val());
-							});
-							$('#membros').val(pessoas);
+						},
+						create: function( event, ui ) {
+
 						}
 					});
 				}
@@ -113,12 +108,14 @@
 
 		$('#btnSalvar').click(function(){
 			var usuarios = [];
-			pessoas.forEach(function(element) {
-				nome = $('#listaPessoas option').val(element);
-			    usuarios.push({ id: element, nome: nome.html()});
+			$("#listaPessoas>option").each(function()
+			{
+			    nome = $(this).html();
+			    id = $(this).val();
+			    usuarios.push({ id: id, nome: nome});
+
 			});
 			dextranet.grupos.usuariosSelecionados = usuarios;
-
 			dextranet.grupos.atualizar(idGrupo);
 		});
 

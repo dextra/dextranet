@@ -63,14 +63,14 @@
                 <li class="clearfix grupo" id="${grupo.id}">
                     <div class="list-grupo-content">
                         <h3>
-                        	{if grupo.proprietario == dextranet.usuario.logado.username}
+                        	{if grupo.excluirGrupo}
                             	<a onclick="dextranet.grupos.editar('${grupo.id}')"><span class="nome">${grupo.nome}</span></a>
                             {else}
                             	<span class="nome">${grupo.nome}</span>
                             {/if}
                         </h3>
 
-                        {if grupo.proprietario == dextranet.usuario.logado.username}
+                        {if grupo.excluirGrupo}
 	                        <button id="btn-excluirGrupo_${grupo.id}" class="btn btn-small btn-light btn-excluirGrupo"
 								title="Excluir este grupo" onclick="dextranet.grupos.remover('${grupo.id}')">
 								<strong>x </strong>

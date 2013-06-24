@@ -14,7 +14,7 @@ dextranet.grupos = {
 				dataType : "json",
 				success : function(grupos) {
 					$.holy("../template/dinamico/grupo/lista_grupos.xml", { grupos : grupos});
-					dextranet.ativaMenu("sidebar_left_team");
+					dextranet.ativaMenu("sidebar_left_grupos");
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
@@ -42,7 +42,6 @@ dextranet.grupos = {
 
 				var usuarios = JSON.stringify(dextranet.grupos.usuariosSelecionados);
 				var grupo = form2js("frmGrupo");
-				delete grupo["membros"];
 
 				grupo.usuarios = jQuery.parseJSON(usuarios);
 
@@ -55,6 +54,7 @@ dextranet.grupos = {
 					success : function(data) {
 						$('.message').message($.i18n.messages.usuario_mensagem_edicao_sucesso, 'success', true);
 						dextranet.grupos.listar();
+						dextranet.grupos.usuariosSelecionados = null;
 					},
 	    			error: function(jqXHR, textStatus, errorThrown) {
 	    				dextranet.processaErroNaRequisicao(jqXHR);
@@ -72,7 +72,7 @@ dextranet.grupos = {
 				contentType : dextranet.application_json,
 				success : function(data) {
 					$.holy("../template/dinamico/grupo/editar_grupo.xml", { grupo : data });
-					dextranet.ativaMenu("sidebar_left_team");
+					dextranet.ativaMenu("sidebar_left_grupos");
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
     				dextranet.processaErroNaRequisicao(jqXHR);
@@ -103,7 +103,6 @@ dextranet.grupos = {
 
 				var usuarios = JSON.stringify(dextranet.grupos.usuariosSelecionados);
 				var grupo = form2js("frmGrupo");
-				delete grupo["membros"];
 
 				grupo.usuarios = jQuery.parseJSON(usuarios);
 
@@ -115,6 +114,7 @@ dextranet.grupos = {
 					data : JSON.stringify(grupo),
 					success : function(data) {
 						$('.message').message($.i18n.messages.usuario_mensagem_edicao_sucesso, 'success', true);
+						dextranet.grupos.usuariosSelecionados = null;
 						dextranet.grupos.listar();
 					},
 	    			error: function(jqXHR, textStatus, errorThrown) {

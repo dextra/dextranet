@@ -15,16 +15,16 @@
 				</a>
 			</li>
 
-			<li id="sidebar_left_team">
-				<a id="button_sidebar_left_team" href="#">
-					<span class="icon_sidebar_left_times"></span>
+			<li id="sidebar_left_equipe">
+				<a id="button_sidebar_left_equipe" href="#">
+					<span class="icon_sidebar_left_equipe"></span>
 					${messages.label_team}
 				</a>
 			</li>
 
-			<li id="sidebar_left_team">
+			<li id="sidebar_left_grupos">
 				<a id="button_sidebar_left_grupos" href="#">
-					<span class="icon_sidebar_left_times"></span>
+					<span class="icon_sidebar_left_grupos"></span>
 					${messages.label_grupos}
 				</a>
 			</li>
@@ -49,26 +49,8 @@
 		$("#button_sidebar_left_novopost").click(dextranet.post.novo);
 		$("#button_sidebar_left_new_banner").click(dextranet.banner.novo);
 		$("#button_sidebar_left_profile").click(dextranet.usuario.editar);
-		$("#button_sidebar_left_team").click(dextranet.equipe.listar);
+		$("#button_sidebar_left_equipe").click(dextranet.equipe.listar);
 		$("#button_sidebar_left_grupos").click(dextranet.grupos.listar);
 		$("#form_new_post").submit(dextranet.post.criaNovoPost);
-
-		$('#sidebar_left_menu > li#sidebar_left_team').hover(function(e) {
-		var
-		menu = $(this).find('ul');
-		if (e.type == 'mouseenter') {
-		$(menu).css('display', 'block');
-		} else {
-		$(menu).css('display',
-		'none');
-		}
-		});
-
-
-
-		$('ul#sidebar_left_menu li').click(function() {
-		$('ul#sidebar_left_menu li').removeClass("active");
-		$(this).addClass("active");
-		});
 	</script>
 </engine>
