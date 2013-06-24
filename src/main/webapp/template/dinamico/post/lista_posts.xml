@@ -29,7 +29,8 @@
 							<div class="list_stories_dx clearfix">
 								<a id="like_${post.id}" class="linkCurtir post">
 									<span class="icon_dx curtiu" onclick="dextranet.post.curtirDescurtir('${post.id}');"></span>
-									<span id="desfazer">
+<!-- 									//TODO: Colocar a msg de desfazer dentro do mesmo span -->
+									<span id="desfazer" onclick="dextranet.post.curtirDescurtir('${post.id}');">
 										{if post.usuarioCurtiu}
 											${messages.desfazer}
 										{/if}
