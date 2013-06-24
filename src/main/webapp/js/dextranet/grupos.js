@@ -44,7 +44,6 @@ dextranet.grupos = {
 				var grupo = form2js("frmGrupo");
 
 				grupo.usuarios = jQuery.parseJSON(usuarios);
-				console.info(JSON.stringify(grupo));
 				$.ajax( {
 					type : "PUT",
 					url : "/s/grupo/",

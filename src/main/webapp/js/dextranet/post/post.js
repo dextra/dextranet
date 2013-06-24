@@ -47,9 +47,6 @@ dextranet.post = {
 				loading : false,
 				url : "/s/post?p="+pagina,
 				contentType : dextranet.application_json,
-				beforeSend: function() {
-					$("div.loadPost").show();
-		        },
 				success : function(posts) {
 					if(posts != null && posts.length > 0){
 						dextranet.post.foundPosts = dextranet.post.foundPosts.concat(posts);
@@ -64,7 +61,6 @@ dextranet.post = {
 			                gravatar : dextranet.gravatarUrl}
 					});
 
-					$("div.loadPost").hide();
 					dextranet.ativaMenu("sidebar_left_home");
 				},
     			error: function(jqXHR, textStatus, errorThrown) {
@@ -135,10 +131,10 @@ dextranet.post = {
 		curtirDescurtir : function (postId) {
 			var curtiu = dextranet.post.curtido(postId);
 			if (!curtiu) {
-				$("#like_" + postId + " .icon_dx").css('background-position', '-24px -119px');
+				$("#like_" + postId + " #desfazer").html($.i18n.messages.desfazer);
 				dextranet.post.curtir(postId);
 			} else {
-				$("#like_" + postId + " .icon_dx").css('background-position', '-2px -119px');
+				$("#like_" + postId + " #desfazer").html("");
 				dextranet.post.descurtir(postId);
 			}
 		},
