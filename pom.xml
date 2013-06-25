@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.com.dextra</groupId>
     <artifactId>dextranet</artifactId>
@@ -181,7 +180,10 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
-                </configuration>
+                    <excludes>
+                        <exclude>**/*WebTest.java</exclude>
+                    </excludes>
+	             </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -220,7 +222,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                         </goals>
                         <configuration>
                             <sources>
-                                <source>${basedir}/src/integration/java</source>
+                                <source>${basedir}/src/functional-test/java</source>
                             </sources>
                         </configuration>
                     </execution>
@@ -377,7 +379,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                                 </goals>
                                 <configuration>
                                     <includes>
-                                        <include>**/*IT.java</include>
+                                        <include>**/*WebTest.java</include>
                                     </includes>
                                     <systemPropertyVariables>
                                         <expertus.environment.type>local</expertus.environment.type>
@@ -412,7 +414,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
                                 </goals>
                                 <configuration>
                                     <includes>
-                                        <include>**/*IT.java</include>
+                                        <include>**/*WebTest.java</include>
                                     </includes>
                                     <systemPropertyVariables>
                                         <expertus.environment.type>sauceCloudbees</expertus.environment.type>

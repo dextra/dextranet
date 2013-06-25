@@ -6,28 +6,29 @@ import org.junit.Test;
 
 import br.com.dextra.dextranet.TesteFuncionalBase;
 
-public class MicroBlogIT extends TesteFuncionalBase {
+public class MicroBlogWebTest extends TesteFuncionalBase {
 	private static final int QTD_MICRO_POSTS = 2;
 	private static String MENSAGEM_MICRO_POST = "Texto do micropost [NUM]: A Dextra Sistemas foi fundada " +
 										"em 1995 por 3 ex-alunos da Unicamp. O nome Dextra vem " +
 										"do latim, que significa (direita).";
 
-	MicroBlog microBlog;
+	PaginaMicroBlog microBlog;
 
-	public MicroBlogIT() {
-		microBlog = new MicroBlog(driver);
+	public MicroBlogWebTest() {
+		microBlog = new PaginaMicroBlog(driver);
 	}
 
 	@Test
 	public void testaMicroBlog() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
-		eleCriaMicroPosts();
-		entaoChecaSeMicroPostFoiCriado();
-		eleExcluiMicroPost();
-		eChecaseMicroPostExisteAoExcluir();
+		quandoEleCriaMicroPosts();
+		entaoUmNovoMicroPostApareceNoMicroBlog();
+
+		quandoEleExcluiMicroPost();
+		entaoMicroPostNaoExisteMaisNoMicroBlog();
 	}
 
-	private void eleCriaMicroPosts() {
+	private void quandoEleCriaMicroPosts() {
 		for (int cont = 0; cont <= QTD_MICRO_POSTS; cont++) {
 			String substituto = cont + "";
 			microBlog.redigeMensagem(mensagemMicroPost(substituto));
@@ -39,7 +40,7 @@ public class MicroBlogIT extends TesteFuncionalBase {
 		return MENSAGEM_MICRO_POST.replace("[NUM]", substituto);
 	}
 
-	private void entaoChecaSeMicroPostFoiCriado() {
+	private void entaoUmNovoMicroPostApareceNoMicroBlog() {
 		Boolean microPostExistente = microBlog.microPostExistente(mensagemMicroPost(Integer.toString(QTD_MICRO_POSTS)));
 		Assert.assertTrue(microPostExistente);
 	}
@@ -48,11 +49,11 @@ public class MicroBlogIT extends TesteFuncionalBase {
 		paginaPrincipal.acessaPaginaPrincipal();
 	}
 
-	private void eleExcluiMicroPost() {
+	private void quandoEleExcluiMicroPost() {
 		microBlog.excluiMicroPost();
 	}
 
-	private void eChecaseMicroPostExisteAoExcluir() {
+	private void entaoMicroPostNaoExisteMaisNoMicroBlog() {
 		Boolean microPostExistente = microBlog.microPostExistente(mensagemMicroPost(Integer.toString(QTD_MICRO_POSTS)));
 		Assert.assertTrue(!microPostExistente);
 	}

@@ -7,36 +7,39 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import br.com.dextra.dextranet.TesteFuncionalBase;
-import br.com.dextra.dextranet.web.conteudo.post.PaginaNovoPost;
+import br.com.dextra.dextranet.web.conteudo.post.PaginaPost;
 
-public class ComentarioIT extends TesteFuncionalBase {
-	private PaginaNovoPost paginaNovoPost = null;
+public class ComentarioWebTest extends TesteFuncionalBase {
+	private PaginaPost paginaNovoPost = null;
 	private String tituloPost;
-	private PaginaNovoComentario paginaNovoComentario;
+	private PaginaComentario paginaNovoComentario;
 
 	@Test
 	public void testComentario() {
 		dadoQueUsuarioAcessaPaginaPrincipal();
-		eleCriaPost();
-		eleCriaComentarioParaPost();
-		eChecaSeComentarioFoiInserido();
-		eleCurteComentario();
-		eChecaSeComentarioFoiCurtido();
-		eleExcluiComentario();
-		eChecaSeComentarioFoiExcluido();
+
+		quandoEleCriaUmPost();
+		eCriaUmComentarioParaPost();
+		entaoComentarioExisteParaPost();
+
+		quandoEleCurteComentario();
+		entaoComentarioFoiCurtidoPeloUsuarioLogado();
+
+		quandoEleExcluiComentario();
+		entaoComentarioNaoMaisExisteParaPost();
 	}
 
-	private void eChecaSeComentarioFoiExcluido() {
+	private void entaoComentarioNaoMaisExisteParaPost() {
 		Assert.assertFalse(paginaNovoComentario.existeComentario());
 	}
 
-	private void eleExcluiComentario() {
+	private void quandoEleExcluiComentario() {
 		String botaoExcluir = "button#btn-excluir-comentario_" + paginaNovoComentario.getIdComentario();
 		paginaPrincipal.click(botaoExcluir);
 		paginaPrincipal.waitingForLoading();
 	}
 
-	protected void eleCriaPost() {
+	protected void quandoEleCriaUmPost() {
 		tituloPost = "Titulo de Teste";
 		String conteudo = "Texto do teste";
 
@@ -45,25 +48,25 @@ public class ComentarioIT extends TesteFuncionalBase {
 		paginaNovoPost.existePostPor(tituloPost, conteudo);
 	}
 
-	private void eleCriaComentarioParaPost() {
-		paginaNovoComentario = new PaginaNovoComentario(driver);
+	private void eCriaUmComentarioParaPost() {
+		paginaNovoComentario = new PaginaComentario(driver);
 		paginaNovoComentario.setIdPost(paginaNovoPost.getIdPost());
 		String conteudo = "Texto do comentário.";
 		paginaNovoComentario.criaNovoComentario(conteudo);
 	}
 
-	private void eleCurteComentario() {
+	private void quandoEleCurteComentario() {
 		String linkCurtir = "a#like_" + paginaNovoComentario.getIdComentario();
 		linkCurtir += " span";
 		paginaPrincipal.click(linkCurtir);
 		paginaPrincipal.waitToLoad();
 	}
 
-	private void eChecaSeComentarioFoiInserido() {
+	private void entaoComentarioExisteParaPost() {
 		Assert.assertTrue(paginaNovoComentario.existeComentario());
 	}
 
-	private void eChecaSeComentarioFoiCurtido() {
+	private void entaoComentarioFoiCurtidoPeloUsuarioLogado() {
 		String numeroCurtida = "a#showLikes_" + paginaNovoComentario.getIdComentario();
 		numeroCurtida +=  " span";
 		WebElement curtidas = driver.findElement(By.cssSelector(numeroCurtida));

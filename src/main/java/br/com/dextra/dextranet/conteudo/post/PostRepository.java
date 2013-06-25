@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.com.dextra.dextranet.conteudo.post.comentario.Comentario;
 import br.com.dextra.dextranet.conteudo.post.comentario.ComentarioRepository;
+import br.com.dextra.dextranet.conteudo.post.curtida.CurtidaRepository;
 import br.com.dextra.dextranet.indexacao.IndexacaoRepository;
 import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.persistencia.EntidadeRepository;
