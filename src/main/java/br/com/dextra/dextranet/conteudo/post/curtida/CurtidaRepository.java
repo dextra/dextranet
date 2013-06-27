@@ -27,7 +27,7 @@ public class CurtidaRepository extends EntidadeRepository {
 	}
 
 	public void remove(String conteudoId, String username) {
-		Curtida curtida = obtemPorConteudoEUsusuario(conteudoId, username);
+		Curtida curtida = obtemPorConteudoEUsuario(conteudoId, username);
 		this.remove(curtida.getId());
 	}
 
@@ -66,7 +66,7 @@ public class CurtidaRepository extends EntidadeRepository {
 		return curtidas;
 	}
 
-	protected Curtida obtemPorConteudoEUsusuario(String conteudoId, String usuario) {
+	protected Curtida obtemPorConteudoEUsuario(String conteudoId, String usuario) {
 		Filter filtroPorConteudoId = new Query.FilterPredicate(CurtidaFields.conteudoId.name(), FilterOperator.EQUAL,
 				conteudoId);
 		Filter filtroPorUsername = new Query.FilterPredicate(CurtidaFields.usuario.name(), FilterOperator.EQUAL,

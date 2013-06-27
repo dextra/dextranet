@@ -25,7 +25,7 @@
 						</label>
 					</dt>
 					<dd>
-						<textarea id="txtGrupoDescricao" name="descricao" class="not-empty" maxlength="500"></textarea>
+						<textarea id="txtGrupoDescricao" name="descricao" class="not-empty" maxlength="500" rows="5"></textarea>
 					</dd>
 
 					<dt>
@@ -34,15 +34,15 @@
 							${messages.grupo_pessoas}:
 						</label>
 					</dt>
-
-					<dt>
+					<dd>
 						<input type="text" id="pessoa" name="pessoa" value="" />
-					</dt>
+					</dd>
 
-					<dt>
-						<select multiple="true" id="listaPessoas" style="width:300px;"></select>
+					<dt></dt>
+					<dd>
+						<select multiple="true" id="listaPessoas" style="width:248px;"></select>
   						<a href="#" id="remove">Remover</a>
-					</dt>
+					</dd>
 
 					<dt></dt>
 					<dd>

@@ -6,6 +6,7 @@ import java.util.List;
 
 import br.com.dextra.dextranet.conteudo.post.curtida.Curtida;
 import br.com.dextra.dextranet.persistencia.Entidade;
+import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.dextranet.utils.TimeMachine;
 
@@ -82,7 +83,7 @@ public abstract class Conteudo extends Entidade {
 	}
 
 	public boolean getUsuarioCurtiu() {
-		return this.usuarioJaCurtiu(this.usuario);
+		return this.usuarioJaCurtiu(AutenticacaoService.identificacaoDoUsuarioLogado());
 	}
 
 	public void registraDataDeMigracao(Date data) {

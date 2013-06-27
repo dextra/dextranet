@@ -15,7 +15,7 @@
 						</label>
 					</dt>
 					<dd>
-						<input type="text" id="txtGrupoNome" name="nome" value="${grupo.nome}" class="not-empty" maxlength="50" />
+						<input type="text" id="txtGrupoNome" name="nome" value="${grupo.nome}" class="not-empty" maxlength="50"/>
 					</dd>
 
 					<dt>
@@ -25,7 +25,7 @@
 						</label>
 					</dt>
 					<dd>
-						<textarea id="txtGrupoDescricao" name="descricao" class="not-empty" maxlength="500">${grupo.descricao}</textarea>
+						<textarea id="txtGrupoDescricao" name="descricao" class="not-empty" maxlength="500" rows="5">${grupo.descricao}</textarea>
 					</dd>
 
 					<dt>
@@ -34,19 +34,19 @@
 							${messages.grupo_pessoas}:
 						</label>
 					</dt>
+					<dd>
+						<input type="text" id="pessoa" name="pessoa" value=""  maxlength="35"/>
+					</dd>
 
-					<dt>
-						<input type="text" id="pessoa" name="pessoa" value="" />
-					</dt>
-
-					<dt>
-						<select multiple="true" id="listaPessoas" style="width:300px;">
+					<dt></dt>
+					<dd>
+						<select multiple="true" id="listaPessoas" style="width:248px;">
 							{for usuario in grupo.usuarios}
 								<option value="${usuario.id}">${usuario.nome}</option>
 							{/for}
 						</select>
-  						<a href="#" id="remove">Remover</a>
-					</dt>
+						<a href="#" id="remove">Remover</a>
+					</dd>
 
 					<dt></dt>
 					<dd>

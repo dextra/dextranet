@@ -84,6 +84,7 @@
 	"grupo_novo" : "Novo grupo",
 	"grupo_titulo" : "Grupo",
 	"grupo_editar_titulo" : "Editar Grupo",
+	"grupo_titulo_membros" : "Membros",
 	"desfazer" : "(Desfazer)"
 	}
 }

@@ -65,7 +65,7 @@ public class CurtidaRepositoryTest extends TesteIntegracaoBase {
 	@Test
 	public void testaExcecaoObtemPorConteudoEUsusuario() {
 		try {
-			repositorioDeCurtidas.obtemPorConteudoEUsusuario("conteudoId", "usuario");
+			repositorioDeCurtidas.obtemPorConteudoEUsuario("conteudoId", "usuario");
 			Assert.fail();
 		} catch (EntidadeNaoEncontradaException e) {
 			Assert.assertTrue(true);

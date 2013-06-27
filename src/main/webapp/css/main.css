@@ -30,7 +30,7 @@ html{font-size:100%;}
 .icon_sidebar_left_categoria{background-position:-80px -28px;}
 .icon_sidebar_left_perfil{background-position:-120px -28px;}
 .icon_sidebar_left_equipe{background-position:-164px -28px;}
-.icon_sidebar_left_grupos{background-position:-164px -28px;}
+.icon_sidebar_left_grupos{background-position:-207px -36px}
 .icon_comments{background-position:-27px -117px;width:18px;height:18px;margin-right:6px;}
 .icon_dx{background-position:-2px -119px;width:22px;height:14px;margin-right:6px;}
 
@@ -41,8 +41,11 @@ html{font-size:100%;}
 .icon_avatarcommon_small{width:31px;height:31px;background-position:-288px -3px;}
 .icon_gtalk-mini{background-position:-155px -118px;}
 .icon_skype-mini{background-position:-91px -117px;}
-.icon_github-mini{background-position:-180px -118px;}
+.icon_github-mini{background-position:-225px -118px;}
 .icon_phone-mini{background-position:-114px -118px;}
+.icon_blog-mini{background-position:-177px -118px}
+.icon_grupo-mini{background-position:-262px -118px}
+.icon_pessoas-mini{background-position:-243px -117px}
 .icon_cellphone-mini{background-position:-134px -118px;}
 .icon_icon-trash{background-position:-210px -74px;width:14px;height:14px;margin-right:4px;vertical-align:-2px;}
 .icon_icon-edit{background-position:-210px -93px;width:14px;height:14px;margin-right:4px;vertical-align:-2px;}
@@ -169,7 +172,7 @@ textarea:focus{color:#5396e1 !important;border-color:#b7cce2;box-shadow:0 0 3px 
 
 .form-horizontal dd,
 .form-horizontal dt{float:left;margin-bottom:25px;}
-.form-horizontal dt{clear:both;width:135px;}
+.form-horizontal dt{clear:both;width:155px;}
 .form-horizontal dd{margin-top:-4px;}
 .form-horizontal dd input,
 .form-horizontal dd textarea,
@@ -255,7 +258,7 @@ form input.link { width: 476px;}
 #sidebar_left_menu > li.active .icon_sidebar_left_equipe{background-position:-164px -69px;}
 
 #sidebar_left_menu > li:hover .icon_sidebar_left_grupos,
-#sidebar_left_menu > li.active .icon_sidebar_left_grupos{background-position:-164px -69px;}
+#sidebar_left_menu > li.active .icon_sidebar_left_grupos{background-position:-208px -75px}
 
 #sidebar_left_menu > li > a > span{display:block;width:38px;height:38px;margin:0 auto 10px;}
 

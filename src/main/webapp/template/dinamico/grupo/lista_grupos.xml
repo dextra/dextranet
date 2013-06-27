@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
     <template selector="#content_left">
-
-		<button id="btnAddNovo" class="btn btn-blue btn-block" type="button" >${messages.grupo_novo}</button>
+		<div class="div-btn-novo">
+		<button id="btnAddNovo" class="btn btn-blue btn-block btn-novoGrupo" type="button" >${messages.grupo_novo}</button>
+		</div>
 		<div id="frmNovoGrupo" class="clearfix hidden">
 
 	        <form id="frmPerfil" class="form-dark form-horizontal clearfix">
@@ -63,30 +64,33 @@
                 <li class="clearfix grupo" id="${grupo.id}">
                     <div class="list-grupo-content">
                         <h3>
-                        	{if grupo.excluirGrupo}
-                            	<a onclick="dextranet.grupos.editar('${grupo.id}')"><span class="nome">${grupo.nome}</span></a>
-                            {else}
-                            	<span class="nome">${grupo.nome}</span>
-                            {/if}
+                        	<div class="div-titulo-left">
+                        		<span class="icon_grupo-mini icon"/>
+	                        	{if grupo.excluirGrupo}
+	                            	<a onclick="dextranet.grupos.editar('${grupo.id}')"><span class="nome">${grupo.nome}</span></a>
+	                            {else}
+	                            	<span class="nome">${grupo.nome}</span>
+	                            {/if}
+							</div>
+							<div class="div-titulo-right">
+		                        {if grupo.excluirGrupo}
+			                        <button id="btn-excluirGrupo_${grupo.id}" class="btn btn-small btn-light btn-excluirGrupo"
+										title="Excluir este grupo" onclick="dextranet.grupos.remover('${grupo.id}')">
+										<strong>x</strong>
+										${messages.botao_excluir}
+									</button>
+								{/if}
+							</div>
                         </h3>
-
-                        {if grupo.excluirGrupo}
-	                        <button id="btn-excluirGrupo_${grupo.id}" class="btn btn-small btn-light btn-excluirGrupo"
-								title="Excluir este grupo" onclick="dextranet.grupos.remover('${grupo.id}')">
-								<strong>x </strong>
-								${messages.post_excluir}
-							</button>
-						{/if}
-
 						<ul class="list-grupo-content-data clearfix">
 							<li class="list-grupo-content-phone">
-                                <span class="icon_cellphone-mini icon" original-title="${messages.grupo_descricao}"></span>
+                                <span original-title="${messages.grupo_descricao}"></span>
                                 {if grupo.descricao }
                                     ${grupo.descricao}
                                 {/if}
 							</li>
 							<li class="list-grupo-content-phone">
-                                <span class="icon_cellphone-mini icon" original-title="${messages.grupo_pessoas}"></span>
+                                <span class="icon_pessoas-mini icon" original-title="${messages.grupo_pessoas}"></span>
                                 {if grupo.usuarios }
              						{for pessoa in grupo.usuarios}
                                     	<p>${pessoa.nome}</p>
