@@ -61,17 +61,6 @@ html{font-size:100%;}
 .float_left{float:left;}
 .float_right{float:right;}
 
-.wordwrap{
-	white-space: pre; /* CSS2 */
-	white-space: -moz-pre-wrap; /* Mozilla */
-	white-space: -hp-pre-wrap;/* HP printers */
-	white-space: -o-pre-wrap; /* Opera 7 */
-	white-space: -pre-wrap; /* Opera 4-6 */
-	white-space: pre-wrap; /* CSS 2.1 */
-	white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
-	word-wrap: break-word; /* IE */
-	_white-space: pre; /* IE hack to re-specify in addition to word-wrap */}
-
 .margin_right{margin-right:15px;}
 .margin_left{margin-left:15px;}
 .margin_bottom{margin-bottom:15px;}
@@ -85,7 +74,7 @@ body{font-family:'Open Sans', arial, sans-serif;background:url('../img/body-patt
 a{color:#4887c6;text-decoration:none;}
 a:hover{color:#d66a00; cursor:pointer;}
 
-p{padding-bottom:18px; line-height:18px;}
+p{padding-bottom:19px; line-height:19px; font:14px arial, sans-serif;}
 
 h1.titulo,
 h2.titulo,
@@ -321,10 +310,11 @@ form input.link { width: 476px;}
 .list_stories > li > .story-content > .avatar-frame{position:absolute;left:-80px;top:0;width:50px;height:50px;padding:0;}
 .list_stories > li > .story-content > .avatar-frame > img{width:50px;height:50px;}
 
-.list_stories_headline{margin:2px 0 12px;text-align:left;display:block;}
+.list_stories_headline{margin:2px 0 16px;text-align:left;display:block;}
 .list_stories_headline > h2{
 	font-weight:bold;
-	font-size:13px;
+	font-size:15px;
+	line-height:22px;
 	color:#35679a;
 	margin:0;
 	cursor:pointer;
@@ -351,7 +341,8 @@ form input.link { width: 476px;}
 .list_stories_dx > a:hover{border:dotted 1px #cbe6eb;padding:3px 4px;background-color:#e6ffff;}
 .list_stories_date{font-size:12px;font-style:italic;display:inline-block;padding-top:1px;margin-left:5px;cursor:default;}
 .list_stories_lead,
-.list_stories_contents{text-shadow:0 1px 1px #fff;font-size:12px;font-family:arial;color:#505153;line-height:18px;text-overflow: ellipsis;overflow-x:hidden;}
+.list_stories_contents{text-shadow:0 1px 1px #fff;font-size:14px;font-family:arial,sans-serif;color:#505153;line-height:19px;text-overflow: ellipsis;overflow-x:hidden;}
+.list_stories_contents > div > p{line-height:19px;font-size:14px;}
 .btn-excluirpost {float:right;}
 .btn-excluir-comentario {float:right;}
 
@@ -363,8 +354,8 @@ form input.link { width: 476px;}
 .new-comment .avatar-frame {width:32px;height:32px;padding:0;border-color:#668;float:left;margin:0 22px 0 2px;}
 .list_stories_comments .avatar-frame > img,
 .new-comment .avatar-frame > img {width:32px;height:32px;border-radius:3px;}
-.list_stories_comments .content{float:left;width:460px;font-size:12px;font-family:arial;color:#555;border:1px solid #b7c5d3;border-radius:5px;padding:10px 12px;background-color:#fcfcff;}
-.list_stories_comments .content > p{padding-bottom:0;}
+.list_stories_comments .content{float:left;width:460px;font-size:14px;line-height:19px;font-family:arial,sans-serif;color:#555;border:1px solid #b7c5d3;border-radius:5px;padding:10px 12px;background-color:#fcfcff;}
+.list_stories_comments .content > p{padding-bottom:0;line-height:19px;font-size:14px;}
 .list_stories_comments .speech-shape-small,
 .new-comment .speech-shape-small,
 .list_stories_comments .speech-shape-small:before,

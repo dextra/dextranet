@@ -11,7 +11,7 @@
 						</div>
 						<div class="speech-shape"></div>
 						<a class="list_stories_headline clearfix" href="#">
-							<h2 class="titulo ${post.id} wordwrap">${post.titulo}</h2>
+							<h2 class="titulo ${post.id}">${post.titulo}</h2>
 						</a>
 
 						<!-- Lead -->
@@ -20,7 +20,7 @@
 
 						<!-- Conteudo completo do post -->
 						<div id="${post.id}_post" class="list_stories_contents hidden">
-							<div class="idClassPost wordwrap" id="${post.id}">
+							<div class="idClassPost" id="${post.id}">
 								${post.conteudo}
 							</div>
 						</div>
@@ -71,7 +71,7 @@
 									</div>
 									<div class="speech-shape-small"></div>
 									<div class="content">
-										<p class="wordwrap">${comentario.conteudo}</p>
+										<p>${comentario.conteudo}</p>
 										<div class="comment-data">
 											<span class="list_stories_date time_ago">${comentario.dataDeCriacao}
 											</span>
