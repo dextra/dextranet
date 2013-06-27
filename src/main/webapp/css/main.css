@@ -71,8 +71,8 @@ html{font-size:100%;}
 /*----------  Typhography  ----------*/
 body{font-family:'Open Sans', arial, sans-serif;background:url('../img/body-pattern.jpg') repeat;}
 
-a{color:#4887c6;text-decoration:none;}
-a:hover{color:#d66a00; cursor:pointer;}
+a{color:#2161a1;text-decoration:none;}
+a:hover{color:#c16000; cursor:pointer;}
 
 p{padding-bottom:19px; line-height:19px; font:14px arial, sans-serif;}
 
@@ -341,7 +341,7 @@ form input.link { width: 476px;}
 .list_stories_dx > a:hover{border:dotted 1px #cbe6eb;padding:3px 4px;background-color:#e6ffff;}
 .list_stories_date{font-size:12px;font-style:italic;display:inline-block;padding-top:1px;margin-left:5px;cursor:default;}
 .list_stories_lead,
-.list_stories_contents{text-shadow:0 1px 1px #fff;font-size:14px;font-family:arial,sans-serif;color:#505153;line-height:19px;text-overflow: ellipsis;overflow-x:hidden;}
+.list_stories_contents{text-shadow:0 1px 1px #fff;font-size:14px;font-family:arial,sans-serif;color:#3B3C3E;line-height:19px;text-overflow: ellipsis;overflow-x:hidden;}
 .list_stories_contents > div > p{line-height:19px;font-size:14px;}
 .btn-excluirpost {float:right;}
 .btn-excluir-comentario {float:right;}
@@ -354,7 +354,7 @@ form input.link { width: 476px;}
 .new-comment .avatar-frame {width:32px;height:32px;padding:0;border-color:#668;float:left;margin:0 22px 0 2px;}
 .list_stories_comments .avatar-frame > img,
 .new-comment .avatar-frame > img {width:32px;height:32px;border-radius:3px;}
-.list_stories_comments .content{float:left;width:460px;font-size:14px;line-height:19px;font-family:arial,sans-serif;color:#555;border:1px solid #b7c5d3;border-radius:5px;padding:10px 12px;background-color:#fcfcff;}
+.list_stories_comments .content{float:left;width:460px;font-size:14px;line-height:19px;font-family:arial,sans-serif;color:#333;border:1px solid #b7c5d3;border-radius:5px;padding:10px 12px;background-color:#fcfcff;}
 .list_stories_comments .content > p{padding-bottom:0;line-height:19px;font-size:14px;}
 .list_stories_comments .speech-shape-small,
 .new-comment .speech-shape-small,
