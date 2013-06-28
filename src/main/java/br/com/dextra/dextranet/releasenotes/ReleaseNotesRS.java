@@ -14,14 +14,17 @@ public class ReleaseNotesRS {
 	@GET
 	@Produces(Application.JSON_UTF8)
 	public Response lista() {
-		return null;
+		ReleaseNotesRepository notesRepository = new ReleaseNotesRepository();
+		ReleaseNotes notes = notesRepository.getNotes();
+		return Response.ok(notes.toJsonArray().toString()).build();
 	}
 
 	@POST
 	@Produces(Application.JSON_UTF8)
 	public Response atualiza() {
-		
-		return null;
+		ReleaseNotesRepository notesRepository = new ReleaseNotesRepository();
+		notesRepository.atualizaLista();
+		return Response.ok().build();
 	}
 
 }
