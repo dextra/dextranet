@@ -8,6 +8,10 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <repositories>
+		<repository>
+			<id>erickzanardo-releases</id>
+			<url>http://erickzanardo.github.com/maven/releases/</url>
+		</repository>
         <repository>
             <id>dextra-thirdy</id>
             <url>https://dextranet.dextra.com.br/nexus/content/repositories/dextra-thirdy/</url>
@@ -50,6 +54,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
         <mycontainer.version>1.4.1</mycontainer.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>br.com</groupId>
+            <artifactId>octohelper</artifactId>
+            <version>0.1-alpha</version>
+        </dependency>
         <dependency>
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
