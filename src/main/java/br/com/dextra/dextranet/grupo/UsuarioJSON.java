@@ -3,6 +3,7 @@ package br.com.dextra.dextranet.grupo;
 public class UsuarioJSON {
 	private String id;
 	private String nome;
+	private String email;
 
 	public UsuarioJSON() {
 	}
@@ -23,7 +24,16 @@ public class UsuarioJSON {
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getEmail() {
+		return email;
 	}
 }
