@@ -15,6 +15,8 @@ import javax.ws.rs.core.Response.Status;
 
 import br.com.dextra.dextranet.rest.config.Application;
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
+import br.com.dextra.dextranet.servicos.GoogleGroups;
+import br.com.dextra.dextranet.servicos.ServicosExternos;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
 
@@ -52,10 +54,9 @@ public class GrupoRS {
 	@Path("/")
 	@PUT
 	@Consumes("application/json")
-	public Response adicionar(GrupoJSON grupojson) {
+	public Response adicionar(GrupoJSON grupojson) throws Exception {
 		Grupo grupo = new Grupo(grupojson.getNome(), grupojson.getDescricao(), obtemUsuarioLogado());
 		repositorio.persiste(grupo);
-
 		for (UsuarioJSON usuariojson : grupojson.getUsuarios()) {
 			Membro membro = new Membro(usuariojson.getId(), grupo.getId(), usuariojson.getNome());
 			repositorioMembro.persiste(membro);

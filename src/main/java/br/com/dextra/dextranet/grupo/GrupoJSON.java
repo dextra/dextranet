@@ -1,6 +1,7 @@
 package br.com.dextra.dextranet.grupo;
 
 import java.util.List;
+import java.util.Map;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
@@ -12,6 +13,8 @@ public class GrupoJSON {
 	private String proprietario;
 	private List<UsuarioJSON> usuarios;
 	private Boolean excluirGrupo;
+	private Map<String, String> tokens;
+	private List<String> gruposGoogle;
 
 	public GrupoJSON() {
 	}
@@ -71,4 +74,19 @@ public class GrupoJSON {
 		this.excluirGrupo = excluirGrupo;
 	}
 
+	public Map<String, String> getTokens() {
+		return tokens;
+	}
+
+	public void setTokens(Map<String, String> tokens) {
+		this.tokens = tokens;
+	}
+
+	public List<String> getGruposGoogle() {
+		return gruposGoogle;
+	}
+
+	public void setGruposGoogle(List<String> gruposGoogle) {
+		this.gruposGoogle = gruposGoogle;
+	}
 }
