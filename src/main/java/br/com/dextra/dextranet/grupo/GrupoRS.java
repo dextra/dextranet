@@ -62,9 +62,6 @@ public class GrupoRS {
 			repositorioMembro.persiste(membro);
 		}
 
-		ServicosExternos servicoGoogle = new GoogleGroups(grupojson.getGruposGoogle());
-		servicoGoogle.adicionaMembros(grupojson.getTokens().get(ServicoExternoEnum.GOOGLE), grupojson.getUsuarios());
-
 		return Response.ok().build();
 	}
 
