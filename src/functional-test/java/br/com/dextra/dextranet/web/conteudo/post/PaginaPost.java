@@ -1,5 +1,6 @@
 package br.com.dextra.dextranet.web.conteudo.post;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -39,7 +40,7 @@ public class PaginaPost extends PaginaBase {
 
 	public Boolean existePostPor(String titulo, String conteudo) {
 		this.waitingForLoading();
-		List<WebElement> htmlPostsEncontrados = driver.findElements(By.cssSelector("div#content_left_stretch ul#relacao_dos_posts.list_stories"));
+		List<WebElement> htmlPostsEncontrados = encontraPosts();
 		if (driver.findElements(By.cssSelector("div#content_left_stretch ul#relacao_dos_posts.list_stories li")).size() < 1) {
 			return false;
 		}
@@ -61,6 +62,14 @@ public class PaginaPost extends PaginaBase {
 		}
 
 		return false;
+	}
+
+	private List<WebElement> encontraPosts() {
+		List<WebElement> htmlPostsEncontrados = driver.findElements(By.cssSelector("div#content_left_stretch ul#relacao_dos_posts.list_stories"));
+		if (htmlPostsEncontrados != null) {
+			return htmlPostsEncontrados;
+		}
+		return new ArrayList<WebElement>();
 	}
 
 	private String getIdPost(WebElement htmlPost) {
