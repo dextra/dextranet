@@ -6,7 +6,7 @@
       </div>
       <div class="speech-shape-small"></div>
       <div class="content">
-        <p class="wordwrap">${comentario.conteudo}</p>
+        <p>${ stringUtils.trocaQuebraDeLinha(comentario.conteudo) }</p>
         <div class="comment-data">
           <span class="list_stories_date time_ago_novo_comentario">${comentario.dataDeCriacao}
           </span>
