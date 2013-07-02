@@ -25,7 +25,11 @@ public class GoogleGroups implements ServicosExternos {
 			}
 
 			client.header("Authorization", "Bearer " + token);
-			client.execute();
+			try {
+				client.execute();
+			} catch (Exception e) {
+				throw new Exception("Erro ao aprovisionar usuários ao Google Groups");
+			}
 		}
 	}
 
