@@ -177,6 +177,7 @@ dextranet.post = {
 				$.ajax({
 					type : 'POST',
 					url : '/s/post/' + idPost + '/comentario',
+					async: false,
 					data : {
 						"conteudo" : conteudo
 					},
