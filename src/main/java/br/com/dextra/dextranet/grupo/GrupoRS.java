@@ -51,7 +51,7 @@ public class GrupoRS {
 
 	@Path("/")
 	@PUT
-	@Consumes(Application.JSON_UTF8)
+	@Consumes("application/json")
 	public Response adicionar(GrupoJSON grupojson) {
 		Grupo grupo = new Grupo(grupojson.getNome(), grupojson.getDescricao(), obtemUsuarioLogado());
 		repositorio.persiste(grupo);

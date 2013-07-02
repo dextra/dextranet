@@ -46,16 +46,11 @@ public class GoogleGroups implements ServicosExternos {
 		ClientRequest client = null;
 		client = new ClientRequest("https://www.googleapis.com/admin/directory/v1/groups/" + grupoEmail + "/members/" + emailUsuario);
 		ClientResponse response = client.post();
-
+		//TODO: refatorar
 	}
 
 	@Override
 	public void listaMembros() {
 		// TODO Auto-generated method stub
-
-	}
-
-	private void configuraUsuarioRequest(List<UsuarioJSON> usuarios, ClientRequest client) {
-
 	}
 }

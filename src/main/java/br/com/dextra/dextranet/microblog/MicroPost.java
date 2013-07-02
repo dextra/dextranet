@@ -78,9 +78,22 @@ public class MicroPost extends Entidade {
     	String str = "(?i)\\b((?:https?://|www\\d{0,3}[.]|[a-z0-9.\\-]+[.][a-z]{2,4}/)(?:[^\\s()<>]+|\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\))+(?:\\(([^\\s()<>]+|(\\([^\\s()<>]+\\)))*\\)|[^\\s`!()\\[\\]{};:\'\".,<>?«»“”‘’]))";
     	Pattern patt = Pattern.compile(str);
     	Matcher matcher = patt.matcher(text);
-    	text = matcher.replaceAll("<a href=\"$1\" target='_blank'>$1</a>");
+
+    	StringBuffer sb = new StringBuffer();
+
+		while (matcher.find()) {
+			if (!matcher.group().matches("^(https?)://.*$")) {
+				String ch = matcher.group();
+				matcher.appendReplacement(sb, "http://" + ch);
+			}
+		}
+
+		matcher.appendTail(sb);
+		matcher = patt.matcher(sb.toString());
+		text = matcher.replaceAll("<a href=\"$1\" target='_blank'>$1</a>");
 
     	return text;
+
     }
 
 }

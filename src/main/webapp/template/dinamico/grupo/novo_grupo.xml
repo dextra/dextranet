@@ -71,7 +71,7 @@
 				success: function( data ) {
 					var source =  $.map( data, function( item ) {
 						return {
-							label: item.nome,
+							label: stringUtils.resolveCaracteresHTML(item.nome),
 							id: item.id
 						}
 					});
