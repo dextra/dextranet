@@ -73,7 +73,18 @@ dextranet.post = {
 			var conteudoLimpo = stringUtils.removeTagHTML(conteudo);
 
 			if (conteudoLimpo.length > 200) {
-				conteudoLimpo = conteudoLimpo.substring(0, 199) + " (...)"
+				conteudoLimpo = conteudoLimpo.substring(0, 199);
+
+				//Verifica se a ultima palavra tem a acentuação quebrada
+				var ultimaPalavra = conteudoLimpo.lastIndexOf(" ");
+				var indiceUltimaPalavra = ultimaPalavra;
+
+				ultimaPalavra = conteudoLimpo.substring(ultimaPalavra);
+
+				if(ultimaPalavra.lastIndexOf("&") != -1){
+					conteudoLimpo = conteudoLimpo.substring(indiceUltimaPalavra, -1);
+				}
+				conteudoLimpo = conteudoLimpo + " (...)";
 			}
 
 			return conteudoLimpo;
