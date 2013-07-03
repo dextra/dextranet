@@ -1,12 +1,14 @@
 package br.com.dextra.dextranet.releasenotes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-public class ReleaseNotes {
+public class ReleaseNotes implements Serializable {
+	private static final long serialVersionUID = -2892451183366761785L;
 	private List<ReleaseNote> notes = new ArrayList<ReleaseNote>();
 
 	public void add(String title, String link, String date) {
@@ -23,7 +25,8 @@ public class ReleaseNotes {
 		return jsonArray;
 	}
 
-	public class ReleaseNote {
+	public class ReleaseNote implements Serializable {
+		private static final long serialVersionUID = -625864681084167146L;
 		private String title;
 		private String link;
 		private String date;

@@ -34,7 +34,7 @@ public class ReleaseNotesRepository {
 
 			for (GithubIssue githubIssue : issues) {
 				String title = githubIssue.title();
-				String link = githubIssue.getJsonData().get("url").getAsString();
+				String link = "https://github.com/dextra/dextranet/issues/" + githubIssue.number();
 				String date = githubIssue.getJsonData().get("closed_at").getAsString();
 				notes.add(title, link, date);
 			}

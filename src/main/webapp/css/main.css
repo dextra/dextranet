@@ -186,6 +186,8 @@ form input.link { width: 476px;}
 
 #header_right_box{position:absolute;right:0;top:0;width:32.5%;text-align:right;}
 
+#header_right_box #release-notes-link {font-size: 10px; font-weight: bold; margin-right: 10px;}
+
 #header_main_menu{margin-right:20px;list-style:none;display:inline-block;vertical-align:top;}
 #header_main_menu > li{float:left;height:40px;margin-top:-1px;position:relative;}
 #header_main_menu > li .shape_arrow_down{display:none;}

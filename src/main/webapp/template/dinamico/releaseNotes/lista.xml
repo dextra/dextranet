@@ -1,0 +1,13 @@
+<engine>
+	<template selector="#content_left">
+		<div id="content_left_stretch">
+			<ul class="list_stories">
+				{for note in notes}
+				<li class="clearfix">
+					<a href="${note.link}" target="_blank">${note.title} em ${note.date}</a>
+				</li>
+				{/for}
+			</ul>
+		</div>
+	</template>
+</engine>
