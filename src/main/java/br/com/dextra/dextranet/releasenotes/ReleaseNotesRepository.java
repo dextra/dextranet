@@ -2,6 +2,7 @@ package br.com.dextra.dextranet.releasenotes;
 
 import java.util.List;
 
+import com.google.appengine.api.memcache.Expiration;
 import com.google.appengine.api.memcache.MemcacheService;
 import com.google.appengine.api.memcache.MemcacheServiceFactory;
 
@@ -39,7 +40,8 @@ public class ReleaseNotesRepository {
 				notes.add(title, link, date);
 			}
 
-			memcacheService.put(CACHE_KEY, notes);
+			// 30 minutes
+			memcacheService.put(CACHE_KEY, notes, Expiration.byDeltaSeconds(1800));
 		}
 
 		return notes;
