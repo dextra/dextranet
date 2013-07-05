@@ -8,10 +8,10 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <repositories>
-		<repository>
-			<id>erickzanardo-releases</id>
-			<url>http://erickzanardo.github.com/maven/releases/</url>
-		</repository>
+	<repository>
+		<id>central</id>
+		<url>http://repo1.maven.org/maven2</url>
+	</repository>
         <repository>
             <id>dextra-thirdy</id>
             <url>https://dextranet.dextra.com.br/nexus/content/repositories/dextra-thirdy/</url>
@@ -32,8 +32,18 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             <id>mirror-jboss-thirdparty-release</id>
             <url>https://dextranet.dextra.com.br/nexus/content/repositories/mirror-jboss-thirdparty-release/</url>
         </repository>
+	<repository>
+		<id>erickzanardo-releases</id>
+		<url>http://erickzanardo.github.com/maven/releases/</url>
+	</repository>
+
     </repositories>
     <pluginRepositories>
+        <pluginRepository>
+		<id>central</id>
+		<url>http://repo1.maven.org/maven2</url>
+        </pluginRepository>
+
         <pluginRepository>
             <id>mirror-central</id>
             <url>https://dextranet.dextra.com.br/nexus/content/repositories/mirror-central/</url>
