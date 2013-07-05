@@ -279,6 +279,24 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             </plugin>
         </plugins>
         <finalName>dextranet</finalName>
+
+ <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-scm</artifactId>
+        <version>2.4</version>
+      </extension>
+      <extension>
+        <groupId>org.apache.maven.scm</groupId>
+        <artifactId>maven-scm-manager-plexus</artifactId>
+        <version>2.4</version>
+      </extension>
+      <extension>
+        <groupId>org.apache.maven.scm</groupId>
+        <artifactId>maven-scm-provider-gitexe</artifactId>
+        <version>2.4</version>
+      </extension>
+    </extensions>
     </build>
     <dependencyManagement>
         <dependencies>
@@ -446,6 +464,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             </build>
         </profile>
     </profiles>
+
+
     <scm>
         <connection>scm:git:git@github.com:dextra/dextranet.git</connection>
         <url>scm:git:git@github.com:dextra/dextranet.git</url>
