@@ -3,6 +3,7 @@ package br.com.dextra.dextranet.web.conteudo.post;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -47,7 +48,7 @@ public class PaginaPost extends PaginaBase {
 
 		for (WebElement htmlPost : htmlPostsEncontrados) {
 			WebElement htmlTitulo = htmlPost.findElement(By.cssSelector("a.list_stories_headline h2.titulo"));
-			if (htmlTitulo.getText().equals(titulo)) {
+			if (StringUtils.isNotEmpty(htmlTitulo.getText()) && htmlTitulo.getText().equals(titulo)) {
 				htmlPost.findElement(By.cssSelector("a.list_stories_headline")).click();
 
 				String conteudoDoComentarioCSSSelector = "div.story-content div.list_stories_contents div.idClassPost";

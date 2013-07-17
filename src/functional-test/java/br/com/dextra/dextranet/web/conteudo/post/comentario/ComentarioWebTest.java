@@ -31,7 +31,6 @@ public class ComentarioWebTest extends TesteFuncionalBase {
 
 	private void entaoComentarioNaoMaisExisteParaPost() {
 		Assert.assertFalse(paginaNovoComentario.existeComentario());
-		System.out.println("Teste");
 	}
 
 	private void quandoEleExcluiComentario() {
