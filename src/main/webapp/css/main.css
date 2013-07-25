@@ -343,7 +343,7 @@ form input.link { width: 476px;}
 .list_stories_dx > a:hover{border:dotted 1px #cbe6eb;padding:3px 4px;background-color:#e6ffff;}
 .list_stories_date{font-size:12px;font-style:italic;display:inline-block;padding-top:1px;margin-left:5px;cursor:default;}
 .list_stories_lead,
-.list_stories_contents{text-shadow:0 1px 1px #fff;font-size:14px;font-family:arial,sans-serif;color:#3B3C3E;line-height:19px;text-overflow: ellipsis;overflow-x:hidden;}
+.list_stories_contents{text-shadow:0 1px 1px #fff;font-size:14px;font-family:arial,sans-serif;color:#222;line-height:19px;text-overflow: ellipsis;overflow-x:hidden;}
 .list_stories_contents > div > p{line-height:19px;font-size:14px;}
 .btn-excluirpost {float:right;}
 .btn-excluir-comentario {float:right;}
