@@ -14,6 +14,10 @@ stringUtils = {
 		return texto.replace(/\n/g,"");
 	},
 
+	trocaQuebraDeLinha : function(texto) {
+		return texto.replace(/\n/g,"<br>");
+	},
+
 	removeTagHTML : function(texto) {
 		return texto.replace(/<.*?>/g, '');
 	},

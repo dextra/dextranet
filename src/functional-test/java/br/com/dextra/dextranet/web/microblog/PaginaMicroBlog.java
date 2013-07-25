@@ -24,7 +24,7 @@ public class PaginaMicroBlog extends PaginaBase {
 
 	public Boolean microPostExistente(String mensagem) {
 		this.waitingForLoading();
-		WebElement htmlMicroPost = this.getElement("ul#list_microposts li:first-child div.micropost-conteudo div.micropost-texto.wordwrap");
+		WebElement htmlMicroPost = this.getElement("ul#list_microposts li:first-child div.micropost-conteudo div.micropost-texto");
 		WebElement liMicroPost = this.getElement("ul#list_microposts li:first-child");
 		String mensagemComparacao = htmlMicroPost.getText();
 		if (StringUtils.isNotEmpty(mensagemComparacao) && mensagemComparacao.equals(mensagem)) {

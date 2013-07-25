@@ -108,6 +108,7 @@
                   -- Corrigir variável do placeholder (usar texto: Procurar postagens e pessoas...).
                   -->
 				<div id="header_right_box">
+					<a href="#" id="release-notes-link">Novidades</a>
 					<div id="header_search_box">
 						<form id="form_search">
 							<input type="text" placeholder="Pesquisar posts..." id="form_search_input" />
@@ -131,6 +132,9 @@
         <script>
         	$('#form_search').submit(function(){
 				return dextranet.indexacao();
+        	});
+        	$("#release-notes-link").click(function() {
+        		dextranet.releaseNotes();
         	});
         </script>
     </body>

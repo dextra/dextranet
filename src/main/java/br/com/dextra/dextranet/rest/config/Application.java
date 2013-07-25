@@ -11,6 +11,7 @@ import br.com.dextra.dextranet.grupo.GrupoRS;
 import br.com.dextra.dextranet.indexacao.IndexacaoRS;
 import br.com.dextra.dextranet.microblog.MicroBlogRS;
 import br.com.dextra.dextranet.migracao.MigracaoRS;
+import br.com.dextra.dextranet.releasenotes.ReleaseNotesRS;
 import br.com.dextra.dextranet.unidade.UnidadeRS;
 import br.com.dextra.dextranet.usuario.UsuarioRS;
 import br.com.dextra.dextranet.utils.TimeMachineRS;
@@ -49,6 +50,8 @@ public class Application extends javax.ws.rs.core.Application {
 		classes.add(IndexacaoRS.class);
 		classes.add(MicroBlogRS.class);
 		classes.add(GrupoRS.class);
+
+		classes.add(ReleaseNotesRS.class);
 
 		return classes;
 	}

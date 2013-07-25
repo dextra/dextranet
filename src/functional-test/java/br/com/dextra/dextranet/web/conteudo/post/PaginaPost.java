@@ -1,7 +1,9 @@
 package br.com.dextra.dextranet.web.conteudo.post;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -39,14 +41,14 @@ public class PaginaPost extends PaginaBase {
 
 	public Boolean existePostPor(String titulo, String conteudo) {
 		this.waitingForLoading();
-		List<WebElement> htmlPostsEncontrados = driver.findElements(By.cssSelector("div#content_left_stretch ul#relacao_dos_posts.list_stories"));
+		List<WebElement> htmlPostsEncontrados = encontraPosts();
 		if (driver.findElements(By.cssSelector("div#content_left_stretch ul#relacao_dos_posts.list_stories li")).size() < 1) {
 			return false;
 		}
 
 		for (WebElement htmlPost : htmlPostsEncontrados) {
 			WebElement htmlTitulo = htmlPost.findElement(By.cssSelector("a.list_stories_headline h2.titulo"));
-			if (htmlTitulo.getText().equals(titulo)) {
+			if (StringUtils.isNotEmpty(htmlTitulo.getText()) && htmlTitulo.getText().equals(titulo)) {
 				htmlPost.findElement(By.cssSelector("a.list_stories_headline")).click();
 
 				String conteudoDoComentarioCSSSelector = "div.story-content div.list_stories_contents div.idClassPost";
@@ -61,6 +63,14 @@ public class PaginaPost extends PaginaBase {
 		}
 
 		return false;
+	}
+
+	private List<WebElement> encontraPosts() {
+		List<WebElement> htmlPostsEncontrados = driver.findElements(By.cssSelector("div#content_left_stretch ul#relacao_dos_posts.list_stories"));
+		if (htmlPostsEncontrados != null) {
+			return htmlPostsEncontrados;
+		}
+		return new ArrayList<WebElement>();
 	}
 
 	private String getIdPost(WebElement htmlPost) {

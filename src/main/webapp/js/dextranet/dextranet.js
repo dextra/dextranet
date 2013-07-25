@@ -12,6 +12,12 @@ var dextranet = {
 			$.holy("../template/estatico/carrega_miolo.xml", {});
 		},
 
+		releaseNotes: function () {
+			$.get("/s/releasenotes").success(function(notes) {
+				$.holy("../template/dinamico/releaseNotes/lista.xml", {notes: notes});
+			});
+		},
+		
 		indexacao : function() {
 			var query = $('form#form_search input#form_search_input').val();
 			if (!query) {

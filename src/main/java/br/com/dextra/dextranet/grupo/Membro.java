@@ -2,9 +2,9 @@ package br.com.dextra.dextranet.grupo;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
-import com.google.appengine.api.datastore.Entity;
-
 import br.com.dextra.dextranet.persistencia.Entidade;
+
+import com.google.appengine.api.datastore.Entity;
 
 public class Membro extends Entidade {
 	private String idUsuario;

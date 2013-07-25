@@ -8,6 +8,10 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     <version>1.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <repositories>
+	<repository>
+		<id>central</id>
+		<url>http://repo1.maven.org/maven2</url>
+	</repository>
         <repository>
             <id>dextra-thirdy</id>
             <url>https://dextranet.dextra.com.br/nexus/content/repositories/dextra-thirdy/</url>
@@ -28,8 +32,18 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             <id>mirror-jboss-thirdparty-release</id>
             <url>https://dextranet.dextra.com.br/nexus/content/repositories/mirror-jboss-thirdparty-release/</url>
         </repository>
+	<repository>
+		<id>erickzanardo-releases</id>
+		<url>http://erickzanardo.github.com/maven/releases/</url>
+	</repository>
+
     </repositories>
     <pluginRepositories>
+        <pluginRepository>
+		<id>central</id>
+		<url>http://repo1.maven.org/maven2</url>
+        </pluginRepository>
+
         <pluginRepository>
             <id>mirror-central</id>
             <url>https://dextranet.dextra.com.br/nexus/content/repositories/mirror-central/</url>
@@ -51,10 +65,25 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
     </properties>
     <dependencies>
         <dependency>
+            <groupId>br.com</groupId>
+            <artifactId>octohelper</artifactId>
+            <version>0.1-alpha</version>
+        </dependency>
+        <dependency>
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>9.1-901.jdbc4</version>
         </dependency>
+		<dependency>
+			<groupId>com.google.oauth-client</groupId>
+			<artifactId>google-oauth-client</artifactId>
+			<version>1.15.0-rc</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.http-client</groupId>
+			<artifactId>google-http-client-jackson2</artifactId>
+			<version>1.15.0-rc</version>
+		</dependency>
         <dependency>
             <groupId>com.google.appengine</groupId>
             <artifactId>appengine-api-1.0-sdk</artifactId>
@@ -260,6 +289,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             </plugin>
         </plugins>
         <finalName>dextranet</finalName>
+
     </build>
     <dependencyManagement>
         <dependencies>
@@ -427,6 +457,8 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             </build>
         </profile>
     </profiles>
+
+
     <scm>
         <connection>scm:git:git@github.com:dextra/dextranet.git</connection>
         <url>scm:git:git@github.com:dextra/dextranet.git</url>
