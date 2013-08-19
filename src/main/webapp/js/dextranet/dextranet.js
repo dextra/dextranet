@@ -2,6 +2,8 @@ var dextranet = {
 
 		gravatarUrl : "http://www.gravatar.com/avatar/",
 
+		pessoas : [],
+
 		processaErroNaRequisicao : function(jqXHR) {
 			$('.message').message(jqXHR.responseText, 'error', true);
 		},
@@ -17,7 +19,7 @@ var dextranet = {
 				$.holy("../template/dinamico/releaseNotes/lista.xml", {notes: notes});
 			});
 		},
-		
+
 		indexacao : function() {
 			var query = $('form#form_search input#form_search_input').val();
 			if (!query) {

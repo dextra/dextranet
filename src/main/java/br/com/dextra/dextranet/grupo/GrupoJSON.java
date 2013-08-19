@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+import br.com.dextra.dextranet.grupo.servico.google.GoogleGrupoJSON;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GrupoJSON {
 	private String id;
@@ -13,17 +15,17 @@ public class GrupoJSON {
 	private String proprietario;
 	private List<UsuarioJSON> usuarios;
 	private Boolean excluirGrupo;
-	private Map<String, String> tokens;
-	private List<String> gruposGoogle;
+	private List<GoogleGrupoJSON> servico;
 
 	public GrupoJSON() {
 	}
 
-	public GrupoJSON(String id, String nome, String descricao, List<UsuarioJSON> usuarios) {
+	public GrupoJSON(String id, String nome, String descricao, List<UsuarioJSON> usuarios, List<GoogleGrupoJSON> servico) {
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
 		this.usuarios = usuarios;
+		this.servico = servico;
 	}
 
 	public String getId() {
@@ -74,19 +76,13 @@ public class GrupoJSON {
 		this.excluirGrupo = excluirGrupo;
 	}
 
-	public Map<String, String> getTokens() {
-		return tokens;
+	public List<GoogleGrupoJSON> getServico() {
+		return servico;
 	}
 
-	public void setTokens(Map<String, String> tokens) {
-		this.tokens = tokens;
+	public void setServico(List<GoogleGrupoJSON> servico) {
+		this.servico = servico;
 	}
 
-	public List<String> getGruposGoogle() {
-		return gruposGoogle;
-	}
 
-	public void setGruposGoogle(List<String> gruposGoogle) {
-		this.gruposGoogle = gruposGoogle;
-	}
 }

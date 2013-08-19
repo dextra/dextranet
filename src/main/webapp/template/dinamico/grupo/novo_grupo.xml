@@ -1,113 +1,165 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
 	<template selector="#content_left">
+		<div id="formPrincipal" class="block-white clearfix">
+			<div class="formGrupo">
+				<h1 class="titulo">${messages.grupo_titulo}</h1>
+				<form id="frmGrupo" class="form-dark form-horizontal">
+					<div class="itensForm">
+						<dt>
+							<label for="txtGrupoNome">
+								<span class="input-obg"></span>
+								${messages.grupo_nome}:
+							</label>
+						</dt>
+						<dd>
+							<input type="text" id="txtGrupoNome" name="nome" value="" class="not-empty" maxlength="50" />
+						</dd>
 
-			<h1 class="titulo">${messages.grupo_titulo}</h1>
+						<dt>
+							<label for="txtGrupoDescricao">
+								<span class="input-obg"></span>
+								${messages.grupo_descricao}:
+							</label>
+						</dt>
+						<dd>
+							<textarea id="txtGrupoDescricao" name="descricao" class="not-empty" maxlength="500" rows="4"></textarea>
+						</dd>
+					</div>
 
-		<div class="clearfix">
-
-			<form id="frmGrupo" class="form-dark form-horizontal clearfix">
-				<dl>
-					<dt>
-						<label for="txtGrupoNome">
-							<span class="input-obg"></span>
-							${messages.grupo_nome}:
-						</label>
-					</dt>
-					<dd>
-						<input type="text" id="txtGrupoNome" name="nome" value="" class="not-empty" maxlength="50" />
-					</dd>
-
-					<dt>
-						<label for="txtGrupoDescricao">
-							<span class="input-obg"></span>
-							${messages.grupo_descricao}:
-						</label>
-					</dt>
-					<dd>
-						<textarea id="txtGrupoDescricao" name="descricao" class="not-empty" maxlength="500" rows="5"></textarea>
-					</dd>
-
-					<dt>
-						<label for="txtGrupoPessoas">
-							<span></span>
-							${messages.grupo_pessoas}:
-						</label>
-					</dt>
-					<dd>
-						<input type="text" id="pessoa" name="pessoa" value="" />
-					</dd>
-
-					<dt></dt>
-					<dd>
-						<select multiple="true" id="listaPessoas" style="width:248px;"></select>
-  						<a href="#" id="remove">Remover</a>
-					</dd>
-
-					<dt></dt>
-					<dd>
+					<div class="itensForm">
+						<dt>
+							<label for="pessoa">
+								${messages.grupo_pessoas}:
+							</label>
+						</dt>
+						<dd>
+							<input type="text" id="pessoa" name="pessoa" value="" />
+						</dd>
+						<dt></dt>
+						<dd>
+							<select multiple="true" id="listaPessoas" size="10"></select>
+	  						<a href="#" id="remove">Remover</a>
+						</dd>
+					</div>
+					<dt class="btn-novoGrupo">
 						<button id="btnSalvar" class="btn btn-blue btn-block" type="button" >${messages.botao_salvar}</button>
-					</dd>
-				</dl>
-			</form>
+					</dt>
+				</form>
+			</div>
+
+			<div class="servicos-content">
+				<div class="btnServicos">
+					<label for="servicos">
+						Serviços:
+					</label>
+					<select id="servicos" name="servicos" class="not-empty">
+						{for servico in servicos}
+							<option value="${servico.id}">${servico.nome}</option>
+						{/for}
+					</select>
+					<button id="addServico" class="btn btn-blue" type="button">Adicionar</button>
+				</div>
+				<div id="selecaoServico">
+					<div id="listaServicos"></div>
+				</div>
+				<p id="msg-erro"></p>
+			</div>
 
 		</div>
 
 	</template>
 	<script>
-		var idGrupo = $('h1.titulo').attr('id');
-		var pessoas = [];
-		$('#remove').click(function() {
-			var idRemover = $('#listaPessoas option:selected').val();
-			pessoas.splice( pessoas.indexOf( idRemover ), 1 );
-			return !$('#listaPessoas option:selected').remove();
-		});
+		<![CDATA[
+			var tabs = $( "div#listaServicos" );
 
-		$(function() {
-			$.ajax({
-				url: "/s/usuario",
-				loading: false,
-				dataType: "json",
-				success: function( data ) {
-					var source =  $.map( data, function( item ) {
-						return {
-							label: stringUtils.resolveCaracteresHTML(item.nome),
-							id: item.id
-						}
-					});
+			var qtdServico = 2;
 
-					$( "#pessoa" ).autocomplete({
-						source: source,
-						minLength: 1,
-						select: function( event, ui ) {
-							if(!$("#listaPessoas option[value='"+ui.item.id+"']").val()){
-								$( "#listaPessoas" ).append($("<![CDATA[<option></option>]]>").val(ui.item.id).html(ui.item.label) );
-							};
-						},
-						close: function( event, ui ) {
-							$("#pessoa").val('');
+			//Add TAB serviço
+			function addTab(servico, id_servico) {
+					conteudo = "<li class='servicoTitulo'><span id='icone' class='icon_gtalk-mini icon'></span>" + servico + "<span id='" + id_servico + "' class='ui-icon ui-icon-close novoServico excluirServico'>Remover serviço</span></li>";
+					novoItem = tabs.append("<div id='"+ id_servico+ "' class='itemServico'>" + conteudo + "</div>");
+					var tab = $( "<div id='tabs-" + qtdServico + "'></div>").appendTo("div#listaServicos div:last");
+					qtdServico++;
 
+<!-- 					// Não será assim, claro.. -->
+<!-- 					if(servico == 'Grupo email interno'){ -->
+<!-- 						dextranet.grupos.listarGGrupo(id_servico, tab); -->
+<!-- 					}else{ -->
+<!-- 						dextranet.grupos.listarGGrupoExterno(id_servico, tab); -->
+<!-- 					} -->
+
+					dextranet.grupos.listarGGrupo(id_servico, tab);
+
+			}
+
+			//Add servico
+			$('#addServico').click(function(){
+				var servico = $("select#servicos").find(":selected").text();
+				var id_servico = $("select#servicos").val();
+
+				//Retirar daqui; isolar no grupo.js?!
+				if (dextranet.grupos.googleGrupos.length == 0 && $.active == 0) {
+					$.ajax({
+						url : "/s/grupo/googlegrupos/listarGrupos",
+						dataType : "json",
+						success : function(data) {
+							dextranet.grupos.googleGrupos = data;
 						}
 					});
 				}
-			});
-		});
 
-		//Lista de pessoas selecionadas
-
-		$('#btnSalvar').click(function(){
-			var usuarios = [];
-			$("#listaPessoas>option").each(function()
-			{
-			    nome = $(this).html();
-			    id = $(this).val();
-			    usuarios.push({ id: id, nome: nome});
+				addTab(servico, id_servico);
 
 			});
 
-			dextranet.grupos.usuariosSelecionados = usuarios;
-			dextranet.grupos.salvar();
-		});
+			// Excluindo serviço
+			tabs.delegate( "span.novoServico", "click", function() {
+				$( this ).closest("div.itemServico").animate({height: "0px"}, "fast", function(){
+					$( this ).remove();
+				});
+			});
 
+			//Remove pessoas selecionadas
+			var pessoas = [];
+			$('#remove').click(function() {
+				var idRemover = $('#listaPessoas option:selected').val();
+				pessoas.splice( pessoas.indexOf( idRemover ), 1 );
+				return !$('#listaPessoas option:selected').remove();
+			});
+
+			//Auto Complete pessoas
+			$( "#pessoa" ).autocomplete({
+				source: dextranet.pessoas,
+				minLength: 1,
+				select: function( event, ui ) {
+					if(!$( "#listaPessoas option[value='"+ui.item.id+"']").val()){
+						$( "#listaPessoas" ).append($("<option username = ''></option>").val(ui.item.id).html(ui.item.label) );
+						$( "#listaPessoas option[value='"+ui.item.id+"']").attr("username", ui.item.username);
+					};
+				},
+				close: function( event, ui ) {
+					$("#pessoa").val('');
+
+				}
+			});
+
+			//Lista de pessoas selecionadas
+
+			$('#btnSalvar').click(function(){
+				var usuarios = [];
+				$("#listaPessoas>option").each(function()
+				{
+				    nome = $(this).html();
+				    id = $(this).val();
+				    username = $(this).attr("username");
+				    usuarios.push({ id: id, nome: nome, email: username});
+
+				});
+
+				dextranet.grupos.usuariosSelecionados = usuarios;
+				dextranet.grupos.salvar();
+			});
+		]]>
 	</script>
 </engine>

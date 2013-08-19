@@ -1,0 +1,68 @@
+<div class="clearfix" id="servico-google">
+	<form id="googleGrupo-${indice}" class="ggrupo formServico ${novaTab} form-dark form-horizontal clearfix">
+		<div>
+			<div class="inputServico">
+				<input type="hidden" name="idServico" value="${id_servico}" />
+				<input type="hidden" name="emailExternoEdicao" value="${emailGrupo}" />
+				<input type="text" name="emailExterno" placeholder="Email do grupo" value="${emailGrupo}" autocomplete="off"/><span id="dominioEmail">@dextra-sw.com</span>
+				<div id="emails_externos">
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script>
+// 	$( "input[name='emailExterno']:last").keyup(function(){
+// 		var email = $(this).val();
+// 		var aux = 0;
+
+// 		//Verifica se o email foi digitado nos inputs
+// 		$("input[name='emailExterno']").each(function()
+// 		{
+// 			if($(this).val() == email)
+// 				aux ++;
+// 		});
+
+// 		//Verifica se o email ja existe
+// 		if($.inArray(email, dextranet.grupos.googleGrupos) != -1 || aux > 1){
+// 			$("p#msg-erro").html("O grupo " + email + " já foi digitado")
+// 			$("#btnSalvar").attr("disabled", true);
+// 		}else{
+// 			$("p#msg-erro").html("");
+// 			$("#btnSalvar").attr("disabled", false);
+// 		}
+// 	});
+
+// 	if($( "input[name='emailExterno']:last").val() != ""){
+// 		$("input[name='emailExterno']:last").attr("disabled", true);
+// 		$("form.ggrupo").removeClass("ggrupo");
+// 	}
+	var email;
+	$( "input[name='emailExterno']:last").keypress(function(e){
+		var code = e.keyCode || e.which;
+		if (code  == 13) {
+			e.preventDefault();
+			email = $(this).val();
+
+			if($(this).parent().find("#dominioEmail").length){
+				$(this).before( "<p id='grupoEmailExterno'>" + email + "@dextra-sw.com");
+				$(this).val('');
+				$(this).parent().find("#dominioEmail").remove();
+				$(this).attr('placeholder', 'Email externo');
+			}else if(stringUtils.validaEmail(email)){
+				$(this).parent().find('div#emails_externos').append("<p id='emailExterno'>" + email + "<span class='ui-icon ui-icon-close excluirEmailExterno'></p>");
+				$(this).val('');
+			}
+		    return false;
+		}
+	});
+
+	$(document).delegate('.excluirEmailExterno', 'click', function(){
+        $(this).parent().hide('fast', function(){
+        	$(this).remove();
+        });
+        return false;
+    });
+
+
+</script>

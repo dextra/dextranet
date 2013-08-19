@@ -81,4 +81,16 @@ public class EntidadeRepository {
 		}
 		return pquery.asIterable(opcoesFetch);
 	}
+
+	public <T extends Entidade> Iterable<Entity> obterKeyGoogleGrupos() {
+		Query query = new Query("br.com.dextra.dextranet.area.Area");
+//		for (int cont = 0; cont < campos.length; cont++) {
+//			Filter filter = new FilterPredicate(campos[cont], FilterOperator.EQUAL, valores[cont]);
+//			query.setFilter(filter);
+//		}
+		PreparedQuery pquery = this.datastore.prepare(query);
+
+		return pquery.asIterable();
+	}
+
 }

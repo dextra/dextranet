@@ -1,5 +1,6 @@
 package br.com.dextra.dextranet.grupo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import br.com.dextra.dextranet.grupo.servico.google.Aprovisionamento;
+import br.com.dextra.dextranet.grupo.servico.google.GoogleGrupoJSON;
 import br.com.dextra.dextranet.rest.config.Application;
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 
@@ -22,6 +25,7 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 public class GrupoRS {
 	GrupoRepository repositorio = new GrupoRepository();
 	MembroRepository repositorioMembro = new MembroRepository();
+	ServicoGrupoRepository servicoGrupoRepository = new ServicoGrupoRepository();
 
 	@Path("/{id}")
 	@GET
@@ -29,7 +33,9 @@ public class GrupoRS {
 	public Response obter(@PathParam("id") String id) throws EntityNotFoundException {
 		Grupo grupo = repositorio.obtemPorId(id);
 		List<Membro> membros = repositorioMembro.obtemPorIdGrupo(grupo.getId());
+		List<ServicoGrupo> servicoGrupos = servicoGrupoRepository.obtemPorIdGrupo(grupo.getId());
 		grupo.setMembros(membros);
+		grupo.setServicoGrupos(servicoGrupos);
 
 		return Response.ok().entity(grupo.getGrupoJSON()).build();
 	}
@@ -42,11 +48,88 @@ public class GrupoRS {
 		List<GrupoJSON> gruposRetorno = new ArrayList<GrupoJSON>();
 		for (Grupo grupo : grupos) {
 			List<Membro> membros = repositorioMembro.obtemPorIdGrupo(grupo.getId());
+			List<ServicoGrupo> servicoGrupos = servicoGrupoRepository.obtemPorIdGrupo(grupo.getId());
 			grupo.setMembros(membros);
+			grupo.setServicoGrupos(servicoGrupos);
+
 			gruposRetorno.add(grupo.getGrupoJSON());
 		}
 
 		return Response.ok().entity(gruposRetorno).build();
+	}
+
+	@Path("/googlegrupos/")
+	@PUT
+	@Consumes("application/json")
+	public Response aprovisionarServicos(List<GoogleGrupoJSON> googleGrupoJSONs) throws IOException{
+
+		List<String> emails = new ArrayList<String>();
+		for (UsuarioJSON usuarioJSON : googleGrupoJSONs.get(0).getUsuarioJSONs()) {
+			emails.add(usuarioJSON.getEmail());
+		}
+
+		for (GoogleGrupoJSON googleGrupoJSON : googleGrupoJSONs) {
+			Aprovisionamento aprovisionamento = new Aprovisionamento();
+			aprovisionamento.doPost("adicionarmembro", googleGrupoJSON.getEmailGrupo(),
+								    googleGrupoJSON.getEmailGrupo(),
+									emails);
+		}
+
+		return Response.ok().build();
+	}
+
+	@Path("/googlegrupos/removerIntegrantes/")
+	@PUT
+	@Consumes("application/json")
+	public Response addMembro(List<GoogleGrupoJSON> googleGrupoJSONs) throws IOException{
+
+		List<String> emails = new ArrayList<String>();
+		for (UsuarioJSON usuarioJSON : googleGrupoJSONs.get(0).getUsuarioJSONs()) {
+			emails.add(usuarioJSON.getEmail());
+		}
+
+		for (GoogleGrupoJSON googleGrupoJSON : googleGrupoJSONs) {
+			Aprovisionamento aprovisionamento = new Aprovisionamento();
+			aprovisionamento.doPost("removermembro", googleGrupoJSON.getEmailGrupo(),
+								    googleGrupoJSON.getEmailGrupo(),
+									emails);
+		}
+
+		return Response.ok().build();
+	}
+
+	@Path("/googlegrupos/listarGrupos/")
+	@GET
+	@Produces(Application.JSON_UTF8)
+	public Response listaTodosGrupos() throws IOException{
+		return Response.ok(new Aprovisionamento().doGet("listargrupos", "")).build();
+	}
+
+	@Path("/googlegrupos/listarMembrosGrupo/{email}")
+	@GET
+	@Produces(Application.JSON_UTF8)
+	public Response listaMembrosGrupo(@PathParam("email") String email) throws IOException{
+		return Response.ok(new Aprovisionamento().doGet("listarMembrosGrupo", email)).build();
+	}
+
+	@Path("/googlegrupos/grupo/{idGrupo}/servico/{idServicoGrupo}")
+	@DELETE
+	@Produces(Application.JSON_UTF8)
+	public Response removerServico(@PathParam("idGrupo") String idGrupo, @PathParam("idServicoGrupo") String idServicoGrupo) throws EntityNotFoundException, IOException {
+		String usuarioLogado = obtemUsuarioLogado();
+		Grupo grupo = repositorio.obtemPorId(idGrupo);
+		if (usuarioLogado.equals(grupo.getProprietario())) {
+			ServicoGrupo servico = servicoGrupoRepository.obtemPorId(idServicoGrupo);
+
+			Aprovisionamento aprovisionamento = new Aprovisionamento();
+			aprovisionamento.doPost("removergrupo", "", servico.getEmailGrupo(), null);
+
+			servicoGrupoRepository.remove(idServicoGrupo);
+
+			return Response.ok().build();
+		} else {
+			return Response.status(Status.FORBIDDEN).build();
+		}
 	}
 
 	@Path("/")
@@ -55,9 +138,18 @@ public class GrupoRS {
 	public Response adicionar(GrupoJSON grupojson) {
 		Grupo grupo = new Grupo(grupojson.getNome(), grupojson.getDescricao(), obtemUsuarioLogado());
 		repositorio.persiste(grupo);
+
+
 		for (UsuarioJSON usuariojson : grupojson.getUsuarios()) {
-			Membro membro = new Membro(usuariojson.getId(), grupo.getId(), usuariojson.getNome());
+			Membro membro = new Membro(usuariojson.getId(), grupo.getId(), usuariojson.getNome(), usuariojson.getEmail());
 			repositorioMembro.persiste(membro);
+		}
+
+		if(grupojson.getServico() != null){
+			for(GoogleGrupoJSON servico : grupojson.getServico()){
+				ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getIdServico(), grupo.getId(), servico.getEmailGrupo());
+				servicoGrupoRepository.persiste(servicoGrupo);
+			}
 		}
 
 		return Response.ok().build();
@@ -73,6 +165,14 @@ public class GrupoRS {
 			grupo = grupo.preenche(grupojson.getNome(), grupojson.getDescricao(), usuarioLogado);
 			repositorio.persiste(grupo);
 			adicionaNovosMembros(grupojson.getUsuarios(), grupo.getId());
+
+			if(grupojson.getServico() != null){
+				for(GoogleGrupoJSON servico : grupojson.getServico()){
+					ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getIdServico(), grupo.getId(), servico.getEmailGrupo());
+					servicoGrupoRepository.persiste(servicoGrupo);
+				}
+			}
+
 			return Response.ok().build();
 		} else {
 			return Response.status(Status.FORBIDDEN).build();
@@ -82,7 +182,7 @@ public class GrupoRS {
 	@Path("/{id}")
 	@DELETE
 	@Produces(Application.JSON_UTF8)
-	public Response deletar(@PathParam("id") String id) throws EntityNotFoundException {
+	public Response deletar(@PathParam("id") String id) throws EntityNotFoundException, IOException {
 		String usuarioLogado = obtemUsuarioLogado();
 		Grupo grupo = repositorio.obtemPorId(id);
 
@@ -90,6 +190,15 @@ public class GrupoRS {
 			List<Membro> obtemPorIdGrupo = repositorioMembro.obtemPorIdGrupo(id);
 			for (Membro membro : obtemPorIdGrupo) {
 				repositorioMembro.remove(membro.getId());
+			}
+
+			List<ServicoGrupo> servicoGrupos = servicoGrupoRepository.obtemPorIdGrupo(id);
+			if(!servicoGrupos.isEmpty()){
+				Aprovisionamento aprovisionamento = new Aprovisionamento();
+				for(ServicoGrupo servico : servicoGrupos){
+					aprovisionamento.doPost("removergrupo", "", servico.getEmailGrupo(), null);
+					servicoGrupoRepository.remove(servico.getId());
+				}
 			}
 
 			repositorio.remove(id);
@@ -112,7 +221,7 @@ public class GrupoRS {
 	private void adicionarEAtualizarMembros(List<UsuarioJSON> usuarios, String idGrupo) {
 		//TODO: Adicionar somente os necessários
 		for (UsuarioJSON usuario : usuarios) {
-			Membro membroAtualizar = new Membro(usuario.getId(), idGrupo, usuario.getNome());
+			Membro membroAtualizar = new Membro(usuario.getId(), idGrupo, usuario.getNome(), usuario.getEmail());
 			repositorioMembro.persiste(membroAtualizar);
 		}
 	}

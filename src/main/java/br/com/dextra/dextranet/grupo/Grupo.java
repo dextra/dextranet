@@ -3,6 +3,7 @@ package br.com.dextra.dextranet.grupo;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.dextra.dextranet.grupo.servico.google.GoogleGrupoJSON;
 import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 import br.com.dextra.dextranet.utils.ConteudoHTML;
@@ -14,6 +15,7 @@ public class Grupo extends Entidade {
 	private String descricao;
 	private String proprietario;
 	private List<Membro> membros;
+	private List<ServicoGrupo> servicoGrupos;
 
 	public Grupo() {
 	}
@@ -55,7 +57,7 @@ public class Grupo extends Entidade {
 	}
 
 	public GrupoJSON getGrupoJSON() {
-		GrupoJSON grupojson = new GrupoJSON(this.id, this.nome, this.descricao, getUsuarioJSON());
+		GrupoJSON grupojson = new GrupoJSON(this.id, this.nome, this.descricao, getUsuarioJSON(), getServicos());
 		grupojson.setProprietario(proprietario);
 		grupojson.setExcluirGrupo(proprietario.equals(AutenticacaoService.identificacaoDoUsuarioLogado()));
 		return grupojson;
@@ -77,10 +79,20 @@ public class Grupo extends Entidade {
 		UsuarioJSON usuariojson;
 		List<UsuarioJSON> usuariosjson = new ArrayList<UsuarioJSON>();
 		for (Membro membro : this.membros) {
-			usuariojson = new UsuarioJSON(membro.getIdUsuario(), membro.getNomeUsuario());
+			usuariojson = new UsuarioJSON(membro.getIdUsuario(), membro.getNomeUsuario(), membro.getEmail());
 			usuariosjson.add(usuariojson);
 		}
 		return usuariosjson;
+	}
+
+	public List<GoogleGrupoJSON> getServicos() {
+		List<GoogleGrupoJSON> googleGrupoJSONs = new ArrayList<GoogleGrupoJSON>();
+
+		for (ServicoGrupo servicoGrupos : this.servicoGrupos) {
+			GoogleGrupoJSON googleGrupoJSON = new GoogleGrupoJSON(servicoGrupos.getId(), servicoGrupos.getIdServico(), null, servicoGrupos.getEmailGrupo(), null);
+			googleGrupoJSONs.add(googleGrupoJSON);
+		}
+		return googleGrupoJSONs;
 	}
 
 	public List<Membro> getMembros() {
@@ -91,12 +103,21 @@ public class Grupo extends Entidade {
 		this.membros = membros;
 	}
 
+	public List<ServicoGrupo> getServicoGrupos() {
+		return servicoGrupos;
+	}
+
+	public void setServicoGrupos(List<ServicoGrupo> servicoGrupos) {
+		this.servicoGrupos = servicoGrupos;
+	}
+
 	@Override
 	public String toString() {
 		return new StringBuilder().append("Grupo [")
 						.append(GrupoFields.id.name() + "=").append(this.id + ",")
 							.append(GrupoFields.nome.name() + "=").append(this.nome + ",")
 								.append(GrupoFields.descricao.name() + "=").append(this.descricao + ",")
-									.append(GrupoFields.proprietario.name() + "=").append(this.proprietario).append("]").toString();
+										.append(GrupoFields.proprietario.name() + "=").append(this.proprietario).append("]").toString();
 	}
+
 }

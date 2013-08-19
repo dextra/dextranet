@@ -8,6 +8,10 @@ import br.com.dextra.dextranet.area.AreaRS;
 import br.com.dextra.dextranet.banner.BannerRS;
 import br.com.dextra.dextranet.conteudo.post.PostRS;
 import br.com.dextra.dextranet.grupo.GrupoRS;
+import br.com.dextra.dextranet.grupo.ServicoGrupo;
+import br.com.dextra.dextranet.grupo.ServicoGrupoRS;
+import br.com.dextra.dextranet.grupo.servico.ServicoRS;
+import br.com.dextra.dextranet.grupo.servico.google.GoogleKeyRS;
 import br.com.dextra.dextranet.indexacao.IndexacaoRS;
 import br.com.dextra.dextranet.microblog.MicroBlogRS;
 import br.com.dextra.dextranet.migracao.MigracaoRS;
@@ -50,6 +54,9 @@ public class Application extends javax.ws.rs.core.Application {
 		classes.add(IndexacaoRS.class);
 		classes.add(MicroBlogRS.class);
 		classes.add(GrupoRS.class);
+		classes.add(ServicoRS.class);
+		classes.add(ServicoGrupoRS.class);
+		classes.add(GoogleKeyRS.class);
 
 		classes.add(ReleaseNotesRS.class);
 

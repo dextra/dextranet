@@ -1,5 +1,6 @@
 package br.com.dextra.dextranet.grupo;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,9 @@ import junit.framework.Assert;
 import org.junit.After;
 import org.junit.Test;
 
+import br.com.dextra.dextranet.grupo.servico.Servico;
+import br.com.dextra.dextranet.grupo.servico.ServicoRepository;
+import br.com.dextra.dextranet.grupo.servico.google.GoogleGrupoJSON;
 import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.dextranet.usuario.UsuarioRepository;
 import br.com.dextra.teste.TesteIntegracaoBase;
@@ -34,13 +38,17 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	public void testaAdicionarGrupo() throws EntityNotFoundException {
 		String nome = "Grupo A";
 		String descricao = "Grupo teste";
+		String email = "teste@dextra-sw.com";
 		Usuario usuario = new Usuario("JoaoDextrano");
 		usuario = usuarioRepository.persiste(usuario);
-		UsuarioJSON uMembro = new UsuarioJSON(usuario.getId(), usuario.getNome());
+		UsuarioJSON uMembro = new UsuarioJSON(usuario.getId(), usuario.getNome(), email);
+		List<GoogleGrupoJSON> googleGrupoJSON = null;
+
+
 
 		List<UsuarioJSON> uMembros = new ArrayList<UsuarioJSON>();
 		uMembros.add(uMembro);
-		GrupoJSON grupojson = new GrupoJSON(null, nome, descricao, uMembros);
+		GrupoJSON grupojson = new GrupoJSON(null, nome, descricao, uMembros, googleGrupoJSON);
 		Response response = rest.adicionar(grupojson);
 
 		Assert.assertEquals(response.getStatus(), 200);
@@ -54,17 +62,18 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		String descricaoAlterada = "Grupo teste alterado";
 		String nomeMembro = "JoaoDextrano";
 		String nomeMembroAlterado = "JoseDextrano";
+		String email = "teste@dextra-sw.com";
 
 		Usuario usuario = new Usuario(nomeMembro);
 		usuario = usuarioRepository.persiste(usuario);
 		Grupo grupo = new Grupo(nome, descricao, rest.obtemUsuarioLogado());
 		grupo = repositorioGrupo.persiste(grupo);
-		repositorioMembro.persiste(new Membro(usuario.getId(), grupo.getId(), usuario.getNome()));
+		repositorioMembro.persiste(new Membro(usuario.getId(), grupo.getId(), usuario.getNome(), email));
 
 		GrupoJSON grupojsonAtualizar = (GrupoJSON)rest.obter(grupo.getId()).getEntity();
 		grupojsonAtualizar.setNome(nomeAlterado);
 		grupojsonAtualizar.setDescricao(descricaoAlterada);
-		UsuarioJSON usuariojson = new UsuarioJSON(null, nomeMembroAlterado);
+		UsuarioJSON usuariojson = new UsuarioJSON(null, nomeMembroAlterado, email);
 		List<UsuarioJSON> usuariosjson = new ArrayList<UsuarioJSON>();
 		usuariosjson.add(usuariojson);
 		grupojsonAtualizar.setUsuarios(usuariosjson);
@@ -83,11 +92,12 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	public void testaObterGrupo() throws EntityNotFoundException {
 		String nome = "Grupo A";
 		String descricao = "Grupo teste";
+		String email = "teste@dextra-sw.com";
 		Usuario usuario = new Usuario("JoaoDextrano");
 		usuario = usuarioRepository.persiste(usuario);
 		Grupo grupo = new Grupo(nome, descricao, rest.obtemUsuarioLogado());
 		grupo = repositorioGrupo.persiste(grupo);
-		repositorioMembro.persiste(new Membro(usuario.getId(), grupo.getId(), usuario.getNome()));
+		repositorioMembro.persiste(new Membro(usuario.getId(), grupo.getId(), usuario.getNome(), email));
 		Response response = rest.obter(grupo.getId());
 		Assert.assertNotNull(response.getEntity());
 		GrupoJSON grupojson = (GrupoJSON)response.getEntity();
@@ -100,11 +110,12 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	public void testaListar() throws EntityNotFoundException {
 		String nome = "Grupo A";
 		String descricao = "Grupo teste";
+		String email = "teste@dextra-sw.com";
 		Usuario usuario = new Usuario("JoaoDextrano");
 		usuario = usuarioRepository.persiste(usuario);
 		Grupo grupo = new Grupo(nome, descricao, rest.obtemUsuarioLogado());
 		grupo = repositorioGrupo.persiste(grupo);
-		repositorioMembro.persiste(new Membro(usuario.getId(), grupo.getId(), usuario.getNome()));
+		repositorioMembro.persiste(new Membro(usuario.getId(), grupo.getId(), usuario.getNome(), email));
 		Response response = rest.listar();
 		@SuppressWarnings("unchecked")
 		List<GrupoJSON> gruposjson = (List<GrupoJSON>) response.getEntity();
@@ -116,14 +127,16 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	public void testaRemoverGrupo() throws EntityNotFoundException {
+	public void testaRemoverGrupo() throws EntityNotFoundException, IOException {
 		String nome = "Grupo A";
 		String descricao = "Grupo teste";
+		String email = "teste@dextra-sw.com";
 		Usuario usuario = new Usuario("JoaoDextrano");
 		usuario = usuarioRepository.persiste(usuario);
 		Grupo grupo = new Grupo(nome, descricao, rest.obtemUsuarioLogado());
 		grupo = repositorioGrupo.persiste(grupo);
-		repositorioMembro.persiste(new Membro(usuario.getId(), grupo.getId(), usuario.getNome()));
+		repositorioMembro.persiste(new Membro(usuario.getId(), grupo.getId(), usuario.getNome(), email));
+		new ServicoRepository().persiste(new Servico("Google Grupos"));
 		rest.deletar(grupo.getId());
 
 		try {

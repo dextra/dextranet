@@ -3,8 +3,7 @@
 .list-menu-abcd > li > a{display:block;padding:8px 8px;font-weight:bold;font-size:15px;text-transform:uppercase;}
 .list-menu-abcd > li > a:hover{background-color:rgba(0,0,0,0.05);}
 
-.div-btn-novo {	display:inline-block;width:100% !important;}
-.btn-novoGrupo{width: 10% !important;float:right;}
+.btn-novoGrupo{margin-left: 99px; width: 240px !important; margin-bottom: 5px !important;}
 
 .div-titulo-right{float: right;}
 .div-titulo-left{float: left;width: 80%;}
@@ -18,15 +17,16 @@
 .list-grupo > li{border-bottom:dotted 1px #ddd;padding-bottom:15px;margin-bottom:20px;}
 .list-grupo > li:last-child{padding-bottom:0;border-bottom:0;margin-bottom:0;}
 
-#frmGrupo{color:#555;float:left;width:400px;}
+#frmGrupo{color:#555;float:left; position: relative; width: 100%}
 #frmGrupo li{margin-bottom:7px;}
 #frmGrupo li label {display:inline-block;margin-right:5px;width:50px;}
 
 #frmGrupo > dl{display:inline-block;padding-top:2px;}
 #frmGrupo > dl > dt,
-#frmGrupo > dl > dd{margin-bottom:15px;}
-#frmGrupo > dl > dt{width:155px;font-size:15px;}
-#frmGrupo > dl > dd{width:245px;margin-top:-5px;}
+#frmGrupo > div.itensForm > dt{width:100px;font-size:15px; margin-bottom: 7px;}
+#frmGrupo > div.itensForm > dd{width:235px;margin-bottom: 10px; }
+#frmGrupo > div.itensForm > dd > a{float: right;}
+#frmGrupo > div.itensForm{float: left; width: 100%;}
 
 .list-grupo-empty{display:none;text-align:center;border-radius:15px;padding-bottom:10px!important;}
 .list-grupo-empty > p{padding-bottom:0;color:#887d52;line-height:20px;}
@@ -42,12 +42,34 @@
 .list-grupo-content > h3{color:#436795 !important;font-size:16px;margin-bottom:0;}
 .list-grupo-content > h3 > span{color:#4d6e99;font-size:14px;}
 .list-grupo-content > h3 > span:last-child{color:#335684;opacity:.75;}
-.list-grupo-content p{padding-bottom:3px;font-size:13px;color:#666;}
+.list-grupo-content p{padding-bottom:3px;font-size:13px;color:#666;float: left;width: 100%;}
 .list-grupo-content-geral{margin-bottom:10px;}
 
 .list-grupo-content-data{list-style:none;}
-.list-grupo-content-data > li{float:left;width:500px;margin-right:20px;margin-bottom:4px;font-size:13px;color:#666;}
-.list-grupo-content-data [class^=icon]{margin-right:3px;}
-/* .list-grupo-content-data > .list-grupo-content-phone{width:175px;} */
+.list-grupo-content-data > li{float:left;width:45%;margin-right:20px;margin-bottom:4px;font-size:13px;color:#666;position: relative;}
+.list-grupo-content-data [class^=icon]{margin-right:3px; float: left;}
+.list-grupo-content-data > div{float: left;}
 .list-grupo-content-data > li a{color:#569;}
 
+div.itemServico { border: 1px solid #D5D5D5; border-radius: 5px 5px 5px 5px; padding: 5px; width: 324px; margin: 3px 1px; float: left;}
+span.excluirServico{float:right; cursor: pointer;}
+li.servicoTitulo{padding-bottom: 10px; list-style: none; color:#555555}
+li.servicoTitulo > span#icone{margin-right: 5px;}
+div#selecaoServico{position: relative; margin-top: 10px}
+div#listaServicos{position: relative; margin: 5px auto;}
+div.btnServicos{width: 100%}
+div.btnServicos > div{float: left;}
+div.btnServicos > label{color:#555555; width: 100px;}
+div.btnServicos > select{width: 173px}
+dd.inputServico{width: 100% !important; margin-bottom: 0px !important;}
+dd.inputServico > input{width: 180px !important;}
+button#btnAddNovo{width: 137px !important; float: right; margin-bottom: 8px;}
+p#msg-erro{margin: 5px auto; float: left;}
+
+#emailExterno{padding-bottom: 0px !important; margin: 3px; cursor: pointer;}
+.excluirEmailExterno{display: none; float: right;}
+#emailExterno:hover .excluirEmailExterno {display:block; cursor: pointer;}
+#grupoEmailExterno{padding-bottom: 0px !important; margin: 3px;}
+.formGrupo{float: left; width: 50%}
+.servicos-content{float: left; margin-top: 44px; width: 50%;}
+#dominioEmail{font-size: 90% !important;}

@@ -10,12 +10,14 @@ public class Membro extends Entidade {
 	private String idUsuario;
 	private String idGrupo;
 	private String nomeUsuario;
+	private String email;
 
-	public Membro(String idUsuario, String idGrupo, String nomeUsuario) {
+	public Membro(String idUsuario, String idGrupo, String nomeUsuario, String email) {
 		super();
 		this.idUsuario = idUsuario;
 		this.idGrupo = idGrupo;
 		this.nomeUsuario = nomeUsuario;
+		this.email = email;
 	}
 
 	public Membro(Entity entity) {
@@ -23,6 +25,7 @@ public class Membro extends Entidade {
 		this.idGrupo = (String) entity.getProperty(MembroFields.idGrupo.name());
 		this.idUsuario = (String) entity.getProperty(MembroFields.idUsuario.name());
 		this.nomeUsuario = (String) entity.getProperty(MembroFields.nomeUsuario.name());
+		this.email = (String) entity.getProperty(MembroFields.email.name());
 	}
 
 	@Override
@@ -32,6 +35,7 @@ public class Membro extends Entidade {
 		entidade.setProperty(MembroFields.idGrupo.name(), this.idGrupo);
 		entidade.setProperty(MembroFields.idUsuario.name(), this.idUsuario);
 		entidade.setProperty(MembroFields.nomeUsuario.name(), this.nomeUsuario);
+		entidade.setProperty(MembroFields.email.name(), this.email);
 
 		return entidade;
 	}
@@ -56,12 +60,22 @@ public class Membro extends Entidade {
 		this.nomeUsuario = nomeUsuario;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this.getClass())
 			.append("id", this.id)
 				.append("idUsuario", this.idUsuario)
 					.append("nomeUsuario", this.nomeUsuario)
-						.append("idGrupo", this.idGrupo).toString();
+						.append("idGrupo", this.idGrupo)
+							.append("email", this.email).toString();
 	}
+
 }

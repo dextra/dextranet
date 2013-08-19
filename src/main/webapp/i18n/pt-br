@@ -78,13 +78,17 @@
 	"novos_microPosts" : " novo(s) micropost(s)",
 	"ver_novos_posts" : "Ver",
 	"title_excluir" : "Excluir este post",
-	"grupo_nome" : "Nome do grupo",
+	"grupo_nome" : "Nome",
 	"grupo_descricao" : "Descrição",
-	"grupo_pessoas" : "Pessoas",
+	"grupo_pessoas" : "Membros",
+	"grupo_email" : "Grupo de email interno",
 	"grupo_novo" : "Novo grupo",
 	"grupo_titulo" : "Grupo",
 	"grupo_editar_titulo" : "Editar Grupo",
 	"grupo_titulo_membros" : "Membros",
-	"desfazer" : "(Desfazer)"
+	"servico" : "Serviços",
+	"desfazer" : "(Desfazer)",
+	"url_redmine" : "https://redmine.dextra.com.br/projects/suporte/issues/new?issue[subject]=Remoção%20Google%20Grupo&issue[custom_field_values][32]=",
+	"url_redmine_descricao" : "&issue[description]=Nome%20do%20grupo:"
 	}
 }

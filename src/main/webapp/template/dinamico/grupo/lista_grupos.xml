@@ -1,46 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
     <template selector="#content_left">
-		<div class="div-btn-novo">
-		<button id="btnAddNovo" class="btn btn-blue btn-block btn-novoGrupo" type="button" >${messages.grupo_novo}</button>
-		</div>
-		<div id="frmNovoGrupo" class="clearfix hidden">
-
-	        <form id="frmPerfil" class="form-dark form-horizontal clearfix">
-				<dl>
-					<dt>
-						<label for="txtGrupoNome"><span class="input-obg"></span>${messages.grupo_nome}:</label>
-					</dt>
-					<dd>
-						<input type="text" id="txtGrupoNome" name="grupo_nome" value="" class="not-empty" maxlength="50" />
-					</dd>
-
-					<dt>
-						<label for="txtGrupoEmail"><span class="input-obg"></span>${messages.grupo_email}:</label>
-					</dt>
-					<dd>
-						<input type="text" id="txtGrupoEmail" name="grupo_email" value="" class="not-empty" maxlength="50" />
-					</dd>
-
-					<dt>
-						<label for="txtGrupoPessoas"><span class="input-obg"></span>${messages.grupo_pessoas}:</label>
-					</dt>
-					<dd>
-						<input type="text" id="txtGrupoPessoas" name="grupo_pessoas" value="" class="not-empty" maxlength="50" />
-					</dd>
-
-					<dt>
-						<label for="txtGrupoProjeto"><span class="input-obg"></span>${messages.grupo_projeto}:</label>
-					</dt>
-					<dd>
-						<input type="text" id="txtGrupoProjeto" name="grupo_projeto" value="" class="not-empty" maxlength="50" />
-					</dd>
-
-					<dd>
-						<button id="btnSalvar" class="btn btn-blue btn-block" type="button" >${messages.botao_salvar}</button>
-					</dd>
-				</dl>
-			</form>
+		<div class="clearfix">
+			<button id="btnAddNovo" class="btn btn-blue btn-novoGrupo " type="button" >${messages.grupo_novo}</button>
 		</div>
 
 		<div id="listaGrupos" class="clearfix">
@@ -53,54 +15,63 @@
 	        </ul>
 
 	        <ul class="list-grupo list-vertical clearfix">
-			<li class="list-grupo-empty">
-				<p>
-					<img src="img/smile-sad.gif"/>
-					<span>Nenhum grupo</span>
-					<span>foi encontrado!</span>
-				</p>
-			</li>
-	      	 {for grupo in grupos}
-                <li class="clearfix grupo" id="${grupo.id}">
-                    <div class="list-grupo-content">
-                        <h3>
-                        	<div class="div-titulo-left">
-                        		<span class="icon_grupo-mini icon"/>
-	                        	{if grupo.excluirGrupo}
-	                            	<a onclick="dextranet.grupos.editar('${grupo.id}')"><span class="nome">${grupo.nome}</span></a>
-	                            {else}
-	                            	<span class="nome">${grupo.nome}</span>
-	                            {/if}
-							</div>
-							<div class="div-titulo-right">
-		                        {if grupo.excluirGrupo}
-			                        <button id="btn-excluirGrupo_${grupo.id}" class="btn btn-small btn-light btn-excluirGrupo"
-										title="Excluir este grupo" onclick="dextranet.grupos.remover('${grupo.id}')">
-										<strong>x</strong>
-										${messages.botao_excluir}
-									</button>
-								{/if}
-							</div>
-                        </h3>
-						<ul class="list-grupo-content-data clearfix">
-							<li class="list-grupo-content-phone">
-                                <span original-title="${messages.grupo_descricao}"></span>
-                                {if grupo.descricao }
-                                    ${grupo.descricao}
+				<li class="list-grupo-empty">
+					<p>
+						<img src="img/smile-sad.gif"/>
+						<span>Nenhum grupo</span>
+						<span>foi encontrado!</span>
+					</p>
+				</li>
+		      	 {for grupo in grupos}
+	                <li class="clearfix grupo" id="${grupo.id}">
+	                    <div class="list-grupo-content">
+	                        <h3>
+	                        	<div class="div-titulo-left">
+	                        		<span class="icon_grupo-mini icon"/>
+		                        	{if grupo.excluirGrupo}
+		                            	<a onclick="dextranet.grupos.editar('${grupo.id}')"><span class="nome">${grupo.nome}</span></a>
+		                            {else}
+		                            	<span class="nome">${grupo.nome}</span>
+		                            {/if}
+								</div>
+								<div class="div-titulo-right">
+			                        {if grupo.excluirGrupo}
+				                        <button id="btn-excluirGrupo_${grupo.id}" class="btn btn-small btn-light btn-excluirGrupo"
+											title="Excluir este grupo" onclick="dextranet.grupos.remover('${grupo.id}')">
+											<strong>x</strong>
+											${messages.botao_excluir}
+										</button>
+									{/if}
+								</div>
+	                        </h3>
+	                        <p class="list-grupo-content-geral">
+		                        {if grupo.descricao }
+		                        	${grupo.descricao}
+		                        {/if}
+	                        </p>
+							<ul class="list-grupo-content-data clearfix">
+								<li class="list-grupo-content-data">
+	                                <span class="icon_pessoas-mini icon" original-title="${messages.grupo_pessoas}"></span>
+	                                <div>
+		                                {if grupo.usuarios }
+		             						{for pessoa in grupo.usuarios}
+		                                    	${pessoa.nome}<![CDATA[</br>]]>
+		                                    {/for}
+		                                {/if}
+		                         	</div>
+								</li>
+                                {if grupo.servico != ""}
+									<li class="list-grupo-content-data">
+	             						{for servico in grupo.servico}
+			                                <span class="icon_gtalk-mini icon" style="position:relative; float:left;" original-title="${messages.grupo_email}"></span>
+	                                    	<a href="mailto:${servico.emailGrupo}@dextra-sw.com">${servico.emailGrupo}</a><![CDATA[</br>]]>
+	                                    {/for}
+									</li>
                                 {/if}
-							</li>
-							<li class="list-grupo-content-phone">
-                                <span class="icon_pessoas-mini icon" original-title="${messages.grupo_pessoas}"></span>
-                                {if grupo.usuarios }
-             						{for pessoa in grupo.usuarios}
-                                    	<p>${pessoa.nome}</p>
-                                    {/for}
-                                {/if}
-							</li>
-						</ul>
-                    </div>
-                </li>
-            {/for}
+							</ul>
+	                    </div>
+	                </li>
+	            {/for}
 	        </ul>
 		</div>
     </template>
