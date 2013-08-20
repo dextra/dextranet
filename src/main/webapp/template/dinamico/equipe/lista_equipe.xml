@@ -87,6 +87,16 @@
 									<span class="empty">${messages.label_campo_nao_informado}</span>
 								{/if}
 							</li>
+							{if colaborador.nomesGrupos != ""}
+								<li class="list-grupo-content-data">
+		                                <span class="icon_grupo-mini icon" style="position:relative; float:left;" original-title="${messages.label_grupos}"></span>
+           								<div style="width: 230px;">
+	           								{for nomeGrupo in colaborador.nomesGrupos}
+	                                  			- ${nomeGrupo}<![CDATA[</br>]]>
+	                                  		{/for}
+	                                  	</div>
+								</li>
+                             {/if}
 						</ul>
                     </div>
                 </li>

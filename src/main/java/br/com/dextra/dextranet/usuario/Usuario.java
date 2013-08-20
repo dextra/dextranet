@@ -1,6 +1,7 @@
 package br.com.dextra.dextranet.usuario;
 
 import java.util.Date;
+import java.util.List;
 
 import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.utils.ConteudoHTML;
@@ -24,6 +25,7 @@ public class Usuario extends Entidade {
 	private String skype;
 	private Date ultimaAtualizacao;
 	private String blog;
+	private List<String> nomesGrupos;
 
 	public Usuario(String username) {
 		this.username = username.trim();
@@ -161,5 +163,13 @@ public class Usuario extends Entidade {
 
 	public static String geraMD5(String username) {
 		return MD5.hash(username + DEFAULT_DOMAIN);
+	}
+
+	public List<String> getNomesGrupos() {
+		return nomesGrupos;
+	}
+
+	public void setNomesGrupos(List<String> nomesGrupos) {
+		this.nomesGrupos = nomesGrupos;
 	}
 }

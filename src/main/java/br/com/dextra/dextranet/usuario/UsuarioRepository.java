@@ -3,6 +3,10 @@ package br.com.dextra.dextranet.usuario;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.dextra.dextranet.grupo.Grupo;
+import br.com.dextra.dextranet.grupo.GrupoRepository;
+import br.com.dextra.dextranet.grupo.Membro;
+import br.com.dextra.dextranet.grupo.MembroRepository;
 import br.com.dextra.dextranet.persistencia.EntidadeNaoEncontradaException;
 import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.persistencia.EntidadeRepository;
@@ -17,6 +21,9 @@ import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
 public class UsuarioRepository extends EntidadeRepository {
+	GrupoRepository repositorio = new GrupoRepository();
+	MembroRepository repositorioMembro = new MembroRepository();
+
     public Usuario persiste(Usuario usuario) {
         return super.persiste(usuario);
     }
@@ -30,16 +37,25 @@ public class UsuarioRepository extends EntidadeRepository {
         this.remove(id, Usuario.class);
     }
 
-    public List<Usuario> lista() {
+    public List<Usuario> lista() throws EntityNotFoundException {
         EntidadeOrdenacao ordenacaoPorUsername = new EntidadeOrdenacao(UsuarioFields.username.name(),
                 SortDirection.ASCENDING);
         List<Usuario> usuarios = new ArrayList<Usuario>();
 
         Iterable<Entity> entidades = super.lista(Usuario.class, ordenacaoPorUsername);
         for (Entity entidade : entidades) {
-            usuarios.add(new Usuario(entidade));
-        }
+        	Usuario usuario = new Usuario(entidade);
+        	Grupo grupo = new Grupo();
 
+        	List<Membro> grupos = repositorioMembro.obtemPorIdUsuario(usuario.getId());
+    		List<String> nomes = new ArrayList<String>();
+    		for(Membro membro : grupos){
+    			grupo = repositorio.obtemPorId(membro.getIdGrupo());
+    			nomes.add(grupo.getNome());
+    		}
+    		usuario.setNomesGrupos(nomes);
+            usuarios.add(usuario);
+        }
         return usuarios;
     }
 

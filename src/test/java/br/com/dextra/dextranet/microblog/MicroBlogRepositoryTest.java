@@ -15,6 +15,7 @@ import br.com.dextra.dextranet.usuario.UsuarioRepository;
 import br.com.dextra.dextranet.utils.TimeMachine;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
 public class MicroBlogRepositoryTest extends TesteIntegracaoBase {
@@ -29,7 +30,7 @@ public class MicroBlogRepositoryTest extends TesteIntegracaoBase {
     }
 
     @After
-    public void removeDados() {
+    public void removeDados() throws EntityNotFoundException {
         this.limpaMicroPostsInseridos(repository);
         this.limpaUsuariosInseridos(usuarioRepository);
     }

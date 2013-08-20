@@ -64,7 +64,7 @@ public class UsuarioRS {
 	@Path("/")
 	@GET
 	@Produces(Application.JSON_UTF8)
-	public Response listar() {
+	public Response listar() throws EntityNotFoundException {
 		List<Usuario> usuarios = repositorio.lista();
 		return Response.ok().entity(usuarios).build();
 	}

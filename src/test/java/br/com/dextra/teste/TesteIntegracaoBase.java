@@ -6,6 +6,8 @@ import java.util.List;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
+import com.google.appengine.api.datastore.EntityNotFoundException;
+
 import br.com.dextra.dextranet.banner.Banner;
 import br.com.dextra.dextranet.banner.BannerRepository;
 import br.com.dextra.dextranet.conteudo.Conteudo;
@@ -63,7 +65,7 @@ public class TesteIntegracaoBase {
         }
     }
 
-    public void limpaUsuariosInseridos(UsuarioRepository repositorioDeUsuarios) {
+    public void limpaUsuariosInseridos(UsuarioRepository repositorioDeUsuarios) throws EntityNotFoundException {
         List<Usuario> usuarios = repositorioDeUsuarios.lista();
         for (Usuario usuario : usuarios) {
             repositorioDeUsuarios.remove(usuario.getId());

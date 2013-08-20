@@ -44,6 +44,20 @@ public class MembroRepository extends EntidadeRepository {
 		return null;
 	}
 
+	public List<Membro> obtemPorIdUsuario(String idUsuario) throws EntityNotFoundException {
+		String[] valores = {idUsuario};
+		String[] campos = {MembroFields.idUsuario.name()};
+		Iterable<Entity> entidades = super.obterPor(Membro.class, campos, valores);
+
+		List<Membro> membros = new ArrayList<Membro>();
+		Membro membro = null;
+		for (Entity entity : entidades) {
+			membro = new Membro(entity);
+			membros.add(membro);
+		}
+		return membros;
+	}
+
 	public List<Membro> lista() {
 		EntidadeOrdenacao entidadeOrdenacao = new EntidadeOrdenacao(MembroFields.id.name(), SortDirection.ASCENDING);
 		Iterable<Entity> entidades = super.lista(Membro.class, entidadeOrdenacao);

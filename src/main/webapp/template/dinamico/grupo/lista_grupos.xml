@@ -55,7 +55,11 @@
 	                                <div>
 		                                {if grupo.usuarios }
 		             						{for pessoa in grupo.usuarios}
-		                                    	${pessoa.nome}<![CDATA[</br>]]>
+		                                    	${pessoa.nome}
+		                                    	{if grupo.proprietario == pessoa.email}
+												<span class="icon donoGrupo" original-title="Dono do grupo">*</span>
+		                                    	{/if}
+		                                    	<![CDATA[</br>]]>
 		                                    {/for}
 		                                {/if}
 		                         	</div>

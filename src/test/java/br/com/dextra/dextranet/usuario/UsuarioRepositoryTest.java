@@ -17,7 +17,7 @@ public class UsuarioRepositoryTest extends TesteIntegracaoBase {
 	private UsuarioRepository repositorio = new UsuarioRepository();
 
 	@After
-	public void after() {
+	public void after() throws EntityNotFoundException {
 		this.limpaUsuariosInseridos(repositorio);
 	}
 
@@ -38,7 +38,7 @@ public class UsuarioRepositoryTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	public void testaListaTodos() {
+	public void testaListaTodos() throws EntityNotFoundException {
 		Usuario usuario01 = new Usuario("reloadDextranet");
 		Usuario usuario02 = new Usuario("dextranet");
 		Usuario usuario03 = new Usuario("novaDextranet");

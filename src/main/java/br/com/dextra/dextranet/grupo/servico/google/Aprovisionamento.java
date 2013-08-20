@@ -10,9 +10,15 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
 
+import br.com.dextra.dextranet.seguranca.AutenticacaoService;
+
 public class Aprovisionamento {
 
 		private GoogleKeyRepository repo = new GoogleKeyRepository();
+
+		protected String obtemUsuarioLogado() {
+			return AutenticacaoService.identificacaoDoUsuarioLogado();
+		}
 
 		List<GoogleKey> googleKey = repo.lista();
 		String key = googleKey.get(0).getKey().toString();
@@ -47,7 +53,9 @@ public class Aprovisionamento {
 		      "&funcao=" + URLEncoder.encode(acao, "UTF-8") +
 		      "&emailgrupo=" + URLEncoder.encode(grupoEmail, "UTF-8") +
 		      "&nomegrupo=" + URLEncoder.encode(nomeEmail, "UTF-8") +
-		      "&emailmembro=" + URLEncoder.encode(listString, "UTF-8");
+		      "&emailmembro=" + URLEncoder.encode(listString, "UTF-8") +
+		      "&autorRequisicao=" + URLEncoder.encode(obtemUsuarioLogado(), "UTF-8");
+
 
 	        output.writeBytes(content);
 	        output.flush();
@@ -69,7 +77,7 @@ public class Aprovisionamento {
 
 		      URL serverAddress = null;
 
-		          serverAddress = new URL("https://script.google.com/macros/s/AKfycbxG9oiWD1a4TvGuJg0QxTCs8FrazbUx8jga1gBZJUnsjSEU6wA/exec?key=" + key +"&funcao=" + acao + "&emailgrupo=" + email);
+		          serverAddress = new URL("https://script.google.com/macros/s/AKfycbxG9oiWD1a4TvGuJg0QxTCs8FrazbUx8jga1gBZJUnsjSEU6wA/exec?key=" + key +"&funcao=" + acao + "&emailgrupo=" + email + "&autorRequisicao=" + obtemUsuarioLogado());
 		          System.out.println(serverAddress);
 		          connection = null;
 		          connection = (HttpURLConnection)serverAddress.openConnection();
