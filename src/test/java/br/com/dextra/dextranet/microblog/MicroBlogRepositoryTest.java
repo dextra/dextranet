@@ -63,9 +63,9 @@ public class MicroBlogRepositoryTest extends TesteIntegracaoBase {
         TimeMachine timeMachine = new TimeMachine();
         Date inicioDoDia = timeMachine.inicioDoDia(new Date());
         Date fimDoDia = timeMachine.fimDoDia(inicioDoDia);
-        Date umDiaAtras = timeMachine.diasParaAtras(inicioDoDia, 1);
+        Date diasAtras = timeMachine.diasParaAtras(inicioDoDia, 2);
 
-        MicroPost microPost = new MicroPost("micromessa1", usuario, umDiaAtras);
+        MicroPost microPost = new MicroPost("micromessa1", usuario, diasAtras);
         repository.salvar(microPost);
         MicroPost microPost2 = new MicroPost("micromessa2", usuario, inicioDoDia);
         repository.salvar(microPost2);

@@ -33,7 +33,6 @@ dextranet.grupos = {
 		// Autocomplete Pessoas
 		var pessoas = $.ajax({
 			url : "/s/usuario",
-			loading : false,
 			dataType : "json"
 		});
 		// Template GoogleGrupo form
