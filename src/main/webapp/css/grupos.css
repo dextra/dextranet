@@ -73,4 +73,4 @@ p#msg-erro{margin: 5px auto; float: left;}
 .formGrupo{float: left; width: 50%}
 .servicos-content{float: left; margin-top: 44px; width: 50%;}
 #dominioEmail{font-size: 90% !important;}
-.donoGrupo{float: right !important; margin-left: 5px;}
+.donoGrupo{float: none !important;}
