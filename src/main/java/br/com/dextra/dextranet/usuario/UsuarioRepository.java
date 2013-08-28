@@ -1,9 +1,11 @@
 package br.com.dextra.dextranet.usuario;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import br.com.dextra.dextranet.grupo.Grupo;
+import br.com.dextra.dextranet.grupo.GrupoJSON;
 import br.com.dextra.dextranet.grupo.GrupoRepository;
 import br.com.dextra.dextranet.grupo.Membro;
 import br.com.dextra.dextranet.grupo.MembroRepository;
@@ -46,14 +48,22 @@ public class UsuarioRepository extends EntidadeRepository {
         for (Entity entidade : entidades) {
         	Usuario usuario = new Usuario(entidade);
         	Grupo grupo = new Grupo();
-
+        	List<GrupoJSON> grupoJSONs = new ArrayList<GrupoJSON>();
         	List<Membro> grupos = repositorioMembro.obtemPorIdUsuario(usuario.getId());
-    		List<String> nomes = new ArrayList<String>();
-    		for(Membro membro : grupos){
-    			grupo = repositorio.obtemPorId(membro.getIdGrupo());
-    			nomes.add(grupo.getNome());
-    		}
-    		usuario.setNomesGrupos(nomes);
+
+        	Iterator<Membro> membro = grupos.iterator();
+            while ( membro.hasNext() ){
+            	GrupoJSON grupoJSON = new GrupoJSON();
+
+            	grupo = repositorio.obtemPorId(membro.next().getIdGrupo());
+            	grupoJSON.setId(grupo.getId());
+            	grupoJSON.setNome(grupo.getNome());
+            	grupoJSON.setProprietario(grupo.getProprietario());
+
+            	grupoJSONs.add(grupoJSON);
+            }
+
+            usuario.setGrupos(grupoJSONs);
             usuarios.add(usuario);
         }
         return usuarios;

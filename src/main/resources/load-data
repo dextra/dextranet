@@ -20,4 +20,4 @@ $.ajax( { type : "POST", url : "/s/area", data : { nome : "Infra" } });
 --
 -- Servicos
 --
-$.ajax( { type : "POST", url : "/s/servico", data : { nome : "Grupo email interno" } });
+$.ajax( { type : "POST", url : "/s/servico", data : { nome : "Grupo de email" } });

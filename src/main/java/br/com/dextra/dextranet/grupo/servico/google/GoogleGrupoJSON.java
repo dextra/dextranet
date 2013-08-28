@@ -13,17 +13,18 @@ public class GoogleGrupoJSON {
 	private String nomeEmailGrupo;
 	private String emailGrupo;
 	private List<UsuarioJSON> usuarioJSONs;
-
+	private String emailsExternos;
 
 	public GoogleGrupoJSON() {
 	}
 
-	public GoogleGrupoJSON(String id, String idServico, String nomeEmailGrupo,String emailGrupo, List<UsuarioJSON> usuarioJSONs) {
+	public GoogleGrupoJSON(String id, String idServico, String nomeEmailGrupo,String emailGrupo, List<UsuarioJSON> usuarioJSONs, String emailsExternos) {
 		this.id = id;
 		this.idServico = idServico;
 		this.nomeEmailGrupo = nomeEmailGrupo;
 		this.emailGrupo = emailGrupo;
 		this.usuarioJSONs = usuarioJSONs;
+		this.emailsExternos = emailsExternos;
 	}
 
 	public String getId() {
@@ -67,5 +68,12 @@ public class GoogleGrupoJSON {
 		this.usuarioJSONs = usuarioJSONs;
 	}
 
+	public String getEmailsExternos() {
+		return emailsExternos;
+	}
+
+	public void setEmailsExternos(String emailsExternos) {
+		this.emailsExternos = emailsExternos;
+	}
 
 }

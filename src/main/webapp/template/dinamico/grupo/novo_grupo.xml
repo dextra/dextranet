@@ -15,7 +15,6 @@
 						<dd>
 							<input type="text" id="txtGrupoNome" name="nome" value="" class="not-empty" maxlength="50" />
 						</dd>
-
 						<dt>
 							<label for="txtGrupoDescricao">
 								<span class="input-obg"></span>
@@ -24,6 +23,14 @@
 						</dt>
 						<dd>
 							<textarea id="txtGrupoDescricao" name="descricao" class="not-empty" maxlength="500" rows="4"></textarea>
+						</dd>
+						<dt>
+							<label for="txtDono">
+								${messages.grupo_dono}:
+							</label>
+						</dt>
+						<dd>
+							<input type="text" id="txtDono" name="dono" value="${dextranet.usuario.logado.nome}" class="not-empty" disabled="disabled" />
 						</dd>
 					</div>
 
@@ -77,20 +84,17 @@
 
 			//Add TAB serviço
 			function addTab(servico, id_servico) {
-					conteudo = "<li class='servicoTitulo'><span id='icone' class='icon_gtalk-mini icon'></span>" + servico + "<span id='" + id_servico + "' class='ui-icon ui-icon-close novoServico excluirServico'>Remover serviço</span></li>";
-					novoItem = tabs.append("<div id='"+ id_servico+ "' class='itemServico'>" + conteudo + "</div>");
-					var tab = $( "<div id='tabs-" + qtdServico + "'></div>").appendTo("div#listaServicos div:last");
-					qtdServico++;
+				conteudo = "<li class='servicoTitulo'><span id='icone' class='icon_gtalk-mini icon'></span>" + servico + "<span id='" + id_servico + "' class='ui-icon ui-icon-close novoServico excluirServico'>Remover serviço</span></li>";
+				novoItem = tabs.append("<div id='"+ id_servico+ "' class='itemServico'>" + conteudo + "</div>");
+				var tab = $( "<div id='tabs-" + qtdServico + "'></div>").appendTo("div#listaServicos div:last");
+				qtdServico++;
 
-<!-- 					// Não será assim, claro.. -->
-<!-- 					if(servico == 'Grupo email interno'){ -->
-<!-- 						dextranet.grupos.listarGGrupo(id_servico, tab); -->
-<!-- 					}else{ -->
-<!-- 						dextranet.grupos.listarGGrupoExterno(id_servico, tab); -->
-<!-- 					} -->
-
-					dextranet.grupos.listarGGrupo(id_servico, tab);
-
+					// Não será assim, claro..
+					if(servico == 'Grupo email interno'){
+						dextranet.grupos.listarGGrupo(id_servico, tab);
+					}else{
+						dextranet.grupos.listarGGrupoExterno(id_servico, tab);
+					}
 			}
 
 			//Add servico
@@ -98,7 +102,7 @@
 				var servico = $("select#servicos").find(":selected").text();
 				var id_servico = $("select#servicos").val();
 
-				//Retirar daqui; isolar no grupo.js?!
+				//Retirar daqui; colocar no grupo.js?!
 				if (dextranet.grupos.googleGrupos.length == 0 && $.active == 0) {
 					$.ajax({
 						url : "/s/grupo/googlegrupos/listarGrupos",
@@ -155,6 +159,20 @@
 				    username = $(this).attr("username");
 				    usuarios.push({ id: id, nome: nome, email: username});
 
+				});
+
+				//Emails Externos
+				var emailGrupoExterno;
+				var idServico;
+				dextranet.grupos.emailsExternos = [];
+				$('form.ggrupoExterno').find('input[name="grupoEmailExterno"]').each(function(){
+					var emailsExternos = [];
+					emailGrupoExterno = $(this).val();
+					idServico = $(this).parent().find('input[name="idServico"]').val();
+					$(this).parent().find('p#emailExterno').each(function(){
+						emailsExternos.push($(this).attr('email'));
+					});
+					dextranet.grupos.emailsExternos.push({grupoEmail : emailGrupoExterno, idServico : idServico, emails : emailsExternos});
 				});
 
 				dextranet.grupos.usuariosSelecionados = usuarios;

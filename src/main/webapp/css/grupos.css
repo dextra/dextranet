@@ -48,7 +48,7 @@
 .list-grupo-content-data{list-style:none;}
 .list-grupo-content-data > li{float:left;width:45%;margin-right:20px;margin-bottom:4px;font-size:13px;color:#666;position: relative;}
 .list-grupo-content-data [class^=icon]{margin-right:3px; float: left;}
-.list-grupo-content-data > div{float: left;}
+.list-grupo-content-data > div{float: left; width: 90%}
 .list-grupo-content-data > li a{color:#569;}
 
 div.itemServico { border: 1px solid #D5D5D5; border-radius: 5px 5px 5px 5px; padding: 5px; width: 324px; margin: 3px 1px; float: left;}
@@ -66,7 +66,7 @@ dd.inputServico > input{width: 180px !important;}
 button#btnAddNovo{width: 137px !important; float: right; margin-bottom: 8px;}
 p#msg-erro{margin: 5px auto; float: left;}
 
-#emailExterno{padding-bottom: 0px !important; margin: 3px; cursor: pointer;}
+#emailExterno{padding-bottom: 0px !important; margin: 3px 0px 3px 19px; cursor: pointer;}
 .excluirEmailExterno{display: none; float: right;}
 #emailExterno:hover .excluirEmailExterno {display:block; cursor: pointer;}
 #grupoEmailExterno{padding-bottom: 0px !important; margin: 3px;}
@@ -74,3 +74,4 @@ p#msg-erro{margin: 5px auto; float: left;}
 .servicos-content{float: left; margin-top: 44px; width: 50%;}
 #dominioEmail{font-size: 90% !important;}
 .donoGrupo{float: none !important;}
+span.infoEmailExterno{font-size: 90% !important; margin-left: 19px}

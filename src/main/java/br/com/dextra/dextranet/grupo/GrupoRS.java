@@ -2,8 +2,10 @@ package br.com.dextra.dextranet.grupo;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.text.StyledEditorKit.BoldAction;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -13,6 +15,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import br.com.dextra.dextranet.grupo.servico.google.Aprovisionamento;
 import br.com.dextra.dextranet.grupo.servico.google.GoogleGrupoJSON;
@@ -61,14 +67,25 @@ public class GrupoRS {
 	@Path("/googlegrupos/")
 	@PUT
 	@Consumes("application/json")
-	public Response aprovisionarServicos(List<GoogleGrupoJSON> googleGrupoJSONs) throws IOException{
-
-		List<String> emails = new ArrayList<String>();
-		for (UsuarioJSON usuarioJSON : googleGrupoJSONs.get(0).getUsuarioJSONs()) {
-			emails.add(usuarioJSON.getEmail());
-		}
-
+	public Response aprovisionarServicos(List<GoogleGrupoJSON> googleGrupoJSONs) throws IOException, ParseException{
 		for (GoogleGrupoJSON googleGrupoJSON : googleGrupoJSONs) {
+			List<String> emails = new ArrayList<String>();
+			for (UsuarioJSON usuarioJSON : googleGrupoJSON.getUsuarioJSONs()) {
+				emails.add(usuarioJSON.getEmail());
+			}
+
+			if(googleGrupoJSON.getEmailsExternos() != null){
+				JSONParser jParser = new JSONParser();
+				Object emailsExternos = jParser.parse(googleGrupoJSON.getEmailsExternos());
+
+				JSONArray arrayEmailsExternos = (JSONArray) emailsExternos;
+
+				Iterator<String> emailExterno = arrayEmailsExternos.iterator();
+				while (emailExterno.hasNext()) {
+					emails.add(emailExterno.next());
+				}
+			}
+
 			Aprovisionamento aprovisionamento = new Aprovisionamento();
 			aprovisionamento.doPost("adicionarmembro", googleGrupoJSON.getEmailGrupo(),
 								    googleGrupoJSON.getEmailGrupo(),
@@ -81,19 +98,36 @@ public class GrupoRS {
 	@Path("/googlegrupos/removerIntegrantes/")
 	@PUT
 	@Consumes("application/json")
-	public Response addMembro(List<GoogleGrupoJSON> googleGrupoJSONs) throws IOException{
-
-		List<String> emails = new ArrayList<String>();
-		for (UsuarioJSON usuarioJSON : googleGrupoJSONs.get(0).getUsuarioJSONs()) {
-			emails.add(usuarioJSON.getEmail());
-		}
-
+	public Response removerIntegrantes(List<GoogleGrupoJSON> googleGrupoJSONs) throws IOException, ParseException{
 		for (GoogleGrupoJSON googleGrupoJSON : googleGrupoJSONs) {
+			List<String> emails = new ArrayList<String>();
+			if(googleGrupoJSON.getUsuarioJSONs() != null){
+				for (UsuarioJSON usuarioJSON : googleGrupoJSON.getUsuarioJSONs()) {
+					emails.add(usuarioJSON.getEmail());
+				}
+			}
+
+			if(googleGrupoJSON.getEmailsExternos() != null){
+				emails.add(googleGrupoJSON.getEmailsExternos());
+			}
+
 			Aprovisionamento aprovisionamento = new Aprovisionamento();
 			aprovisionamento.doPost("removermembro", googleGrupoJSON.getEmailGrupo(),
 								    googleGrupoJSON.getEmailGrupo(),
 									emails);
 		}
+
+//		List<String> emails = new ArrayList<String>();
+//		for (UsuarioJSON usuarioJSON : googleGrupoJSONs.get(0).getUsuarioJSONs()) {
+//			emails.add(usuarioJSON.getEmail());
+//		}
+//
+//		for (GoogleGrupoJSON googleGrupoJSON : googleGrupoJSONs) {
+//			Aprovisionamento aprovisionamento = new Aprovisionamento();
+//			aprovisionamento.doPost("removermembro", googleGrupoJSON.getEmailGrupo(),
+//								    googleGrupoJSON.getEmailGrupo(),
+//									emails);
+//		}
 
 		return Response.ok().build();
 	}
@@ -135,10 +169,9 @@ public class GrupoRS {
 	@Path("/")
 	@PUT
 	@Consumes("application/json")
-	public Response adicionar(GrupoJSON grupojson) {
+	public Response adicionar(GrupoJSON grupojson) throws ParseException{
 		Grupo grupo = new Grupo(grupojson.getNome(), grupojson.getDescricao(), obtemUsuarioLogado());
 		repositorio.persiste(grupo);
-
 
 		for (UsuarioJSON usuariojson : grupojson.getUsuarios()) {
 			Membro membro = new Membro(usuariojson.getId(), grupo.getId(), usuariojson.getNome(), usuariojson.getEmail());
@@ -147,7 +180,7 @@ public class GrupoRS {
 
 		if(grupojson.getServico() != null){
 			for(GoogleGrupoJSON servico : grupojson.getServico()){
-				ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getIdServico(), grupo.getId(), servico.getEmailGrupo());
+				ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getIdServico(), grupo.getId(), servico.getEmailGrupo(), servico.getEmailsExternos());
 				servicoGrupoRepository.persiste(servicoGrupo);
 			}
 		}
@@ -155,10 +188,10 @@ public class GrupoRS {
 		return Response.ok().build();
 	}
 
-	@Path("/{id}")
+	@Path("/{idGrupo}")
 	@PUT
 	@Produces(Application.JSON_UTF8)
-	public Response atualizar(@PathParam("id") String id, GrupoJSON grupojson) throws EntityNotFoundException {
+	public Response atualizar(@PathParam("idGrupo") String id, GrupoJSON grupojson) throws EntityNotFoundException {
 		String usuarioLogado = obtemUsuarioLogado();
 		Grupo grupo = repositorio.obtemPorId(id);
 		if (usuarioLogado.equals(grupo.getProprietario())) {
@@ -168,8 +201,19 @@ public class GrupoRS {
 
 			if(grupojson.getServico() != null){
 				for(GoogleGrupoJSON servico : grupojson.getServico()){
-					ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getIdServico(), grupo.getId(), servico.getEmailGrupo());
-					servicoGrupoRepository.persiste(servicoGrupo);
+					Boolean novoRegistro = true;
+					if(servico.getId() != null && servico.getEmailsExternos() != null){
+						ServicoGrupo servicoGrupo = servicoGrupoRepository.obtemPorId(servico.getId());
+						servicoGrupo = servicoGrupo.preenche(servico.getEmailsExternos());
+						servicoGrupoRepository.persiste(servicoGrupo);
+						novoRegistro = false;
+					}else if(servico.getEmailsExternos() != null && novoRegistro){
+						ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getIdServico(), grupo.getId(), servico.getEmailGrupo(), servico.getEmailsExternos());
+						servicoGrupoRepository.persiste(servicoGrupo);
+					}else{
+						ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getIdServico(), grupo.getId(), servico.getEmailGrupo());
+						servicoGrupoRepository.persiste(servicoGrupo);
+					}
 				}
 			}
 

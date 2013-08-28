@@ -86,9 +86,11 @@
 	"grupo_titulo" : "Grupo",
 	"grupo_editar_titulo" : "Editar Grupo",
 	"grupo_titulo_membros" : "Membros",
+	"grupo_dono" : "Dono",
 	"servico" : "Serviços",
 	"desfazer" : "(Desfazer)",
 	"url_redmine" : "https://redmine.dextra.com.br/projects/suporte/issues/new?issue[subject]=Remoção%20Google%20Grupo&issue[custom_field_values][32]=",
-	"url_redmine_descricao" : "&issue[description]=Nome%20do%20grupo:"
+	"url_redmine_descricao" : "&issue[description]=Nome%20do%20grupo:",
+	"helperEmailExterno" : "Tecle enter para adicionar"
 	}
 }

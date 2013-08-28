@@ -1,88 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <engine>
-    <template selector="#content_left">
+	<template selector="#content_left">
 		<div class="clearfix">
-			<button id="btnAddNovo" class="btn btn-blue btn-novoGrupo " type="button" >${messages.grupo_novo}</button>
+			<button id="btnAddNovo" class="btn btn-blue btn-novoGrupo "
+				type="button">${messages.grupo_novo}</button>
 		</div>
 
 		<div id="listaGrupos" class="clearfix">
 
 			<ul class="list-menu-abcd clearfix">
-				<li><a href="#" onclick="dextranet.grupos.listar();">Todos</a></li>
+				<li>
+					<a href="#" onclick="dextranet.grupos.listar();">Todos</a>
+				</li>
 				{for letra in dextranet.settings.alfabeto}
-					 <li><a href="#" onclick="dextranet.grupos.listarPelaInicial('${letra}');">${letra}</a></li>
+				<li>
+					<a href="#" onclick="dextranet.grupos.listarPelaInicial('${letra}');">${letra}</a>
+				</li>
 				{/for}
-	        </ul>
+			</ul>
 
-	        <ul class="list-grupo list-vertical clearfix">
+			<ul class="list-grupo list-vertical clearfix">
 				<li class="list-grupo-empty">
 					<p>
-						<img src="img/smile-sad.gif"/>
+						<img src="img/smile-sad.gif" />
 						<span>Nenhum grupo</span>
 						<span>foi encontrado!</span>
 					</p>
 				</li>
-		      	 {for grupo in grupos}
-	                <li class="clearfix grupo" id="${grupo.id}">
-	                    <div class="list-grupo-content">
-	                        <h3>
-	                        	<div class="div-titulo-left">
-	                        		<span class="icon_grupo-mini icon"/>
-		                        	{if grupo.excluirGrupo}
-		                            	<a onclick="dextranet.grupos.editar('${grupo.id}')"><span class="nome">${grupo.nome}</span></a>
-		                            {else}
-		                            	<span class="nome">${grupo.nome}</span>
-		                            {/if}
-								</div>
-								<div class="div-titulo-right">
-			                        {if grupo.excluirGrupo}
-				                        <button id="btn-excluirGrupo_${grupo.id}" class="btn btn-small btn-light btn-excluirGrupo"
-											title="Excluir este grupo" onclick="dextranet.grupos.remover('${grupo.id}')">
-											<strong>x</strong>
-											${messages.botao_excluir}
-										</button>
+				{for grupo in grupos}
+				<li class="clearfix grupo" id="${grupo.id}">
+					<div class="list-grupo-content">
+						<h3>
+							<div class="div-titulo-left">
+								<span class="icon_grupo-mini icon" />
+								<!--Se é o dono do grupo -->
+								{if grupo.excluirGrupo}
+								<a onclick="dextranet.grupos.editar('${grupo.id}', true)">
+									<span class="nome">${grupo.nome}</span>
+								</a>
+								{else}
+								<a onclick="dextranet.grupos.editar('${grupo.id}', false)">
+									<span class="nome">${grupo.nome}</span>
+								</a>
+								{/if}
+							</div>
+							<div class="div-titulo-right">
+								{if grupo.excluirGrupo}
+								<button id="btn-excluirGrupo_${grupo.id}" class="btn btn-small btn-light btn-excluirGrupo"
+									title="Excluir este grupo" onclick="dextranet.grupos.remover('${grupo.id}')">
+									<strong>x</strong>
+									${messages.botao_excluir}
+								</button>
+								{/if}
+							</div>
+						</h3>
+						<p class="list-grupo-content-geral">
+							{if grupo.descricao }
+							${grupo.descricao}
+							{/if}
+						</p>
+						<ul class="list-grupo-content-data clearfix">
+							<li class="list-grupo-content-data">
+								<span class="icon_pessoas-mini icon" original-title="${messages.grupo_pessoas}"></span>
+								<div>
+									{if grupo.usuarios }
+									{for pessoa in grupo.usuarios}
+									<p>
+										${pessoa.nome}
+										{if grupo.proprietario == pessoa.email}
+										<span class="icon donoGrupo" original-title="Dono do grupo">*</span>
+										{/if}
+									</p>
+									{/for}
 									{/if}
 								</div>
-	                        </h3>
-	                        <p class="list-grupo-content-geral">
-		                        {if grupo.descricao }
-		                        	${grupo.descricao}
-		                        {/if}
-	                        </p>
-							<ul class="list-grupo-content-data clearfix">
-								<li class="list-grupo-content-data">
-	                                <span class="icon_pessoas-mini icon" original-title="${messages.grupo_pessoas}"></span>
-	                                <div>
-		                                {if grupo.usuarios }
-		             						{for pessoa in grupo.usuarios}
-		                                    	<p>
-			                                    	${pessoa.nome}
-			                                    	{if grupo.proprietario == pessoa.email}
-														<span class="icon donoGrupo" original-title="Dono do grupo">*</span>
-			                                    	{/if}
-			                                    </p>
-		                                    {/for}
-		                                {/if}
-		                         	</div>
-								</li>
-                                {if grupo.servico != ""}
-									<li class="list-grupo-content-data">
-	             						{for servico in grupo.servico}
-			                                <span class="icon_gtalk-mini icon" style="position:relative; float:left;" original-title="${messages.grupo_email}"></span>
-	                                    	<a href="mailto:${servico.emailGrupo}@dextra-sw.com">${servico.emailGrupo}</a><![CDATA[</br>]]>
-	                                    {/for}
-									</li>
-                                {/if}
-							</ul>
-	                    </div>
-	                </li>
-	            {/for}
-	        </ul>
+							</li>
+							{if grupo.servico != ""}
+							<li class="list-grupo-content-data">
+								{for servico in grupo.servico}
+									<span class="icon_gtalk-mini icon tipsyServico" style="position:relative; float:left;"
+										original-title="${servico.idServico}"></span>
+									<a href="mailto:${servico.emailGrupo}@dextra-sw.com">${servico.emailGrupo}</a><![CDATA[</br>]]>
+								{/for}
+							</li>
+							{/if}
+						</ul>
+					</div>
+				</li>
+				{/for}
+			</ul>
 		</div>
-    </template>
+	</template>
 
-    <script type="text/javascript">
-        $('.icon').tipsy();
-        $("#btnAddNovo").click(dextranet.grupos.novo);
-    </script>
+	<script type="text/javascript">
+		$('.icon').tipsy();
+
+		$('span.tipsyServico').each(function(){
+			var id = $(this).attr('original-title').toString();
+			var servico = $.grep(dextranet.grupos.servicos, function(e){ return e.id == id; });
+			$(this).attr('original-title', servico[0].nome);
+		});
+
+		$("#btnAddNovo").click(dextranet.grupos.novo);
+	</script>
 </engine>

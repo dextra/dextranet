@@ -65,7 +65,7 @@
 							<li>
 								<span class="icon_blog-mini icon" original-title="${messages.usuario_blog}"></span>
 								{if colaborador.blog }
-									<a href="${colaborador.blog}">${colaborador.blog}</a>
+									<a target="_blank" href="${colaborador.blog}">${colaborador.blog}</a>
 								{else}
 									<span class="empty">${messages.label_campo_nao_informado}</span>
 								{/if}
@@ -87,14 +87,20 @@
 									<span class="empty">${messages.label_campo_nao_informado}</span>
 								{/if}
 							</li>
-							{if colaborador.nomesGrupos != ""}
+							{if colaborador.grupos != ""}
 								<li class="list-grupo-content-data">
-		                                <span class="icon_grupo-mini icon" style="position:relative; float:left;" original-title="${messages.label_grupos}"></span>
-           								<div style="width: 230px;">
-	           								{for nomeGrupo in colaborador.nomesGrupos}
-	                                  			- ${nomeGrupo}<![CDATA[</br>]]>
-	                                  		{/for}
-	                                  	</div>
+		                        	<span class="icon_grupo-mini icon" style="position:relative; float:left;" original-title="${messages.label_grupos}"></span>
+           							<div style="width: 230px;">
+           								{for grupo in colaborador.grupos}
+                                  			<!--Se é o dono do grupo -->
+				                        	{if grupo.proprietario == dextranet.usuario.logado.username}
+				                            	- <a onclick="dextranet.grupos.editar('${grupo.id}', true)"><span class="nome">${grupo.nome}</span></a>
+				                            {else}
+				                            	- <a onclick="dextranet.grupos.editar('${grupo.id}', false)"><span class="nome">${grupo.nome}</span></a>
+				                            {/if}
+											<![CDATA[</br>]]>
+                                  		{/for}
+                                  	</div>
 								</li>
                              {/if}
 						</ul>

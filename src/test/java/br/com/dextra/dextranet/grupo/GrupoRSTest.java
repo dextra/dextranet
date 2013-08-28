@@ -8,6 +8,7 @@ import javax.ws.rs.core.Response;
 
 import junit.framework.Assert;
 
+import org.json.simple.parser.ParseException;
 import org.junit.After;
 import org.junit.Test;
 
@@ -35,7 +36,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	public void testaAdicionarGrupo() throws EntityNotFoundException {
+	public void testaAdicionarGrupo() throws EntityNotFoundException, ParseException {
 		String nome = "Grupo A";
 		String descricao = "Grupo teste";
 		String email = "teste@dextra-sw.com";

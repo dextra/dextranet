@@ -1,68 +1,81 @@
 <div class="clearfix" id="servico-google">
-	<form id="googleGrupo-${indice}" class="ggrupo formServico ${novaTab} form-dark form-horizontal clearfix">
+	<form id="googleGrupo-${indice}" class="ggrupoExterno formServico ${novaTab} form-dark form-horizontal clearfix">
 		<div>
 			<div class="inputServico">
 				<input type="hidden" name="idServico" value="${id_servico}" />
-				<input type="hidden" name="emailExternoEdicao" value="${emailGrupo}" />
-				<input type="text" name="emailExterno" placeholder="Email do grupo" value="${emailGrupo}" autocomplete="off"/><span id="dominioEmail">@dextra-sw.com</span>
+				<input type="hidden" name="emailGrupoEdicao" value="${emailGrupo}" />
+				<span class="input-obg"></span>
+				<input type="text" name="grupoEmailExterno" placeholder="Email do grupo" value="${emailGrupo}" autocomplete="off"/><span id="dominioEmail">@dextra-sw.com</span>
+				<span class="infoEmailExterno apenasDono">Insira emails externos no campo abaixo:</span>
+				<input type="text" name="emailExterno" class="apenasDono" original-title="${$.i18n.messages.helperEmailExterno}" placeholder="Email externo" autocomplete="off" style="margin-left: 19px;"/>
 				<div id="emails_externos">
+				{for email in emailsExternos}
+					<p id="emailExterno" email="${email}">${email}<span class="ui-icon ui-icon-close excluirEmailExterno" emailGrupo="${emailGrupo}" email="${email}"></span></p>
+				{/for}
 				</div>
 			</div>
 		</div>
 	</form>
 </div>
 <script>
-// 	$( "input[name='emailExterno']:last").keyup(function(){
-// 		var email = $(this).val();
-// 		var aux = 0;
+	$( "input[name='grupoEmailExterno']:last").keyup(function(){
+		var email = $(this).val() + "@dextra-sw.com";
+		var aux = 0;
 
-// 		//Verifica se o email foi digitado nos inputs
-// 		$("input[name='emailExterno']").each(function()
-// 		{
-// 			if($(this).val() == email)
-// 				aux ++;
-// 		});
+		//Verifica se o email foi digitado nos inputs
+		$("input[name='grupoEmailExterno']").each(function()
+		{
+			if(this.value + "@dextra-sw.com" == email && this.value)
+				aux ++;
+		});
 
-// 		//Verifica se o email ja existe
-// 		if($.inArray(email, dextranet.grupos.googleGrupos) != -1 || aux > 1){
-// 			$("p#msg-erro").html("O grupo " + email + " já foi digitado")
-// 			$("#btnSalvar").attr("disabled", true);
-// 		}else{
-// 			$("p#msg-erro").html("");
-// 			$("#btnSalvar").attr("disabled", false);
-// 		}
-// 	});
+		//Verifica se o email ja existe
+		if($.inArray(email, dextranet.grupos.googleGrupos) != -1 || aux > 1){
+			$("p#msg-erro").html("O grupo " + email + " já existe. Solicite a <a href='" + $.i18n.messages.url_redmine + dextranet.usuario.logado.unidade + $.i18n.messages.url_redmine_descricao +  email + "' target='_blank'>remoção</a> do grupo antes de criá-lo.")
+			$("#btnSalvar").attr("disabled", true);
+		}else{
+			$("p#msg-erro").html("");
+			$("#btnSalvar").attr("disabled", false);
+		}
+	});
 
-// 	if($( "input[name='emailExterno']:last").val() != ""){
-// 		$("input[name='emailExterno']:last").attr("disabled", true);
-// 		$("form.ggrupo").removeClass("ggrupo");
-// 	}
+	if($( "input[name='grupoEmailExterno']:last").val() != ""){
+		$("input[name='grupoEmailExterno']:last").attr("disabled", true);
+		$("form.ggrupoExterno").addClass("ggrupoExternoEdicao", function(){
+			$("form.ggrupoExterno").removeClass("ggrupoExterno");
+		});
+	}
 	var email;
-	$( "input[name='emailExterno']:last").keypress(function(e){
+	$( "input[name='emailExterno']:last" ).keypress(function(e){
 		var code = e.keyCode || e.which;
 		if (code  == 13) {
 			e.preventDefault();
 			email = $(this).val();
 
-			if($(this).parent().find("#dominioEmail").length){
-				$(this).before( "<p id='grupoEmailExterno'>" + email + "@dextra-sw.com");
+			if(stringUtils.validaEmail(email)){
+				$(this).parent().find('div#emails_externos').append("<p id='emailExterno' email='" + email + "'>" + email + "<span class='ui-icon ui-icon-close excluirEmailExterno'></p>");
 				$(this).val('');
-				$(this).parent().find("#dominioEmail").remove();
-				$(this).attr('placeholder', 'Email externo');
-			}else if(stringUtils.validaEmail(email)){
-				$(this).parent().find('div#emails_externos').append("<p id='emailExterno'>" + email + "<span class='ui-icon ui-icon-close excluirEmailExterno'></p>");
-				$(this).val('');
-			}
+ 			}else{
+ 				$('.message').message("Email inválido",'error', true);
+ 			}
 		    return false;
 		}
 	});
 
+	$( "input[name='emailExterno']:last" ).focusout(function(){
+	  $(this).val("");
+	});
+
 	$(document).delegate('.excluirEmailExterno', 'click', function(){
-        $(this).parent().hide('fast', function(){
-        	$(this).remove();
-        });
-        return false;
+		if($(this).attr('email') == null){
+	        $(this).parent().hide('fast', function(){
+	        	$(this).remove();
+	        });
+	        return false;
+		}
     });
 
+	$('input[name="emailExterno"]').tipsy({gravity: 'w', trigger: 'focus'});
+	$('.icon').tipsy();
 
 </script>
