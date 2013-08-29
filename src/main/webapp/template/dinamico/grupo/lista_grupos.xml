@@ -80,7 +80,8 @@
 								{for servico in grupo.servico}
 									<span class="icon_gtalk-mini icon tipsyServico" style="position:relative; float:left;"
 										original-title="${servico.idServico}"></span>
-									<a href="mailto:${servico.emailGrupo}@dextra-sw.com">${servico.emailGrupo}</a><![CDATA[</br>]]>
+									<div class="hidden listaEmailsExternos">${servico.emailsExternos}</div>
+									<a href="mailto:${servico.emailGrupo}@dextra-sw.com" class="icon servicoEmailGrupo" title="">${servico.emailGrupo}</a><![CDATA[</br>]]>
 								{/for}
 							</li>
 							{/if}
@@ -93,14 +94,27 @@
 	</template>
 
 	<script type="text/javascript">
-		$('.icon').tipsy();
+	<![CDATA[
+		$('.icon').tipsy({html: true});
 
+		//ttip nome do serviço
 		$('span.tipsyServico').each(function(){
 			var id = $(this).attr('original-title').toString();
 			var servico = $.grep(dextranet.grupos.servicos, function(e){ return e.id == id; });
 			$(this).attr('original-title', servico[0].nome);
 		});
 
+		//ttip Possiveis emails externos de servico
+		$('.listaEmailsExternos').each(function() {
+		    var emails = $(this).html();
+		    emails = emails.replace(/","/g, '</br>')
+   						   .replace(/\]/g, '')
+    					   .replace(/\[/g, '')
+    					   .replace(/"/g, '');
+    		$(this).next('.servicoEmailGrupo').attr('title', emails);
+		});
+
 		$("#btnAddNovo").click(dextranet.grupos.novo);
+	]]>
 	</script>
 </engine>
