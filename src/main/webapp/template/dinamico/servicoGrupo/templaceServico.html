@@ -1,0 +1,14 @@
+<div id="${id_servico}" class='itemServico'>
+	<li class="servicoTitulo">
+		<span id="icone" class="icon_gtalk-mini icon"></span> ${servico}
+		<span id="${id_servico}" servicoGrupo="${idServicoGrupo}" class="ui-icon ui-icon-close novoServico excluirServico">Remover serviço</span>
+	</li>
+</div>
+<script>
+	//Verifica se é um servico novo ou existente
+	var elemento = $("span.excluirServico:last");
+	if(elemento.attr("servicoGrupo") != ""){
+		elemento.removeClass("novoServico");
+		elemento.addClass("servicoExistente");
+	}
+</script>

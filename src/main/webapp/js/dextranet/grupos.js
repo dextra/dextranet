@@ -6,13 +6,15 @@ dextranet.grupos = {
 
 	usuariosInicial : [],
 
+	usuariosAdd : [],
+
 	usuariosRemover : [],
 
 	googleGrupos : [],
 
-	templateGoogleGroups : null,
+	templateServicosGrupo : null,
 
-	templateGoogleGroupsExterno : null,
+	templateGoogleGrupo : null,
 
 	servicosEdicao : null,
 
@@ -41,12 +43,12 @@ dextranet.grupos = {
 			url : "/s/usuario",
 			dataType : "json"
 		});
-		// Template GoogleGrupo form
-		var templateGrupos = $
-				.get('../template/dinamico/grupo/form_ggrupo.html');
+		// Template Servicos
+		var templateServicosGrupo = $
+				.get('../template/dinamico/servicoGrupo/templaceServico.html');
 		// Template GoogleGrupoExterno form
-		var templateGruposExterno = $
-				.get('../template/dinamico/grupo/form_ggrupoExterno.html');
+		var templateGGrupos= $
+				.get('../template/dinamico/servicoGrupo/form_GoogleGrupo.html');
 		// Grupos
 		var grupos = $.ajax({
 			type : "GET",
@@ -61,24 +63,28 @@ dextranet.grupos = {
 
 		var elementos = [];
 
-		$.when(pessoas, grupos, templateGrupos, templateGruposExterno, servicos).done(function(xhrPessoas, xhrGrupos, xhrTemplateGrupos, xhrTemplateGruposExterno, xhrServicos) {
+		$.when(pessoas, grupos, templateGGrupos, servicos, templateServicosGrupo)
+			.done(function(xhrPessoas, xhrGrupos, xhrTemplateGGrupos, xhrServicos, xhrTemplateServicosGrupo) {
+
 			// xhrPessoas
 			$.map(xhrPessoas[0],function(item) {
 				if (item.nome != null) {
-					elementos.push({username : item.username,
-									label : stringUtils.resolveCaracteresHTML(item.nome),
-									id : item.id});
+					elementos.push({username 	: item.username,
+									label 		: stringUtils.resolveCaracteresHTML(item.nome),
+									id 			: item.id});
 				}
 			});
 			dextranet.pessoas = elementos;
+
+			// xhrTemplateServicosGrupo
+			dextranet.grupos.templateServicosGrupo = xhrTemplateServicosGrupo[0];
 
 			// xhrGrupos
 			$.holy("../template/dinamico/grupo/lista_grupos.xml",{grupos : xhrGrupos[0]	});
 			dextranet.ativaMenu("sidebar_left_grupos");
 
 			// xhrTemplates
-			dextranet.grupos.templateGoogleGroups = xhrTemplateGrupos[0];
-			dextranet.grupos.templateGoogleGroupsExterno = xhrTemplateGruposExterno[0];
+			dextranet.grupos.templateGoogleGrupo = xhrTemplateGGrupos[0];
 
 			//xhrServicos
 			dextranet.grupos.servicos = xhrServicos[0];
@@ -106,7 +112,7 @@ dextranet.grupos = {
 		$($('.servicos-content').find('.campoObrigatorio')).each(function() {
 			if (!this.value) {
 				campoServico = false;
-			} else if ($.inArray(this.value + "@dextra-sw.com", dextranet.grupos.googleGrupos) != -1) {
+			} else if ($.inArray(this.value + "@dextra-sw.com", dextranet.servicos.listaGoogleGrupos) != -1) {
 				$("p#msg-erro").html("O grupo digitado já existe. Solicite a <a href='"	+ $.i18n.messages.url_redmine + "' target='_blank'>remoção</a> do grupo antes de criá-lo.")
 				campoServico = false;
 			}
@@ -129,7 +135,7 @@ dextranet.grupos = {
 					$('.message').message($.i18n.messages.usuario_mensagem_edicao_sucesso,'success', true);
 					dextranet.grupos.listar();
 					dextranet.grupos.usuariosSelecionados = null;
-					dextranet.grupos.googleGrupos = []
+					dextranet.servicos.listaGoogleGrupos = []
 				},
 				error : function(jqXHR, textStatus, errorThrown) {
 					dextranet.processaErroNaRequisicao(jqXHR);
@@ -167,7 +173,7 @@ dextranet.grupos = {
 	},
 
 	remover : function(grupoId) {
-		if (confirm("Grupos podem ter serviços associados. Tem certeza que deseja excluir esse grupo?")) {
+		if (confirm($.i18n.messages.msg_excluirGrupo)) {
 			$.ajax({
 				type : "DELETE",
 				url : "/s/grupo/" + grupoId,
@@ -200,10 +206,10 @@ dextranet.grupos = {
 
 	atualizar : function(grupoId, novosIntegrantes, infoBasica, integrantesGruposExternosRemover) {
 		var campoServico = true;
-		$($('.servicos-content').find('.campoObrigatorio')).each(function() {
+		$($('.servicos-content').find('.campoObrigatorio:enabled')).each(function() {
 			if (!this.value) {
 				campoServico = false;
-			} else if ($.inArray(this.value + "@dextra-sw.com",	dextranet.grupos.googleGrupos) != -1) {
+			} else if ($.inArray(this.value + "@dextra-sw.com",	dextranet.servicos.listaGoogleGrupos) != -1) {
 				$("p#msg-erro").html("O grupo digitado já existe. Solicite a <a href='"	+ $.i18n.messages.url_redmine + "' target='_blank'>remoção</a> do grupo antes de criá-lo.")
 				campoServico = false;
 			}
@@ -213,10 +219,11 @@ dextranet.grupos = {
 			var usuarios = dextranet.grupos.usuariosSelecionados;
 			var grupo = form2js("frmGrupo");
 			var atualizar = true;
+			grupo.servico = [];
 
 			grupo.usuarios = usuarios;
 			if (infoBasica && !novosIntegrantes && !$('.novaTab')) {
-				// Objeto de TODOS servicos
+				// Objeto de TODOS existentes
 				var todosServicos = [];
 				$('.formServico:not(.ggrupoExterno)').each(function() {
 					formId = $(this).attr("id");
@@ -225,9 +232,8 @@ dextranet.grupos = {
 					todosServicos.push({idServico : idServico,
 										emailGrupo : emailGrupo});
 				});
-				grupo.servico = todosServicos;
 			} else {
-				grupo.servico = dextranet.grupos.provisionarServicos(atualizar,	novosIntegrantes);
+				dextranet.grupos.provisionarServicos(atualizar,	novosIntegrantes);
 			}
 
 			//Caso tenha integrantes para remover provisionamento
@@ -252,7 +258,7 @@ dextranet.grupos = {
 				success : function(data) {
 					$('.message').message($.i18n.messages.usuario_mensagem_edicao_sucesso, 'success', true);
 					dextranet.grupos.usuariosSelecionados = null;
-					dextranet.grupos.googleGrupos = []
+					dextranet.servicos.listaGoogleGrupos = []
 					dextranet.grupos.listar();
 				},
 				error : function(jqXHR, textStatus, errorThrown) {
@@ -287,39 +293,30 @@ dextranet.grupos = {
 				for (i = 0; i < servicos.length; i++) {
 					servicos[i].usuarioJSONs = dextranet.grupos.usuariosSelecionados;
 				}
-
-				$.ajax({
-					type : "PUT",
-					url : "/s/grupo/googlegrupos/",
-					contentType : "application/json",
-					dataType : "json",
-					data : JSON.stringify(servicos)
-				});
+				//Provisiona
+				dextranet.grupos.provisionarGGrupo(servicos)
 			}
 			return servicos;
 		}
 
 		// Servicos/gGrupo NOVOS ao editar
-		$('.novaTab').each(function() {
+		$('.formServico.ggrupoExterno').each(function() {
 			var formId = $(this).attr("id");
-			servicosNovosEdicao.push(form2js(formId));
-		});
+			var idServico = $(this).find("input[name='idServico']").val();
+			var grupoEmailExterno = $(this).find("input[name='grupoEmailExterno']").val();
+			var emailsExternos = [];
 
-		// Servicos/gGrupoExterno NOVOS ao editar
-//		$('.ggrupoExterno').each(
-//				function() {
-//					var idServico = $(this).find("input[name='idServico']").val();
-//					var emailGrupo = $(this).find("input[name='grupoEmailExterno']").val();
-//					var emailsExternos = [];
-//
-//					$(this).find('p#emailExterno').each(function() {
-//						emailsExternos.push($(this).attr('email'));
-//					});
-//
-//					servicosNovosEdicao.push({	idServico : idServico,
-//												emailGrupo : emailGrupo,
-//												emailsExternos : JSON.stringify(emailsExternos)	});
-//				});
+			// Grupo novo; emails externos
+			if ($(this).find($("input[name='grupoEmailExterno']:enabled"))) {
+				emailGrupo = $(this).find("input[name='emailGrupoEdicao']").val();
+				$(this).find('p#emailExterno').each(function() {
+					emailsExternos.push($(this).attr('email'));
+				});
+			}
+			servicosNovosEdicao.push({	idServico 			: idServico,
+						                grupoEmailExterno 	: grupoEmailExterno,
+						                emailsExternos 		: emailsExternos});
+		});
 
 		if (servicosNovosEdicao.length != 0) {
 			for (i = 0; i < servicosNovosEdicao.length; i++) {
@@ -327,110 +324,101 @@ dextranet.grupos = {
 			}
 		}
 
-		// TODOS servicos
-		$('.formServico').each(	function() {
+		// Servicos/gGrupo EXISTENTES ao editar
+		$('.formServico:not(.ggrupoExterno)').each(	function() {
 			var formId = $(this).attr("id");
 			var idServico = $(this).find($("input[name='idServico']")).val();
 			var emailsExternos = [];
 			var emailGrupo;
 
 			// Grupo existente
-			if ($(this).find($("input[name='emailGrupo'], input[name='grupoEmailExterno']")).is('[disabled="disabled"]')) {
+			if ($(this).find($("input[name='grupoEmailExterno']")).is('[disabled="disabled"]')) {
 				emailGrupo = $(this).find("input[name='emailGrupoEdicao']").val();
 				$(this).find('p#emailExterno').each(function() {
 					emailsExternos.push($(this).attr('email'));
 				});
-				// Grupo novo
-			} else {
-				// Grupo externo
-				if ($(this).hasClass('ggrupoExterno')) {
-					emailGrupo = $(this).find("input[name='grupoEmailExterno']").val();
-					$(this).find('p#emailExterno').each(function() {
-						emailsExternos.push($(this).attr('email'));
-					});
-				} else {
-					// Grupo interno
-					emailGrupo = $(this).find($("input[name='emailGrupo']")).val();
-				}
-
 			}
 
-			todosServicos.push({idServico : idServico,
-								emailGrupo : emailGrupo,
-								usuarioJSONs : dextranet.grupos.usuariosSelecionados,
-								emailsExternos : JSON.stringify(emailsExternos)});
+			if(dextranet.grupos.usuariosAdd.length != 0 || emailsExternos.length !=0){
+				todosServicos.push({idServico 		: idServico,
+									emailGrupo 		: emailGrupo,
+									usuarioJSONs 	: dextranet.grupos.usuariosAdd,
+									emailsExternos 	: JSON.stringify(emailsExternos)});
+			}
 		});
-
 
 		// Novos serviços apenas
 		if (todosServicos.length != 0 && atualizar) {
-			$.ajax({
-				type : "PUT",
-				url : "/s/grupo/googlegrupos/",
-				contentType : "application/json",
-				dataType : "json",
-				data : JSON.stringify(todosServicos)
-			});
+			//Provisiona
+			if(servicosNovosEdicao.length != 0){
+				$(servicosNovosEdicao).each(function() {
+					todosServicos.push({ emailGrupo 	: this.grupoEmailExterno,
+   										 idServico 		: this.idServico,
+										 emailsExternos : JSON.stringify(this.emailsExternos),
+										 usuarioJSONs 	: dextranet.grupos.usuariosSelecionados});
+				});
+			}
+
+			dextranet.grupos.provisionarGGrupo(todosServicos);
 		}
 		return servicosNovosEdicao;
 	},
 
+	//Remove integrantes dos servicos
 	removerProvisionamento : function(integrantesGruposExternosRemover) {
 		var servicos = [];
 
-		// Objeto das tabs de servicos
-		if (dextranet.grupos.usuariosRemover.length != 0) {
+		// Servicos EXISTENTES; emails internos
+		if(dextranet.grupos.usuariosRemover.length != 0){
 			$("#listaServicos").find("form.formServico:not(.novaTab, .ggrupoExterno)").each(function() {
-						emailGrupo = $(this).find($("input[name='emailGrupoEdicao']")).val();
-						servicos.push({	emailGrupo : emailGrupo,
-										usuarioJSONs : dextranet.grupos.usuariosRemover	});
-					});
+				emailGrupo = $(this).find($("input[name='emailGrupoEdicao']")).val();
+				servicos.push({	emailGrupo   : emailGrupo,
+								usuarioJSONs : dextranet.grupos.usuariosRemover	});
+			});
 		}
 
+		//Emails externos
 		$(integrantesGruposExternosRemover).each(function() {
 			servicos.push({ emailGrupo : this.emailGrupo,
 							emailsExternos : this.email});
 		});
 
 		if (servicos.length != 0) {
-			$.ajax({
-				type : "PUT",
-				url : "/s/grupo/googlegrupos/removerIntegrantes/",
-				contentType : "application/json",
-				dataType : "json",
-				data : JSON.stringify(servicos),
-				success : function(data) {
-					dextranet.grupos.usuariosRemover = [];
-				},
-				error : function(jqXHR, textStatus, errorThrown) {
-					dextranet.processaErroNaRequisicao(jqXHR);
-				}
-			});
+			dextranet.grupos.removerProvisionamentoGGrupo(servicos);
 		}
 	},
 
-	listarGGrupo : function(id_servico, tab, emailGrupo, novaTab) {
-		var qtdServico = $("div.itemServico").size();
+	diffArrayObjetos : function(array1, array2){
+		var bIds = {};
+		var resultado;
+		array1.forEach(function(obj){
+		    bIds[obj.id] = obj;
+		});
 
-		var resultado = dextranet.grupos.templateGoogleGroups.process({id_servico : id_servico,
-																		indice : qtdServico,
-																		emailGrupo : emailGrupo,
-																		novaTab : novaTab});
-		tab.html(resultado);
-
+		resultado = array2.filter(function(obj){
+		    return !(obj.id in bIds);
+		});
+		return resultado;
 	},
 
-	listarGGrupoExterno : function(id_servico, tab, emailGrupo, emailsExternos) {
-		var qtdServico = $("div.itemServico").size();
-
-		var resultado = dextranet.grupos.templateGoogleGroupsExterno.process({
-			id_servico : id_servico,
-			indice : qtdServico,
-			emailGrupo : emailGrupo,
-			emailsExternos : $.parseJSON(emailsExternos),
-			novaTab : ""
+	provisionarGGrupo : function(servicos){
+		$.ajax({
+			type : "PUT",
+			url : "/s/grupo/googlegrupos/",
+			contentType : "application/json",
+			dataType : "json",
+			data : JSON.stringify(servicos)
 		});
-		tab.html(resultado);
-	}
+	},
 
+	removerProvisionamentoGGrupo : function(servicos){
+		$.ajax({
+			type : "PUT",
+			url : "/s/grupo/googlegrupos/removerIntegrantes/",
+			contentType : "application/json",
+			dataType : "json",
+			data : JSON.stringify(servicos),
+		});
+		dextranet.grupos.usuariosRemover = [];
+	}
 }

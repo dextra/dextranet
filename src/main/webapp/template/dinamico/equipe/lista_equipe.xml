@@ -94,9 +94,9 @@
            								{for grupo in colaborador.grupos}
                                   			<!--Se é o dono do grupo -->
 				                        	{if grupo.proprietario == dextranet.usuario.logado.username}
-				                            	- <a onclick="dextranet.grupos.editar('${grupo.id}', true)"><span class="nome">${grupo.nome}</span></a>
+				                            	- <a onclick="dextranet.grupos.editar('${grupo.id}', true)"><span class="nomeGrupo">${grupo.nome}</span></a>
 				                            {else}
-				                            	- <a onclick="dextranet.grupos.editar('${grupo.id}', false)"><span class="nome">${grupo.nome}</span></a>
+				                            	- <a onclick="dextranet.grupos.editar('${grupo.id}', false)"><span class="nomeGrupo">${grupo.nome}</span></a>
 				                            {/if}
 											<![CDATA[</br>]]>
                                   		{/for}

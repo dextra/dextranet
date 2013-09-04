@@ -91,11 +91,36 @@
 		<script>
 			<![CDATA[
 				$('html, body').animate({ scrollTop: 0 }, 'slow');
+				//Preenche dono do grupo
 				var dono = $.grep(dextranet.pessoas, function(e){ return e.username == '${grupo.proprietario}'; });
 				$('input#txtDono').val(dono[0].label);
 
-				var usuariosAdd = [];
-				var usuariosRemover = [];
+				var tabs = $( "div#listaServicos" );
+				var qtdServico = 2;
+				dextranet.grupos.emailsExternos = [];
+
+				var integrantesInicio = [];
+				$("#listaPessoas>option").each(function()
+				{
+				    nome = $(this).html().trim();
+				    id = $(this).val();
+				    username = $(this).attr("username");
+
+				    integrantesInicio.push({ id: id, nome: nome, email: username});
+				});
+
+				//Preenchendo tabs de serviços
+				$.each(dextranet.grupos.servicosEdicao, function() {
+					var id_servico 		= $(this)[0].idServico;
+					var servico 		= $.trim($("select#servicos option[value=" + id_servico + "]").text());
+					var emailGrupo 		= $(this)[0].emailGrupo;
+					var idServicoGrupo 	= $(this)[0].id;
+					var emailsExternos  = $(this)[0].emailsExternos;
+
+					dextranet.servicos.addServicoExistente(servico, id_servico, emailGrupo, idServicoGrupo, emailsExternos);
+					qtdServico++;
+				});
+
 				var integrantesGruposExternosRemover = [];
 				var novosIntegrantes = false;
 
@@ -107,78 +132,17 @@
 				    id = $(this).val();
 				    username = $(this).attr("username");
 				    usuarios.push(id);
-
 				});
 				dextranet.grupos.usuariosInicial = usuarios;
 
-				var tabs = $( "div#listaServicos" );
-
-				var qtdServico = 2;
-
-				//Add TAB serviço EXISTENTE
-				dextranet.grupos.emailsExternos = [];
-				function addTabExistente(servico, id_servico, emailGrupo, idServicoGrupo, emailsExternos) {
-					conteudo = "<li class='servicoTitulo'><span id='icone' class='icon_gtalk-mini icon'></span>" + servico + "<span id='" + id_servico + "' servicoGrupo='" + idServicoGrupo + "' class='ui-icon ui-icon-close excluirServico servicoExistente'>Remover serviço</span></li>";
-					novoItem = tabs.append("<div id='"+ id_servico+ "' class='itemServico'>" + conteudo + "</div>");
-					var tab = $( "<div id='tabs-" + qtdServico + "'></div>").appendTo("div#listaServicos div:last");
-					qtdServico++;
-
-					//Sera apenas o gGruposExternos
-					//if(emailsExternos){
-						dextranet.grupos.listarGGrupoExterno(id_servico, tab, emailGrupo, emailsExternos);
-						dextranet.grupos.emailsExternos.push({grupoEmail : emailGrupo, idServico : id_servico, emails : emailsExternos, idServicoGrupo : idServicoGrupo});
-					//}else{
-					//	dextranet.grupos.listarGGrupo(id_servico, tab, emailGrupo);
-					//}
-
-				}
-
-				//Add NOVA TAB serviço
-				function addNovaTab(servico, id_servico) {
-					conteudo = "<li class='servicoTitulo'><span id='icone' class='icon_gtalk-mini icon'></span>" + servico + "<span id='" + id_servico + "' class='ui-icon ui-icon-close excluirServico novoServico'>Remover serviço</span></li>";
-					novoItem = tabs.append("<div id='"+ id_servico+ "' class='itemServico'>" + conteudo + "</div>");
-					var tab = $( "<div id='tabs-" + qtdServico + "'></div>").appendTo("div#listaServicos div:last");
-					qtdServico++;
-					var emailGrupo = "";
-					var novaTab = "novaTab";
-
-					// Não será assim, claro..
- 					if(servico == 'Grupo email interno'){
- 						dextranet.grupos.listarGGrupo(id_servico, tab, emailGrupo, novaTab);
- 					}else{
-						dextranet.grupos.listarGGrupoExterno(id_servico, tab, emailGrupo);
- 					}
-				}
-
 				//Add servico
 				$('#addServico').click(function(){
-					var servico 	= $("select#servicos").find(":selected").text();
-					var id_servico 	= $("select#servicos").val();
+					var servico = $("select#servicos").find(":selected").text();
+					var id_servico = $("select#servicos").val();
 
-					//Retirar daqui; isolar no grupo.js?!
-					if (dextranet.grupos.googleGrupos.length == 0) {
-						$.ajax({
-							url : "/s/grupo/googlegrupos/listarGrupos",
-							dataType : "json",
-							success : function(data) {
-								dextranet.grupos.googleGrupos = data;
-							}
-						});
-					}
-
-					addNovaTab(servico, id_servico);
-
-				});
-
-				//Preenchendo tabs de serviços
-				$.each(dextranet.grupos.servicosEdicao, function() {
-					var id_servico 		= $(this)[0].idServico;
-					var servico 		= $.trim($("select#servicos option[value=" + id_servico + "]").text());
-					var emailGrupo 		= $(this)[0].emailGrupo;
-					var idServicoGrupo 	= $(this)[0].id;
-					var emailsExternos  = $(this)[0].emailsExternos;
-
-					addTabExistente(servico, id_servico, emailGrupo, idServicoGrupo, emailsExternos);
+					dextranet.servicos.listarGruposEmail();
+					dextranet.servicos.addServico(servico, id_servico, tabs, qtdServico)
+					qtdServico++;
 				});
 
 				// Excluindo serviço EXISTENTE
@@ -212,38 +176,20 @@
 
 				$('#remove').click(function() {
 					element = $("#listaPessoas option:selected");
-
-					$("#listaPessoas option:selected").each(function()
-					{
-						nome = $(this).html();
-						id = $(this).val();
-					    username = $(this).attr("username");
-
-						pessoas.splice( pessoas.indexOf( id ), 1 );
-
-						if($.inArray(id, dextranet.grupos.usuariosInicial) != -1){
-					    	usuariosRemover.push({ id: id, nome: nome, email: username});
-					    	dextranet.grupos.usuariosInicial.splice(dextranet.grupos.usuariosInicial.indexOf(id), 1)
-					    }
-					    if($.inArray(id, usuariosAdd) != -1){
-					    	usuariosAdd.splice(usuariosAdd.indexOf( id ), 1);
-					    }
-					});
-
 					return !$('#listaPessoas option:selected').remove();
 				});
 
-				//Removendo integrantes grupos Externos
+				//Removendo integrantes externos
 				$('span.excluirEmailExterno').click(function() {
-						var email = $(this).attr('email');
-						var emailGrupo = $(this).attr('emailGrupo');
+					var email = $(this).attr('email');
+					var emailGrupo = $(this).attr('emailGrupo');
 
-						integrantesGruposExternosRemover.push({ emailGrupo : emailGrupo, email : email});
+					integrantesGruposExternosRemover.push({ emailGrupo : emailGrupo, email : email});
 
-						$(this).parent().hide('fast', function(){
-				        	$(this).remove();
-				        });
-				        return false;
+					$(this).parent().hide('fast', function(){
+			        	$(this).remove();
+			        });
+			        return false;
 				});
 
 				$( "#pessoa" ).autocomplete({
@@ -276,34 +222,13 @@
 					var usuarios = [];
 					$("#listaPessoas>option").each(function()
 					{
-					    nome = $(this).html();
+					    nome = $(this).html().trim();
 					    id = $(this).val();
 					    username = $(this).attr("username");
 
-	<!-- 				    if($.inArray(id, dextranet.grupos.usuariosInicial) == -1){ -->
-	<!-- 				    	usuariosAdd.push(id); -->
-	<!-- 				    } -->
-
-	<!-- 					var numOcorrencias = $.grep(usuariosAdd, function (elem) { -->
-	<!-- 					    return elem === id; -->
-	<!-- 					}).length; -->
-
-	<!-- 					if(numOcorrencias > 1){ -->
-	<!-- 						usuariosAdd.splice(usuariosAdd.indexOf( id ), 1); -->
-	<!-- 					} -->
-
-	<!-- 	 				if($.inArray(id, usuariosRemover) != -1){ -->
-	<!--  				    	usuariosRemover.splice(usuariosRemover.indexOf( id ), 1); -->
-	<!-- 					} -->
-
-						for (var i = 0; i < usuariosRemover.length; i++){
-						    if (usuariosRemover[i].id && usuariosRemover[i].id === id) {
-						        usuariosRemover.splice(i, 1);
-						        break;
-					    	}
-					    }
-
-					    usuarios.push({ id: id, nome: nome, email: username});
+					    usuarios.push({ id: id,
+					    				nome: nome,
+					    				email: username});
 					});
 
 					//Emails Externos
@@ -318,11 +243,19 @@
 						$(this).parent().find('p#emailExterno').each(function(){
 							emailsExternos.push($(this).attr('email'));
 						});
-						dextranet.grupos.emailsExternos.push({grupoEmail : emailGrupoExterno, idServico : idServico, emails : emailsExternos, idServicoGrupo : idServicoGrupo});
+						dextranet.grupos.emailsExternos.push({	grupoEmail : emailGrupoExterno,
+																idServico : idServico,
+																emails : emailsExternos,
+																idServicoGrupo : idServicoGrupo});
 					});
 
-	 				dextranet.grupos.usuariosRemover = usuariosRemover;
-	 				dextranet.grupos.usuariosSelecionados = usuarios;
+					//Todos integrantes; Add a !novos! serviços
+						dextranet.grupos.usuariosSelecionados  =  usuarios;
+					//Add dos serviços !existentes!
+						dextranet.grupos.usuariosAdd = dextranet.grupos.diffArrayObjetos(integrantesInicio, usuarios);
+					//Remover dos serviços !existentes!
+						dextranet.grupos.usuariosRemover  = dextranet.grupos.diffArrayObjetos(usuarios, integrantesInicio);
+
 	 				dextranet.grupos.atualizar(idGrupo, novosIntegrantes, infoBasica, integrantesGruposExternosRemover);
 
 				});

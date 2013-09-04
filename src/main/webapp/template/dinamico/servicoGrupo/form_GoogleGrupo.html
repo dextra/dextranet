@@ -1,11 +1,11 @@
 <div class="clearfix" id="servico-google">
-	<form id="googleGrupo-${indice}" class="ggrupoExterno formServico ${novaTab} form-dark form-horizontal clearfix">
+	<form id="googleGrupo-${indice}" class="ggrupoExterno formServico form-dark form-horizontal clearfix">
 		<div>
 			<div class="inputServico">
 				<input type="hidden" name="idServico" value="${id_servico}" />
 				<input type="hidden" name="emailGrupoEdicao" value="${emailGrupo}" />
 				<span class="input-obg"></span>
-				<input type="text" name="grupoEmailExterno" placeholder="Email do grupo" value="${emailGrupo}" autocomplete="off"/><span id="dominioEmail">@dextra-sw.com</span>
+				<input type="text" name="grupoEmailExterno" placeholder="Email do grupo" value="${emailGrupo}" autocomplete="off" class="campoObrigatorio"/><span id="dominioEmail">@dextra-sw.com</span>
 				<span class="infoEmailExterno apenasDono">Insira emails externos no campo abaixo:</span>
 				<input type="text" name="emailExterno" class="apenasDono" original-title="${$.i18n.messages.helperEmailExterno}" placeholder="Email externo" autocomplete="off" style="margin-left: 19px;"/>
 				<div id="emails_externos">
@@ -30,7 +30,7 @@
 		});
 
 		//Verifica se o email ja existe
-		if($.inArray(email, dextranet.grupos.googleGrupos) != -1 || aux > 1){
+		if($.inArray(email, dextranet.servicos.listaGoogleGrupos) != -1 || aux > 1){
 			$("p#msg-erro").html("O grupo " + email + " já existe. Solicite a <a href='" + $.i18n.messages.url_redmine + dextranet.usuario.logado.unidade + $.i18n.messages.url_redmine_descricao +  email + "' target='_blank'>remoção</a> do grupo antes de criá-lo.")
 			$("#btnSalvar").attr("disabled", true);
 		}else{

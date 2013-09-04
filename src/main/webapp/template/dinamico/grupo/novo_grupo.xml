@@ -79,42 +79,16 @@
 	<script>
 		<![CDATA[
 			var tabs = $( "div#listaServicos" );
-
 			var qtdServico = 2;
-
-			//Add TAB serviço
-			function addTab(servico, id_servico) {
-				conteudo = "<li class='servicoTitulo'><span id='icone' class='icon_gtalk-mini icon'></span>" + servico + "<span id='" + id_servico + "' class='ui-icon ui-icon-close novoServico excluirServico'>Remover serviço</span></li>";
-				novoItem = tabs.append("<div id='"+ id_servico+ "' class='itemServico'>" + conteudo + "</div>");
-				var tab = $( "<div id='tabs-" + qtdServico + "'></div>").appendTo("div#listaServicos div:last");
-				qtdServico++;
-
-					// Não será assim, claro..
-					if(servico == 'Grupo email interno'){
-						dextranet.grupos.listarGGrupo(id_servico, tab);
-					}else{
-						dextranet.grupos.listarGGrupoExterno(id_servico, tab);
-					}
-			}
 
 			//Add servico
 			$('#addServico').click(function(){
 				var servico = $("select#servicos").find(":selected").text();
 				var id_servico = $("select#servicos").val();
 
-				//Retirar daqui; colocar no grupo.js?!
-				if (dextranet.grupos.googleGrupos.length == 0 && $.active == 0) {
-					$.ajax({
-						url : "/s/grupo/googlegrupos/listarGrupos",
-						dataType : "json",
-						success : function(data) {
-							dextranet.grupos.googleGrupos = data;
-						}
-					});
-				}
-
-				addTab(servico, id_servico);
-
+				dextranet.servicos.listarGruposEmail();
+				dextranet.servicos.addServico(servico, id_servico, tabs, qtdServico)
+				qtdServico++;
 			});
 
 			// Excluindo serviço
@@ -126,8 +100,8 @@
 
 			//Remove pessoas selecionadas
 			var pessoas = [];
-			$('#remove').click(function() {
-				var idRemover = $('#listaPessoas option:selected').val();
+			$("#remove").click(function() {
+				var idRemover = $("#listaPessoas option:selected").val();
 				pessoas.splice( pessoas.indexOf( idRemover ), 1 );
 				return !$('#listaPessoas option:selected').remove();
 			});
@@ -148,10 +122,10 @@
 				}
 			});
 
-			//Lista de pessoas selecionadas
-
+			//Salva grupo
 			$('#btnSalvar').click(function(){
 				var usuarios = [];
+				//Pessoas/emails internos
 				$("#listaPessoas>option").each(function()
 				{
 				    nome = $(this).html();
@@ -172,7 +146,9 @@
 					$(this).parent().find('p#emailExterno').each(function(){
 						emailsExternos.push($(this).attr('email'));
 					});
-					dextranet.grupos.emailsExternos.push({grupoEmail : emailGrupoExterno, idServico : idServico, emails : emailsExternos});
+					dextranet.grupos.emailsExternos.push({	grupoEmail 	: emailGrupoExterno,
+															idServico 	: idServico,
+															emails 		: emailsExternos});
 				});
 
 				dextranet.grupos.usuariosSelecionados = usuarios;
