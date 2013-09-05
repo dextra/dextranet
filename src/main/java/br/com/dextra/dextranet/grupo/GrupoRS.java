@@ -34,7 +34,6 @@ public class GrupoRS {
 	GrupoRepository repositorio = new GrupoRepository();
 	MembroRepository repositorioMembro = new MembroRepository();
 	ServicoGrupoRepository servicoGrupoRepository = new ServicoGrupoRepository();
-	UsuarioRepository repositorioUsuario = new UsuarioRepository();
 
 	@Path("/{id}")
 	@GET
@@ -55,6 +54,8 @@ public class GrupoRS {
 	public Response listar() throws EntityNotFoundException {
 		List<Grupo> grupos = repositorio.lista();
 		List<GrupoJSON> gruposRetorno = new ArrayList<GrupoJSON>();
+		UsuarioRepository repositorioUsuario = new UsuarioRepository();
+
 		for (Grupo grupo : grupos) {
 			List<Membro> membros = repositorioMembro.obtemPorIdGrupo(grupo.getId());
 			List<ServicoGrupo> servicoGrupos = servicoGrupoRepository.obtemPorIdGrupo(grupo.getId());

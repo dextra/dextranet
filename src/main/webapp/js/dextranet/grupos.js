@@ -407,6 +407,7 @@ dextranet.grupos = {
 			url : "/s/grupo/googlegrupos/",
 			contentType : "application/json",
 			dataType : "json",
+			async : false,
 			data : JSON.stringify(servicos)
 		});
 	},
@@ -417,6 +418,7 @@ dextranet.grupos = {
 			url : "/s/grupo/googlegrupos/removerIntegrantes/",
 			contentType : "application/json",
 			dataType : "json",
+			async : false,
 			data : JSON.stringify(servicos),
 		});
 		dextranet.grupos.usuariosRemover = [];

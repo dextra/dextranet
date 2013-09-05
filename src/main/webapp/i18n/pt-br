@@ -92,6 +92,7 @@
 	"url_redmine" : "https://redmine.dextra.com.br/projects/suporte/issues/new?issue[subject]=Remoção%20Google%20Grupo&issue[custom_field_values][32]=",
 	"url_redmine_descricao" : "&issue[description]=Nome%20do%20grupo:",
 	"helperEmailExterno" : "Tecle enter para adicionar",
-	"msg_excluirGrupo" : "Serviços associados a esse grupo também serão excluídos. Tem certeza que deseja excluir esse grupo?"
+	"msg_excluirGrupo" : "Serviços associados a esse grupo também serão excluídos. Tem certeza que deseja excluir esse grupo?",
+	"email_invalido" : "Email inválido"
 	}
 }

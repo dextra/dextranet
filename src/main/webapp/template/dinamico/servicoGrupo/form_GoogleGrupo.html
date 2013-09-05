@@ -48,15 +48,29 @@
 	var email;
 	$( "input[name='emailExterno']:last" ).keypress(function(e){
 		var code = e.keyCode || e.which;
+
+		//Ao teclar enter p/ add emailExterno
 		if (code  == 13) {
 			e.preventDefault();
-			email = $(this).val();
+			var emailsExternos = [];
+			var unico = false;
+			var email = $(this).val();
 
-			if(stringUtils.validaEmail(email)){
+			//Array com emailsExternos
+			$(this).parent().find('p#emailExterno').each(function(){
+				emailsExternos.push($(this).attr('email'));
+			});
+
+			//Verifica se o emailExterno ja foi digitado
+			if(jQuery.inArray(email, emailsExternos) == -1){
+				unico = true;
+			};
+
+			if(stringUtils.validaEmail(email) && unico){
 				$(this).parent().find('div#emails_externos').append("<p id='emailExterno' email='" + email + "'>" + email + "<span class='ui-icon ui-icon-close excluirEmailExterno'></p>");
 				$(this).val('');
  			}else{
- 				$('.message').message("Email inválido",'error', true);
+ 				$('.message').message($.i18n.messages.email_invalido, 'error', true);
  			}
 		    return false;
 		}
