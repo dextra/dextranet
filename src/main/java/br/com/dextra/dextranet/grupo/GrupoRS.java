@@ -24,6 +24,8 @@ import br.com.dextra.dextranet.grupo.servico.google.Aprovisionamento;
 import br.com.dextra.dextranet.grupo.servico.google.GoogleGrupoJSON;
 import br.com.dextra.dextranet.rest.config.Application;
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
+import br.com.dextra.dextranet.usuario.Usuario;
+import br.com.dextra.dextranet.usuario.UsuarioRepository;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
 
@@ -32,6 +34,7 @@ public class GrupoRS {
 	GrupoRepository repositorio = new GrupoRepository();
 	MembroRepository repositorioMembro = new MembroRepository();
 	ServicoGrupoRepository servicoGrupoRepository = new ServicoGrupoRepository();
+	UsuarioRepository repositorioUsuario = new UsuarioRepository();
 
 	@Path("/{id}")
 	@GET
@@ -55,6 +58,12 @@ public class GrupoRS {
 		for (Grupo grupo : grupos) {
 			List<Membro> membros = repositorioMembro.obtemPorIdGrupo(grupo.getId());
 			List<ServicoGrupo> servicoGrupos = servicoGrupoRepository.obtemPorIdGrupo(grupo.getId());
+
+			for (Membro membro : membros){
+				Usuario nomeUsuario = repositorioUsuario.obtemPorId(membro.getIdUsuario());
+				membro.setNomeUsuario(nomeUsuario.getNome());
+			}
+
 			grupo.setMembros(membros);
 			grupo.setServicoGrupos(servicoGrupos);
 
@@ -116,18 +125,6 @@ public class GrupoRS {
 								    googleGrupoJSON.getEmailGrupo(),
 									emails);
 		}
-
-//		List<String> emails = new ArrayList<String>();
-//		for (UsuarioJSON usuarioJSON : googleGrupoJSONs.get(0).getUsuarioJSONs()) {
-//			emails.add(usuarioJSON.getEmail());
-//		}
-//
-//		for (GoogleGrupoJSON googleGrupoJSON : googleGrupoJSONs) {
-//			Aprovisionamento aprovisionamento = new Aprovisionamento();
-//			aprovisionamento.doPost("removermembro", googleGrupoJSON.getEmailGrupo(),
-//								    googleGrupoJSON.getEmailGrupo(),
-//									emails);
-//		}
 
 		return Response.ok().build();
 	}
