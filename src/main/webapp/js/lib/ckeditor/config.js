@@ -8,6 +8,8 @@ CKEDITOR.editorConfig = function( config ) {
 	// For the complete reference:
 	// http://docs.ckeditor.com/#!/api/CKEDITOR.config
 
+	config.extraPlugins = 'syntaxhighlight';
+	
 	// The toolbar groups arrangement, optimized for two toolbar rows.
 	config.toolbarGroups = [
 		{ name: 'undo' },
@@ -15,7 +17,8 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'links' },
 		{ name: 'insert' },
 		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-		{ name: 'styles' }
+		{ name: 'styles' },
+		{ name: 'Code' } // SyntaxHighlighter
 	];
 
 	config.coreStyles_strike = {
@@ -30,7 +33,7 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// Se the most common block elements.
 	config.format_tags = 'p;h1;h2;h3;pre';
-
+	
 	//Por padrão, target="_blank"
 	CKEDITOR.on('dialogDefinition', function ( e ){
 		if(e.data.name == 'link'){
