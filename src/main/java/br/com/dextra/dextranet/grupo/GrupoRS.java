@@ -61,8 +61,12 @@ public class GrupoRS {
 			List<ServicoGrupo> servicoGrupos = servicoGrupoRepository.obtemPorIdGrupo(grupo.getId());
 
 			for (Membro membro : membros){
-				Usuario nomeUsuario = repositorioUsuario.obtemPorId(membro.getIdUsuario());
-				membro.setNomeUsuario(nomeUsuario.getNome());
+				try {
+					Usuario integranteDoGrupo = repositorioUsuario.obtemPorId(membro.getIdUsuario());
+					membro.setNomeUsuario(integranteDoGrupo.getNome());
+				} catch (EntityNotFoundException e) {
+					repositorioMembro.remove(membro.getId());
+				}
 			}
 
 			grupo.setMembros(membros);

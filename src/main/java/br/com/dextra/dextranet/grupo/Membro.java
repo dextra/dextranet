@@ -12,6 +12,7 @@ public class Membro extends Entidade {
 	private String nomeUsuario;
 	private String email;
 
+	// TODO: refatorar recebendo o objeto usuario e o objeto grupo
 	public Membro(String idUsuario, String idGrupo, String nomeUsuario, String email) {
 		super();
 		this.idUsuario = idUsuario;

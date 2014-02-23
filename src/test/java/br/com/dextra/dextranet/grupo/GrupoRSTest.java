@@ -158,26 +158,39 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	public void testaRemocaoDeUsuarioAssociadoAGrupo()
+	public void testaListagemDeGrupoComIntegranteRemovido()
 			throws EntityNotFoundException {
-		Usuario lulao = new Usuario("lulao");
-		Usuario dudi = new Usuario("dudi");
+		Usuario lulao = this.criaUsuario("lulao");
+		Usuario dudi = this.criaUsuario("dudi");
+		this.criaGrupoComOsIntegrantes("VamoBugrao", lulao, dudi);
 
-		lulao = usuarioRepository.persiste(lulao);
-		dudi = usuarioRepository.persiste(dudi);
+		this.removeUmDosUsuariosDoGrupo(lulao);
 
-		Grupo vamoBugrao = new Grupo("VamoBugrao", "Vamo subir, bugre!",
-				lulao.getUsername());
-		vamoBugrao = repositorioGrupo.persiste(vamoBugrao);
-		repositorioMembro.persiste(new Membro(lulao.getId(),
-				vamoBugrao.getId(), lulao.getNome(), "email"));
-		repositorioMembro.persiste(new Membro(dudi.getId(), vamoBugrao.getId(),
-				dudi.getNome(), "email"));
-
-		usuarioRepository.remove(lulao.getId());
-
-		// testa simplesmente a listagem dos grupos
 		Assert.assertEquals(200, rest.listar().getStatus());
+	}
+
+	private void removeUmDosUsuariosDoGrupo(Usuario usuario) {
+		usuarioRepository.remove(usuario.getId());
+	}
+
+	private Usuario criaUsuario(String username) {
+		Usuario novoUsuario = new Usuario(username);
+		novoUsuario = usuarioRepository.persiste(novoUsuario);
+		return novoUsuario;
+	}
+
+	private Grupo criaGrupoComOsIntegrantes(String nomeDoGrupo,
+			Usuario... integrantes) {
+		Grupo novoGrupo = new Grupo(nomeDoGrupo, nomeDoGrupo,
+				integrantes[0].getUsername());
+		novoGrupo = repositorioGrupo.persiste(novoGrupo);
+
+		for (Usuario integrante : integrantes) {
+			repositorioMembro.persiste(new Membro(integrante.getId(), novoGrupo
+					.getId(), integrante.getNome(), "email"));
+		}
+
+		return novoGrupo;
 	}
 
 	public class GrupoRSFake extends GrupoRS {
