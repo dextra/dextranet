@@ -60,6 +60,7 @@ public class GrupoRS {
 			List<Membro> membros = repositorioMembro.obtemPorIdGrupo(grupo.getId());
 			List<ServicoGrupo> servicoGrupos = servicoGrupoRepository.obtemPorIdGrupo(grupo.getId());
 
+			// TODO: faria mais sentido esse codigo estar dentro de algum repositorio
 			for (Membro membro : membros){
 				try {
 					Usuario integranteDoGrupo = repositorioUsuario.obtemPorId(membro.getIdUsuario());
