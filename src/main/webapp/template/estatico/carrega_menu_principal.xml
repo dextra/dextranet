@@ -10,7 +10,7 @@
             <a href="http://dexboard-reload.appspot.com/" target="_blank">Dexboard</a>
         </li>
 		<li>
-			<a href="https://redmine.dextra.com.br/projects/suporte/issues/new" target="_blank">Infra</a>
+			<a href="https://dextranet.dextra.com.br/redmine/projects/suporte/issues/new" target="_blank">Infra</a>			
 		</li>
 		<li>
 			<a href="https://dextranet.dextra.com.br/pma" target="_blank">PMA</a>
