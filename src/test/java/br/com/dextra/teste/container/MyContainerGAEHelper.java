@@ -13,8 +13,18 @@ import org.slf4j.LoggerFactory;
 
 import br.com.dextra.dextranet.area.Area;
 import br.com.dextra.dextranet.area.AreaRepository;
+import br.com.dextra.dextranet.grupo.Grupo;
+import br.com.dextra.dextranet.grupo.GrupoRepository;
+import br.com.dextra.dextranet.grupo.Membro;
+import br.com.dextra.dextranet.grupo.MembroRepository;
+import br.com.dextra.dextranet.grupo.ServicoGrupo;
+import br.com.dextra.dextranet.grupo.ServicoGrupoRepository;
+import br.com.dextra.dextranet.grupo.servico.Servico;
+import br.com.dextra.dextranet.grupo.servico.ServicoRepository;
 import br.com.dextra.dextranet.unidade.Unidade;
 import br.com.dextra.dextranet.unidade.UnidadeRepository;
+import br.com.dextra.dextranet.usuario.Usuario;
+import br.com.dextra.dextranet.usuario.UsuarioRepository;
 
 import com.google.appengine.api.search.dev.LocalSearchService;
 import com.google.appengine.tools.development.testing.LocalBlobstoreServiceTestConfig;
@@ -82,6 +92,85 @@ public class MyContainerGAEHelper {
 		repositorioAreas.persiste(new Area("Desenvolvimento"));
 		repositorioAreas.persiste(new Area("Desenvolvimento de Negócios"));
 		repositorioAreas.persiste(new Area("Treinamento"));
+		
+		//Usuarios infra
+		Usuario usuario = criarUsuario("login.google");
+		Usuario usuarioInfra = criarUsuario("usuario.infra");
+		
+		Usuario usuario1 = criarUsuario("rodrigo.magalhaes");
+		Usuario usuario2 = criarUsuario("build-continua");
+		
+		Grupo grupoInfra = criarGrupo("Grupo Infra", "Grupo Infraestrutura", "login.google", true);
+		
+		Grupo grupo = criarGrupo("Grupo 1", "Grupo", "build-continua", false);
+		ServicoGrupo servico = criarServicoGrupo(grupo, "teste-grupo");
+		ServicoGrupo servicoInfra = criarServicoGrupo(grupoInfra, "grupo-infra");
+		
+		Membro membro = criarMembro(grupo, "Rodrigo Teste", "rodrigo.magalhaes", usuario1.getId());
+		Membro membro1 = criarMembro(grupo, "Build Continua", "build-continua", usuario2.getId());
+		Membro membro2 = criarMembro(grupoInfra, "Google ", "login.google", usuario.getId());
+		Membro membroInfra = criarMembro(grupoInfra, "Usuario Infra", "usuario.infra", usuarioInfra.getId());
+		
+		List<Membro> membros = new ArrayList<Membro>();
+		membros.add(membro);
+		membros.add(membro1);
+		membros.add(membro2);
+		grupo.setMembros(membros);
+		
+		List<ServicoGrupo> servicos = new ArrayList<ServicoGrupo>();
+		servicos.add(servico);
+		grupo.setServicoGrupos(servicos);
+		persitirGrupo(grupo);
+		
+		List<Membro> membrosInfra = new ArrayList<Membro>();
+		membrosInfra.add(membroInfra);
+		grupoInfra.setMembros(membrosInfra);
+		
+		List<ServicoGrupo> servicosInfra = new ArrayList<ServicoGrupo>();
+		servicosInfra.add(servicoInfra);
+		grupoInfra.setServicoGrupos(servicosInfra);
+		persitirGrupo(grupoInfra);
+	}
+
+	private ServicoGrupo criarServicoGrupo(Grupo grupo, String emailGrupo) {
+		Servico servico = new Servico("Grupo de email");
+		ServicoRepository servicoRepository = new ServicoRepository();
+		servicoRepository.persiste(servico);
+		
+		ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getId(), grupo.getId(), emailGrupo);
+		ServicoGrupoRepository servicoGrupoRepository = new ServicoGrupoRepository();
+		
+		servicoGrupo = servicoGrupoRepository.persiste(servicoGrupo);
+		return servicoGrupo;
+	}
+
+	private Usuario criarUsuario(String nome) {
+		UsuarioRepository repository = new UsuarioRepository();
+		Usuario usuario = new Usuario(nome);
+		repository.persiste(usuario);
+		return usuario;
+	}
+	
+	private Membro criarMembro(Grupo grupo, String nome, String email, String id) {
+		MembroRepository membroRepository = new MembroRepository();
+		Membro membro = new Membro(id, grupo.getId(), nome, email);
+		
+		membroRepository.persiste(membro);
+		return membro;
+	}
+
+	private Grupo criarGrupo(String nome, String descricao, String emailProprietario, boolean isInfra) {
+		Grupo grupo = null;
+		grupo = new Grupo(nome, descricao, emailProprietario);
+		grupo.setInfra(isInfra);
+		grupo = persitirGrupo(grupo);
+		return grupo;
+	}
+
+	private Grupo persitirGrupo(Grupo grupo) {
+		GrupoRepository grupoRepository = new GrupoRepository();
+		grupo = grupoRepository.persiste(grupo);
+		return grupo;
 	}
 
 	public void prepareSearchServiceTestHelper() throws Exception {

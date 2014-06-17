@@ -16,7 +16,8 @@ public class Grupo extends Entidade {
 	private String proprietario;
 	private List<Membro> membros;
 	private List<ServicoGrupo> servicoGrupos;
-
+	private Boolean infra;
+	
 	public Grupo() {
 	}
 
@@ -109,6 +110,14 @@ public class Grupo extends Entidade {
 
 	public void setServicoGrupos(List<ServicoGrupo> servicoGrupos) {
 		this.servicoGrupos = servicoGrupos;
+	}
+
+	public Boolean isInfra() {
+		return infra;
+	}
+
+	public void setInfra(Boolean infra) {
+		this.infra = infra;
 	}
 
 	@Override
