@@ -8,6 +8,10 @@ import br.com.dextra.dextranet.persistencia.EntidadeRepository;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.FilterOperator;
+import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
 public class GrupoRepository extends EntidadeRepository {
@@ -20,6 +24,20 @@ public class GrupoRepository extends EntidadeRepository {
 		return new Grupo(grupoEntity);
 	}
 
+	public List<Grupo> obtemPorNickUsuario(String proprietario) throws EntityNotFoundException {		
+        Query query = new Query(Grupo.class.getName());
+        query.setFilter(new FilterPredicate(GrupoFields.proprietario.name(), FilterOperator.EQUAL, proprietario));
+        PreparedQuery pquery = this.datastore.prepare(query);
+
+        Iterable<Entity> entidades = pquery.asIterable();
+        List<Grupo> grupos = new ArrayList<Grupo>();
+        for (Entity entidade : entidades) {
+			grupos.add(new Grupo(entidade));
+		}
+        
+		return grupos;
+	}
+	
 	public void remove(String id) {
 		this.remove(id, Grupo.class);
 	}

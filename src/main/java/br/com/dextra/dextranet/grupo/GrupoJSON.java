@@ -15,7 +15,8 @@ public class GrupoJSON {
 	private List<UsuarioJSON> usuarios;
 	private Boolean excluirGrupo;
 	private List<GoogleGrupoJSON> servico;
-
+	private Boolean infra;
+	
 	public GrupoJSON() {
 	}
 
@@ -77,6 +78,14 @@ public class GrupoJSON {
 
 	public List<GoogleGrupoJSON> getServico() {
 		return servico;
+	}
+
+	public Boolean isInfra() {
+		return infra;
+	}
+
+	public void setInfra(Boolean infra) {
+		this.infra = infra;
 	}
 
 	public void setServico(List<GoogleGrupoJSON> servico) {

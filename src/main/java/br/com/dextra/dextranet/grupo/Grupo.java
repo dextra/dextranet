@@ -60,7 +60,14 @@ public class Grupo extends Entidade {
 	public GrupoJSON getGrupoJSON() {
 		GrupoJSON grupojson = new GrupoJSON(this.id, this.nome, this.descricao, getUsuarioJSON(), getServicos());
 		grupojson.setProprietario(proprietario);
-		grupojson.setExcluirGrupo(proprietario.equals(AutenticacaoService.identificacaoDoUsuarioLogado()));
+		
+		String username = AutenticacaoService.identificacaoDoUsuarioLogado();
+		Boolean isUsuarioGrupoInfra = AutenticacaoService.isUsuarioGrupoInfra();
+		
+		if (isUsuarioGrupoInfra || proprietario.equals(username)) {
+			grupojson.setExcluirGrupo(true);
+		}
+		
 		return grupojson;
 	}
 

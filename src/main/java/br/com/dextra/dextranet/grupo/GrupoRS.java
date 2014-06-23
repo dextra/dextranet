@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.swing.text.StyledEditorKit.BoldAction;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -79,6 +78,7 @@ public class GrupoRS {
 		return Response.ok().entity(gruposRetorno).build();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Path("/googlegrupos/")
 	@PUT
 	@Consumes("application/json")

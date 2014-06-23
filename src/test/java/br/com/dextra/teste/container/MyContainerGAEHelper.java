@@ -1,6 +1,7 @@
 package br.com.dextra.teste.container;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,8 +25,12 @@ import br.com.dextra.dextranet.grupo.servico.ServicoRepository;
 import br.com.dextra.dextranet.unidade.Unidade;
 import br.com.dextra.dextranet.unidade.UnidadeRepository;
 import br.com.dextra.dextranet.usuario.Usuario;
+import br.com.dextra.dextranet.usuario.UsuarioFields;
 import br.com.dextra.dextranet.usuario.UsuarioRepository;
 
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.search.dev.LocalSearchService;
 import com.google.appengine.tools.development.testing.LocalBlobstoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
@@ -94,15 +99,14 @@ public class MyContainerGAEHelper {
 		repositorioAreas.persiste(new Area("Treinamento"));
 		
 		//Usuarios infra
-		Usuario usuario = criarUsuario("login.google");
-		Usuario usuarioInfra = criarUsuario("usuario.infra");
-		
-		Usuario usuario1 = criarUsuario("rodrigo.magalhaes");
-		Usuario usuario2 = criarUsuario("build-continua");
+		Usuario usuario = criarUsuario("login.google", "login.google", "Desenv", "Campinas", "111", "193322211");
+		Usuario usuarioInfra = criarUsuario("usuario.infra", "usuario.infra", "Desenv", "Campinas", "222", "1932215544");
+		Usuario usuario1 = criarUsuario("rodrigo.magalhaes", "rodrigo.magalhaes", "Desenv", "Campinas", "333", "1932222544");
+		Usuario usuario2 = criarUsuario("build-continua", "build-continua", "Desenv", "Campinas", "212", "1922215544");
 		
 		Grupo grupoInfra = criarGrupo("Grupo Infra", "Grupo Infraestrutura", "login.google", true);
-		
 		Grupo grupo = criarGrupo("Grupo 1", "Grupo", "build-continua", false);
+
 		ServicoGrupo servico = criarServicoGrupo(grupo, "teste-grupo");
 		ServicoGrupo servicoInfra = criarServicoGrupo(grupoInfra, "grupo-infra");
 		
@@ -144,9 +148,21 @@ public class MyContainerGAEHelper {
 		return servicoGrupo;
 	}
 
-	private Usuario criarUsuario(String nome) {
+	private Usuario criarUsuario(String nome, String apelido, String area, String unidade, String ramal, String telefoneResidencial) {
 		UsuarioRepository repository = new UsuarioRepository();
 		Usuario usuario = new Usuario(nome);
+		repository.persiste(usuario);
+		
+		Entity ent = new Entity(KeyFactory.createKey(Usuario.class.getName(), usuario.getId()));
+		ent.setProperty(UsuarioFields.nome.name(), nome);
+		ent.setProperty(UsuarioFields.id.name(), usuario.getId());
+		ent.setProperty(UsuarioFields.username.name(), nome);
+		ent.setProperty(UsuarioFields.apelido.name(), apelido);
+		ent.setProperty(UsuarioFields.area.name(), area);
+		ent.setProperty(UsuarioFields.unidade.name(), unidade);
+		ent.setProperty(UsuarioFields.ramal.name(), ramal);
+		ent.setProperty(UsuarioFields.telefoneResidencial.name(), telefoneResidencial);
+		usuario = new Usuario(ent);
 		repository.persiste(usuario);
 		return usuario;
 	}
