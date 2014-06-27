@@ -16,7 +16,7 @@ public class Grupo extends Entidade {
 	private String proprietario;
 	private List<Membro> membros;
 	private List<ServicoGrupo> servicoGrupos;
-	private Boolean infra;
+	private Boolean infra = false;
 	
 	public Grupo() {
 	}
@@ -31,6 +31,7 @@ public class Grupo extends Entidade {
 		this.nome = (String) entidade.getProperty(GrupoFields.nome.name());
 		this.descricao = (String) entidade.getProperty(GrupoFields.descricao.name());
 		this.proprietario = (String) entidade.getProperty(GrupoFields.proprietario.name());
+		this.infra = (Boolean) entidade.getProperty(GrupoFields.infra.name());
 	}
 
 	@Override
@@ -40,7 +41,7 @@ public class Grupo extends Entidade {
 		entidade.setProperty(GrupoFields.nome.name(), this.nome);
 		entidade.setProperty(GrupoFields.descricao.name(), this.descricao);
 		entidade.setProperty(GrupoFields.proprietario.name(), this.proprietario);
-
+		entidade.setProperty(GrupoFields.infra.name(), this.infra);
 		return entidade;
 	}
 
@@ -60,12 +61,14 @@ public class Grupo extends Entidade {
 	public GrupoJSON getGrupoJSON() {
 		GrupoJSON grupojson = new GrupoJSON(this.id, this.nome, this.descricao, getUsuarioJSON(), getServicos());
 		grupojson.setProprietario(proprietario);
-		
+		grupojson.setInfra(this.infra);
 		String username = AutenticacaoService.identificacaoDoUsuarioLogado();
 		Boolean isUsuarioGrupoInfra = AutenticacaoService.isUsuarioGrupoInfra();
 		
 		if (isUsuarioGrupoInfra || proprietario.equals(username)) {
 			grupojson.setExcluirGrupo(true);
+		} else {
+			grupojson.setExcluirGrupo(false);
 		}
 		
 		return grupojson;
@@ -122,7 +125,7 @@ public class Grupo extends Entidade {
 	public Boolean isInfra() {
 		return infra;
 	}
-
+	
 	public void setInfra(Boolean infra) {
 		this.infra = infra;
 	}

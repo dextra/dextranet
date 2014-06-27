@@ -28,9 +28,9 @@ public class GrupoRepository extends EntidadeRepository {
         Query query = new Query(Grupo.class.getName());
         query.setFilter(new FilterPredicate(GrupoFields.proprietario.name(), FilterOperator.EQUAL, proprietario));
         PreparedQuery pquery = this.datastore.prepare(query);
-
-        Iterable<Entity> entidades = pquery.asIterable();
+        
         List<Grupo> grupos = new ArrayList<Grupo>();
+        Iterable<Entity> entidades = pquery.asIterable();
         for (Entity entidade : entidades) {
 			grupos.add(new Grupo(entidade));
 		}

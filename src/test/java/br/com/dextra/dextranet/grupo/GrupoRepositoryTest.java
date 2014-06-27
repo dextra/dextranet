@@ -1,11 +1,9 @@
 package br.com.dextra.dextranet.grupo;
 
 import java.util.List;
-
-import junit.framework.Assert;
-
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.dextranet.usuario.UsuarioRepository;
@@ -32,7 +30,7 @@ public class GrupoRepositoryTest extends TesteIntegracaoBase {
 		try {
 			repositorio.obtemPorId(grupo.getId());
 		} catch (EntityNotFoundException e) {
-			Assert.assertTrue(true);
+			assertTrue(true);
 		}
 	}
 
@@ -42,9 +40,9 @@ public class GrupoRepositoryTest extends TesteIntegracaoBase {
 		Grupo grupo = new Grupo("Grupo A", "Grupo teste", usuario.getNome());
 		repositorio.persiste(grupo);
 		Grupo grupoObtido = repositorio.obtemPorId(grupo.getId());
-		Assert.assertEquals(grupo.getNome(), grupoObtido.getNome());
-		Assert.assertEquals(grupo.getDescricao(), grupoObtido.getDescricao());
-		Assert.assertEquals(grupo.getProprietario(), grupoObtido.getProprietario());
+		assertEquals(grupo.getNome(), grupoObtido.getNome());
+		assertEquals(grupo.getDescricao(), grupoObtido.getDescricao());
+		assertEquals(grupo.getProprietario(), grupoObtido.getProprietario());
 	}
 
 	@Test
@@ -64,16 +62,26 @@ public class GrupoRepositoryTest extends TesteIntegracaoBase {
 
 		List<Grupo> grupos = repositorio.lista();
 
-		Assert.assertEquals(grupos.get(0).getNome(), grupoA.getNome());
-		Assert.assertEquals(grupos.get(0).getDescricao(), grupoA.getDescricao());
-		Assert.assertEquals(grupos.get(0).getProprietario(), grupoA.getProprietario());
+		assertEquals(grupos.get(0).getNome(), grupoA.getNome());
+		assertEquals(grupos.get(0).getDescricao(), grupoA.getDescricao());
+		assertEquals(grupos.get(0).getProprietario(), grupoA.getProprietario());
 
-		Assert.assertEquals(grupos.get(1).getNome(), grupoB.getNome());
-		Assert.assertEquals(grupos.get(1).getDescricao(), grupoB.getDescricao());
-		Assert.assertEquals(grupos.get(1).getProprietario(), grupoB.getProprietario());
+		assertEquals(grupos.get(1).getNome(), grupoB.getNome());
+		assertEquals(grupos.get(1).getDescricao(), grupoB.getDescricao());
+		assertEquals(grupos.get(1).getProprietario(), grupoB.getProprietario());
 
-		Assert.assertEquals(grupos.get(2).getNome(), grupoC.getNome());
-		Assert.assertEquals(grupos.get(2).getDescricao(), grupoC.getDescricao());
-		Assert.assertEquals(grupos.get(2).getProprietario(), grupoC.getProprietario());
+		assertEquals(grupos.get(2).getNome(), grupoC.getNome());
+		assertEquals(grupos.get(2).getDescricao(), grupoC.getDescricao());
+		assertEquals(grupos.get(2).getProprietario(), grupoC.getProprietario());
 	}
+	
+	@Test
+	public void testaObtemGruposPorNickUsuario() throws EntityNotFoundException {
+		limpaGrupoInseridos(repositorio);
+		Grupo grupoA = new Grupo("Grupo A", "Grupo teste A", usuario.getUsername());
+		repositorio.persiste(grupoA);
+		List<Grupo> grupos = repositorio.obtemPorNickUsuario(usuario.getUsername());
+		assertEquals(1, grupos.size());
+	}
+	
 }

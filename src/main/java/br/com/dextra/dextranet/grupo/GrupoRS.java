@@ -155,7 +155,7 @@ public class GrupoRS {
 	public Response removerServico(@PathParam("idGrupo") String idGrupo, @PathParam("idServicoGrupo") String idServicoGrupo) throws EntityNotFoundException, IOException {
 		String usuarioLogado = obtemUsuarioLogado();
 		Grupo grupo = repositorio.obtemPorId(idGrupo);
-		if (usuarioLogado.equals(grupo.getProprietario())) {
+		if (isAlteravel(usuarioLogado, grupo)) {
 			ServicoGrupo servico = servicoGrupoRepository.obtemPorId(idServicoGrupo);
 
 			Aprovisionamento aprovisionamento = new Aprovisionamento();
@@ -197,7 +197,7 @@ public class GrupoRS {
 	public Response atualizar(@PathParam("idGrupo") String id, GrupoJSON grupojson) throws EntityNotFoundException {
 		String usuarioLogado = obtemUsuarioLogado();
 		Grupo grupo = repositorio.obtemPorId(id);
-		if (usuarioLogado.equals(grupo.getProprietario())) {
+		if (isAlteravel(usuarioLogado, grupo)) {
 			grupo = grupo.preenche(grupojson.getNome(), grupojson.getDescricao(), usuarioLogado);
 			repositorio.persiste(grupo);
 			adicionaNovosMembros(grupojson.getUsuarios(), grupo.getId());
@@ -233,7 +233,7 @@ public class GrupoRS {
 		String usuarioLogado = obtemUsuarioLogado();
 		Grupo grupo = repositorio.obtemPorId(id);
 
-		if (usuarioLogado.equals(grupo.getProprietario())) {
+		if (isAlteravel(usuarioLogado, grupo)) {
 			List<Membro> obtemPorIdGrupo = repositorioMembro.obtemPorIdGrupo(id);
 			for (Membro membro : obtemPorIdGrupo) {
 				repositorioMembro.remove(membro.getId());
@@ -278,5 +278,9 @@ public class GrupoRS {
 		for (Membro membro : membros) {
 			repositorioMembro.remove(membro.getId());
 		}
+	}
+	
+	private boolean isAlteravel(String usuarioLogado, Grupo grupo) {
+		return AutenticacaoService.isUsuarioGrupoInfra() || usuarioLogado.equals(grupo.getProprietario());
 	}
 }
