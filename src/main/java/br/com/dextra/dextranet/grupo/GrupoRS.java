@@ -266,7 +266,7 @@ public class GrupoRS {
 	}
 
 	private void adicionarEAtualizarMembros(List<UsuarioJSON> usuarios, String idGrupo) {
-		//TODO: Adicionar somente os necessários
+		//TODO: Verificar uma forma de adicionar somente os necessários
 		for (UsuarioJSON usuario : usuarios) {
 			Membro membroAtualizar = new Membro(usuario.getId(), idGrupo, usuario.getNome(), usuario.getEmail());
 			repositorioMembro.persiste(membroAtualizar);
@@ -274,7 +274,7 @@ public class GrupoRS {
 	}
 
 	private void deletaMembros(List<UsuarioJSON> usuarios, List<Membro> membros) {
-		//TODO Remover somente os que não existem na tela
+		//TODO Verificar uma forma de somente remover os que não existem na tela
 		for (Membro membro : membros) {
 			repositorioMembro.remove(membro.getId());
 		}
