@@ -26,3 +26,7 @@ Ambiente de Produção
 
 http://prod.dextra-dextranet.appspot.com/
 
+Local
+-----
+
+http://localhost:8080/index.html
