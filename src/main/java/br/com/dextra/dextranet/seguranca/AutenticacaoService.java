@@ -24,7 +24,7 @@ public class AutenticacaoService {
 		try {
 			grupos = grupoRepository.obtemPorNickUsuario(logado);
 			for (Grupo grupo : grupos) {
-				if (grupo.isInfra()) {
+				if (isInfra(grupo)) {
 					return true;
 				}
 			}
@@ -33,5 +33,9 @@ public class AutenticacaoService {
 		}
 		
 		return false;
+	}
+
+	private static boolean isInfra(Grupo grupo) {
+		return grupo.isInfra() != null && grupo.isInfra();
 	}
 }
