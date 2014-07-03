@@ -254,7 +254,26 @@ public class GrupoRS {
 			return Response.status(Status.FORBIDDEN).build();
 		}
 	}
-
+	
+	//TODO: ddd
+	@Path("/popular-flag")
+	@GET
+	@Produces(Application.JSON_UTF8)
+	public Response popularFlag() throws EntityNotFoundException, IOException {
+		List<Grupo> grupos = repositorio.lista();
+		
+		for (Grupo grupo : grupos) {
+			if (grupo.getNome().equalsIgnoreCase("Infra")) {
+				grupo.setInfra(true);
+			} else {
+				grupo.setInfra(false);
+			}
+			repositorio.persiste(grupo);
+		}
+		
+		return Response.ok().build();
+	}
+	
 	protected String obtemUsuarioLogado() {
 		return AutenticacaoService.identificacaoDoUsuarioLogado();
 	}
