@@ -232,38 +232,6 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	public void testaPopularFlag() throws EntityNotFoundException, IOException {
-		Usuario usuario = this.criaUsuario(USUARIO_LOGADO);
-		Grupo infra = this.criaGrupoComOsIntegrantes(false, "Infra", usuario, usuario);
-		
-		Usuario usuario1 = this.criaUsuario("Usuario 1");
-		Grupo grupo1 = this.criaGrupoComOsIntegrantes(false, "Grupo 1", usuario1, usuario1);
-		
-		Usuario usuario2 = this.criaUsuario("Usuario 1");
-		Grupo grupo2 = this.criaGrupoComOsIntegrantes(false, "Grupo 1", usuario2, usuario2);
-		
-		Usuario usuario3 = this.criaUsuario("Usuario 1");
-		Grupo grupo3 = this.criaGrupoComOsIntegrantes(false, "Grupo 1", usuario3, usuario3);
-		
-		Usuario usuario4 = this.criaUsuario("Usuario 1");
-		Grupo grupo4 = this.criaGrupoComOsIntegrantes(false, "Grupo 1", usuario4, usuario);
-		
-		rest.popularFlag();
-		
-		infra = repositorioGrupo.obtemPorId(infra.getId());
-		grupo1 = repositorioGrupo.obtemPorId(grupo1.getId());
-		grupo2 = repositorioGrupo.obtemPorId(grupo2.getId());
-		grupo3 = repositorioGrupo.obtemPorId(grupo3.getId());
-		grupo4 = repositorioGrupo.obtemPorId(grupo4.getId());
-		
-		assertTrue(infra.isInfra());
-		assertFalse(grupo1.isInfra());
-		assertFalse(grupo2.isInfra());
-		assertFalse(grupo3.isInfra());
-		assertFalse(grupo4.isInfra());
-	}
-	
-	@Test
 	public void testaListagemDeGrupoComIntegranteRemovido()
 			throws EntityNotFoundException {
 		Usuario lulao = this.criaUsuario("lulao");
