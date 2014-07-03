@@ -255,7 +255,7 @@ public class GrupoRS {
 		}
 	}
 	
-	//TODO: ddd
+	//TODO: 
 	@Path("/popular-flag")
 	@GET
 	@Produces(Application.JSON_UTF8)
