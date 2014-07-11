@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import br.com.dextra.dextranet.grupo.GrupoJSON;
+import br.com.dextra.dextranet.grupo.UsuarioJSON;
 import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.utils.ConteudoHTML;
 import br.com.dextra.dextranet.utils.MD5;
@@ -12,7 +13,7 @@ import br.com.dextra.dextranet.utils.TimeMachine;
 import com.google.appengine.api.datastore.Entity;
 
 public class Usuario extends Entidade {
-	private static final String DEFAULT_DOMAIN = "@dextra-sw.com";
+	public static final String DEFAULT_DOMAIN = "@dextra-sw.com";
 	private String username;
 	private String md5;
 	private String nome;
@@ -27,6 +28,7 @@ public class Usuario extends Entidade {
 	private Date ultimaAtualizacao;
 	private String blog;
 	private List<GrupoJSON> grupos;
+	private Boolean ativo;
 
 	public Usuario(String username) {
 		this.username = username.trim();
@@ -48,7 +50,7 @@ public class Usuario extends Entidade {
 		this.skype = (String) entidade.getProperty(UsuarioFields.skype.name());
 		this.ultimaAtualizacao = (Date) entidade.getProperty(UsuarioFields.ultimaAtualizacao.name());
 		this.blog = (String) entidade.getProperty(UsuarioFields.blog.name());
-
+		this.ativo = (Boolean) entidade.getProperty(UsuarioFields.ativo.name());
 	}
 
 	public String getUsername() {
@@ -136,7 +138,7 @@ public class Usuario extends Entidade {
 
 		conteudoHTML.setConteudo(blog);
 		this.blog = conteudoHTML.removeJavaScript();
-
+	
 		return this;
 	}
 
@@ -158,7 +160,8 @@ public class Usuario extends Entidade {
 		entidade.setProperty(UsuarioFields.skype.name(), this.skype);
 		entidade.setProperty(UsuarioFields.gitHub.name(), this.gitHub);
 		entidade.setProperty(UsuarioFields.blog.name(), this.blog);
-
+		entidade.setProperty(UsuarioFields.ativo.name(), this.ativo);
+		
 		return entidade;
 	}
 
@@ -174,5 +177,24 @@ public class Usuario extends Entidade {
 		this.grupos = grupos;
 	}
 
+	public Boolean isAtivo() {
+		return ativo;
+	}
+	
+	public Boolean getAtivo() {
+		return ativo;
+	}
+	
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
 
+	public UsuarioJSON getUsuarioJSON() {
+		UsuarioJSON json = new UsuarioJSON(this.id, this.nome, this.username + DEFAULT_DOMAIN);
+		json.setAtivo(ativo);
+		json.setApelido(this.apelido);
+		json.setUsername(this.username);
+		
+		return json;
+	}
 }

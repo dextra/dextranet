@@ -1,5 +1,7 @@
 package br.com.dextra.dextranet.usuario;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.FormParam;
@@ -11,6 +13,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import br.com.dextra.dextranet.grupo.Grupo;
+import br.com.dextra.dextranet.grupo.GrupoJSON;
+import br.com.dextra.dextranet.grupo.GrupoRepository;
+import br.com.dextra.dextranet.grupo.servico.google.Aprovisionamento;
+import br.com.dextra.dextranet.grupo.servico.google.GoogleGrupoJSON;
 import br.com.dextra.dextranet.rest.config.Application;
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 
@@ -23,26 +30,28 @@ import com.google.gson.JsonObject;
 public class UsuarioRS {
 
 	private UsuarioRepository repositorio = new UsuarioRepository();
-
+	private GrupoRepository grupoRepositorio = new GrupoRepository();
+	
 	@Path("/{id}")
 	@PUT
 	@Produces(Application.JSON_UTF8)
 	public Response atualizar(@PathParam("id") String id, @FormParam("nome") String nome,
 			@FormParam("apelido") String apelido, @FormParam("area") String area, @FormParam("unidade") String unidade,
 			@FormParam("ramal") String ramal, @FormParam("telefoneResidencial") String telefoneResidencial,
-			@FormParam("telefoneCelular") String telefoneCelular, @FormParam("gitHub") String gitHub, @FormParam("skype") String skype, @FormParam("blog") String blog) throws EntityNotFoundException {
+			@FormParam("telefoneCelular") String telefoneCelular, @FormParam("gitHub") String gitHub,
+			@FormParam("skype") String skype, @FormParam("blog") String blog, @FormParam("ativo") Boolean ativo) throws EntityNotFoundException {
 
 		Usuario usuario = repositorio.obtemPorId(id);
 
-		String usuarioLogado = this.obtemUsernameDoUsuarioLogado();
-		if (!usuario.getUsername().equals(usuarioLogado)) {
+		if (!possuiAcesso(usuario)) {
 			return Response.status(Status.FORBIDDEN).build();
 		}
 
 		usuario.preenchePerfil(nome, apelido, area, unidade, ramal, telefoneResidencial, telefoneCelular, gitHub, skype, blog);
+		usuario.setAtivo(ativo);
 		repositorio.persiste(usuario);
-
-		return Response.ok().entity(usuario).build();
+		isDesativacaoUsuario(usuario);
+		return Response.ok().entity(usuario.getUsuarioJSON()).build();
 	}
 
 	@Path("/{id}")
@@ -57,8 +66,14 @@ public class UsuarioRS {
 	@GET
 	@Produces(Application.JSON_UTF8)
 	public Response obterUsuarioLogado() {
+		Boolean isInfra = this.usuarioLogadoIsInfra();
 		Usuario usuario = repositorio.obtemPorUsername(this.obtemUsernameDoUsuarioLogado());
-		return Response.ok().entity(usuario).build();
+		JsonObject usuarioJson = new JsonObject();
+		usuarioJson.addProperty("apelido", usuario.getApelido());
+		usuarioJson.addProperty("username", usuario.getUsername());
+		usuarioJson.addProperty("isInfra", isInfra);
+		
+		return Response.ok().entity(usuarioJson.toString()).build();
 	}
 
 	@Path("/")
@@ -81,10 +96,6 @@ public class UsuarioRS {
 		return Response.ok().entity(json.toString()).build();
 	}
 
-	protected String obtemUsernameDoUsuarioLogado() {
-		return AutenticacaoService.identificacaoDoUsuarioLogado();
-	}
-
 	@Path("/{id}/{idGrupo}/adicionar-usuario-grupo")
 	@PUT
 	@Produces(Application.JSON_UTF8)
@@ -94,4 +105,42 @@ public class UsuarioRS {
 		return Response.ok().entity(usuario).build();
 	}
 
+	protected String obtemUsernameDoUsuarioLogado() {
+		return AutenticacaoService.identificacaoDoUsuarioLogado();
+	}
+
+	protected Boolean usuarioLogadoIsInfra() {
+		return AutenticacaoService.isUsuarioGrupoInfra();
+	}
+	
+	private boolean possuiAcesso(Usuario usuario) {
+		return usuarioLogadoIsInfra() || usuario.getUsername().equals(this.obtemUsernameDoUsuarioLogado());
+	}
+
+	private void isDesativacaoUsuario(Usuario usuario) throws EntityNotFoundException {
+		if (usuario.isAtivo().equals(Boolean.FALSE)) {
+			List<String> emails = new ArrayList<String>();
+			emails.add(usuario.getUsername() + Usuario.DEFAULT_DOMAIN);
+			List<Grupo> grupos = grupoRepositorio.obtemPorIdIntegrante(usuario.getId());
+			List<GoogleGrupoJSON> servicos = new ArrayList<GoogleGrupoJSON>();
+			
+			for (Grupo grupo : grupos) {
+				GrupoJSON grupoJSON = grupo.getGrupoJSON();
+				servicos = grupoJSON.getServico();
+			}
+			
+			desativarUsuario(emails, servicos);
+		}
+	}
+
+	private void desativarUsuario(List<String> emails, List<GoogleGrupoJSON> servicos) {
+		for (GoogleGrupoJSON servico : servicos) {
+			Aprovisionamento aprovisionamento = new Aprovisionamento();
+			try {
+				aprovisionamento.doPost("removermembro", servico.getNomeEmailGrupo(), servico.getEmailGrupo(), emails);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

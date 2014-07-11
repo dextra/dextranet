@@ -63,13 +63,10 @@ public class Aprovisionamento {
 	        System.out.println(content);
 
 		    DataInputStream input = new DataInputStream (urlConn.getInputStream());
-//		    while (null != ((str = input.readLine()))) {
-//		        //System.out.println(str);
-//		    }
-		    input.close ();
+		    input.close();
 		}
 
-		  public String doGet(String acao, String email) throws IOException {
+		public String doGet(String acao, String email) throws IOException {
 		      HttpURLConnection connection = null;
 		      BufferedReader rd  = null;
 		      StringBuilder sb = null;
