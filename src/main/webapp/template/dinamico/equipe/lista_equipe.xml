@@ -28,16 +28,16 @@
                     </div>
                     <div class="list-team-content">
                         <h3>
-                        	{if colaborador.isInfra}
+                        	<!-- {if colaborador.isInfra}
 	                    		<a onclick="dextranet.usuario.editar('${colaborador.id}', true)">
-	                    	{/if}
+	                    	{/if} -->
 	                            <span class="nome">${colaborador.nome}</span>
 	                            {if colaborador.apelido}
 	                                <span>(${colaborador.apelido})</span>
 	                            {/if}
-	                        {if colaborador.isInfra}    
+	                        <!-- {if colaborador.isInfra}    
                         		</a>
-                        	{/if}
+                        	{/if} -->
                         </h3>
                         <p class="list-team-content-geral">
                             ${colaborador.unidade} / ${colaborador.area}
