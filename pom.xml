@@ -361,7 +361,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/ma
             <dependency>
                 <groupId>br.com.dextra</groupId>
                 <artifactId>expertus</artifactId>
-                <version>1.0.14</version>
+                <version>1.0.14.1</version>
             </dependency>
             <dependency>
                 <groupId>org.owasp</groupId>
