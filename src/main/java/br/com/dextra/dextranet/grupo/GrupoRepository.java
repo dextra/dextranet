@@ -17,7 +17,7 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 public class GrupoRepository extends EntidadeRepository {
 	MembroRepository membroRepository = new MembroRepository();
 	ServicoGrupoRepository servicoGrupoRepository = new ServicoGrupoRepository();
-
+	
 	public Grupo persiste(Grupo grupo) {
 		return super.persiste(grupo);
 	}
@@ -27,7 +27,7 @@ public class GrupoRepository extends EntidadeRepository {
 		return new Grupo(grupoEntity);
 	}
 
-	public List<Grupo> obtemPorNickUsuario(String proprietario) throws EntityNotFoundException {		
+	public List<Grupo> obtemPorNickProprietario(String proprietario) throws EntityNotFoundException {		
         Query query = new Query(Grupo.class.getName());
         query.setFilter(new FilterPredicate(GrupoFields.proprietario.name(), FilterOperator.EQUAL, proprietario));
         PreparedQuery pquery = this.datastore.prepare(query);
@@ -40,26 +40,28 @@ public class GrupoRepository extends EntidadeRepository {
         
 		return grupos;
 	}
-	
-	public List<Grupo> obtemPorListaId(List<String> idGrupos) throws EntityNotFoundException {
-		Query query = new Query(Grupo.class.getName());
-		query.setFilter(new FilterPredicate(GrupoFields.id.name(), FilterOperator.IN, idGrupos));
-		PreparedQuery pquery = this.datastore.prepare(query);
-        List<Grupo> grupos = new ArrayList<Grupo>();
-        Iterable<Entity> entidades = pquery.asIterable();
 
-        for (Entity entidade : entidades) {
-        	Grupo grupo = new Grupo(entidade);
-        	List<Membro> membros = membroRepository.obtemPorIdGrupo(grupo.getId());
-        	List<ServicoGrupo> servicoGrupos = servicoGrupoRepository.obtemPorIdGrupo(grupo.getId());
-        	grupo.setServicoGrupos(servicoGrupos);
-        	grupo.setMembros(membros);
-			grupos.add(grupo);
+	public List<Grupo> obtemPorListaId(List<String> idGrupos) throws EntityNotFoundException {
+		List<Grupo> grupos = new ArrayList<Grupo>();
+		
+		if (!idGrupos.isEmpty()) {
+			Query query = new Query(Grupo.class.getName());
+			query.setFilter(new FilterPredicate(GrupoFields.id.name(), FilterOperator.IN, idGrupos));
+			PreparedQuery pquery = this.datastore.prepare(query);
+	        Iterable<Entity> entidades = pquery.asIterable();
+	
+	        for (Entity entidade : entidades) {
+	        	Grupo grupo = new Grupo(entidade);
+	        	List<Membro> membros = membroRepository.obtemPorIdGrupo(grupo.getId());
+	        	List<ServicoGrupo> servicoGrupos = servicoGrupoRepository.obtemPorIdGrupo(grupo.getId());
+	        	grupo.setServicoGrupos(servicoGrupos);
+	        	grupo.setMembros(membros);
+				grupos.add(grupo);
+			}
 		}
-        
 		return grupos;
 	}
-	
+
 	public List<Grupo> obtemPorIdIntegrante(String idUsuario) throws EntityNotFoundException {
 		List<Membro> relacoesUsuarioGrupo = membroRepository.obtemPorIdUsuario(idUsuario);
 		List<String> idGrupos = new ArrayList<String>();

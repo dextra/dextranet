@@ -26,6 +26,7 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 	
 	@Test
 	public void testaAtualizacaoPermitida() throws EntityNotFoundException {
+		limpaUsuariosInseridos(repositorio);
 		Usuario usuario = new Usuario(USUARIO_LOGADO);
 		repositorio.persiste(usuario);
 
@@ -71,9 +72,10 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 				"Residencial", "Celular", "GitHub", "Skype", "blog", true);
 		assertEquals(Status.FORBIDDEN.getStatusCode(), resposta.getStatus());
 	}
-
+	
 	@Test
 	public void testaDesativacaoUsuario() throws EntityNotFoundException {
+		limpaUsuariosInseridos(repositorio);
 		Usuario usuarioLogado = criaUsuario(USUARIO_LOGADO, true);
 		Usuario usuario1 = criaUsuario("usuario1", true);
 		Usuario usuario2 = criaUsuario("usuario2", true);

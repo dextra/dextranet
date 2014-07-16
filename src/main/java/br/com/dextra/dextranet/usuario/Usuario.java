@@ -176,15 +176,11 @@ public class Usuario extends Entidade {
 	public void setGrupos(List<GrupoJSON> grupos) {
 		this.grupos = grupos;
 	}
-
+	
 	public Boolean isAtivo() {
 		return ativo;
 	}
-	
-	public Boolean getAtivo() {
-		return ativo;
-	}
-	
+
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
 	}

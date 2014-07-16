@@ -74,14 +74,4 @@ public class GrupoRepositoryTest extends TesteIntegracaoBase {
 		assertEquals(grupos.get(2).getDescricao(), grupoC.getDescricao());
 		assertEquals(grupos.get(2).getProprietario(), grupoC.getProprietario());
 	}
-	
-	@Test
-	public void testaObtemGruposPorNickUsuario() throws EntityNotFoundException {
-		limpaGrupoInseridos(repositorio);
-		Grupo grupoA = new Grupo("Grupo A", "Grupo teste A", usuario.getUsername());
-		repositorio.persiste(grupoA);
-		List<Grupo> grupos = repositorio.obtemPorNickUsuario(usuario.getUsername());
-		assertEquals(1, grupos.size());
-	}
-	
 }

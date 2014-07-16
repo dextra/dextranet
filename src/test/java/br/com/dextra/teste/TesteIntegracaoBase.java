@@ -95,6 +95,7 @@ public class TesteIntegracaoBase {
     	}
     }
 
+    
     protected void limpaMicroPostsInseridos(MicroBlogRepository repository) {
         List<MicroPost> microPosts = repository.buscarMicroPosts();
         for (MicroPost micropost : microPosts) {

@@ -63,10 +63,6 @@ public class UsuarioJSON {
 		this.username = username;
 	}
 
-	public Boolean getAtivo() {
-		return ativo;
-	}
-
 	public String getApelido() {
 		return apelido;
 	}
