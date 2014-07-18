@@ -93,6 +93,7 @@
 	"url_redmine_descricao" : "&issue[description]=Nome%20do%20grupo:",
 	"helperEmailExterno" : "Tecle enter para adicionar",
 	"msg_excluirGrupo" : "Serviços associados a esse grupo também serão excluídos. Tem certeza que deseja excluir esse grupo?",
-	"email_invalido" : "Email inválido"
+	"email_invalido" : "Email inválido",
+	"ativar" : "Ativar"
 	}
 }
