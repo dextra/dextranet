@@ -1,5 +1,9 @@
 package br.com.dextra.dextranet.persistencia;
 
+import java.util.List;
+
+import br.com.dextra.dextranet.persistencia.adapter.ParametrosAdapter;
+
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -36,6 +40,25 @@ public class EntidadeRepository {
 		return this.lista(clazz, null, null, ordenacao);
 	}
 
+	protected <T extends Entidade> Iterable<Entity> lista(ParametrosAdapter<T> params) {
+		Query query = new Query(params.getEntidade().getName());
+		if (params.getOrdenacao() != null) {
+			for (EntidadeOrdenacao o : params.getOrdenacao()) {
+				query.addSort(o.getAtributo(), o.getOrdenacao());
+			}
+		}
+		setFilter(params.getFiltroCampos(), params.getFiltroValores(), query);
+		PreparedQuery pquery = this.datastore.prepare(query);
+		if (params.getRegistrosPorPagina() != null && params.getNumeroDaPagina() != null) {
+			FetchOptions opcoesFetch = FetchOptions.Builder.withDefaults();
+			opcoesFetch.limit(params.getRegistrosPorPagina());
+			opcoesFetch.offset(params.getRegistrosPorPagina() * (params.getNumeroDaPagina() - 1));
+			return pquery.asIterable(opcoesFetch);
+		}
+		
+		return pquery.asIterable();
+	}
+	
 	protected <T extends Entidade> Iterable<Entity> lista(Class<T> clazz, Integer registrosPorPagina,
 			Integer numeroDaPagina, EntidadeOrdenacao... ordenacao) {
 		Query query = new Query(clazz.getName());
@@ -56,12 +79,9 @@ public class EntidadeRepository {
 		return pquery.asIterable();
 	}
 
-	protected <T extends Entidade> Iterable<Entity> obterPor(Class<T> clazz, String[] campos, String[] valores) {
+	protected <T extends Entidade> Iterable<Entity> obterPor(Class<T> clazz, List<String> campos, List<Object> valores) {
 		Query query = new Query(clazz.getName());
-		for (int cont = 0; cont < campos.length; cont++) {
-			Filter filter = new FilterPredicate(campos[cont], FilterOperator.EQUAL, valores[cont]);
-			query.setFilter(filter);
-		}
+		setFilter(campos, valores, query);
 		PreparedQuery pquery = this.datastore.prepare(query);
 
 		return pquery.asIterable();
@@ -84,13 +104,19 @@ public class EntidadeRepository {
 
 	public <T extends Entidade> Iterable<Entity> obterKeyGoogleGrupos() {
 		Query query = new Query("br.com.dextra.dextranet.area.Area");
-//		for (int cont = 0; cont < campos.length; cont++) {
-//			Filter filter = new FilterPredicate(campos[cont], FilterOperator.EQUAL, valores[cont]);
-//			query.setFilter(filter);
-//		}
 		PreparedQuery pquery = this.datastore.prepare(query);
-
 		return pquery.asIterable();
+	}
+
+	private void setFilter(List<String> campos, List<Object> valores, Query query) {
+		if (campos != null) {
+			for (int cont = 0; cont < campos.size(); cont++) {
+				if (valores != null && !valores.isEmpty()){
+					Filter filter = new FilterPredicate(campos.get(cont), FilterOperator.EQUAL, valores.get(cont));
+					query.setFilter(filter);
+				}
+			}
+		}
 	}
 
 }

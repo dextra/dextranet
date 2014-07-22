@@ -162,6 +162,8 @@ public class MyContainerGAEHelper {
 		ent.setProperty(UsuarioFields.unidade.name(), unidade);
 		ent.setProperty(UsuarioFields.ramal.name(), ramal);
 		ent.setProperty(UsuarioFields.telefoneResidencial.name(), telefoneResidencial);
+		ent.setProperty(UsuarioFields.ativo.name(), true);
+		
 		usuario = new Usuario(ent);
 		repository.persiste(usuario);
 		return usuario;

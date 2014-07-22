@@ -21,10 +21,13 @@ public class MembroRepository extends EntidadeRepository {
 	}
 
 	public List<Membro> obtemPorIdGrupo(String idGrupo) throws EntityNotFoundException {
-		String[] valores = {idGrupo};
-		String[] campos = {MembroFields.idGrupo.name()};
+		List<String> campos = new ArrayList<String>();
+		campos.add(MembroFields.idGrupo.name());
+	
+		List<Object> valores = new ArrayList<Object>(); 
+		valores.add(idGrupo);
+		
 		Iterable<Entity> entidades = super.obterPor(Membro.class, campos, valores);
-
 		List<Membro> membros = new ArrayList<Membro>();
 		Membro membro = null;
 		for (Entity entity : entidades) {
@@ -35,8 +38,13 @@ public class MembroRepository extends EntidadeRepository {
 	}
 
 	public Membro obtemPor(String idUsuario, String idGrupo) throws EntityNotFoundException {
-		String[] campos = {MembroFields.idGrupo.name(), MembroFields.idUsuario.name()};
-		String[] valores = {idGrupo, idUsuario};
+		List<String> campos = new ArrayList<String>();
+		campos.add(MembroFields.idGrupo.name());
+		campos.add(MembroFields.idUsuario.name());
+		
+		List<Object> valores = new ArrayList<Object>(); 
+		valores.add(idGrupo);
+		valores.add(idUsuario);
 		Iterable<Entity> entidades = super.obterPor(Membro.class, campos, valores);
 		if (entidades !=  null && entidades.iterator().hasNext()) {
 			return new Membro(entidades.iterator().next());
@@ -45,8 +53,12 @@ public class MembroRepository extends EntidadeRepository {
 	}
 
 	public List<Membro> obtemPorIdUsuario(String idUsuario) throws EntityNotFoundException {
-		String[] valores = {idUsuario};
-		String[] campos = {MembroFields.idUsuario.name()};
+		List<String> campos = new ArrayList<String>();
+		campos.add(MembroFields.idUsuario.name());
+		
+		List<Object> valores = new ArrayList<Object>(); 
+		valores.add(idUsuario);
+		
 		Iterable<Entity> entidades = super.obterPor(Membro.class, campos, valores);
 
 		List<Membro> membros = new ArrayList<Membro>();

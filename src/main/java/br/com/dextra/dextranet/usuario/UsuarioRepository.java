@@ -12,6 +12,7 @@ import br.com.dextra.dextranet.grupo.MembroRepository;
 import br.com.dextra.dextranet.persistencia.EntidadeNaoEncontradaException;
 import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.persistencia.EntidadeRepository;
+import br.com.dextra.dextranet.persistencia.adapter.ParametrosAdapter;
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 
 import com.google.appengine.api.datastore.Entity;
@@ -39,6 +40,31 @@ public class UsuarioRepository extends EntidadeRepository {
         this.remove(id, Usuario.class);
     }
 
+	public List<Usuario> listaPor(Boolean isInfra) throws EntityNotFoundException {
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		EntidadeOrdenacao ordenacao = new EntidadeOrdenacao(UsuarioFields.username.name(), SortDirection.ASCENDING);
+		EntidadeOrdenacao[] ordenacoes = { ordenacao };
+		ParametrosAdapter<Usuario> parametros = new ParametrosAdapter<Usuario>();
+		parametros.comEntidade(Usuario.class);
+		parametros.comOrdenacao(ordenacoes);
+		if (!isInfra) {
+			List<String> campos = new ArrayList<String>();
+			campos.add(UsuarioFields.ativo.name());
+			parametros.comCampos(campos);
+			List<Object> valores = new ArrayList<Object>();
+			valores.add(true);
+			parametros.comValores(valores);
+		}
+
+		Iterable<Entity> entidades = super.lista(parametros);
+		for (Entity entidade : entidades) {
+			Usuario usuario = getUsuario(entidade);
+			usuarios.add(usuario);
+		}
+
+		return usuarios;
+    }
+    
     public List<Usuario> lista() throws EntityNotFoundException {
         EntidadeOrdenacao ordenacaoPorUsername = new EntidadeOrdenacao(UsuarioFields.username.name(),
                 SortDirection.ASCENDING);
@@ -46,28 +72,33 @@ public class UsuarioRepository extends EntidadeRepository {
 
         Iterable<Entity> entidades = super.lista(Usuario.class, ordenacaoPorUsername);
         for (Entity entidade : entidades) {
-        	Usuario usuario = new Usuario(entidade);
-        	Grupo grupo = new Grupo();
-        	List<GrupoJSON> grupoJSONs = new ArrayList<GrupoJSON>();
-        	List<Membro> grupos = repositorioMembro.obtemPorIdUsuario(usuario.getId());
-
-        	Iterator<Membro> membro = grupos.iterator();
-            while ( membro.hasNext() ){
-            	GrupoJSON grupoJSON = new GrupoJSON();
-
-            	grupo = repositorio.obtemPorId(membro.next().getIdGrupo());
-            	grupoJSON.setId(grupo.getId());
-            	grupoJSON.setNome(grupo.getNome());
-            	grupoJSON.setProprietario(grupo.getProprietario());
-
-            	grupoJSONs.add(grupoJSON);
-            }
-
-            usuario.setGrupos(grupoJSONs);
+        	Usuario usuario = getUsuario(entidade);
             usuarios.add(usuario);
         }
         return usuarios;
     }
+
+	private Usuario getUsuario(Entity entidade) throws EntityNotFoundException {
+		Usuario usuario = new Usuario(entidade);
+		Grupo grupo = new Grupo();
+		List<GrupoJSON> grupoJSONs = new ArrayList<GrupoJSON>();
+		List<Membro> grupos = repositorioMembro.obtemPorIdUsuario(usuario.getId());
+
+		Iterator<Membro> membro = grupos.iterator();
+		while ( membro.hasNext() ){
+			GrupoJSON grupoJSON = new GrupoJSON();
+
+			grupo = repositorio.obtemPorId(membro.next().getIdGrupo());
+			grupoJSON.setId(grupo.getId());
+			grupoJSON.setNome(grupo.getNome());
+			grupoJSON.setProprietario(grupo.getProprietario());
+
+			grupoJSONs.add(grupoJSON);
+		}
+
+		usuario.setGrupos(grupoJSONs);
+		return usuario;
+	}
 
     public Usuario obtemPorUsername(String username) {
         Query query = new Query(Usuario.class.getName());

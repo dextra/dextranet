@@ -46,9 +46,14 @@ public class UsuarioRS {
 		if (!possuiAcesso(usuario)) {
 			return Response.status(Status.FORBIDDEN).build();
 		}
-
-		usuario.preenchePerfil(nome, apelido, area, unidade, ramal, telefoneResidencial, telefoneCelular, gitHub, skype, blog);
-		usuario.setAtivo(ativo);
+		
+		if (ativo) {
+			usuario.preenchePerfil(nome, apelido, area, unidade, ramal, telefoneResidencial, telefoneCelular, gitHub, skype, blog);
+			usuario.setAtivo(ativo);
+		} else {
+			usuario.setAtivo(ativo);
+		}
+		
 		repositorio.persiste(usuario);
 		isDesativacaoUsuario(usuario);
 		return Response.ok().entity(usuario.getUsuarioJSON()).build();
@@ -80,7 +85,7 @@ public class UsuarioRS {
 	@GET
 	@Produces(Application.JSON_UTF8)
 	public Response listar() throws EntityNotFoundException {
-		List<Usuario> usuarios = repositorio.lista();
+		List<Usuario> usuarios = repositorio.listaPor(usuarioLogadoIsInfra());
 		return Response.ok().entity(usuarios).build();
 	}
 

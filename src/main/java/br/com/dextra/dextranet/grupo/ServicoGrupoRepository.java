@@ -21,10 +21,13 @@ public class ServicoGrupoRepository extends EntidadeRepository {
 	}
 
 	public List<ServicoGrupo> obtemPorIdGrupo(String idGrupo) throws EntityNotFoundException {
-		String[] valores = {idGrupo};
-		String[] campos = {ServicoGrupoFields.idGrupo.name()};
+		List<Object> valores = new ArrayList<Object>();
+		valores.add(idGrupo);
+		
+		List<String> campos = new ArrayList<String>();
+		valores.add(ServicoGrupoFields.idGrupo.name());
+		
 		Iterable<Entity> entidades = super.obterPor(ServicoGrupo.class, campos, valores);
-
 		List<ServicoGrupo> servicoGrupos= new ArrayList<ServicoGrupo>();
 		ServicoGrupo servico = null;
 		for (Entity entity : entidades) {
@@ -35,12 +38,19 @@ public class ServicoGrupoRepository extends EntidadeRepository {
 	}
 
 	public ServicoGrupo obtemPor(String idServico, String idGrupo) throws EntityNotFoundException {
-		String[] campos = {ServicoGrupoFields.idGrupo.name(), ServicoGrupoFields.idServico.name()};
-		String[] valores = {idGrupo, idServico};
+		List<String> campos = new ArrayList<String>();
+		campos.add(ServicoGrupoFields.idGrupo.name());
+		campos.add(ServicoGrupoFields.idServico.name());
+		
+		List<Object> valores = new ArrayList<Object>();
+		valores.add(idGrupo);
+		valores.add(idServico);
+		
 		Iterable<Entity> entidades = super.obterPor(ServicoGrupo.class, campos, valores);
 		if (entidades !=  null && entidades.iterator().hasNext()) {
 			return new ServicoGrupo(entidades.iterator().next());
 		}
+		
 		return null;
 	}
 

@@ -33,6 +33,7 @@ public class Usuario extends Entidade {
 	public Usuario(String username) {
 		this.username = username.trim();
 		this.md5 = geraMD5(this.username);
+		this.ativo = true;
 	}
 
 	public Usuario(Entity entidade) {
@@ -138,7 +139,7 @@ public class Usuario extends Entidade {
 
 		conteudoHTML.setConteudo(blog);
 		this.blog = conteudoHTML.removeJavaScript();
-	
+		
 		return this;
 	}
 

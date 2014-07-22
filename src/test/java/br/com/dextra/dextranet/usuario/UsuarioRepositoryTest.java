@@ -57,6 +57,43 @@ public class UsuarioRepositoryTest extends TesteIntegracaoBase {
 	}
 
 	@Test
+	public void testaListaPorUsuariosAtivos() throws EntityNotFoundException {
+		Usuario usuario01 = new Usuario("reloadDextranet");
+		usuario01.setAtivo(false);
+		Usuario usuario02 = new Usuario("dextranet");
+		Usuario usuario03 = new Usuario("novaDextranet");
+
+		repositorio.persiste(usuario01);
+		repositorio.persiste(usuario02);
+		repositorio.persiste(usuario03);
+		Boolean isInfra = false;
+		List<Usuario> usuariosEncontrados = repositorio.listaPor(isInfra);
+
+		Assert.assertEquals(2, usuariosEncontrados.size());
+	}
+	
+	@Test
+	public void testaListaPorUsuariosAtivosEInativos() throws EntityNotFoundException {
+		Usuario usuario01 = new Usuario("reloadDextranet");
+		usuario01.setAtivo(false);
+		Usuario usuario02 = new Usuario("dextranet");
+		Usuario usuario03 = new Usuario("novaDextranet");
+
+VER A NECESSIDADE DE TSTAR MAIS OS USUARIOS ATIVOS E INATIVOS LISTA QUE VAI PARA TELA
+ALTERAR O LINK DE DESATIVACAO PARA ATIVACAO 
+MOSTRAR LISTA DIFERENTE PARA USUARIOS DIFERENTES
+AO DESATIVAR USUSARIO ESTA DANDO 500 NA TELA
+
+		repositorio.persiste(usuario01);
+		repositorio.persiste(usuario02);
+		repositorio.persiste(usuario03);
+		Boolean isInfra = true;
+		List<Usuario> usuariosEncontrados = repositorio.listaPor(isInfra);
+
+		Assert.assertEquals(3, usuariosEncontrados.size());
+	}
+	
+	@Test
 	public void testaObtemPorUsernameInexistente() {
 		try {
 			repositorio.obtemPorUsername("dextranet");
