@@ -30,7 +30,21 @@ dextranet.usuario = {
     			}
 			});
 		},
-
+		
+		desativar : function(idUser) {
+			$.ajax( {
+				type : "PUT",
+				url : "/s/usuario/" + idUser,
+				data : {ativo : false},
+				success : function() {
+					$('.message').message($.i18n.usuario_mensagem_desativado_sucesso, 'success', true);
+				},
+    			error: function(jqXHR, textStatus, errorThrown) {
+    				dextranet.processaErroNaRequisicao(jqXHR);
+    			}
+			});	
+		},
+		
 		editar : function() {
 			var carregaAreas = $.ajax({
 										type : "GET",

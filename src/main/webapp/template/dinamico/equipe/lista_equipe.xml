@@ -28,16 +28,18 @@
                     </div>
                     <div class="list-team-content">
                         <h3>
-                        	<!-- {if colaborador.isInfra}
-	                    		<a onclick="dextranet.usuario.editar('${colaborador.id}', true)">
-	                    	{/if} -->
-	                            <span class="nome">${colaborador.nome}</span>
-	                            {if colaborador.apelido}
-	                                <span>(${colaborador.apelido})</span>
-	                            {/if}
-	                        <!-- {if colaborador.isInfra}    
-                        		</a>
-                        	{/if} -->
+                            <span class="nome">${colaborador.nome}</span>
+                            {if colaborador.apelido}
+                                <span>(${colaborador.apelido})</span>
+                            {/if}
+                            
+                            {if dextranet.usuario.logado}
+								{if colaborador.ativo}            
+	                    			<a onclick="dextranet.usuario.desativar('${colaborador.id}')" class="desativar">Desativar</a>
+	                    		{else}
+									<a onclick="dextranet.usuario.ativar('${colaborador.id}')" class="desativar">Ativar</a>
+								{/if}
+	                    	{/if}
                         </h3>
                         <p class="list-team-content-geral">
                             ${colaborador.unidade} / ${colaborador.area}
