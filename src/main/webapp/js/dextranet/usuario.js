@@ -45,6 +45,20 @@ dextranet.usuario = {
 			});	
 		},
 		
+		ativar : function(idUser) {
+			$.ajax( {
+				type : "PUT",
+				url : "/s/usuario/" + idUser,
+				data : {ativo : true},
+				success : function() {
+					$('.message').message($.i18n.usuario_mensagem_ativado_sucesso, 'success', true);
+				},
+    			error: function(jqXHR, textStatus, errorThrown) {
+    				dextranet.processaErroNaRequisicao(jqXHR);
+    			}
+			});	
+		},
+		
 		editar : function() {
 			var carregaAreas = $.ajax({
 										type : "GET",

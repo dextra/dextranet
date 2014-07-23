@@ -54,6 +54,7 @@
 	"usuario_mensagem_foto" : "Sua foto está sendo exibida de acordo com o Gravatar configurado para seu e-mail da Dextra.",
 	"usuario_mensagem_edicao_sucesso" : "Seus dados foram salvos com sucesso!",
 	"usuario_mensagem_desativado_sucesso" : "Usuário desativado",
+	"usuario_mensagem_ativado_sucesso" : "Usuário ativado",
 	"post_novo_titulo" : "Novo Post",
 	"post_titulo" : "Título",
 	"post_titulo_tip" : "Digite o título do novo post...",

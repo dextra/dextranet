@@ -43,7 +43,7 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		assertTrue(StringUtils.isEmpty(usuarioPersistido.getBlog()));
 
 		rest.atualizar(usuario.getId(), "Nome", "Apelido", "&Aacute;rea", "Unidade", "Ramal", "Residencial", "Celular",
-				"GitHub", "Skype", "blog", true);
+				"GitHub", "Skype", "blog", null);
 		usuarioPersistido = repositorio.obtemPorId(usuario.getId());
 
 		assertEquals("Nome", usuarioPersistido.getNome());
@@ -58,7 +58,7 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		assertEquals("blog", usuarioPersistido.getBlog());
 
 		rest.atualizar(usuario.getId(), "Nome", "Apelido", "Area", "Unidade", "Ramal", "Residencial", "Celular",
-				"GitHub", "Skype", "blog", true);
+				"GitHub", "Skype", "blog", null);
 		usuarioPersistido = repositorio.obtemPorId(usuario.getId());
 		assertEquals("Area", usuarioPersistido.getArea());
 	}
@@ -69,7 +69,7 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		repositorio.persiste(usuario);
 
 		Response resposta = rest.atualizar(usuario.getId(), "Nome", "Apelido", "Area", "Unidade", "Ramal",
-				"Residencial", "Celular", "GitHub", "Skype", "blog", true);
+				"Residencial", "Celular", "GitHub", "Skype", "blog", null);
 		assertEquals(Status.FORBIDDEN.getStatusCode(), resposta.getStatus());
 	}
 	
@@ -82,14 +82,33 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		criaGrupoComOsIntegrantes(true, "Infra", usuarioLogado);
 		criaGrupoComOsIntegrantes(false, "Grupo1", usuario2, usuario1);
 		
-		Object entity = rest.atualizar(usuario1.getId(), "Nome", "Apelido", "Area", "Unidade", "Ramal",
-				"Residencial", "Celular", "GitHub", "Skype", "blog", false).getEntity();
+		Object entity = rest.atualizar(usuario1.getId(), null, null, null, null, null,
+				null, null, null, null, null, false).getEntity();
 		
 		UsuarioJSON json = (UsuarioJSON) entity;
 		Usuario retorno = repositorio.obtemPorId(usuario1.getId());
 		
 		assertFalse(json.isAtivo());
 		assertFalse(retorno.isAtivo());
+	}
+	
+	@Test
+	public void testaAtivacaoUsuario() throws EntityNotFoundException {
+		limpaUsuariosInseridos(repositorio);
+		Usuario usuarioLogado = criaUsuario(USUARIO_LOGADO, true);
+		Usuario usuario1 = criaUsuario("usuario1", true);
+		Usuario usuario2 = criaUsuario("usuario2", true);
+		criaGrupoComOsIntegrantes(true, "Infra", usuarioLogado);
+		criaGrupoComOsIntegrantes(false, "Grupo1", usuario2, usuario1);
+		
+		Object entity = rest.atualizar(usuario1.getId(), null, null, null, null, null,
+				null, null, null, null, null, true).getEntity();
+		
+		UsuarioJSON json = (UsuarioJSON) entity;
+		Usuario retorno = repositorio.obtemPorId(usuario1.getId());
+		
+		assertTrue(json.isAtivo());
+		assertTrue(retorno.isAtivo());
 	}
 	
 	public class UsuarioRSFake extends UsuarioRS {

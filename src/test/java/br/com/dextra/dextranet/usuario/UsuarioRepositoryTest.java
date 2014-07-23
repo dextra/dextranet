@@ -49,7 +49,6 @@ public class UsuarioRepositoryTest extends TesteIntegracaoBase {
 
 		List<Usuario> usuariosEncontrados = repositorio.lista();
 
-		// verifica se encontrou todas
 		Assert.assertEquals(3, usuariosEncontrados.size());
 		Assert.assertEquals(usuario02, usuariosEncontrados.get(0));
 		Assert.assertEquals(usuario03, usuariosEncontrados.get(1));
@@ -78,11 +77,6 @@ public class UsuarioRepositoryTest extends TesteIntegracaoBase {
 		usuario01.setAtivo(false);
 		Usuario usuario02 = new Usuario("dextranet");
 		Usuario usuario03 = new Usuario("novaDextranet");
-
-VER A NECESSIDADE DE TSTAR MAIS OS USUARIOS ATIVOS E INATIVOS LISTA QUE VAI PARA TELA
-ALTERAR O LINK DE DESATIVACAO PARA ATIVACAO 
-MOSTRAR LISTA DIFERENTE PARA USUARIOS DIFERENTES
-AO DESATIVAR USUSARIO ESTA DANDO 500 NA TELA
 
 		repositorio.persiste(usuario01);
 		repositorio.persiste(usuario02);

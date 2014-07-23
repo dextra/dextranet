@@ -47,9 +47,9 @@ public class UsuarioRS {
 			return Response.status(Status.FORBIDDEN).build();
 		}
 		
-		if (ativo) {
+		if (ativo == null) {
 			usuario.preenchePerfil(nome, apelido, area, unidade, ramal, telefoneResidencial, telefoneCelular, gitHub, skype, blog);
-			usuario.setAtivo(ativo);
+			usuario.setAtivo(Boolean.TRUE);
 		} else {
 			usuario.setAtivo(ativo);
 		}
