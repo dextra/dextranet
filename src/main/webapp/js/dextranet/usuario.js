@@ -31,6 +31,16 @@ dextranet.usuario = {
 			});
 		},
 		
+		ativarDesativar : function(idUser, isAtivo) {
+			if (isAtivo) {
+				$('.colaborador' + idUser).text($.i18n.messages.ativar);
+				dextranet.usuario.desativar(idUser);
+			} else {
+				$('.colaborador' + idUser).text($.i18n.messages.desativar);
+				dextranet.usuario.ativar(idUser);
+			}
+		},
+		
 		desativar : function(idUser) {
 			$.ajax( {
 				type : "PUT",

@@ -34,11 +34,13 @@
                             {/if}
                             
                             {if dextranet.usuario.logado}
-								{if colaborador.ativo}            
-	                    			<a onclick="dextranet.usuario.desativar('${colaborador.id}')" class="desativar">Desativar</a>
-	                    		{else}
-									<a onclick="dextranet.usuario.ativar('${colaborador.id}')" class="desativar">Ativar</a>
-								{/if}
+                            	<a onclick="dextranet.usuario.ativarDesativar('${colaborador.id}', ${colaborador.ativo})" class="colaborador${colaborador.id} desativar">
+									{if colaborador.ativo}
+		                    			<span>${messages.desativar}</span>
+		                    		{else}
+										<span>${messages.ativar}</span>
+									{/if}
+                            	</a>
 	                    	{/if}
                         </h3>
                         <p class="list-team-content-geral">

@@ -29,7 +29,7 @@ public class Usuario extends Entidade {
 	private String blog;
 	private List<GrupoJSON> grupos;
 	private Boolean ativo;
-
+	
 	public Usuario(String username) {
 		this.username = username.trim();
 		this.md5 = geraMD5(this.username);
@@ -162,7 +162,6 @@ public class Usuario extends Entidade {
 		entidade.setProperty(UsuarioFields.gitHub.name(), this.gitHub);
 		entidade.setProperty(UsuarioFields.blog.name(), this.blog);
 		entidade.setProperty(UsuarioFields.ativo.name(), this.ativo);
-		
 		return entidade;
 	}
 
@@ -186,6 +185,10 @@ public class Usuario extends Entidade {
 		this.ativo = ativo;
 	}
 
+	public String getStatus() {
+		return ativo ? "ativado" : "desativado";
+	}
+	
 	public UsuarioJSON getUsuarioJSON() {
 		UsuarioJSON json = new UsuarioJSON(this.id, this.nome, this.username + DEFAULT_DOMAIN);
 		json.setAtivo(ativo);

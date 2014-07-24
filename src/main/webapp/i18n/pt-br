@@ -96,6 +96,7 @@
 	"helperEmailExterno" : "Tecle enter para adicionar",
 	"msg_excluirGrupo" : "Serviços associados a esse grupo também serão excluídos. Tem certeza que deseja excluir esse grupo?",
 	"email_invalido" : "Email inválido",
-	"ativar" : "Ativar"
+	"ativar" : "Ativar",
+	"desativar" : "Desativar"
 	}
 }
