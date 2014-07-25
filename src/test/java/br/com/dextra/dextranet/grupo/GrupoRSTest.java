@@ -3,7 +3,7 @@ package br.com.dextra.dextranet.grupo;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
-
+import static br.com.dextra.dextranet.persistencia.DadosUtils.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,11 +61,11 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	@Test
 	public void testaAlterarGrupoInfra() throws EntityNotFoundException {
 		limpaUsuariosInseridos(usuarioRepository);
-		Usuario usuario = this.criaUsuario(USUARIO_LOGADO);
-		this.criaGrupoComOsIntegrantes(true, "Grupo Infra", usuario);
+		Usuario usuario = criaUsuario(USUARIO_LOGADO, true);
+		criaGrupoComOsIntegrantes(true, "Grupo Infra", usuario);
 
-		Usuario usuario1 = this.criaUsuario("usuario1");
-		Grupo grupo = this.criaGrupoComOsIntegrantes(false, "Grupo 1", usuario1);
+		Usuario usuario1 = criaUsuario("usuario1", true);
+		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1", usuario1);
 		GrupoJSON grupoJSON = (GrupoJSON) rest.obter(grupo.getId()).getEntity();
 		List<UsuarioJSON> usuarios = grupoJSON.getUsuarios();
 		usuarios.add(new UsuarioJSON(null, "Usuario 2", "usuario@dextra-sw.com"));
@@ -79,11 +79,11 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testaNaoPodeAlterarGrupoInfra() throws EntityNotFoundException {
-		Usuario usuario = this.criaUsuario("usuarioX");
-		this.criaGrupoComOsIntegrantes(true, "Grupo X", usuario);
+		Usuario usuario = criaUsuario("usuarioX", true);
+		criaGrupoComOsIntegrantes(true, "Grupo X", usuario);
 
-		Usuario usuario1 = this.criaUsuario("usuario1");
-		Grupo grupo = this.criaGrupoComOsIntegrantes(false, "Grupo 1", usuario1);
+		Usuario usuario1 = criaUsuario("usuario1", true);
+		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1", usuario1);
 		GrupoJSON grupoJSON = (GrupoJSON) rest.obter(grupo.getId()).getEntity();
 		List<UsuarioJSON> usuarios = grupoJSON.getUsuarios();
 		usuarios.add(new UsuarioJSON(null, "Usuario 2", "usuario@dextra-sw.com"));
@@ -196,7 +196,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	public void testaListar() throws EntityNotFoundException {
 		limpaUsuariosInseridos(usuarioRepository);
 		String nome = "Grupo A";
-		Usuario usuario = criaUsuario(USUARIO_LOGADO);
+		Usuario usuario = criaUsuario(USUARIO_LOGADO, true);
 		criaGrupoComOsIntegrantes(false, "Grupo A", usuario);
 		
 		Response response = rest.listar();
@@ -231,9 +231,9 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	@Test
 	public void testaListagemDeGrupoComIntegranteRemovido()
 			throws EntityNotFoundException {
-		Usuario lulao = this.criaUsuario("lulao");
-		Usuario dudi = this.criaUsuario("dudi");
-		this.criaGrupoComOsIntegrantes(false, "VamoBugrao", lulao, dudi);
+		Usuario lulao = criaUsuario("lulao", true);
+		Usuario dudi = criaUsuario("dudi", true);
+		criaGrupoComOsIntegrantes(false, "VamoBugrao", lulao, dudi);
 
 		this.removeUmDosUsuariosDoGrupo(lulao);
 
@@ -244,9 +244,9 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	@SuppressWarnings("unchecked")
 	public void testaUsuarioLogadoNaoPodeExcluirGrupo() throws EntityNotFoundException {
 		limpaUsuariosInseridos(usuarioRepository);
-		this.criaUsuario(USUARIO_LOGADO);
-		Usuario usuario1 = this.criaUsuario("usuario1");
-		this.criaGrupoComOsIntegrantes(false, "Grupo 1", usuario1, usuario1);
+		criaUsuario(USUARIO_LOGADO, true);
+		Usuario usuario1 = criaUsuario("usuario1", true);
+		criaGrupoComOsIntegrantes(false, "Grupo 1", usuario1, usuario1);
 		
 		Response response = rest.listar();
 		List<GrupoJSON> gruposjson = (List<GrupoJSON>) response.getEntity();
@@ -257,12 +257,12 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	@SuppressWarnings("unchecked")
 	public void testaUsuarioLogadoPodeExcluirGrupo() throws EntityNotFoundException {
 		limpaUsuariosInseridos(usuarioRepository);
-		Usuario usuario = this.criaUsuario(USUARIO_LOGADO);
-		Usuario usuarioMembroInfra = this.criaUsuario("membroInfra");
-		this.criaGrupoComOsIntegrantes(true, "Grupo Infra", usuarioMembroInfra, usuario);
+		Usuario usuario = criaUsuario(USUARIO_LOGADO, true);
+		Usuario usuarioMembroInfra = criaUsuario("membroInfra", true);
+		criaGrupoComOsIntegrantes(true, "Grupo Infra", usuarioMembroInfra, usuario);
 
-		Usuario usuario1 = this.criaUsuario("usuario1");
-		this.criaGrupoComOsIntegrantes(false, "Grupo 1", usuario1, usuario1);
+		Usuario usuario1 = criaUsuario("usuario1", true);
+		criaGrupoComOsIntegrantes(false, "Grupo 1", usuario1, usuario1);
 		
 		Response response = rest.listar();
 		List<GrupoJSON> gruposjson = (List<GrupoJSON>) response.getEntity();
@@ -274,24 +274,6 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		usuarioRepository.remove(usuario.getId());
 	}
 
-	private Usuario criaUsuario(String username) {
-		Usuario novoUsuario = new Usuario(username);
-		novoUsuario = usuarioRepository.persiste(novoUsuario);
-		return novoUsuario;
-	}
-	
-	private Grupo criaGrupoComOsIntegrantes(Boolean isInfra, String nomeDoGrupo,
-			Usuario... integrantes) {
-		Grupo novoGrupo = new Grupo(nomeDoGrupo, nomeDoGrupo, integrantes[0].getUsername());
-		novoGrupo.setInfra(isInfra);
-		novoGrupo = repositorioGrupo.persiste(novoGrupo);
-
-		for (Usuario integrante : integrantes) {
-			repositorioMembro.persiste(new Membro(integrante.getId(), novoGrupo.getId(), integrante.getNome(), "email"));
-		}
-
-		return novoGrupo;
-	}
 
 	public class GrupoRSFake extends GrupoRS {
 		@Override

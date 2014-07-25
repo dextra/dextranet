@@ -1,6 +1,9 @@
 package br.com.dextra.dextranet.grupo;
 
+import static br.com.dextra.dextranet.persistencia.DadosUtils.criaGrupoComOsIntegrantes;
+import static br.com.dextra.dextranet.persistencia.DadosUtils.criaUsuario;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -18,7 +21,6 @@ public class GrupoRepositoryTest extends TesteIntegracaoBase {
 	private GrupoRepository grupoRepositorio = new GrupoRepository();
 	private UsuarioRepository usuarioRepositorio = new UsuarioRepository();
 	private Usuario usuario = new Usuario("login.google");
-	private MembroRepository membroRepository = new MembroRepository();
 	
 	@Before
 	public void preparaTestes() {
@@ -52,10 +54,10 @@ public class GrupoRepositoryTest extends TesteIntegracaoBase {
 	@Test
 	public void testaListar() {
 		limpaGrupoInseridos(grupoRepositorio);
-		Grupo grupoA = criarGrupo("Grupo A", "Grupo teste A", usuario);
-		Grupo grupoB = criarGrupo("Grupo B", "Grupo teste B", usuario);
-		Grupo grupoC = criarGrupo("Grupo C", "Grupo teste C", usuario);
-		criarGrupo("Grupo D", "Grupo teste D", usuario);
+		Grupo grupoA = criaGrupoComOsIntegrantes(false, "Grupo A", usuario);
+		Grupo grupoB = criaGrupoComOsIntegrantes(false, "Grupo teste B", usuario);
+		Grupo grupoC = criaGrupoComOsIntegrantes(false, "Grupo teste C", usuario);
+		criaGrupoComOsIntegrantes(false, "Grupo teste D", usuario);
 
 		List<Grupo> grupos = grupoRepositorio.lista();
 
@@ -72,11 +74,27 @@ public class GrupoRepositoryTest extends TesteIntegracaoBase {
 		assertEquals(grupos.get(2).getProprietario(), grupoC.getProprietario());
 	}
 
-	private Grupo criarGrupo(String nome, String descricao, Usuario usuario) {
-		Grupo grupoA = new Grupo(nome, descricao, usuario.getUsername());
-		grupoRepositorio.persiste(grupoA);
-		Membro membro = new Membro(usuario.getId(), grupoA.getId(), usuario.getNome(), usuario.getEmail());
-		membroRepository.persiste(membro);
-		return grupoA;
+	@Test
+	public void testaAjusteProprietarioGrupo() throws EntityNotFoundException {
+		Usuario usuario1 = criaUsuario("usuario1", true);
+		Usuario usuario2 = criaUsuario("usuario2", true);
+		Usuario usuario3 = criaUsuario("usuario3", true);
+		Usuario usuario4 = criaUsuario("usuario4", true);
+		
+		criaGrupoComOsIntegrantes(false, "Grupo1", usuario1, usuario2, usuario3, usuario4);
+		criaGrupoComOsIntegrantes(false, "Grupo2", usuario1, usuario2, usuario3, usuario4);
+		criaGrupoComOsIntegrantes(false, "Grupo3", usuario1, usuario2, usuario3, usuario4);
+		criaGrupoComOsIntegrantes(false, "Grupo4", usuario1, usuario2, usuario3, usuario4);
+		
+		List<Grupo> grupos = grupoRepositorio.obtemPorIdIntegrante(usuario1.getId());
+		
+		grupoRepositorio.ajustarProprietarioGrupo(usuario1);
+		
+		grupos = grupoRepositorio.obtemPorIdIntegrante(usuario1.getId());
+		
+		for (Grupo grupo : grupos) {
+			assertFalse(grupo.getProprietario().equals(usuario1.getUsername()));
+		}
 	}
+
 }

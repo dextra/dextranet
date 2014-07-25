@@ -3,6 +3,8 @@ package br.com.dextra.dextranet.grupo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.persistencia.EntidadeRepository;
 import br.com.dextra.dextranet.usuario.Usuario;
@@ -88,5 +90,30 @@ public class GrupoRepository extends EntidadeRepository {
 		}
 
 		return grupos;
+	}
+
+	public void ajustarProprietarioGrupo(Usuario usuario) throws EntityNotFoundException {
+		List<Grupo> grupos = obtemPorIdIntegrante(usuario.getId());
+		
+		for (Grupo grupo : grupos) {
+			if (grupo.getProprietario().equals(usuario.getUsername())) {
+				List<Membro> membros = grupo.getMembros();
+				String usernamedeOutroMembro = getUsernameOutroMembro(usuario, membros);
+				if (!StringUtils.isEmpty(usernamedeOutroMembro)) {
+					grupo.comProprietario(usernamedeOutroMembro);
+					persiste(grupo);
+				}
+			}
+		}
+	}
+
+	private String getUsernameOutroMembro(Usuario usuario, List<Membro> membros) {
+		for (Membro membro : membros) {
+			String username = membro.getEmail();
+			if (!username.equals(usuario.getUsername())) {
+				return username;
+			}
+		}
+		return null;
 	}
 }

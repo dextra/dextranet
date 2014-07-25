@@ -6,7 +6,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import static junit.framework.Assert.*;
-
+import static br.com.dextra.dextranet.persistencia.DadosUtils.*;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
@@ -123,26 +123,5 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		}
 		
 	}
-	
-	private Grupo criaGrupoComOsIntegrantes(Boolean isInfra, String nomeDoGrupo,
-			Usuario... integrantes) {
-		Grupo novoGrupo = new Grupo(nomeDoGrupo, nomeDoGrupo,
-				integrantes[0].getUsername());
-		novoGrupo.setInfra(isInfra);
-		novoGrupo = repositorioGrupo.persiste(novoGrupo);
 
-		for (Usuario integrante : integrantes) {
-			repositorioMembro.persiste(new Membro(integrante.getId(), novoGrupo
-					.getId(), integrante.getNome(), "email"));
-		}
-
-		return novoGrupo;
-	}
-
-	private Usuario criaUsuario(String username, Boolean isAtivo) {
-		Usuario novoUsuario = new Usuario(username);
-		novoUsuario.setAtivo(isAtivo);
-		novoUsuario = repositorio.persiste(novoUsuario);
-		return novoUsuario;
-	}
 }

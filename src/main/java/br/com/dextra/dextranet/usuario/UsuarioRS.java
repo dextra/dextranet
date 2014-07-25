@@ -136,6 +136,8 @@ public class UsuarioRS {
 			}
 			
 			desativarUsuario(emails, servicos);
+			
+			grupoRepositorio.ajustarProprietarioGrupo(usuario);
 			MembroRepository.removeMembroDosGruposPor(usuario);
 		}
 	}

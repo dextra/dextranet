@@ -86,6 +86,11 @@ public class Grupo extends Entidade {
 		return proprietario;
 	}
 
+	public Grupo comProprietario(String proprietario) {
+		this.proprietario = proprietario;
+		return this;
+	}
+	
 	public List<UsuarioJSON> getUsuarioJSON() {
 		UsuarioJSON usuariojson;
 		List<UsuarioJSON> usuariosjson = new ArrayList<UsuarioJSON>();
