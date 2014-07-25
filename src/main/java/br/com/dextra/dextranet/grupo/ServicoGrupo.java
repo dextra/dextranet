@@ -3,7 +3,6 @@ package br.com.dextra.dextranet.grupo;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import br.com.dextra.dextranet.persistencia.Entidade;
-import br.com.dextra.dextranet.utils.ConteudoHTML;
 
 import com.google.appengine.api.datastore.Entity;
 

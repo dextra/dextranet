@@ -8,8 +8,8 @@
 		<!-- <version>prod</version> -->
 
 <!-- 	 APPLICATION DEV -->
-	<application>dev-dextranet</application
-	<version>dev</version
+	<application>dev-dextranet</application>
+	<version>dev</version>
 
 	<static-files>
 		<include path="/**" />

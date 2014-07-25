@@ -180,15 +180,15 @@ public class Usuario extends Entidade {
 	}
 	
 	public Boolean isAtivo() {
+		if (ativo == null) {
+			return true;
+		}
+		
 		return ativo;
 	}
 
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
-	}
-
-	public String getStatus() {
-		return ativo ? "ativado" : "desativado";
 	}
 
 	public String getEmail() {

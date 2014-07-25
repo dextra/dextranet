@@ -106,7 +106,7 @@ public class GrupoRepository extends EntidadeRepository {
 			}
 		}
 	}
-
+	
 	private String getUsernameOutroMembro(Usuario usuario, List<Membro> membros) {
 		for (Membro membro : membros) {
 			String username = membro.getEmail();
