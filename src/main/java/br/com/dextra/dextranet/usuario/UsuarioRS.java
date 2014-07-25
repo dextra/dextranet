@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response.Status;
 import br.com.dextra.dextranet.grupo.Grupo;
 import br.com.dextra.dextranet.grupo.GrupoJSON;
 import br.com.dextra.dextranet.grupo.GrupoRepository;
+import br.com.dextra.dextranet.grupo.MembroRepository;
 import br.com.dextra.dextranet.grupo.servico.google.Aprovisionamento;
 import br.com.dextra.dextranet.grupo.servico.google.GoogleGrupoJSON;
 import br.com.dextra.dextranet.rest.config.Application;
@@ -28,9 +29,9 @@ import com.google.gson.JsonObject;
 
 @Path("/usuario")
 public class UsuarioRS {
-
 	private UsuarioRepository repositorio = new UsuarioRepository();
 	private GrupoRepository grupoRepositorio = new GrupoRepository();
+	private MembroRepository MembroRepository = new MembroRepository();
 	
 	@Path("/{id}")
 	@PUT
@@ -135,6 +136,7 @@ public class UsuarioRS {
 			}
 			
 			desativarUsuario(emails, servicos);
+			MembroRepository.removeMembroDosGruposPor(usuario);
 		}
 	}
 

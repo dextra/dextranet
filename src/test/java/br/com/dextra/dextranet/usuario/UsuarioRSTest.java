@@ -1,5 +1,7 @@
 package br.com.dextra.dextranet.usuario;
 
+import java.util.List;
+
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
@@ -82,12 +84,15 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		criaGrupoComOsIntegrantes(true, "Infra", usuarioLogado);
 		criaGrupoComOsIntegrantes(false, "Grupo1", usuario2, usuario1);
 		
-		Object entity = rest.atualizar(usuario1.getId(), null, null, null, null, null,
+		UsuarioJSON json = (UsuarioJSON) rest.atualizar(usuario1.getId(), null, null, null, null, null,
 				null, null, null, null, null, false).getEntity();
 		
-		UsuarioJSON json = (UsuarioJSON) entity;
 		Usuario retorno = repositorio.obtemPorId(usuario1.getId());
+		List<Grupo> grupos = repositorioGrupo.obtemPorIdIntegrante(usuario1.getId());
+		List<Membro> membros = repositorioMembro.obtemPorIdUsuario(usuario1.getId());
 		
+		assertTrue(membros.isEmpty());
+		assertTrue(grupos.isEmpty());
 		assertFalse(json.isAtivo());
 		assertFalse(retorno.isAtivo());
 	}

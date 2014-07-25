@@ -3,6 +3,8 @@ package br.com.dextra.dextranet.usuario;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import br.com.dextra.dextranet.grupo.GrupoJSON;
 import br.com.dextra.dextranet.grupo.UsuarioJSON;
 import br.com.dextra.dextranet.persistencia.Entidade;
@@ -187,6 +189,14 @@ public class Usuario extends Entidade {
 
 	public String getStatus() {
 		return ativo ? "ativado" : "desativado";
+	}
+
+	public String getEmail() {
+		if (StringUtils.isNotEmpty(username)) {
+			return username + DEFAULT_DOMAIN;
+		}
+		
+		return null;
 	}
 	
 	public UsuarioJSON getUsuarioJSON() {

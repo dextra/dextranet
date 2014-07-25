@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.persistencia.EntidadeRepository;
+import br.com.dextra.dextranet.usuario.Usuario;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -84,5 +85,12 @@ public class MembroRepository extends EntidadeRepository {
 
 	public void remove(String id) {
 		this.remove(id, Membro.class);
+	}
+	
+	public void removeMembroDosGruposPor(Usuario usuario) throws EntityNotFoundException {
+		List<Membro> membros = obtemPorIdUsuario(usuario.getId());
+		for (Membro membro : membros) {
+			remove(membro.getId());
+		}
 	}
 }
