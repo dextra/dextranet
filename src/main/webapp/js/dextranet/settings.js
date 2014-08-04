@@ -7,7 +7,7 @@ dextranet.settings = {
 			dextranet.settings.configuraDatePicker();
 			dextranet.settings.configuraMascaras();
 		},
-
+	
 		intervaloBuscaNovosPosts : 60000,//1 minuto
 
 		alfabeto : ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"],

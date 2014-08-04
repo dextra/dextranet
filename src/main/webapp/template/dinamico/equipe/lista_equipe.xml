@@ -33,7 +33,7 @@
                                 <span>(${colaborador.apelido})</span>
                             {/if}
                             
-                            {if dextranet.usuario.logado}
+                            {if dextranet.usuario.logado.isInfra}
                             	<a onclick="dextranet.usuario.ativarDesativar('${colaborador.id}', ${colaborador.ativo})" class="colaborador${colaborador.id} desativar">
 									{if colaborador.ativo}
 		                    			<span>${messages.desativar}</span>

@@ -20,12 +20,11 @@ import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
 public class AutenticacaoFilter implements Filter {
-
 	protected String excludePatterns = "";
+	private UsuarioRepository usuarioRepositorio = new UsuarioRepository();
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-
 		UserService userService = UserServiceFactory.getUserService();
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
@@ -33,34 +32,16 @@ public class AutenticacaoFilter implements Filter {
 		String thisURI = httpRequest.getRequestURI();
 
 		User usuarioLogado = userService.getCurrentUser();
+		Usuario usuario = null;
 		if (usuarioLogado != null) {
-
-			if (acessoNaPaginaPrincipal(thisURI)) {
-				this.verificaExistenciaDoUsuarioLogado(usuarioLogado);
-			}
-
-			filterChain.doFilter(request, response);
+			usuario = verificarAcessoNaPrimeiraPagina(thisURI, usuarioLogado);
+			redirecionaUsuario(request, response, filterChain, httpResponse, usuario);
 		} else if (urlDeveSerIgnorada(thisURI)) {
 			filterChain.doFilter(request, response);
 		} else {
 			String loginUrl = userService.createLoginURL(thisURI);
 			httpResponse.sendRedirect(loginUrl);
 		}
-	}
-
-	protected boolean urlDeveSerIgnorada(String thisURI) {
-		String[] urlsIgnorar = excludePatterns.split(";");
-		for (String url : urlsIgnorar) {
-			if (thisURI.contains(url)) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	private boolean acessoNaPaginaPrincipal(String thisURI) {
-		return "/index.html".equals(thisURI) || "/".equals(thisURI);
 	}
 
 	@Override
@@ -72,16 +53,49 @@ public class AutenticacaoFilter implements Filter {
 	public void destroy() {
 	}
 
-	private void verificaExistenciaDoUsuarioLogado(User usuarioLogado) {
-		UsuarioRepository usuarioRepositorio = new UsuarioRepository();
+	protected boolean urlDeveSerIgnorada(String thisURI) {
+		String[] urlsIgnorar = excludePatterns.split(";");
+		for (String url : urlsIgnorar) {
+			if (thisURI.contains(url)) {
+				return true;
+			}
+		}
+	
+		return false;
+	}
+
+	private Usuario verificaExistenciaDoUsuarioLogado(User usuarioLogado) {
 		String username = usuarioLogado.getNickname();
 
 		try {
-			usuarioRepositorio.obtemPorUsername(username);
+			return usuarioRepositorio.obtemPorUsername(username);
 		} catch (EntidadeNaoEncontradaException e) {
-			usuarioRepositorio.persiste(new Usuario(username));
+			return usuarioRepositorio.persiste(new Usuario(username));
 		}
 
+	}
+
+	private void redirecionaUsuario(ServletRequest request, ServletResponse response, FilterChain filterChain,
+			HttpServletResponse httpResponse, Usuario usuario) throws IOException, ServletException {
+		if (usuario.isAtivo() == null || usuario.isAtivo()) { 
+			filterChain.doFilter(request, response);
+		} else {
+			httpResponse.sendRedirect("/403.html");
+		}
+	}
+
+	private Usuario verificarAcessoNaPrimeiraPagina(String thisURI, User usuarioLogado) {
+		Usuario usuario;
+		if (acessoNaPaginaPrincipal(thisURI)) {
+			usuario = this.verificaExistenciaDoUsuarioLogado(usuarioLogado);
+		} else {
+			usuario = usuarioRepositorio.obtemPorUsername(usuarioLogado.getNickname());
+		}
+		return usuario;
+	}
+
+	private boolean acessoNaPaginaPrincipal(String thisURI) {
+		return "/index.html".equals(thisURI) || "/".equals(thisURI);
 	}
 
 }

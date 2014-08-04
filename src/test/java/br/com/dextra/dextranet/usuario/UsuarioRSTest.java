@@ -76,6 +76,31 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 	}
 	
 	@Test
+	public void testaDesativacaoUsuarioProprietarioGrupo() throws EntityNotFoundException {
+		limpaUsuariosInseridos(repositorio);
+		Usuario usuarioLogado = criaUsuario(USUARIO_LOGADO, true);
+		Usuario usuario1 = criaUsuario("usuario1", true);
+		Usuario usuario2 = criaUsuario("usuario2", true);
+		criaGrupoComOsIntegrantes(true, "Infra", usuarioLogado);
+		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo1", usuario2, usuario1);
+		
+		UsuarioJSON json = (UsuarioJSON) rest.atualizar(usuario2.getId(), null, null, null, null, null,
+				null, null, null, null, null, false).getEntity();
+		
+		Usuario retorno = repositorio.obtemPorId(usuario2.getId());
+		List<Grupo> grupos = repositorioGrupo.obtemPorIdIntegrante(usuario2.getId());
+		List<Membro> membros = repositorioMembro.obtemPorIdUsuario(usuario2.getId());
+		grupo = repositorioGrupo.obtemPorId(grupo.getId());
+		
+		assertTrue(!grupo.getProprietario().equals(usuario2.getUsername()));
+		assertEquals(grupo.getProprietario(), usuario1.getUsername());
+		assertTrue(membros.isEmpty());
+		assertTrue(grupos.isEmpty());
+		assertFalse(json.isAtivo());
+		assertFalse(retorno.isAtivo());
+	}
+	
+	@Test
 	public void testaDesativacaoUsuario() throws EntityNotFoundException {
 		limpaUsuariosInseridos(repositorio);
 		Usuario usuarioLogado = criaUsuario(USUARIO_LOGADO, true);

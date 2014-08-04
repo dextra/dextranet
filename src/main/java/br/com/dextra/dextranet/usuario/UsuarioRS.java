@@ -75,6 +75,7 @@ public class UsuarioRS {
 		Boolean isInfra = this.usuarioLogadoIsInfra();
 		Usuario usuario = repositorio.obtemPorUsername(this.obtemUsernameDoUsuarioLogado());
 		JsonObject usuarioJson = new JsonObject();
+		usuarioJson.addProperty("id", usuario.getId());
 		usuarioJson.addProperty("apelido", usuario.getApelido());
 		usuarioJson.addProperty("username", usuario.getUsername());
 		usuarioJson.addProperty("isInfra", isInfra);

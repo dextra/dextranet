@@ -67,12 +67,14 @@ public class GrupoRepository extends EntidadeRepository {
 
 	public List<Grupo> obtemPorIdIntegrante(String idUsuario) throws EntityNotFoundException {
 		List<Membro> relacoesUsuarioGrupo = membroRepository.obtemPorIdUsuario(idUsuario);
+		
 		List<String> idGrupos = new ArrayList<String>();
 		for (Membro relUsuarioGrupo : relacoesUsuarioGrupo) {
 			idGrupos.add(relUsuarioGrupo.getIdGrupo());
 		}
 		
 		List<Grupo> grupos = obtemPorListaId(idGrupos);
+		
 		return grupos;
 	}
 	

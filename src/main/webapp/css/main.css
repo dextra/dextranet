@@ -312,6 +312,7 @@ form input.link { width: 476px;}
 .list_stories > li > .story-content > .avatar-frame{position:absolute;left:-80px;top:0;width:50px;height:50px;padding:0;}
 .list_stories > li > .story-content > .avatar-frame > img{width:50px;height:50px;}
 
+.msg_user_disabled{margin:2px 0 16px;text-align:center;display:block;}
 .list_stories_headline{margin:2px 0 16px;text-align:left;display:block;}
 .list_stories_headline > h2{
 	font-weight:bold;

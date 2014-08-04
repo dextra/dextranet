@@ -22,7 +22,7 @@ public class DadosUtils {
 
 		for (Usuario integrante : integrantes) {
 			membroRepository.persiste(new Membro(integrante.getId(), novoGrupo
-					.getId(), integrante.getNome(), "email"));
+					.getId(), integrante.getNome(), integrante.getUsername()));
 		}
 
 		return novoGrupo;

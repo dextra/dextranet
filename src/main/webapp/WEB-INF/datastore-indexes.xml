@@ -26,4 +26,9 @@
         <property name="dataDeCriacao" direction="desc"/>
     </datastore-index>
 
+	<datastore-index kind="br.com.dextra.dextranet.usuario.Usuario" ancestor="false" source="manual">
+        <property name="ativo" direction="asc"/>
+        <property name="username" direction="asc"/>
+    </datastore-index>
+
 </datastore-indexes>

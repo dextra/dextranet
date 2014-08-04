@@ -39,7 +39,6 @@
         <link rel="stylesheet" type="text/css"  href="holy/xdialog/jquery.xdialog.css?v=${buildNumber}" media="all" />
 
         <script type="text/javascript" src="holy/third/datepicker/jquery-ui-1.10.0.custom.min.js?v=${buildNumber}"></script>
-<!--         <link rel="stylesheet" type="text/css"  href="holy/third/datepicker/jquery-ui-1.10.0.custom.min.css?v=${buildNumber}" media="all" /> -->
 
         <script type="text/javascript" src="holy/third/jquery.meio.mask.min.js?v=${buildNumber}"></script>
         <script type="text/javascript" src="holy/sendformbyframe/jquery.sendformbyframe.min.js?v=${buildNumber}"></script>
@@ -57,7 +56,6 @@
         <script type="text/javascript" src="js/lib/time-ago.js?v=${buildNumber}"></script>
         <script type="text/javascript" src="js/lib/setInterval-utils.js?v=${buildNumber}"></script>
         
-        <!--<link rel="stylesheet" href="js/lib/syntaxhighlighter/styles/shCoreDefault.css" type="text/css">-->
         <link rel="stylesheet" href="js/lib/syntaxhighlighter/styles/shCoreEclipse.css" type="text/css">
         <script type="text/javascript" src="js/lib/syntaxhighlighter/scripts/shCore.js"></script>
         <script type="text/javascript" src="js/lib/syntaxhighlighter/scripts/shAutoloader.js"></script>
@@ -94,12 +92,8 @@
         <script>
             $(document).ready(function() {
                 dextranet.settings.inicializa();
-                dextranet.carregaMenus();
                 dextranet.usuario.exibirUsuarioLogado();
                 dextranet.usuario.carregaLogout();
-                dextranet.microblog.listar(1);
-                dextranet.banner.listarVigentes();
-                dextranet.post.listar(1);
             });
         </script>
     </head>
@@ -107,15 +101,14 @@
         <div id="container">
             <div id="header_placeholder"></div>
             <div id="header_container" class="clearfix" rel="section">
-                <ul id="header_main_menu"></ul>
+                <ul id="header_main_menu">
+             		<li id="header_main_menu_logo">
+						<a href="#">
+							<span class="icon_header_logo"></span>
+						</a>
+					</li>
+                </ul>
  				<div id="header_right_box">
-					<a href="#" id="release-notes-link">Novidades</a>
-					<div id="header_search_box">
-						<form id="form_search">
-							<input type="text" placeholder="Pesquisar posts..." id="form_search_input" />
-							<input type="submit" value="" title="Procurar!" id="form_search_submit" />
-						</form>
-					</div>
 					<div id="box_user"></div>
 					<div id="box_user_actions"></div>
 				</div>
@@ -124,19 +117,11 @@
             <div id="container_main_overlay"></div>
             <div id="container_main" rel="section" class="clearfix">
 				<ul id="container_mensagem" class="message"></ul>
-                <div id="content_left" class="block-white">
-                </div>
-                <div id="content_right">
+                <div class="msg_user_disabled">
+                	O usuário logado está desativado :(
                 </div>
             </div>
         </div>
-        <script>
-        	$('#form_search').submit(function(){
-				return dextranet.indexacao();
-        	});
-        	$("#release-notes-link").click(function() {
-        		dextranet.releaseNotes();
-        	});
-        </script>
+
     </body>
 </html>
