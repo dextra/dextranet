@@ -1,5 +1,6 @@
 package br.com.dextra.dextranet.persistencia;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.dextra.dextranet.persistencia.adapter.ParametrosAdapter;
@@ -13,6 +14,8 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.CompositeFilter;
+import com.google.appengine.api.datastore.Query.CompositeFilterOperator;
 import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
@@ -47,7 +50,9 @@ public class EntidadeRepository {
 				query.addSort(o.getAtributo(), o.getOrdenacao());
 			}
 		}
-		setFilter(params.getFiltroCampos(), params.getFiltroValores(), query);
+		if (params.getFiltroCampos() != null && params.getFiltroValores() != null && params.getFiltroCampos().size() == params.getFiltroValores().size()) {
+			setFilters(params.getFiltroCampos(), params.getFiltroValores(), query);
+		}
 		PreparedQuery pquery = this.datastore.prepare(query);
 		if (params.getRegistrosPorPagina() != null && params.getNumeroDaPagina() != null) {
 			FetchOptions opcoesFetch = FetchOptions.Builder.withDefaults();
@@ -80,11 +85,15 @@ public class EntidadeRepository {
 	}
 
 	protected <T extends Entidade> Iterable<Entity> obterPor(Class<T> clazz, List<String> campos, List<Object> valores) {
-		Query query = new Query(clazz.getName());
-		setFilter(campos, valores, query);
-		PreparedQuery pquery = this.datastore.prepare(query);
-
-		return pquery.asIterable();
+		if (valores != null && campos != null && valores.size() == campos.size()) {
+			Query query = new Query(clazz.getName());
+			setFilters(campos, valores, query);
+			PreparedQuery pquery = this.datastore.prepare(query);
+	
+			return pquery.asIterable();
+		}
+		
+		return null;
 	}
 
 	public Iterable<Entity> paginar(EntidadeBusca entidadeBusca) {
@@ -108,14 +117,20 @@ public class EntidadeRepository {
 		return pquery.asIterable();
 	}
 
-	private void setFilter(List<String> campos, List<Object> valores, Query query) {
-		if (campos != null) {
-			for (int cont = 0; cont < campos.size(); cont++) {
-				if (valores != null && !valores.isEmpty()){
-					Filter filter = new FilterPredicate(campos.get(cont), FilterOperator.EQUAL, valores.get(cont));
-					query.setFilter(filter);
-				}
+	private void setFilters(List<String> campos, List<Object> valores, Query query) {
+		List<Filter> filters = new ArrayList<Query.Filter>();
+		for (int cont = 0; cont < campos.size(); cont++) {
+			Filter filter = new FilterPredicate(campos.get(cont), FilterOperator.EQUAL, valores.get(cont));
+			if (valores.size() > 1) {
+				filters.add(filter);
+			} else {
+				query.setFilter(filter);
 			}
+		}
+		
+		if (valores.size() > 1) {
+			CompositeFilter compositeFilter = new Query.CompositeFilter(CompositeFilterOperator.AND, filters);
+			query.setFilter(compositeFilter);
 		}
 	}
 

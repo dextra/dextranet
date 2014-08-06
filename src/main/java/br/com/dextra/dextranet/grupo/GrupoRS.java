@@ -40,7 +40,9 @@ public class GrupoRS {
 	public Response obter(@PathParam("id") String id) throws EntityNotFoundException {
 		Grupo grupo = repositorio.obtemPorId(id);
 		List<Membro> membros = repositorioMembro.obtemPorIdGrupo(grupo.getId());
+		System.out.println("ID deo grupo??? ---------> " + grupo.getId());
 		List<ServicoGrupo> servicoGrupos = servicoGrupoRepository.obtemPorIdGrupo(grupo.getId());
+		System.out.println("Servicos ---------> " + servicoGrupos.size());
 		grupo.setMembros(membros);
 		grupo.setServicoGrupos(servicoGrupos);
 

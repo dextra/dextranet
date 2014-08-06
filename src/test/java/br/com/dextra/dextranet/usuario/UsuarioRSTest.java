@@ -140,6 +140,28 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		assertTrue(json.isAtivo());
 		assertTrue(retorno.isAtivo());
 	}
+
+	@Test
+	public void testaAjustarBanco() throws EntityNotFoundException {
+		limpaUsuariosInseridos(repositorio);
+		criaUsuario("usuario1", null);
+		criaUsuario("usuario2", null);
+		criaUsuario("usuario3", null);
+		criaUsuario("usuario4", null);
+		
+		List<Usuario> usuarios = repositorio.lista();
+		assertEquals(4, usuarios.size());
+		for (Usuario usuario : usuarios) {
+			assertNull(usuario.isAtivo());
+		}
+		Response response = rest.ajustarFlagAtivoBanco();
+		usuarios = repositorio.lista();
+		for (Usuario usuario : usuarios) {
+			assertNotNull(usuario.isAtivo());
+		}
+		
+		assertEquals(Status.OK.getStatusCode(), response.getStatus());
+	}
 	
 	public class UsuarioRSFake extends UsuarioRS {
 		@Override

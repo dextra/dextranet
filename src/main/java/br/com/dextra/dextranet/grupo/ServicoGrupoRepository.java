@@ -21,11 +21,11 @@ public class ServicoGrupoRepository extends EntidadeRepository {
 	}
 
 	public List<ServicoGrupo> obtemPorIdGrupo(String idGrupo) throws EntityNotFoundException {
+		List<String> campos = new ArrayList<String>();
+		campos.add(ServicoGrupoFields.idGrupo.name());
+		
 		List<Object> valores = new ArrayList<Object>();
 		valores.add(idGrupo);
-		
-		List<String> campos = new ArrayList<String>();
-		valores.add(ServicoGrupoFields.idGrupo.name());
 		
 		Iterable<Entity> entidades = super.obterPor(ServicoGrupo.class, campos, valores);
 		List<ServicoGrupo> servicoGrupos= new ArrayList<ServicoGrupo>();

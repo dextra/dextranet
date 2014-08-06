@@ -83,6 +83,21 @@ public class UsuarioRS {
 		return Response.ok().entity(usuarioJson.toString()).build();
 	}
 
+	@Path("/ajustarbanco")
+	@GET
+	@Produces(Application.JSON_UTF8)
+	public Response ajustarFlagAtivoBanco() throws EntityNotFoundException {
+		List<Usuario> usuarios = repositorio.lista();
+		for (Usuario usuario : usuarios) {
+			if (usuario.isAtivo() == null) {
+				usuario.setAtivo(true);
+				repositorio.persiste(usuario);
+			}
+		}
+		
+		return Response.status(Status.OK).build();
+	}
+	
 	@Path("/")
 	@GET
 	@Produces(Application.JSON_UTF8)
