@@ -1,2 +1,9 @@
 language: java
 jdk: oraclejdk7
+
+
+notifications:
+  email:
+      recipients:
+         - rodrigo.magalhaes@dextra-sw.com
+
