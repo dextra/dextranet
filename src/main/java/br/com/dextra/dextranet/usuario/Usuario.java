@@ -180,10 +180,6 @@ public class Usuario extends Entidade {
 	}
 	
 	public Boolean isAtivo() {
-		if (ativo == null) {
-			return true;
-		}
-		
 		return ativo;
 	}
 

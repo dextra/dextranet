@@ -59,6 +59,9 @@ public class UsuarioRepository extends EntidadeRepository {
 		Iterable<Entity> entidades = super.lista(parametros);
 		for (Entity entidade : entidades) {
 			Usuario usuario = getUsuario(entidade);
+			if (usuario.isAtivo() == null) {
+				usuario.setAtivo(Boolean.TRUE);
+			}
 			usuarios.add(usuario);
 		}
 
