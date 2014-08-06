@@ -61,15 +61,15 @@ public class MicroBlogRepositoryTest extends TesteIntegracaoBase {
     @Test
     public void testOrdemPosts() {
         TimeMachine timeMachine = new TimeMachine();
-        Date inicioDoDia = timeMachine.inicioDoDia(new Date());
-        Date fimDoDia = timeMachine.fimDoDia(inicioDoDia);
-        Date diasAtras = timeMachine.diasParaAtras(inicioDoDia, 2);
+        Date hoje = timeMachine.inicioDoDia(new Date());
+        Date diasAtras3 = timeMachine.diasParaAtras(hoje, 3);
+        Date diasAtras10 = timeMachine.diasParaAtras(hoje, 10);
 
-        MicroPost microPost = new MicroPost("micromessa1", usuario, diasAtras);
-        repository.salvar(microPost);
-        MicroPost microPost2 = new MicroPost("micromessa2", usuario, inicioDoDia);
+        MicroPost microPost1 = new MicroPost("micromessa1", usuario, diasAtras10);
+        repository.salvar(microPost1);
+        MicroPost microPost2 = new MicroPost("micromessa2", usuario, diasAtras3);
         repository.salvar(microPost2);
-        MicroPost microPost3 = new MicroPost("micromessa3", usuario, fimDoDia);
+        MicroPost microPost3 = new MicroPost("micromessa3", usuario, hoje);
         repository.salvar(microPost3);
 
         EntidadeOrdenacao ordem = new EntidadeOrdenacao(MicroBlogFields.DATA.getField(), SortDirection.DESCENDING);
