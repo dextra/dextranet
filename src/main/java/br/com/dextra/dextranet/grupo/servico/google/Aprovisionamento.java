@@ -45,7 +45,6 @@ public class Aprovisionamento {
 			listString = listString.substring(0, listString.length() - 1);
 		}
 
-		System.out.println(listString);
 		String content = "key=" + URLEncoder.encode(key, "UTF-8") + "&funcao=" + URLEncoder.encode(acao, "UTF-8")
 				+ "&emailgrupo=" + URLEncoder.encode(grupoEmail, "UTF-8") + "&nomegrupo="
 				+ URLEncoder.encode(nomeEmail, "UTF-8") + "&emailmembro=" + URLEncoder.encode(listString, "UTF-8")
@@ -54,7 +53,6 @@ public class Aprovisionamento {
 		output.writeBytes(content);
 		output.flush();
 		output.close();
-		System.out.println(content);
 
 		DataInputStream input = new DataInputStream(urlConn.getInputStream());
 		input.close();
@@ -69,7 +67,6 @@ public class Aprovisionamento {
 		serverAddress = new URL(
 				"https://script.google.com/macros/s/AKfycbxG9oiWD1a4TvGuJg0QxTCs8FrazbUx8jga1gBZJUnsjSEU6wA/exec?key="
 						+ key + "&funcao=" + acao + "&emailgrupo=" + email + "&autorRequisicao=" + obtemUsuarioLogado());
-		System.out.println(serverAddress);
 		connection = null;
 		connection = (HttpURLConnection) serverAddress.openConnection();
 		connection.setRequestMethod("GET");
