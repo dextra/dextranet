@@ -1,10 +1,10 @@
 language: java
 jdk: oraclejdk7
 
-
+before_script:
+- mvn com.googlecode.mycontainer:mycontainer-maven-plugin:phantomjs-install -Dmycontainer.phantomjs.dest=target/phantomjs -Dmycontainer.phantomjs.version=1.9.2
 
 script:
-- mvn com.googlecode.mycontainer:mycontainer-maven-plugin:phantomjs-install -Dmycontainer.phantomjs.dest=target/phantomjs -Dmycontainer.phantomjs.version=1.9.2
 - mvn test -Dselenium
 
 after_success:
