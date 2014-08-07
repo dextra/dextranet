@@ -422,45 +422,6 @@
 									<includes>
 										<include>**/*WebTest.java</include>
 									</includes>
-									<systemPropertyVariables>
-										<expertus.environment.type>local</expertus.environment.type>
-										<expertus.environment.browser>FIREFOX</expertus.environment.browser>
-									</systemPropertyVariables>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<!-- Profile que executa os testes unitarios, de integracao e de selenium 
-			no ambiente de integracao continua -->
-		<profile>
-			<id>integracao-continua</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-				<property>
-					<name>integracao-continua</name>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<artifactId>maven-failsafe-plugin</artifactId>
-						<executions>
-							<execution>
-								<phase>test</phase>
-								<goals>
-									<goal>integration-test</goal>
-									<goal>verify</goal>
-								</goals>
-								<configuration>
-									<includes>
-										<include>**/*WebTest.java</include>
-									</includes>
-									<systemPropertyVariables>
-										<expertus.environment.type>sauceCloudbees</expertus.environment.type>
-									</systemPropertyVariables>
 								</configuration>
 							</execution>
 						</executions>

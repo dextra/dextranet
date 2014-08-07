@@ -1,6 +1,8 @@
 language: java
 jdk: oraclejdk7
 
+mvn test -Dselenium
+
 notifications:
   email:
       recipients:
