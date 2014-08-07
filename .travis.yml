@@ -1,9 +1,13 @@
 language: java
 jdk: oraclejdk7
 
-mvn test -Dselenium
+script:
+- mvn test -Dselenium
 
-notifications:
+after_success:
+  echo 'Send to GAE'
+
+notificatios:
   email:
       recipients:
          - rodrigo.magalhaes@dextra-sw.com
