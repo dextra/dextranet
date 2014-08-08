@@ -6,6 +6,7 @@ before_script:
 - tar -xvzf apache-maven-3.2.2-bin.tar.gz
 - export MAVEN_HOME=$(pwd)/apache-maven-3.2.2
 - export PATH=$MAVEN_HOME/bin:$PATH
+- mvn --version
 - mvn com.googlecode.mycontainer:mycontainer-maven-plugin:phantomjs-install -Dmycontainer.phantomjs.dest=target/phantomjs -Dmycontainer.phantomjs.version=1.9.2
 
 env:
@@ -13,6 +14,7 @@ env:
    - secure: QLsk0n4zrP9H4pyHj2Qn/Gw8xtl4QfyI23feT2GtnCpKKPTcRXoNtwqPz8nv7McsJU6wkB2W03TIigQr7ervjrtrzfh/kxOO/CB42A75J6YWhqY+hUucAjr5KHRnpj5b22VUueEjwjY+W64a8d7yXQFi+XwadrU1yY7qXYz6P+84WnZJCsUCRjxMyhWyyLLUJMhRql0Mvcrn7lU0UEiI9FlZJDJx4t3BEjxdzQC/T2QDY9qD4nCcJQNHDvU6CXV98FrtyQ/fMuwJe3YHrdWljmXBVcTTp+e6Urc2nr9cfYiepmCGKRWYoavjvm7k7GG+kr/k6XKYBHErROXhI9Y0VQ==
 
 script:
+- mvn --version
 - mvn test -Dselenium
 
 after_success:
