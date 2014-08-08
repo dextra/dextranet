@@ -30,13 +30,14 @@ public class ComentarioWebTest extends TesteFuncionalBase {
 	}
 
 	private void entaoComentarioNaoMaisExisteParaPost() {
+		paginaPrincipal.waitToLoad();
 		Assert.assertFalse(paginaNovoComentario.existeComentario());
 	}
 
 	private void quandoEleExcluiComentario() {
 		String botaoExcluir = "button#btn-excluir-comentario_" + paginaNovoComentario.getIdComentario();
 		paginaPrincipal.click(botaoExcluir);
-		paginaPrincipal.waitingForLoading();
+		paginaPrincipal.waitToLoad();
 	}
 
 	protected void quandoEleCriaUmPost() {

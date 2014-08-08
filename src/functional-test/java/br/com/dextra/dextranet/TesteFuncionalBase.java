@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -13,15 +14,10 @@ import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import br.com.dextra.dextranet.web.PaginaPrincipal;
-import br.com.dextra.expertus.environment.Environment;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
 public class TesteFuncionalBase extends TesteIntegracaoBase {
-
 	public PaginaPrincipal paginaPrincipal = new PaginaPrincipal(driver);
-	
-	private static Environment environment;
-
 	protected static WebDriver driver;
 
 	@BeforeClass
@@ -32,16 +28,14 @@ public class TesteFuncionalBase extends TesteIntegracaoBase {
 
 		// FIXME: In windows env, change the file to phantom.exe. Implements
 		// with System.getProperty
-		 PhantomJSDriverService service = new PhantomJSDriverService.Builder().usingPhantomJSExecutable(
-		 new File("target/phantomjs/phantomjs")).build();
-		
-		 driver = new PhantomJSDriver(service,
-		 DesiredCapabilities.phantomjs());
+		 String executable = "target/phantomjs/phantomjs";
 
-//		System.setProperty("expertus.environment.browser","CHROME");
-//		System.setProperty("webdriver.chrome.driver","/Applications/Google Chrome.app/Contents/MacOS/Google Chrome");
-//		environment = EnvironmentFactory.createEnvironment();
-//		driver = environment.createDriver();
+		 DesiredCapabilities dCaps = new DesiredCapabilities();
+		 dCaps.setJavascriptEnabled(true);
+		 dCaps.setCapability("takesScreenshot", false);
+		 dCaps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, executable);
+		 driver = new PhantomJSDriver(dCaps);
+		 driver.manage().window().setSize(new Dimension(1600, 900));
 	}
 
 	@AfterClass
@@ -49,10 +43,10 @@ public class TesteFuncionalBase extends TesteIntegracaoBase {
 		driver.quit();
 		TesteIntegracaoBase.shutdown();
 	}
-
-	protected void snapshot(String fileName) {
+	
+	public static void snapshot(String fileName) {
 		File tmpdir = new File(System.getProperty("java.io.tmpdir"));
-		File snapdir = new File(tmpdir, "snapshots");
+		File snapdir = new File(tmpdir, "PRINTS");
 		snapdir.mkdirs();
 
 		File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);

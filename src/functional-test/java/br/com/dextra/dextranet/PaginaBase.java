@@ -25,7 +25,7 @@ public class PaginaBase extends PageObject {
 		String input = "input#" + idInput;
 		this.writeInputText(input, texto);
 	}
-
+	
 	public void waitingForLoading() {
 		String loadingCssSeletor = "div.loading";
 
@@ -46,5 +46,4 @@ public class PaginaBase extends PageObject {
 			throw new TimedOutException(loadingCssSeletor + " nao desapareceu no tempo esperado.");
 		}
 	}
-
 }
