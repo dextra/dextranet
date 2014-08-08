@@ -51,9 +51,11 @@ public class MicroBlogWebTest extends TesteFuncionalBase {
 
 	private void quandoEleExcluiMicroPost() {
 		microBlog.excluiMicroPost();
+		paginaPrincipal.waitToLoad();
 	}
 
 	private void entaoMicroPostNaoExisteMaisNoMicroBlog() {
+		paginaPrincipal.waitToLoad();
 		Boolean microPostExistente = microBlog.microPostExistente(mensagemMicroPost(Integer.toString(QTD_MICRO_POSTS)));
 		Assert.assertTrue(!microPostExistente);
 	}
