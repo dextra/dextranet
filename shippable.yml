@@ -12,7 +12,7 @@ script:
 - mvn test -Dselenium
 
 after_success:
-	mvn appengine:update -Dappengine.email="build-continua@dextra-sw.com" <<< echo $GAE_PASSWORD
+- mvn appengine:update -Dappengine.email="build-continua@dextra-sw.com" <<< echo $GAE_PASSWORD
 
 notificatios:
   email:
