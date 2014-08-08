@@ -17,7 +17,7 @@ script:
 - export MAVEN_HOME=$(pwd)/apache-maven-3.2.2
 - export PATH=$MAVEN_HOME/bin:$PATH
 - mvn --version
-- mvn test -Dselenium112
+- mvn test -Dselenium
 
 after_success:
 - export MAVEN_HOME=$(pwd)/apache-maven-3.2.2
