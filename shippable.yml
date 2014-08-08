@@ -2,6 +2,10 @@ language: java
 jdk: oraclejdk7
 
 before_script:
+- wget http://www.bizdirusa.com/mirrors/apache/maven/maven-3/3.2.2/binaries/apache-maven-3.2.2-bin.tar.gz
+- tar -xvzf apache-maven-3.2.2-bin.tar.gz
+- export MAVEN_HOME=$(pwd)/apache-maven-3.2.2
+- export PATH=$MAVEN_HOME/bin:$PATH
 - mvn com.googlecode.mycontainer:mycontainer-maven-plugin:phantomjs-install -Dmycontainer.phantomjs.dest=target/phantomjs -Dmycontainer.phantomjs.version=1.9.2
 
 env:
@@ -12,6 +16,8 @@ script:
 - mvn test -Dselenium
 
 after_success:
+- echo $MAVEN_HOME
+- mvn --version
 - echo $GAE_PASSWORD | mvn appengine:update -Dappengine.email="build-continua@dextra-sw.com" 
 
 notificatios:
