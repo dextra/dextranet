@@ -28,7 +28,7 @@ after_success:
 notificatios:
   email:
       recipients:
-         - rodrigo.magalhaes@dextra-sw.com
+         - desenvolvimento@dextra-sw.com
 
 
 
