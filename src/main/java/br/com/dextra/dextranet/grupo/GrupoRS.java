@@ -196,30 +196,16 @@ public class GrupoRS {
 	@Produces(Application.JSON_UTF8)
 	public Response atualizar(@PathParam("idGrupo") String id, GrupoJSON grupojson) throws EntityNotFoundException {
 		String usuarioLogado = obtemUsuarioLogado();
+		String proprietario = usuarioLogado;
 		Grupo grupo = repositorio.obtemPorId(id);
 		if (isAlteravel(usuarioLogado, grupo)) {
-			grupo = grupo.preenche(grupojson.getNome(), grupojson.getDescricao(), usuarioLogado);
+			if (!grupo.getProprietario().equals(usuarioLogado)) {
+				proprietario = grupo.getProprietario();
+			}
+			grupo = grupo.preenche(grupojson.getNome(), grupojson.getDescricao(), proprietario);
 			repositorio.persiste(grupo);
 			adicionaNovosMembros(grupojson.getUsuarios(), grupo.getId());
-
-			if(grupojson.getServico() != null){
-				for(GoogleGrupoJSON servico : grupojson.getServico()){
-					Boolean novoRegistro = true;
-					if(servico.getId() != null && servico.getEmailsExternos() != null){
-						ServicoGrupo servicoGrupo = servicoGrupoRepository.obtemPorId(servico.getId());
-						servicoGrupo = servicoGrupo.preenche(servico.getEmailsExternos());
-						servicoGrupoRepository.persiste(servicoGrupo);
-						novoRegistro = false;
-					}else if(servico.getEmailsExternos() != null && novoRegistro){
-						ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getIdServico(), grupo.getId(), servico.getEmailGrupo(), servico.getEmailsExternos());
-						servicoGrupoRepository.persiste(servicoGrupo);
-					}else{
-						ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getIdServico(), grupo.getId(), servico.getEmailGrupo());
-						servicoGrupoRepository.persiste(servicoGrupo);
-					}
-				}
-			}
-
+			persisteServicoGrupo(grupojson, grupo);
 			return Response.ok().build();
 		} else {
 			return Response.status(Status.FORBIDDEN).build();
@@ -257,6 +243,26 @@ public class GrupoRS {
 
 	protected String obtemUsuarioLogado() {
 		return AutenticacaoService.identificacaoDoUsuarioLogado();
+	}
+
+	private void persisteServicoGrupo(GrupoJSON grupojson, Grupo grupo) throws EntityNotFoundException {
+		if(grupojson.getServico() != null){
+			for(GoogleGrupoJSON servico : grupojson.getServico()){
+				Boolean novoRegistro = true;
+				if(servico.getId() != null && servico.getEmailsExternos() != null){
+					ServicoGrupo servicoGrupo = servicoGrupoRepository.obtemPorId(servico.getId());
+					servicoGrupo = servicoGrupo.preenche(servico.getEmailsExternos());
+					servicoGrupoRepository.persiste(servicoGrupo);
+					novoRegistro = false;
+				}else if(servico.getEmailsExternos() != null && novoRegistro){
+					ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getIdServico(), grupo.getId(), servico.getEmailGrupo(), servico.getEmailsExternos());
+					servicoGrupoRepository.persiste(servicoGrupo);
+				}else{
+					ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getIdServico(), grupo.getId(), servico.getEmailGrupo());
+					servicoGrupoRepository.persiste(servicoGrupo);
+				}
+			}
+		}
 	}
 
 	private void adicionaNovosMembros(List<UsuarioJSON> usuarios, String idGrupo) throws EntityNotFoundException {
