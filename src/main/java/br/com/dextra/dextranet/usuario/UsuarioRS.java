@@ -78,8 +78,17 @@ public class UsuarioRS {
 		usuarioJson.addProperty("id", usuario.getId());
 		usuarioJson.addProperty("apelido", usuario.getApelido());
 		usuarioJson.addProperty("username", usuario.getUsername());
+		usuarioJson.addProperty("gitHub", usuario.getGitHub());
+		usuarioJson.addProperty("area", usuario.getArea());
+		usuarioJson.addProperty("blog", usuario.getBlog());
+		usuarioJson.addProperty("nome", usuario.getNome());
+		usuarioJson.addProperty("ramal", usuario.getRamal());
+		usuarioJson.addProperty("skype", usuario.getSkype());
+		usuarioJson.addProperty("telefoneCelular", usuario.getTelefoneCelular());
+		usuarioJson.addProperty("telefoneResidencial", usuario.getTelefoneResidencial());
+		usuarioJson.addProperty("unidade", usuario.getUnidade());
 		usuarioJson.addProperty("isInfra", isInfra);
-		
+		usuarioJson.addProperty("md5", usuario.getMD5());
 		return Response.ok().entity(usuarioJson.toString()).build();
 	}
 
