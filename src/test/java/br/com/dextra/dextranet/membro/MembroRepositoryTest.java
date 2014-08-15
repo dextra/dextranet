@@ -37,4 +37,14 @@ public class MembroRepositoryTest extends TesteIntegracaoBase {
 		assertTrue(membros.isEmpty());
 		assertTrue(grupos.isEmpty());
 	}
+	
+	@Test
+	public void testaObtemPorUsername() throws EntityNotFoundException {
+		Usuario usuario1 = criaUsuario("usuario1", true);
+		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1", usuario1, usuario1);
+		Membro membro = repositorioMembro.obtemPorUsername("usuario1", grupo.getId());
+		
+		assertEquals(usuario1.getUsername(), membro.getEmail());
+		assertEquals(grupo.getId(), membro.getIdGrupo());
+	}
 }

@@ -15,8 +15,7 @@ public class DadosUtils {
 	
 	public static Grupo criaGrupoComOsIntegrantes(Boolean isInfra, String nomeDoGrupo,
 			Usuario... integrantes) {
-		Grupo novoGrupo = new Grupo(nomeDoGrupo, nomeDoGrupo,
-				integrantes[0].getUsername());
+		Grupo novoGrupo = new Grupo(nomeDoGrupo, nomeDoGrupo, integrantes[0].getUsername());
 		novoGrupo.setInfra(isInfra);
 		novoGrupo = grupoRepositorio.persiste(novoGrupo);
 

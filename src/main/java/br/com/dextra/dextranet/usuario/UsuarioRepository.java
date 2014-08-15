@@ -116,7 +116,7 @@ public class UsuarioRepository extends EntidadeRepository {
 
         return new Usuario(entityEncontrada);
     }
-
+    
     public Usuario obtemUsuarioLogado() {
         return obtemPorUsername(AutenticacaoService.identificacaoDoUsuarioLogado());
     }

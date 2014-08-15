@@ -33,7 +33,6 @@
 						<h3>
 							<div class="div-titulo-left">
 								<span class="icon_grupo-mini icon" />
-								<!--Se é o dono do grupo -->
 								{if grupo.excluirGrupo}
 								<a onclick="dextranet.grupos.editar('${grupo.id}', true)">
 									<span class="nome">${grupo.nome}</span>

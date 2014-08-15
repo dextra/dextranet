@@ -21,6 +21,11 @@ public class AutenticacaoService {
 		return userService.getCurrentUser().getNickname();
 	}
 	
+	public static Usuario identificacaoDoUsuarioLogado(String usernameLogado) {
+		Usuario usuarioLogado = usuarioRepository.obtemPorUsername(usernameLogado);
+		return usuarioLogado;
+	}
+	
 	public static Boolean isUsuarioGrupoInfra() {
 		Usuario usuario = usuarioRepository.obtemPorUsername(identificacaoDoUsuarioLogado());
 		List<Grupo> grupos = new ArrayList<Grupo>();

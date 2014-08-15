@@ -65,6 +65,17 @@ public class Grupo extends Entidade {
 		String username = AutenticacaoService.identificacaoDoUsuarioLogado();
 		Boolean isUsuarioGrupoInfra = AutenticacaoService.isUsuarioGrupoInfra();
 		
+		for (Membro membro : getMembros()) {
+			if (isUsuarioGrupoInfra || membro.getEmail().equals(username)) {
+				grupojson.setEditarGrupo(true);
+				break;
+			} else {
+				grupojson.setEditarGrupo(false);
+			}
+		}
+
+		System.out.println("Pode edtar? " + grupojson.isEditarGrupo());
+		
 		if (isUsuarioGrupoInfra || proprietario.equals(username)) {
 			grupojson.setExcluirGrupo(true);
 		} else {

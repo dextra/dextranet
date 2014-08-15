@@ -12,6 +12,7 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
 public class MembroRepository extends EntidadeRepository {
+
 	public Membro persiste(Membro membro) {
 		return super.persiste(membro);
 	}
@@ -92,5 +93,20 @@ public class MembroRepository extends EntidadeRepository {
 		for (Membro membro : membros) {
 			remove(membro.getId());
 		}
+	}
+
+	public Membro obtemPorUsername(String usuarioLogado, String idGrupo) {
+		List<String> campos = new ArrayList<String>();
+		campos.add(MembroFields.email.name());
+		campos.add(MembroFields.idGrupo.name());
+		List<Object> valores = new ArrayList<Object>(); 
+		valores.add(usuarioLogado);
+		valores.add(idGrupo);
+		
+		Iterable<Entity> entidades = super.obterPor(Membro.class, campos, valores);
+		if (entidades !=  null && entidades.iterator().hasNext()) {
+			return new Membro(entidades.iterator().next());
+		}
+		return null;
 	}
 }

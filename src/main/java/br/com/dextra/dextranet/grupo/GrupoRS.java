@@ -33,7 +33,8 @@ public class GrupoRS {
 	GrupoRepository repositorio = new GrupoRepository();
 	MembroRepository repositorioMembro = new MembroRepository();
 	ServicoGrupoRepository servicoGrupoRepository = new ServicoGrupoRepository();
-
+	UsuarioRepository usuarioRepository = new UsuarioRepository();
+	
 	@Path("/{id}")
 	@GET
 	@Produces(Application.JSON_UTF8)
@@ -153,9 +154,9 @@ public class GrupoRS {
 	@DELETE
 	@Produces(Application.JSON_UTF8)
 	public Response removerServico(@PathParam("idGrupo") String idGrupo, @PathParam("idServicoGrupo") String idServicoGrupo) throws EntityNotFoundException, IOException {
-		String usuarioLogado = obtemUsuarioLogado();
+		String usuarioLogado = obtemUsernameUsuarioLogado();
 		Grupo grupo = repositorio.obtemPorId(idGrupo);
-		if (isAlteravel(usuarioLogado, grupo)) {
+		if (podeRemoverServico(usuarioLogado, grupo)) {
 			ServicoGrupo servico = servicoGrupoRepository.obtemPorId(idServicoGrupo);
 
 			Aprovisionamento aprovisionamento = new Aprovisionamento();
@@ -173,7 +174,7 @@ public class GrupoRS {
 	@PUT
 	@Consumes("application/json")
 	public Response adicionar(GrupoJSON grupojson) throws ParseException{
-		Grupo grupo = new Grupo(grupojson.getNome(), grupojson.getDescricao(), obtemUsuarioLogado());
+		Grupo grupo = new Grupo(grupojson.getNome(), grupojson.getDescricao(), obtemUsernameUsuarioLogado());
 		repositorio.persiste(grupo);
 
 		for (UsuarioJSON usuariojson : grupojson.getUsuarios()) {
@@ -195,14 +196,21 @@ public class GrupoRS {
 	@PUT
 	@Produces(Application.JSON_UTF8)
 	public Response atualizar(@PathParam("idGrupo") String id, GrupoJSON grupojson) throws EntityNotFoundException {
-		String usuarioLogado = obtemUsuarioLogado();
-		String proprietario = usuarioLogado;
+		String usernameLogado = obtemUsernameUsuarioLogado();
+		
+		String proprietario = usernameLogado;
 		Grupo grupo = repositorio.obtemPorId(id);
-		if (isAlteravel(usuarioLogado, grupo)) {
-			if (!grupo.getProprietario().equals(usuarioLogado)) {
+		if (podeAlterarGrupo(usernameLogado, grupo)) {
+			if (proprietarioExcluido(grupojson)) {
+				grupo.comProprietario(obterNovoProprietarioGrupo(grupo));
+			}
+			
+			if (!grupo.getProprietario().equals(usernameLogado)) {
 				proprietario = grupo.getProprietario();
 			}
+			
 			grupo = grupo.preenche(grupojson.getNome(), grupojson.getDescricao(), proprietario);
+		
 			repositorio.persiste(grupo);
 			adicionaNovosMembros(grupojson.getUsuarios(), grupo.getId());
 			persisteServicoGrupo(grupojson, grupo);
@@ -216,10 +224,10 @@ public class GrupoRS {
 	@DELETE
 	@Produces(Application.JSON_UTF8)
 	public Response deletar(@PathParam("id") String id) throws EntityNotFoundException, IOException {
-		String usuarioLogado = obtemUsuarioLogado();
+		String usuarioLogado = obtemUsernameUsuarioLogado();
 		Grupo grupo = repositorio.obtemPorId(id);
 
-		if (isAlteravel(usuarioLogado, grupo)) {
+		if (podeDeletarGrupo(usuarioLogado, grupo)) {
 			List<Membro> obtemPorIdGrupo = repositorioMembro.obtemPorIdGrupo(id);
 			for (Membro membro : obtemPorIdGrupo) {
 				repositorioMembro.remove(membro.getId());
@@ -241,8 +249,38 @@ public class GrupoRS {
 		}
 	}
 
-	protected String obtemUsuarioLogado() {
+	protected String obtemUsernameUsuarioLogado() {
 		return AutenticacaoService.identificacaoDoUsuarioLogado();
+	}
+
+	protected Usuario obtemUsuarioLogado() {
+		return AutenticacaoService.identificacaoDoUsuarioLogado(obtemUsernameUsuarioLogado());
+	}
+	
+	private String obterNovoProprietarioGrupo(Grupo grupo) throws EntityNotFoundException {
+		List<Membro> membros = repositorioMembro.obtemPorIdGrupo(grupo.getId());
+		for (Membro membro : membros) {
+			if (!membro.getEmail().equals(grupo.getProprietario())) {
+				return membro.getEmail();
+			}
+		}
+		//TODO: VERIFICAR ESSE PONTO QUANDO NÃO EXISTIR NENHUM MEMBRO
+		return null;
+	}
+
+	private Boolean proprietarioExcluido(GrupoJSON grupoJson) {
+		String proprietarioAtualGrupo = grupoJson.getProprietario();
+		Usuario usuario = usuarioRepository.obtemPorUsername(proprietarioAtualGrupo);
+		Membro membroProprietario = new Membro(null, grupoJson.getId(), usuario.getNome(), usuario.getUsername());
+		
+		List<UsuarioJSON> membros = grupoJson.getUsuarios();
+		for (UsuarioJSON membro : membros) {
+			if (membro.getEmail().equals(membroProprietario.getEmail())) {
+				return Boolean.FALSE;
+			}
+		}
+		
+		return Boolean.TRUE;
 	}
 
 	private void persisteServicoGrupo(GrupoJSON grupojson, Grupo grupo) throws EntityNotFoundException {
@@ -286,7 +324,16 @@ public class GrupoRS {
 		}
 	}
 	
-	private boolean isAlteravel(String usuarioLogado, Grupo grupo) {
+	private boolean podeDeletarGrupo(String usuarioLogado, Grupo grupo) {
 		return AutenticacaoService.isUsuarioGrupoInfra() || usuarioLogado.equals(grupo.getProprietario());
+	}
+
+	private boolean podeRemoverServico(String usuarioLogado, Grupo grupo) {
+		return podeDeletarGrupo(usuarioLogado, grupo);
+	}
+	
+	private boolean podeAlterarGrupo(String usuarioLogado, Grupo grupo) {
+		Boolean isMembroGrupo = repositorioMembro.obtemPorUsername(usuarioLogado, grupo.getId()) != null;
+		return podeDeletarGrupo(usuarioLogado, grupo) || isMembroGrupo;
 	}
 }

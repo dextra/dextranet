@@ -1,5 +1,7 @@
 package br.com.dextra.dextranet.grupo;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import br.com.dextra.dextranet.persistencia.Entidade;
@@ -69,6 +71,23 @@ public class Membro extends Entidade {
 		this.email = email;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		Membro membro = (Membro) obj;
+		return new EqualsBuilder()
+			.append(getIdGrupo(), membro.getIdGrupo())
+				.append(getIdUsuario(), membro.getIdUsuario())
+					.append(getEmail(), membro.getEmail()).isEquals();
+	}
+	
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 37)
+			.append(getIdGrupo())
+				.append(getIdUsuario())
+						.append(getEmail()).hashCode();
+		
+	}
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this.getClass())
