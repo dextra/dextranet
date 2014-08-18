@@ -80,6 +80,23 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	}
 	
 	@Test
+	public void testaMembroDoGrupoAdicionarNovoMembroAoGrupo() throws EntityNotFoundException {
+		limpaUsuariosInseridos(usuarioRepository);
+		Usuario usuario = criaUsuario(USUARIO_LOGADO, true);
+		Usuario usuario1 = criaUsuario("usuario1", true);
+		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1", usuario1, usuario);
+		
+		GrupoJSON grupoJSON = (GrupoJSON) grupoRS.obter(grupo.getId()).getEntity();
+		List<UsuarioJSON> usuarios = grupoJSON.getUsuarios();
+		usuarios.add(new UsuarioJSON(null, "Usuario2", "usuario2@dextra-sw.com"));
+		grupoRS.atualizar(grupo.getId(), grupoJSON);
+		Response grupoResponse = grupoRS.obter(grupo.getId());
+		GrupoJSON grupoAtualizado = (GrupoJSON) grupoResponse.getEntity();
+		assertEquals(3, grupoAtualizado.getUsuarios().size());
+		assertEquals(usuario1.getUsername(), grupoAtualizado.getProprietario());
+	}
+	
+	@Test
 	public void testaRemoverMembroProprietarioPeloUsuarioInfra() throws EntityNotFoundException {
 		limpaUsuariosInseridos(usuarioRepository);
 		Usuario usuario1 = criaUsuario("Usuario 1", true);
@@ -235,10 +252,11 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		Usuario usuario2 = criaUsuario("Usuario 2", true);
 		Usuario usuario1 = criaUsuario(USUARIO_LOGADO, true);
 		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo1", proprietario, usuario1, usuario2);
-		
+		int qtdeMembrosAntesDaAtualizacao = ((GrupoJSON) grupoRS.obter(grupo.getId()).getEntity()).getUsuarios().size();
 		GrupoJSON grupojson = removerMembrodoGrupo(proprietario, grupo);
 		Response response = grupoRS.atualizar(grupo.getId(), grupojson);
 		grupojson = (GrupoJSON) grupoRS.obter(grupo.getId()).getEntity();
+		assertEquals(3, qtdeMembrosAntesDaAtualizacao);
 		assertEquals(Status.OK.getStatusCode(), response.getStatus());
 		assertEquals(2, grupojson.getUsuarios().size());
 		assertFalse(grupojson.getProprietario().equals(proprietario.getUsername()));

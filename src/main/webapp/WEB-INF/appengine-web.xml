@@ -4,12 +4,12 @@
 	xsi:schemaLocation="http://appengine.google.com/ns/1.0 http://googleappengine.googlecode.com/svn/branches/1.2.1/java/docs/appengine-web.xsd">
 
 <!-- 	 APPLICATION PROD -->
-		<application>dextra-dextranet</application>
-		<version>prod</version>
+		<!-- <application>dextra-dextranet</application>
+		<version>prod</version> -->
 
-<!-- 	 APPLICATION DEV -->
-	<!-- <application>dev-dextranet</application>
-	<version>dev</version> -->
+	<!-- 	 APPLICATION DEV -->
+	<application>dev-dextranet</application>
+	<version>dev</version>
 
 	<static-files>
 		<include path="/**" />

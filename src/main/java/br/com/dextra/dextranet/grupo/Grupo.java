@@ -73,9 +73,7 @@ public class Grupo extends Entidade {
 				grupojson.setEditarGrupo(false);
 			}
 		}
-
-		System.out.println("Pode edtar? " + grupojson.isEditarGrupo());
-		
+	
 		if (isUsuarioGrupoInfra || proprietario.equals(username)) {
 			grupojson.setExcluirGrupo(true);
 		} else {
