@@ -1,12 +1,17 @@
 package br.com.dextra.dextranet.usuario;
 
+import static br.com.dextra.dextranet.persistencia.DadosUtils.criaGrupoComOsIntegrantes;
+import static br.com.dextra.dextranet.persistencia.DadosUtils.criaUsuario;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertTrue;
+
 import java.util.List;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-
-import static junit.framework.Assert.*;
-import static br.com.dextra.dextranet.persistencia.DadosUtils.*;
 
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
@@ -20,7 +25,6 @@ import br.com.dextra.dextranet.persistencia.DadosUtils;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
-import com.google.appengine.api.memcache.LogAndContinueErrorHandler;
 
 public class UsuarioRSTest extends TesteIntegracaoBase {
 	private static final String USUARIO_LOGADO = "login.google";

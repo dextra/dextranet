@@ -27,7 +27,7 @@ after_success:
 
 notificatios:
   email:
-      recipients:
+      recipients  :
          - desenvolvimento@dextra-sw.com
 
 
