@@ -62,7 +62,7 @@ dextranet.grupos = {
 		});
 
 		var elementos = [];
-
+		console.warn("Tem pessoas antes da maracutaia ??? --> " + dextranet.pessoas);
 		$.when(pessoas, grupos, templateGGrupos, servicos, templateServicosGrupo)
 			.done(function(xhrPessoas, xhrGrupos, xhrTemplateGGrupos, xhrServicos, xhrTemplateServicosGrupo) {
 
@@ -75,7 +75,8 @@ dextranet.grupos = {
 				}
 			});
 			dextranet.pessoas = elementos;
-
+			console.warn("Tem pessoas ??? --> " + dextranet.pessoas);
+			
 			// xhrTemplateServicosGrupo
 			dextranet.grupos.templateServicosGrupo = xhrTemplateServicosGrupo[0];
 
@@ -220,7 +221,7 @@ dextranet.grupos = {
 			var grupo = form2js("frmGrupo");
 			var atualizar = true;
 			grupo.servico = [];
-
+			grupo.proprietario = dono;
 			grupo.usuarios = usuarios;
 			if (infoBasica && !novosIntegrantes && !$('.novaTab')) {
 				// Objeto de TODOS existentes

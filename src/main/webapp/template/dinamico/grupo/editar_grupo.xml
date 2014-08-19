@@ -4,9 +4,9 @@
 		<div id="formPrincipal" class="block-white clearfix">
 			<div class="formGrupo">
 				{if dono}
-				<h1 class="titulo" id="${grupo.id}">${messages.grupo_editar_titulo}</h1>
+					<h1 class="titulo" id="${grupo.id}">${messages.grupo_editar_titulo}</h1>
 				{else}
-				<h1 class="titulo">${messages.grupo_titulo}</h1>
+					<h1 class="titulo" id="${grupo.id}">${messages.grupo_titulo}</h1>
 				{/if}
 				<form id="frmGrupo" class="form-dark form-horizontal">
 					<div class="itensForm">
@@ -93,7 +93,6 @@
 				$('html, body').animate({ scrollTop: 0 }, 'slow');
 				//Preenche dono do grupo
 				var dono = $.grep(dextranet.pessoas, function(e){ return e.username == '${grupo.proprietario}'; });
-				var editarGrupo = ${grupo.editarGrupo};
 				$('input#txtDono').val(dono[0].label);
 
 				var tabs = $( "div#listaServicos" );
@@ -261,7 +260,7 @@
 
 				});
 				<!-- Caso nao seja o dono do grupo acessando a página -->
-				{if !dono || editarGrupo}
+				{if !dono && !grupo.editarGrupo}
 					$("#txtGrupoNome,#txtGrupoDescricao").attr("disabled", true);
 					$(".apenasDono").remove();
 					$( "span.ui-icon-close").remove();
