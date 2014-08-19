@@ -20,6 +20,7 @@ import br.com.dextra.dextranet.persistencia.DadosUtils;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
+import com.google.appengine.api.memcache.LogAndContinueErrorHandler;
 
 public class UsuarioRSTest extends TesteIntegracaoBase {
 	private static final String USUARIO_LOGADO = "login.google";
@@ -69,7 +70,9 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testaAtualizacaoNaoPermitida() throws EntityNotFoundException {
+		limpaUsuariosInseridos(repositorio);
 		Usuario usuario = DadosUtils.criaUsuario("usuario1", true);
+		DadosUtils.criaUsuario(USUARIO_LOGADO, true);
 
 		Response resposta = rest.atualizar(usuario.getId(), "Nome", "Apelido", "Area", "Unidade", "Ramal",
 				"Residencial", "Celular", "GitHub", "Skype", "blog", null);
