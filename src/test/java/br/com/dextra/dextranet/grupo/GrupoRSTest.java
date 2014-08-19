@@ -408,7 +408,6 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	
 	@Test
 	public void testaMembrodoGrupoTemAcessoParaEditarGrupo() throws EntityNotFoundException {
-		System.out.println("----->>>testaMembrodoGrupoTemAcessoParaEditarGrupo");
 		limpaUsuariosInseridos(usuarioRepository);
 		Usuario proprietario = criaUsuario("usuario", true);
 		Usuario membro = criaUsuario(USUARIO_LOGADO, true);
@@ -417,7 +416,6 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		
 		Response response = grupoRS.obter(grupo.getId());
 		GrupoJSON grupojson = (GrupoJSON) response.getEntity();
-		System.out.println("Editargrupo finalmente??? ---->> " + grupojson.isEditarGrupo());
 		assertEquals(Boolean.TRUE, grupojson.isEditarGrupo());
 	}
 	

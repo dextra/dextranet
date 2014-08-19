@@ -93,6 +93,7 @@
 				$('html, body').animate({ scrollTop: 0 }, 'slow');
 				//Preenche dono do grupo
 				var dono = $.grep(dextranet.pessoas, function(e){ return e.username == '${grupo.proprietario}'; });
+				var editarGrupo = ${grupo.editarGrupo};
 				$('input#txtDono').val(dono[0].label);
 
 				var tabs = $( "div#listaServicos" );
@@ -260,7 +261,7 @@
 
 				});
 				<!-- Caso nao seja o dono do grupo acessando a página -->
-				{if !dono}
+				{if !dono || editarGrupo}
 					$("#txtGrupoNome,#txtGrupoDescricao").attr("disabled", true);
 					$(".apenasDono").remove();
 					$( "span.ui-icon-close").remove();
