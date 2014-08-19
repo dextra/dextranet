@@ -7,6 +7,7 @@ import javax.ws.rs.core.Response.Status;
 
 import static junit.framework.Assert.*;
 import static br.com.dextra.dextranet.persistencia.DadosUtils.*;
+
 import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
@@ -15,6 +16,7 @@ import br.com.dextra.dextranet.grupo.GrupoRepository;
 import br.com.dextra.dextranet.grupo.Membro;
 import br.com.dextra.dextranet.grupo.MembroRepository;
 import br.com.dextra.dextranet.grupo.UsuarioJSON;
+import br.com.dextra.dextranet.persistencia.DadosUtils;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -67,8 +69,7 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testaAtualizacaoNaoPermitida() throws EntityNotFoundException {
-		Usuario usuario = new Usuario("dextranet");
-		repositorio.persiste(usuario);
+		Usuario usuario = DadosUtils.criaUsuario("usuario1", true);
 
 		Response resposta = rest.atualizar(usuario.getId(), "Nome", "Apelido", "Area", "Unidade", "Ramal",
 				"Residencial", "Celular", "GitHub", "Skype", "blog", null);
