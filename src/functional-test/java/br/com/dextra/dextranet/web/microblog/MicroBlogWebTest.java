@@ -33,6 +33,7 @@ public class MicroBlogWebTest extends TesteFuncionalBase {
 			String substituto = cont + "";
 			microBlog.redigeMensagem(mensagemMicroPost(substituto));
 			microBlog.clicaBotaoEnviar();
+			paginaPrincipal.waitToLoad();
 		}
 	}
 
