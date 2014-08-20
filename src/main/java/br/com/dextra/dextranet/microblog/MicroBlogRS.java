@@ -20,6 +20,7 @@ import br.com.dextra.dextranet.persistencia.EntidadeOrdenacao;
 import br.com.dextra.dextranet.rest.config.Application;
 import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.dextranet.usuario.UsuarioRepository;
+import br.com.dextra.dextranet.utils.ConteudoHTML;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -35,6 +36,9 @@ public class MicroBlogRS {
     @Path("/post")
     @POST
     public void post(@FormParam("texto") String text) {
+    	ConteudoHTML conteudoHTML = new ConteudoHTML(text);
+    	text = conteudoHTML.removeJavaScript();
+    	
         MicroPost micropost = new MicroPost(text, obtemUsuarioLogado());
         MicroBlogRepository repository = getMicroBlogRepository();
         repository.salvar(micropost);
