@@ -3,6 +3,8 @@ package br.com.dextra.dextranet.grupo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import br.com.dextra.dextranet.grupo.servico.google.GoogleGrupoJSON;
 import br.com.dextra.dextranet.persistencia.Entidade;
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
@@ -66,7 +68,7 @@ public class Grupo extends Entidade {
 		Boolean isUsuarioGrupoInfra = AutenticacaoService.isUsuarioGrupoInfra();
 		
 		for (Membro membro : getMembros()) {
-			if (isUsuarioGrupoInfra || membro.getEmail().equals(username)) {
+			if (isUsuarioGrupoInfra || (!StringUtils.isEmpty(membro.getEmail()) && membro.getEmail().equals(username))) {
 				grupojson.setEditarGrupo(true);
 				break;
 			} else {
