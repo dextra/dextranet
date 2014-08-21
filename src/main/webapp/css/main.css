@@ -309,8 +309,8 @@ form input.link { width: 476px;}
 .list_stories > li > .story-content > .speech-shape,
 .list_stories > li > .story-content > .speech-shape:before{position:absolute;left:-15px;top:16px;border-right:dashed 15px #B3C6DA;border-top:solid 10px transparent;border-bottom:solid 10px transparent;border-radius:3px;z-index:1;width:0;height:0;}
 .list_stories > li > .story-content > .speech-shape:before{display:block;content:"";border-right-color:#000;position:absolute;left:2px;top:-10px;z-index:1;border-right-color:#fefefe;}
-.list_stories > li > .story-content > .avatar-frame{position:absolute;left:-80px;top:0;width:50px;height:50px;padding:0;}
-.list_stories > li > .story-content > .avatar-frame > img{width:50px;height:50px;}
+.list_stories > li > .story-content > a > .avatar-frame{position:absolute;left:-80px;top:0;width:50px;height:50px;padding:0;}
+.list_stories > li > .story-content > a > .avatar-frame > img{width:50px;height:50px;}
 
 .msg_user_disabled{margin:2px 0 16px;text-align:center;display:block;}
 .list_stories_headline{margin:2px 0 16px;text-align:left;display:block;}

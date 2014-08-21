@@ -6,9 +6,11 @@
 				<li class="clearfix listaPost" id="${post.id}">
 					<div class="story-overlay"></div>
 					<div class="story-content">
-						<div class="avatar-frame avatar-frame-small" title="Por ${post.usuario}">
-							<img src="${gravatar}${post.usuarioMD5}" alt="Avatar" />
-						</div>
+						<a onclick="dextranet.usuario.visualizar('${post.usuario}')">
+							<div class="avatar-frame avatar-frame-small" title="Por ${post.usuario}">
+									<img src="${gravatar}${post.usuarioMD5}" alt="Avatar" />
+							</div>
+						</a>
 						<div class="speech-shape"></div>
 						<a class="list_stories_headline clearfix" href="#">
 							<h2 class="titulo ${post.id}">${post.titulo}</h2>
