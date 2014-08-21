@@ -25,17 +25,20 @@ public class TesteFuncionalBase extends TesteIntegracaoBase {
 		server.enableAuthentication(true, false);
 		server.enableJetty(8080);
 		TesteIntegracaoBase.setup();
-
-		// FIXME: In windows env, change the file to phantom.exe. Implements
-		// with System.getProperty
-		 String executable = "target/phantomjs/phantomjs";
-
-		 DesiredCapabilities dCaps = new DesiredCapabilities();
-		 dCaps.setJavascriptEnabled(true);
-		 dCaps.setCapability("takesScreenshot", false);
-		 dCaps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, executable);
-		 driver = new PhantomJSDriver(dCaps);
-		 driver.manage().window().setSize(new Dimension(1600, 900));
+		
+		String executable = "";
+		if (isWindows()) {
+			executable = "target/phantomjs/phantomjs.exe";
+		} else {
+			executable = "target/phantomjs/phantomjs";
+		}
+		
+		DesiredCapabilities dCaps = new DesiredCapabilities();
+		dCaps.setJavascriptEnabled(true);
+		dCaps.setCapability("takesScreenshot", false);
+		dCaps.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, executable);
+		driver = new PhantomJSDriver(dCaps);
+		driver.manage().window().setSize(new Dimension(1600, 900));
 	}
 
 	@AfterClass
@@ -51,5 +54,9 @@ public class TesteFuncionalBase extends TesteIntegracaoBase {
 
 		File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 		scrFile.renameTo(new File(snapdir, fileName));
+	}
+	
+	public static boolean isWindows() {
+		return System.getProperty("os.name").startsWith("Windows");
 	}
 }
