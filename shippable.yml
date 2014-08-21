@@ -25,10 +25,7 @@ after_success:
 - mvn --version
 - echo $GAE_PASSWORD | mvn appengine:update -Dappengine.email="build-continua@dextra-sw.com" 
 
-notificatios:
-  email:
-      recipients  :
-         - desenvolvimento@dextra-sw.com
-
-
-
+# notificatios:
+  # email:
+      # recipients  :
+         # - desenvolvimento@dextra-sw.com
