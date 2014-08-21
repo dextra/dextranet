@@ -60,11 +60,11 @@ public class UsuarioRS {
 		return Response.ok().entity(usuario.getUsuarioJSON()).build();
 	}
 
-	@Path("/{id}")
+	@Path("/{username}")
 	@GET
 	@Produces(Application.JSON_UTF8)
-	public Response obter(@PathParam("id") String id) throws EntityNotFoundException {
-		Usuario usuario = repositorio.obtemPorId(id);
+	public Response obter(@PathParam("username") String username) throws EntityNotFoundException {
+		Usuario usuario = repositorio.obtemPorUsername(username);
 		return Response.ok().entity(usuario).build();
 	}
 

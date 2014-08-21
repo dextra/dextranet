@@ -21,9 +21,11 @@
 							</button>
 						{/if}
 		    			<div class="micropost-conteudo clearfix">
-		    				<div class="avatar-frame" title="Por ${post.autor.username}">
-								<img src="${gravatar}${post.autor.md5}" alt="Avatar" />
-							</div>
+		    				<a onclick="dextranet.usuario.visualizar('${post.autor.username}')">
+			    				<div class="avatar-frame" title="Por ${post.autor.username}">
+									<img src="${gravatar}${post.autor.md5}" alt="Avatar" />
+								</div>
+							</a>
 							<div class="micropost-texto wordwrap">${post.texto}</div>
 						</div>
 						<div class="micropost-data">

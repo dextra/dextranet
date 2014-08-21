@@ -21,18 +21,21 @@
 			</li>
             {for colaborador in usuarios}
                 <li class="clearfix colaborador">
-                    <div class="list-team-avatar">
-                        <div class="avatar-frame">
-                            <img class="avatar-frame-equipe" src="${gravatar}${colaborador.md5}" />
-                        </div>
-                    </div>
+                	<a onclick="dextranet.usuario.visualizar('${colaborador.username}')">
+	                    <div class="list-team-avatar">
+		                        <div class="avatar-frame">
+		                            	<img class="avatar-frame-equipe" src="${gravatar}${colaborador.md5}" />
+		                        </div>
+	                    </div>
+                    </a>
                     <div class="list-team-content">
                         <h3>
-                            <span class="nome">${colaborador.nome}</span>
-                            {if colaborador.apelido}
-                                <span>(${colaborador.apelido})</span>
-                            {/if}
-                            
+                        	<a onclick="dextranet.usuario.visualizar('${colaborador.username}')">
+	                            <span class="nome">${colaborador.nome}</span>
+	                            {if colaborador.apelido}
+	                                <span>(${colaborador.apelido})</span>
+	                            {/if}
+                            </a>
                             {if dextranet.usuario.logado.isInfra}
                             	<a onclick="dextranet.usuario.ativarDesativar('${colaborador.id}', ${colaborador.ativo})" class="colaborador${colaborador.id} desativar">
 									{if colaborador.ativo}

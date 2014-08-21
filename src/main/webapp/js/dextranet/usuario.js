@@ -68,6 +68,23 @@ dextranet.usuario = {
     			}
 			});	
 		},
+
+		visualizar : function(username) {
+			$.ajax( {
+					type : "GET",
+					url : "/s/usuario/" + username,
+					contentType : dextranet.application_json,
+					success : function(usuario) {
+						dextranet.usuario.logado = usuario;
+						$.holy("../template/dinamico/usuario/perfil_usuario_readonly.xml", { usuario : dextranet.usuario.logado,
+																					gravatar : dextranet.gravatarUrl});
+						dextranet.ativaMenu("sidebar_left_profile");
+					},
+	    			error: function(jqXHR, textStatus, errorThrown) {
+	    				dextranet.processaErroNaRequisicao(jqXHR);
+	    			}
+			});
+		},
 		
 		editar : function() {
 			var carregaAreas = $.ajax({

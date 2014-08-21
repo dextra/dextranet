@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<engine>
+	<template selector="#content_left">
+	<div class="usuario-avatar">
+                <div class="avatar-frame">
+                    <img class="avatar-frame-equipe" src="${gravatar}${usuario.md5}" />
+                </div>
+            </div>
+            <div class="usuario-content">
+                <h1 class="titulo">
+                    <span>${usuario.nome}</span>
+                    {if usuario.apelido}
+                        <span>(${usuario.apelido})</span>
+                    {/if}
+                    
+                    {if dextranet.usuario.logado.isInfra}
+                    	<a onclick="dextranet.usuario.ativarDesativar('${usuario.id}', ${usuario.ativo})" class="colaborador${usuario.id} desativar">
+							{if usuario.ativo}
+                    			<span>${messages.desativar}</span>
+                    		{else}
+								<span>${messages.ativar}</span>
+							{/if}
+                    	</a>
+                	{/if}
+                </h1>
+                <p class="usuario-content-geral">
+                    ${usuario.unidade} / ${usuario.area}
+                    {if usuario.ramal }
+                        - ${messages.usuario_ramal} <strong>${usuario.ramal}</strong>
+                    {/if}
+                </p>
+
+				<ul class="list-team-content-data clearfix">
+					<li>
+						<span class="icon_gtalk-mini icon" original-title="${messages.usuario_email}"></span>
+                        ${usuario.username}@${messages.label_dominio_dextra}
+					</li>
+					<li>
+						<span class="icon_github-mini icon" original-title="${messages.usuario_github}"></span>
+						{if usuario.gitHub }
+							<a href="http://www.github.com/${usuario.gitHub}">${usuario.gitHub}</a>
+						{else}
+							<span class="empty">${messages.label_campo_nao_informado}</span>
+						{/if}
+					</li>
+					<li>
+						<span class="icon_skype-mini icon" original-title="${messages.usuario_skype}"></span>
+						{if usuario.skype }
+							<a href="callto:${usuario.skype}">${usuario.skype}</a>
+						{else}
+							<span class="empty">${messages.label_campo_nao_informado}</span>
+						{/if}
+					</li>
+
+					<li>
+						<span class="icon_blog-mini icon" original-title="${messages.usuario_blog}"></span>
+						{if usuario.blog }
+							<a target="_blank" href="${usuario.blog}">${usuario.blog}</a>
+						{else}
+							<span class="empty">${messages.label_campo_nao_informado}</span>
+						{/if}
+					</li>
+
+					<li class="list-team-content-phone">
+                        <span class="icon_cellphone-mini icon" original-title="${messages.usuario_telefone_celular}"></span>
+                        {if usuario.telefoneCelular }
+                            ${usuario.telefoneCelular}
+                        {else}
+                            <span class="empty">${messages.label_campo_nao_informado}</span>
+                        {/if}
+					</li>
+					<li class="list-team-content-phone">
+						<span class="icon_phone-mini icon" original-title="${messages.usuario_telefone_residencial}"></span>
+						{if usuario.telefoneResidencial }
+							${usuario.telefoneResidencial}
+						{else}
+							<span class="empty">${messages.label_campo_nao_informado}</span>
+						{/if}
+					</li>
+					{if usuario.grupos != ""}
+						<li class="list-grupo-content-data">
+                        	<span class="icon_grupo-mini icon" style="position:relative; float:left;" original-title="${messages.label_grupos}"></span>
+   							<div style="width: 230px;">
+   								{for grupo in usuario.grupos}
+		                        	{if grupo.proprietario == dextranet.usuario.logado.username}
+		                            	- <a onclick="dextranet.grupos.editar('${grupo.id}', true)"><span class="nomeGrupo">${grupo.nome}</span></a>
+		                            {else}
+		                            	- <a onclick="dextranet.grupos.editar('${grupo.id}', false)"><span class="nomeGrupo">${grupo.nome}</span></a>
+		                            {/if}
+									<![CDATA[</br>]]>
+                          		{/for}
+                          	</div>
+						</li>
+                     {/if}
+				</ul>
+            </div>
+	</template>
+</engine>
