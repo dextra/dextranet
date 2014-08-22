@@ -68,9 +68,11 @@
 							<ul class="list_stories_comments" id="relacao_dos_comentarios">
 								{for comentario in post.comentarios}
 								<li class="clearfix" id="${comentario.id}">
-									<div class="avatar-frame" title="Por ${comentario.usuario}">
-										<img src="${gravatar}${comentario.usuarioMD5}" alt="Avatar" />
-									</div>
+									<a onclick="dextranet.usuario.visualizar('${comentario.username}')">
+										<div class="avatar-frame" title="Por ${comentario.usuario}">
+											<img src="${gravatar}${comentario.usuarioMD5}" alt="Avatar" />
+										</div>
+									</a>
 									<div class="speech-shape-small"></div>
 									<div class="content">
 										<p>${ stringUtils.trocaQuebraDeLinha(comentario.conteudo) }</p>
@@ -102,9 +104,11 @@
 							</ul>
 							<form id="form_comment" class="clearfix form-dark form-fields-block">
 								<div class="new-comment clear">
-									<div class="avatar-frame" title="Por ${dextranet.usuario.logado.username}">
-										<img src="${gravatar}${dextranet.usuario.logado.md5}" alt="Avatar" />
-									</div>
+									<a onclick="dextranet.usuario.visualizar('${dextranet.usuario.logado.username}')">
+										<div class="avatar-frame" title="Por ${dextranet.usuario.logado.username}">
+											<img src="${gravatar}${dextranet.usuario.logado.md5}" alt="Avatar" />
+										</div>
+									</a>
 									<textarea cols="50" id="idConteudo_${post.id}" class="idConteudoComentario not-empty"
 										style="resize:none;" name="conteudoComentario" tabindex="10" maxlength="190000"
 										placeholder="Deixe seu comentario... "></textarea>
