@@ -75,9 +75,7 @@ dextranet.usuario = {
 					url : "/s/usuario/" + username,
 					contentType : dextranet.application_json,
 					success : function(usuario) {
-						dextranet.usuario.logado = usuario;
-						$.holy("../template/dinamico/usuario/perfil_usuario_readonly.xml", { usuario : dextranet.usuario.logado,
-																					gravatar : dextranet.gravatarUrl});
+						$.holy("../template/dinamico/usuario/perfil_usuario_readonly.xml", { usuario : usuario, gravatar : dextranet.gravatarUrl});
 						dextranet.ativaMenu("sidebar_left_profile");
 					},
 	    			error: function(jqXHR, textStatus, errorThrown) {
