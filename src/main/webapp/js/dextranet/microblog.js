@@ -14,7 +14,11 @@ dextranet.microblog = {
 				resultados.forEach(function(user, index) {
 					users[index] = {username: user.username};
 				});
-				$("#conteudo_novo_micropost").mention({'users': users});
+				$("#conteudo_novo_micropost").mention(
+						{queryBy: ['username'], 
+						 sensitive: false,
+						 'users': users}
+				);
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				dextranet.processaErroNaRequisicao(jqXHR);
