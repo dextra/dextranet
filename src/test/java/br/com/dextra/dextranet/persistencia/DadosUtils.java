@@ -14,14 +14,21 @@ public class DadosUtils {
 	
 	
 	public static Grupo criaGrupoComOsIntegrantes(Boolean isInfra, String nomeDoGrupo,
-			Usuario... integrantes) {
+			Boolean addProprietarioComoMembro, Usuario... integrantes) {
 		Grupo novoGrupo = new Grupo(nomeDoGrupo, nomeDoGrupo, integrantes[0].getUsername());
 		novoGrupo.setInfra(isInfra);
 		novoGrupo = grupoRepositorio.persiste(novoGrupo);
-
+	
+		int cont = 0;
 		for (Usuario integrante : integrantes) {
-			membroRepository.persiste(new Membro(integrante.getId(), novoGrupo
-					.getId(), integrante.getNome(), integrante.getUsername()));
+			if (!addProprietarioComoMembro && cont == 0) {
+				cont++;
+				continue;
+			} else {
+				membroRepository.persiste(new Membro(integrante.getId(), novoGrupo.getId(), integrante.getNome(),
+						integrante.getUsername()));
+				cont++;
+			}
 		}
 
 		return novoGrupo;

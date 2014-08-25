@@ -63,9 +63,9 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	public void testaUsuarioInfraAdicionarNovoMembroAoGrupo() throws EntityNotFoundException {
 		limpaUsuariosInseridos(usuarioRepository);
 		Usuario usuario = criaUsuario(USUARIO_LOGADO, true);
-		criaGrupoComOsIntegrantes(true, "Grupo Infra", usuario);
+		criaGrupoComOsIntegrantes(true, "Grupo Infra", true, usuario);
 		Usuario usuario1 = criaUsuario("usuario1", true);
-		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1", usuario1);
+		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1",  true, usuario1);
 		
 		GrupoJSON grupoJSON = (GrupoJSON) grupoRS.obter(grupo.getId()).getEntity();
 		List<UsuarioJSON> usuarios = grupoJSON.getUsuarios();
@@ -84,7 +84,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		limpaUsuariosInseridos(usuarioRepository);
 		Usuario usuario = criaUsuario(USUARIO_LOGADO, true);
 		Usuario usuario1 = criaUsuario("usuario1", true);
-		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1", usuario1, usuario);
+		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1",  true, usuario1, usuario);
 		
 		GrupoJSON grupoJSON = (GrupoJSON) grupoRS.obter(grupo.getId()).getEntity();
 		List<UsuarioJSON> usuarios = grupoJSON.getUsuarios();
@@ -102,10 +102,10 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		Usuario usuario1 = criaUsuario("Usuario 1", true);
 		Usuario usuario2 = criaUsuario("Usuario 2", true);
 		Usuario proprietario = criaUsuario("Usuario 3", true);
-		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo1", proprietario, usuario2, usuario1);
+		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo1", true, proprietario, usuario2, usuario1);
 		
 		Usuario usuarioInfra = criaUsuario(USUARIO_LOGADO, true);
-		criaGrupoComOsIntegrantes(true, "Grupo Infra", usuarioInfra);
+		criaGrupoComOsIntegrantes(true, "Grupo Infra", true, usuarioInfra);
 		
 		GrupoJSON grupojson = (GrupoJSON) grupoRS.obter(grupo.getId()).getEntity();
 		assertEquals(3, grupojson.getUsuarios().size());
@@ -119,14 +119,14 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		assertEquals(2, grupojson.getUsuarios().size());
 		assertFalse(grupojson.getProprietario().equals(proprietario.getUsername()));
 	}
-	
+
 	@Test
 	public void testaNaoPodeAlterarGrupoInfra() throws EntityNotFoundException {
 		Usuario usuario = criaUsuario("usuarioX", true);
-		criaGrupoComOsIntegrantes(true, "Grupo X", usuario);
+		criaGrupoComOsIntegrantes(true, "Grupo X",  true, usuario);
 
 		Usuario usuario1 = criaUsuario("usuario1", true);
-		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1", usuario1);
+		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1",  true, usuario1);
 		GrupoJSON grupoJSON = (GrupoJSON) grupoRS.obter(grupo.getId()).getEntity();
 		List<UsuarioJSON> usuarios = grupoJSON.getUsuarios();
 		usuarios.add(new UsuarioJSON(null, "Usuario 2", "usuario@dextra-sw.com"));
@@ -220,8 +220,8 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		Usuario usuario1 = criaUsuario("Usuario 1", true);
 		Usuario usuario2 = criaUsuario("Usuario 2", true);
 		Usuario proprietario = criaUsuario(USUARIO_LOGADO, true);
-		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo1", proprietario, usuario2);
-		criaGrupoComOsIntegrantes(false, "OutroGrupo", usuario1);
+		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo1",  true, proprietario, usuario2);
+		criaGrupoComOsIntegrantes(false, "OutroGrupo", true, usuario1);
 		
 		USUARIO_LOGADO = usuario1.getUsername();
 		GrupoJSON grupojson = (GrupoJSON) grupoRS.obter(grupo.getId()).getEntity();
@@ -251,11 +251,13 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		Usuario proprietario = criaUsuario("Usuario 1", true);
 		Usuario usuario2 = criaUsuario("Usuario 2", true);
 		Usuario usuario1 = criaUsuario(USUARIO_LOGADO, true);
-		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo1", proprietario, usuario1, usuario2);
+		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo1", true, proprietario, usuario1, usuario2);
 		int qtdeMembrosAntesDaAtualizacao = ((GrupoJSON) grupoRS.obter(grupo.getId()).getEntity()).getUsuarios().size();
+		
 		GrupoJSON grupojson = removerMembrodoGrupo(proprietario, grupo);
 		Response response = grupoRS.atualizar(grupo.getId(), grupojson);
 		grupojson = (GrupoJSON) grupoRS.obter(grupo.getId()).getEntity();
+		
 		assertEquals(3, qtdeMembrosAntesDaAtualizacao);
 		assertEquals(Status.OK.getStatusCode(), response.getStatus());
 		assertEquals(2, grupojson.getUsuarios().size());
@@ -268,7 +270,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		Usuario usuario1 = criaUsuario("Usuario 1", true);
 		Usuario usuario2 = criaUsuario("Usuario 2", true);
 		Usuario proprietario = criaUsuario(USUARIO_LOGADO, true);
-		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo1", proprietario, usuario1, usuario2);
+		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo1", false, proprietario, usuario1, usuario2);
 
 		USUARIO_LOGADO = usuario1.getUsername();
 		GrupoJSON grupojson = removerMembrodoGrupo(usuario2, grupo);
@@ -276,7 +278,8 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		
 		grupojson = (GrupoJSON) grupoRS.obter(grupo.getId()).getEntity();
 		assertEquals(Status.OK.getStatusCode(), response.getStatus());
-		assertEquals(2, grupojson.getUsuarios().size());
+		assertEquals(1, grupojson.getUsuarios().size());
+		assertEquals(proprietario.getUsername(), grupojson.getProprietario());
 		
 		USUARIO_LOGADO = "login.google";
 	}
@@ -287,8 +290,8 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		Usuario usuario1 = criaUsuario("Usuario 1", true);
 		Usuario usuario2 = criaUsuario("Usuario 2", true);
 		Usuario proprietario = criaUsuario(USUARIO_LOGADO, true);
-		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo1", usuario1, usuario2);
-		criaGrupoComOsIntegrantes(true, "Grupo2", proprietario);
+		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo1", true, usuario1, usuario2);
+		criaGrupoComOsIntegrantes(true, "Grupo2", true, proprietario);
 
 		GrupoJSON grupojson = removerMembrodoGrupo(usuario2, grupo);
 		Response response = grupoRS.atualizar(grupo.getId(), grupojson);
@@ -323,7 +326,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		limpaUsuariosInseridos(usuarioRepository);
 		String nome = "Grupo A";
 		Usuario usuario = criaUsuario(USUARIO_LOGADO, true);
-		criaGrupoComOsIntegrantes(false, "Grupo A", usuario);
+		criaGrupoComOsIntegrantes(false, "Grupo A", true, usuario);
 		
 		Response response = grupoRS.listar();
 		List<GrupoJSON> gruposjson = (List<GrupoJSON>) response.getEntity();
@@ -338,7 +341,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		limpaUsuariosInseridos(usuarioRepository);
 		Usuario membro = criaUsuario(USUARIO_LOGADO, true);
 		Usuario proprietario = criaUsuario("proprietario", true);
-		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1", proprietario, membro);
+		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1", true, proprietario, membro);
 		
 		Response response = grupoRS.deletar(grupo.getId());
 		
@@ -371,7 +374,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 			throws EntityNotFoundException {
 		Usuario lulao = criaUsuario("lulao", true);
 		Usuario dudi = criaUsuario("dudi", true);
-		criaGrupoComOsIntegrantes(false, "VamoBugrao", lulao, dudi);
+		criaGrupoComOsIntegrantes(false, "VamoBugrao", true, lulao, dudi);
 
 		this.removeUmDosUsuariosDoGrupo(lulao);
 
@@ -383,7 +386,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		limpaUsuariosInseridos(usuarioRepository);
 		criaUsuario(USUARIO_LOGADO, true);
 		Usuario usuario1 = criaUsuario("usuario1", true);
-		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1", usuario1, usuario1);
+		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1", true, usuario1, usuario1);
 		
 		Response response = grupoRS.obter(grupo.getId());
 		GrupoJSON grupojson = (GrupoJSON) response.getEntity();
@@ -395,10 +398,10 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		limpaUsuariosInseridos(usuarioRepository);
 		Usuario usuario = criaUsuario(USUARIO_LOGADO, true);
 		Usuario usuarioMembro = criaUsuario("membroInfra", true);
-		criaGrupoComOsIntegrantes(true, "Grupo Infra", usuarioMembro, usuario);
+		criaGrupoComOsIntegrantes(true, "Grupo Infra", true, usuarioMembro, usuario);
 
 		Usuario usuario1 = criaUsuario("usuario1", true);
-		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1", usuario1, usuario1);
+		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1", true, usuario1, usuario1);
 		
 		Response response = grupoRS.obter(grupo.getId());
 		GrupoJSON grupojson = (GrupoJSON) response.getEntity();
@@ -412,7 +415,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		Usuario proprietario = criaUsuario("usuario", true);
 		Usuario membro = criaUsuario(USUARIO_LOGADO, true);
 
-		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1", proprietario, membro);
+		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1", true, proprietario, membro);
 		
 		Response response = grupoRS.obter(grupo.getId());
 		GrupoJSON grupojson = (GrupoJSON) response.getEntity();
@@ -425,7 +428,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		limpaUsuariosInseridos(usuarioRepository);
 		Usuario membro = criaUsuario(USUARIO_LOGADO, true);
 		Usuario usuario1 = criaUsuario("usuario1", true);
-		criaGrupoComOsIntegrantes(false, "Grupo 1", usuario1, membro);
+		criaGrupoComOsIntegrantes(false, "Grupo 1", true, usuario1, membro);
 		
 		Response response = grupoRS.listar();
 		List<GrupoJSON> gruposjson = (List<GrupoJSON>) response.getEntity();
@@ -438,7 +441,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		limpaUsuariosInseridos(usuarioRepository);
 		criaUsuario(USUARIO_LOGADO, true);
 		Usuario usuario1 = criaUsuario("usuario1", true);
-		criaGrupoComOsIntegrantes(false, "Grupo 1", usuario1, usuario1);
+		criaGrupoComOsIntegrantes(false, "Grupo 1", true, usuario1, usuario1);
 		
 		Response response = grupoRS.listar();
 		List<GrupoJSON> gruposjson = (List<GrupoJSON>) response.getEntity();
@@ -451,10 +454,10 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		limpaUsuariosInseridos(usuarioRepository);
 		Usuario usuario = criaUsuario(USUARIO_LOGADO, true);
 		Usuario usuarioMembroInfra = criaUsuario("membroInfra", true);
-		criaGrupoComOsIntegrantes(true, "Grupo Infra", usuarioMembroInfra, usuario);
+		criaGrupoComOsIntegrantes(true, "Grupo Infra", true, usuarioMembroInfra, usuario);
 
 		Usuario usuario1 = criaUsuario("usuario1", true);
-		criaGrupoComOsIntegrantes(false, "Grupo 1", usuario1, usuario1);
+		criaGrupoComOsIntegrantes(false, "Grupo 1", true, usuario1, usuario1);
 		
 		Response response = grupoRS.listar();
 		List<GrupoJSON> gruposjson = (List<GrupoJSON>) response.getEntity();

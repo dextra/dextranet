@@ -24,8 +24,8 @@ public class ServicoGrupoRepositoryTest extends TesteIntegracaoBase {
 		Usuario usuario2 = criaUsuario("Usuario2", true);
 		Usuario usuario3 = criaUsuario("Usuario3", true);
 		Usuario usuario4 = criaUsuario("Usuario4", true);
-		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1", usuario1, usuario2, usuario3, usuario4);
-		Grupo grupo2 = criaGrupoComOsIntegrantes(false, "Grupo 2", usuario1, usuario2, usuario3, usuario4);
+		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1", true, usuario1, usuario2, usuario3, usuario4);
+		Grupo grupo2 = criaGrupoComOsIntegrantes(false, "Grupo 2", true, usuario1, usuario2, usuario3, usuario4);
 		Servico servico = servicoRepository.persiste(new Servico("Google Grupos"));
 		ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getId(), grupo.getId(), "grupo@email.com");
 		servicoGrupoRepository.persiste(servicoGrupo);
@@ -43,8 +43,8 @@ public class ServicoGrupoRepositoryTest extends TesteIntegracaoBase {
 		Usuario usuario2 = criaUsuario("Usuario2", true);
 		Usuario usuario3 = criaUsuario("Usuario3", true);
 		Usuario usuario4 = criaUsuario("Usuario4", true);
-		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1", usuario1, usuario2, usuario3, usuario4);
-		Grupo grupo2 = criaGrupoComOsIntegrantes(false, "Grupo 2", usuario1, usuario2, usuario3, usuario4);
+		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1", true, usuario1, usuario2, usuario3, usuario4);
+		Grupo grupo2 = criaGrupoComOsIntegrantes(false, "Grupo 2", true, usuario1, usuario2, usuario3, usuario4);
 		
 		Servico servico = servicoRepository.persiste(new Servico("Google Grupos"));
 		ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getId(), grupo.getId(), "grupo@email.com");

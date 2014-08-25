@@ -196,6 +196,7 @@ public class GrupoRS {
 	@PUT
 	@Produces(Application.JSON_UTF8)
 	public Response atualizar(@PathParam("idGrupo") String id, GrupoJSON grupojson) throws EntityNotFoundException {
+		grupojson.setId(id);
 		String usernameLogado = obtemUsernameUsuarioLogado();
 		
 		String proprietario = usernameLogado;
@@ -273,14 +274,26 @@ public class GrupoRS {
 		Usuario usuario = usuarioRepository.obtemPorUsername(proprietarioAtualGrupo);
 		Membro membroProprietario = new Membro(null, grupoJson.getId(), usuario.getNome(), usuario.getUsername());
 		
-		List<UsuarioJSON> membros = grupoJson.getUsuarios();
-		for (UsuarioJSON membro : membros) {
-			if (membro.getEmail().equals(membroProprietario.getEmail())) {
-				return Boolean.FALSE;
+		if (proprietarioEstavaNoGrupo(grupoJson, membroProprietario)) {
+			List<UsuarioJSON> membros = grupoJson.getUsuarios();
+			for (UsuarioJSON membro : membros) {
+				if (membro.getEmail().equals(membroProprietario.getEmail())) {
+					return Boolean.FALSE;
+				}
 			}
+			
+			return Boolean.TRUE;
+		} else {
+			return Boolean.FALSE;
 		}
-		
-		return Boolean.TRUE;
+	}
+
+	private Boolean proprietarioEstavaNoGrupo(GrupoJSON grupoJson, Membro membroProprietario) {
+		Membro proprietario = repositorioMembro.obtemPorUsername(membroProprietario.getEmail(), grupoJson.getId());
+		if (proprietario != null) {
+			return Boolean.TRUE;
+		}
+		return Boolean.FALSE;
 	}
 
 	private void persisteServicoGrupo(GrupoJSON grupojson, Grupo grupo) throws EntityNotFoundException {

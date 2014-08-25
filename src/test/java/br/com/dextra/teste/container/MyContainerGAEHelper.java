@@ -97,11 +97,12 @@ public class MyContainerGAEHelper {
 		Usuario marcosGomes = criarUsuario("marcos-gomes", "marcos-gomes", "Desenv", "Campinas", "212", "1922215544");
 		Usuario alberto = criarUsuario("alberto", "alberto", "Desenv", "Campinas", "212", "1922215544");
 		
-		DadosUtils.criaGrupoComOsIntegrantes(true, "Grupo Infra", usuarioInfra, buildContinua);
-		DadosUtils.criaGrupoComOsIntegrantes(false, "Grupo A", rodrigoMagalhaes, buildContinua, flaviaSoarez);
-		DadosUtils.criaGrupoComOsIntegrantes(false, "Grupo B", buildContinua, usuarioInfra, loginGoogle, rodrigoMagalhaes);
-		DadosUtils.criaGrupoComOsIntegrantes(false, "Grupo C", loginGoogle, marcosGomes, joaoMarcos, joseSilva);
-		DadosUtils.criaGrupoComOsIntegrantes(false, "Grupo C", loginGoogle, alberto);
+		DadosUtils.criaGrupoComOsIntegrantes(true, "Grupo Infra", true, usuarioInfra, buildContinua);
+		DadosUtils.criaGrupoComOsIntegrantes(false, "Grupo A", true, rodrigoMagalhaes, buildContinua, flaviaSoarez);
+		DadosUtils.criaGrupoComOsIntegrantes(false, "Grupo B", false, buildContinua, usuarioInfra, loginGoogle, rodrigoMagalhaes);
+		DadosUtils.criaGrupoComOsIntegrantes(false, "Grupo C", true, loginGoogle, marcosGomes, joaoMarcos, joseSilva);
+		DadosUtils.criaGrupoComOsIntegrantes(false, "Grupo D", false, loginGoogle, alberto);
+		DadosUtils.criaGrupoComOsIntegrantes(false, "Grupo E", true, marcosGomes, loginGoogle, joaoMarcos, joseSilva);
 	}
 
 

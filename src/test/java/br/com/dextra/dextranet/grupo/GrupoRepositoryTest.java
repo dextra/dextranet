@@ -54,10 +54,10 @@ public class GrupoRepositoryTest extends TesteIntegracaoBase {
 	@Test
 	public void testaListar() {
 		limpaGrupoInseridos(grupoRepositorio);
-		Grupo grupoA = criaGrupoComOsIntegrantes(false, "Grupo A", usuario);
-		Grupo grupoB = criaGrupoComOsIntegrantes(false, "Grupo teste B", usuario);
-		Grupo grupoC = criaGrupoComOsIntegrantes(false, "Grupo teste C", usuario);
-		criaGrupoComOsIntegrantes(false, "Grupo teste D", usuario);
+		Grupo grupoA = criaGrupoComOsIntegrantes(false, "Grupo A", true, usuario);
+		Grupo grupoB = criaGrupoComOsIntegrantes(false, "Grupo teste B", true, usuario);
+		Grupo grupoC = criaGrupoComOsIntegrantes(false, "Grupo teste C", true, usuario);
+		criaGrupoComOsIntegrantes(false, "Grupo teste D", true, usuario);
 
 		List<Grupo> grupos = grupoRepositorio.lista();
 
@@ -81,10 +81,10 @@ public class GrupoRepositoryTest extends TesteIntegracaoBase {
 		Usuario usuario3 = criaUsuario("usuario3", true);
 		Usuario usuario4 = criaUsuario("usuario4", true);
 		
-		criaGrupoComOsIntegrantes(false, "Grupo1", usuario1, usuario2, usuario3, usuario4);
-		criaGrupoComOsIntegrantes(false, "Grupo2", usuario1, usuario2, usuario3, usuario4);
-		criaGrupoComOsIntegrantes(false, "Grupo3", usuario1, usuario2, usuario3, usuario4);
-		criaGrupoComOsIntegrantes(false, "Grupo4", usuario1, usuario2, usuario3, usuario4);
+		criaGrupoComOsIntegrantes(false, "Grupo1", true, usuario1, usuario2, usuario3, usuario4);
+		criaGrupoComOsIntegrantes(false, "Grupo2", true, usuario1, usuario2, usuario3, usuario4);
+		criaGrupoComOsIntegrantes(false, "Grupo3", true, usuario1, usuario2, usuario3, usuario4);
+		criaGrupoComOsIntegrantes(false, "Grupo4", true, usuario1, usuario2, usuario3, usuario4);
 		
 		List<Grupo> grupos = grupoRepositorio.obtemPorIdIntegrante(usuario1.getId());
 		

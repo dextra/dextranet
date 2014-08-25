@@ -89,8 +89,8 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		Usuario usuarioLogado = criaUsuario(USUARIO_LOGADO, true);
 		Usuario usuario1 = criaUsuario("usuario1", true);
 		Usuario usuario2 = criaUsuario("usuario2", true);
-		criaGrupoComOsIntegrantes(true, "Infra", usuarioLogado);
-		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo1", usuario2, usuario1);
+		criaGrupoComOsIntegrantes(true, "Infra", true, usuarioLogado);
+		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo1", true, usuario2, usuario1);
 		
 		UsuarioJSON json = (UsuarioJSON) rest.atualizar(usuario2.getId(), null, null, null, null, null,
 				null, null, null, null, null, false).getEntity();
@@ -114,8 +114,8 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		Usuario usuarioLogado = criaUsuario(USUARIO_LOGADO, true);
 		Usuario usuario1 = criaUsuario("usuario1", true);
 		Usuario usuario2 = criaUsuario("usuario2", true);
-		criaGrupoComOsIntegrantes(true, "Infra", usuarioLogado);
-		criaGrupoComOsIntegrantes(false, "Grupo1", usuario2, usuario1);
+		criaGrupoComOsIntegrantes(true, "Infra", true, usuarioLogado);
+		criaGrupoComOsIntegrantes(false, "Grupo1", true, usuario2, usuario1);
 		
 		UsuarioJSON json = (UsuarioJSON) rest.atualizar(usuario1.getId(), null, null, null, null, null,
 				null, null, null, null, null, false).getEntity();
@@ -136,8 +136,8 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		Usuario usuarioLogado = criaUsuario(USUARIO_LOGADO, true);
 		Usuario usuario1 = criaUsuario("usuario1", true);
 		Usuario usuario2 = criaUsuario("usuario2", true);
-		criaGrupoComOsIntegrantes(true, "Infra", usuarioLogado);
-		criaGrupoComOsIntegrantes(false, "Grupo1", usuario2, usuario1);
+		criaGrupoComOsIntegrantes(true, "Infra", true, usuarioLogado);
+		criaGrupoComOsIntegrantes(false, "Grupo1", true, usuario2, usuario1);
 		
 		Object entity = rest.atualizar(usuario1.getId(), null, null, null, null, null,
 				null, null, null, null, null, true).getEntity();

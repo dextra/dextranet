@@ -2,6 +2,26 @@ dextranet.microblog = {
 
 	foundMicroPosts : [],
 
+	mention : function() {
+		//TODO: Verificar a possiblidade de melhorar o retorno do usuario
+		$.ajax({
+			type : "GET",
+			url : "/s/usuario",
+			dataType : "json",
+			success : function(resultados) {
+				var users = [];
+				var index;
+				resultados.forEach(function(user, index) {
+					users[index] = {username: user.username};
+				});
+				$("#conteudo_novo_micropost").mention({'users': users});
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				dextranet.processaErroNaRequisicao(jqXHR);
+			}
+		});
+	},
+	
 	listar : function(pagina) {
 		if (pagina == 1) {
 			dextranet.microblog.foundMicroPosts = [];
