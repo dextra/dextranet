@@ -47,6 +47,10 @@
                     
                     for (i in settings.queryBy) {
                         if (itemProps[settings.queryBy[i]]) {
+                          
+                            var queryArray = this.query.split(' ');
+                            this.query = queryArray.length ? queryArray[queryArray.length - 1] : this.query;
+                        
                             var item = itemProps[settings.queryBy[i]].toLowerCase(),
                                 usernames = (this.query.toLowerCase()).match(new RegExp(settings.delimiter + '\\w+', "g")),
                                 j;
@@ -65,7 +69,7 @@
                     }
                 },
                 _updater = function(item) {
-                    var data = this.query,
+                    var data = this.$element[0].value,
                         caratPos = this.$element[0].selectionStart,
                         i;
                     
