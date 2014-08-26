@@ -7,6 +7,7 @@ before_script:
 - export MAVEN_HOME=$(pwd)/apache-maven-3.2.2
 - export PATH=$MAVEN_HOME/bin:$PATH
 - mvn --version
+- mvn com.googlecode.mycontainer:mycontainer-maven-plugin:phantomjs-install -Dmycontainer.phantomjs.dest=target/phantomjs -Dmycontainer.phantomjs.version=1.9.2
 
 env:
   global:
@@ -16,7 +17,6 @@ script:
 - export MAVEN_HOME=$(pwd)/apache-maven-3.2.2
 - export PATH=$MAVEN_HOME/bin:$PATH
 - mvn --version
-- mvn com.googlecode.mycontainer:mycontainer-maven-plugin:phantomjs-install -Dmycontainer.phantomjs.dest=target/phantomjs -Dmycontainer.phantomjs.version=1.9.2
 - mvn test -Dselenium
 
 after_success:
