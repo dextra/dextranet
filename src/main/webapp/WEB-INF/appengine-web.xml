@@ -22,6 +22,12 @@
 		<include path="/resources/**" />
 	</resource-files>
 
+	<system-properties>
+	  <property name="gapi.service.account.email" value="430900987246-lfpbc9lt5g2tnq12r1727s6ctldq8qnr@developer.gserviceaccount.com" />
+	  <property name="gapi.service.account.user" value="rafael.mantellatto@dextra-sw.com" />
+	  <property name="gapi.service.account.key" value="WEB-INF/classes/dextra-dextranet-51168b1f48d5.p12" />
+	</system-properties>
+
 	<sessions-enabled>false</sessions-enabled>
 	<threadsafe>true</threadsafe>
 

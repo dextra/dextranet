@@ -1,7 +1,12 @@
 package br.com.dextra.dextranet.grupo;
 
+import gapi.GoogleAPI;
+
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -26,6 +31,8 @@ import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.dextranet.usuario.UsuarioRepository;
 
+import com.google.api.services.admin.directory.DirectoryScopes;
+import com.google.api.services.admin.directory.model.Group;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 
 @Path("/grupo")
@@ -110,7 +117,22 @@ public class GrupoRS {
 
 		return Response.ok().build();
 	}
-
+	
+	@GET
+	@Path("/googlegrupos/list")
+	@Produces(Application.JSON_UTF8)
+	public Response getGroups() throws IOException, GeneralSecurityException, URISyntaxException {
+		List<String> accountscopes = Arrays.asList(DirectoryScopes.ADMIN_DIRECTORY_GROUP);
+		GoogleAPI google = new GoogleAPI(accountscopes);
+		
+		List<Group> groups = google.group().getGroups().getGroups();
+		List<String> emailGrupos = new ArrayList<String>();
+		for (Group group : groups) {
+			emailGrupos.add(group.getEmail());
+		}
+		return Response.ok().entity(emailGrupos).build();
+	}
+	
 	@Path("/googlegrupos/removerIntegrantes/")
 	@PUT
 	@Consumes("application/json")

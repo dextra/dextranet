@@ -9,5 +9,6 @@ target
 .metadata
 WEB-INF
 
-
+*.p12
+.DS_Store
 phantomjsdriver.log

@@ -84,6 +84,21 @@
 			<version>1.15.0-rc</version>
 		</dependency>
 		<dependency>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client-gson</artifactId>
+			<version>1.18.0-rc</version>
+		</dependency>	
+		<dependency>
+        	<groupId>com.google.api-client</groupId>
+          	<artifactId>google-api-client</artifactId>
+          	<version>1.18.0-rc</version>
+        </dependency>
+		<dependency>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client-appengine</artifactId>
+			<version>1.18.0-rc</version>
+		</dependency>
+		<dependency>
 			<groupId>com.google.appengine</groupId>
 			<artifactId>appengine-api-1.0-sdk</artifactId>
 			<version>${appengine.target.version}</version>
@@ -149,6 +164,14 @@
 			<groupId>br.com.dextra</groupId>
 			<artifactId>expertus</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>gapi</groupId>
+			<artifactId>gapi</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.apis</groupId>
+			<artifactId>google-api-services-admin-directory</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.github.detro.ghostdriver</groupId>
@@ -364,9 +387,19 @@
 				<version>2.4</version>
 			</dependency>
 			<dependency>
+			  <groupId>gapi</groupId>
+			  <artifactId>gapi</artifactId>
+			  <version>1.0.0</version>
+			</dependency>		
+			<dependency>
 				<groupId>br.com.dextra</groupId>
 				<artifactId>expertus</artifactId>
 				<version>1.0.14.2</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.apis</groupId>
+				<artifactId>google-api-services-admin-directory</artifactId>
+				<version>directory_v1-rev41-1.18.0-rc</version>
 			</dependency>
 			<dependency>
 				<groupId>org.owasp</groupId>

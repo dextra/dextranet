@@ -2,9 +2,18 @@ package br.com.dextra.dextranet.grupo;
 
 import static br.com.dextra.dextranet.persistencia.DadosUtils.criaGrupoComOsIntegrantes;
 import static br.com.dextra.dextranet.persistencia.DadosUtils.criaUsuario;
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
+//com/ google/ api/ client/ googleapis/ extensions/ appengine/ auth/ oauth2/ 
+
+
+
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -336,6 +345,13 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		}
 	}
 
+	@Test
+	public void testaListarGroups() throws IOException, GeneralSecurityException, URISyntaxException {
+		Response groups = grupoRS.getGroups();
+		List<String> grupos = (List<String>) groups.getEntity();
+		System.out.println(grupos.size());
+	}
+	
 	@Test
 	public void testaNaoPodeRemoverGrupoPorMembrodoGrupoNaoProprietario() throws EntityNotFoundException, IOException {
 		limpaUsuariosInseridos(usuarioRepository);
