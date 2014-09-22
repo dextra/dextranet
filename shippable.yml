@@ -20,7 +20,7 @@ script:
 - ./src/main/resources/crypt/decrypt.sh dextra-dextranet-51168b1f48d5.p12.crypted
 - mv ./src/main/resources/crypt/dextra-dextranet-51168b1f48d5.p12 ./src/main/resources/
 - ls ./src/main/resources/
-- mvn clean install
+- mvn install -DskipTests=true
 - ls ./target/classes/
 - mvn test -Dselenium
 
