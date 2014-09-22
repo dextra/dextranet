@@ -19,7 +19,7 @@ script:
 - mvn --version
 - ./src/main/resources/crypt/decrypt.sh dextra-dextranet-51168b1f48d5.p12.crypted
 - mv src/main/resources/crypt/dextra-dextranet-51168b1f48d5.p12 src/main/resources/
-- mvn test -Dselenium
+- mvn install test -Dselenium
 
 after_success:
 - export MAVEN_HOME=$(pwd)/apache-maven-3.2.2
