@@ -18,7 +18,8 @@ script:
 - export PATH=$MAVEN_HOME/bin:$PATH
 - mvn --version
 - ./src/main/resources/crypt/decrypt.sh dextra-dextranet-51168b1f48d5.p12.crypted
-- mv src/main/resources/crypt/dextra-dextranet-51168b1f48d5.p12 src/main/resources/
+- mv ./src/main/resources/crypt/dextra-dextranet-51168b1f48d5.p12 ./src/main/resources/
+- ls ./src/main/resources/
 - mvn install test -Dselenium
 
 after_success:
