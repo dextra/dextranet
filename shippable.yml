@@ -11,7 +11,7 @@ before_script:
 
 env:
   global:
-   - secure: QLsk0n4zrP9H4pyHj2Qn/Gw8xtl4QfyI23feT2GtnCpKKPTcRXoNtwqPz8nv7McsJU6wkB2W03TIigQr7ervjrtrzfh/kxOO/CB42A75J6YWhqY+hUucAjr5KHRnpj5b22VUueEjwjY+W64a8d7yXQFi+XwadrU1yY7qXYz6P+84WnZJCsUCRjxMyhWyyLLUJMhRql0Mvcrn7lU0UEiI9FlZJDJx4t3BEjxdzQC/T2QDY9qD4nCcJQNHDvU6CXV98FrtyQ/fMuwJe3YHrdWljmXBVcTTp+e6Urc2nr9cfYiepmCGKRWYoavjvm7k7GG+kr/k6XKYBHErROXhI9Y0VQ==
+   - secure: XUuKZbK2jZdClbifGd8UhmVsK5ZukV1f/nGxrjAXHYY0N3v8TLdaCbyWiRvBy9EdJTByH6N8z4otAqH1fvOYpJ+XNpJfhm4E73b21W+ANEAmTq5k/nTIidb8H4xFueZ3zvvsuQWHi7eakVUTC4AChlCfNnOg9K9bvSqZYOFo13qiq02YCYyy447INzfdTa8TwLV2/LjtRSN7R8aNZsNvJcuoVxiuexizNPo8BBqWekcDAyXtXUnyroq3WzxdIIRs4eI2N4ucKu5gMbWlsRI58Thuyc6/wRUYjuXxtupqakAZOuWjlKqmWW1j6Hd136eTEQrFyxQvWQAHKMKFTFrSjw==
 
 script:
 - export MAVEN_HOME=$(pwd)/apache-maven-3.2.2
