@@ -331,8 +331,9 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		String nome = "Grupo A";
 		String descricao = "Grupo teste";
 		String email = "teste@dextra-sw.com";
-		Usuario usuario = new Usuario("JoaoDextrano");
-		usuario = usuarioRepository.persiste(usuario);
+		
+		Usuario usuario = criaUsuario("JoaoDextrano", true);
+		
 		Grupo grupo = new Grupo(nome, descricao, grupoRS.obtemUsernameUsuarioLogado());
 		grupo = repositorioGrupo.persiste(grupo);
 		repositorioMembro.persiste(new Membro(usuario.getId(), grupo.getId(), usuario.getNome(), email));
