@@ -325,7 +325,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		Usuario proprietario = criarUsuario("proprietario", true);
 		Grupo grupo = criarGrupoComOsIntegrantes("grupo1", false, "Grupo 1", true, proprietario, membro);
 
-		Response response = grupoRS.deletar(grupo.getId());
+		Response response = grupoRS.remover(grupo.getId());
 
 		assertEquals(Status.FORBIDDEN.getStatusCode(), response.getStatus());
 	}
@@ -333,10 +333,9 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	@Test
 	public void testaRemoverGrupo() throws EntityNotFoundException, IOException {
 		String nomeGrupo = "Grupo A";
-		
 		Usuario usuario = criarUsuario("JoaoDextrano", true);
 		Grupo grupo = criarGrupoComOsIntegrantes(emailGrupo, false, nomeGrupo, true, usuario);
-		grupoRS.deletar(grupo.getId());
+		grupoRS.remover(grupo.getId());
 
 		try {
 			repositorioGrupo.obtemPorId(grupo.getId());

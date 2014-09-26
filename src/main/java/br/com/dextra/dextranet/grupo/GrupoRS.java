@@ -1,12 +1,9 @@
 package br.com.dextra.dextranet.grupo;
 
-import gapi.GoogleAPI;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -32,7 +29,6 @@ import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.dextranet.usuario.UsuarioRepository;
 
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
-import com.google.api.services.admin.directory.DirectoryScopes;
 import com.google.api.services.admin.directory.model.Group;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 
@@ -43,14 +39,6 @@ public class GrupoRS {
 	ServicoGrupoRepository servicoGrupoRepository = new ServicoGrupoRepository();
 	UsuarioRepository usuarioRepository = new UsuarioRepository();
 	private static Aprovisionamento aprovisionamento = null;
-
-	private List<String> accountscopes;
-	private GoogleAPI google;
-
-	public GrupoRS() {
-		accountscopes = Arrays.asList(DirectoryScopes.ADMIN_DIRECTORY_GROUP);
-		google = new GoogleAPI(accountscopes);
-	}
 
 	@Path("/{id}")
 	@GET
@@ -137,7 +125,7 @@ public class GrupoRS {
 	@Path("/googlegrupos/list")
 	@Produces(Application.JSON_UTF8)
 	public Response getGroups() throws IOException, GeneralSecurityException, URISyntaxException {
-		List<Group> groups = google.group().getGroups().getGroups();
+		List<Group> groups = getAprovisionamento().googleAPI().group().getGroups().getGroups();
 		List<String> emailGrupos = new ArrayList<String>();
 		for (Group group : groups) {
 			emailGrupos.add(group.getEmail());
@@ -256,7 +244,7 @@ public class GrupoRS {
 	@Path("/{id}")
 	@DELETE
 	@Produces(Application.JSON_UTF8)
-	public Response deletar(@PathParam("id") String id) throws EntityNotFoundException, IOException {
+	public Response remover(@PathParam("id") String id) throws EntityNotFoundException, IOException {
 		String usuarioLogado = obtemUsernameUsuarioLogado();
 		Grupo grupo = repositorio.obtemPorId(id);
 
@@ -270,7 +258,7 @@ public class GrupoRS {
 			if (!servicoGrupos.isEmpty()) {
 				for (ServicoGrupo servico : servicoGrupos) {
 					try {
-						google.group().delete(servico.getEmailGrupo());
+						getAprovisionamento().googleAPI().group().delete(servico.getEmailGrupo());
 						getAprovisionamento().doPost("removergrupo", "", servico.getEmailGrupo(), null);
 						servicoGrupoRepository.remove(servico.getId());
 					} catch (GeneralSecurityException e) {
