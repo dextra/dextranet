@@ -149,7 +149,7 @@ public class GrupoRS {
 			if (googleGrupoJSON.getEmailsExternos() != null) {
 				emails.add(googleGrupoJSON.getEmailsExternos());
 			}
-			getAprovisionamento().removerMembrosGrupo(googleGrupoJSON.getEmailGrupo(), emails);
+			getAprovisionamento().removerMembrosGrupoGoogle(googleGrupoJSON.getEmailGrupo(), emails);
 		}
 
 		return Response.ok().build();
@@ -173,14 +173,12 @@ public class GrupoRS {
 	@DELETE
 	@Produces(Application.JSON_UTF8)
 	public Response removerServico(@PathParam("idGrupo") String idGrupo, @PathParam("idServicoGrupo") String idServicoGrupo)
-	        throws EntityNotFoundException, IOException {
+	        throws EntityNotFoundException, IOException, GeneralSecurityException, URISyntaxException {
 		String usuarioLogado = obtemUsernameUsuarioLogado();
 		Grupo grupo = repositorio.obtemPorId(idGrupo);
 		if (podeRemoverServico(usuarioLogado, grupo)) {
 			ServicoGrupo servico = servicoGrupoRepository.obtemPorId(idServicoGrupo);
-
-			getAprovisionamento().doPost("removergrupo", "", servico.getEmailGrupo(), null);
-
+			getAprovisionamento().googleAPI().group().delete(servico.getEmailGrupo());
 			servicoGrupoRepository.remove(idServicoGrupo);
 
 			return Response.ok().build();
@@ -259,7 +257,6 @@ public class GrupoRS {
 				for (ServicoGrupo servico : servicoGrupos) {
 					try {
 						getAprovisionamento().googleAPI().group().delete(servico.getEmailGrupo());
-						getAprovisionamento().doPost("removergrupo", "", servico.getEmailGrupo(), null);
 						servicoGrupoRepository.remove(servico.getId());
 					} catch (GeneralSecurityException e) {
 						e.printStackTrace();

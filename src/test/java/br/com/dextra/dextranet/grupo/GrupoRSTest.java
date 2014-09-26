@@ -1,11 +1,6 @@
 package br.com.dextra.dextranet.grupo;
 
-import static br.com.dextra.dextranet.persistencia.TesteUtils.adicionarMembroGrupoGoogle;
-import static br.com.dextra.dextranet.persistencia.TesteUtils.criarGrupoComOsIntegrantes;
-import static br.com.dextra.dextranet.persistencia.TesteUtils.criarGrupoGoogle;
-import static br.com.dextra.dextranet.persistencia.TesteUtils.criarUsuario;
-import static br.com.dextra.dextranet.persistencia.TesteUtils.getAprovisionamento;
-import static br.com.dextra.dextranet.persistencia.TesteUtils.removerGrupoGoogle;
+import static br.com.dextra.dextranet.persistencia.TesteUtils.*;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotNull;
@@ -328,10 +323,11 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		Response response = grupoRS.remover(grupo.getId());
 
 		assertEquals(Status.FORBIDDEN.getStatusCode(), response.getStatus());
+		
 	}
 
 	@Test
-	public void testaRemoverGrupo() throws EntityNotFoundException, IOException {
+	public void testaRemoverGrupo() throws EntityNotFoundException, IOException, GeneralSecurityException, URISyntaxException {
 		String nomeGrupo = "Grupo A";
 		Usuario usuario = criarUsuario("JoaoDextrano", true);
 		Grupo grupo = criarGrupoComOsIntegrantes(emailGrupo, false, nomeGrupo, true, usuario);
@@ -342,8 +338,26 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		} catch (EntityNotFoundException e) {
 			assertTrue(true);
 		}
+		
+		assertTrue(buscarGrupoGoogle(emailGrupo) == null);
 	}
 
+	@Test
+	public void testaRemoverServico() throws EntityNotFoundException, IOException, GeneralSecurityException, URISyntaxException {
+		Usuario usuario = buscarUsuario(USUARIO_LOGADO);
+		Grupo grupo = criarGrupoComOsIntegrantes(emailGrupo, false, "Grupo 1", true, usuario);
+		List<ServicoGrupo> servicosGrupo = servicoGrupoRepository.obtemPorIdGrupo(grupo.getId());
+		getAprovisionamento().criarGrupo("Grupo 1", emailGrupo, "", Arrays.asList(USUARIO_LOGADO + "@dextra-sw.com"));
+		
+		grupoRS.removerServico(grupo.getId(), servicosGrupo.get(0).getId());
+		
+		List<ServicoGrupo> servicosGrupo1 = servicoGrupoRepository.obtemPorIdGrupo(grupo.getId());
+		Group group = buscarGrupoGoogle(emailGrupo);
+		
+		assertTrue(servicosGrupo1.size() == 0);
+		assertTrue(group == null);
+	}
+	
 	@Test
 	public void testaListagemDeGrupoComIntegranteRemovido() throws EntityNotFoundException {
 		Usuario lulao = criarUsuario("lulao", true);

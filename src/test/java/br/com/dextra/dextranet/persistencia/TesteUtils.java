@@ -31,7 +31,7 @@ public class TesteUtils {
 	private static ServicoRepository servicoRepository = new ServicoRepository();
 	private static ServicoGrupoRepository servicoGrupoRepository = new ServicoGrupoRepository();
 	private static Aprovisionamento aprovisionamento = null;
-	
+
 	private static Servico getServico() {
 		List<Servico> servicos = servicoRepository.lista();
 		if (servicos.size() == 0) {
@@ -46,21 +46,18 @@ public class TesteUtils {
 		if (aprovisionamento == null) {
 			return new Aprovisionamento();
 		}
-		
+
 		return aprovisionamento;
 	}
 
-	public static Grupo criarGrupoComOsIntegrantes(String emailGrupo,
-			Boolean isInfra, String nomeDoGrupo,
-			Boolean addProprietarioComoMembro, Usuario... integrantes) {
-		Grupo novoGrupo = new Grupo(nomeDoGrupo, nomeDoGrupo,
-				integrantes[0].getUsername());
+	public static Grupo criarGrupoComOsIntegrantes(String emailGrupo, Boolean isInfra, String nomeDoGrupo,
+	        Boolean addProprietarioComoMembro, Usuario... integrantes) {
+		Grupo novoGrupo = new Grupo(nomeDoGrupo, nomeDoGrupo, integrantes[0].getUsername());
 		novoGrupo.setInfra(isInfra);
 		novoGrupo = grupoRepositorio.persiste(novoGrupo);
 
 		Servico servico = getServico();
-		ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getId(),
-				novoGrupo.getId(), emailGrupo);
+		ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getId(), novoGrupo.getId(), emailGrupo);
 		servicoGrupo = servicoGrupoRepository.persiste(servicoGrupo);
 
 		novoGrupo.setServicoGrupos(Arrays.asList(servicoGrupo));
@@ -71,9 +68,8 @@ public class TesteUtils {
 				cont++;
 				continue;
 			} else {
-				membroRepository.persiste(new Membro(integrante.getId(),
-						novoGrupo.getId(), integrante.getNome(), integrante
-								.getUsername()));
+				membroRepository.persiste(new Membro(integrante.getId(), novoGrupo.getId(), integrante.getNome(), integrante
+				        .getUsername()));
 				cont++;
 			}
 		}
@@ -84,11 +80,11 @@ public class TesteUtils {
 	public static void removerUsuario(String username) {
 		usuarioRepositorio.remove(buscarUsuario(username).getId());
 	}
-	
+
 	public static Usuario buscarUsuario(String username) {
 		return usuarioRepositorio.obtemPorUsername(username);
 	}
-	
+
 	public static Usuario criarUsuario(String username, Boolean isAtivo) {
 		Usuario novoUsuario = new Usuario(username);
 		novoUsuario.setAtivo(isAtivo);
@@ -96,19 +92,25 @@ public class TesteUtils {
 		return novoUsuario;
 	}
 
-	public static void removerGrupoGoogle(String emailGrupo) throws IOException,
-			GeneralSecurityException, URISyntaxException {
+	public static void removerGrupoGoogle(String emailGrupo) throws IOException, GeneralSecurityException, URISyntaxException {
 		try {
 			getAprovisionamento().googleAPI().group().delete(emailGrupo);
 		} catch (GoogleJsonResponseException e) {
 		}
 	}
-	
-	public static Group criarGrupoGoogle(String emailGrupo)
-			throws IOException, GeneralSecurityException, URISyntaxException {
+
+	public static Group buscarGrupoGoogle(String emailGrupo) throws IOException, GeneralSecurityException, URISyntaxException {
+		try {
+			return getAprovisionamento().googleAPI().group().getGroup(emailGrupo);
+		} catch (GoogleJsonResponseException e) {
+			return null;
+		}
+	}
+
+	public static Group criarGrupoGoogle(String emailGrupo) throws IOException, GeneralSecurityException, URISyntaxException {
 		String nomeGrupo = "Grupo 1";
 		String descricaoGrupo = "Grupo descrição";
-		
+
 		GoogleAPI googleAPI = getAprovisionamento().googleAPI();
 		Group group = new Group();
 		group.setName(nomeGrupo);
@@ -117,11 +119,12 @@ public class TesteUtils {
 		Group groupRetorno = googleAPI.group().create(group);
 		return groupRetorno;
 	}
-	
-	public static void adicionarMembroGrupoGoogle(List<String> emailMembros, String emailGrupo) throws IOException, GeneralSecurityException, URISyntaxException {
+
+	public static void adicionarMembroGrupoGoogle(List<String> emailMembros, String emailGrupo) throws IOException,
+	        GeneralSecurityException, URISyntaxException {
 		GoogleAPI googleAPI = getAprovisionamento().googleAPI();
 		Group group = googleAPI.group().getGroup(emailGrupo);
-		
+
 		for (String email : emailMembros) {
 			Member membro = new Member();
 			membro.setEmail(email);

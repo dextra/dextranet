@@ -36,7 +36,7 @@ public class Aprovisionamento {
 		googleAPI = new GoogleAPI(Arrays.asList(DirectoryScopes.ADMIN_DIRECTORY_GROUP));
 	}
 	
-	public Group criarGrupo(String nome, String email, String descricao) throws IOException, GeneralSecurityException, URISyntaxException {
+	public Group criarGrupoGoogle(String nome, String email, String descricao) throws IOException, GeneralSecurityException, URISyntaxException {
 		Group grupo = new Group();
 		grupo.setName(nome);
 		grupo.setEmail(email);
@@ -45,7 +45,7 @@ public class Aprovisionamento {
 	}
 	
 	public Group criarGrupo(String nome, String emailGrupo, String descricao, List<String> emailMembros) throws IOException, GeneralSecurityException, URISyntaxException {
-		Group grupo = criarGrupo(nome, emailGrupo, descricao);
+		Group grupo = criarGrupoGoogle(nome, emailGrupo, descricao);
 
 		for (String email : emailMembros) {
 			Member membro = new Member();
@@ -56,7 +56,7 @@ public class Aprovisionamento {
 		return grupo;
 	}
 	
-	public void removerMembrosGrupo(String emailGrupo, List<String> emailMembros) throws IOException, GeneralSecurityException, URISyntaxException {
+	public void removerMembrosGrupoGoogle(String emailGrupo, List<String> emailMembros) throws IOException, GeneralSecurityException, URISyntaxException {
 		Group group = new Group();
 		group.setEmail(emailGrupo);
 		
