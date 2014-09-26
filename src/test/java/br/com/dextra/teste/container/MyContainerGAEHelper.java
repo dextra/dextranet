@@ -97,12 +97,12 @@ public class MyContainerGAEHelper {
 		Usuario marcosGomes = criarUsuario("marcos-gomes", "marcos-gomes", "Desenv", "Campinas", "212", "1922215544");
 		Usuario alberto = criarUsuario("alberto", "alberto", "Desenv", "Campinas", "212", "1922215544");
 		
-		TesteUtils.criaGrupoComOsIntegrantes("grupoinfra", true, "Grupo Infra", true, usuarioInfra, buildContinua);
-		TesteUtils.criaGrupoComOsIntegrantes("grupoa", false, "Grupo A", true, rodrigoMagalhaes, buildContinua, flaviaSoarez);
-		TesteUtils.criaGrupoComOsIntegrantes("grupob", false, "Grupo B", false, buildContinua, usuarioInfra, loginGoogle, rodrigoMagalhaes);
-		TesteUtils.criaGrupoComOsIntegrantes("grupoc", false, "Grupo C", true, loginGoogle, marcosGomes, joaoMarcos, joseSilva);
-		TesteUtils.criaGrupoComOsIntegrantes("grupod", false, "Grupo D", false, loginGoogle, alberto);
-		TesteUtils.criaGrupoComOsIntegrantes("grupoe", false, "Grupo E", true, marcosGomes, loginGoogle, joaoMarcos, joseSilva);
+		TesteUtils.criarGrupoComOsIntegrantes("grupoinfra", true, "Grupo Infra", true, usuarioInfra, buildContinua);
+		TesteUtils.criarGrupoComOsIntegrantes("grupoa", false, "Grupo A", true, rodrigoMagalhaes, buildContinua, flaviaSoarez);
+		TesteUtils.criarGrupoComOsIntegrantes("grupob", false, "Grupo B", false, buildContinua, usuarioInfra, loginGoogle, rodrigoMagalhaes);
+		TesteUtils.criarGrupoComOsIntegrantes("grupoc", false, "Grupo C", true, loginGoogle, marcosGomes, joaoMarcos, joseSilva);
+		TesteUtils.criarGrupoComOsIntegrantes("grupod", false, "Grupo D", false, loginGoogle, alberto);
+		TesteUtils.criarGrupoComOsIntegrantes("grupoe", false, "Grupo E", true, marcosGomes, loginGoogle, joaoMarcos, joseSilva);
 	}
 
 

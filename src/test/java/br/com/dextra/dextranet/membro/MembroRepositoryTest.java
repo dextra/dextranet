@@ -23,12 +23,12 @@ public class MembroRepositoryTest extends TesteIntegracaoBase {
 		
 	@Test
 	public void testaRemoverUsuarioDosGrupos() throws EntityNotFoundException {
-		Usuario usuario1 = criaUsuario("usuario1", true);
-		Usuario usuario2 = criaUsuario("usuario2", true);
+		Usuario usuario1 = criarUsuario("usuario1", true);
+		Usuario usuario2 = criarUsuario("usuario2", true);
 		
-		criaGrupoComOsIntegrantes("grupo1", false, "Grupo 1", true, usuario1, usuario2);
-		criaGrupoComOsIntegrantes("grupo2", false, "Grupo 2", true, usuario1, usuario2);
-		criaGrupoComOsIntegrantes("grupo3", false, "Grupo 3", true, usuario1, usuario2);
+		criarGrupoComOsIntegrantes("grupo1", false, "Grupo 1", true, usuario1, usuario2);
+		criarGrupoComOsIntegrantes("grupo2", false, "Grupo 2", true, usuario1, usuario2);
+		criarGrupoComOsIntegrantes("grupo3", false, "Grupo 3", true, usuario1, usuario2);
 		
 		repositorioMembro.removeMembroDosGruposPor(usuario2);
 		List<Membro> membros = repositorioMembro.obtemPorIdUsuario(usuario2.getId());
@@ -40,8 +40,8 @@ public class MembroRepositoryTest extends TesteIntegracaoBase {
 	
 	@Test
 	public void testaObtemPorUsername() throws EntityNotFoundException {
-		Usuario usuario1 = criaUsuario("usuario1", true);
-		Grupo grupo = criaGrupoComOsIntegrantes("grupo1", false, "Grupo 1", true, usuario1, usuario1);
+		Usuario usuario1 = criarUsuario("usuario1", true);
+		Grupo grupo = criarGrupoComOsIntegrantes("grupo1", false, "Grupo 1", true, usuario1, usuario1);
 		Membro membro = repositorioMembro.obtemPorUsername("usuario1", grupo.getId());
 		
 		assertEquals(usuario1.getUsername(), membro.getEmail());

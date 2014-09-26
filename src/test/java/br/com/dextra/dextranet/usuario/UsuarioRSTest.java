@@ -1,7 +1,7 @@
 package br.com.dextra.dextranet.usuario;
 
-import static br.com.dextra.dextranet.persistencia.TesteUtils.criaGrupoComOsIntegrantes;
-import static br.com.dextra.dextranet.persistencia.TesteUtils.criaUsuario;
+import static br.com.dextra.dextranet.persistencia.TesteUtils.criarGrupoComOsIntegrantes;
+import static br.com.dextra.dextranet.persistencia.TesteUtils.criarUsuario;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotNull;
@@ -78,8 +78,8 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 	@Test
 	public void testaAtualizacaoNaoPermitida() throws EntityNotFoundException, GeneralSecurityException, URISyntaxException {
 		limpaUsuariosInseridos(repositorio);
-		Usuario usuario = TesteUtils.criaUsuario("usuario1", true);
-		TesteUtils.criaUsuario(USUARIO_LOGADO, true);
+		Usuario usuario = TesteUtils.criarUsuario("usuario1", true);
+		TesteUtils.criarUsuario(USUARIO_LOGADO, true);
 
 		Response resposta = usuarioRS.atualizar(usuario.getId(), "Nome", "Apelido", "Area", "Unidade", "Ramal",
 				"Residencial", "Celular", "GitHub", "Skype", "blog", null);
@@ -89,12 +89,12 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 	@Test
 	public void testaDesativacaoUsuarioProprietarioGrupo() throws EntityNotFoundException, GeneralSecurityException, URISyntaxException {
 		limpaUsuariosInseridos(repositorio);
-		Usuario usuarioLogado = criaUsuario(USUARIO_LOGADO, true);
-		Usuario usuario1 = criaUsuario("usuario1", true);
-		Usuario usuario2 = criaUsuario("usuario2", true);
+		Usuario usuarioLogado = criarUsuario(USUARIO_LOGADO, true);
+		Usuario usuario1 = criarUsuario("usuario1", true);
+		Usuario usuario2 = criarUsuario("usuario2", true);
 		
-		criaGrupoComOsIntegrantes("infra", true, "Infra", true, usuarioLogado);
-		Grupo grupo = criaGrupoComOsIntegrantes("grupo1", false, "Grupo1", true, usuario2, usuario1);
+		criarGrupoComOsIntegrantes("infra", true, "Infra", true, usuarioLogado);
+		Grupo grupo = criarGrupoComOsIntegrantes("grupo1", false, "Grupo1", true, usuario2, usuario1);
 		
 		UsuarioJSON json = (UsuarioJSON) usuarioRS.atualizar(usuario2.getId(), null, null, null, null, null,
 				null, null, null, null, null, false).getEntity();
@@ -115,11 +115,11 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 	@Test
 	public void testaDesativacaoUsuario() throws EntityNotFoundException, GeneralSecurityException, URISyntaxException {
 		limpaUsuariosInseridos(repositorio);
-		Usuario usuarioLogado = criaUsuario(USUARIO_LOGADO, true);
-		Usuario usuario1 = criaUsuario("usuario1", true);
-		Usuario usuario2 = criaUsuario("usuario2", true);
-		criaGrupoComOsIntegrantes("infra", true, "Infra", true, usuarioLogado);
-		criaGrupoComOsIntegrantes("grupo1", false, "Grupo1", true, usuario2, usuario1);
+		Usuario usuarioLogado = criarUsuario(USUARIO_LOGADO, true);
+		Usuario usuario1 = criarUsuario("usuario1", true);
+		Usuario usuario2 = criarUsuario("usuario2", true);
+		criarGrupoComOsIntegrantes("infra", true, "Infra", true, usuarioLogado);
+		criarGrupoComOsIntegrantes("grupo1", false, "Grupo1", true, usuario2, usuario1);
 		
 		UsuarioJSON json = (UsuarioJSON) usuarioRS.atualizar(usuario1.getId(), null, null, null, null, null,
 				null, null, null, null, null, false).getEntity();
@@ -137,11 +137,11 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 	@Test
 	public void testaAtivacaoUsuario() throws EntityNotFoundException, GeneralSecurityException, URISyntaxException {
 		limpaUsuariosInseridos(repositorio);
-		Usuario usuarioLogado = criaUsuario(USUARIO_LOGADO, true);
-		Usuario usuario1 = criaUsuario("usuario1", true);
-		Usuario usuario2 = criaUsuario("usuario2", true);
-		criaGrupoComOsIntegrantes("infra", true, "Infra", true, usuarioLogado);
-		criaGrupoComOsIntegrantes("grupo1", false, "Grupo1", true, usuario2, usuario1);
+		Usuario usuarioLogado = criarUsuario(USUARIO_LOGADO, true);
+		Usuario usuario1 = criarUsuario("usuario1", true);
+		Usuario usuario2 = criarUsuario("usuario2", true);
+		criarGrupoComOsIntegrantes("infra", true, "Infra", true, usuarioLogado);
+		criarGrupoComOsIntegrantes("grupo1", false, "Grupo1", true, usuario2, usuario1);
 		
 		Object entity = usuarioRS.atualizar(usuario1.getId(), null, null, null, null, null,
 				null, null, null, null, null, true).getEntity();
@@ -156,10 +156,10 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 	@Test
 	public void testaAjustarBanco() throws EntityNotFoundException {
 		limpaUsuariosInseridos(repositorio);
-		criaUsuario("usuario1", null);
-		criaUsuario("usuario2", null);
-		criaUsuario("usuario3", null);
-		criaUsuario("usuario4", null);
+		criarUsuario("usuario1", null);
+		criarUsuario("usuario2", null);
+		criarUsuario("usuario3", null);
+		criarUsuario("usuario4", null);
 		
 		List<Usuario> usuarios = repositorio.lista();
 		assertEquals(4, usuarios.size());

@@ -50,7 +50,7 @@ public class TesteUtils {
 		return aprovisionamento;
 	}
 
-	public static Grupo criaGrupoComOsIntegrantes(String emailGrupo,
+	public static Grupo criarGrupoComOsIntegrantes(String emailGrupo,
 			Boolean isInfra, String nomeDoGrupo,
 			Boolean addProprietarioComoMembro, Usuario... integrantes) {
 		Grupo novoGrupo = new Grupo(nomeDoGrupo, nomeDoGrupo,
@@ -82,14 +82,14 @@ public class TesteUtils {
 	}
 
 	public static void removerUsuario(String username) {
-		usuarioRepositorio.remove(getUsuario(username).getId());
+		usuarioRepositorio.remove(buscarUsuario(username).getId());
 	}
 	
-	public static Usuario getUsuario(String username) {
+	public static Usuario buscarUsuario(String username) {
 		return usuarioRepositorio.obtemPorUsername(username);
 	}
 	
-	public static Usuario criaUsuario(String username, Boolean isAtivo) {
+	public static Usuario criarUsuario(String username, Boolean isAtivo) {
 		Usuario novoUsuario = new Usuario(username);
 		novoUsuario.setAtivo(isAtivo);
 		novoUsuario = usuarioRepositorio.persiste(novoUsuario);
