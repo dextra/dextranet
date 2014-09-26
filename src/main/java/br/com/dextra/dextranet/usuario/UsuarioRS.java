@@ -1,6 +1,8 @@
 package br.com.dextra.dextranet.usuario;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +42,7 @@ public class UsuarioRS {
 			@FormParam("apelido") String apelido, @FormParam("area") String area, @FormParam("unidade") String unidade,
 			@FormParam("ramal") String ramal, @FormParam("telefoneResidencial") String telefoneResidencial,
 			@FormParam("telefoneCelular") String telefoneCelular, @FormParam("gitHub") String gitHub,
-			@FormParam("skype") String skype, @FormParam("blog") String blog, @FormParam("ativo") Boolean ativo) throws EntityNotFoundException {
+			@FormParam("skype") String skype, @FormParam("blog") String blog, @FormParam("ativo") Boolean ativo) throws EntityNotFoundException, GeneralSecurityException, URISyntaxException {
 
 		Usuario usuario = repositorio.obtemPorId(id);
 
@@ -148,7 +150,7 @@ public class UsuarioRS {
 		return usuarioLogadoIsInfra() || usuario.getUsername().equals(this.obtemUsernameDoUsuarioLogado());
 	}
 
-	private void isDesativacaoUsuario(Usuario usuario) throws EntityNotFoundException {
+	private void isDesativacaoUsuario(Usuario usuario) throws EntityNotFoundException, GeneralSecurityException, URISyntaxException {
 		if (usuario.isAtivo().equals(Boolean.FALSE)) {
 			List<String> emails = new ArrayList<String>();
 			emails.add(usuario.getUsername() + Usuario.DEFAULT_DOMAIN);
@@ -160,14 +162,14 @@ public class UsuarioRS {
 				servicos = grupoJSON.getServico();
 			}
 			
-			desativarUsuario(emails, servicos);
+			removerUsuarioGrupo(emails, servicos);
 			
 			grupoRepositorio.ajustarProprietarioGrupo(usuario);
 			MembroRepository.removeMembroDosGruposPor(usuario);
 		}
 	}
 
-	private void desativarUsuario(List<String> emails, List<GoogleGrupoJSON> servicos) {
+	protected void removerUsuarioGrupo(List<String> emails, List<GoogleGrupoJSON> servicos) throws GeneralSecurityException, URISyntaxException {
 		for (GoogleGrupoJSON servico : servicos) {
 			Aprovisionamento aprovisionamento = new Aprovisionamento();
 			try {

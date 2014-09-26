@@ -1,7 +1,7 @@
 package br.com.dextra.dextranet.grupo;
 
 import static org.junit.Assert.*;
-import static br.com.dextra.dextranet.persistencia.DadosUtils.*;
+import static br.com.dextra.dextranet.persistencia.TesteUtils.*;
 
 import java.util.List;
 
@@ -18,20 +18,16 @@ public class ServicoGrupoRepositoryTest extends TesteIntegracaoBase {
 	ServicoGrupoRepository servicoGrupoRepository = new ServicoGrupoRepository();
 	GrupoRepository grupoRepository = new GrupoRepository();
 	ServicoRepository servicoRepository = new ServicoRepository();
+	
 	@Test
 	public void testarObtemPorIdGrupo() throws EntityNotFoundException {
 		Usuario usuario1 = criaUsuario("Usuario1", true);
 		Usuario usuario2 = criaUsuario("Usuario2", true);
 		Usuario usuario3 = criaUsuario("Usuario3", true);
 		Usuario usuario4 = criaUsuario("Usuario4", true);
-		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1", true, usuario1, usuario2, usuario3, usuario4);
-		Grupo grupo2 = criaGrupoComOsIntegrantes(false, "Grupo 2", true, usuario1, usuario2, usuario3, usuario4);
-		Servico servico = servicoRepository.persiste(new Servico("Google Grupos"));
-		ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getId(), grupo.getId(), "grupo@email.com");
-		servicoGrupoRepository.persiste(servicoGrupo);
-		ServicoGrupo servicoGrupo1 = new ServicoGrupo(servico.getId(), grupo2.getId(), "grupo@email.com");
-		servicoGrupoRepository.persiste(servicoGrupo1);
-		
+		Grupo grupo = criaGrupoComOsIntegrantes("grupo1", false, "Grupo 1", true, usuario1, usuario2, usuario3, usuario4);
+		criaGrupoComOsIntegrantes("grupo2", false, "Grupo 2", true, usuario1, usuario2, usuario3, usuario4);
+	
 		List<ServicoGrupo> servicosGrupo = servicoGrupoRepository.obtemPorIdGrupo(grupo.getId());
 		
 		assertEquals(1, servicosGrupo.size());
@@ -43,15 +39,10 @@ public class ServicoGrupoRepositoryTest extends TesteIntegracaoBase {
 		Usuario usuario2 = criaUsuario("Usuario2", true);
 		Usuario usuario3 = criaUsuario("Usuario3", true);
 		Usuario usuario4 = criaUsuario("Usuario4", true);
-		Grupo grupo = criaGrupoComOsIntegrantes(false, "Grupo 1", true, usuario1, usuario2, usuario3, usuario4);
-		Grupo grupo2 = criaGrupoComOsIntegrantes(false, "Grupo 2", true, usuario1, usuario2, usuario3, usuario4);
+		Grupo grupo = criaGrupoComOsIntegrantes("grupo1", false, "Grupo 1", true, usuario1, usuario2, usuario3, usuario4);
+		criaGrupoComOsIntegrantes("grupo2", false, "Grupo 2", true, usuario1, usuario2, usuario3, usuario4);
 		
-		Servico servico = servicoRepository.persiste(new Servico("Google Grupos"));
-		ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getId(), grupo.getId(), "grupo@email.com");
-		servicoGrupoRepository.persiste(servicoGrupo);
-		ServicoGrupo servicoGrupo1 = new ServicoGrupo(servico.getId(), grupo2.getId(), "grupo@email.com");
-		servicoGrupoRepository.persiste(servicoGrupo1);
-		
-		assertNotNull(servicoGrupoRepository.obtemPor(servicoGrupo.getIdServico(), grupo.getId()));
+		Servico servico = servicoRepository.lista().get(0);
+		assertNotNull(servicoGrupoRepository.obtemPor(servico.getId(), grupo.getId()));
 	}
 }

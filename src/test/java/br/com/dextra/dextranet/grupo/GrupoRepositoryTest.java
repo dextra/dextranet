@@ -1,7 +1,7 @@
 package br.com.dextra.dextranet.grupo;
 
-import static br.com.dextra.dextranet.persistencia.DadosUtils.criaGrupoComOsIntegrantes;
-import static br.com.dextra.dextranet.persistencia.DadosUtils.criaUsuario;
+import static br.com.dextra.dextranet.persistencia.TesteUtils.criaGrupoComOsIntegrantes;
+import static br.com.dextra.dextranet.persistencia.TesteUtils.criaUsuario;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -54,10 +54,10 @@ public class GrupoRepositoryTest extends TesteIntegracaoBase {
 	@Test
 	public void testaListar() {
 		limpaGrupoInseridos(grupoRepositorio);
-		Grupo grupoA = criaGrupoComOsIntegrantes(false, "Grupo A", true, usuario);
-		Grupo grupoB = criaGrupoComOsIntegrantes(false, "Grupo teste B", true, usuario);
-		Grupo grupoC = criaGrupoComOsIntegrantes(false, "Grupo teste C", true, usuario);
-		criaGrupoComOsIntegrantes(false, "Grupo teste D", true, usuario);
+		Grupo grupoA = criaGrupoComOsIntegrantes("grupoa", false, "Grupo A", true, usuario);
+		Grupo grupoB = criaGrupoComOsIntegrantes("grupotesteb", false, "Grupo teste B", true, usuario);
+		Grupo grupoC = criaGrupoComOsIntegrantes("grupotestec", false, "Grupo teste C", true, usuario);
+		criaGrupoComOsIntegrantes("grupotested", false, "Grupo teste D", true, usuario);
 
 		List<Grupo> grupos = grupoRepositorio.lista();
 
@@ -81,10 +81,10 @@ public class GrupoRepositoryTest extends TesteIntegracaoBase {
 		Usuario usuario3 = criaUsuario("usuario3", true);
 		Usuario usuario4 = criaUsuario("usuario4", true);
 		
-		criaGrupoComOsIntegrantes(false, "Grupo1", true, usuario1, usuario2, usuario3, usuario4);
-		criaGrupoComOsIntegrantes(false, "Grupo2", true, usuario1, usuario2, usuario3, usuario4);
-		criaGrupoComOsIntegrantes(false, "Grupo3", true, usuario1, usuario2, usuario3, usuario4);
-		criaGrupoComOsIntegrantes(false, "Grupo4", true, usuario1, usuario2, usuario3, usuario4);
+		criaGrupoComOsIntegrantes("grupo1", false, "Grupo1", true, usuario1, usuario2, usuario3, usuario4);
+		criaGrupoComOsIntegrantes("grupo2", false, "Grupo2", true, usuario1, usuario2, usuario3, usuario4);
+		criaGrupoComOsIntegrantes("grupo3", false, "Grupo3", true, usuario1, usuario2, usuario3, usuario4);
+		criaGrupoComOsIntegrantes("grupo4", false, "Grupo4", true, usuario1, usuario2, usuario3, usuario4);
 		
 		List<Grupo> grupos = grupoRepositorio.obtemPorIdIntegrante(usuario1.getId());
 		

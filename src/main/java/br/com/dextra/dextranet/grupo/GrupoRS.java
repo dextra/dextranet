@@ -31,6 +31,7 @@ import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.dextranet.usuario.UsuarioRepository;
 
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.admin.directory.DirectoryScopes;
 import com.google.api.services.admin.directory.model.Group;
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -41,7 +42,16 @@ public class GrupoRS {
 	MembroRepository repositorioMembro = new MembroRepository();
 	ServicoGrupoRepository servicoGrupoRepository = new ServicoGrupoRepository();
 	UsuarioRepository usuarioRepository = new UsuarioRepository();
-	
+	private static Aprovisionamento aprovisionamento = null;
+
+	private List<String> accountscopes;
+	private GoogleAPI google;
+
+	public GrupoRS() {
+		accountscopes = Arrays.asList(DirectoryScopes.ADMIN_DIRECTORY_GROUP);
+		google = new GoogleAPI(accountscopes);
+	}
+
 	@Path("/{id}")
 	@GET
 	@Produces(Application.JSON_UTF8)
@@ -67,8 +77,9 @@ public class GrupoRS {
 			List<Membro> membros = repositorioMembro.obtemPorIdGrupo(grupo.getId());
 			List<ServicoGrupo> servicoGrupos = servicoGrupoRepository.obtemPorIdGrupo(grupo.getId());
 
-			// TODO: faria mais sentido esse codigo estar dentro de algum repositorio
-			for (Membro membro : membros){
+			// TODO: faria mais sentido esse codigo estar dentro de algum
+			// repositorio
+			for (Membro membro : membros) {
 				try {
 					Usuario integranteDoGrupo = repositorioUsuario.obtemPorId(membro.getIdUsuario());
 					membro.setNomeUsuario(integranteDoGrupo.getNome());
@@ -90,14 +101,15 @@ public class GrupoRS {
 	@Path("/googlegrupos/")
 	@PUT
 	@Consumes("application/json")
-	public Response aprovisionarServicos(List<GoogleGrupoJSON> googleGrupoJSONs) throws IOException, ParseException{
+	public Response aprovisionarServicos(List<GoogleGrupoJSON> googleGrupoJSONs) throws IOException, ParseException,
+	        GeneralSecurityException, URISyntaxException {
 		for (GoogleGrupoJSON googleGrupoJSON : googleGrupoJSONs) {
 			List<String> emails = new ArrayList<String>();
 			for (UsuarioJSON usuarioJSON : googleGrupoJSON.getUsuarioJSONs()) {
 				emails.add(usuarioJSON.getEmail());
 			}
 
-			if(googleGrupoJSON.getEmailsExternos() != null){
+			if (googleGrupoJSON.getEmailsExternos() != null) {
 				JSONParser jParser = new JSONParser();
 				Object emailsExternos = jParser.parse(googleGrupoJSON.getEmailsExternos());
 
@@ -109,22 +121,22 @@ public class GrupoRS {
 				}
 			}
 
-			Aprovisionamento aprovisionamento = new Aprovisionamento();
-			aprovisionamento.doPost("adicionarmembro", googleGrupoJSON.getEmailGrupo(),
-								    googleGrupoJSON.getEmailGrupo(),
-									emails);
+			try {
+				Group group = getAprovisionamento().googleAPI().group().getGroup(googleGrupoJSON.getEmailGrupo());
+				getAprovisionamento().adicionarMembrosGrupo(group.getEmail(), emails);
+			} catch (GoogleJsonResponseException e) {
+				getAprovisionamento()
+				        .criarGrupo(googleGrupoJSON.getNomeEmailGrupo(), googleGrupoJSON.getEmailGrupo(), "", emails);
+			}
 		}
 
 		return Response.ok().build();
 	}
-	
+
 	@GET
 	@Path("/googlegrupos/list")
 	@Produces(Application.JSON_UTF8)
 	public Response getGroups() throws IOException, GeneralSecurityException, URISyntaxException {
-		List<String> accountscopes = Arrays.asList(DirectoryScopes.ADMIN_DIRECTORY_GROUP);
-		GoogleAPI google = new GoogleAPI(accountscopes);
-		
 		List<Group> groups = google.group().getGroups().getGroups();
 		List<String> emailGrupos = new ArrayList<String>();
 		for (Group group : groups) {
@@ -132,27 +144,24 @@ public class GrupoRS {
 		}
 		return Response.ok().entity(emailGrupos).build();
 	}
-	
+
 	@Path("/googlegrupos/removerIntegrantes/")
 	@PUT
 	@Consumes("application/json")
-	public Response removerIntegrantes(List<GoogleGrupoJSON> googleGrupoJSONs) throws IOException, ParseException{
+	public Response removerIntegrantes(List<GoogleGrupoJSON> googleGrupoJSONs) throws IOException, ParseException,
+	        GeneralSecurityException, URISyntaxException {
 		for (GoogleGrupoJSON googleGrupoJSON : googleGrupoJSONs) {
 			List<String> emails = new ArrayList<String>();
-			if(googleGrupoJSON.getUsuarioJSONs() != null){
+			if (googleGrupoJSON.getUsuarioJSONs() != null) {
 				for (UsuarioJSON usuarioJSON : googleGrupoJSON.getUsuarioJSONs()) {
 					emails.add(usuarioJSON.getEmail());
 				}
 			}
 
-			if(googleGrupoJSON.getEmailsExternos() != null){
+			if (googleGrupoJSON.getEmailsExternos() != null) {
 				emails.add(googleGrupoJSON.getEmailsExternos());
 			}
-
-			Aprovisionamento aprovisionamento = new Aprovisionamento();
-			aprovisionamento.doPost("removermembro", googleGrupoJSON.getEmailGrupo(),
-								    googleGrupoJSON.getEmailGrupo(),
-									emails);
+			getAprovisionamento().removerMembrosGrupo(googleGrupoJSON.getEmailGrupo(), emails);
 		}
 
 		return Response.ok().build();
@@ -161,28 +170,28 @@ public class GrupoRS {
 	@Path("/googlegrupos/listarGrupos/")
 	@GET
 	@Produces(Application.JSON_UTF8)
-	public Response listaTodosGrupos() throws IOException{
+	public Response listaTodosGrupos() throws IOException {
 		return Response.ok(new Aprovisionamento().doGet("listargrupos", "")).build();
 	}
 
 	@Path("/googlegrupos/listarMembrosGrupo/{email}")
 	@GET
 	@Produces(Application.JSON_UTF8)
-	public Response listaMembrosGrupo(@PathParam("email") String email) throws IOException{
-		return Response.ok(new Aprovisionamento().doGet("listarMembrosGrupo", email)).build();
+	public Response listaMembrosGrupo(@PathParam("email") String email) throws IOException {
+		return Response.ok(getAprovisionamento().doGet("listarMembrosGrupo", email)).build();
 	}
 
 	@Path("/googlegrupos/grupo/{idGrupo}/servico/{idServicoGrupo}")
 	@DELETE
 	@Produces(Application.JSON_UTF8)
-	public Response removerServico(@PathParam("idGrupo") String idGrupo, @PathParam("idServicoGrupo") String idServicoGrupo) throws EntityNotFoundException, IOException {
+	public Response removerServico(@PathParam("idGrupo") String idGrupo, @PathParam("idServicoGrupo") String idServicoGrupo)
+	        throws EntityNotFoundException, IOException {
 		String usuarioLogado = obtemUsernameUsuarioLogado();
 		Grupo grupo = repositorio.obtemPorId(idGrupo);
 		if (podeRemoverServico(usuarioLogado, grupo)) {
 			ServicoGrupo servico = servicoGrupoRepository.obtemPorId(idServicoGrupo);
 
-			Aprovisionamento aprovisionamento = new Aprovisionamento();
-			aprovisionamento.doPost("removergrupo", "", servico.getEmailGrupo(), null);
+			getAprovisionamento().doPost("removergrupo", "", servico.getEmailGrupo(), null);
 
 			servicoGrupoRepository.remove(idServicoGrupo);
 
@@ -195,7 +204,7 @@ public class GrupoRS {
 	@Path("/")
 	@PUT
 	@Consumes("application/json")
-	public Response adicionar(GrupoJSON grupojson) throws ParseException{
+	public Response adicionar(GrupoJSON grupojson) throws ParseException {
 		Grupo grupo = new Grupo(grupojson.getNome(), grupojson.getDescricao(), obtemUsernameUsuarioLogado());
 		repositorio.persiste(grupo);
 
@@ -204,9 +213,10 @@ public class GrupoRS {
 			repositorioMembro.persiste(membro);
 		}
 
-		if(grupojson.getServico() != null){
-			for(GoogleGrupoJSON servico : grupojson.getServico()){
-				ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getIdServico(), grupo.getId(), servico.getEmailGrupo(), servico.getEmailsExternos());
+		if (grupojson.getServico() != null) {
+			for (GoogleGrupoJSON servico : grupojson.getServico()) {
+				ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getIdServico(), grupo.getId(), servico.getEmailGrupo(),
+				        servico.getEmailsExternos());
 				servicoGrupoRepository.persiste(servicoGrupo);
 			}
 		}
@@ -220,20 +230,20 @@ public class GrupoRS {
 	public Response atualizar(@PathParam("idGrupo") String id, GrupoJSON grupojson) throws EntityNotFoundException {
 		grupojson.setId(id);
 		String usernameLogado = obtemUsernameUsuarioLogado();
-		
+
 		String proprietario = usernameLogado;
 		Grupo grupo = repositorio.obtemPorId(id);
 		if (podeAlterarGrupo(usernameLogado, grupo)) {
 			if (proprietarioExcluido(grupojson)) {
 				grupo.comProprietario(obterNovoProprietarioGrupo(grupo));
 			}
-			
+
 			if (!grupo.getProprietario().equals(usernameLogado)) {
 				proprietario = grupo.getProprietario();
 			}
-			
+
 			grupo = grupo.preenche(grupojson.getNome(), grupojson.getDescricao(), proprietario);
-		
+
 			repositorio.persiste(grupo);
 			adicionaNovosMembros(grupojson.getUsuarios(), grupo.getId());
 			persisteServicoGrupo(grupojson, grupo);
@@ -257,11 +267,17 @@ public class GrupoRS {
 			}
 
 			List<ServicoGrupo> servicoGrupos = servicoGrupoRepository.obtemPorIdGrupo(id);
-			if(!servicoGrupos.isEmpty()){
-				Aprovisionamento aprovisionamento = new Aprovisionamento();
-				for(ServicoGrupo servico : servicoGrupos){
-					aprovisionamento.doPost("removergrupo", "", servico.getEmailGrupo(), null);
-					servicoGrupoRepository.remove(servico.getId());
+			if (!servicoGrupos.isEmpty()) {
+				for (ServicoGrupo servico : servicoGrupos) {
+					try {
+						google.group().delete(servico.getEmailGrupo());
+						getAprovisionamento().doPost("removergrupo", "", servico.getEmailGrupo(), null);
+						servicoGrupoRepository.remove(servico.getId());
+					} catch (GeneralSecurityException e) {
+						e.printStackTrace();
+					} catch (URISyntaxException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 
@@ -279,7 +295,7 @@ public class GrupoRS {
 	protected Usuario obtemUsuarioLogado() {
 		return AutenticacaoService.identificacaoDoUsuarioLogado(obtemUsernameUsuarioLogado());
 	}
-	
+
 	private String obterNovoProprietarioGrupo(Grupo grupo) throws EntityNotFoundException {
 		List<Membro> membros = repositorioMembro.obtemPorIdGrupo(grupo.getId());
 		for (Membro membro : membros) {
@@ -287,7 +303,7 @@ public class GrupoRS {
 				return membro.getEmail();
 			}
 		}
-		//TODO: VERIFICAR ESSE PONTO QUANDO NÃO EXISTIR NENHUM MEMBRO
+		// TODO: VERIFICAR ESSE PONTO QUANDO NÃO EXISTIR NENHUM MEMBRO
 		return null;
 	}
 
@@ -295,7 +311,7 @@ public class GrupoRS {
 		String proprietarioAtualGrupo = grupoJson.getProprietario();
 		Usuario usuario = usuarioRepository.obtemPorUsername(proprietarioAtualGrupo);
 		Membro membroProprietario = new Membro(null, grupoJson.getId(), usuario.getNome(), usuario.getUsername());
-		
+
 		if (proprietarioEstavaNoGrupo(grupoJson, membroProprietario)) {
 			List<UsuarioJSON> membros = grupoJson.getUsuarios();
 			for (UsuarioJSON membro : membros) {
@@ -303,7 +319,7 @@ public class GrupoRS {
 					return Boolean.FALSE;
 				}
 			}
-			
+
 			return Boolean.TRUE;
 		} else {
 			return Boolean.FALSE;
@@ -319,18 +335,19 @@ public class GrupoRS {
 	}
 
 	private void persisteServicoGrupo(GrupoJSON grupojson, Grupo grupo) throws EntityNotFoundException {
-		if(grupojson.getServico() != null){
-			for(GoogleGrupoJSON servico : grupojson.getServico()){
+		if (grupojson.getServico() != null) {
+			for (GoogleGrupoJSON servico : grupojson.getServico()) {
 				Boolean novoRegistro = true;
-				if(servico.getId() != null && servico.getEmailsExternos() != null){
+				if (servico.getId() != null && servico.getEmailsExternos() != null) {
 					ServicoGrupo servicoGrupo = servicoGrupoRepository.obtemPorId(servico.getId());
 					servicoGrupo = servicoGrupo.preenche(servico.getEmailsExternos());
 					servicoGrupoRepository.persiste(servicoGrupo);
 					novoRegistro = false;
-				}else if(servico.getEmailsExternos() != null && novoRegistro){
-					ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getIdServico(), grupo.getId(), servico.getEmailGrupo(), servico.getEmailsExternos());
+				} else if (servico.getEmailsExternos() != null && novoRegistro) {
+					ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getIdServico(), grupo.getId(), servico.getEmailGrupo(),
+					        servico.getEmailsExternos());
 					servicoGrupoRepository.persiste(servicoGrupo);
-				}else{
+				} else {
 					ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getIdServico(), grupo.getId(), servico.getEmailGrupo());
 					servicoGrupoRepository.persiste(servicoGrupo);
 				}
@@ -345,7 +362,7 @@ public class GrupoRS {
 	}
 
 	private void adicionarEAtualizarMembros(List<UsuarioJSON> usuarios, String idGrupo) {
-		//TODO: Verificar uma forma de adicionar somente os necessários
+		// TODO: Verificar uma forma de adicionar somente os necessários
 		for (UsuarioJSON usuario : usuarios) {
 			Membro membroAtualizar = new Membro(usuario.getId(), idGrupo, usuario.getNome(), usuario.getEmail());
 			repositorioMembro.persiste(membroAtualizar);
@@ -353,12 +370,13 @@ public class GrupoRS {
 	}
 
 	private void deletaMembros(List<UsuarioJSON> usuarios, List<Membro> membros) {
-		//TODO Verificar uma forma de somente remover os que não existem na tela
+		// TODO Verificar uma forma de somente remover os que não existem na
+		// tela
 		for (Membro membro : membros) {
 			repositorioMembro.remove(membro.getId());
 		}
 	}
-	
+
 	private boolean podeDeletarGrupo(String usuarioLogado, Grupo grupo) {
 		return AutenticacaoService.isUsuarioGrupoInfra() || usuarioLogado.equals(grupo.getProprietario());
 	}
@@ -366,9 +384,17 @@ public class GrupoRS {
 	private boolean podeRemoverServico(String usuarioLogado, Grupo grupo) {
 		return podeDeletarGrupo(usuarioLogado, grupo);
 	}
-	
+
 	private boolean podeAlterarGrupo(String usuarioLogado, Grupo grupo) {
 		Boolean isMembroGrupo = repositorioMembro.obtemPorUsername(usuarioLogado, grupo.getId()) != null;
 		return podeDeletarGrupo(usuarioLogado, grupo) || isMembroGrupo;
+	}
+
+	private static Aprovisionamento getAprovisionamento() {
+		if (aprovisionamento == null) {
+			return new Aprovisionamento();
+		}
+
+		return aprovisionamento;
 	}
 }

@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import br.com.dextra.dextranet.area.Area;
 import br.com.dextra.dextranet.area.AreaRepository;
-import br.com.dextra.dextranet.persistencia.DadosUtils;
+import br.com.dextra.dextranet.persistencia.TesteUtils;
 import br.com.dextra.dextranet.unidade.Unidade;
 import br.com.dextra.dextranet.unidade.UnidadeRepository;
 import br.com.dextra.dextranet.usuario.Usuario;
@@ -97,12 +97,12 @@ public class MyContainerGAEHelper {
 		Usuario marcosGomes = criarUsuario("marcos-gomes", "marcos-gomes", "Desenv", "Campinas", "212", "1922215544");
 		Usuario alberto = criarUsuario("alberto", "alberto", "Desenv", "Campinas", "212", "1922215544");
 		
-		DadosUtils.criaGrupoComOsIntegrantes(true, "Grupo Infra", true, usuarioInfra, buildContinua);
-		DadosUtils.criaGrupoComOsIntegrantes(false, "Grupo A", true, rodrigoMagalhaes, buildContinua, flaviaSoarez);
-		DadosUtils.criaGrupoComOsIntegrantes(false, "Grupo B", false, buildContinua, usuarioInfra, loginGoogle, rodrigoMagalhaes);
-		DadosUtils.criaGrupoComOsIntegrantes(false, "Grupo C", true, loginGoogle, marcosGomes, joaoMarcos, joseSilva);
-		DadosUtils.criaGrupoComOsIntegrantes(false, "Grupo D", false, loginGoogle, alberto);
-		DadosUtils.criaGrupoComOsIntegrantes(false, "Grupo E", true, marcosGomes, loginGoogle, joaoMarcos, joseSilva);
+		TesteUtils.criaGrupoComOsIntegrantes("grupoinfra", true, "Grupo Infra", true, usuarioInfra, buildContinua);
+		TesteUtils.criaGrupoComOsIntegrantes("grupoa", false, "Grupo A", true, rodrigoMagalhaes, buildContinua, flaviaSoarez);
+		TesteUtils.criaGrupoComOsIntegrantes("grupob", false, "Grupo B", false, buildContinua, usuarioInfra, loginGoogle, rodrigoMagalhaes);
+		TesteUtils.criaGrupoComOsIntegrantes("grupoc", false, "Grupo C", true, loginGoogle, marcosGomes, joaoMarcos, joseSilva);
+		TesteUtils.criaGrupoComOsIntegrantes("grupod", false, "Grupo D", false, loginGoogle, alberto);
+		TesteUtils.criaGrupoComOsIntegrantes("grupoe", false, "Grupo E", true, marcosGomes, loginGoogle, joaoMarcos, joseSilva);
 	}
 
 
