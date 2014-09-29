@@ -171,7 +171,6 @@ public class UsuarioRS {
 	}
 
 	protected void removerUsuarioGrupo(List<String> emails, List<GoogleGrupoJSON> servicos) throws GeneralSecurityException, URISyntaxException {
-		System.out.println("Passando");
 		for (GoogleGrupoJSON servico : servicos) {
 			try {
 				getAprovisionamento().removerMembrosGrupoGoogle(servico.getEmailGrupo() + Usuario.DEFAULT_DOMAIN, emails);
