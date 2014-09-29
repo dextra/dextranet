@@ -34,6 +34,7 @@ public class UsuarioRS {
 	private UsuarioRepository repositorio = new UsuarioRepository();
 	private GrupoRepository grupoRepositorio = new GrupoRepository();
 	private MembroRepository MembroRepository = new MembroRepository();
+	private static Aprovisionamento aprovisionamento = null;
 	
 	@Path("/{id}")
 	@PUT
@@ -170,13 +171,21 @@ public class UsuarioRS {
 	}
 
 	protected void removerUsuarioGrupo(List<String> emails, List<GoogleGrupoJSON> servicos) throws GeneralSecurityException, URISyntaxException {
+		System.out.println("Passando");
 		for (GoogleGrupoJSON servico : servicos) {
-			Aprovisionamento aprovisionamento = new Aprovisionamento();
 			try {
-				aprovisionamento.doPost("removermembro", servico.getNomeEmailGrupo(), servico.getEmailGrupo(), emails);
+				getAprovisionamento().removerMembrosGrupoGoogle(servico.getEmailGrupo() + Usuario.DEFAULT_DOMAIN, emails);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	private static Aprovisionamento getAprovisionamento() {
+		if (aprovisionamento == null) {
+			return new Aprovisionamento();
+		}
+
+		return aprovisionamento;
 	}
 }

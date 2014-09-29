@@ -50,14 +50,14 @@ public class TesteUtils {
 		return aprovisionamento;
 	}
 
-	public static Grupo criarGrupoComOsIntegrantes(String emailGrupo, Boolean isInfra, String nomeDoGrupo,
+	public static Grupo criarGrupoComOsIntegrantes(String nomeEmailGrupo, Boolean isInfra, String nomeDoGrupo,
 	        Boolean addProprietarioComoMembro, Usuario... integrantes) {
 		Grupo novoGrupo = new Grupo(nomeDoGrupo, nomeDoGrupo, integrantes[0].getUsername());
 		novoGrupo.setInfra(isInfra);
 		novoGrupo = grupoRepositorio.persiste(novoGrupo);
 
 		Servico servico = getServico();
-		ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getId(), novoGrupo.getId(), emailGrupo);
+		ServicoGrupo servicoGrupo = new ServicoGrupo(servico.getId(), novoGrupo.getId(), nomeEmailGrupo);
 		servicoGrupo = servicoGrupoRepository.persiste(servicoGrupo);
 
 		novoGrupo.setServicoGrupos(Arrays.asList(servicoGrupo));
