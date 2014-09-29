@@ -1,5 +1,7 @@
 package br.com.dextra.dextranet.grupo;
 
+import gapi.GoogleAPI;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.GeneralSecurityException;
@@ -30,6 +32,7 @@ import br.com.dextra.dextranet.usuario.UsuarioRepository;
 
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.admin.directory.model.Group;
+import com.google.api.services.admin.directory.model.Member;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 
 @Path("/grupo")
@@ -121,18 +124,6 @@ public class GrupoRS {
 		return Response.ok().build();
 	}
 
-	@GET
-	@Path("/googlegrupos/list")
-	@Produces(Application.JSON_UTF8)
-	public Response getGroups() throws IOException, GeneralSecurityException, URISyntaxException {
-		List<Group> groups = getAprovisionamento().googleAPI().group().getGroups().getGroups();
-		List<String> emailGrupos = new ArrayList<String>();
-		for (Group group : groups) {
-			emailGrupos.add(group.getEmail());
-		}
-		return Response.ok().entity(emailGrupos).build();
-	}
-
 	@Path("/googlegrupos/removerIntegrantes/")
 	@PUT
 	@Consumes("application/json")
@@ -158,15 +149,29 @@ public class GrupoRS {
 	@Path("/googlegrupos/listarGrupos/")
 	@GET
 	@Produces(Application.JSON_UTF8)
-	public Response listaTodosGrupos() throws IOException {
-		return Response.ok(new Aprovisionamento().doGet("listargrupos", "")).build();
+	public Response listaTodosGrupos() throws IOException, GeneralSecurityException, URISyntaxException {
+		List<Group> groups = getAprovisionamento().googleAPI().group().getGroups().getGroups();
+		List<String> emailGrupos = new ArrayList<String>();
+		for (Group group : groups) {
+			emailGrupos.add(group.getEmail());
+		}
+		return Response.ok(emailGrupos).build();
 	}
 
 	@Path("/googlegrupos/listarMembrosGrupo/{email}")
 	@GET
 	@Produces(Application.JSON_UTF8)
-	public Response listaMembrosGrupo(@PathParam("email") String email) throws IOException {
-		return Response.ok(getAprovisionamento().doGet("listarMembrosGrupo", email)).build();
+	public Response listaMembrosGrupo(@PathParam("email") String email) throws IOException, GeneralSecurityException, URISyntaxException {
+		GoogleAPI googleApi = getAprovisionamento().googleAPI();
+		Group grupoGoogle = googleApi.group().getGroup(email);
+		List<Member> members = googleApi.group().getMembersGroup(grupoGoogle).getMembers();
+		List<String> emailsMembros = new ArrayList<String>();
+
+		for (Member member : members) {
+			emailsMembros.add(member.getEmail());
+		}		
+		
+		return Response.ok().entity(emailsMembros).build();
 	}
 
 	@Path("/googlegrupos/grupo/{idGrupo}/servico/{idServicoGrupo}")

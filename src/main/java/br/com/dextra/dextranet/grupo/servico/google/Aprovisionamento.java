@@ -69,39 +69,6 @@ public class Aprovisionamento {
 	public GoogleAPI googleAPI() {
 		return googleAPI;
 	}
-	
-	public void doPost(String acao, String nomeEmail, String grupoEmail, List<String> emails) throws IOException {
-		URL url = new URL(
-				"https://script.google.com/macros/s/AKfycbxG9oiWD1a4TvGuJg0QxTCs8FrazbUx8jga1gBZJUnsjSEU6wA/exec?");
-		HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-		urlConn.setDoInput(true);
-		urlConn.setDoOutput(true);
-		urlConn.setUseCaches(false);
-		urlConn.setRequestMethod("POST");
-		urlConn.setReadTimeout(0);
-		urlConn.connect();
-
-		DataOutputStream output = new DataOutputStream(urlConn.getOutputStream());
-		String listString = "";
-		if (emails != null) {
-			for (String s : emails) {
-				listString += s + ",";
-			}
-			listString = listString.substring(0, listString.length() - 1);
-		}
-
-		String content = "key=" + URLEncoder.encode(key, "UTF-8") + "&funcao=" + URLEncoder.encode(acao, "UTF-8")
-				+ "&emailgrupo=" + URLEncoder.encode(grupoEmail, "UTF-8") + "&nomegrupo="
-				+ URLEncoder.encode(nomeEmail, "UTF-8") + "&emailmembro=" + URLEncoder.encode(listString, "UTF-8")
-				+ "&autorRequisicao=" + URLEncoder.encode(obtemUsuarioLogado(), "UTF-8");
-
-		output.writeBytes(content);
-		output.flush();
-		output.close();
-
-		DataInputStream input = new DataInputStream(urlConn.getInputStream());
-		input.close();
-	}
 
 	public String doGet(String acao, String email) throws IOException {
 		HttpURLConnection connection = null;

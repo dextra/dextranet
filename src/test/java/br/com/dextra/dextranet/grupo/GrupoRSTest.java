@@ -23,6 +23,7 @@ import org.junit.Test;
 import br.com.dextra.dextranet.grupo.servico.ServicoRepository;
 import br.com.dextra.dextranet.grupo.servico.google.Aprovisionamento;
 import br.com.dextra.dextranet.grupo.servico.google.GoogleGrupoJSON;
+import br.com.dextra.dextranet.persistencia.TesteUtils;
 import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.dextranet.usuario.UsuarioRepository;
 import br.com.dextra.teste.TesteIntegracaoBase;
@@ -107,6 +108,32 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		GrupoJSON grupoAtualizado = (GrupoJSON) grupoResponse.getEntity();
 		assertEquals(3, grupoAtualizado.getUsuarios().size());
 		assertEquals(usuario1.getUsername(), grupoAtualizado.getProprietario());
+	}
+
+	@Test
+	public void testaListaTodosGrupos() throws IOException, GeneralSecurityException, URISyntaxException {
+		Response response = grupoRS.listaTodosGrupos();
+		@SuppressWarnings("unchecked")
+        List<String> emailsGrupos = (List<String>) response.getEntity();
+		assertTrue(emailsGrupos.size() > 0);
+		assertFalse(emailsContains(emailsGrupos, emailGrupo));
+	}
+
+	@Test
+	public void testaListaMembrosGrupo() throws IOException, GeneralSecurityException, URISyntaxException {
+		String email1 = "username1@dextra-sw.com";
+		String email2 = "username2@dextra-sw.com";
+		String email3 = "username3@dextra-sw.com";
+		TesteUtils.criarGrupoGoogle(emailGrupo);
+		getAprovisionamento().adicionarMembrosGrupo(emailGrupo, Arrays.asList(email1, email2, email3));
+		Response response = grupoRS.listaMembrosGrupo(emailGrupo);
+		@SuppressWarnings("unchecked")
+        List<String> membros = (List<String>) response.getEntity();
+		
+		assertTrue(emailsContains(membros, email1));
+		assertTrue(emailsContains(membros, email2));
+		assertTrue(emailsContains(membros, email3));
+		assertFalse(emailsContains(membros, "teste@dextra-sw.com.br"));
 	}
 
 	@Test
@@ -303,14 +330,6 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 			assertEquals(grupojson.getNome(), nome);
 			assertEquals(grupojson.getUsuarios().get(0).getNome(), usuario.getNome());
 		}
-	}
-
-	@Test
-	public void testaListarGroups() throws IOException, GeneralSecurityException, URISyntaxException {
-		Response groups = grupoRS.getGroups();
-		@SuppressWarnings("unchecked")
-		List<String> grupos = (List<String>) groups.getEntity();
-		assertTrue(grupos.size() > 0);
 	}
 
 	@Test
@@ -542,6 +561,15 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		return false;
 	}
 
+	private Boolean emailsContains(List<String> emails, String email) {
+		for (String e : emails) {
+			if (e.equals(email)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public class GrupoRSFake extends GrupoRS {
 		@Override
 		protected String obtemUsernameUsuarioLogado() {
