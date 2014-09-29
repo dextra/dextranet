@@ -124,11 +124,19 @@ public class TesteUtils {
 	        GeneralSecurityException, URISyntaxException {
 		GoogleAPI googleAPI = getAprovisionamento().googleAPI();
 		Group group = googleAPI.group().getGroup(emailGrupo);
-
+		aguardar2segundos();
 		for (String email : emailMembros) {
 			Member membro = new Member();
 			membro.setEmail(email);
 			googleAPI.group().addMemberGroup(group, membro);
 		}
 	}
+
+	private static void aguardar2segundos() {
+	    try {
+	        Thread.sleep(2000);
+        } catch (InterruptedException e) {
+	        e.printStackTrace();
+        }
+    }
 }

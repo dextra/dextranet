@@ -78,7 +78,7 @@ public class AprovisionamentoTest extends TesteIntegracaoBase {
 		String rafael = "rafael.mantellatto@dextra-sw.com";
 		String rodrigo = "rodrigo.magalhaes@dextra-sw.com";
 		List<String> emailMembros = Arrays.asList(rafael, rodrigo);
-		adicionarMembroGrupoGoogle(emailMembros, emailGrupo);
+        adicionarMembroGrupoGoogle(emailMembros, emailGrupo);
 		
 		aprovisionamento.removerMembrosGrupoGoogle(emailGrupo, Arrays.asList(rafael));
 		List<Member> members = aprovisionamento.googleAPI().group().getMembersGroup(group).getMembers();
