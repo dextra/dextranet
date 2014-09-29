@@ -42,6 +42,14 @@ public class TesteUtils {
 		return servicos.get(0);
 	}
 
+	private static void aguardar2segundos() {
+	    try {
+	        Thread.sleep(2000);
+	    } catch (InterruptedException e) {
+	        e.printStackTrace();
+	    }
+	}
+
 	public static Aprovisionamento getAprovisionamento() {
 		if (aprovisionamento == null) {
 			return new Aprovisionamento();
@@ -131,12 +139,4 @@ public class TesteUtils {
 			googleAPI.group().addMemberGroup(group, membro);
 		}
 	}
-
-	private static void aguardar2segundos() {
-	    try {
-	        Thread.sleep(2000);
-        } catch (InterruptedException e) {
-	        e.printStackTrace();
-        }
-    }
 }
