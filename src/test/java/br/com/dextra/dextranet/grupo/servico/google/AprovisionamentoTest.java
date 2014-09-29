@@ -47,28 +47,28 @@ public class AprovisionamentoTest extends TesteIntegracaoBase {
 	public void testarCriarGrupoComMembros() throws IOException, GeneralSecurityException, URISyntaxException {
 		String nomeGrupo = "Grupo 1";
 		String descricaoGrupo = "Grupo 1";
-		String emailRodrigo = "rodrigo.magalhaes@dextra-sw.com";
-		String emailRafael = "rafael.mantellatto@dextra-sw.com";
+		String emailusuario1 = "usuario.1@dextra-sw.com";
+		String emailusuario2 = "usuario.2@dextra-sw.com";
 		
-		List<String> emailMembros = Arrays.asList(emailRodrigo, emailRafael);
+		List<String> emailMembros = Arrays.asList(emailusuario1, emailusuario2);
 
 		Group grupoGoogle = aprovisionamento.criarGrupo(nomeGrupo, emailGrupo, descricaoGrupo, emailMembros);
 		Members membrosGoogle = aprovisionamento.googleAPI().group().getMembersGroup(grupoGoogle);
 		
 		List<Member> membrosSearch = membrosGoogle.getMembers();
-		assertTrue(membrosContains(membrosSearch, emailRodrigo));
-		assertTrue(membrosContains(membrosSearch, emailRafael));
+		assertTrue(membrosContains(membrosSearch, emailusuario1));
+		assertTrue(membrosContains(membrosSearch, emailusuario2));
 	}
 
 	public void testarExcluirMembrosDoGrupo() throws IOException, GeneralSecurityException, URISyntaxException {
-		List<String> emailMembros = Arrays.asList("rodrigo.magalhaes@dextra-sw.com", "rafael.mantellatto@dextra-sw.com");
+		List<String> emailMembros = Arrays.asList("usuario.1@dextra-sw.com", "usuario.2@dextra-sw.com");
 		Group group = criarGrupoComMembros(emailGrupo, emailMembros);
 		
-		aprovisionamento.removerMembrosGrupoGoogle(emailGrupo, Arrays.asList("rodrigo.magalhaes@dextra-sw.com"));
+		aprovisionamento.removerMembrosGrupoGoogle(emailGrupo, Arrays.asList("usuario.1@dextra-sw.com"));
 		
 		List<Member> members = aprovisionamento.googleAPI().group().getMembersGroup(group).getMembers();
 		assertTrue(members.size() == 1);
-		assertEquals("rafael.mantellatto@dextra-sw.com", members.get(0));
+		assertEquals("usuario.2@dextra-sw.com", members.get(0));
 		
 	}
 
