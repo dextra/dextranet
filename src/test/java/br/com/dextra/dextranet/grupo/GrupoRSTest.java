@@ -456,7 +456,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	@Test
 	public void testaAprovisionarServicos() throws IOException, ParseException, GeneralSecurityException, URISyntaxException,
 	        EntityNotFoundException {
-		Usuario usuario = criarUsuario("Rodrigo", true);
+		Usuario usuario = criarUsuario("usuario1", true);
 		Grupo grupo = criarGrupoComOsIntegrantes(emailGrupo, false, "Grupo", true, usuario);
 		List<ServicoGrupo> servicos = servicoGrupoRepository.obtemPorIdGrupo(grupo.getId());
 
@@ -466,11 +466,11 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		googleGrupojson.setIdServico(servicos.get(0).getIdServico());
 		googleGrupojson.setNomeEmailGrupo("grupo");
 		UsuarioJSON usuariojson = new UsuarioJSON();
-		usuariojson.setEmail("rodrigo.magalhaes@dextra-sw.com");
+		usuariojson.setEmail("usuario.1@dextra-sw.com");
 		usuariojson.setAtivo(true);
-		usuariojson.setApelido("Rodrigo");
-		usuariojson.setUsername("rodrigo.magalhaes");
-		usuariojson.setNome("Rodrigo");
+		usuariojson.setApelido("Usuario1");
+		usuariojson.setUsername("usuario.1");
+		usuariojson.setNome("Usuario1");
 		googleGrupojson.setUsuarioJSONs(Arrays.asList(usuariojson));
 
 		Response response = grupoRS.aprovisionarServicos(Arrays.asList(googleGrupojson));
@@ -483,14 +483,14 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	@Test
 	public void testaRemoverIntegrantes() throws IOException, ParseException, GeneralSecurityException, URISyntaxException,
 	        EntityNotFoundException {
-		String emailRodrigo = "rodrigo.magalhaes@dextra-sw.com";
-		String emailRafael = "rafael.mantellatto@dextra-sw.com";
+		String emailUsuario1 = "usuario.1@dextra-sw.com";
+		String emailUsuario2 = "usuario.2@dextra-sw.com";
 		Group group = criarGrupoGoogle(emailGrupo);
-		List<String> emailMembros = Arrays.asList(emailRodrigo, emailRafael);
+		List<String> emailMembros = Arrays.asList(emailUsuario1, emailUsuario2);
 		adicionarMembroGrupoGoogle(emailMembros, emailGrupo);
 		aprovisionamento.googleAPI().group().getMembersGroup(group).getMembers();
 
-		Usuario usuario = criarUsuario("Rodrigo", true);
+		Usuario usuario = criarUsuario("Usuario1", true);
 		Grupo grupo = criarGrupoComOsIntegrantes(emailGrupo, false, "Grupo", true, usuario);
 		List<ServicoGrupo> servicos = servicoGrupoRepository.obtemPorIdGrupo(grupo.getId());
 
@@ -500,18 +500,18 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		googleGrupojson.setIdServico(servicos.get(0).getIdServico());
 		googleGrupojson.setNomeEmailGrupo("grupo");
 		UsuarioJSON usuariojson = new UsuarioJSON();
-		usuariojson.setEmail("rodrigo.magalhaes@dextra-sw.com");
+		usuariojson.setEmail("usuario.1@dextra-sw.com");
 		usuariojson.setAtivo(true);
-		usuariojson.setApelido("Rodrigo");
-		usuariojson.setUsername("rodrigo.magalhaes");
-		usuariojson.setNome("Rodrigo");
+		usuariojson.setApelido("Usuario1");
+		usuariojson.setUsername("usuario.1");
+		usuariojson.setNome("Usuario1");
 		googleGrupojson.setUsuarioJSONs(Arrays.asList(usuariojson));
 
 		grupoRS.removerIntegrantes(Arrays.asList(googleGrupojson));
 
 		List<Member> members = aprovisionamento.googleAPI().group().getMembersGroup(group).getMembers();
 		assertTrue(members.size() == 1);
-		assertTrue(membrosContains(members, emailRafael));
+		assertTrue(membrosContains(members, emailUsuario2));
 	}
 
 	private GrupoJSON removerMembrodoGrupo(Usuario membro, Grupo grupo) throws EntityNotFoundException {
@@ -533,9 +533,9 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		usuarioRepository.remove(usuario.getId());
 	}
 
-	private Boolean membrosContains(List<Member> membros, String emailRodrigo) {
+	private Boolean membrosContains(List<Member> membros, String email) {
 		for (Member member : membros) {
-			if (member.getEmail().equals(emailRodrigo)) {
+			if (member.getEmail().equals(email)) {
 				return true;
 			}
 		}
