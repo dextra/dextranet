@@ -2,15 +2,8 @@ package br.com.dextra.dextranet.grupo.servico.google;
 
 import gapi.GoogleAPI;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
 import java.util.List;
@@ -22,17 +15,9 @@ import com.google.api.services.admin.directory.model.Group;
 import com.google.api.services.admin.directory.model.Member;
 
 public class Aprovisionamento {
-	private GoogleKeyRepository repo;
-	List<GoogleKey> googleKey;
-	String key;
 	private GoogleAPI googleAPI;
 	
 	public Aprovisionamento() {
-		repo = new GoogleKeyRepository();
-		googleKey = repo.lista();
-		if (googleKey != null && !googleKey.isEmpty()) {
-			key = googleKey.get(0).getKey().toString();
-		}
 		googleAPI = new GoogleAPI(Arrays.asList(DirectoryScopes.ADMIN_DIRECTORY_GROUP));
 	}
 	
@@ -65,39 +50,8 @@ public class Aprovisionamento {
 		}
 	}
 	
-	
 	public GoogleAPI googleAPI() {
 		return googleAPI;
-	}
-
-	public String doGet(String acao, String email) throws IOException {
-		HttpURLConnection connection = null;
-		BufferedReader rd = null;
-		StringBuilder sb = null;
-		String line = null;
-		URL serverAddress = null;
-		serverAddress = new URL(
-				"https://script.google.com/macros/s/AKfycbxG9oiWD1a4TvGuJg0QxTCs8FrazbUx8jga1gBZJUnsjSEU6wA/exec?key="
-						+ key + "&funcao=" + acao + "&emailgrupo=" + email + "&autorRequisicao=" + obtemUsuarioLogado());
-		connection = null;
-		connection = (HttpURLConnection) serverAddress.openConnection();
-		connection.setRequestMethod("GET");
-		connection.setDoOutput(true);
-		connection.setReadTimeout(0);
-		connection.connect();
-		rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-		sb = new StringBuilder();
-
-		while ((line = rd.readLine()) != null) {
-			sb.append(line + '\n');
-		}
-
-		String result = sb.toString();
-		connection.disconnect();
-		rd = null;
-		sb = null;
-		connection = null;
-		return result;
 	}
 	
 	public void adicionarMembrosGrupo(String emailGrupo, List<String> emailMembros) throws IOException, GeneralSecurityException, URISyntaxException {
