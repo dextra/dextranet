@@ -75,33 +75,33 @@ public class AprovisionamentoTest extends TesteIntegracaoBase {
 	@Test
 	public void testaRemoverMembrosGrupo() throws IOException, GeneralSecurityException, URISyntaxException {
 		Group group = criarGrupoGoogle(emailGrupo);
-		String rafael = "rafael.mantellatto@dextra-sw.com";
-		String rodrigo = "rodrigo.magalhaes@dextra-sw.com";
-		List<String> emailMembros = Arrays.asList(rafael, rodrigo);
+		String usuario1 = "usuario.1@dextra-sw.com";
+		String usuario2 = "usuario.2@dextra-sw.com";
+		List<String> emailMembros = Arrays.asList(usuario1, usuario2);
         adicionarMembroGrupoGoogle(emailMembros, emailGrupo);
 		
-		aprovisionamento.removerMembrosGrupoGoogle(emailGrupo, Arrays.asList(rafael));
+		aprovisionamento.removerMembrosGrupoGoogle(emailGrupo, Arrays.asList(usuario1));
 		List<Member> members = aprovisionamento.googleAPI().group().getMembersGroup(group).getMembers();
 		assertTrue(members.size() == 1);
-		assertEquals(rodrigo, members.get(0).getEmail());
+		assertEquals(usuario2, members.get(0).getEmail());
 	}
 	
 	@Test
 	public void testaAdicionarMembrosGrupo() throws IOException, GeneralSecurityException, URISyntaxException {
 		criarGrupoGoogle(emailGrupo);
-		String rafael = "rafael.mantellatto@dextra-sw.com";
-		String rodrigo = "rodrigo.magalhaes@dextra-sw.com";
-		aprovisionamento.adicionarMembrosGrupo(emailGrupo, Arrays.asList(rafael, rodrigo));
+		String usuario1 = "usuario.1@dextra-sw.com";
+		String usuario2 = "usuario.2@dextra-sw.com";
+		aprovisionamento.adicionarMembrosGrupo(emailGrupo, Arrays.asList(usuario1, usuario2));
 		Group group = aprovisionamento.googleAPI().group().getGroup(emailGrupo);
 		List<Member> members = aprovisionamento.googleAPI().group().getMembersGroup(group).getMembers();
 		assertTrue(members.size() == 2);
-		assertTrue(membrosContains(members, rodrigo));
-		assertTrue(membrosContains(members, rafael));
+		assertTrue(membrosContains(members, usuario2));
+		assertTrue(membrosContains(members, usuario1));
 	}
 
-	private Boolean membrosContains(List<Member> membros, String emailRodrigo) {
+	private Boolean membrosContains(List<Member> membros, String email) {
 		for (Member member : membros) {
-			if (member.getEmail().equals(emailRodrigo)) {
+			if (member.getEmail().equals(email)) {
 				return true;
 			}
 		}
@@ -113,15 +113,15 @@ public class AprovisionamentoTest extends TesteIntegracaoBase {
 		GoogleAPI googleAPI = aprovisionamento.googleAPI();
 		Group group = criarGrupoGoogle(emailGrupo);
 		
-		String emailRodrigo = "rodrigo.magalhaes@dextra-sw.com";
-		String emailRafael = "rafael.mantellatto@dextra-sw.com";
+		String usuario1 = "usuario.1@dextra-sw.com";
+		String usuario2 = "usuario.2@dextra-sw.com";
 		
-		Member membroRodrigo = new Member();
-		membroRodrigo.setEmail(emailRodrigo);
-		Member membroRafael = new Member();
-		membroRafael.setEmail(emailRafael);
+		Member membro1 = new Member();
+		membro1.setEmail(usuario1);
+		Member membro2 = new Member();
+		membro2.setEmail(usuario2);
 		
-		List<Member> membrosAdd = Arrays.asList(membroRodrigo, membroRafael);
+		List<Member> membrosAdd = Arrays.asList(membro1, membro2);
 		for (Member membro : membrosAdd) {
 			googleAPI.group().addMemberGroup(group, membro); 
 		}
