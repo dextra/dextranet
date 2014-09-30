@@ -107,7 +107,9 @@ public class TesteUtils {
 
 	public static Group buscarGrupoGoogle(String emailGrupo) throws IOException, GeneralSecurityException, URISyntaxException {
 		try {
-			return getAprovisionamento().googleAPI().group().getGroup(emailGrupo);
+			Group group = getAprovisionamento().googleAPI().group().getGroup(emailGrupo);
+			aguardar2segundos();
+			return group;
 		} catch (GoogleJsonResponseException e) {
 			return null;
 		}
@@ -123,6 +125,7 @@ public class TesteUtils {
 		group.setEmail(emailGrupo);
 		group.setDescription(descricaoGrupo);
 		Group groupRetorno = googleAPI.group().create(group);
+		aguardar2segundos();
 		return groupRetorno;
 	}
 
