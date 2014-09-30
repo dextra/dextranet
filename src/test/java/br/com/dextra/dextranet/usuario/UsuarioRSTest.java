@@ -119,8 +119,7 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 
 		getAprovisionamento().criarGrupo(nomeGrupo, emailGrupo, "").eAdicionarMembros(
 		        Arrays.asList(usuario1.getEmail(), usuario2.getEmail()));
-		;
-
+		TesteUtils.aguardar2segundos();
 		UsuarioJSON json = (UsuarioJSON) usuarioRS.atualizar(usuario2.getId(), null, null, null, null, null, null, null, null,
 		        null, null, false).getEntity();
 
@@ -149,7 +148,7 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 
 		getAprovisionamento().criarGrupo(nomeGrupo, emailGrupo, "").eAdicionarMembros(
 		        Arrays.asList(usuario1.getEmail(), usuario2.getEmail()));
-
+		TesteUtils.aguardar2segundos();
 		UsuarioJSON json = (UsuarioJSON) usuarioRS.atualizar(usuario1.getId(), null, null, null, null, null, null, null, null,
 		        null, null, false).getEntity();
 

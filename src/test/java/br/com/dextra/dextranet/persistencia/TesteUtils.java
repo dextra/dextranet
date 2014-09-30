@@ -42,7 +42,7 @@ public class TesteUtils {
 		return servicos.get(0);
 	}
 
-	private static void aguardar2segundos() {
+	public static void aguardar2segundos() {
 	    try {
 	        Thread.sleep(2000);
 	    } catch (InterruptedException e) {
