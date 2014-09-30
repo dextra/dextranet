@@ -116,7 +116,7 @@ public class Grupo extends Entidade {
 		List<GoogleGrupoJSON> googleGrupoJSONs = new ArrayList<GoogleGrupoJSON>();
 
 		for (ServicoGrupo servicoGrupos : this.servicoGrupos) {
-			GoogleGrupoJSON googleGrupoJSON = new GoogleGrupoJSON(servicoGrupos.getId(), servicoGrupos.getIdServico(), null, servicoGrupos.getEmailGrupo(), null, servicoGrupos.getEmailsExternos());
+			GoogleGrupoJSON googleGrupoJSON = new GoogleGrupoJSON(servicoGrupos.getId(), servicoGrupos.getIdServico(), servicoGrupos.getEmailGrupo(), null, servicoGrupos.getEmailsExternos());
 			googleGrupoJSONs.add(googleGrupoJSON);
 		}
 		return googleGrupoJSONs;

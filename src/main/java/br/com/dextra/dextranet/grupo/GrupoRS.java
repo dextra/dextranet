@@ -113,11 +113,11 @@ public class GrupoRS {
 			}
 
 			try {
-				Group group = getAprovisionamento().googleAPI().group().getGroup(googleGrupoJSON.getEmailGrupo());
+				Group group = getAprovisionamento().googleAPI().group().getGroup(googleGrupoJSON.getEmailDomainGrupo());
 				getAprovisionamento().adicionarMembrosGrupo(group.getEmail(), emails);
 			} catch (GoogleJsonResponseException e) {
 				getAprovisionamento()
-				        .criarGrupo(googleGrupoJSON.getNomeEmailGrupo(), googleGrupoJSON.getEmailGrupo(), "", emails);
+				        .criarGrupo(googleGrupoJSON.getEmailGrupo(), googleGrupoJSON.getEmailDomainGrupo(), "", emails);
 			}
 		}
 
@@ -140,7 +140,7 @@ public class GrupoRS {
 			if (googleGrupoJSON.getEmailsExternos() != null) {
 				emails.add(googleGrupoJSON.getEmailsExternos());
 			}
-			getAprovisionamento().removerMembrosGrupoGoogle(googleGrupoJSON.getEmailGrupo(), emails);
+			getAprovisionamento().removerMembrosGrupoGoogle(googleGrupoJSON.getEmailDomainGrupo(), emails);
 		}
 
 		return Response.ok().build();
@@ -183,7 +183,7 @@ public class GrupoRS {
 		Grupo grupo = repositorio.obtemPorId(idGrupo);
 		if (podeRemoverServico(usuarioLogado, grupo)) {
 			ServicoGrupo servico = servicoGrupoRepository.obtemPorId(idServicoGrupo);
-			getAprovisionamento().googleAPI().group().delete(servico.getEmailGrupo());
+			getAprovisionamento().removerGrupoGoogle(servico.getEmailGrupoDomain());
 			servicoGrupoRepository.remove(idServicoGrupo);
 
 			return Response.ok().build();
@@ -247,7 +247,7 @@ public class GrupoRS {
 	@Path("/{id}")
 	@DELETE
 	@Produces(Application.JSON_UTF8)
-	public Response remover(@PathParam("id") String id) throws EntityNotFoundException, IOException {
+	public Response remover(@PathParam("id") String id) throws EntityNotFoundException, IOException, GeneralSecurityException, URISyntaxException {
 		String usuarioLogado = obtemUsernameUsuarioLogado();
 		Grupo grupo = repositorio.obtemPorId(id);
 
@@ -260,14 +260,8 @@ public class GrupoRS {
 			List<ServicoGrupo> servicoGrupos = servicoGrupoRepository.obtemPorIdGrupo(id);
 			if (!servicoGrupos.isEmpty()) {
 				for (ServicoGrupo servico : servicoGrupos) {
-					try {
-						getAprovisionamento().googleAPI().group().delete(servico.getEmailGrupo());
-						servicoGrupoRepository.remove(servico.getId());
-					} catch (GeneralSecurityException e) {
-						e.printStackTrace();
-					} catch (URISyntaxException e) {
-						e.printStackTrace();
-					}
+					getAprovisionamento().removerGrupoGoogle(servico.getEmailGrupoDomain());
+					servicoGrupoRepository.remove(servico.getId());
 				}
 			}
 

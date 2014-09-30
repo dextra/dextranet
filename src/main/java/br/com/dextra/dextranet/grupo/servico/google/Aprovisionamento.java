@@ -10,6 +10,7 @@ import java.util.List;
 
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.admin.directory.DirectoryScopes;
 import com.google.api.services.admin.directory.model.Group;
 import com.google.api.services.admin.directory.model.Member;
@@ -31,7 +32,7 @@ public class Aprovisionamento {
 	
 	public Group criarGrupo(String nome, String emailGrupo, String descricao, List<String> emailMembros) throws IOException, GeneralSecurityException, URISyntaxException {
 		Group grupo = criarGrupoGoogle(nome, emailGrupo, descricao);
-
+		
 		for (String email : emailMembros) {
 			Member membro = new Member();
 			membro.setEmail(email);
@@ -39,6 +40,16 @@ public class Aprovisionamento {
 		}
 		
 		return grupo;
+	}
+	
+	public void removerGrupoGoogle(String email) throws IOException, GeneralSecurityException, URISyntaxException {
+		try {
+			googleAPI.group().delete(email);
+		} catch(GoogleJsonResponseException e) {
+			if (!e.getMessage().contains("404")) {
+				throw e;
+			}
+		}
 	}
 	
 	public void removerMembrosGrupoGoogle(String emailGrupo, List<String> emailMembros) throws IOException, GeneralSecurityException, URISyntaxException {

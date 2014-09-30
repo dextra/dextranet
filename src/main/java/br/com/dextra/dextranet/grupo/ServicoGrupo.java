@@ -3,6 +3,7 @@ package br.com.dextra.dextranet.grupo;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 import br.com.dextra.dextranet.persistencia.Entidade;
+import br.com.dextra.dextranet.usuario.Usuario;
 
 import com.google.appengine.api.datastore.Entity;
 
@@ -80,6 +81,10 @@ public class ServicoGrupo extends Entidade {
 		this.emailsExternos = emailsExternos;
 	}
 
+	public String getEmailGrupoDomain() {
+		return this.emailGrupo + Usuario.DEFAULT_DOMAIN;
+	}
+	
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this.getClass())

@@ -5,12 +5,12 @@ import java.util.List;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 import br.com.dextra.dextranet.grupo.UsuarioJSON;
+import br.com.dextra.dextranet.usuario.Usuario;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GoogleGrupoJSON {
 	private String id;
 	private String idServico;
-	private String nomeEmailGrupo;
 	private String emailGrupo;
 	private List<UsuarioJSON> usuarioJSONs;
 	private String emailsExternos;
@@ -18,10 +18,9 @@ public class GoogleGrupoJSON {
 	public GoogleGrupoJSON() {
 	}
 
-	public GoogleGrupoJSON(String id, String idServico, String nomeEmailGrupo,String emailGrupo, List<UsuarioJSON> usuarioJSONs, String emailsExternos) {
+	public GoogleGrupoJSON(String id, String idServico, String emailGrupo, List<UsuarioJSON> usuarioJSONs, String emailsExternos) {
 		this.id = id;
 		this.idServico = idServico;
-		this.nomeEmailGrupo = nomeEmailGrupo;
 		this.emailGrupo = emailGrupo;
 		this.usuarioJSONs = usuarioJSONs;
 		this.emailsExternos = emailsExternos;
@@ -35,14 +34,10 @@ public class GoogleGrupoJSON {
 		this.id = id;
 	}
 
-	public String getNomeEmailGrupo() {
-		return nomeEmailGrupo;
+	public String getEmailDomainGrupo() {
+		return emailGrupo + Usuario.DEFAULT_DOMAIN;
 	}
-
-	public void setNomeEmailGrupo(String nomeEmailGrupo) {
-		this.nomeEmailGrupo = nomeEmailGrupo;
-	}
-
+	
 	public String getEmailGrupo() {
 		return emailGrupo;
 	}
@@ -67,7 +62,7 @@ public class GoogleGrupoJSON {
 	public void setUsuarioJSONs(List<UsuarioJSON> usuarioJSONs) {
 		this.usuarioJSONs = usuarioJSONs;
 	}
-
+	
 	public String getEmailsExternos() {
 		return emailsExternos;
 	}

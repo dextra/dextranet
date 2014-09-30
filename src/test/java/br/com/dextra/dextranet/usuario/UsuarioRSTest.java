@@ -3,7 +3,6 @@ package br.com.dextra.dextranet.usuario;
 import static br.com.dextra.dextranet.persistencia.TesteUtils.criarGrupoComOsIntegrantes;
 import static br.com.dextra.dextranet.persistencia.TesteUtils.criarUsuario;
 import static br.com.dextra.dextranet.persistencia.TesteUtils.getAprovisionamento;
-import static br.com.dextra.dextranet.persistencia.TesteUtils.removerGrupoGoogle;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotNull;
@@ -51,7 +50,7 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 
 	@After
 	public void removerDadosInseridos() throws IOException, GeneralSecurityException, URISyntaxException {
-		removerGrupoGoogle(emailGrupo);
+		getAprovisionamento().removerGrupoGoogle(emailGrupo);
 	}
 
 	@Test

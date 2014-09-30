@@ -94,16 +94,14 @@ public class TesteUtils {
 	}
 
 	public static Usuario criarUsuario(String username, Boolean isAtivo) {
-		Usuario novoUsuario = new Usuario(username);
-		novoUsuario.setAtivo(isAtivo);
-		novoUsuario = usuarioRepositorio.persiste(novoUsuario);
-		return novoUsuario;
-	}
-
-	public static void removerGrupoGoogle(String emailGrupo) throws IOException, GeneralSecurityException, URISyntaxException {
 		try {
-			getAprovisionamento().googleAPI().group().delete(emailGrupo);
-		} catch (GoogleJsonResponseException e) {
+			Usuario usuario = usuarioRepositorio.obtemPorUsername(username);
+			return usuario;
+		} catch(EntidadeNaoEncontradaException e) {
+			Usuario novoUsuario = new Usuario(username);
+			novoUsuario.setAtivo(isAtivo);
+			novoUsuario = usuarioRepositorio.persiste(novoUsuario);
+			return novoUsuario;			
 		}
 	}
 

@@ -30,7 +30,7 @@ public class AprovisionamentoTest extends TesteIntegracaoBase {
 	@Before
 	@After
 	public void initial() throws IOException, GeneralSecurityException, URISyntaxException {
-		removerGrupoGoogle(emailGrupo);
+		getAprovisionamento().removerGrupoGoogle(emailGrupo);
 	}
 
 	@Test
