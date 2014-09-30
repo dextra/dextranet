@@ -50,7 +50,7 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 
 	@After
 	public void removerDadosInseridos() throws IOException, GeneralSecurityException, URISyntaxException {
-		getAprovisionamento().removerGrupoGoogle(emailGrupo);
+		getAprovisionamento().removerGrupo(emailGrupo);
 	}
 
 	@Test
@@ -109,7 +109,7 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		limpaUsuariosInseridos(repositorio);
 		String username1 = "usuario.1";
 		String username2 = "usuario.2";
-		
+
 		Usuario usuarioLogado = criarUsuario(USUARIO_LOGADO, true);
 		Usuario usuario1 = criarUsuario(username1, true);
 		Usuario usuario2 = criarUsuario(username2, true);
@@ -117,8 +117,10 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		criarGrupoComOsIntegrantes("infra", true, "Infra", true, usuarioLogado);
 		Grupo grupo = criarGrupoComOsIntegrantes(nomeGrupo, false, nomeGrupo, true, usuario2, usuario1);
 
-		getAprovisionamento().criarGrupo(nomeGrupo, emailGrupo, "", Arrays.asList(usuario1.getEmail(), usuario2.getEmail()));
-		
+		getAprovisionamento().criarGrupo(nomeGrupo, emailGrupo, "").eAdicionarMembros(
+		        Arrays.asList(usuario1.getEmail(), usuario2.getEmail()));
+		;
+
 		UsuarioJSON json = (UsuarioJSON) usuarioRS.atualizar(usuario2.getId(), null, null, null, null, null, null, null, null,
 		        null, null, false).getEntity();
 
@@ -136,7 +138,8 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 	}
 
 	@Test
-	public void testaDesativacaoUsuario() throws EntityNotFoundException, GeneralSecurityException, URISyntaxException, IOException {
+	public void testaDesativacaoUsuario() throws EntityNotFoundException, GeneralSecurityException, URISyntaxException,
+	        IOException {
 		limpaUsuariosInseridos(repositorio);
 		Usuario usuarioLogado = criarUsuario(USUARIO_LOGADO, true);
 		Usuario usuario1 = criarUsuario("usuario1", true);
@@ -144,8 +147,9 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		criarGrupoComOsIntegrantes("infra", true, "Infra", true, usuarioLogado);
 		criarGrupoComOsIntegrantes(nomeGrupo, false, nomeGrupo, true, usuario2, usuario1);
 
-		getAprovisionamento().criarGrupo(nomeGrupo, emailGrupo, "", Arrays.asList(usuario1.getEmail(), usuario2.getEmail()));
-		
+		getAprovisionamento().criarGrupo(nomeGrupo, emailGrupo, "").eAdicionarMembros(
+		        Arrays.asList(usuario1.getEmail(), usuario2.getEmail()));
+
 		UsuarioJSON json = (UsuarioJSON) usuarioRS.atualizar(usuario1.getId(), null, null, null, null, null, null, null, null,
 		        null, null, false).getEntity();
 
@@ -186,7 +190,8 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		Usuario usuario1 = criarUsuario(username1, true);
 		Usuario usuario2 = criarUsuario(username2, true);
 		Grupo grupo = criarGrupoComOsIntegrantes(nomeGrupo, false, nomeGrupo, true, usuario1, usuario2);
-		getAprovisionamento().criarGrupo(nomeGrupo, emailGrupo, "", Arrays.asList(usuario1.getEmail(), usuario2.getEmail()));
+		getAprovisionamento().criarGrupo(nomeGrupo, emailGrupo, "").eAdicionarMembros(
+		        Arrays.asList(usuario1.getEmail(), usuario2.getEmail()));
 
 		List<ServicoGrupo> servicosGrupo = servicoGrupoRepository.obtemPorIdGrupo(grupo.getId());
 		GoogleGrupoJSON googleGrupojson = new GoogleGrupoJSON();
@@ -203,7 +208,7 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		usuarioRS.removerUsuarioGrupo(Arrays.asList(usuario2.getEmail()), Arrays.asList(googleGrupojson));
 		Group group = getAprovisionamento().googleAPI().group().getGroup(emailGrupo);
 		List<Member> members = getAprovisionamento().googleAPI().group().getMembersGroup(group).getMembers();
-		
+
 		assertTrue(members.size() == 1);
 		assertEquals(username1 + "@dextra-sw.com", members.get(0).getEmail());
 	}

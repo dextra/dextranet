@@ -51,7 +51,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		this.limpaMembroInseridos(repositorioMembro);
 		this.limpaServicoGrupo(servicoGrupoRepository);
 		this.limpaServico(servicoRepository);
-		getAprovisionamento().removerGrupoGoogle(emailGrupo);
+		getAprovisionamento().removerGrupo(emailGrupo);
 	}
 
 	@Test
@@ -126,7 +126,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		String email2 = "username2@dextra-sw.com";
 		String email3 = "username3@dextra-sw.com";
 		TesteUtils.criarGrupoGoogle(emailGrupo);
-		getAprovisionamento().adicionarMembrosGrupo(emailGrupo, Arrays.asList(email1, email2, email3));
+		getAprovisionamento().obterGrupo(emailGrupo).eAdicionarMembros(Arrays.asList(email1, email2, email3));
 		Response response = grupoRS.listaMembrosGrupo(emailGrupo);
 		@SuppressWarnings("unchecked")
         List<String> membros = (List<String>) response.getEntity();
@@ -387,7 +387,8 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		Usuario usuario = buscarUsuario(USUARIO_LOGADO);
 		Grupo grupo = criarGrupoComOsIntegrantes(nomeEmailGrupo, false, "Grupo 1", true, usuario);
 		List<ServicoGrupo> servicosGrupo = servicoGrupoRepository.obtemPorIdGrupo(grupo.getId());
-		getAprovisionamento().criarGrupo("Grupo 1", emailGrupo, "", Arrays.asList(USUARIO_LOGADO + "@dextra-sw.com"));
+		getAprovisionamento().criarGrupo("Grupo 1", emailGrupo, "")
+							.eAdicionarMembros(Arrays.asList(USUARIO_LOGADO + "@dextra-sw.com"));
 		
 		grupoRS.removerServico(grupo.getId(), servicosGrupo.get(0).getId());
 		

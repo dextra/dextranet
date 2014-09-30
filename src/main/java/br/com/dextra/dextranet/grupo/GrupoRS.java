@@ -113,11 +113,10 @@ public class GrupoRS {
 			}
 
 			try {
-				Group group = getAprovisionamento().googleAPI().group().getGroup(googleGrupoJSON.getEmailDomainGrupo());
-				getAprovisionamento().adicionarMembrosGrupo(group.getEmail(), emails);
+				getAprovisionamento().obterGrupo(googleGrupoJSON.getEmailDomainGrupo()).eAdicionarMembros(emails);
 			} catch (GoogleJsonResponseException e) {
-				getAprovisionamento()
-				        .criarGrupo(googleGrupoJSON.getEmailGrupo(), googleGrupoJSON.getEmailDomainGrupo(), "", emails);
+				getAprovisionamento().criarGrupo(googleGrupoJSON.getEmailGrupo(), googleGrupoJSON.getEmailDomainGrupo(), "")
+									 .eAdicionarMembros(emails);
 			}
 		}
 
@@ -140,7 +139,7 @@ public class GrupoRS {
 			if (googleGrupoJSON.getEmailsExternos() != null) {
 				emails.add(googleGrupoJSON.getEmailsExternos());
 			}
-			getAprovisionamento().removerMembrosGrupoGoogle(googleGrupoJSON.getEmailDomainGrupo(), emails);
+			getAprovisionamento().obterGrupo(googleGrupoJSON.getEmailDomainGrupo()).eRemoverMembros(emails);
 		}
 
 		return Response.ok().build();
@@ -183,7 +182,7 @@ public class GrupoRS {
 		Grupo grupo = repositorio.obtemPorId(idGrupo);
 		if (podeRemoverServico(usuarioLogado, grupo)) {
 			ServicoGrupo servico = servicoGrupoRepository.obtemPorId(idServicoGrupo);
-			getAprovisionamento().removerGrupoGoogle(servico.getEmailGrupoDomain());
+			getAprovisionamento().removerGrupo(servico.getEmailGrupoDomain());
 			servicoGrupoRepository.remove(idServicoGrupo);
 
 			return Response.ok().build();
@@ -260,7 +259,7 @@ public class GrupoRS {
 			List<ServicoGrupo> servicoGrupos = servicoGrupoRepository.obtemPorIdGrupo(id);
 			if (!servicoGrupos.isEmpty()) {
 				for (ServicoGrupo servico : servicoGrupos) {
-					getAprovisionamento().removerGrupoGoogle(servico.getEmailGrupoDomain());
+					getAprovisionamento().removerGrupo(servico.getEmailGrupoDomain());
 					servicoGrupoRepository.remove(servico.getId());
 				}
 			}
