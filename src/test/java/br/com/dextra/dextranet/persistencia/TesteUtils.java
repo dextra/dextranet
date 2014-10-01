@@ -42,14 +42,6 @@ public class TesteUtils {
 		return servicos.get(0);
 	}
 
-	public static void aguardar2segundos() {
-	    try {
-	        Thread.sleep(2000);
-	    } catch (InterruptedException e) {
-	        e.printStackTrace();
-	    }
-	}
-
 	public static Aprovisionamento getAprovisionamento() {
 		if (aprovisionamento == null) {
 			return new Aprovisionamento();
@@ -108,7 +100,6 @@ public class TesteUtils {
 	public static Group buscarGrupoGoogle(String emailGrupo) throws IOException, GeneralSecurityException, URISyntaxException {
 		try {
 			Group group = getAprovisionamento().googleAPI().group().getGroup(emailGrupo);
-			aguardar2segundos();
 			return group;
 		} catch (GoogleJsonResponseException e) {
 			return null;
@@ -125,7 +116,6 @@ public class TesteUtils {
 		group.setEmail(emailGrupo);
 		group.setDescription(descricaoGrupo);
 		Group groupRetorno = googleAPI.group().create(group);
-		aguardar2segundos();
 		return groupRetorno;
 	}
 
@@ -133,7 +123,6 @@ public class TesteUtils {
 	        GeneralSecurityException, URISyntaxException {
 		GoogleAPI googleAPI = getAprovisionamento().googleAPI();
 		Group group = googleAPI.group().getGroup(emailGrupo);
-		aguardar2segundos();
 		for (String email : emailMembros) {
 			Member membro = new Member();
 			membro.setEmail(email);

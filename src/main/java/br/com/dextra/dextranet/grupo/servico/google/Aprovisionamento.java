@@ -40,7 +40,7 @@ public class Aprovisionamento {
 		for (String email : emailMembros) {
 			Member membro = new Member();
 			membro.setEmail(email);
-			googleAPI.group().addMemberGroup(group, membro); 
+			googleAPI.group().addMemberGroup(group, membro);
 		}
 	}
 

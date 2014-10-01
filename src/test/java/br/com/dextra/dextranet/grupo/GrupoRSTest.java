@@ -389,7 +389,6 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		List<ServicoGrupo> servicosGrupo = servicoGrupoRepository.obtemPorIdGrupo(grupo.getId());
 		getAprovisionamento().criarGrupo("Grupo 1", emailGrupo, "")
 							.eAdicionarMembros(Arrays.asList(USUARIO_LOGADO + "@dextra-sw.com"));
-		TesteUtils.aguardar2segundos();
 		grupoRS.removerServico(grupo.getId(), servicosGrupo.get(0).getId());
 		
 		List<ServicoGrupo> servicosGrupo1 = servicoGrupoRepository.obtemPorIdGrupo(grupo.getId());
