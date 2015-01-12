@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<appengine-web-app xmlns="http://appengine.google.com/ns/1.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://appengine.google.com/ns/1.0 http://googleappengine.googlecode.com/svn/branches/1.2.1/java/docs/appengine-web.xsd">
+<appengine-web-app xmlns="http://appengine.google.com/ns/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://appengine.google.com/ns/1.0 http://googleappengine.googlecode.com/svn/branches/1.2.1/java/docs/appengine-web.xsd">
 
-<!-- 	 APPLICATION PROD -->
-	<application>dextra-dextranet</application>
-	<version>prod</version>
+  <!-- APPLICATION PROD -->
+  <application>dextra-dextranet</application>
+  <version>prod</version>
+  <system-properties>
+    <property name="gapi.service.account.user" value="rafael.mantellatto@dextra-sw.com" />
+    <property name="gapi.service.account.key" value="WEB-INF/classes/crypt/dextra-dextranet-8687c58333ae.p12" />
+    <property name="gapi.service.account.email" value="430900987246-lfpbc9lt5g2tnq12r1727s6ctldq8qnr@developer.gserviceaccount.com" />
+  </system-properties>
 
-	<!-- 	 APPLICATION DEV -->
-	<!-- <application>dev-dextranet</application>
-	<version>dev</version> -->
+  <!-- APPLICATION DEV -->
+  <!-- <application>dev-dextranet</application> -->
+  <!-- <version>dev</version> -->
+  <!-- <system-properties> -->
+  <!-- <property name="gapi.service.account.user" value="rafael.mantellatto@dextra-sw.com" /> -->
+  <!-- <property name="gapi.service.account.key" value="WEB-INF/classes/crypt/dev-dextranet/dev-dextranet-81b5c5a562a2.p12" /> -->
+  <!-- <property name="gapi.service.account.email" value="344929438301-r7cur6c10afuc7j2c0ou7k4floeeuiqa@developer.gserviceaccount.com " /> -->
+  <!-- </system-properties> -->
 
-	<static-files>
-		<include path="/**" />
-		<exclude path="/index.html" />
-	</static-files>
+  <static-files>
+    <include path="/**" />
+    <exclude path="/index.html" />
+  </static-files>
 
-	<resource-files>
-		<include path="/index.html" />
-		<include path="/template/**" />
-		<include path="/resources/**" />
-	</resource-files>
+  <resource-files>
+    <include path="/index.html" />
+    <include path="/template/**" />
+    <include path="/resources/**" />
+  </resource-files>
 
-	<system-properties>
-	  <property name="gapi.service.account.email" value="430900987246-lfpbc9lt5g2tnq12r1727s6ctldq8qnr@developer.gserviceaccount.com" />
-	  <property name="gapi.service.account.user" value="rafael.mantellatto@dextra-sw.com" />
-	  <property name="gapi.service.account.key" value="WEB-INF/classes/crypt/dextra-dextranet-51168b1f48d5.p12" />
-	</system-properties>
 
-	<sessions-enabled>false</sessions-enabled>
-	<threadsafe>true</threadsafe>
+  <sessions-enabled>false</sessions-enabled>
+  <threadsafe>true</threadsafe>
 
 </appengine-web-app>

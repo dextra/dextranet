@@ -2,7 +2,7 @@ package br.com.dextra.dextranet.area;
 
 import java.util.List;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.Test;
 

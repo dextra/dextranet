@@ -1,10 +1,16 @@
 package br.com.dextra.dextranet.grupo;
 
-import static br.com.dextra.dextranet.persistencia.TesteUtils.*;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
+import static br.com.dextra.dextranet.persistencia.TesteUtils.adicionarMembroGrupoGoogle;
+import static br.com.dextra.dextranet.persistencia.TesteUtils.buscarGrupoGoogle;
+import static br.com.dextra.dextranet.persistencia.TesteUtils.buscarUsuario;
+import static br.com.dextra.dextranet.persistencia.TesteUtils.criarGrupoComOsIntegrantes;
+import static br.com.dextra.dextranet.persistencia.TesteUtils.criarGrupoGoogle;
+import static br.com.dextra.dextranet.persistencia.TesteUtils.criarUsuario;
+import static br.com.dextra.dextranet.persistencia.TesteUtils.getAprovisionamento;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -321,8 +327,8 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		assertEquals(grupojson.getUsuarios().get(0).getNome(), usuario.getNome());
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
+	@SuppressWarnings("unchecked")
 	public void testaListar() throws EntityNotFoundException {
 		limpaUsuariosInseridos(usuarioRepository);
 		String nome = "Grupo A";
@@ -516,8 +522,8 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 
 		Response response = grupoRS.aprovisionarServicos(Arrays.asList(googleGrupojson));
 		assertEquals(200, response.getStatus());
-		Group group = aprovisionamento.googleAPI().group().getGroup(emailGrupo);
-		List<Member> members = aprovisionamento.googleAPI().group().getMembersGroup(group).getMembers();
+		Group group = aprovisionamento.googleAPI().directory().getGroup(emailGrupo);
+		List<Member> members = aprovisionamento.googleAPI().directory().getMembersGroup(group).getMembers();
 		assertTrue(members.size() == 1);
 	}
 
@@ -529,7 +535,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 		Group group = criarGrupoGoogle(emailGrupo);
 		List<String> emailMembros = Arrays.asList(emailUsuario1, emailUsuario2);
 		adicionarMembroGrupoGoogle(emailMembros, emailGrupo);
-		aprovisionamento.googleAPI().group().getMembersGroup(group).getMembers();
+		aprovisionamento.googleAPI().directory().getMembersGroup(group).getMembers();
 
 		Usuario usuario = criarUsuario("Usuario1", true);
 		Grupo grupo = criarGrupoComOsIntegrantes(nomeEmailGrupo, false, "Grupo", true, usuario);
@@ -549,7 +555,7 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 
 		grupoRS.removerIntegrantes(Arrays.asList(googleGrupojson));
 
-		List<Member> members = aprovisionamento.googleAPI().group().getMembersGroup(group).getMembers();
+		List<Member> members = aprovisionamento.googleAPI().directory().getMembersGroup(group).getMembers();
 		assertTrue(members.size() == 1);
 		assertTrue(membrosContains(members, emailUsuario2));
 	}

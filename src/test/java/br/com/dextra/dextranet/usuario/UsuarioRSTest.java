@@ -3,11 +3,11 @@ package br.com.dextra.dextranet.usuario;
 import static br.com.dextra.dextranet.persistencia.TesteUtils.criarGrupoComOsIntegrantes;
 import static br.com.dextra.dextranet.persistencia.TesteUtils.criarUsuario;
 import static br.com.dextra.dextranet.persistencia.TesteUtils.getAprovisionamento;
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertNull;
-import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -203,8 +203,8 @@ public class UsuarioRSTest extends TesteIntegracaoBase {
 		usuariojson.setNome("usuario.2");
 		googleGrupojson.setUsuarioJSONs(Arrays.asList(usuariojson));
 		usuarioRS.removerUsuarioGrupo(Arrays.asList(usuario2.getEmail()), Arrays.asList(googleGrupojson));
-		Group group = getAprovisionamento().googleAPI().group().getGroup(emailGrupo);
-		List<Member> members = getAprovisionamento().googleAPI().group().getMembersGroup(group).getMembers();
+		Group group = getAprovisionamento().googleAPI().directory().getGroup(emailGrupo);
+		List<Member> members = getAprovisionamento().googleAPI().directory().getMembersGroup(group).getMembers();
 
 		assertTrue(members.size() == 1);
 		assertEquals(username1 + "@dextra-sw.com", members.get(0).getEmail());

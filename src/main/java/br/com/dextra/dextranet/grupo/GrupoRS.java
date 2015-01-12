@@ -37,10 +37,12 @@ import com.google.appengine.api.datastore.EntityNotFoundException;
 
 @Path("/grupo")
 public class GrupoRS {
+	
 	GrupoRepository repositorio = new GrupoRepository();
 	MembroRepository repositorioMembro = new MembroRepository();
 	ServicoGrupoRepository servicoGrupoRepository = new ServicoGrupoRepository();
 	UsuarioRepository usuarioRepository = new UsuarioRepository();
+	
 	private static Aprovisionamento aprovisionamento = null;
 
 	@Path("/{id}")
@@ -143,13 +145,13 @@ public class GrupoRS {
 		}
 
 		return Response.ok().build();
-	}
-
-	@Path("/googlegrupos/listarGrupos/")
+	}	
+	
 	@GET
 	@Produces(Application.JSON_UTF8)
+	@Path("/googlegrupos/listarGrupos")
 	public Response listaTodosGrupos() throws IOException, GeneralSecurityException, URISyntaxException {
-		List<Group> groups = getAprovisionamento().googleAPI().group().getGroups().getGroups();
+		List<Group> groups = getAprovisionamento().googleAPI().directory().getGroupsByDomain("dextra-sw.com").getGroups();
 		List<String> emailGrupos = new ArrayList<String>();
 		for (Group group : groups) {
 			emailGrupos.add(group.getEmail());
@@ -157,13 +159,13 @@ public class GrupoRS {
 		return Response.ok(emailGrupos).build();
 	}
 
-	@Path("/googlegrupos/listarMembrosGrupo/{email}")
 	@GET
 	@Produces(Application.JSON_UTF8)
+	@Path("/googlegrupos/listarMembrosGrupo/{email}")
 	public Response listaMembrosGrupo(@PathParam("email") String email) throws IOException, GeneralSecurityException, URISyntaxException {
 		GoogleAPI googleApi = getAprovisionamento().googleAPI();
-		Group grupoGoogle = googleApi.group().getGroup(email);
-		List<Member> members = googleApi.group().getMembersGroup(grupoGoogle).getMembers();
+		Group grupoGoogle = googleApi.directory().getGroup(email);
+		List<Member> members = googleApi.directory().getMembersGroup(grupoGoogle).getMembers();
 		List<String> emailsMembros = new ArrayList<String>();
 
 		for (Member member : members) {
@@ -375,7 +377,7 @@ public class GrupoRS {
 
 	private static Aprovisionamento getAprovisionamento() {
 		if (aprovisionamento == null) {
-			return new Aprovisionamento();
+			aprovisionamento = new Aprovisionamento();
 		}
 
 		return aprovisionamento;

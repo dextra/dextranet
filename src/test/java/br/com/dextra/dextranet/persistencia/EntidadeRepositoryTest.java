@@ -1,6 +1,6 @@
 package br.com.dextra.dextranet.persistencia;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.Test;
 

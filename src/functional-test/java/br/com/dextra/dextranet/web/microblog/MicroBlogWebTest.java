@@ -1,6 +1,6 @@
 package br.com.dextra.dextranet.web.microblog;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.Test;
 

@@ -17,12 +17,12 @@ script:
 - export MAVEN_HOME=$(pwd)/apache-maven-3.2.2
 - export PATH=$MAVEN_HOME/bin:$PATH
 - mvn --version
-- ./src/main/resources/crypt/decrypt.sh dextra-dextranet-51168b1f48d5.p12.crypted
+- ./src/main/resources/crypt/decrypt.sh dextra-dextranet-8687c58333ae.p12.crypted
 - mvn install -DskipTests=true
 
 - export GAPI_SERVICE_ACCOUNT_EMAIL=430900987246-lfpbc9lt5g2tnq12r1727s6ctldq8qnr@developer.gserviceaccount.com
 - export GAPI_SERVICE_ACCOUNT_USER=rafael.mantellatto@dextra-sw.com
-- export GAPI_SERVICE_ACCOUNT_KEY=./src/main/resources/crypt/dextra-dextranet-51168b1f48d5.p12
+- export GAPI_SERVICE_ACCOUNT_KEY=./src/main/resources/crypt/dextra-dextranet-8687c58333ae.p12
 
 - mvn test -Dselenium
 

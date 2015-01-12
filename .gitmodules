@@ -1,0 +1,6 @@
+[submodule "wavez"]
+	path = wavez
+	url = git@github.com:feroult/wavez.git
+[submodule "gapi"]
+	path = gapi
+	url = git@github.com:feroult/gapi.git

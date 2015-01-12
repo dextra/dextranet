@@ -5,22 +5,20 @@ import gapi.GoogleAPI;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.GeneralSecurityException;
-import java.util.Arrays;
 import java.util.List;
 
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 
-import com.google.api.client.googleapis.json.GoogleJsonResponseException;
-import com.google.api.services.admin.directory.DirectoryScopes;
 import com.google.api.services.admin.directory.model.Group;
 import com.google.api.services.admin.directory.model.Member;
 
 public class Aprovisionamento {
+	
 	private GoogleAPI googleAPI;
 	private Group group;
 	
 	public Aprovisionamento() {
-		googleAPI = new GoogleAPI(Arrays.asList(DirectoryScopes.ADMIN_DIRECTORY_GROUP));
+		googleAPI = new GoogleAPI();
 	}
 	
 	public GoogleAPI googleAPI() {
@@ -32,7 +30,7 @@ public class Aprovisionamento {
 		grupo.setName(nome);
 		grupo.setEmail(emailgrupo);
 		grupo.setDescription(descricao);
-		group = googleAPI.group().create(grupo);
+		group = googleAPI.directory().create(grupo);
 		return this;
 	}
 	
@@ -40,29 +38,23 @@ public class Aprovisionamento {
 		for (String email : emailMembros) {
 			Member membro = new Member();
 			membro.setEmail(email);
-			googleAPI.group().addMemberGroup(group, membro);
+			googleAPI.directory().addMemberGroup(group, membro);
 		}
 	}
 
 	public void removerGrupo(String emailGrupo) throws IOException, GeneralSecurityException, URISyntaxException {
-		try {
-			googleAPI.group().delete(emailGrupo);
-		} catch(GoogleJsonResponseException e) {
-			if (!e.getMessage().contains("404")) {
-				throw e;
-			}
-		}
+			googleAPI.directory().delete(emailGrupo);
 	}
 	
 	public Aprovisionamento obterGrupo(String emailGrupo) throws IOException, GeneralSecurityException, URISyntaxException {
-		group = googleAPI.group().getGroup(emailGrupo);
+		group = googleAPI.directory().getGroup(emailGrupo);
 		
 		return this;
 	}
 
 	public void eRemoverMembros(List<String> emailMembros) throws IOException, GeneralSecurityException, URISyntaxException {
 		for (String email : emailMembros) {
-			googleAPI.group().deleteMemberGroup(group, email);
+			googleAPI.directory().deleteMemberGroup(group, email);
 		}
 	}
 	

@@ -20,7 +20,6 @@ import br.com.dextra.dextranet.grupo.servico.google.Aprovisionamento;
 import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.dextranet.usuario.UsuarioRepository;
 
-import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.admin.directory.model.Group;
 import com.google.api.services.admin.directory.model.Member;
 
@@ -98,12 +97,7 @@ public class TesteUtils {
 	}
 
 	public static Group buscarGrupoGoogle(String emailGrupo) throws IOException, GeneralSecurityException, URISyntaxException {
-		try {
-			Group group = getAprovisionamento().googleAPI().group().getGroup(emailGrupo);
-			return group;
-		} catch (GoogleJsonResponseException e) {
-			return null;
-		}
+			return getAprovisionamento().googleAPI().directory().getGroup(emailGrupo);
 	}
 
 	public static Group criarGrupoGoogle(String emailGrupo) throws IOException, GeneralSecurityException, URISyntaxException {
@@ -115,18 +109,18 @@ public class TesteUtils {
 		group.setName(nomeGrupo);
 		group.setEmail(emailGrupo);
 		group.setDescription(descricaoGrupo);
-		Group groupRetorno = googleAPI.group().create(group);
+		Group groupRetorno = googleAPI.directory().create(group);
 		return groupRetorno;
 	}
 
 	public static void adicionarMembroGrupoGoogle(List<String> emailMembros, String emailGrupo) throws IOException,
 	        GeneralSecurityException, URISyntaxException {
 		GoogleAPI googleAPI = getAprovisionamento().googleAPI();
-		Group group = googleAPI.group().getGroup(emailGrupo);
+		Group group = googleAPI.directory().getGroup(emailGrupo);
 		for (String email : emailMembros) {
 			Member membro = new Member();
 			membro.setEmail(email);
-			googleAPI.group().addMemberGroup(group, membro);
+			googleAPI.directory().addMemberGroup(group, membro);
 		}
 	}
 }

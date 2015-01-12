@@ -40,7 +40,7 @@ public class AprovisionamentoTest extends TesteIntegracaoBase {
 		String descricaoGrupo = "Grupo 1";
 
 		aprovisionamento.criarGrupo(nomeGrupo, emailGrupo, descricaoGrupo);
-		Group group = aprovisionamento.googleAPI().group().getGroup(emailGrupo);
+		Group group = aprovisionamento.googleAPI().directory().getGroup(emailGrupo);
 		assertEquals(emailGrupo, group.getEmail());
 	}
 
@@ -54,8 +54,8 @@ public class AprovisionamentoTest extends TesteIntegracaoBase {
 		List<String> emailMembros = Arrays.asList(emailusuario1, emailusuario2);
 
 		aprovisionamento.criarGrupo(nomeGrupo, emailGrupo, descricaoGrupo).eAdicionarMembros(emailMembros);
-		Group grupoGoogle = aprovisionamento.googleAPI().group().getGroup(emailGrupo);
-		Members membrosGoogle = aprovisionamento.googleAPI().group().getMembersGroup(grupoGoogle);
+		Group grupoGoogle = aprovisionamento.googleAPI().directory().getGroup(emailGrupo);
+		Members membrosGoogle = aprovisionamento.googleAPI().directory().getMembersGroup(grupoGoogle);
 
 		List<Member> membrosSearch = membrosGoogle.getMembers();
 		assertTrue(membrosContains(membrosSearch, emailusuario1));
@@ -66,7 +66,7 @@ public class AprovisionamentoTest extends TesteIntegracaoBase {
 		List<String> emailMembros = Arrays.asList("usuario.1@dextra-sw.com", "usuario.2@dextra-sw.com");
 		Group group = criarGrupoComMembros(emailGrupo, emailMembros);
 		aprovisionamento.obterGrupo(emailGrupo).eRemoverMembros(Arrays.asList("usuario.1@dextra-sw.com"));
-		List<Member> members = aprovisionamento.googleAPI().group().getMembersGroup(group).getMembers();
+		List<Member> members = aprovisionamento.googleAPI().directory().getMembersGroup(group).getMembers();
 		assertTrue(members.size() == 1);
 		assertEquals("usuario.2@dextra-sw.com", members.get(0));
 
@@ -81,7 +81,7 @@ public class AprovisionamentoTest extends TesteIntegracaoBase {
 		adicionarMembroGrupoGoogle(emailMembros, emailGrupo);
 
 		aprovisionamento.obterGrupo(emailGrupo).eRemoverMembros(Arrays.asList(usuario1));
-		List<Member> members = aprovisionamento.googleAPI().group().getMembersGroup(group).getMembers();
+		List<Member> members = aprovisionamento.googleAPI().directory().getMembersGroup(group).getMembers();
 		assertTrue(members.size() == 1);
 		assertEquals(usuario2, members.get(0).getEmail());
 	}
@@ -92,8 +92,8 @@ public class AprovisionamentoTest extends TesteIntegracaoBase {
 		String usuario1 = "usuario.1@dextra-sw.com";
 		String usuario2 = "usuario.2@dextra-sw.com";
 		aprovisionamento.obterGrupo(emailGrupo).eAdicionarMembros(Arrays.asList(usuario1, usuario2));
-		Group group = aprovisionamento.googleAPI().group().getGroup(emailGrupo);
-		List<Member> members = aprovisionamento.googleAPI().group().getMembersGroup(group).getMembers();
+		Group group = aprovisionamento.googleAPI().directory().getGroup(emailGrupo);
+		List<Member> members = aprovisionamento.googleAPI().directory().getMembersGroup(group).getMembers();
 		assertTrue(members.size() == 2);
 		assertTrue(membrosContains(members, usuario2));
 		assertTrue(membrosContains(members, usuario1));
@@ -123,7 +123,7 @@ public class AprovisionamentoTest extends TesteIntegracaoBase {
 
 		List<Member> membrosAdd = Arrays.asList(membro1, membro2);
 		for (Member membro : membrosAdd) {
-			googleAPI.group().addMemberGroup(group, membro);
+			googleAPI.directory().addMemberGroup(group, membro);
 		}
 		return group;
 	}

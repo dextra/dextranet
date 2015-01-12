@@ -2,11 +2,20 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
+
 	<groupId>br.com.dextra</groupId>
 	<artifactId>dextranet</artifactId>
 	<name>dextranet</name>
-	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
+
+	<parent>
+		<groupId>br.com.dextra</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>parent/pom.xml</relativePath>
+	</parent>
+
 	<repositories>
 		<repository>
 			<id>central</id>
@@ -37,6 +46,7 @@
 			<url>http://erickzanardo.github.com/maven/releases/</url>
 		</repository>
 	</repositories>
+
 	<pluginRepositories>
 		<pluginRepository>
 			<id>central</id>
@@ -63,6 +73,11 @@
 		<mycontainer.version>1.4.1</mycontainer.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>gapi</groupId>
+			<artifactId>gapi</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>br.com</groupId>
 			<artifactId>octohelper</artifactId>
@@ -164,10 +179,6 @@
 			<groupId>br.com.dextra</groupId>
 			<artifactId>expertus</artifactId>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>gapi</groupId>
-			<artifactId>gapi</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.google.apis</groupId>
@@ -329,7 +340,7 @@
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
-				<version>4.0</version>
+				<version>4.11</version>
 			</dependency>
 			<dependency>
 				<groupId>org.easymock</groupId>
@@ -386,11 +397,6 @@
 				<artifactId>commons-lang</artifactId>
 				<version>2.4</version>
 			</dependency>
-			<dependency>
-			  <groupId>gapi</groupId>
-			  <artifactId>gapi</artifactId>
-			  <version>1.0.0</version>
-			</dependency>		
 			<dependency>
 				<groupId>br.com.dextra</groupId>
 				<artifactId>expertus</artifactId>

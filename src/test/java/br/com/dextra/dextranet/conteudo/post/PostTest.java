@@ -2,7 +2,7 @@ package br.com.dextra.dextranet.conteudo.post;
 
 import java.util.Date;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.Test;
 

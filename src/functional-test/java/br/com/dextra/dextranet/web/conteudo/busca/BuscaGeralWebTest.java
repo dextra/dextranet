@@ -1,8 +1,7 @@
 package br.com.dextra.dextranet.web.conteudo.busca;
 
-import junit.framework.Assert;
-
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -66,7 +65,8 @@ public class BuscaGeralWebTest extends TesteFuncionalBase {
 
 	private void entaoEleEncontraPostComComentarioDesejado() {
 		paginaNovoComentario.clicaEmMostrarComentarioPrimeiroPost();
-		Assert.assertTrue(paginaNovoComentario.existeComentarioPor(CONTEUDO_COMENTARIO));
+		Assert.assertTrue(paginaNovoComentario
+				.existeComentarioPor(CONTEUDO_COMENTARIO));
 	}
 
 	private void quandoEleBuscaPeloTituloDeUmPostExistente() {
@@ -87,7 +87,8 @@ public class BuscaGeralWebTest extends TesteFuncionalBase {
 	}
 
 	private void criaComentarioParaPost(Post novoPost) {
-		Comentario novoComentario = novoPost.comentar("dextranet", CONTEUDO_COMENTARIO);
+		Comentario novoComentario = novoPost.comentar("dextranet",
+				CONTEUDO_COMENTARIO);
 		repositorioDeComentarios.persiste(novoComentario);
 	}
 
