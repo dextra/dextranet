@@ -13,28 +13,21 @@ import com.google.api.services.admin.directory.model.Group;
 import com.google.api.services.admin.directory.model.Member;
 
 public class Aprovisionamento {
-	
-	private GoogleAPI googleAPI;
-	private Group group;
-	
-	public Aprovisionamento() {
-		googleAPI = new GoogleAPI();
-	}
-	
-	public GoogleAPI googleAPI() {
-		return googleAPI;
-	}
 
-	public Aprovisionamento criarGrupo(String nome, String emailgrupo, String descricao) throws IOException, GeneralSecurityException, URISyntaxException {
+	private GoogleAPI googleAPI = new GoogleAPI();
+
+	public Group criarGrupo(String nome, String emailgrupo, String descricao) throws IOException,
+			GeneralSecurityException, URISyntaxException {
 		Group grupo = new Group();
 		grupo.setName(nome);
 		grupo.setEmail(emailgrupo);
 		grupo.setDescription(descricao);
-		group = googleAPI.directory().create(grupo);
-		return this;
+		return googleAPI.directory().create(grupo);
+
 	}
-	
-	public void eAdicionarMembros(List<String> emailMembros) throws IOException, GeneralSecurityException, URISyntaxException {
+
+	public void adicionarMembros(List<String> emailMembros, Group group) throws IOException, GeneralSecurityException,
+			URISyntaxException {
 		for (String email : emailMembros) {
 			Member membro = new Member();
 			membro.setEmail(email);
@@ -43,21 +36,28 @@ public class Aprovisionamento {
 	}
 
 	public void removerGrupo(String emailGrupo) throws IOException, GeneralSecurityException, URISyntaxException {
-			googleAPI.directory().delete(emailGrupo);
-	}
-	
-	public Aprovisionamento obterGrupo(String emailGrupo) throws IOException, GeneralSecurityException, URISyntaxException {
-		group = googleAPI.directory().getGroup(emailGrupo);
-		
-		return this;
+		googleAPI.directory().delete(emailGrupo);
 	}
 
-	public void eRemoverMembros(List<String> emailMembros) throws IOException, GeneralSecurityException, URISyntaxException {
+	public Group obterGrupo(String emailGrupo) throws IOException, GeneralSecurityException, URISyntaxException {
+		return googleAPI.directory().getGroup(emailGrupo);
+	}
+
+	public void removerMembros(List<String> emailMembros, Group group) throws IOException, GeneralSecurityException,
+			URISyntaxException {
 		for (String email : emailMembros) {
 			googleAPI.directory().deleteMemberGroup(group, email);
 		}
 	}
-	
+
+	public List<Group> obterGrupos(String dominio) {
+		return googleAPI.directory().getGroupsByDomain(dominio).getGroups();
+	}
+
+	public List<Member> obterMembros(Group grupo) {
+		return googleAPI.directory().getMembersGroup(grupo).getMembers();
+	}
+
 	protected String obtemUsuarioLogado() {
 		return AutenticacaoService.identificacaoDoUsuarioLogado();
 	}

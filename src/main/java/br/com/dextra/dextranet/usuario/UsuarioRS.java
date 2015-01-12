@@ -24,6 +24,7 @@ import br.com.dextra.dextranet.grupo.servico.google.GoogleGrupoJSON;
 import br.com.dextra.dextranet.rest.config.Application;
 import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 
+import com.google.api.services.admin.directory.model.Group;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
@@ -31,11 +32,12 @@ import com.google.gson.JsonObject;
 
 @Path("/usuario")
 public class UsuarioRS {
+
 	private UsuarioRepository repositorio = new UsuarioRepository();
 	private GrupoRepository grupoRepositorio = new GrupoRepository();
 	private MembroRepository MembroRepository = new MembroRepository();
-	private static Aprovisionamento aprovisionamento = null;
-	
+	private static Aprovisionamento aprovisionamento = new Aprovisionamento();
+
 	@Path("/{id}")
 	@PUT
 	@Produces(Application.JSON_UTF8)
@@ -43,21 +45,23 @@ public class UsuarioRS {
 			@FormParam("apelido") String apelido, @FormParam("area") String area, @FormParam("unidade") String unidade,
 			@FormParam("ramal") String ramal, @FormParam("telefoneResidencial") String telefoneResidencial,
 			@FormParam("telefoneCelular") String telefoneCelular, @FormParam("gitHub") String gitHub,
-			@FormParam("skype") String skype, @FormParam("blog") String blog, @FormParam("ativo") Boolean ativo) throws EntityNotFoundException, GeneralSecurityException, URISyntaxException {
+			@FormParam("skype") String skype, @FormParam("blog") String blog, @FormParam("ativo") Boolean ativo)
+			throws EntityNotFoundException, GeneralSecurityException, URISyntaxException {
 
 		Usuario usuario = repositorio.obtemPorId(id);
 
 		if (!possuiAcesso(usuario)) {
 			return Response.status(Status.FORBIDDEN).build();
 		}
-		
+
 		if (ativo == null) {
-			usuario.preenchePerfil(nome, apelido, area, unidade, ramal, telefoneResidencial, telefoneCelular, gitHub, skype, blog);
+			usuario.preenchePerfil(nome, apelido, area, unidade, ramal, telefoneResidencial, telefoneCelular, gitHub,
+					skype, blog);
 			usuario.setAtivo(Boolean.TRUE);
 		} else {
 			usuario.setAtivo(ativo);
 		}
-		
+
 		repositorio.persiste(usuario);
 		isDesativacaoUsuario(usuario);
 		return Response.ok().entity(usuario.getUsuarioJSON()).build();
@@ -106,10 +110,10 @@ public class UsuarioRS {
 				repositorio.persiste(usuario);
 			}
 		}
-		
+
 		return Response.status(Status.OK).build();
 	}
-	
+
 	@Path("/")
 	@GET
 	@Produces(Application.JSON_UTF8)
@@ -133,7 +137,8 @@ public class UsuarioRS {
 	@Path("/{id}/{idGrupo}/adicionar-usuario-grupo")
 	@PUT
 	@Produces(Application.JSON_UTF8)
-	public Response adicionarUsuarioGrupo(@PathParam("id") String id, @PathParam("idGrupo") String idGrupo) throws EntityNotFoundException {
+	public Response adicionarUsuarioGrupo(@PathParam("id") String id, @PathParam("idGrupo") String idGrupo)
+			throws EntityNotFoundException {
 		Usuario usuario = repositorio.obtemPorId(id);
 		repositorio.persiste(usuario);
 		return Response.ok().entity(usuario).build();
@@ -146,45 +151,41 @@ public class UsuarioRS {
 	protected Boolean usuarioLogadoIsInfra() {
 		return AutenticacaoService.isUsuarioGrupoInfra();
 	}
-	
+
 	private boolean possuiAcesso(Usuario usuario) {
 		return usuarioLogadoIsInfra() || usuario.getUsername().equals(this.obtemUsernameDoUsuarioLogado());
 	}
 
-	private void isDesativacaoUsuario(Usuario usuario) throws EntityNotFoundException, GeneralSecurityException, URISyntaxException {
+	private void isDesativacaoUsuario(Usuario usuario) throws EntityNotFoundException, GeneralSecurityException,
+			URISyntaxException {
 		if (usuario.isAtivo().equals(Boolean.FALSE)) {
 			List<String> emails = new ArrayList<String>();
 			emails.add(usuario.getUsername() + Usuario.DEFAULT_DOMAIN);
 			List<Grupo> grupos = grupoRepositorio.obtemPorIdIntegrante(usuario.getId());
 			List<GoogleGrupoJSON> servicos = new ArrayList<GoogleGrupoJSON>();
-			
+
 			for (Grupo grupo : grupos) {
 				GrupoJSON grupoJSON = grupo.getGrupoJSON();
 				servicos = grupoJSON.getServico();
 			}
-			
+
 			removerUsuarioGrupo(emails, servicos);
-			
+
 			grupoRepositorio.ajustarProprietarioGrupo(usuario);
 			MembroRepository.removeMembroDosGruposPor(usuario);
 		}
 	}
 
-	protected void removerUsuarioGrupo(List<String> emails, List<GoogleGrupoJSON> servicos) throws GeneralSecurityException, URISyntaxException {
-		for (GoogleGrupoJSON servico : servicos) {
-			try {
-				getAprovisionamento().obterGrupo(servico.getEmailDomainGrupo()).eRemoverMembros(emails);
-			} catch (IOException e) {
-				e.printStackTrace();
+	protected void removerUsuarioGrupo(List<String> emails, List<GoogleGrupoJSON> servicos)
+			throws GeneralSecurityException, URISyntaxException {
+		try {
+			for (GoogleGrupoJSON servico : servicos) {
+				Group grupo = aprovisionamento.obterGrupo(servico.getEmailDomainGrupo());
+				aprovisionamento.removerMembros(emails, grupo);
 			}
+		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}
 	}
-	
-	private static Aprovisionamento getAprovisionamento() {
-		if (aprovisionamento == null) {
-			return new Aprovisionamento();
-		}
 
-		return aprovisionamento;
-	}
 }

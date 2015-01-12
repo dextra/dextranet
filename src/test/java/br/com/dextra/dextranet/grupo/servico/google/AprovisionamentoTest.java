@@ -2,10 +2,8 @@ package br.com.dextra.dextranet.grupo.servico.google;
 
 import static br.com.dextra.dextranet.persistencia.TesteUtils.adicionarMembroGrupoGoogle;
 import static br.com.dextra.dextranet.persistencia.TesteUtils.criarGrupoGoogle;
-import static br.com.dextra.dextranet.persistencia.TesteUtils.getAprovisionamento;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import gapi.GoogleAPI;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -17,30 +15,30 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.dextra.dextranet.persistencia.TesteUtils;
 import br.com.dextra.teste.TesteIntegracaoBase;
 
 import com.google.api.services.admin.directory.model.Group;
 import com.google.api.services.admin.directory.model.Member;
-import com.google.api.services.admin.directory.model.Members;
 
 public class AprovisionamentoTest extends TesteIntegracaoBase {
-	private Aprovisionamento aprovisionamento = TesteUtils.getAprovisionamento();
+
+	private Aprovisionamento aprovisionamento = new Aprovisionamento();
 	private String emailGrupo = "grupo@dextra-sw.com";
 
 	@Before
 	@After
 	public void initial() throws IOException, GeneralSecurityException, URISyntaxException {
-		getAprovisionamento().removerGrupo(emailGrupo);
+		aprovisionamento.removerGrupo(emailGrupo);
 	}
 
 	@Test
-	public void testaCriarGrupo() throws IOException, GeneralSecurityException, URISyntaxException, InterruptedException {
+	public void testaCriarGrupo() throws IOException, GeneralSecurityException, URISyntaxException,
+			InterruptedException {
 		String nomeGrupo = "Grupo 1";
 		String descricaoGrupo = "Grupo 1";
 
 		aprovisionamento.criarGrupo(nomeGrupo, emailGrupo, descricaoGrupo);
-		Group group = aprovisionamento.googleAPI().directory().getGroup(emailGrupo);
+		Group group = aprovisionamento.obterGrupo(emailGrupo);
 		assertEquals(emailGrupo, group.getEmail());
 	}
 
@@ -53,11 +51,11 @@ public class AprovisionamentoTest extends TesteIntegracaoBase {
 
 		List<String> emailMembros = Arrays.asList(emailusuario1, emailusuario2);
 
-		aprovisionamento.criarGrupo(nomeGrupo, emailGrupo, descricaoGrupo).eAdicionarMembros(emailMembros);
-		Group grupoGoogle = aprovisionamento.googleAPI().directory().getGroup(emailGrupo);
-		Members membrosGoogle = aprovisionamento.googleAPI().directory().getMembersGroup(grupoGoogle);
+		Group grupo = aprovisionamento.criarGrupo(nomeGrupo, emailGrupo, descricaoGrupo);
+		aprovisionamento.adicionarMembros(emailMembros, grupo);
+		Group grupoGoogle = aprovisionamento.obterGrupo(emailGrupo);
+		List<Member> membrosSearch = aprovisionamento.obterMembros(grupoGoogle);
 
-		List<Member> membrosSearch = membrosGoogle.getMembers();
 		assertTrue(membrosContains(membrosSearch, emailusuario1));
 		assertTrue(membrosContains(membrosSearch, emailusuario2));
 	}
@@ -65,8 +63,11 @@ public class AprovisionamentoTest extends TesteIntegracaoBase {
 	public void testarExcluirMembrosDoGrupo() throws IOException, GeneralSecurityException, URISyntaxException {
 		List<String> emailMembros = Arrays.asList("usuario.1@dextra-sw.com", "usuario.2@dextra-sw.com");
 		Group group = criarGrupoComMembros(emailGrupo, emailMembros);
-		aprovisionamento.obterGrupo(emailGrupo).eRemoverMembros(Arrays.asList("usuario.1@dextra-sw.com"));
-		List<Member> members = aprovisionamento.googleAPI().directory().getMembersGroup(group).getMembers();
+
+		group = aprovisionamento.obterGrupo(emailGrupo);
+		aprovisionamento.removerMembros(Arrays.asList("usuario.1@dextra-sw.com"), group);
+
+		List<Member> members = aprovisionamento.obterMembros(group);
 		assertTrue(members.size() == 1);
 		assertEquals("usuario.2@dextra-sw.com", members.get(0));
 
@@ -74,29 +75,27 @@ public class AprovisionamentoTest extends TesteIntegracaoBase {
 
 	@Test
 	public void testaRemoverMembrosGrupo() throws IOException, GeneralSecurityException, URISyntaxException {
-		Group group = criarGrupoGoogle(emailGrupo);
 		String usuario1 = "usuario.1@dextra-sw.com";
 		String usuario2 = "usuario.2@dextra-sw.com";
 		List<String> emailMembros = Arrays.asList(usuario1, usuario2);
 		adicionarMembroGrupoGoogle(emailMembros, emailGrupo);
 
-		aprovisionamento.obterGrupo(emailGrupo).eRemoverMembros(Arrays.asList(usuario1));
-		List<Member> members = aprovisionamento.googleAPI().directory().getMembersGroup(group).getMembers();
+		Group grupo = aprovisionamento.obterGrupo(emailGrupo);
+
+		aprovisionamento.removerMembros(Arrays.asList(usuario1), grupo);
+		List<Member> members = aprovisionamento.obterMembros(grupo);
 		assertTrue(members.size() == 1);
 		assertEquals(usuario2, members.get(0).getEmail());
 	}
 
 	@Test
 	public void testaAdicionarMembrosGrupo() throws IOException, GeneralSecurityException, URISyntaxException {
-		criarGrupoGoogle(emailGrupo);
-		String usuario1 = "usuario.1@dextra-sw.com";
-		String usuario2 = "usuario.2@dextra-sw.com";
-		aprovisionamento.obterGrupo(emailGrupo).eAdicionarMembros(Arrays.asList(usuario1, usuario2));
-		Group group = aprovisionamento.googleAPI().directory().getGroup(emailGrupo);
-		List<Member> members = aprovisionamento.googleAPI().directory().getMembersGroup(group).getMembers();
+		Group grupo = criarGrupoGoogle(emailGrupo);
+		aprovisionamento.adicionarMembros(Arrays.asList("usuario.1@dextra-sw.com", "usuario.2@dextra-sw.com"), grupo);
+
+		grupo = aprovisionamento.obterGrupo(emailGrupo);
+		List<Member> members = aprovisionamento.obterMembros(grupo);
 		assertTrue(members.size() == 2);
-		assertTrue(membrosContains(members, usuario2));
-		assertTrue(membrosContains(members, usuario1));
 	}
 
 	private Boolean membrosContains(List<Member> membros, String email) {
@@ -109,22 +108,11 @@ public class AprovisionamentoTest extends TesteIntegracaoBase {
 	}
 
 	private Group criarGrupoComMembros(String emailGrupo, List<String> emailsMembros) throws IOException,
-	        GeneralSecurityException, URISyntaxException {
-		GoogleAPI googleAPI = aprovisionamento.googleAPI();
+			GeneralSecurityException, URISyntaxException {
 		Group group = criarGrupoGoogle(emailGrupo);
 
-		String usuario1 = "usuario.1@dextra-sw.com";
-		String usuario2 = "usuario.2@dextra-sw.com";
+		aprovisionamento.adicionarMembros(Arrays.asList("usuario.1@dextra-sw.com", "usuario.2@dextra-sw.com"), group);
 
-		Member membro1 = new Member();
-		membro1.setEmail(usuario1);
-		Member membro2 = new Member();
-		membro2.setEmail(usuario2);
-
-		List<Member> membrosAdd = Arrays.asList(membro1, membro2);
-		for (Member membro : membrosAdd) {
-			googleAPI.directory().addMemberGroup(group, membro);
-		}
 		return group;
 	}
 }
