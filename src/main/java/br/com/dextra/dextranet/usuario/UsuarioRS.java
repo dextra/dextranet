@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.ws.rs.FormParam;
@@ -12,6 +13,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
@@ -117,8 +119,14 @@ public class UsuarioRS {
 	@Path("/")
 	@GET
 	@Produces(Application.JSON_UTF8)
-	public Response listar() throws EntityNotFoundException {
-		List<Usuario> usuarios = repositorio.listaPor(usuarioLogadoIsInfra());
+	public Response listar(@QueryParam("githubLogin") String githubLogin) throws EntityNotFoundException {
+		List<Usuario> usuarios;
+		if (githubLogin == null) {
+			usuarios = repositorio.listaPor(usuarioLogadoIsInfra());
+		} else {
+			usuarios = Arrays.asList(repositorio.getByGithub(githubLogin));
+		}
+
 		return Response.ok().entity(usuarios).build();
 	}
 

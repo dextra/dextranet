@@ -24,21 +24,22 @@ import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Query.SortDirection;
 
 public class UsuarioRepository extends EntidadeRepository {
+
 	GrupoRepository repositorio = new GrupoRepository();
 	MembroRepository repositorioMembro = new MembroRepository();
 
-    public Usuario persiste(Usuario usuario) {
-        return super.persiste(usuario);
-    }
+	public Usuario persiste(Usuario usuario) {
+		return super.persiste(usuario);
+	}
 
-    public Usuario obtemPorId(String id) throws EntityNotFoundException {
-        Entity usuarioEntity = this.obtemPorId(id, Usuario.class);
-        return new Usuario(usuarioEntity);
-    }
+	public Usuario obtemPorId(String id) throws EntityNotFoundException {
+		Entity usuarioEntity = this.obtemPorId(id, Usuario.class);
+		return new Usuario(usuarioEntity);
+	}
 
-    public void remove(String id) {
-        this.remove(id, Usuario.class);
-    }
+	public void remove(String id) {
+		this.remove(id, Usuario.class);
+	}
 
 	public List<Usuario> listaPor(Boolean isInfra) throws EntityNotFoundException {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
@@ -66,20 +67,20 @@ public class UsuarioRepository extends EntidadeRepository {
 		}
 
 		return usuarios;
-    }
-    
-    public List<Usuario> lista() throws EntityNotFoundException {
-        EntidadeOrdenacao ordenacaoPorUsername = new EntidadeOrdenacao(UsuarioFields.username.name(),
-                SortDirection.ASCENDING);
-        List<Usuario> usuarios = new ArrayList<Usuario>();
+	}
 
-        Iterable<Entity> entidades = super.lista(Usuario.class, ordenacaoPorUsername);
-        for (Entity entidade : entidades) {
-        	Usuario usuario = getUsuario(entidade);
-            usuarios.add(usuario);
-        }
-        return usuarios;
-    }
+	public List<Usuario> lista() throws EntityNotFoundException {
+		EntidadeOrdenacao ordenacaoPorUsername = new EntidadeOrdenacao(UsuarioFields.username.name(),
+				SortDirection.ASCENDING);
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+
+		Iterable<Entity> entidades = super.lista(Usuario.class, ordenacaoPorUsername);
+		for (Entity entidade : entidades) {
+			Usuario usuario = getUsuario(entidade);
+			usuarios.add(usuario);
+		}
+		return usuarios;
+	}
 
 	private Usuario getUsuario(Entity entidade) throws EntityNotFoundException {
 		Usuario usuario = new Usuario(entidade);
@@ -88,7 +89,7 @@ public class UsuarioRepository extends EntidadeRepository {
 		List<Membro> grupos = repositorioMembro.obtemPorIdUsuario(usuario.getId());
 
 		Iterator<Membro> membro = grupos.iterator();
-		while ( membro.hasNext() ){
+		while (membro.hasNext()) {
 			GrupoJSON grupoJSON = new GrupoJSON();
 
 			grupo = repositorio.obtemPorId(membro.next().getIdGrupo());
@@ -103,22 +104,35 @@ public class UsuarioRepository extends EntidadeRepository {
 		return usuario;
 	}
 
-    public Usuario obtemPorUsername(String username) {
-        Query query = new Query(Usuario.class.getName());
-        query.setFilter(new FilterPredicate(UsuarioFields.username.name(), FilterOperator.EQUAL, username));
+	public Usuario obtemPorUsername(String username) {
+		Query query = new Query(Usuario.class.getName());
+		query.setFilter(new FilterPredicate(UsuarioFields.username.name(), FilterOperator.EQUAL, username));
 
-        PreparedQuery pquery = this.datastore.prepare(query);
+		PreparedQuery pquery = this.datastore.prepare(query);
 
-        Entity entityEncontrada = pquery.asSingleEntity();
-        if (entityEncontrada == null) {
-            throw new EntidadeNaoEncontradaException(Usuario.class.getName(), "username", username);
-        }
+		Entity entityEncontrada = pquery.asSingleEntity();
+		if (entityEncontrada == null) {
+			throw new EntidadeNaoEncontradaException(Usuario.class.getName(), "username", username);
+		}
 
-        return new Usuario(entityEncontrada);
-    }
-    
-    public Usuario obtemUsuarioLogado() {
-        return obtemPorUsername(AutenticacaoService.identificacaoDoUsuarioLogado());
-    }
+		return new Usuario(entityEncontrada);
+	}
 
+	public Usuario obtemUsuarioLogado() {
+		return obtemPorUsername(AutenticacaoService.identificacaoDoUsuarioLogado());
+	}
+
+	public Usuario getByGithub(String githubLogin) {
+		Query query = new Query(Usuario.class.getName());
+		query.setFilter(new FilterPredicate(UsuarioFields.gitHub.name(), FilterOperator.EQUAL, githubLogin));
+
+		PreparedQuery pquery = this.datastore.prepare(query);
+
+		Entity entityEncontrada = pquery.asSingleEntity();
+		if (entityEncontrada == null) {
+			throw new EntidadeNaoEncontradaException(Usuario.class.getName(), "githubLogin", githubLogin);
+		}
+
+		return new Usuario(entityEncontrada);
+	}
 }
