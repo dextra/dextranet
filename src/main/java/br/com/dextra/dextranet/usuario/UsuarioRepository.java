@@ -130,7 +130,7 @@ public class UsuarioRepository extends EntidadeRepository {
 
 		Entity entityEncontrada = pquery.asSingleEntity();
 		if (entityEncontrada == null) {
-			throw new EntidadeNaoEncontradaException(Usuario.class.getName(), "githubLogin", githubLogin);
+			return null;
 		}
 
 		return new Usuario(entityEncontrada);
