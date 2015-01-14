@@ -28,7 +28,6 @@ import br.com.dextra.dextranet.seguranca.AutenticacaoService;
 import br.com.dextra.dextranet.usuario.Usuario;
 import br.com.dextra.dextranet.usuario.UsuarioRepository;
 
-import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.admin.directory.model.Group;
 import com.google.api.services.admin.directory.model.Member;
 import com.google.appengine.api.datastore.EntityNotFoundException;
@@ -112,10 +111,9 @@ public class GrupoRS {
 				}
 			}
 
-			Group grupo = null;
-			try {
-				grupo = aprovisionamento.obterGrupo(googleGrupoJSON.getEmailDomainGrupo());
-			} catch (GoogleJsonResponseException e) {
+			Group grupo = aprovisionamento.obterGrupo(googleGrupoJSON.getEmailDomainGrupo());
+			
+			if (grupo == null) {
 				grupo = aprovisionamento.criarGrupo(googleGrupoJSON.getEmailGrupo(),
 						googleGrupoJSON.getEmailDomainGrupo(), "");
 			}
