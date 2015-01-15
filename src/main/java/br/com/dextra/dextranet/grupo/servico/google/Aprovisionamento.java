@@ -18,8 +18,7 @@ public class Aprovisionamento {
 
 	private GoogleAPI googleAPI = new GoogleAPI();
 
-	public Group criarGrupo(String nome, String emailgrupo, String descricao)
-			throws IOException, GeneralSecurityException, URISyntaxException {
+	public Group criarGrupo(String nome, String emailgrupo, String descricao) throws IOException, GeneralSecurityException, URISyntaxException {
 		Group grupo = new Group();
 		grupo.setName(nome);
 		grupo.setEmail(emailgrupo);
@@ -28,21 +27,19 @@ public class Aprovisionamento {
 
 	}
 
-	public void adicionarMembros(List<String> emailMembros, Group group)
-			throws IOException, GeneralSecurityException, URISyntaxException {
+	public void adicionarMembros(List<String> emailMembros, Group group) throws IOException, GeneralSecurityException, URISyntaxException {
 
 		for (String email : emailMembros) {
 			Member membro = new Member();
-
-			if (EmailUtil.isValid(email)) {
-				membro.setEmail(email);
-			} else if (EmailUtil.isValid(email + Usuario.DEFAULT_DOMAIN)) {
-				membro.setEmail(email + Usuario.DEFAULT_DOMAIN);
-			} else {
-				throw new RuntimeException(String.format("%s is not a valid email address.", email));
-			}
+			membro.setEmail(validarEmail(email));
 
 			googleAPI.directory().addMemberGroup(group, membro);
+		}
+	}
+
+	public void removerMembros(List<String> emailMembros, Group group) throws IOException, GeneralSecurityException, URISyntaxException {
+		for (String email : emailMembros) {
+			googleAPI.directory().deleteMemberGroup(group, validarEmail(email));
 		}
 	}
 
@@ -56,13 +53,6 @@ public class Aprovisionamento {
 		return googleAPI.directory().getGroup(emailGrupo);
 	}
 
-	public void removerMembros(List<String> emailMembros, Group group)
-			throws IOException, GeneralSecurityException, URISyntaxException {
-		for (String email : emailMembros) {
-			googleAPI.directory().deleteMemberGroup(group, email);
-		}
-	}
-
 	public List<Group> obterGrupos(String dominio) {
 		return googleAPI.directory().getGroupsByDomain(dominio).getGroups();
 	}
@@ -73,6 +63,16 @@ public class Aprovisionamento {
 
 	protected String obtemUsuarioLogado() {
 		return AutenticacaoService.identificacaoDoUsuarioLogado();
+	}
+
+	private String validarEmail(String email) {
+		if (EmailUtil.isValid(email)) {
+			return email;
+		} else if (EmailUtil.isValid(email + Usuario.DEFAULT_DOMAIN)) {
+			return email + Usuario.DEFAULT_DOMAIN;
+		} else {
+			throw new RuntimeException(String.format("%s is not a valid email address.", email));
+		}
 	}
 
 }

@@ -101,11 +101,9 @@ public class GrupoRS {
 
 			if (googleGrupoJSON.getEmailsExternos() != null) {
 				JSONParser jParser = new JSONParser();
-				Object emailsExternos = jParser.parse(googleGrupoJSON.getEmailsExternos());
+				JSONArray emailsExternos =  (JSONArray) jParser.parse(googleGrupoJSON.getEmailsExternos());
 
-				JSONArray arrayEmailsExternos = (JSONArray) emailsExternos;
-
-				Iterator<String> emailExterno = arrayEmailsExternos.iterator();
+				Iterator<String> emailExterno = emailsExternos.iterator();
 				while (emailExterno.hasNext()) {
 					emails.add(emailExterno.next());
 				}
