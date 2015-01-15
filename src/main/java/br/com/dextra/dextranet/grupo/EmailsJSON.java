@@ -19,5 +19,6 @@ public class EmailsJSON {
 
 	public String getEmail() {
 		return email;
-	}
+	}	
+
 }

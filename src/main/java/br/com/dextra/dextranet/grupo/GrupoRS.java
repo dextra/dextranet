@@ -96,7 +96,7 @@ public class GrupoRS {
 		for (GoogleGrupoJSON googleGrupoJSON : googleGrupoJSONs) {
 			List<String> emails = new ArrayList<String>();
 			for (UsuarioJSON usuarioJSON : googleGrupoJSON.getUsuarioJSONs()) {
-				emails.add(usuarioJSON.getEmail());
+				emails.add(usuarioJSON.getEmail());				
 			}
 
 			if (googleGrupoJSON.getEmailsExternos() != null) {

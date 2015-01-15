@@ -1,6 +1,5 @@
 package br.com.dextra.dextranet.grupo.servico.google;
 
-import static br.com.dextra.dextranet.persistencia.TesteUtils.adicionarMembroGrupoGoogle;
 import static br.com.dextra.dextranet.persistencia.TesteUtils.criarGrupoGoogle;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -13,7 +12,9 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import br.com.dextra.teste.TesteIntegracaoBase;
 
@@ -24,6 +25,9 @@ public class AprovisionamentoTest extends TesteIntegracaoBase {
 
 	private Aprovisionamento aprovisionamento = new Aprovisionamento();
 	private String emailGrupo = "grupo@dextra-sw.com";
+	
+	@Rule
+	public ExpectedException expectedEx = ExpectedException.none();
 
 	@Before
 	@After
@@ -78,7 +82,8 @@ public class AprovisionamentoTest extends TesteIntegracaoBase {
 		String usuario1 = "usuario.1@dextra-sw.com";
 		String usuario2 = "usuario.2@dextra-sw.com";
 		List<String> emailMembros = Arrays.asList(usuario1, usuario2);
-		adicionarMembroGrupoGoogle(emailMembros, emailGrupo);
+		
+		criarGrupoComMembros(emailGrupo, emailMembros);
 
 		Group grupo = aprovisionamento.obterGrupo(emailGrupo);
 
@@ -97,6 +102,16 @@ public class AprovisionamentoTest extends TesteIntegracaoBase {
 		List<Member> members = aprovisionamento.obterMembros(grupo);
 		assertTrue(members.size() == 2);
 	}
+	
+	@Test
+	public void testAdicionarMembroEmailInvalido() throws IOException, GeneralSecurityException, URISyntaxException {
+		expectedEx.expect(RuntimeException.class);
+		expectedEx.expectMessage("renan.silva() is not a valid email address.");
+		
+		Group grupo = criarGrupoGoogle(emailGrupo);
+		
+		aprovisionamento.adicionarMembros(Arrays.asList("renan.silva()"), grupo);
+	}
 
 	private Boolean membrosContains(List<Member> membros, String email) {
 		for (Member member : membros) {
@@ -111,8 +126,9 @@ public class AprovisionamentoTest extends TesteIntegracaoBase {
 			GeneralSecurityException, URISyntaxException {
 		Group group = criarGrupoGoogle(emailGrupo);
 
-		aprovisionamento.adicionarMembros(Arrays.asList("usuario.1@dextra-sw.com", "usuario.2@dextra-sw.com"), group);
+		aprovisionamento.adicionarMembros(emailsMembros, group);
 
 		return group;
 	}
+	
 }
