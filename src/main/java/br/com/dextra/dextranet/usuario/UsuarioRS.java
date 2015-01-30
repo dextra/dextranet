@@ -142,7 +142,7 @@ public class UsuarioRS {
     public Response byGithub(@PathParam("githubLogin") String githubLogin, @QueryParam("secret") String secret) throws EntityNotFoundException {
     	final String GITHUB_SECRET = "YvdW97iqWGi0tsqJjj5j";
     	if (!GITHUB_SECRET.equals(secret)) {
-    		Response.status(403).build();
+    		return Response.status(403).build();
     	}
 		Usuario user = repositorio.getByGithub(githubLogin);
 		if (user == null) {
