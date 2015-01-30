@@ -21,6 +21,7 @@ import com.google.appengine.api.users.UserServiceFactory;
 
 public class AutenticacaoFilter implements Filter {
 	protected String excludePatterns = "";
+	protected String excludeAtivoPatterns = "/s/usuario/github";
 	private UsuarioRepository usuarioRepositorio = new UsuarioRepository();
 
 	@Override
@@ -35,9 +36,9 @@ public class AutenticacaoFilter implements Filter {
 		Usuario usuario = null;
 		if (usuarioLogado != null) {
 			usuario = verificarAcessoNaPrimeiraPagina(thisURI, usuarioLogado);
-			redirecionaUsuario(request, response, filterChain, httpResponse, usuario);
+			redirecionaUsuario(httpRequest, httpResponse, filterChain, usuario);
 		} else if (urlDeveSerIgnorada(thisURI)) {
-			filterChain.doFilter(request, response);
+			filterChain.doFilter(httpRequest, httpResponse);
 		} else {
 			String loginUrl = userService.createLoginURL(thisURI);
 			httpResponse.sendRedirect(loginUrl);
@@ -54,13 +55,21 @@ public class AutenticacaoFilter implements Filter {
 	}
 
 	protected boolean urlDeveSerIgnorada(String thisURI) {
-		String[] urlsIgnorar = excludePatterns.split(";");
+		return urlEstaContida(thisURI, excludePatterns);
+	}
+
+	protected boolean urlPrecisaEstarAtivo(String thisURI) {
+		return urlEstaContida(thisURI, excludeAtivoPatterns);
+	}
+
+	private boolean urlEstaContida(String thisURI, String exclusao) {
+		String[] urlsIgnorar = exclusao.split(";");
 		for (String url : urlsIgnorar) {
 			if (thisURI.contains(url)) {
 				return true;
 			}
 		}
-	
+
 		return false;
 	}
 
@@ -75,12 +84,14 @@ public class AutenticacaoFilter implements Filter {
 
 	}
 
-	private void redirecionaUsuario(ServletRequest request, ServletResponse response, FilterChain filterChain,
-			HttpServletResponse httpResponse, Usuario usuario) throws IOException, ServletException {
-		if (usuario.isAtivo() == null || usuario.isAtivo()) { 
+	private void redirecionaUsuario(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain, Usuario usuario)
+	        throws IOException, ServletException {
+		final boolean usuarioEstaAtivo = usuario.isAtivo() == null || usuario.isAtivo();
+		final boolean precisaEstarAtivo = urlPrecisaEstarAtivo(request.getRequestURI());
+		if (!precisaEstarAtivo || usuarioEstaAtivo) {
 			filterChain.doFilter(request, response);
 		} else {
-			httpResponse.sendRedirect("/403.html");
+			response.sendRedirect("/403.html");
 		}
 	}
 

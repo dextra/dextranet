@@ -136,6 +136,17 @@ public class UsuarioRS {
         return Response.ok().entity(usuarios).build();
     }
 
+    @Path("/github/{githubLogin}")
+    @GET
+    @Produces(Application.JSON_UTF8)
+    public Response byGithub(@PathParam("githubLogin") String githubLogin) throws EntityNotFoundException {
+		Usuario user = repositorio.getByGithub(githubLogin);
+		if (user == null) {
+			return Response.status(404).build();
+		}
+		return Response.ok().entity(user.getUsername()).build();
+    }
+
     @Path("/url-logout")
     @GET
     @Produces(Application.JSON_UTF8)
