@@ -59,7 +59,7 @@ public class AutenticacaoFilter implements Filter {
 	}
 
 	protected boolean urlPrecisaEstarAtivo(String thisURI) {
-		return urlEstaContida(thisURI, excludeAtivoPatterns);
+		return !urlEstaContida(thisURI, excludeAtivoPatterns);
 	}
 
 	private boolean urlEstaContida(String thisURI, String exclusao) {
