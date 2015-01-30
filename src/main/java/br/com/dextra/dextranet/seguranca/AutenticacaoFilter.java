@@ -21,7 +21,6 @@ import com.google.appengine.api.users.UserServiceFactory;
 
 public class AutenticacaoFilter implements Filter {
 	protected String excludePatterns = "";
-	protected String excludeAtivoPatterns = "/s/usuario/github";
 	private UsuarioRepository usuarioRepositorio = new UsuarioRepository();
 
 	@Override
@@ -55,15 +54,7 @@ public class AutenticacaoFilter implements Filter {
 	}
 
 	protected boolean urlDeveSerIgnorada(String thisURI) {
-		return urlEstaContida(thisURI, excludePatterns);
-	}
-
-	protected boolean urlPrecisaEstarAtivo(String thisURI) {
-		return !urlEstaContida(thisURI, excludeAtivoPatterns);
-	}
-
-	private boolean urlEstaContida(String thisURI, String exclusao) {
-		String[] urlsIgnorar = exclusao.split(";");
+		String[] urlsIgnorar = excludePatterns.split(";");
 		for (String url : urlsIgnorar) {
 			if (thisURI.contains(url)) {
 				return true;
@@ -86,9 +77,7 @@ public class AutenticacaoFilter implements Filter {
 
 	private void redirecionaUsuario(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain, Usuario usuario)
 	        throws IOException, ServletException {
-		final boolean usuarioEstaAtivo = usuario.isAtivo() == null || usuario.isAtivo();
-		final boolean precisaEstarAtivo = urlPrecisaEstarAtivo(request.getRequestURI());
-		if (!precisaEstarAtivo || usuarioEstaAtivo) {
+		if (usuario.isAtivo() == null || usuario.isAtivo()) {
 			filterChain.doFilter(request, response);
 		} else {
 			response.sendRedirect("/403.html");
