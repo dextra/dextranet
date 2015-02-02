@@ -17,7 +17,7 @@ public class GrupoJSON {
 	private Boolean editarGrupo;
 	private List<GoogleGrupoJSON> servico;
 	private Boolean infra;
-	
+
 	public GrupoJSON() {
 	}
 
@@ -68,7 +68,7 @@ public class GrupoJSON {
 	public void setProprietario(String proprietario) {
 		this.proprietario = proprietario;
 	}
-	
+
 	public Boolean isExcluirGrupo() {
 		return excluirGrupo;
 	}
@@ -101,5 +101,8 @@ public class GrupoJSON {
 		this.servico = servico;
 	}
 
-
+	@Override
+	public String toString() {
+		return nome;
+	}
 }

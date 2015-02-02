@@ -145,10 +145,13 @@ public class UsuarioRS {
     		return Response.status(403).build();
     	}
 		Usuario user = repositorio.getByGithub(githubLogin);
+
 		if (user == null) {
 			return Response.status(404).build();
 		}
-		return Response.ok().entity(user.getUsername()).build();
+
+		final String response = String.format("{ user: \"%s\", groups: \"%s\"}", user.getUsername(), user.getGrupos());
+		return Response.ok().entity(response).build();
     }
 
     @Path("/url-logout")
