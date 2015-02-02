@@ -150,7 +150,7 @@ public class UsuarioRS {
 			return Response.status(404).build();
 		}
 
-		final String response = String.format("{ user: \"%s\", groups: \"%s\"}", user.getUsername(), user.getGrupos());
+		final String response = String.format("{ user: \"%s\", groups: %s}", user.getUsername(), user.getGrupos());
 		return Response.ok().entity(response).build();
     }
 

@@ -122,7 +122,7 @@ public class UsuarioRepository extends EntidadeRepository {
 		return obtemPorUsername(AutenticacaoService.identificacaoDoUsuarioLogado());
 	}
 
-	public Usuario getByGithub(String githubLogin) {
+	public Usuario getByGithub(String githubLogin) throws EntityNotFoundException {
 		Query query = new Query(Usuario.class.getName());
 		query.setFilter(new FilterPredicate(UsuarioFields.gitHub.name(), FilterOperator.EQUAL, githubLogin));
 
@@ -133,6 +133,6 @@ public class UsuarioRepository extends EntidadeRepository {
 			return null;
 		}
 
-		return new Usuario(entityEncontrada);
+		return getUsuario(entityEncontrada);
 	}
 }
