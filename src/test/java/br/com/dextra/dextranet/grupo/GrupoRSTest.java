@@ -507,27 +507,40 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 	public void testaAprovisionarServicos() throws IOException, ParseException, GeneralSecurityException,
 			URISyntaxException,
 			EntityNotFoundException {
-		Usuario usuario = criarUsuario("usuario1", true);
-		Grupo grupo = criarGrupoComOsIntegrantes(nomeEmailGrupo, false, "Grupo", true, usuario);
-		List<ServicoGrupo> servicos = servicoGrupoRepository.obtemPorIdGrupo(grupo.getId());
-
-		GoogleGrupoJSON googleGrupojson = new GoogleGrupoJSON();
-		googleGrupojson.setEmailGrupo(nomeEmailGrupo);
-		googleGrupojson.setId(grupo.getId());
-		googleGrupojson.setIdServico(servicos.get(0).getIdServico());
-		UsuarioJSON usuariojson = new UsuarioJSON();
-		usuariojson.setEmail("usuario.1@dextra-sw.com");
-		usuariojson.setAtivo(true);
-		usuariojson.setApelido("Usuario1");
-		usuariojson.setUsername("usuario.1");
-		usuariojson.setNome("Usuario1");
-		googleGrupojson.setUsuarioJSONs(Arrays.asList(usuariojson));
-
+		
+		GoogleGrupoJSON googleGrupojson = criarGrupoComUmUsuario();
+		
 		Response response = grupoRS.aprovisionarServicos(Arrays.asList(googleGrupojson));
 		assertEquals(200, response.getStatus());
 		Group group = aprovisionamento.obterGrupo(emailGrupo);
+		
 		List<Member> members = aprovisionamento.obterMembros(group);
 		assertTrue(members.size() == 1);
+	}
+	
+	@Test
+	public void testaAtualizarIntegrantes() throws EntityNotFoundException, IOException, ParseException,
+			GeneralSecurityException,
+			URISyntaxException {
+		GoogleGrupoJSON googleGrupojson = criarGrupoComUmUsuario();
+		
+		Response response = grupoRS.aprovisionarServicos(Arrays.asList(googleGrupojson));
+		assertEquals(200, response.getStatus());
+		
+		UsuarioJSON usuariojson2 = new UsuarioJSON();
+		usuariojson2.setEmail("usuario.2@dextra-sw.com");
+		usuariojson2.setAtivo(true);
+		usuariojson2.setApelido("Usuario2");
+		usuariojson2.setUsername("usuario.2");
+		usuariojson2.setNome("Usuario2");
+		googleGrupojson.setUsuarioJSONs(Arrays.asList(usuariojson2));
+		
+		response = grupoRS.aprovisionarServicos(Arrays.asList(googleGrupojson));
+		assertEquals(200, response.getStatus());
+		
+		Group group = aprovisionamento.obterGrupo(emailGrupo);
+		List<Member> members = aprovisionamento.obterMembros(group);
+		assertTrue(members.size() == 2);
 	}
 
 	@Test
@@ -598,6 +611,29 @@ public class GrupoRSTest extends TesteIntegracaoBase {
 			}
 		}
 		return false;
+	}
+	
+	private GoogleGrupoJSON criarGrupoComUmUsuario() throws EntityNotFoundException, IOException, 
+			ParseException,
+			GeneralSecurityException, 
+			URISyntaxException {
+		Usuario usuario = criarUsuario("usuario1", true);
+		Grupo grupo = criarGrupoComOsIntegrantes(nomeEmailGrupo, false, "Grupo", true, usuario);
+		List<ServicoGrupo> servicos = servicoGrupoRepository.obtemPorIdGrupo(grupo.getId());
+
+		GoogleGrupoJSON googleGrupojson = new GoogleGrupoJSON();
+		googleGrupojson.setEmailGrupo(nomeEmailGrupo);
+		googleGrupojson.setId(grupo.getId());
+		googleGrupojson.setIdServico(servicos.get(0).getIdServico());
+		UsuarioJSON usuariojson = new UsuarioJSON();
+		usuariojson.setEmail("usuario.1@dextra-sw.com");
+		usuariojson.setAtivo(true);
+		usuariojson.setApelido("Usuario1");
+		usuariojson.setUsername("usuario.1");
+		usuariojson.setNome("Usuario1");
+		googleGrupojson.setUsuarioJSONs(Arrays.asList(usuariojson));
+
+		return googleGrupojson;
 	}
 
 	public class GrupoRSFake extends GrupoRS {

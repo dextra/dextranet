@@ -98,7 +98,6 @@ public class AprovisionamentoTest extends TesteIntegracaoBase {
 		Group grupo = criarGrupoGoogle(emailGrupo);
 		aprovisionamento.adicionarMembros(Arrays.asList("usuario.1@dextra-sw.com", "usuario.2@dextra-sw.com"), grupo);
 
-		grupo = aprovisionamento.obterGrupo(emailGrupo);
 		List<Member> members = aprovisionamento.obterMembros(grupo);
 		assertTrue(members.size() == 2);
 	}

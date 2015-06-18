@@ -94,32 +94,51 @@ public class GrupoRS {
 	public Response aprovisionarServicos(List<GoogleGrupoJSON> googleGrupoJSONs) throws IOException, ParseException,
 			GeneralSecurityException, URISyntaxException {
 		for (GoogleGrupoJSON googleGrupoJSON : googleGrupoJSONs) {
+			Group grupo = aprovisionamento.obterGrupo(googleGrupoJSON.getEmailDomainGrupo());
 			List<String> emails = new ArrayList<String>();
-			for (UsuarioJSON usuarioJSON : googleGrupoJSON.getUsuarioJSONs()) {
-				emails.add(usuarioJSON.getEmail());				
+			
+			if (grupo == null) {
+				grupo = aprovisionamento.criarGrupo(googleGrupoJSON.getEmailGrupo(),
+						googleGrupoJSON.getEmailDomainGrupo(), "");
 			}
-
+			
+			List<Member> membros = aprovisionamento.obterMembros(grupo);
+			
+			for (UsuarioJSON usuarioJSON : googleGrupoJSON.getUsuarioJSONs()) {
+				String email = usuarioJSON.getEmail();
+				if (!ehMembro(membros, email)) {
+					emails.add(email);
+				}
+			}
+			
 			if (googleGrupoJSON.getEmailsExternos() != null) {
 				JSONParser jParser = new JSONParser();
 				JSONArray emailsExternos =  (JSONArray) jParser.parse(googleGrupoJSON.getEmailsExternos());
 
 				Iterator<String> emailExterno = emailsExternos.iterator();
 				while (emailExterno.hasNext()) {
-					emails.add(emailExterno.next());
+					String email = emailExterno.next();
+					if (!ehMembro(membros, email)) {
+						emails.add(email);
+					}
 				}
 			}
-
-			Group grupo = aprovisionamento.obterGrupo(googleGrupoJSON.getEmailDomainGrupo());
 			
-			if (grupo == null) {
-				grupo = aprovisionamento.criarGrupo(googleGrupoJSON.getEmailGrupo(),
-						googleGrupoJSON.getEmailDomainGrupo(), "");
-			}
-
 			aprovisionamento.adicionarMembros(emails, grupo);
 		}
 
 		return Response.ok().build();
+	}
+	
+	private boolean ehMembro(List<Member> membros, String email) {
+		if (membros != null) {
+			for (Member membro : membros) {
+				if (membro.getEmail().equals(email)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	@PUT
