@@ -1,39 +1,18 @@
 language: java
 jdk: oraclejdk7
 
-before_script:
-- wget http://www.bizdirusa.com/mirrors/apache/maven/maven-3/3.2.2/binaries/apache-maven-3.2.2-bin.tar.gz
-- tar -xvzf apache-maven-3.2.2-bin.tar.gz
-- export MAVEN_HOME=$(pwd)/apache-maven-3.2.2
-- export PATH=$MAVEN_HOME/bin:$PATH
-- mvn --version
-- mvn com.googlecode.mycontainer:mycontainer-maven-plugin:phantomjs-install -Dmycontainer.phantomjs.dest=target/phantomjs -Dmycontainer.phantomjs.version=1.9.2
-
 env:
   global:
-   - secure: XUuKZbK2jZdClbifGd8UhmVsK5ZukV1f/nGxrjAXHYY0N3v8TLdaCbyWiRvBy9EdJTByH6N8z4otAqH1fvOYpJ+XNpJfhm4E73b21W+ANEAmTq5k/nTIidb8H4xFueZ3zvvsuQWHi7eakVUTC4AChlCfNnOg9K9bvSqZYOFo13qiq02YCYyy447INzfdTa8TwLV2/LjtRSN7R8aNZsNvJcuoVxiuexizNPo8BBqWekcDAyXtXUnyroq3WzxdIIRs4eI2N4ucKu5gMbWlsRI58Thuyc6/wRUYjuXxtupqakAZOuWjlKqmWW1j6Hd136eTEQrFyxQvWQAHKMKFTFrSjw==
+    - GAPI_SERVICE_ACCOUNT_EMAIL="430900987246-lfpbc9lt5g2tnq12r1727s6ctldq8qnr@developer.gserviceaccount.com"
+    - GAPI_SERVICE_ACCOUNT_USER="rafael.mantellatto@dextra-sw.com"
+    - GAPI_SERVICE_ACCOUNT_KEY="./src/main/resources/crypt/dextra-dextranet-8687c58333ae.p12"
+    - secure: RQyLF9JrIz0nj8H8qVaC2lh9TjUh1wXuH9aEW2oxiSNSmY0N21HD8fzNgmP/rIkQvPBTdTrIRK4WVDamc+LVE/3Kxf4A12H36cLrSh+xWA0CV5YJJ0pOAwMEg0XD2vLr1MpHfm5aLo99SUlhBKeNk5kAHH8G/9iQkV7536NbiflGgIU61DaJw50IwdBG560bUw9tnaiEufH8lIMAeuFUB92H5Qxk3VdJixWLdG2agZfdKPr3cCDz9UsI8FMPb59soenYfFw5niroGGih6EG6GoZ1OCFeEBx4vglTrlQ8S3RgqCZv2KfYWz9RP6ZWzgOAvWK4vhoWLWvrUJ3dJMNJEg==
+
+install:
+- ./scripts/setup_env.sh
 
 script:
-- export MAVEN_HOME=$(pwd)/apache-maven-3.2.2
-- export PATH=$MAVEN_HOME/bin:$PATH
-- mvn --version
-- ./src/main/resources/crypt/decrypt.sh dextra-dextranet-8687c58333ae.p12.crypted
-- mvn install -DskipTests=true
-
-- export GAPI_SERVICE_ACCOUNT_EMAIL=430900987246-lfpbc9lt5g2tnq12r1727s6ctldq8qnr@developer.gserviceaccount.com
-- export GAPI_SERVICE_ACCOUNT_USER=rafael.mantellatto@dextra-sw.com
-- export GAPI_SERVICE_ACCOUNT_KEY=./src/main/resources/crypt/dextra-dextranet-8687c58333ae.p12
-
-- mvn test -Dselenium
-
+- ./scripts/build.sh
 
 after_success:
-- export MAVEN_HOME=$(pwd)/apache-maven-3.2.2
-- export PATH=$MAVEN_HOME/bin:$PATH
-- mvn --version
 - echo $GAE_PASSWORD | mvn appengine:update -Dappengine.email="build-continua@dextra-sw.com" 
-
-# notificatios:
-  # email:
-      # recipients  :
-         # - desenvolvimento@dextra-sw.com
