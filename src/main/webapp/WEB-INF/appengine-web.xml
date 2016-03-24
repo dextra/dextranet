@@ -6,7 +6,7 @@
   <application>dextra-dextranet</application>
   <version>prod</version>
   <system-properties>
-    <property name="gapi.service.account.user" value="guilherme.murari@dextra-sw.com" />
+    <property name="gapi.service.account.user" value="dextranet-admin@dextra-sw.com" />
     <property name="gapi.service.account.key" value="WEB-INF/classes/crypt/dextra-dextranet-8687c58333ae.p12" />
     <property name="gapi.service.account.email" value="430900987246-lfpbc9lt5g2tnq12r1727s6ctldq8qnr@developer.gserviceaccount.com" />
   </system-properties>
